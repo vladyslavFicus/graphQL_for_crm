@@ -1,5 +1,4 @@
 const { GraphQLObjectType, GraphQLNonNull, GraphQLString, GraphQLInt, GraphQLFloat } = require('graphql');
-
 const ResponseType = require('../../common/types/ResponseType');
 const FingerprintInputType = require('../../input/FingerprintInputType');
 const { PaymentLockType } = require('../../query/PlayerProfileType/PlayerProfileLocksType');
@@ -68,12 +67,15 @@ const PaymentType = new GraphQLObjectType({
     },
     createClientPayment: {
       args: {
-        playerUUID: { type: new GraphQLNonNull(GraphQLString) },
+        profileId: { type: new GraphQLNonNull(GraphQLString) },
         amount: { type: new GraphQLNonNull(GraphQLInt) },
         currency: { type: new GraphQLNonNull(GraphQLString) },
         paymentType: { type: new GraphQLNonNull(GraphQLString) },
+        paymentAccount: { type: GraphQLString },
         paymentAccountUuid: { type: GraphQLString },
-        mt4Acc: { type: GraphQLString },
+        login: { type: GraphQLString },
+        source: { type: GraphQLString },
+        target: { type: GraphQLString },
         externalReference: { type: GraphQLString },
         country: { type: GraphQLString },
         language: { type: GraphQLString },
