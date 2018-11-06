@@ -1,0 +1,16 @@
+.DS_STORE
+*.log
+tests/test-results.xml
+node_modules/
+bower_components/
+
+dist
+
+.idea/
+package-lock.json
+
+.vscode/
+
+.escape
+escape_state.json
+deps

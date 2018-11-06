@@ -1,0 +1,9 @@
+name: hrzn/forex_graphql
+version: 0.0.@
+extends:
+- hrzn/escape_docker-latest
+
+inputs:
+- id: docker_build_path
+  default: "."
+  type: string

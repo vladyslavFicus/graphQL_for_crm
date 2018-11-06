@@ -1,0 +1,55 @@
+const fetch = require('../../../utils/fetch');
+const buildQueryString = require('../../../utils/buildQueryString');
+
+const getNotes = function(_, args, { headers: { authorization } }) {
+  return fetch(`${global.appConfig.apiUrl}/tag/note/search?${buildQueryString(args)}`, {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      authorization,
+      'content-type': 'application/json',
+    },
+  }).then(response => response.json());
+};
+
+const addNote = function(_, args, { headers: { authorization } }) {
+  return fetch(`${global.appConfig.apiUrl}/tag/note`, {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      authorization,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(args),
+  }).then(response => response.json());
+};
+
+const removeNote = function(_, { noteId, ...args }, { headers: { authorization } }) {
+  return fetch(`${global.appConfig.apiUrl}/tag/note/${noteId}`, {
+    method: 'DELETE',
+    headers: {
+      accept: 'application/json',
+      authorization,
+      'content-type': 'application/json',
+    },
+  }).then(response => (response.status === 200 ? { data: { noteId } } : { error: 'error.note.remove' }));
+};
+
+const updateNote = function(_, { noteId, ...args }, { headers: { authorization } }) {
+  return fetch(`${global.appConfig.apiUrl}/tag/note/${noteId}`, {
+    method: 'PUT',
+    headers: {
+      accept: 'application/json',
+      authorization,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(args),
+  }).then(response => response.json());
+};
+
+module.exports = {
+  addNote,
+  removeNote,
+  updateNote,
+  getNotes,
+};
