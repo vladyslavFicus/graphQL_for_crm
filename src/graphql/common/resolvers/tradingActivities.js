@@ -15,19 +15,7 @@ const getTradingActivitiesQuery = (args, authorization) => {
   })
     .then(response => response.text())
     .then(response => parseJson(response))
-    .then(
-      ({ number, totalElements, size, content, last }) =>
-        size
-          ? {
-              page: number,
-              number,
-              totalElements,
-              size,
-              content,
-              last,
-            }
-          : { error: 'Bad request' }
-    );
+    .then(response => response);
 };
 
 const getTradingActivities = async (_, { playerUUID, ...args }, context) => {
@@ -41,7 +29,7 @@ const getTradingActivities = async (_, { playerUUID, ...args }, context) => {
     }
     loginIds = get(player, 'data.tradingProfile.mt4Users') || [];
   }
-  const activities = await getTradingActivitiesQuery(
+  const { number, totalElements, size, content, last } = await getTradingActivitiesQuery(
     {
       ...args,
       loginIds: playerUUID ? loginIds.map(({ login }) => login) : args.loginIds,
@@ -49,11 +37,11 @@ const getTradingActivities = async (_, { playerUUID, ...args }, context) => {
     context.headers.authorization
   );
 
-  if (activities.error) {
-    return { error: activities };
+  if (!size) {
+    return { error: { error: 'Bad request' } };
   }
 
-  return { data: activities };
+  return { data: { number, totalElements, size, content, last } };
 };
 
 module.exports = {
