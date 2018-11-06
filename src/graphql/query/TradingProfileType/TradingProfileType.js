@@ -76,6 +76,7 @@ const TradingProfileType = new GraphQLObjectType({
     closedTradeProfit: { type: GraphQLFloat },
     closedTradeAmount: { type: GraphQLFloat },
     margin: { type: GraphQLFloat },
+    marginLevel: { type: GraphQLFloat },
   }),
 });
 
