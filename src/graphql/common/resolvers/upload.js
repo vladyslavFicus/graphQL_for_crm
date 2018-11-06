@@ -34,9 +34,7 @@ const leadCsvUpload = async (_, { file }, { headers: { authorization }, brand: {
     };
   }
 
-  return {
-    data: { leads },
-  };
+  return leads;
 };
 
 module.exports = {

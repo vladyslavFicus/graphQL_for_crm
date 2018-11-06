@@ -13,8 +13,6 @@ process.on('unhandledRejection', reason => {
   Logger.error({ message: `Unhandled rejection, reason: ${reason}` });
 });
 
-console.log('asdasda', !!ENABLE_LOGGING);
-
 (async () => {
   const app = express();
 
