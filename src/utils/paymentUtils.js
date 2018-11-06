@@ -7,7 +7,6 @@ const paymentTypeUrlMatcher = {
   deposit: 'deposit/manual',
   withdraw: 'withdraw',
   confiscate: 'confiscate',
-  transfer: ['withdraw', 'deposit/manual'],
 };
 
 const accumulator = {

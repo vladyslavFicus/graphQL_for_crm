@@ -2,6 +2,7 @@ const jwtDecode = require('jwt-decode');
 const fetch = require('../../../utils/fetch');
 const parseJson = require('../../../utils/parseJson');
 const buildQueryString = require('../../../utils/buildQueryString');
+const { PAYMENT_TYPES } = require('../../../constants/payment');
 const {
   getStatistic,
   normalizeAccumulated,
@@ -257,8 +258,8 @@ const createPayment = function(_, { playerUUID, paymentType, ...args }, { header
     .then(response => response);
 };
 
-const createTradingPayment = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_payment/`, {
+const createTradingPayment = (paymentType, args, authorization) => {
+  return fetch(`${global.appConfig.apiUrl}/trading_payment/${paymentType.toLowerCase()}`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -286,46 +287,96 @@ const getOperatorPaymentMethods = function(_, args, { headers: { authorization }
 
 const createClientPayment = async (
   _,
-  { playerUUID, paymentType, mt4Acc, paymentAccountUuid, externalReference, country, language, ...args },
-  { headers: { authorization }, brand: { id: brandId } }
-) => {
-  const casinoPayment = await createPayment(
-    _,
-    {
-      playerUUID,
-      paymentType,
-      ...(paymentAccountUuid ? { paymentAccountUuid, ...args } : { ...args }),
-    },
-    { headers: { authorization } }
-  );
-
-  if (casinoPayment.error) {
-    return {
-      data: null,
-      error: casinoPayment.error,
-    };
-  }
-
-  const tradingArgs = {
-    profileId: playerUUID,
-    paymentId: casinoPayment.paymentId,
-    login: mt4Acc,
-    accountType: paymentAccountUuid,
-    paymentType: paymentType.toUpperCase(),
-    paymentAccount: paymentAccountUuid,
+  {
+    profileId,
+    paymentType,
+    login,
+    paymentAccount,
+    paymentAccountUuid,
     externalReference,
     country,
     language,
-    brandId,
-    ...args,
-  };
+    source,
+    target,
+    ...args
+  },
+  { headers: { authorization }, brand: { id: brandId } }
+) => {
+  let casinoPayment = null;
+  let tradingArgs = {};
 
-  const tradingPayment = await createTradingPayment(tradingArgs, authorization);
+  if (paymentType.toUpperCase() !== PAYMENT_TYPES.TRANSFER) {
+    casinoPayment = await createPayment(
+      _,
+      {
+        playerUUID: profileId,
+        paymentType,
+        ...(paymentAccountUuid ? { paymentAccountUuid, ...args } : { ...args }),
+      },
+      { headers: { authorization } }
+    );
 
-  if (tradingPayment.error) {
+    if (casinoPayment.error) {
+      return {
+        data: null,
+        error: casinoPayment.error,
+      };
+    }
+  }
+
+  switch (paymentType.toUpperCase()) {
+    case PAYMENT_TYPES.DEPOSIT:
+      tradingArgs = {
+        paymentId: casinoPayment.paymentId,
+        accountType: paymentAccount,
+        profileId,
+        login,
+        externalReference,
+        country,
+        language,
+        brandId,
+        ...args,
+      };
+      break;
+
+    case PAYMENT_TYPES.WITHDRAW:
+      tradingArgs = {
+        paymentAccount: paymentAccountUuid,
+        paymentId: casinoPayment.paymentId,
+        profileId,
+        brandId,
+        country,
+        language,
+        login,
+        ...args,
+      };
+      break;
+
+    case PAYMENT_TYPES.CONFISCATE:
+      break;
+
+    case PAYMENT_TYPES.TRANSFER:
+      tradingArgs = {
+        brandId,
+        country,
+        language,
+        profileId,
+        source,
+        target,
+        ...args,
+      };
+      break;
+
+    default:
+      break;
+  }
+
+  const { error, jwtError } = await createTradingPayment(paymentType, tradingArgs, authorization);
+
+  if (error || jwtError) {
     return {
       data: null,
-      error: tradingPayment.error,
+      error: error || jwtError,
     };
   }
 
