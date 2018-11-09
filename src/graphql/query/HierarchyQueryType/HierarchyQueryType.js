@@ -13,6 +13,7 @@ const {
   getBranchInfo,
   getBranchHierarchy,
   getUsersByBranch,
+  getBranchChildren,
 } = require('../../../graphql/common/resolvers/hierarchy');
 const { DeskTypeEnum, DeskDefaultFlagEnum } = require('./HierarchyType/HierarchyEnums');
 
@@ -60,6 +61,13 @@ const HierarchyQueryType = new GraphQLObjectType({
       },
       type: ResponseType(new GraphQLList(UserType), 'UsersByBranchType'),
       resolve: getUsersByBranch,
+    },
+    branchChildren: {
+      args: {
+        uuid: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      type: ResponseType(new GraphQLList(HierarchyBranchType), 'HierarchyBranchChildrenType'),
+      resolve: getBranchChildren,
     },
   }),
 });

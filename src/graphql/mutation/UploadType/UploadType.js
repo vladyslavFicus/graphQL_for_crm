@@ -20,7 +20,7 @@ const UploadMutation = new GraphQLObjectType({
       args: {
         file: { type: GraphQLUpload },
       },
-      type: ResponseType(LeadCsvType),
+      type: ResponseType(new GraphQLList(LeadType), 'LeadCsvUpload'),
       resolve: leadCsvUpload,
     },
   }),

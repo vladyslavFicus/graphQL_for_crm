@@ -1,7 +1,7 @@
 const { getProfiles } = require('./profiles');
 const { userTypes, deskTypes } = require('../../../constants/hierarchy');
 const { bulkProfileUpdate } = require('../../../utils/clientsRequests');
-const { bulkUpdateHierarchyUser, getHierarchyBranch } = require('../../../utils/hierarchyRequests');
+const { bulkUpdateHierarchyUser, getHierarchyBranch, getHierarchyUser } = require('../../../utils/hierarchyRequests');
 
 const getUpdateIds = async (promise, excludeIds) => {
   const pageableObj = await promise;
@@ -9,10 +9,29 @@ const getUpdateIds = async (promise, excludeIds) => {
   if (pageableObj.error) {
     return { error: pageableObj };
   }
-  console.log('pageableObj', JSON.stringify(pageableObj, null, 2));
   const ids = pageableObj.data.content.map(({ playerUUID }) => playerUUID);
+
   if (excludeIds.length > 0) {
     return ids.filter(id => excludeIds.indexOf(id) === -1);
+  }
+
+  return ids;
+};
+
+const getIds = async ({ allRowsSelected, searchParams, totalElements, ids }, context) => {
+  if (allRowsSelected) {
+    const ESQueryParams = {
+      page: 1,
+      size: totalElements,
+      ...(searchParams && searchParams),
+    };
+    const idsForUpdate = await getUpdateIds(getProfiles(_, ESQueryParams, context), ids);
+
+    if (idsForUpdate.error || idsForUpdate.jwtError) {
+      return { error: idsForUpdate };
+    }
+
+    return idsForUpdate;
   }
 
   return ids;
@@ -27,7 +46,7 @@ const bulkRepresentativeUpdate = async (
     totalElements,
     salesRep,
     retentionRep,
-    deskId,
+    teamId,
     type,
     salesStatus,
     retentionStatus,
@@ -36,89 +55,63 @@ const bulkRepresentativeUpdate = async (
 ) => {
   const {
     headers: { authorization },
+    brand: { id: brandId },
   } = context;
-  let idsForUpdate = ids;
+  const idsForUpdate = await getIds({ allRowsSelected, searchParams, totalElements, ids }, context);
 
-  if (allRowsSelected) {
-    const ESQueryParams = {
-      page: 1,
-      size: totalElements,
-      ...(searchParams && searchParams),
-    };
-    idsForUpdate = await getUpdateIds(getProfiles(_, ESQueryParams, context), ids);
-
-    if (idsForUpdate.error) {
-      return { error: idsForUpdate };
-    }
+  if (idsForUpdate.error) {
+    return { error: idsForUpdate.error };
   }
+
   let profileParams = {
     ids: idsForUpdate,
+    brandId,
     ...(salesStatus && { salesStatus }),
     ...(retentionStatus && { retentionStatus }),
+    ...(salesRep && { salesRep }),
+    ...(retentionRep && { retentionRep }),
   };
   let hierarchyParams = idsForUpdate;
 
-  if (deskId) {
+  if (teamId) {
     if (retentionRep || salesRep) {
-      profileParams = { ...profileParams, ...(salesRep ? { salesRep } : { retentionRep }) };
       hierarchyParams = hierarchyParams.map(uuid => ({
         uuid,
         userType: userTypes.CUSTOMER,
-        parentBranches: [deskId],
+        parentBranches: [teamId],
         parentUsers: [retentionRep || salesRep],
       }));
     } else {
-      const { defaultBranch, defaultUser: deskDefaultUser, error: deskError } = await getHierarchyBranch(
-        deskId,
-        authorization
-      );
-
-      if (deskError) {
-        return { error: deskError };
+      const { defaultUser, error, jwtError } = await getHierarchyBranch(teamId, authorization);
+      console.log('defaultUser', defaultUser, error, jwtError);
+      if (error || jwtError) {
+        return { error: error || jwtError };
       }
 
-      if (defaultBranch) {
-        const { defaultUser, error: branchError } = await getHierarchyBranch(defaultBranch, authorization);
-
-        if (branchError) {
-          return { error: branchError };
-        }
-        profileParams = {
-          ...profileParams,
-          ...(type === deskTypes.SALES ? { salesRep: defaultUser } : { retentionRep: defaultUser }),
-        };
-        hierarchyParams = hierarchyParams.map(uuid => ({
-          uuid,
-          userType: userTypes.CUSTOMER,
-          parentBranches: [deskId],
-          parentUsers: [defaultUser],
-        }));
-      } else if (deskDefaultUser) {
-        profileParams = {
-          ...profileParams,
-          ...(type === deskTypes.SALES ? { salesRep: deskDefaultUser } : { retentionRep: deskDefaultUser }),
-        };
-        hierarchyParams = hierarchyParams.map(uuid => ({
-          uuid,
-          userType: userTypes.CUSTOMER,
-          parentBranches: [deskId],
-          parentUsers: [deskDefaultUser],
-        }));
-      }
-    }
-  } else {
-    profileParams = {
-      ...profileParams,
-      ...(salesRep && { salesRep }),
-      ...(retentionRep && { retentionRep }),
-    };
-
-    if (retentionRep || salesRep) {
+      profileParams = {
+        ...profileParams,
+        ...(type === deskTypes.SALES ? { salesRep: defaultUser } : { retentionRep: defaultUser }),
+      };
       hierarchyParams = hierarchyParams.map(uuid => ({
         uuid,
         userType: userTypes.CUSTOMER,
-        parentBranches: [],
+        parentBranches: [teamId],
+        parentUsers: [defaultUser],
+      }));
+    }
+  } else {
+    if (retentionRep || salesRep) {
+      const { error, jwtError, parentBranches } = await getHierarchyUser(retentionRep || salesRep, authorization);
+
+      if (error || jwtError) {
+        return { error: error || jwtError };
+      }
+
+      hierarchyParams = hierarchyParams.map(uuid => ({
+        uuid,
+        userType: userTypes.CUSTOMER,
         parentUsers: [retentionRep || salesRep],
+        ...(parentBranches && parentBranches[0] && { parentBranches: [parentBranches[0]] }),
       }));
     } else {
       hierarchyParams = null;
@@ -131,7 +124,7 @@ const bulkRepresentativeUpdate = async (
   }
 
   if (hierarchyParams) {
-    const hierarchyBulkUpdate = await bulkUpdateHierarchyUser(hierarchyParams, authorization);
+    const hierarchyBulkUpdate = await bulkUpdateHierarchyUser({ users: hierarchyParams }, authorization);
 
     if (hierarchyBulkUpdate.error) {
       return { error: hierarchyBulkUpdate };
@@ -141,6 +134,31 @@ const bulkRepresentativeUpdate = async (
   return { data: 'success' };
 };
 
+const profileBulkUpdate = async (
+  _,
+  { allRowsSelected, ids, searchParams, totalElements, aquisitionStatus },
+  context
+) => {
+  const {
+    headers: { authorization },
+    brand: { id: brandId },
+  } = context;
+  const idsForUpdate = await getIds({ allRowsSelected, searchParams, totalElements, ids }, context);
+
+  if (idsForUpdate.error) {
+    return { error: idsForUpdate.error };
+  }
+
+  const bulkUpdate = await bulkProfileUpdate({ brandId, aquisitionStatus, ids }, authorization);
+
+  if (bulkUpdate.error) {
+    return { error: bulkUpdate };
+  }
+
+  return { data: 'success' };
+};
+
 module.exports = {
   bulkRepresentativeUpdate,
+  profileBulkUpdate,
 };

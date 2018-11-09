@@ -1,4 +1,4 @@
-const { groupBy } = require('lodash');
+const { groupBy, isEmpty } = require('lodash');
 const { branchTypes, userTypes } = require('../../../constants/hierarchy');
 const {
   buildRequestObject,
@@ -10,6 +10,7 @@ const {
   getUsersByType: getUsersByTypeQuery,
   getBranchHierarchy: getBranchHierarchyQuery,
   getUsersByBranch: getUsersByBranchQuery,
+  getBranchChildren: getBranchChildrenQuery,
   updateUserHierarchy,
   updateBranchHierarchy,
 } = require('../../../utils/hierarchyRequests');
@@ -22,7 +23,7 @@ const getHierarchyMappedOperators = async (hierarchyOperators, auth) => {
     .map((item, index) => {
       const { firstName, lastName, error } = operators[index];
 
-      if (error) {
+      if (isEmpty(operators[index]) || error) {
         return null;
       }
 
@@ -276,6 +277,18 @@ const getUsersByBranch = async (_, { uuid }, { headers: { authorization } }) => 
   };
 };
 
+const getBranchChildren = async (_, { uuid }, { headers: { authorization } }) => {
+  const data = await getBranchChildrenQuery(uuid, authorization);
+
+  if (data.error || data.jwtError) {
+    return { error: data };
+  }
+
+  return {
+    data,
+  };
+};
+
 module.exports = {
   createOffice,
   createDesk,
@@ -285,4 +298,5 @@ module.exports = {
   getBranchInfo,
   getBranchHierarchy,
   getUsersByBranch,
+  getBranchChildren,
 };
