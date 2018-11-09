@@ -119,6 +119,20 @@ const getUsersByBranch = (uuid, authorization) => {
     .then(response => response);
 };
 
+const getBranchChildren = (uuid, authorization) => {
+  return fetch(`${global.appConfig.apiUrl}/trading_hierarchy_updater/branch/${uuid}/children`, {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      authorization,
+      'content-type': 'application/json',
+    },
+  })
+    .then(response => response.text())
+    .then(response => parseJson(response))
+    .then(response => response);
+};
+
 const updateUserHierarchy = ({ operatorId, ...args }, authorization) => {
   return fetch(`${global.appConfig.apiUrl}/trading_hierarchy/user/${operatorId}`, {
     method: 'PUT',
@@ -174,6 +188,7 @@ module.exports = {
   getUsersByType,
   getBranchHierarchy,
   getUsersByBranch,
+  getBranchChildren,
   updateUserHierarchy,
   updateBranchHierarchy,
   bulkUpdateHierarchyUser,
