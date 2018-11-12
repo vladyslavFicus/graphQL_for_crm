@@ -32,6 +32,7 @@ const Mt4UserType = new GraphQLObjectType({
     equity: { type: GraphQLString },
     symbol: { type: GraphQLString },
     leverage: { type: GraphQLString },
+    group: { type: GraphQLString },
     closedTradeProfit: { type: GraphQLFloat },
     closedTradeAmount: { type: GraphQLFloat },
     name: { type: GraphQLString },
