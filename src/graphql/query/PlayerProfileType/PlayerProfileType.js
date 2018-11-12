@@ -172,6 +172,48 @@ const PlayerProfileType = new GraphQLObjectType({
         return argPhoneCode;
       },
     },
+    phone2: {
+      type: GraphQLString,
+      resolve(
+        { phone2, phoneNumber },
+        _,
+        context,
+        {
+          variableValues: { phone2: argPhone },
+        }
+      ) {
+        if (!phone2 && !phoneNumber && !argPhone) {
+          return null;
+        }
+
+        if (phone2) {
+          return phone2;
+        }
+
+        return argPhone;
+      },
+    },
+    phoneCode2: {
+      type: GraphQLString,
+      resolve(
+        { phoneCode2, phoneNumber },
+        _,
+        context,
+        {
+          variableValues: { phoneCode2: argPhoneCode },
+        }
+      ) {
+        if (!phoneCode2 && !phoneNumber && !argPhoneCode) {
+          return null;
+        }
+
+        if (phoneCode2) {
+          return phoneCode2;
+        }
+
+        return argPhoneCode;
+      },
+    },
     phoneNumber: {
       type: GraphQLString,
       resolve({ phone, phoneCode, phoneNumber }) {
