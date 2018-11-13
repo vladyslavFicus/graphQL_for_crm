@@ -20,6 +20,7 @@ const HierarchyType = require('./HierarchyType');
 const RulesType = require('./RulesType');
 const ClientsType = require('./ClientsType');
 const ConditionalTagType = require('./ConditionalTagType');
+const TradingAccountType = require('./TradingAccountType');
 
 const MutationType = new GraphQLObjectType({
   name: 'ApiMutation',
@@ -152,6 +153,12 @@ const MutationType = new GraphQLObjectType({
     },
     conditionalTag: {
       type: ConditionalTagType,
+      resolve() {
+        return {};
+      },
+    },
+    tradingAccount: {
+      type: TradingAccountType,
       resolve() {
         return {};
       },
