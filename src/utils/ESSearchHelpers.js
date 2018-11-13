@@ -98,7 +98,7 @@ const getScrollData = async (brandId, query, source = true, scroll, documentType
   };
 };
 
-const getSearchData = (brandId, query, { page = 1, size }, documentType) =>
+const getSearchData = (brandId, query, sort, { page = 1, size }, documentType) =>
   new Promise(resolve => {
     let filter = null;
 
@@ -118,6 +118,7 @@ const getSearchData = (brandId, query, { page = 1, size }, documentType) =>
               ...(filter && { filter }),
             },
           },
+          ...(sort && { sort }),
           size,
           from: (page - 1) * size,
         },

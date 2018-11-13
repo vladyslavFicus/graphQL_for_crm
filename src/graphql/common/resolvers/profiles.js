@@ -43,6 +43,8 @@ const profilesQuery = ({
   ]),
 ];
 
+const sortParams = [{ registrationDate: { order: 'desc' } }];
+
 const getProfiles = async function(_, { page, size, ...args }, context) {
   const access = await accessValidate(context);
 
@@ -50,7 +52,7 @@ const getProfiles = async function(_, { page, size, ...args }, context) {
     return { error: access.error };
   }
 
-  const response = await getSearchData(context.brand.id, profilesQuery(args), { page, size }, 'profile');
+  const response = await getSearchData(context.brand.id, profilesQuery(args), sortParams, { page, size }, 'profile');
   const error = get(response, 'error');
 
   if (error) {
