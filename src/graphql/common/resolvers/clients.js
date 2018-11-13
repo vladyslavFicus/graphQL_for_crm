@@ -83,7 +83,7 @@ const bulkRepresentativeUpdate = async (
       }));
     } else {
       const { defaultUser, error, jwtError } = await getHierarchyBranch(teamId, authorization);
-      console.log('defaultUser', defaultUser, error, jwtError);
+
       if (error || jwtError) {
         return { error: error || jwtError };
       }
