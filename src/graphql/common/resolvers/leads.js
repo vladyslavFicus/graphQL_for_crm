@@ -57,7 +57,7 @@ const bulkLeadPromote = async (
     allRecords,
     totalRecords,
     countries,
-    nameOrEmailOrId,
+    searchKeyword,
     registrationDateEnd,
     registrationDateStart,
     salesStatus,
@@ -72,7 +72,7 @@ const bulkLeadPromote = async (
     ids: queryIds,
     ...(allRecords && {
       countries,
-      nameOrEmailOrId,
+      searchKeyword,
       registrationDateEnd,
       registrationDateStart,
       salesStatus,

@@ -424,7 +424,7 @@ const QueryType = new GraphQLObjectType({
       type: ResponseType(PageableType(LeadType)),
       args: {
         ids: { type: new GraphQLList(GraphQLString) },
-        nameOrEmailOrId: { type: GraphQLString },
+        searchKeyword: { type: GraphQLString },
         page: { type: GraphQLInt },
         limit: { type: GraphQLInt },
         countries: { type: new GraphQLList(GraphQLString) },

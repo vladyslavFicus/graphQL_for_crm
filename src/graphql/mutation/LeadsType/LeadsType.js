@@ -64,7 +64,7 @@ const LeadsMutation = new GraphQLObjectType({
         allRecords: { type: GraphQLBoolean },
         leadIds: { type: new GraphQLList(GraphQLString) },
         countries: { type: new GraphQLList(GraphQLString) },
-        nameOrEmailOrId: { type: GraphQLString },
+        searchKeyword: { type: GraphQLString },
         registrationDateEnd: { type: GraphQLString },
         registrationDateStart: { type: GraphQLString },
         salesStatus: { type: SalesStatusesEnum },
