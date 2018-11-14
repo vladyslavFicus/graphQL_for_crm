@@ -1,21 +1,10 @@
+const { GraphQLObjectType, GraphQLNonNull, GraphQLString } = require('graphql');
+const SuccessType = require('../../query/SuccessType');
+
 const {
-  GraphQLObjectType,
-  GraphQLNonNull,
-  GraphQLList,
-  GraphQLID,
-  GraphQLString,
-  GraphQLBoolean,
-  GraphQLInt,
-} = require('graphql');
-
-const { createTradingAccountResolver } = require('../../common/resolvers/tradingAccount');
-
-const CreateTradingAccountType = new GraphQLObjectType({
-  name: 'createTradingAccount',
-  fields: () => ({
-    success: { type: new GraphQLNonNull(GraphQLBoolean) },
-  }),
-});
+  createTradingAccountResolver,
+  tradingAccountChangePasswordResolver,
+} = require('../../common/resolvers/tradingAccount');
 
 const TradingAccountType = new GraphQLObjectType({
   name: 'TradingAccountMutation',
@@ -28,8 +17,16 @@ const TradingAccountType = new GraphQLObjectType({
         currency: { type: new GraphQLNonNull(GraphQLString) },
         password: { type: new GraphQLNonNull(GraphQLString) },
       },
-      type: CreateTradingAccountType,
+      type: SuccessType,
       resolve: createTradingAccountResolver,
+    },
+    changePassword: {
+      args: {
+        login: { type: new GraphQLNonNull(GraphQLString) },
+        password: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      type: SuccessType,
+      resolve: tradingAccountChangePasswordResolver,
     },
   }),
 });
