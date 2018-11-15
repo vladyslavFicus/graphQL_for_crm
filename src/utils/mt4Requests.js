@@ -33,10 +33,29 @@ const createTradingAccount = (args, authorization) => {
       'content-type': 'application/json',
     },
     body: JSON.stringify(args),
-  });
+  }).then(response => response.status === 200);
+};
+
+/**
+ * Change trading account password on MT4
+ * @param args
+ * @param authorization
+ * @return {*}
+ */
+const tradingAccountChangePassword = (args, authorization) => {
+  return fetch(`${global.appConfig.apiUrl}/trading_mt4_updater/user/password`, {
+    method: 'PUT',
+    headers: {
+      accept: 'application/json',
+      authorization,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(args),
+  }).then(response => response.status === 200);
 };
 
 module.exports = {
   getAvailableCurrencies,
   createTradingAccount,
+  tradingAccountChangePassword,
 };

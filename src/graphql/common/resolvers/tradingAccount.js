@@ -1,7 +1,11 @@
 const fetch = require('../../../utils/fetch');
 const parseJson = require('../../../utils/parseJson');
 const { getProfile } = require('../resolvers/profile');
-const { getAvailableCurrencies, createTradingAccount } = require('../../../utils/mt4Requests');
+const {
+  getAvailableCurrencies,
+  createTradingAccount,
+  tradingAccountChangePassword,
+} = require('../../../utils/mt4Requests');
 
 const getAvailableCurrenciesResolver = (_, args, { headers: { authorization }, brand: { id: brandId } }) => {
   return getAvailableCurrencies(brandId, authorization);
@@ -39,10 +43,15 @@ const createTradingAccountResolver = async (_, { profileId, name, mode, currency
     mode,
   };
 
-  return createTradingAccount(args, authorization).then(response => ({ success: response.status === 200 }));
+  return createTradingAccount(args, authorization).then(success => ({ success }));
+};
+
+const tradingAccountChangePasswordResolver = (_, { login, password }, { headers: { authorization } }) => {
+  return tradingAccountChangePassword({ login, password }, authorization).then(success => ({ success }));
 };
 
 module.exports = {
   getAvailableCurrenciesResolver,
   createTradingAccountResolver,
+  tradingAccountChangePasswordResolver,
 };
