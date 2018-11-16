@@ -185,6 +185,12 @@ const PlayerMutation = new GraphQLObjectType({
         phone: {
           type: GraphQLString,
         },
+        phoneCode2: {
+          type: GraphQLString,
+        },
+        phone2: {
+          type: GraphQLString,
+        },
         address: {
           type: GraphQLString,
         },
