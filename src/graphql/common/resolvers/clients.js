@@ -25,7 +25,7 @@ const getIds = async ({ allRowsSelected, searchParams, totalElements, ids }, con
       size: totalElements,
       ...(searchParams && searchParams),
     };
-    const idsForUpdate = await getUpdateIds(getProfiles(_, ESQueryParams, context), ids);
+    const idsForUpdate = await getUpdateIds(getProfiles(null, ESQueryParams, context), ids);
 
     if (idsForUpdate.error || idsForUpdate.jwtError) {
       return { error: idsForUpdate };
@@ -50,6 +50,7 @@ const bulkRepresentativeUpdate = async (
     type,
     salesStatus,
     retentionStatus,
+    aquisitionStatus,
   },
   context
 ) => {
@@ -70,6 +71,7 @@ const bulkRepresentativeUpdate = async (
     ...(retentionStatus && { retentionStatus }),
     ...(salesRep && { salesRep }),
     ...(retentionRep && { retentionRep }),
+    ...(aquisitionStatus && { aquisitionStatus }),
   };
   let hierarchyParams = idsForUpdate;
 
