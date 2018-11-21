@@ -138,8 +138,10 @@ const getRates = function(_, { brandId }) {
     .then(response => parseJson(response));
 };
 
-const getPayments = function(_, args, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/payment_view/payments?${buildQueryString(args, true)}`, {
+const getPayments = function(_, args, { headers: { authorization }, hierarchy }) {
+  const _args = { ...args, ...(!hierarchy.isAdministration && { playerUUIDs: hierarchy.CUSTOMER }) };
+
+  return fetch(`${global.appConfig.apiUrl}/payment_view/payments?${buildQueryString(_args, true)}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -151,8 +153,8 @@ const getPayments = function(_, args, { headers: { authorization } }) {
     .then(response => parseJson(response));
 };
 
-const getClientPayments = async (_, args, { headers: { authorization } }) => {
-  const casinoPayments = await getPayments(_, args, { headers: { authorization } });
+const getClientPayments = async (_, args, context, info) => {
+  const casinoPayments = await getPayments(_, args, context, info);
 
   if (casinoPayments.jwtError || !casinoPayments.size) {
     return {
@@ -160,7 +162,7 @@ const getClientPayments = async (_, args, { headers: { authorization } }) => {
       content: [],
     };
   }
-  const content = await mapPaymentsWithTradingFields(casinoPayments, authorization);
+  const content = await mapPaymentsWithTradingFields(casinoPayments, context.headers.authorization);
 
   return {
     ...casinoPayments,

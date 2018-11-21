@@ -45,6 +45,20 @@ const getHierarchyUser = (userId, authorization) => {
     .then(response => response);
 };
 
+const getHierarchyUserSubtree = (userId, authorization) => {
+  return fetch(`${global.appConfig.apiUrl}/trading_hierarchy_updater/user/${userId}/hierarchy`, {
+    method: 'GET',
+    headers: {
+      authorization,
+      accept: 'application/json',
+      'content-type': 'application/json',
+    },
+  })
+    .then(response => response.text())
+    .then(response => parseJson(response))
+    .then(response => response);
+};
+
 const getHierarchyBranch = (branchId, authorization) => {
   return fetch(`${global.appConfig.apiUrl}/trading_hierarchy_updater/branch/${branchId}`, {
     method: 'GET',
@@ -184,6 +198,7 @@ module.exports = {
   createBranch,
   getHierarchyUser,
   getHierarchyBranch,
+  getHierarchyUserSubtree,
   getUserBranchHierarchy,
   getUsersByType,
   getBranchHierarchy,
