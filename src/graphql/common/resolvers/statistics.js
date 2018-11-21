@@ -69,11 +69,12 @@ const getStatisticInitialArray = (from, to, timezone) => {
   return resultArray;
 };
 
-const registerStatQuery = ({ registrationDateFrom, registrationDateTo }) => [
+const registerStatQuery = ({ registrationDateFrom, registrationDateTo, clientIds }) => [
+  queryBuild.ids(clientIds),
   queryBuild.range('registrationDate', { gte: registrationDateFrom, lte: registrationDateTo }),
 ];
 
-const getRegisteredUserStatistic = async function(_, args, context) {
+const getRegisteredUserStatistic = async function(_, { clientIds, ...args }, context) {
   const access = await accessValidate(context);
 
   if (access.error) {
@@ -83,10 +84,10 @@ const getRegisteredUserStatistic = async function(_, args, context) {
   const argsInUtc = convertToUtcDates(args);
   const response = await getScrollData(
     context.brand.id,
-    registerStatQuery(argsInUtc),
-    ['registrationDate'],
+    registerStatQuery({ ...argsInUtc, clientIds }),
     '1s',
-    'profile'
+    'profile',
+    ['registrationDate']
   );
   const error = get(response, 'error');
 

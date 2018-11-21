@@ -1,4 +1,4 @@
-const { GraphQLObjectType, GraphQLString, GraphQLNonNull } = require('graphql');
+const { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLList } = require('graphql');
 
 const {
   statistics: { getRegisteredUserStatistic, getPaymentsStatistic },
@@ -15,6 +15,7 @@ const StatisticsType = new GraphQLObjectType({
       args: {
         registrationDateFrom: { type: new GraphQLNonNull(GraphQLString) },
         registrationDateTo: { type: new GraphQLNonNull(GraphQLString) },
+        clientIds: { type: new GraphQLList(GraphQLString) },
       },
       resolve: getRegisteredUserStatistic,
     },
