@@ -1,4 +1,3 @@
-const { isEmpty } = require('lodash');
 const fetch = require('./fetch');
 const parseJson = require('./parseJson');
 
@@ -77,10 +76,6 @@ const mapPaymentsWithTradingFields = async (casinoPayments, authorization) => {
     const { login: tradingAcc, symbol, accountType, externalReference } =
       tradingPayments.content.find(trade => trade.paymentId === item.paymentId) || {};
 
-    if (!tradingAcc) {
-      return {};
-    }
-
     return {
       ...item,
       tradingAcc,
@@ -90,7 +85,7 @@ const mapPaymentsWithTradingFields = async (casinoPayments, authorization) => {
     };
   });
 
-  return content.filter(item => !isEmpty(item));
+  return content;
 };
 
 module.exports = {
