@@ -237,8 +237,7 @@ const getUsersByType = async (_, { userTypes }, { headers: { authorization } }) 
     return { error: users };
   }
 
-  const limitedUsers = users.splice(0, 20);
-  const mappedUsers = await getHierarchyMappedOperators(limitedUsers, authorization);
+  const mappedUsers = await getHierarchyMappedOperators(users, authorization);
 
   return { data: groupBy(mappedUsers, 'userType') };
 };
