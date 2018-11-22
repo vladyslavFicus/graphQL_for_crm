@@ -27,6 +27,7 @@ const PaymentMethodLimitType = new GraphQLObjectType({
     };
   },
 });
+
 const PaymentMethodType = new GraphQLObjectType({
   name: 'PaymentMethod',
   fields() {
@@ -42,60 +43,52 @@ const PaymentMethodType = new GraphQLObjectType({
     };
   },
 });
+
+const PaymentPlayerType = new GraphQLObjectType({
+  name: 'PaymentPlayerType',
+  fields: () => ({
+    uuid: { type: new GraphQLNonNull(GraphQLString) },
+    firstName: { type: GraphQLString },
+    lastName: { type: GraphQLString },
+    fullName: {
+      type: GraphQLString,
+      resolve: ({ firstName, lastName }) => [firstName, lastName].filter(v => v).join(' '),
+    },
+  }),
+});
+
+const PaymentMetadata = new GraphQLObjectType({
+  name: 'PaymentMetadata',
+  fields: () => ({
+    clientIp: { type: GraphQLString },
+    isMobile: { type: GraphQLBoolean },
+    userAgent: { type: new GraphQLNonNull(GraphQLString) },
+    country: { type: GraphQLString },
+  }),
+});
+
 const PaymentType = new GraphQLObjectType({
-  name: 'Payment',
+  name: 'PaymentTrading',
   fields() {
     return {
-      _id: { type: new GraphQLNonNull(GraphQLID), resolve: ({ paymentId }) => paymentId },
+      login: { type: new GraphQLNonNull(GraphQLString) },
       paymentId: { type: new GraphQLNonNull(GraphQLString) },
-      playerUUID: { type: new GraphQLNonNull(GraphQLString) },
-      creatorUUID: { type: new GraphQLNonNull(GraphQLString) },
-      transactionTag: { type: GraphQLString },
-      paymentSystemRefs: { type: new GraphQLList(GraphQLString) },
       paymentType: { type: new GraphQLNonNull(GraphQLString) },
-      amount: { type: MoneyType },
-      amountBarrierReached: { type: GraphQLBoolean },
-      creationTime: { type: new GraphQLNonNull(GraphQLString) },
-      country: { type: GraphQLString },
-      clientIp: { type: GraphQLString },
-      paymentMethod: { type: GraphQLString },
-      paymentAccount: { type: GraphQLString },
-      mobile: { type: GraphQLBoolean },
-      userAgent: { type: new GraphQLNonNull(GraphQLString) },
-      playerProfile: {
-        type: new GraphQLObjectType({
-          name: 'playerProfile',
-          fields: () => ({
-            age: { type: GraphQLFloat },
-            playerUUID: { type: GraphQLString },
-            firstName: { type: GraphQLString },
-            lastName: { type: GraphQLString },
-            login: { type: GraphQLString },
-            kycCompleted: { type: GraphQLBoolean },
-            languageCode: { type: GraphQLString },
-            countryCode: { type: GraphQLString },
-          }),
-        }),
-        resolve({ player }) {
-          return player
-            ? {
-                ...player,
-                age: player.birthDate ? moment().diff(player.birthDate, 'years') : null,
-                playerUUID: player.playerUUID,
-              }
-            : null;
-        },
-      },
-      paymentFlowStatuses: { type: new GraphQLList(PaymentStatusType) },
       status: { type: new GraphQLNonNull(GraphQLString) },
-      currency: { type: new GraphQLNonNull(GraphQLString) },
-      fraud: { type: GraphQLBoolean },
-      needApprove: { type: GraphQLBoolean },
-      creatorType: { type: GraphQLString },
-      tradingAcc: { type: GraphQLString },
-      symbol: { type: GraphQLString },
+      // change to mandatory
+      currency: { type: GraphQLString },
+      createdBy: { type: new GraphQLNonNull(GraphQLString) },
+      creationTime: { type: new GraphQLNonNull(GraphQLString) },
+      paymentMethod: { type: GraphQLString },
+      paymentAggregator: { type: GraphQLString },
       accountType: { type: GraphQLString },
+      amount: { type: GraphQLString },
+      country: { type: GraphQLString },
+      language: { type: GraphQLString },
+      brandId: { type: GraphQLString },
       externalReference: { type: GraphQLString },
+      playerProfile: { type: PaymentPlayerType },
+      paymentMetadata: { type: PaymentMetadata },
     };
   },
 });

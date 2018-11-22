@@ -32,14 +32,11 @@ const {
   games: { getGames, getGameProviders },
   payment: {
     getPaymentMethods,
-    getPayments,
     getOperatorPaymentMethods,
     getClientPayments,
     getClientPaymentsByUuid,
     getClientPaymentsStatistic,
     getPaymentStatuses,
-    getRegulationLimits,
-    getPaymentReport,
   },
   freeSpin: { fetchFreeSpin },
   rewardPlan: { fetchActiveRewardPlan, fetchPendingRewardPlan },
@@ -55,7 +52,6 @@ const cmsResolvers = require('../common/resolvers/cms');
 const PageableType = require('../common/types/PageableType');
 const FileType = require('./FileType');
 const { AuthorityType } = require('./AuthType');
-const { PlayerProfileLocksType } = require('./PlayerProfileType/PlayerProfileLocksType');
 const GameType = require('./GameType');
 const { CmsGameType, CmsGameAggregatorType, CmsGameProviderType } = require('./CmsTypes');
 const PlayerProfileType = require('./PlayerProfileType');
@@ -68,9 +64,7 @@ const {
   PaymentType: { PaymentMethodType, PaymentType },
   ClientPaymentStatisticType,
   PaymentStatusType,
-  PaymentReportType,
 } = require('./PaymentTypes');
-const PaymentLimitType = require('./PaymentLimitType');
 const { ActiveRewardPlan, PendingRewardPlan } = require('./RewardPlanType');
 const {
   TradingActivityType,
@@ -118,15 +112,6 @@ const QueryType = new GraphQLObjectType({
         playerUUID: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve: profile.getProfile,
-    },
-    playerProfileLocks: {
-      type: PlayerProfileLocksType,
-      args: {
-        playerUUID: { type: new GraphQLNonNull(GraphQLString) },
-      },
-      resolve(_, args) {
-        return args;
-      },
     },
     notes: {
       type: ResponseType(PageableType(NoteType, {}, 'PlayerNotes')),
@@ -296,25 +281,8 @@ const QueryType = new GraphQLObjectType({
       },
       resolve: fetchPendingRewardPlan,
     },
-    payments: {
-      type: PageableType(PaymentType),
-      resolve: getPayments,
-      args: {
-        size: { type: GraphQLInt },
-        page: { type: GraphQLInt },
-        keyword: { type: GraphQLString },
-        initiatorType: { type: GraphQLString },
-        type: { type: GraphQLString },
-        statuses: { type: new GraphQLList(GraphQLString) },
-        paymentMethod: { type: GraphQLString },
-        startDate: { type: GraphQLString },
-        endDate: { type: GraphQLString },
-        amountLowerBound: { type: GraphQLString },
-        amountUpperBound: { type: GraphQLString },
-      },
-    },
     clientPayments: {
-      type: PageableType(PaymentType, {}, 'ClientPayments'),
+      type: ResponseType(PageableType(PaymentType, {}, 'ClientPayments')),
       resolve: getClientPayments,
       args: {
         size: { type: GraphQLInt },
@@ -332,7 +300,7 @@ const QueryType = new GraphQLObjectType({
       },
     },
     clientPaymentsByUuid: {
-      type: PageableType(PaymentType, {}, 'ClientPaymentByUuid'),
+      type: ResponseType(PageableType(PaymentType, {}, 'ClientPaymentByUuid')),
       resolve: getClientPaymentsByUuid,
       args: {
         size: { type: GraphQLInt },
@@ -491,13 +459,6 @@ const QueryType = new GraphQLObjectType({
       },
       resolve: getRules,
     },
-    paymentRegulationLimits: {
-      type: ResponseType(new GraphQLList(PaymentLimitType), 'PaymentRegulationLimitsType'),
-      args: {
-        playerUUID: { type: new GraphQLNonNull(GraphQLString) },
-      },
-      resolve: getRegulationLimits,
-    },
     conditionalTags: {
       type: ResponseType(PageableType(ConditionalTagType), 'ConditionalTagList'),
       args: {
@@ -506,16 +467,6 @@ const QueryType = new GraphQLObjectType({
         page: { type: GraphQLInt },
       },
       resolve: getConditionalTags,
-    },
-    paymentReport: {
-      type: ResponseType(PageableType(PaymentReportType)),
-      args: {
-        startDate: { type: GraphQLString },
-        endDate: { type: GraphQLString },
-        page: { type: GraphQLInt },
-        size: { type: GraphQLInt },
-      },
-      resolve: getPaymentReport,
     },
     callbacks: {
       type: ResponseType(PageableType(CallbackType)),

@@ -1,5 +1,5 @@
 const { getOperatorByUUID } = require('./operatorRequests');
-
+// make folder with files
 const getOperatorFromCache = (id, auth) => {
   if (!global.cache.operators[id]) {
     global.cache.operators[id] = getOperator(id, auth);

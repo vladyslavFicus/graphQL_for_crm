@@ -1,90 +1,18 @@
-const jwtDecode = require('jwt-decode');
 const fetch = require('../../../utils/fetch');
 const parseJson = require('../../../utils/parseJson');
-const buildQueryString = require('../../../utils/buildQueryString');
 const { PAYMENT_TYPES } = require('../../../constants/payment');
 const {
+  queries: {
+    getPaymentMethods: getPaymentMethodsQuery,
+    getTradingPayments: getTradingPaymentsQuery,
+    getClientPaymentsStatistic: getClientPaymentsStatisticQuery,
+    createTradingPayment,
+    createCasinoPayment,
+  },
   getStatistic,
   normalizeAccumulated,
-  getUrlFromPaymentType,
-  mapPaymentsWithTradingFields,
-} = require('../../../utils/paymentUtils');
+} = require('../../../utils/payment');
 const { mapActionToStatus } = require('../../../constants/payment');
-const { statuses } = require('../../../constants/limits');
-const { getNotes } = require('./notes');
-const mapNotesToEntities = require('../../../utils/mapNotesToEntities');
-
-const paymentLocks = function(_, { playerUUID }, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/payment/lock/${playerUUID}`, {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      authorization,
-      'content-type': 'application/json',
-    },
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(
-      response =>
-        Array.isArray(response)
-          ? response.map(i => ({
-              ...i,
-              canUnlock: jwtDecode(authorization).user_uuid === i.authorUUID,
-            }))
-          : response
-    );
-};
-
-const unlockPayment = function(_, { playerUUID, type, ...args }, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/payment/lock/${playerUUID}/${type}`, {
-    method: 'DELETE',
-    headers: {
-      accept: 'application/json',
-      authorization,
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify(args),
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(
-      response =>
-        response.id
-          ? {
-              data: {
-                ...response,
-                canUnlock: jwtDecode(authorization).user_uuid === response.authorUUID,
-              },
-            }
-          : { error: response }
-    );
-};
-
-const lockPayment = function(_, { type, ...args }, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/payment/lock/${type}`, {
-    method: 'POST',
-    headers: {
-      accept: 'application/json',
-      authorization,
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify(args),
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(
-      response =>
-        response.id
-          ? {
-              data: {
-                ...response,
-                canUnlock: jwtDecode(authorization).user_uuid === response.authorUUID,
-              },
-            }
-          : { error: response }
-    );
-};
 
 const paymentAccumulated = function(_, { playerUUID }, { headers: { authorization }, brand: { currency } }) {
   return fetch(`${global.appConfig.apiUrl}/payment/accumulated/${playerUUID}`, {
@@ -120,114 +48,36 @@ const paymentAccumulated = function(_, { playerUUID }, { headers: { authorizatio
     });
 };
 
-const getPaymentMethods = function(_, args, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/payment/methods?${buildQueryString(args)}`, {
-    method: 'GET',
-    headers: {
-      authorization,
-    },
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => (Array.isArray(response) ? response : []));
-};
+const getClientPayments = async (_, args, { headers: { authorization }, hierarchy }) => {
+  const _args = hierarchy.buildQueryArgs(args, { profileIds: hierarchy.getCustomerIds() });
+  const tradingPayments = await getTradingPaymentsQuery(_args, authorization);
 
-const getRates = function(_, { brandId }) {
-  return fetch(`${global.appConfig.apiUrl}/payment/public/rates?brandId=${brandId}`, { method: 'GET' })
-    .then(response => response.text())
-    .then(response => parseJson(response));
-};
-
-const getPayments = function(_, args, { headers: { authorization }, hierarchy }) {
-  const _args = hierarchy.buildQueryArgs(args, { playerUUIDs: hierarchy.getCustomerIds() });
-
-  return fetch(`${global.appConfig.apiUrl}/payment_view/payments?${buildQueryString(_args, true)}`, {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      authorization,
-      'content-type': 'application/json',
-    },
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response));
-};
-
-const getClientPayments = async (_, args, context, info) => {
-  const casinoPayments = await getPayments(_, args, context, info);
-
-  if (casinoPayments.jwtError || !casinoPayments.size) {
-    return {
-      size: 0,
-      content: [],
-    };
+  if (tradingPayments.jwtError || tradingPayments.error) {
+    return { error: tradingPayments.error };
   }
-  const content = await mapPaymentsWithTradingFields(casinoPayments, context.headers.authorization);
 
   return {
-    ...casinoPayments,
-    content,
+    data: tradingPayments,
   };
 };
 
-const getCasinoPaymentsByUuid = (_, { playerUUID, ...args }, { headers: { authorization } }) => {
-  return fetch(`${global.appConfig.apiUrl}/payment_view/payments/${playerUUID}?${buildQueryString(args)}`, {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      authorization,
-      'content-type': 'application/json',
-    },
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response));
-};
+const getClientPaymentsByUuid = async (_, { playerUUID, args }, { headers: { authorization } }) => {
+  const tradingPayments = await getTradingPaymentsQuery({ profileIds: [playerUUID], ...args }, authorization);
 
-const getClientPaymentsByUuid = async (_, args, { headers: { authorization } }) => {
-  const casinoPayments = await getCasinoPaymentsByUuid(_, args, { headers: { authorization } });
-
-  if (casinoPayments.jwtError || !casinoPayments.size) {
-    return {
-      size: 0,
-      content: [],
-    };
+  if (tradingPayments.jwtError || tradingPayments.error) {
+    return { error: tradingPayments.error };
   }
-  const content = await mapPaymentsWithTradingFields(casinoPayments, authorization);
 
   return {
-    ...casinoPayments,
-    content,
+    data: tradingPayments,
   };
 };
 
-const getClientPaymentsStatistic = function(_, { playerUUID, ...args }, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/payment/payments/${playerUUID}?${buildQueryString(args)}`, {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      authorization,
-      'content-type': 'application/json',
-    },
-  })
-    .then(response => response.text())
-    .then(response => getStatistic(parseJson(response).content));
-};
+// INFO: when trading_payment statistic endpoint ready - this will be rewritten
+const getClientPaymentsStatistic = async (_, args, { headers: { authorization } }) => {
+  const statistic = await getClientPaymentsStatisticQuery(args, authorization);
 
-const createPaymentResolver = type => {
-  return function(_, { playerUUID, ...args }, { headers: { authorization } }) {
-    return fetch(`${global.appConfig.apiUrl}/payment/payments/${playerUUID}/${type}`, {
-      method: 'PUT',
-      headers: {
-        accept: 'application/json',
-        authorization,
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify(args),
-    })
-      .then(response => response.text())
-      .then(response => parseJson(response))
-      .then(response => (response && response.paymentId ? { data: response } : { error: response }));
-  };
+  return getStatistic(statistic.content);
 };
 
 const getPaymentStatuses = function(_, { paymentId, playerUUID }, { headers: { authorization } }) {
@@ -244,38 +94,7 @@ const getPaymentStatuses = function(_, { paymentId, playerUUID }, { headers: { a
     .then(response => (Array.isArray(response) ? response : []));
 };
 
-const createPayment = function(_, { playerUUID, paymentType, ...args }, { headers: { authorization } }) {
-  const url = getUrlFromPaymentType(paymentType);
-  return fetch(`${global.appConfig.apiUrl}/payment/payments/${playerUUID}/${url}`, {
-    method: 'PUT',
-    headers: {
-      accept: 'application/json',
-      authorization,
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify(args),
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => response);
-};
-
-const createTradingPayment = (paymentType, args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_payment/${paymentType.toLowerCase()}`, {
-    method: 'POST',
-    headers: {
-      accept: 'application/json',
-      'content-type': 'application/json',
-      authorization,
-    },
-    body: JSON.stringify(args),
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => response);
-};
-
-const getOperatorPaymentMethods = function(_, args, { headers: { authorization } }) {
+const getOperatorPaymentMethods = function(_, __, { headers: { authorization } }) {
   return fetch(`${global.appConfig.apiUrl}/payment/operator/methods`, {
     method: 'GET',
     headers: {
@@ -289,36 +108,27 @@ const getOperatorPaymentMethods = function(_, args, { headers: { authorization }
 
 const createClientPayment = async (
   _,
-  {
-    profileId,
-    paymentType,
-    login,
-    paymentAccount,
-    paymentAccountUuid,
-    externalReference,
-    expirationDate,
-    country,
-    language,
-    source,
-    target,
-    ...args
-  },
+  { playerProfile, paymentType, login, externalReference, country, language, source, target, ...args },
   { headers: { authorization }, brand: { id: brandId } }
 ) => {
   let casinoPayment = null;
   let tradingArgs = {};
 
-  const typesWithoutCreatePayment = [PAYMENT_TYPES.TRANSFER, PAYMENT_TYPES.CREDIT_IN, PAYMENT_TYPES.CREDIT_OUT];
+  const typesWithoutCreatePayment = [
+    PAYMENT_TYPES.TRANSFER,
+    PAYMENT_TYPES.WITHDRAW,
+    PAYMENT_TYPES.CREDIT_IN,
+    PAYMENT_TYPES.CREDIT_OUT,
+  ];
 
   if (!typesWithoutCreatePayment.includes(paymentType.toUpperCase())) {
-    casinoPayment = await createPayment(
-      _,
+    casinoPayment = await createCasinoPayment(
       {
-        playerUUID: profileId,
+        playerUUID: playerProfile.uuid,
         paymentType,
-        ...(paymentAccountUuid ? { paymentAccountUuid, ...args } : { ...args }),
+        ...args,
       },
-      { headers: { authorization } }
+      authorization
     );
 
     if (casinoPayment.error) {
@@ -333,24 +143,17 @@ const createClientPayment = async (
     case PAYMENT_TYPES.DEPOSIT:
       tradingArgs = {
         paymentId: casinoPayment.paymentId,
-        accountType: paymentAccount,
-        profileId,
+        playerProfile,
         login,
         externalReference,
-        country,
         language,
-        brandId,
         ...args,
       };
       break;
 
     case PAYMENT_TYPES.WITHDRAW:
       tradingArgs = {
-        paymentAccount: paymentAccountUuid,
-        paymentId: casinoPayment.paymentId,
-        profileId,
-        brandId,
-        country,
+        playerProfile,
         language,
         login,
         ...args,
@@ -362,10 +165,8 @@ const createClientPayment = async (
 
     case PAYMENT_TYPES.TRANSFER:
       tradingArgs = {
-        brandId,
-        country,
         language,
-        profileId,
+        playerProfile,
         source,
         target,
         ...args,
@@ -429,71 +230,22 @@ const changeStatus = function(_, { playerUUID, paymentId, action, ...args }, { h
   );
 };
 
-const getRegulationLimits = async function(_, { playerUUID }, context) {
-  const {
-    headers: { authorization },
-  } = context;
+const getPaymentMethods = async (_, args, { headers: { authorization } }) => {
+  const methods = await getPaymentMethodsQuery(args, authorization);
 
-  const regulationLimits = await fetch(`${global.appConfig.apiUrl}/payment/limits/${playerUUID}/regulation`, {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      authorization,
-      'content-type': 'application/json',
-    },
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => (response && response.length ? response : []));
-
-  let data = [];
-
-  if (!regulationLimits.error && regulationLimits.length) {
-    const notes = await getNotes(_, { targetUUID: regulationLimits.map(i => i.uuid) }, context);
-
-    if (notes && notes.data && notes.data.content) {
-      data = mapNotesToEntities(regulationLimits, notes.data.content);
-    }
-  }
-
-  return { data };
+  return Array.isArray(methods) ? methods : [];
 };
 
-const cancelRegulationLimit = function(_, { playerUUID, uuid }, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/payment/limits/${playerUUID}/deposit/${uuid}`, {
-    method: 'DELETE',
-    headers: {
-      accept: 'application/json',
-      authorization,
-      'content-type': 'application/json',
-    },
-  }).then(
-    response =>
-      response.status === 200 ? { data: { uuid, status: statuses.CANCELED } } : { error: 'error.cancel-limit' }
-  );
-};
-
-const getPaymentReport = function(_, args, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/payment_view/payments/payment_report?${buildQueryString(args)}`, {
-    method: 'GET',
-    headers: {
-      authorization,
-    },
-  })
+const getRates = function(_, { brandId }) {
+  return fetch(`${global.appConfig.apiUrl}/payment/public/rates?brandId=${brandId}`, { method: 'GET' })
     .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => (response && response.content ? { data: response } : { error: response }));
+    .then(response => parseJson(response));
 };
 
 module.exports = {
-  locks: paymentLocks,
-  unlock: unlockPayment,
-  lock: lockPayment,
   accumulated: paymentAccumulated,
   getPaymentMethods,
   getRates,
-  createPaymentResolver,
-  getPayments,
   getOperatorPaymentMethods,
   createClientPayment,
   getClientPayments,
@@ -501,7 +253,4 @@ module.exports = {
   getClientPaymentsStatistic,
   getPaymentStatuses,
   changeStatus,
-  getRegulationLimits,
-  cancelRegulationLimit,
-  getPaymentReport,
 };
