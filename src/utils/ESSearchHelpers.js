@@ -54,7 +54,7 @@ const parseToPageable = ({ hits: { total, hits } }, page, size) => ({
   size,
 });
 
-const getScrollData = async (brandId, query, source = true, scroll, documentType) => {
+const getScrollData = async (brandId, query, scroll, documentType, source = true) => {
   const initialQuery = await global.appClients.esClient.search({
     index: `${brandId}_player`,
     type: documentType,
