@@ -4,6 +4,7 @@ const { apolloUploadExpress } = require('apollo-upload-server');
 const bodyParser = require('body-parser');
 const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
 const schema = require('./graphql/schema');
+const { loadHierarchy } = require('./services/hierarchy');
 const formatError = require('./utils/formatError');
 const Logger = require('./utils/logger');
 const loggerMiddleware = require('./middlewares/logger');
@@ -26,18 +27,26 @@ process.on('unhandledRejection', reason => {
     loggerMiddleware({
       logging: !!ENABLE_LOGGING,
     }),
-    graphqlExpress(request => {
-      let brand = {};
+    graphqlExpress(async ({ headers, ip }) => {
+      const context = {
+        headers,
+        ip,
+      };
 
-      if (request.headers && request.headers.authorization && request.headers.authorization !== 'undefined') {
-        const { brandId } = jwtDecode(request.headers.authorization);
+      if (headers && headers.authorization && headers.authorization !== 'undefined') {
+        const { brandId, user_uuid: userUUID, department } = jwtDecode(headers.authorization);
 
-        brand = global.appConfig.brands[brandId];
+        const hierarchy = await loadHierarchy(userUUID, department, headers.authorization);
+
+        Object.assign(context, {
+          brand: global.appConfig.brands[brandId],
+          hierarchy,
+        });
       }
 
       return {
         schema,
-        context: { brand, headers: request.headers, ip: request.ip },
+        context,
         formatError,
         tracing: true,
       };
