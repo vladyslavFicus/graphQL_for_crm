@@ -16,7 +16,25 @@ const ChartStatisticType = new GraphQLObjectType({
   }),
 });
 
+const CountResponseType = new GraphQLObjectType({
+  name: 'CountResponseType',
+  fields: () => ({
+    count: { type: GraphQLInt },
+    error: { type: GraphQLString },
+  }),
+});
+
+const ChartTotalsType = new GraphQLObjectType({
+  name: 'ChartTotalsType',
+  fields: () => ({
+    today: { type: CountResponseType },
+    month: { type: CountResponseType },
+    total: { type: CountResponseType },
+  }),
+});
+
 module.exports = {
   ChartDataType,
+  ChartTotalsType,
   ChartStatisticType,
 };
