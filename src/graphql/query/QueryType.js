@@ -325,7 +325,6 @@ const QueryType = new GraphQLObjectType({
         amountLowerBound: { type: GraphQLString },
         amountUpperBound: { type: GraphQLString },
         currency: { type: GraphQLString },
-        playerUUIDs: { type: new GraphQLList(GraphQLString) },
       },
     },
     clientPaymentsByUuid: {
@@ -411,7 +410,6 @@ const QueryType = new GraphQLObjectType({
         affiliateId: { type: GraphQLString },
         ageFrom: { type: GraphQLFloat },
         ageTo: { type: GraphQLFloat },
-        hierarchyUsers: { type: new GraphQLList(GraphQLString) },
         repIds: { type: new GraphQLList(GraphQLString) },
       },
       resolve: getProfiles,
