@@ -19,4 +19,6 @@ module.exports = {
   conditionalTags: require('./conditionalTags'),
   rules: require('./rules'),
   clients: require('./clients'),
+  callbacks: require('./callbacks'),
+  operators: require('./operators'),
 };

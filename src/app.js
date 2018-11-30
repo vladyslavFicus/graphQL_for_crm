@@ -4,7 +4,8 @@ const { apolloUploadExpress } = require('apollo-upload-server');
 const bodyParser = require('body-parser');
 const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
 const schema = require('./graphql/schema');
-const { loadHierarchy } = require('./services/hierarchy');
+const Hierarchy = require('./services/Hierarchy');
+const { getHierarchyUserSubtree } = require('./utils/hierarchyRequests');
 const formatError = require('./utils/formatError');
 const Logger = require('./utils/logger');
 const loggerMiddleware = require('./middlewares/logger');
@@ -36,7 +37,14 @@ process.on('unhandledRejection', reason => {
       if (headers && headers.authorization && headers.authorization !== 'undefined') {
         const { brandId, user_uuid: userUUID, department } = jwtDecode(headers.authorization);
 
-        const hierarchy = await loadHierarchy(userUUID, department, headers.authorization);
+        const isAdministration = department === 'ADMINISTRATION';
+        const hierarchy = new Hierarchy(isAdministration);
+
+        if (!isAdministration) {
+          const hierarchySubtree = await getHierarchyUserSubtree(userUUID, headers.authorization);
+
+          hierarchy.setHierarchySubtree(hierarchySubtree);
+        }
 
         Object.assign(context, {
           brand: global.appConfig.brands[brandId],
