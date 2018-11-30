@@ -37,6 +37,16 @@ const profilesQuery = ({
   queryBuild.match('city', city),
   queryBuild.match('country', countries, { type: 'array' }),
   queryBuild.queryString(['firstName', 'playerUUID', 'email'], searchValue, { prefix: '*', postfix: '*' }),
+  queryBuild.should(
+    [
+      queryBuild.must(queryBuild.match('tradingProfile.aquisitionStatus', 'RETENTION')),
+      queryBuild.mustNot(queryBuild.exists('tradingProfile.retentionRep')),
+    ],
+    [
+      queryBuild.must(queryBuild.match('tradingProfile.aquisitionStatus', 'SALES')),
+      queryBuild.mustNot(queryBuild.exists('tradingProfile.salesRep')),
+    ]
+  ),
   queryBuild.filter([
     queryBuild.match('tradingProfile.retentionRep', repIds, { type: 'array' }),
     queryBuild.match('tradingProfile.salesRep', repIds, { type: 'array' }),

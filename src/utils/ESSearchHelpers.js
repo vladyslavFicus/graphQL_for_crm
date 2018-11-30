@@ -34,6 +34,16 @@ const queryBuild = {
           },
         }
       : {},
+  should: (...query) => ({
+    bool: {
+      should: query.map(condition => ({
+        bool: condition.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+      })),
+    },
+  }),
+  must: query => ({ must: query }),
+  mustNot: query => ({ must_not: query }),
+  exists: field => ({ exists: { field } }),
   queryString: (searchFields, value, config = {}) =>
     value
       ? {
