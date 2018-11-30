@@ -11,8 +11,12 @@ const Logger = require('./utils/logger');
 const loggerMiddleware = require('./middlewares/logger');
 const { ENABLE_LOGGING } = process.env;
 
-process.on('unhandledRejection', reason => {
-  Logger.error({ message: `Unhandled rejection, reason: ${reason}` });
+process.on('unhandledRejection', err => {
+  Logger.fatal({ err }, 'Unhandled rejection');
+});
+
+process.on('uncaughtException', err => {
+  Logger.fatal({ err }, 'Uncaught exception');
 });
 
 (async () => {
