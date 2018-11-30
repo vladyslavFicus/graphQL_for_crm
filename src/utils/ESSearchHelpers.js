@@ -61,14 +61,20 @@ const getScrollData = async (brandId, query, scroll, documentType, source = true
     scroll,
     _source: source,
     body: {
-      query: {
-        bool: {
-          must: query.filter(item => !isEmpty(item)),
+      ...(query && {
+        query: {
+          bool: {
+            must: query.filter(item => !isEmpty(item)),
+          },
         },
-      },
+      }),
       size: 1000,
     },
   });
+
+  if (initialQuery.error) {
+    return { error: initialQuery.error.statusCode === 404 ? ENTITY_NOT_FOUND : INTERNAL };
+  }
 
   const responseQueue = [initialQuery];
   const results = [];
@@ -84,12 +90,16 @@ const getScrollData = async (brandId, query, scroll, documentType, source = true
       break;
     }
 
-    responseQueue.push(
-      await global.appClients.esClient.scroll({
-        scrollId: response._scroll_id,
-        scroll: scroll,
-      })
-    );
+    const moreResults = await global.appClients.esClient.scroll({
+      scrollId: response._scroll_id,
+      scroll: scroll,
+    });
+
+    if (moreResults.error) {
+      return { error: moreResults.error.statusCode === 404 ? ENTITY_NOT_FOUND : INTERNAL };
+    }
+
+    responseQueue.push(moreResults);
   }
 
   return {
@@ -133,9 +143,32 @@ const getSearchData = (brandId, query, sort, { page = 1, size }, documentType) =
     );
   });
 
+const getCountData = async (brandId, query, documentType) => {
+  const count = await global.appClients.esClient.count({
+    index: `${brandId}_player`,
+    type: documentType,
+    body: {
+      ...(query && {
+        query: {
+          bool: {
+            must: query.filter(item => !isEmpty(item)),
+          },
+        },
+      }),
+    },
+  });
+
+  if (count.error) {
+    return { error: count.error.statusCode === 404 ? ENTITY_NOT_FOUND : INTERNAL };
+  }
+
+  return count;
+};
+
 module.exports = {
   queryBuild,
   parseToPageable,
   getScrollData,
   getSearchData,
+  getCountData,
 };

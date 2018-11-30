@@ -1,6 +1,6 @@
 const fetch = require('./fetch');
 const parseJson = require('./parseJson');
-
+const { isEmpty } = require('lodash');
 const paymentTypes = ['deposit', 'withdraw'];
 
 const paymentTypeUrlMatcher = {
@@ -73,6 +73,10 @@ const mapPaymentsWithTradingFields = async (casinoPayments, authorization) => {
   }
 
   const content = casinoPayments.content.map(item => {
+    if (isEmpty(tradingPayments)) {
+      return item;
+    }
+
     const { login: tradingAcc, symbol, accountType, externalReference } =
       tradingPayments.content.find(trade => trade.paymentId === item.paymentId) || {};
 

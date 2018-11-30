@@ -1,80 +1,17 @@
 const { get } = require('lodash');
 const moment = require('moment');
-const { getScrollData, queryBuild } = require('../../../utils/ESSearchHelpers');
+const { getScrollData, getCountData, queryBuild } = require('../../../utils/ESSearchHelpers');
 const { getDailyPayments } = require('./reconciliation');
 const accessValidate = require('../../../utils/accessValidate');
 const { convertToUtcDates } = require('../../../utils/utcHelpers');
-
-const compareDateFormat = 'YYYY-MM-DD';
-
-const getStatisticInitialArray = (from, to, timezone) => {
-  const diffDays = moment(to).diff(moment(from), 'days');
-  const diffMonth = moment(to).diff(moment(from), 'month');
-
-  let resultArray = [];
-
-  if (diffMonth === 0) {
-    let date = moment(from).utcOffset(timezone);
-
-    if (diffDays === 0) {
-      resultArray.push(date.format(compareDateFormat));
-    } else {
-      for (let i = 0; i < diffDays; i++) {
-        resultArray.push(date.format(compareDateFormat));
-        date.add(1, 'days');
-      }
-    }
-  } else {
-    const fromDateDayNumber = Number(
-      moment(from)
-        .utcOffset(timezone)
-        .format('D')
-    );
-    const toDateDayNumber = Number(
-      moment(to)
-        .utcOffset(timezone)
-        .format('D')
-    );
-    const endOfPrevMonthDayNumber = Number(
-      moment(from)
-        .utcOffset(timezone)
-        .endOf('month')
-        .format('D')
-    );
-
-    for (let i = fromDateDayNumber; i <= endOfPrevMonthDayNumber; i++) {
-      const entryDate =
-        i === fromDateDayNumber
-          ? moment(from)
-              .utcOffset(timezone)
-              .format(compareDateFormat)
-          : moment(from)
-              .utcOffset(timezone)
-              .add(i - fromDateDayNumber, 'days')
-              .format(compareDateFormat);
-
-      resultArray.push(entryDate);
-    }
-
-    for (let i = 1; i < toDateDayNumber; i++) {
-      const entryDate = moment(to)
-        .utcOffset(timezone)
-        .subtract(toDateDayNumber - i, 'days')
-        .format(compareDateFormat);
-
-      resultArray.push(entryDate);
-    }
-  }
-
-  return resultArray;
-};
+const { compareDateFormat, getStatisticInitialArray, getCountQueryRanges } = require('../../../utils/statisticHelpers');
 
 const registerStatQuery = ({ registrationDateFrom, registrationDateTo, clientIds }) => [
   queryBuild.ids(clientIds),
   queryBuild.range('registrationDate', { gte: registrationDateFrom, lte: registrationDateTo }),
 ];
 
-const getRegisteredUserStatistic = async function(_, { clientIds, ...args }, context) {
+const getRegisteredUserStatistic = async function(_, args, context) {
   const access = await accessValidate(context);
 
   if (access.error) {
@@ -84,7 +21,10 @@ const getRegisteredUserStatistic = async function(_, { clientIds, ...args }, con
   const argsInUtc = convertToUtcDates(args);
   const response = await getScrollData(
     context.brand.id,
-    registerStatQuery({ ...argsInUtc, clientIds }),
+    registerStatQuery({
+      ...argsInUtc,
+      ...(!context.hierarchy.isAdministration && { clientIds: context.hierarchy.CUSTOMER }),
+    }),
     '1s',
     'profile',
     ['registrationDate']
@@ -130,6 +70,34 @@ const getRegisteredUserStatistic = async function(_, { clientIds, ...args }, con
       items,
     },
   };
+};
+
+const getRegisteredUserTotals = async (_, { timezone }, context) => {
+  const access = await accessValidate(context);
+
+  if (access.error) {
+    return { error: access.error };
+  }
+
+  const queries = getCountQueryRanges(timezone);
+  const keys = Object.keys(queries);
+
+  const result = await Promise.all(
+    Object.values(queries).map(value => getCountData(context.brand.id, value, 'profile'))
+  ).then(data =>
+    data.reduce(
+      (acc, { count, error }, index) => ({
+        ...acc,
+        [keys[index]]: {
+          count,
+          error,
+        },
+      }),
+      {}
+    )
+  );
+
+  return result;
 };
 
 const getPaymentsStatistic = async function(_, { dateFrom, dateTo }, context) {
@@ -212,5 +180,6 @@ const getPaymentsStatistic = async function(_, { dateFrom, dateTo }, context) {
 
 module.exports = {
   getRegisteredUserStatistic,
+  getRegisteredUserTotals,
   getPaymentsStatistic,
 };

@@ -1,10 +1,10 @@
-const { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLList } = require('graphql');
+const { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLList, GraphQLInt } = require('graphql');
 
 const {
-  statistics: { getRegisteredUserStatistic, getPaymentsStatistic },
+  statistics: { getRegisteredUserStatistic, getPaymentsStatistic, getRegisteredUserTotals },
 } = require('../../common/resolvers');
 const ResponseType = require('../../common/types/ResponseType');
-const { ChartStatisticType } = require('./ChartType');
+const { ChartStatisticType, ChartTotalsType } = require('./ChartType');
 const PaymentStatisticType = require('./PaymentStatisticType');
 
 const StatisticsType = new GraphQLObjectType({
@@ -18,6 +18,13 @@ const StatisticsType = new GraphQLObjectType({
         clientIds: { type: new GraphQLList(GraphQLString) },
       },
       resolve: getRegisteredUserStatistic,
+    },
+    registrationTotals: {
+      type: ChartTotalsType,
+      args: {
+        timezone: { type: new GraphQLNonNull(GraphQLInt) },
+      },
+      resolve: getRegisteredUserTotals,
     },
     payments: {
       type: ResponseType(PaymentStatisticType, 'paymentsStatistic'),
