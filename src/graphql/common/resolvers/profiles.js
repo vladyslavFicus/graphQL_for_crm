@@ -62,7 +62,8 @@ const getProfiles = async function(_, { page, size, ...args }, context) {
     return { error: access.error };
   }
 
-  const _args = { ...args, ...(!context.hierarchy.isAdministration && { hierarchyUsers: context.hierarchy.CUSTOMER }) };
+  const { hierarchy } = context;
+  const _args = hierarchy.buildQueryArgs(args, { hierarchyUsers: hierarchy.getCustomerIds() });
 
   const response = await getSearchData(context.brand.id, profilesQuery(_args), sortParams, { page, size }, 'profile');
   const error = get(response, 'error');
