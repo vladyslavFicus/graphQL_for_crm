@@ -48,6 +48,8 @@ const {
   leads: { getTradingLeads, getLeadProfile },
   tags: { getPlayerTags, getTagsByText },
   rules: { getRules },
+  callbacks: { getCallbacks },
+  operators: { getOperators },
 } = require('../common/resolvers');
 const cmsResolvers = require('../common/resolvers/cms');
 const PageableType = require('../common/types/PageableType');
@@ -85,6 +87,8 @@ const HierarchyQueryType = require('./HierarchyQueryType');
 const RuleType = require('./RuleType');
 const { RuleTypeEnum } = require('./RuleType/RuleEnums');
 const { ConditionalTagType, ConditionalTagStatusEnum } = require('./ConditionalTagType');
+const { CallbackType, CallbackStatusEnum } = require('./CallbackType');
+const OperatorType = require('./OperatorType');
 
 const CmsGamesListType = new GraphQLObjectType({
   name: 'CmsGamesList',
@@ -509,6 +513,33 @@ const QueryType = new GraphQLObjectType({
         size: { type: GraphQLInt },
       },
       resolve: getPaymentReport,
+    },
+    callbacks: {
+      type: ResponseType(PageableType(CallbackType)),
+      args: {
+        id: { type: GraphQLString },
+        statuses: { type: new GraphQLList(CallbackStatusEnum) },
+        userId: { type: GraphQLString },
+        page: { type: GraphQLInt },
+        limit: { type: GraphQLInt },
+        callbackTimeFrom: { type: GraphQLString },
+        callbackTimeTo: { type: GraphQLString },
+      },
+      resolve: getCallbacks,
+    },
+    operators: {
+      type: ResponseType(PageableType(OperatorType)),
+      args: {
+        searchBy: { type: GraphQLString },
+        country: { type: GraphQLString },
+        phone: { type: GraphQLString },
+        status: { type: GraphQLString },
+        registrationDateFrom: { type: GraphQLString },
+        registrationDateTo: { type: GraphQLString },
+        page: { type: GraphQLInt },
+        size: { type: GraphQLInt },
+      },
+      resolve: getOperators,
     },
   }),
 });

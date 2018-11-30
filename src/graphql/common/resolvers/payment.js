@@ -139,7 +139,7 @@ const getRates = function(_, { brandId }) {
 };
 
 const getPayments = function(_, args, { headers: { authorization }, hierarchy }) {
-  const _args = { ...args, ...(!hierarchy.isAdministration && { playerUUIDs: hierarchy.CUSTOMER }) };
+  const _args = hierarchy.buildQueryArgs(args, { playerUUIDs: hierarchy.getCustomerIds() });
 
   return fetch(`${global.appConfig.apiUrl}/payment_view/payments?${buildQueryString(_args, true)}`, {
     method: 'GET',
