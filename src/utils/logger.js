@@ -38,6 +38,7 @@ const Logger = bunyan.createLogger({
   name: config.name,
   service: config.name,
   streams,
+  serializers: bunyan.stdSerializers,
 });
 
 module.exports = Logger;
