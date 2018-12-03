@@ -415,6 +415,7 @@ const QueryType = new GraphQLObjectType({
         ageFrom: { type: GraphQLFloat },
         ageTo: { type: GraphQLFloat },
         repIds: { type: new GraphQLList(GraphQLString) },
+        assignStatus: { type: GraphQLString },
       },
       resolve: getProfiles,
     },

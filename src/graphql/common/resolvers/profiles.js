@@ -21,6 +21,7 @@ const profilesQuery = ({
   affiliateId,
   hierarchyUsers,
   repIds,
+  assignStatus,
 }) => [
   queryBuild.ids(hierarchyUsers),
   queryBuild.range('tradingProfile.balance', { gte: tradingBalanceFrom, lte: tradingBalanceTo }),
@@ -37,6 +38,28 @@ const profilesQuery = ({
   queryBuild.match('city', city),
   queryBuild.match('country', countries, { type: 'array' }),
   queryBuild.queryString(['firstName', 'playerUUID', 'email'], searchValue, { prefix: '*', postfix: '*' }),
+  assignStatus === 'UN_ASSIGN' &&
+    queryBuild.should(
+      [
+        queryBuild.must(queryBuild.match('tradingProfile.aquisitionStatus', 'RETENTION')),
+        queryBuild.mustNot(queryBuild.exists('tradingProfile.retentionRep')),
+      ],
+      [
+        queryBuild.must(queryBuild.match('tradingProfile.aquisitionStatus', 'SALES')),
+        queryBuild.mustNot(queryBuild.exists('tradingProfile.salesRep')),
+      ]
+    ),
+  assignStatus === 'ASSIGN' &&
+    queryBuild.should(
+      [
+        queryBuild.must(queryBuild.match('tradingProfile.aquisitionStatus', 'SALES')),
+        queryBuild.must(queryBuild.exists('tradingProfile.salesRep')),
+      ],
+      [
+        queryBuild.must(queryBuild.match('tradingProfile.aquisitionStatus', 'RETENTION')),
+        queryBuild.must(queryBuild.exists('tradingProfile.retentionRep')),
+      ]
+    ),
   queryBuild.filter([
     queryBuild.match('tradingProfile.retentionRep', repIds, { type: 'array' }),
     queryBuild.match('tradingProfile.salesRep', repIds, { type: 'array' }),
