@@ -2,6 +2,7 @@ const { getSearchData, queryBuild, parseToPageable } = require('../../../utils/E
 const { get } = require('lodash');
 const moment = require('moment');
 const accessValidate = require('../../../utils/accessValidate');
+const { statuses, aquisitionStatuses } = require('../../../constants/profile');
 
 const profilesQuery = ({
   balanceFrom,
@@ -22,6 +23,7 @@ const profilesQuery = ({
   hierarchyUsers,
   repIds,
   assignStatus,
+  kycStatus,
 }) => [
   queryBuild.ids(hierarchyUsers),
   queryBuild.range('tradingProfile.balance', { gte: tradingBalanceFrom, lte: tradingBalanceTo }),
@@ -38,25 +40,25 @@ const profilesQuery = ({
   queryBuild.match('city', city),
   queryBuild.match('country', countries, { type: 'array' }),
   queryBuild.queryString(['firstName', 'playerUUID', 'email'], searchValue, { prefix: '*', postfix: '*' }),
-  assignStatus === 'UN_ASSIGN' &&
+  assignStatus === statuses.UN_ASSIGN &&
     queryBuild.should(
       [
-        queryBuild.must(queryBuild.match('tradingProfile.aquisitionStatus', 'RETENTION')),
+        queryBuild.must(queryBuild.match('tradingProfile.aquisitionStatus', aquisitionStatuses.RETENTION)),
         queryBuild.mustNot(queryBuild.exists('tradingProfile.retentionRep')),
       ],
       [
-        queryBuild.must(queryBuild.match('tradingProfile.aquisitionStatus', 'SALES')),
+        queryBuild.must(queryBuild.match('tradingProfile.aquisitionStatus', aquisitionStatuses.SALES)),
         queryBuild.mustNot(queryBuild.exists('tradingProfile.salesRep')),
       ]
     ),
-  assignStatus === 'ASSIGN' &&
+  assignStatus === statuses.ASSIGN &&
     queryBuild.should(
       [
-        queryBuild.must(queryBuild.match('tradingProfile.aquisitionStatus', 'SALES')),
+        queryBuild.must(queryBuild.match('tradingProfile.aquisitionStatus', aquisitionStatuses.SALES)),
         queryBuild.must(queryBuild.exists('tradingProfile.salesRep')),
       ],
       [
-        queryBuild.must(queryBuild.match('tradingProfile.aquisitionStatus', 'RETENTION')),
+        queryBuild.must(queryBuild.match('tradingProfile.aquisitionStatus', aquisitionStatuses.RETENTION)),
         queryBuild.must(queryBuild.exists('tradingProfile.retentionRep')),
       ]
     ),
@@ -64,6 +66,7 @@ const profilesQuery = ({
     queryBuild.match('tradingProfile.retentionRep', repIds, { type: 'array' }),
     queryBuild.match('tradingProfile.salesRep', repIds, { type: 'array' }),
   ]),
+  queryBuild.match('tradingProfile.kycStatus', kycStatus),
 ];
 
 const sortParams = [{ registrationDate: { order: 'desc' } }];
