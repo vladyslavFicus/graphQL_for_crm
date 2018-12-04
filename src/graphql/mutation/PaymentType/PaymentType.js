@@ -77,6 +77,7 @@ const PaymentType = new GraphQLObjectType({
         source: { type: GraphQLString },
         target: { type: GraphQLString },
         externalReference: { type: GraphQLString },
+        expirationDate: { type: GraphQLString },
         country: { type: GraphQLString },
         language: { type: GraphQLString },
       },

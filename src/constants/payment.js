@@ -5,6 +5,8 @@ const PAYMENT_TYPES = {
   CONFISCATE: 'CONFISCATE',
   WITHDRAW: 'WITHDRAW',
   TRANSFER: 'TRANSFER',
+  CREDIT_IN: 'CREDIT_IN',
+  CREDIT_OUT: 'CREDIT_OUT',
 };
 
 const statuses = keyMirror({

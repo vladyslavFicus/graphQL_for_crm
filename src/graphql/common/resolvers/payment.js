@@ -296,6 +296,7 @@ const createClientPayment = async (
     paymentAccount,
     paymentAccountUuid,
     externalReference,
+    expirationDate,
     country,
     language,
     source,
@@ -307,7 +308,9 @@ const createClientPayment = async (
   let casinoPayment = null;
   let tradingArgs = {};
 
-  if (paymentType.toUpperCase() !== PAYMENT_TYPES.TRANSFER) {
+  const typesWithoutCreatePayment = [PAYMENT_TYPES.TRANSFER, PAYMENT_TYPES.CREDIT_IN, PAYMENT_TYPES.CREDIT_OUT];
+
+  if (!typesWithoutCreatePayment.includes(paymentType.toUpperCase())) {
     casinoPayment = await createPayment(
       _,
       {
@@ -365,6 +368,18 @@ const createClientPayment = async (
         profileId,
         source,
         target,
+        ...args,
+      };
+      break;
+    case PAYMENT_TYPES.CREDIT_IN:
+    case PAYMENT_TYPES.CREDIT_OUT:
+      tradingArgs = {
+        profileId,
+        brandId,
+        country,
+        language,
+        login: target,
+        expirationDate,
         ...args,
       };
       break;
