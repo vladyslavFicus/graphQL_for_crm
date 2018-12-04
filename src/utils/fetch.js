@@ -2,6 +2,7 @@ const contextService = require('request-context');
 const HttpError = require('../graphql/HttpError');
 const Logger = require('./logger');
 const parseResponse = require('./parseResponse');
+const { ENABLE_LOGGING } = process.env;
 
 module.exports = function(url, config) {
   const expressRequest = contextService.get('request:req');
@@ -23,11 +24,13 @@ module.exports = function(url, config) {
     }
 
     return response.text().then(res => {
-      // Logger.info({
-      //   message: res,
-      //   url,
-      //   status: response.status,
-      // });
+      if (!!ENABLE_LOGGING) {
+        Logger.info({
+          message: res,
+          url,
+          status: response.status,
+        });
+      }
 
       return new Promise(resolve => {
         resolve({

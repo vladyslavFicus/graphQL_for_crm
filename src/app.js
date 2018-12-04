@@ -9,6 +9,7 @@ const { getHierarchyUserSubtree } = require('./utils/hierarchyRequests');
 const formatError = require('./utils/formatError');
 const Logger = require('./utils/logger');
 const loggerMiddleware = require('./middlewares/logger');
+const { departments } = require('./constants/departments');
 const { ENABLE_LOGGING } = process.env;
 
 process.on('unhandledRejection', err => {
@@ -41,10 +42,11 @@ process.on('uncaughtException', err => {
       if (headers && headers.authorization && headers.authorization !== 'undefined') {
         const { brandId, user_uuid: userUUID, department } = jwtDecode(headers.authorization);
 
-        const isAdministration = department === 'ADMINISTRATION';
+        const isAdministration = department === departments.ADMINISTRATION;
         const hierarchy = new Hierarchy(isAdministration);
 
-        if (!isAdministration) {
+        if (isAdministration && department !== departments.PLAYER) {
+          Logger.info('Getting Hierarchy Subtree');
           const hierarchySubtree = await getHierarchyUserSubtree(userUUID, headers.authorization);
 
           hierarchy.setHierarchySubtree(hierarchySubtree);
@@ -74,5 +76,5 @@ process.on('uncaughtException', err => {
 
   app.use('/player', require('./routes/player'));
 
-  app.listen(global.appConfig.port);
+  app.listen(global.appConfig.port, () => Logger.info('Service started'));
 })();
