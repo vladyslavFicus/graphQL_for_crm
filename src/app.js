@@ -1,3 +1,4 @@
+require('./dotenv');
 const express = require('express');
 const jwtDecode = require('jwt-decode');
 const { apolloUploadExpress } = require('apollo-upload-server');
