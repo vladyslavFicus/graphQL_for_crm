@@ -1,8 +1,13 @@
 const keyMirror = require('keymirror');
 
-const statuses = keyMirror({
+const assignStatuses = keyMirror({
   UN_ASSIGN: null,
   ASSIGN: null,
+});
+
+const firstDepositStatuses = keyMirror({
+  YES: null,
+  NO: null,
 });
 
 const aquisitionStatuses = keyMirror({
@@ -10,4 +15,8 @@ const aquisitionStatuses = keyMirror({
   SALES: null,
 });
 
-module.exports = { statuses, aquisitionStatuses };
+module.exports = {
+  aquisitionStatuses,
+  assignStatuses,
+  firstDepositStatuses,
+};
