@@ -44,6 +44,7 @@ const queryBuild = {
   must: query => ({ must: query }),
   mustNot: query => ({ must_not: query }),
   exists: field => ({ exists: { field } }),
+  bool: query => ({ bool: query }),
   queryString: (searchFields, value, config = {}) =>
     value
       ? {

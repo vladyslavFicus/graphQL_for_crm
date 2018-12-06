@@ -417,6 +417,7 @@ const QueryType = new GraphQLObjectType({
         repIds: { type: new GraphQLList(GraphQLString) },
         assignStatus: { type: GraphQLString },
         kycStatus: { type: GraphQLString },
+        firstDeposit: { type: GraphQLString },
       },
       resolve: getProfiles,
     },

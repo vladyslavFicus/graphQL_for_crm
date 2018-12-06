@@ -2,7 +2,7 @@ const { getSearchData, queryBuild, parseToPageable } = require('../../../utils/E
 const { get } = require('lodash');
 const moment = require('moment');
 const accessValidate = require('../../../utils/accessValidate');
-const { statuses, aquisitionStatuses } = require('../../../constants/profile');
+const { aquisitionStatuses, assignStatuses, firstDepositStatuses } = require('../../../constants/profile');
 
 const profilesQuery = ({
   balanceFrom,
@@ -24,6 +24,7 @@ const profilesQuery = ({
   repIds,
   assignStatus,
   kycStatus,
+  firstDeposit,
 }) => [
   queryBuild.ids(hierarchyUsers),
   queryBuild.range('tradingProfile.balance', { gte: tradingBalanceFrom, lte: tradingBalanceTo }),
@@ -40,7 +41,7 @@ const profilesQuery = ({
   queryBuild.match('city', city),
   queryBuild.match('country', countries, { type: 'array' }),
   queryBuild.queryString(['firstName', 'playerUUID', 'email'], searchValue, { prefix: '*', postfix: '*' }),
-  assignStatus === statuses.UN_ASSIGN &&
+  assignStatus === assignStatuses.UN_ASSIGN &&
     queryBuild.should(
       [
         queryBuild.must(queryBuild.match('tradingProfile.aquisitionStatus', aquisitionStatuses.RETENTION)),
@@ -51,7 +52,7 @@ const profilesQuery = ({
         queryBuild.mustNot(queryBuild.exists('tradingProfile.salesRep')),
       ]
     ),
-  assignStatus === statuses.ASSIGN &&
+  assignStatus === assignStatuses.ASSIGN &&
     queryBuild.should(
       [
         queryBuild.must(queryBuild.match('tradingProfile.aquisitionStatus', aquisitionStatuses.SALES)),
@@ -67,6 +68,9 @@ const profilesQuery = ({
     queryBuild.match('tradingProfile.salesRep', repIds, { type: 'array' }),
   ]),
   queryBuild.match('tradingProfile.kycStatus', kycStatus),
+  firstDeposit === firstDepositStatuses.YES && queryBuild.exists('tradingProfile.firstDepositDate'),
+  firstDeposit === firstDepositStatuses.NO &&
+    queryBuild.bool(queryBuild.mustNot(queryBuild.exists('tradingProfile.firstDepositDate'))),
 ];
 
 const sortParams = [{ registrationDate: { order: 'desc' } }];
