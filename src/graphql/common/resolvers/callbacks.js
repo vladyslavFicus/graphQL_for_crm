@@ -8,6 +8,15 @@ const getPlayerProfileFromESByUUID = require('../../../utils/getPlayerProfileFro
 const getCallbacks = async (_, args, { headers: { authorization }, hierarchy }) => {
   const _args = hierarchy.buildQueryArgs(args, { operatorIds: hierarchy.getOperatorsIds() });
 
+  // If operatorId arg exist and hierarchy exist --> filter by hierarchy ids
+  if (_args.operatorId && _args.operatorIds) {
+    _args.operatorIds = [_args.operatorIds.find(id => id === _args.operatorId)];
+
+    // If administration -> just get a callback
+  } else if (_args.operatorId) {
+    _args.operatorIds = [_args.operatorId];
+  }
+
   const callbacks = await getCallbacksRequest(_args, authorization);
 
   if (callbacks.error || callbacks.jwtError) {
