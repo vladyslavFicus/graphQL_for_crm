@@ -418,6 +418,8 @@ const QueryType = new GraphQLObjectType({
         assignStatus: { type: GraphQLString },
         kycStatus: { type: GraphQLString },
         firstDeposit: { type: GraphQLString },
+        salesStatuses: { type: new GraphQLList(GraphQLString) },
+        retentionStatuses: { type: new GraphQLList(GraphQLString) },
       },
       resolve: getProfiles,
     },
