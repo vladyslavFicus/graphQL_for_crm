@@ -3,7 +3,6 @@ const AuthType = require('./AuthType');
 const ProfileType = require('./ProfileType');
 const NoteType = require('./NoteType');
 const { PaymentType } = require('./PaymentType');
-const PaymentLimitType = require('./PaymentLimit');
 const TagType = require('./TagType');
 const CampaignType = require('./CampaignType');
 const BonusTemplateType = require('./BonusTemplateType');
@@ -46,12 +45,6 @@ const MutationType = new GraphQLObjectType({
     },
     payment: {
       type: PaymentType,
-      resolve() {
-        return {};
-      },
-    },
-    paymentLimit: {
-      type: PaymentLimitType,
       resolve() {
         return {};
       },

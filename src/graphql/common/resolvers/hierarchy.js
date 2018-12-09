@@ -27,7 +27,7 @@ const getHierarchyMappedOperators = async (hierarchyOperators, auth) => {
         return null;
       }
 
-      return { ...item, fullName: `${firstName} ${lastName}` };
+      return { ...item, fullName: [firstName, lastName].filter(v => v).join(' ') };
     })
     .filter(item => item);
 };
