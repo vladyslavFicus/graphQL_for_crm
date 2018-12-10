@@ -474,6 +474,7 @@ const QueryType = new GraphQLObjectType({
         id: { type: GraphQLString },
         statuses: { type: new GraphQLList(CallbackStatusEnum) },
         userId: { type: GraphQLString },
+        operatorId: { type: GraphQLString },
         page: { type: GraphQLInt },
         limit: { type: GraphQLInt },
         callbackTimeFrom: { type: GraphQLString },
