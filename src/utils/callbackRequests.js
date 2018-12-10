@@ -17,7 +17,7 @@ const getCallbacks = (args, authorization) => {
 };
 
 const createCallback = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_callback`, {
+  return fetch(`${global.appConfig.apiUrl}/trading_callback/`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
