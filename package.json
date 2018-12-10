@@ -8,6 +8,9 @@
   "private": true,
   "scripts": {
     "start": "nodemon src/app.js",
+    "start:dev": "APP_ENV=development npm run start",
+    "start:staging": "APP_ENV=staging npm run start",
+    "start:production": "APP_ENV=production npm run start",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test:jenkins": "echo no tests yet"
@@ -29,6 +32,7 @@
     "circular-json": "^0.5.7",
     "compression": "1.7.3",
     "cors": "^2.8.4",
+    "dotenv": "^6.1.0",
     "elasticsearch": "^14.2.2",
     "express": "^4.16.2",
     "form-data": "^2.3.2",
