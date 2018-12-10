@@ -1,6 +1,7 @@
 const {
   getCallbacks: getCallbacksRequest,
   updateCallback: updateCallbackRequest,
+  createCallback: createCallbackRequest,
 } = require('../../../utils/callbackRequests');
 const { getOperatorFromCache } = require('../../../utils/operatorUtils');
 const getPlayerProfileFromESByUUID = require('../../../utils/getPlayerProfileFromESByUUID');
@@ -52,9 +53,20 @@ const updateCallback = async (_, args, { headers: { authorization } }) => {
   return { data: callbacks.content[0] };
 };
 
+const createCallback = async (_, args, { headers: { authorization } }) => {
+  const callback = await createCallbackRequest(args, authorization);
+
+  if (callback.error) {
+    return { error: 'error.create.callback' };
+  }
+
+  return { data: callback };
+};
+
 module.exports = {
   getCallbacks,
   getOperator,
   getClient,
   updateCallback,
+  createCallback,
 };
