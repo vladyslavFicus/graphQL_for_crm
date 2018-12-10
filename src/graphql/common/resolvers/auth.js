@@ -25,9 +25,8 @@ const removeCredentialsLock = function(_, { playerUUID }, { headers: { authoriza
   })
     .then(response => response.text().then(text => ({ status: response.status, text })))
     .then(response => ({ ...response, json: parseJson(response.text) }))
-    .then(
-      response =>
-        response.status === 200 ? { data: { success: true } } : { error: response.json, data: { success: false } }
+    .then(response =>
+      response.status === 200 ? { data: { success: true } } : { error: response.json, data: { success: false } }
     );
 };
 

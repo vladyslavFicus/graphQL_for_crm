@@ -108,8 +108,8 @@ const getOperatorPaymentMethods = function(_, __, { headers: { authorization } }
 
 const createClientPayment = async (
   _,
-  { playerProfile, paymentType, login, externalReference, country, language, source, target, ...args },
-  { headers: { authorization }, brand: { id: brandId } }
+  { playerProfile, paymentType, login, externalReference, country, language, source, target, expirationDate, ...args },
+  { headers: { authorization } }
 ) => {
   let casinoPayment = null;
   let tradingArgs = {};
@@ -175,11 +175,9 @@ const createClientPayment = async (
     case PAYMENT_TYPES.CREDIT_IN:
     case PAYMENT_TYPES.CREDIT_OUT:
       tradingArgs = {
-        profileId,
-        brandId,
-        country,
+        playerProfile,
         language,
-        login: target,
+        login,
         expirationDate,
         ...args,
       };
@@ -213,20 +211,19 @@ const changeStatus = function(_, { playerUUID, paymentId, action, ...args }, { h
       'content-type': 'application/json',
     },
     body: JSON.stringify(args),
-  }).then(
-    response =>
-      response.status === 200
-        ? {
-            data: {
-              uuid: paymentId,
-              status: mapActionToStatus[action],
-            },
-            error: null,
-          }
-        : {
-            data: null,
-            error: 'error.payment.changeStatus',
-          }
+  }).then(response =>
+    response.status === 200
+      ? {
+          data: {
+            uuid: paymentId,
+            status: mapActionToStatus[action],
+          },
+          error: null,
+        }
+      : {
+          data: null,
+          error: 'error.payment.changeStatus',
+        }
   );
 };
 

@@ -78,20 +78,19 @@ const updateRewardPlan = function(_, { playerUUID, type, amount }, { brand: { id
     body: JSON.stringify({
       [typesToUpdate[type]]: amount,
     }),
-  }).then(
-    response =>
-      response.status >= 200 && response.status < 300
-        ? {
-            data: {
-              type,
-              amount,
-            },
-            error: null,
-          }
-        : {
-            data: null,
-            error: 'error.rewardPlan.update',
-          }
+  }).then(response =>
+    response.status >= 200 && response.status < 300
+      ? {
+          data: {
+            type,
+            amount,
+          },
+          error: null,
+        }
+      : {
+          data: null,
+          error: 'error.rewardPlan.update',
+        }
   );
 };
 
