@@ -68,19 +68,18 @@ const deleteFile = function(_, { uuid, playerUUID }, { headers: { authorization 
       authorization,
       'content-type': 'application/json',
     },
-  }).then(
-    response =>
-      response.status >= 200 && response.status < 300
-        ? {
-            data: {
-              uuid,
-            },
-            error: null,
-          }
-        : {
-            data: null,
-            error: 'error.delete.file',
-          }
+  }).then(response =>
+    response.status >= 200 && response.status < 300
+      ? {
+          data: {
+            uuid,
+          },
+          error: null,
+        }
+      : {
+          data: null,
+          error: 'error.delete.file',
+        }
   );
 };
 

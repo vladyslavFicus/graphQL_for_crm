@@ -46,8 +46,8 @@ const removeTag = function(_, { id, playerUUID }, { headers: { authorization } }
       authorization,
       'content-type': 'application/json',
     },
-  }).then(
-    response => (response.status === 200 ? { data: { id }, error: null } : { data: null, error: 'error.note.remove' })
+  }).then(response =>
+    response.status === 200 ? { data: { id }, error: null } : { data: null, error: 'error.note.remove' }
   );
 };
 

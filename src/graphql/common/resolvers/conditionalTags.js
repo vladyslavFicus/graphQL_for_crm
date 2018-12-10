@@ -78,20 +78,19 @@ const disable = function(_, { uuid, ...args }, { headers: { authorization } }) {
       authorization,
       'content-type': 'application/json',
     },
-  }).then(
-    response =>
-      response.status === 200
-        ? {
-            data: {
-              uuid,
-              conditionStatus: 'DISABLED',
-            },
-          }
-        : {
-            error: {
-              error: 'error.conditional_tag.disable',
-            },
-          }
+  }).then(response =>
+    response.status === 200
+      ? {
+          data: {
+            uuid,
+            conditionStatus: 'DISABLED',
+          },
+        }
+      : {
+          error: {
+            error: 'error.conditional_tag.disable',
+          },
+        }
   );
 };
 

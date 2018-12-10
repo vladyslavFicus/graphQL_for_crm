@@ -173,9 +173,11 @@ const CampaignType = new GraphQLObjectType({
           })),
         ];
 
-        fulfillments.filter(f => isSimpleFulfillmentType(f)).map(simpleFulfillment => {
-          allFulfillments.push({ type: simpleFulfillment, uuid: simpleFulfillment });
-        });
+        fulfillments
+          .filter(f => isSimpleFulfillmentType(f))
+          .map(simpleFulfillment => {
+            allFulfillments.push({ type: simpleFulfillment, uuid: simpleFulfillment });
+          });
 
         return fulfillments.map(uuid => allFulfillments.find(i => i.uuid === uuid)).filter(i => i);
       },
