@@ -242,6 +242,23 @@ const getRates = function(_, { brandId }) {
     .then(response => parseJson(response));
 };
 
+const acceptPayment = async function(_, { typeAcc, ...args }, context) {
+  const {
+    headers: { authorization },
+  } = context;
+  const response = await fetch(`${global.appConfig.apiUrl}/trading_payment/${typeAcc}`, {
+    method: 'PUT',
+    headers: {
+      Accept: 'application/json',
+      authorization,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(args),
+  });
+
+  return { data: { success: response.status === 200 } };
+};
+
 module.exports = {
   accumulated: paymentAccumulated,
   getPaymentMethods,
@@ -253,4 +270,5 @@ module.exports = {
   getClientPaymentsStatistic,
   getPaymentStatuses,
   changeStatus,
+  acceptPayment,
 };
