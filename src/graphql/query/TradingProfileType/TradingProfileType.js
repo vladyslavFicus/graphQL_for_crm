@@ -36,6 +36,9 @@ const Mt4UserType = new GraphQLObjectType({
     closedTradeProfit: { type: GraphQLFloat },
     closedTradeAmount: { type: GraphQLFloat },
     name: { type: GraphQLString },
+    margin: { type: GraphQLString },
+    createdBy: { type: GraphQLString },
+    credit: { type: GraphQLString },
   }),
 });
 

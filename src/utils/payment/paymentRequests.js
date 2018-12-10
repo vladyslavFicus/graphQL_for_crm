@@ -79,7 +79,7 @@ const getClientPaymentsStatistic = ({ playerUUID, ...args }, authorization) => {
 const createTradingPayment = (paymentType, args, authorization) => {
   let postfix = null;
 
-  if (paymentType === PAYMENT_TYPES.WITHDRAW) {
+  if (paymentType.toLowerCase() === PAYMENT_TYPES.WITHDRAW.toLowerCase()) {
     postfix = '/manual';
   }
 
