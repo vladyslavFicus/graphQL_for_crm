@@ -25,6 +25,8 @@ const profilesQuery = ({
   assignStatus,
   kycStatus,
   firstDeposit,
+  salesStatuses,
+  retentionStatuses,
 }) => [
   queryBuild.ids(hierarchyUsers),
   queryBuild.range('tradingProfile.balance', { gte: tradingBalanceFrom, lte: tradingBalanceTo }),
@@ -71,6 +73,16 @@ const profilesQuery = ({
   firstDeposit === firstDepositStatuses.YES && queryBuild.exists('tradingProfile.firstDepositDate'),
   firstDeposit === firstDepositStatuses.NO &&
     queryBuild.bool(queryBuild.mustNot(queryBuild.exists('tradingProfile.firstDepositDate'))),
+  salesStatuses &&
+    queryBuild.should([
+      queryBuild.must(queryBuild.match('tradingProfile.aquisitionStatus', aquisitionStatuses.SALES)),
+      queryBuild.must(queryBuild.match('tradingProfile.salesStatus', salesStatuses)),
+    ]),
+  retentionStatuses &&
+    queryBuild.should([
+      queryBuild.must(queryBuild.match('tradingProfile.aquisitionStatus', aquisitionStatuses.RETENTION)),
+      queryBuild.must(queryBuild.match('tradingProfile.retentionStatus', retentionStatuses)),
+    ]),
 ];
 
 const sortParams = [{ registrationDate: { order: 'desc' } }];
