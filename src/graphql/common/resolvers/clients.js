@@ -113,7 +113,7 @@ const bulkRepresentativeUpdate = async (
         uuid,
         userType: userTypes.CUSTOMER,
         parentUsers: [retentionRep || salesRep],
-        ...(parentBranches && parentBranches[0] && { parentBranches: [parentBranches[0]] }),
+        ...(parentBranches && parentBranches[0] && { parentBranches: [parentBranches[0].uuid] }),
       }));
     } else {
       hierarchyParams = null;

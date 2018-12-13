@@ -54,6 +54,7 @@ process.on('uncaughtException', err => {
         }
 
         Object.assign(context, {
+          userUUID,
           brand: global.appConfig.brands[brandId],
           hierarchy,
         });
