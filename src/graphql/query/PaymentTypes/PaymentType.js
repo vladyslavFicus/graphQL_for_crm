@@ -81,7 +81,6 @@ const PaymentType = new GraphQLObjectType({
       creationTime: { type: new GraphQLNonNull(GraphQLString) },
       paymentMethod: { type: GraphQLString },
       paymentAggregator: { type: GraphQLString },
-      accountType: { type: GraphQLString },
       amount: { type: GraphQLString },
       country: { type: GraphQLString },
       language: { type: GraphQLString },
