@@ -50,6 +50,7 @@ const paymentAccumulated = function(_, { playerUUID }, { headers: { authorizatio
 
 const getClientPayments = async (_, args, { headers: { authorization }, hierarchy }) => {
   const _args = hierarchy.buildQueryArgs(args, { profileIds: hierarchy.getCustomerIds() });
+
   const tradingPayments = await getTradingPaymentsQuery(_args, authorization);
 
   if (tradingPayments.jwtError || tradingPayments.error) {
@@ -61,7 +62,7 @@ const getClientPayments = async (_, args, { headers: { authorization }, hierarch
   };
 };
 
-const getClientPaymentsByUuid = async (_, { playerUUID, args }, { headers: { authorization } }) => {
+const getClientPaymentsByUuid = async (_, { playerUUID, ...args }, { headers: { authorization } }) => {
   const tradingPayments = await getTradingPaymentsQuery({ profileIds: [playerUUID], ...args }, authorization);
 
   if (tradingPayments.jwtError || tradingPayments.error) {
