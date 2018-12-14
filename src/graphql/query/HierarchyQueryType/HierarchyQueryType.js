@@ -4,7 +4,7 @@ const {
   HierarchyUsersType,
   HierarchyUsersType: { UserType },
   HierarchyBranchType,
-  HierarchyBranchType: { HierarchyMultiBranchesType },
+  HierarchyBranchType: { HierarchyMultiBranchesType, HierarchyBranchTreeType },
 } = require('./HierarchyType');
 const ResponseType = require('../../common/types/ResponseType');
 const {
@@ -12,6 +12,8 @@ const {
   getUsersByType,
   getBranchInfo,
   getBranchHierarchy,
+  getBranchHierarchyTree,
+  getUserHierarchy,
   getUsersByBranch,
   getBranchChildren,
 } = require('../../../graphql/common/resolvers/hierarchy');
@@ -41,6 +43,10 @@ const HierarchyQueryType = new GraphQLObjectType({
       type: ResponseType(HierarchyBranchType),
       resolve: getBranchInfo,
     },
+    userHierarchy: {
+      type: ResponseType(UserType, 'UserHierarchy'),
+      resolve: getUserHierarchy,
+    },
     branchHierarchy: {
       args: {
         operatorId: { type: new GraphQLNonNull(GraphQLString) },
@@ -54,6 +60,13 @@ const HierarchyQueryType = new GraphQLObjectType({
       },
       type: ResponseType(new GraphQLList(HierarchyMultiBranchesType), 'HierarchyMultiBranches'),
       resolve: getBranchHierarchy,
+    },
+    branchHierarchyTree: {
+      args: {
+        branchUUID: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      type: ResponseType(HierarchyBranchTreeType, 'BranchHierarchyTree'),
+      resolve: getBranchHierarchyTree,
     },
     usersByBranch: {
       args: {

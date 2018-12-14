@@ -6,6 +6,7 @@ const {
   createBranch,
   getHierarchyUser,
   getHierarchyBranch,
+  getBranchHierarchyTree: getBranchHierarchyTreeQuery,
   getUserBranchHierarchy: getUserBranchHierarchyQuery,
   getUsersByType: getUsersByTypeQuery,
   getBranchHierarchy: getBranchHierarchyQuery,
@@ -74,12 +75,12 @@ const createOffice = async (_, { operatorId, officeManager, ...args }, { headers
   const updateManagerParams = {
     operatorId: officeManager,
     userType: managerType,
-    parentBranches: [...managerBranches, office.uuid],
+    parentBranches: [...managerBranches.map(({ uuid }) => uuid), office.uuid],
   };
   const updateOperatorParams = {
     operatorId,
     userType,
-    parentBranches: [...parentBranches, office.uuid],
+    parentBranches: [...parentBranches.map(({ uuid }) => uuid), office.uuid],
   };
 
   const { succeed, errors } = await multipleRequest([
@@ -135,7 +136,7 @@ const createDesk = async (_, { operatorId, officeId, ...args }, { headers: { aut
   const updateOperatorParams = {
     operatorId,
     userType,
-    parentBranches: [...parentBranches, deskInfo.uuid],
+    parentBranches: [...parentBranches.map(({ uuid }) => uuid), deskInfo.uuid],
   };
   const updateDeskParams = {
     ...deskInfo,
@@ -195,7 +196,7 @@ const createTeam = async (_, { operatorId, deskId, ...args }, { headers: { autho
   const updateOperatorParams = {
     operatorId,
     userType,
-    parentBranches: [...parentBranches, teamInfo.uuid],
+    parentBranches: [...parentBranches.map(({ uuid }) => uuid), teamInfo.uuid],
   };
   const updateTeamParams = {
     ...teamInfo,
@@ -262,6 +263,30 @@ const getBranchHierarchy = async (_, args, { headers: { authorization } }) => {
   return { data: hierarchy };
 };
 
+const getBranchHierarchyTree = async (_, { branchUUID }, { headers: { authorization } }) => {
+  const data = await getBranchHierarchyTreeQuery(branchUUID, authorization);
+
+  if (data.error || data.jwtError) {
+    return { error: data };
+  }
+
+  return { data };
+};
+
+const getOperator = ({ uuid }, _, { headers: { authorization } }) => {
+  return getOperatorFromCache(uuid, authorization);
+};
+
+const getUserHierarchy = async (_, __, { headers: { authorization }, userUUID }) => {
+  const data = await getHierarchyUser(userUUID, authorization);
+
+  if (data.error || data.jwtError) {
+    return { error: data };
+  }
+
+  return { data };
+};
+
 const getUsersByBranch = async (_, { uuid }, { headers: { authorization } }) => {
   const users = await getUsersByBranchQuery(uuid, authorization);
 
@@ -292,10 +317,13 @@ module.exports = {
   createOffice,
   createDesk,
   createTeam,
+  getUserHierarchy,
   getUserBranchHierarchy,
   getUsersByType,
   getBranchInfo,
   getBranchHierarchy,
+  getBranchHierarchyTree,
   getUsersByBranch,
   getBranchChildren,
+  getOperator,
 };
