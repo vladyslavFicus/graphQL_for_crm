@@ -163,7 +163,8 @@ const getLeadProfile = async (_, { leadId }, { headers: { authorization } }) => 
   };
 };
 
-const getTradingLeads = async (_, args, { headers: { authorization }, brand: { id: brandId } }) => {
+const getTradingLeads = async (_, args, { headers: { authorization }, brand: { id: brandId }, hierarchy }) => {
+  const _args = hierarchy.buildQueryArgs(args, { ids: hierarchy.getLeadCustomersIds() });
   const leads = await leadsQuery({ ...args, brandId }, authorization);
 
   if (leads.error || leads.jwtError) {
