@@ -46,7 +46,7 @@ process.on('uncaughtException', err => {
         const isAdministration = department === departments.ADMINISTRATION;
         const hierarchy = new Hierarchy(isAdministration);
 
-        if (!isAdministration && department !== departments.PLAYER) {
+        if (department !== departments.PLAYER) {
           Logger.info('Getting Hierarchy Subtree');
           const hierarchySubtree = await getHierarchyUserSubtree(userUUID, headers.authorization);
 

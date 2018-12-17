@@ -2,9 +2,8 @@ const { values, omit, pick, flatten } = require('lodash');
 const { userTypes } = require('../constants/hierarchy');
 
 class Hierarchy {
-  constructor(isAdministration = false) {
+  constructor() {
     this.types = this._initPrimaryTypes();
-    this.isAdministration = isAdministration;
 
     return this;
   }
@@ -95,6 +94,7 @@ class Hierarchy {
   }
 
   /**
+   * FAST FIX removed dependency on isAdministration
    * Helper method for build query args depends on isAdministration flag
    * Example:
    *
@@ -115,10 +115,6 @@ class Hierarchy {
    * @return {{}}
    */
   buildQueryArgs(args, filter) {
-    if (this.isAdministration) {
-      return args;
-    }
-
     return { ...args, ...filter };
   }
 }
