@@ -62,10 +62,10 @@ const bulkLeadPromote = async (
     registrationDateStart,
     salesStatus,
     leadIds,
-    queryIds,
   },
-  { headers: { authorization }, brand: { id: brandId, currency } }
+  { headers: { authorization }, brand: { id: brandId, currency }, hierarchy }
 ) => {
+  const queryIds = allRecords ? hierarchy.getLeadCustomersIds() : leadIds;
   const leadsArguments = pickBy({
     limit: totalRecords,
     brandId,
