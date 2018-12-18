@@ -125,6 +125,15 @@ const getProfile = async function(_, { playerUUID }, context) {
   const response = await getPlayerProfileFromESByUUID(context.brand.id, playerUUID);
   const error = get(response, 'error');
 
+  // Polling if HRZN profile is not created yet
+  if (!response.playerUUID) {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve(getProfile(_, { playerUUID }, context));
+      }, 1000);
+    });
+  }
+
   if (!error) {
     return { data: response };
   }
