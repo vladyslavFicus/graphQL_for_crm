@@ -10,7 +10,8 @@ const {
 } = require('graphql');
 const moment = require('moment');
 
-const { MoneyType } = require('../../common/types');
+const { getClientPaymentOriginalAgent } = require('../../common/resolvers/payment');
+const OperatorType = require('../OperatorType');
 const PaymentStatusType = require('./PaymentStatusType');
 
 const PaymentMethodLimitType = new GraphQLObjectType({
@@ -87,6 +88,10 @@ const PaymentType = new GraphQLObjectType({
       brandId: { type: GraphQLString },
       externalReference: { type: GraphQLString },
       playerProfile: { type: PaymentPlayerType },
+      originalAgent: {
+        type: OperatorType,
+        resolve: getClientPaymentOriginalAgent,
+      },
       paymentMetadata: { type: PaymentMetadata },
     };
   },
