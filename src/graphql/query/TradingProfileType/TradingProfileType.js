@@ -67,6 +67,7 @@ const TradingProfileType = new GraphQLObjectType({
       resolve: representativeResolver('kycRep'),
     },
     balance: { type: GraphQLString },
+    credit: { type: GraphQLString },
     equity: { type: GraphQLString },
     baseCurrencyBalance: { type: GraphQLString },
     baseCurrencyEquity: { type: GraphQLString },
