@@ -60,7 +60,7 @@ const logResponse = (response, requestId, { query, variables, operationName }, s
 
 module.exports = graphqlLogger = (
   options = {
-    logging: true,
+    logging: graphqlLogger,
     pretty: true,
   }
 ) => {

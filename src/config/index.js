@@ -19,5 +19,5 @@ module.exports = {
     host: new URL(platform.logstash.url).hostname,
     port: 12201,
   },
-  elasticsearch: platform.elasticsearch,
+  elasticsearch: platform.elasticsearch6,
 };
