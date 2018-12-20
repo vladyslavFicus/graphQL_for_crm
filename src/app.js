@@ -11,7 +11,6 @@ const formatError = require('./utils/formatError');
 const Logger = require('./utils/logger');
 const loggerMiddleware = require('./middlewares/logger');
 const { departments } = require('./constants/departments');
-const { ENABLE_LOGGING } = process.env;
 
 process.on('unhandledRejection', err => {
   Logger.fatal({ err }, 'Unhandled rejection');
@@ -32,7 +31,7 @@ process.on('uncaughtException', err => {
     bodyParser.json(),
     apolloUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }),
     loggerMiddleware({
-      logging: !!ENABLE_LOGGING,
+      logging: global.isLoggingEnabled,
     }),
     graphqlExpress(async ({ headers, ip }) => {
       const context = {

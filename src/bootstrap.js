@@ -7,6 +7,7 @@ const elasticsearch = require('elasticsearch');
 const parseElasticSearchHosts = require('./utils/parseElasticSearchHosts');
 const getZookeeperBrandsConfig = require('./config/zookeeper');
 const Logger = require('./utils/logger');
+const { ENABLE_LOGGING } = process.env;
 
 module.exports = async app => {
   app.disable('x-powered-by');
@@ -16,6 +17,7 @@ module.exports = async app => {
   global.appConfig.brands = await getZookeeperBrandsConfig();
   global.appClients = {};
   global.cache = { operators: {} };
+  global.isLoggingEnabled = !!(ENABLE_LOGGING && ENABLE_LOGGING === 'true');
 
   const elasticSearchUrl = get(global, 'appConfig.elasticsearch.url');
   if (elasticSearchUrl) {
