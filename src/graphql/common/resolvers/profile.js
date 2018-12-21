@@ -3,6 +3,7 @@ const { get } = require('lodash');
 const fetch = require('../../../utils/fetch');
 const accessValidate = require('../../../utils/accessValidate');
 const parseJson = require('../../../utils/parseJson');
+const { updateQueryTradingProfile, updateQueryProfile } = require('../../../utils/profile');
 const getPlayerProfileFromESByUUID = require('../../../utils/getPlayerProfileFromESByUUID');
 const { statuses } = require('../../../constants/player');
 
@@ -365,27 +366,28 @@ const markIsTest = async function(_, { playerUUID, isTest }, { headers: { author
   };
 };
 
-const updateProfile = function(_, { playerUUID, ...args }, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/profile/profiles/${playerUUID}`, {
-    method: 'PUT',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      authorization,
+const updateProfile = async function(_, { playerUUID, ...args }, { headers: { authorization }, brand }) {
+  const { phone1, phone2, ...dataProfile } = args;
+
+  const updateProfile = await updateQueryProfile(dataProfile, playerUUID, authorization);
+  const updateTradingProfile = await updateQueryTradingProfile(
+    {
+      phone1,
+      phone2,
+      profileId: playerUUID,
+      brandId: brand.id,
     },
-    body: JSON.stringify(args),
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => ({
-      data: !response.error
-        ? {
-            playerUUID,
-            ...response,
-          }
-        : null,
-      error: response.error || null,
-    }));
+    authorization
+  );
+
+  return {
+    data: {
+      ...args,
+      playerUUID,
+      tradingProfile: { phone1, phone2 },
+      error: updateProfile.error || updateTradingProfile.error || null,
+    },
+  };
 };
 
 module.exports = {

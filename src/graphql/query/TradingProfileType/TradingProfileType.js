@@ -82,6 +82,8 @@ const TradingProfileType = new GraphQLObjectType({
     closedTradeAmount: { type: GraphQLFloat },
     margin: { type: GraphQLFloat },
     marginLevel: { type: GraphQLFloat },
+    phone1: { type: GraphQLString },
+    phone2: { type: GraphQLString },
   }),
 });
 
