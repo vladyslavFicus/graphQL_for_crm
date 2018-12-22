@@ -1,29 +1,34 @@
 const zookeeper = require('node-zookeeper-client');
-const _ = require('lodash');
-const { application, platform } = require('./core');
+const { getData, getChildren, configure } = require('@hrzn/zookeeper');
+const Logger = require('../utils/logger');
+const { platform } = require('./core');
 
 let configs;
-const apiUrl = _.get(platform, 'hrzn.api_url');
-const defaultBaseUrl = `${apiUrl}/${application.baseUrl}`;
 
 function getZookeeperBrandPropertyPath(brand, property) {
   return `/system/${brand}/nas/brand/${property}`;
 }
 
 async function fetchBrandsConfigs() {
-  const brands = _.get(platform, 'hrzn.brands', []);
-  const zkGetData = require('../utils/zookeeperGetData');
+  configure({ logger: e => Logger.info({ message: `Zookeeper.Event: ${e}` }) });
+
   const zookeeperClient = zookeeper.createClient(platform.zookeeper.url);
 
   zookeeperClient.connect();
 
+  const brands = await getChildren(zookeeperClient, '/system');
+
   const nextBrands = await Promise.all(
     brands.map(async id => {
-      const currency = await zkGetData(zookeeperClient, getZookeeperBrandPropertyPath(id, 'nas.brand.currencies.base'));
+      const [currency, locale] = await Promise.all([
+        getData(zookeeperClient, getZookeeperBrandPropertyPath(id, 'nas.brand.currencies.base')),
+        getData(zookeeperClient, getZookeeperBrandPropertyPath(id, 'nas.brand.locale.defaultLanguage')),
+      ]);
 
       return {
         id,
         currency,
+        locale,
       };
     })
   );
