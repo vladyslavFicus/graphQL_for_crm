@@ -30,7 +30,7 @@ const leadCsvUpload = async (_, { file }, { headers: { authorization }, brand: {
 
   if (leads.error) {
     return {
-      error: { ...leads },
+      error: { ...leads.error },
     };
   }
 
