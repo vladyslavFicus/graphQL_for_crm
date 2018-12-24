@@ -83,8 +83,6 @@ const profilesQuery = ({
       queryBuild.must(queryBuild.match('tradingProfile.aquisitionStatus', aquisitionStatuses.RETENTION)),
       queryBuild.must(queryBuild.match('tradingProfile.retentionStatus', retentionStatuses)),
     ]),
-  // temprorary hack
-  queryBuild.exists('tradingProfile.isTestUser'),
 ];
 
 const sortParams = [{ registrationDate: { order: 'desc' } }];
