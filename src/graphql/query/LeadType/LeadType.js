@@ -1,5 +1,7 @@
 const { GraphQLString, GraphQLNonNull, GraphQLObjectType } = require('graphql');
+const OperatorType = require('../OperatorType');
 const { SalesStatusesEnum } = require('../TradingProfileType/TradingProfileEnums');
+const { getOperatorFromCache } = require('../../../utils/operatorUtils');
 
 const LeadType = new GraphQLObjectType({
   name: 'Lead',
@@ -14,7 +16,10 @@ const LeadType = new GraphQLObjectType({
     email: { type: new GraphQLNonNull(GraphQLString) },
     country: { type: GraphQLString },
     source: { type: GraphQLString },
-    salesAgent: { type: GraphQLString },
+    salesAgent: {
+      type: OperatorType,
+      resolve: ({ salesAgent }, _, { headers: { authorization } }) => getOperatorFromCache(salesAgent, authorization),
+    },
     salesStatus: { type: SalesStatusesEnum },
     birthDate: { type: GraphQLString },
     affiliate: { type: GraphQLString },
