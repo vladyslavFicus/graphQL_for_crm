@@ -45,23 +45,23 @@ const Mt4UserType = new GraphQLObjectType({
 const TradingProfileType = new GraphQLObjectType({
   name: 'TradingProfile',
   fields: () => ({
-    isTestUser: { type: new GraphQLNonNull(GraphQLBoolean) },
+    isTestUser: { type: GraphQLBoolean },
     aquisitionRep: {
       type: OperatorType,
       resolve: representativeResolver('aquisitionRep'),
     },
-    aquisitionStatus: { type: new GraphQLNonNull(AquisitionStatusesEnum) },
+    aquisitionStatus: { type: AquisitionStatusesEnum },
     kycStatus: { type: KYCStatusesEnum },
     salesRep: {
       type: OperatorType,
       resolve: representativeResolver('salesRep'),
     },
-    salesStatus: { type: new GraphQLNonNull(SalesStatusesEnum) },
+    salesStatus: { type: SalesStatusesEnum },
     retentionRep: {
       type: OperatorType,
       resolve: representativeResolver('retentionRep'),
     },
-    retentionStatus: { type: new GraphQLNonNull(RetentionStatusesEnum) },
+    retentionStatus: { type: RetentionStatusesEnum },
     kycRep: {
       type: OperatorType,
       resolve: representativeResolver('kycRep'),
