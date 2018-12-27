@@ -391,8 +391,8 @@ const updateProfile = async function(_, { playerUUID, ...args }, { headers: { au
         phone1,
         phone2,
       },
-      error: updateProfile.error || updateTradingProfile.error || null,
     },
+    error: updateProfile.error || updateTradingProfile.error || null,
   };
 };
 
