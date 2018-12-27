@@ -1,5 +1,5 @@
 const moment = require('moment');
-const { get } = require('lodash');
+const { get, isEmpty } = require('lodash');
 const fetch = require('../../../utils/fetch');
 const accessValidate = require('../../../utils/accessValidate');
 const parseJson = require('../../../utils/parseJson');
@@ -127,7 +127,7 @@ const getProfile = async function(_, { playerUUID }, context) {
   const error = get(response, 'error');
 
   // Polling if HRZN profile is not created yet
-  if (!response.playerUUID) {
+  if (!response.playerUUID || isEmpty(response.tradingProfile)) {
     return new Promise(resolve => {
       setTimeout(() => {
         resolve(getProfile(_, { playerUUID }, context));
