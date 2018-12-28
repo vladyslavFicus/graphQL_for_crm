@@ -1,7 +1,8 @@
-const { pickBy } = require('lodash');
+const { pickBy, omit } = require('lodash');
 const fetch = require('../../../utils/fetch');
 const parseJson = require('../../../utils/parseJson');
 const buildQueryString = require('../../../utils/buildQueryString');
+const { createQueryHrznProfile, createQueryTradingProfile } = require('../../../utils/profile');
 
 const leadsQuery = (args, authorization) => {
   return fetch(`${global.appConfig.apiUrl}/trading_lead_updater/search?${buildQueryString(args)}`, {
@@ -31,24 +32,26 @@ const getLeadById = (leadId, authorization) => {
     .then(response => response);
 };
 
-const promoteLead = ({ brandId, ...args }, authorization) => {
-  let status = null;
+const promoteLead = async args => {
+  const profile = await createQueryHrznProfile(omit(args, ['phone']));
 
-  return fetch(`${global.appConfig.apiUrl}/profile/public/signup?${buildQueryString({ brandId })}`, {
-    method: 'POST',
-    headers: {
-      authorization,
-      accept: 'application/json',
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify({ brandId, ...args }),
-  })
-    .then(response => {
-      status = response.status;
-      return response.text();
-    })
-    .then(response => parseJson(response))
-    .then(data => ({ status, data }));
+  if (profile.status !== 200) {
+    return profile;
+  }
+
+  const tradingProfile = await createQueryTradingProfile({
+    profileId: profile.data.playerUUID,
+    brandId: args.brandId,
+    email: args.email,
+    phone1: args.phone,
+    languageCode: args.languageCode,
+  });
+
+  if (tradingProfile.status !== 200) {
+    return tradingProfile;
+  }
+
+  return profile;
 };
 
 const bulkLeadPromote = async (
@@ -91,7 +94,7 @@ const bulkLeadPromote = async (
   const leadsToPromote =
     allRecords && leadIds.length > 0 ? content.filter(item => leadIds.indexOf(item.id) === -1) : content;
 
-  leadsToPromote.forEach(({ email, name, surname, country, city, phoneNumber, phoneCode, language }) => {
+  leadsToPromote.forEach(({ email, name, surname, country, city, phone, language }) => {
     const request = promoteLead(
       {
         password: `A${Math.random().toString(36)}1#`,
@@ -102,8 +105,7 @@ const bulkLeadPromote = async (
         brandId,
         city,
         currency,
-        phoneCode,
-        phone: phoneNumber,
+        phone,
         languageCode: language,
       },
       authorization
@@ -139,11 +141,11 @@ const updateLead = ({ id, ...args }, authorization) => {
   });
 };
 
-const promoteLeadToClient = async (_, args, { headers: { authorization }, brand: { currency } }) => {
-  const { status, data } = await promoteLead({ currency, ...args }, authorization);
+const promoteLeadToClient = async (_, args, { brand: { id: brandId, currency } }) => {
+  const { status, data, error } = await promoteLead({ brandId, currency, ...args });
 
   if (status !== 200) {
-    return { error: data };
+    return { error };
   }
 
   return { data };
@@ -178,8 +180,8 @@ const getTradingLeads = async (_, args, { headers: { authorization }, brand: { i
   };
 };
 
-const updateLeadProfile = async (_, args, { headers: { authorization } }) => {
-  const { status, data } = await updateLead(args, authorization);
+const updateLeadProfile = async (_, args, { headers: { authorization }, brand: { id: brandId } }) => {
+  const { status, data } = await updateLead({ brandId, ...args }, authorization);
 
   if (status !== 200) {
     return {

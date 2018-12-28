@@ -380,13 +380,19 @@ const updateProfile = async function(_, { playerUUID, ...args }, { headers: { au
     authorization
   );
 
+  const profile = await getPlayerProfileFromESByUUID(brand.id, playerUUID);
+
   return {
     data: {
+      ...profile,
       ...args,
-      playerUUID,
-      tradingProfile: { phone1, phone2 },
-      error: updateProfile.error || updateTradingProfile.error || null,
+      tradingProfile: {
+        ...profile.tradingProfile,
+        phone1,
+        phone2,
+      },
     },
+    error: updateProfile.error || updateTradingProfile.error || null,
   };
 };
 
