@@ -4,6 +4,10 @@ const { SalesStatusesEnum } = require('../TradingProfileType/TradingProfileEnums
 const { getOperatorFromCache } = require('../../../utils/operatorUtils');
 
 const leadFields = {
+  _id: {
+    type: new GraphQLNonNull(GraphQLString),
+    resolve: ({ id }) => id,
+  },
   id: { type: new GraphQLNonNull(GraphQLString) },
   brandId: { type: new GraphQLNonNull(GraphQLString) },
   name: { type: new GraphQLNonNull(GraphQLString) },

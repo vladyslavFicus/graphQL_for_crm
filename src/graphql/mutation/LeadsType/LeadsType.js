@@ -11,6 +11,7 @@ const {
 } = require('../../common/resolvers');
 const { ResponseType } = require('../../common/types');
 const { SalesStatusesEnum } = require('../../query/TradingProfileType/TradingProfileEnums');
+const LeadType = require('../../query/LeadType');
 
 const PromotedLeadType = new GraphQLObjectType({
   name: 'PromotedLeadType',
@@ -35,7 +36,7 @@ const LeadsMutation = new GraphQLObjectType({
         gender: { type: GraphQLString },
         city: { type: GraphQLString },
       },
-      type: ResponseType(GraphQLBoolean),
+      type: ResponseType(LeadType, 'UpdateLeadType'),
       resolve: updateLeadProfile,
     },
     promote: {
@@ -45,7 +46,7 @@ const LeadsMutation = new GraphQLObjectType({
         firstName: { type: new GraphQLNonNull(GraphQLString) },
         lastName: { type: new GraphQLNonNull(GraphQLString) },
         country: { type: new GraphQLNonNull(GraphQLString) },
-        city: { type: new GraphQLNonNull(GraphQLString) },
+        city: { type: GraphQLString },
         phone: { type: new GraphQLNonNull(GraphQLString) },
         languageCode: { type: new GraphQLNonNull(GraphQLString) },
       },

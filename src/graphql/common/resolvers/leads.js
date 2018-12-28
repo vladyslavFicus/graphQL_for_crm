@@ -116,9 +116,9 @@ const bulkLeadPromote = async (
 
   const results = await Promise.all(promises);
   const result = results.reduce(
-    (acc, { data, status }) => ({
+    (acc, { data, error, status }) => ({
       ...acc,
-      ...(status === 200 ? { data: [...acc.data, data.playerUUID] } : { errors: [...acc.errors, data] }),
+      ...(status === 200 ? { data: [...acc.data, data.playerUUID] } : { errors: [...acc.errors, error] }),
     }),
     { data: [], errors: [] }
   );
@@ -189,8 +189,10 @@ const updateLeadProfile = async (_, args, { headers: { authorization }, brand: {
     };
   }
 
+  const lead = await getLeadById(args.id, authorization);
+
   return {
-    data: status === 200,
+    data: lead,
   };
 };
 
