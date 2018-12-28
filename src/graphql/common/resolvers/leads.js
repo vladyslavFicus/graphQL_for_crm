@@ -1,36 +1,7 @@
-const { pickBy, omit } = require('lodash');
-const fetch = require('../../../utils/fetch');
-const parseJson = require('../../../utils/parseJson');
-const buildQueryString = require('../../../utils/buildQueryString');
+const { pickBy, omit, isEmpty } = require('lodash');
 const { createQueryHrznProfile, createQueryTradingProfile } = require('../../../utils/profile');
-
-const leadsQuery = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_lead_updater/search?${buildQueryString(args)}`, {
-    method: 'GET',
-    headers: {
-      authorization,
-      accept: 'application/json',
-      'content-type': 'application/json',
-    },
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => response);
-};
-
-const getLeadById = (leadId, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_lead_updater/${leadId}`, {
-    method: 'GET',
-    headers: {
-      authorization,
-      accept: 'application/json',
-      'content-type': 'application/json',
-    },
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => response);
-};
+const { getLeads, getLeadById, updateLead } = require('../../../utils/leadRequests');
+const { bulkMassAssignHierarchyUser } = require('../../../utils/hierarchyRequests');
 
 const promoteLead = async args => {
   const profile = await createQueryHrznProfile(omit(args, ['phone']));
@@ -82,7 +53,7 @@ const bulkLeadPromote = async (
     }),
   });
 
-  const { error, content, jwtError } = await leadsQuery(leadsArguments, authorization);
+  const { error, content, jwtError } = await getLeads(leadsArguments, authorization);
 
   if (error || jwtError) {
     return {
@@ -126,19 +97,69 @@ const bulkLeadPromote = async (
   return result;
 };
 
-const updateLead = ({ id, ...args }, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_lead/lead/${id}`, {
-    method: 'PUT',
-    headers: {
-      authorization,
-      accept: 'application/json',
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify(args),
-  }).then(async response => {
-    const data = await response.text();
-    return { status: response.status, data: parseJson(data) };
+const getIds = async ({ allRowsSelected, totalElements, leadIds, ...searchParams }, { authorization, brandId }) => {
+  console.log('searchParams', searchParams);
+  if (allRowsSelected) {
+    const queryParams = {
+      page: 1,
+      size: totalElements,
+      brandId,
+      ...(!isEmpty(searchParams) && searchParams),
+    };
+    console.log('queryParams', queryParams);
+    const idsForUpdate = await getLeads(queryParams, authorization);
+
+    if (idsForUpdate.error || idsForUpdate.jwtError) {
+      return { error: idsForUpdate };
+    }
+
+    return leadIds.length > 0 ? idsForUpdate.filter(id => !leadIds.includes(id)) : idsForUpdate;
+  }
+
+  return leadIds;
+};
+
+const bulkLeadUpdate = async (
+  _,
+  {
+    allRecords,
+    totalRecords,
+    countries,
+    searchKeyword,
+    registrationDateEnd,
+    registrationDateStart,
+    salesStatus,
+    leadIds,
+  },
+  { headers: { authorization }, brand: { id: brandId } }
+) => {
+  // console.log('DITCH');
+  console.log('ARGS', {
+    allRecords,
+    totalRecords,
+    countries,
+    searchKeyword,
+    registrationDateEnd,
+    registrationDateStart,
+    salesStatus,
+    leadIds,
   });
+  const getUpdateIds = await getIds(
+    {
+      allRecords,
+      totalRecords,
+      countries,
+      searchKeyword,
+      registrationDateEnd,
+      registrationDateStart,
+      salesStatus,
+      leadIds,
+    },
+    { authorization, brandId }
+  );
+
+  console.log('getUpdateIds', getUpdateIds);
+  // const request = await bulkMassAssignHierarchyUser(args, authorization);
 };
 
 const promoteLeadToClient = async (_, args, { brand: { id: brandId, currency } }) => {
@@ -167,7 +188,7 @@ const getLeadProfile = async (_, { leadId }, { headers: { authorization } }) => 
 
 const getTradingLeads = async (_, args, { headers: { authorization }, brand: { id: brandId }, hierarchy }) => {
   const _args = hierarchy.buildQueryArgs(args, { ids: hierarchy.getLeadCustomersIds() });
-  const leads = await leadsQuery({ ...args, brandId }, authorization);
+  const leads = await getLeads({ ..._args, brandId }, authorization);
 
   if (leads.error || leads.jwtError) {
     return {
@@ -200,6 +221,7 @@ module.exports = {
   getTradingLeads,
   getLeadProfile,
   bulkLeadPromote,
+  bulkLeadUpdate,
   promoteLeadToClient,
   updateLeadProfile,
 };

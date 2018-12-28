@@ -7,7 +7,7 @@ const {
   GraphQLNonNull,
 } = require('graphql');
 const {
-  leads: { bulkLeadPromote, promoteLeadToClient, updateLeadProfile },
+  leads: { bulkLeadPromote, bulkLeadUpdate, promoteLeadToClient, updateLeadProfile },
 } = require('../../common/resolvers');
 const { ResponseType } = require('../../common/types');
 const { SalesStatusesEnum } = require('../../query/TradingProfileType/TradingProfileEnums');
@@ -64,8 +64,24 @@ const LeadsMutation = new GraphQLObjectType({
         salesStatus: { type: SalesStatusesEnum },
         totalRecords: { type: GraphQLInt },
       },
+      // fix this
       type: ResponseType(new GraphQLList(GraphQLString)),
       resolve: bulkLeadPromote,
+    },
+    bulkLeadUpdate: {
+      args: {
+        leadIds: { type: new GraphQLNonNull(new GraphQLList(GraphQLString)) },
+        operatorIds: { type: new GraphQLList(GraphQLString) },
+        allRecords: { type: GraphQLBoolean },
+        totalRecords: { type: GraphQLInt },
+        countries: { type: new GraphQLList(GraphQLString) },
+        searchKeyword: { type: GraphQLString },
+        registrationDateEnd: { type: GraphQLString },
+        registrationDateStart: { type: GraphQLString },
+        salesStatus: { type: SalesStatusesEnum },
+      },
+      type: ResponseType(new GraphQLList(GraphQLString), 'FAST_BANE'),
+      resolve: bulkLeadUpdate,
     },
   }),
 });
