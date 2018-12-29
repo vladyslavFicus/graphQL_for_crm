@@ -162,7 +162,7 @@ const bulkLeadUpdate = async (
     salesStatus,
   };
 
-  if (teamId) {
+  if (teamId && !salesRep) {
     const { defaultUser, error, jwtError } = await getHierarchyBranch(teamId, authorization);
 
     if (error || jwtError) {
