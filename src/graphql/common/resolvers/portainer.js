@@ -34,7 +34,7 @@ const getServices = async function() {
 
     if (servicesConfig) {
       services = get(yaml.parse(servicesConfig), 'depends', []).map(item => {
-        const [, name] = item.match(/^hrzn\/(\w+)-v/);
+        const [, name] = item.match(/^(?:hrzn|forex)\/(\w+)-v/);
 
         return name;
       });
