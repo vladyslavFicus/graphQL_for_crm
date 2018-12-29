@@ -206,6 +206,21 @@ const bulkUpdateHierarchyUser = (args, authorization) => {
     .then(response => response);
 };
 
+const bulkMassAssignHierarchyUser = (args, authorization) => {
+  return fetch(`${global.appConfig.apiUrl}/trading_hierarchy/bulk/user/multi_assign`, {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      authorization,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(args),
+  })
+    .then(response => response.text())
+    .then(response => parseJson(response))
+    .then(response => response);
+};
+
 module.exports = {
   buildRequestObject,
   multipleRequest,
@@ -222,4 +237,5 @@ module.exports = {
   updateUserHierarchy,
   updateBranchHierarchy,
   bulkUpdateHierarchyUser,
+  bulkMassAssignHierarchyUser,
 };

@@ -5,13 +5,25 @@ const {
   GraphQLString,
   GraphQLBoolean,
   GraphQLNonNull,
+  GraphQLInputObjectType,
 } = require('graphql');
 const {
-  leads: { bulkLeadPromote, promoteLeadToClient, updateLeadProfile },
+  leads: { bulkLeadPromote, bulkLeadUpdate, promoteLeadToClient, updateLeadProfile },
 } = require('../../common/resolvers');
 const { ResponseType } = require('../../common/types');
 const { SalesStatusesEnum } = require('../../query/TradingProfileType/TradingProfileEnums');
 const LeadType = require('../../query/LeadType');
+
+const LeadSearchParams = new GraphQLInputObjectType({
+  name: 'LeadSearchParams',
+  fields: () => ({
+    searchKeyword: { type: GraphQLString },
+    countries: { type: new GraphQLList(GraphQLString) },
+    registrationDateStart: { type: GraphQLString },
+    registrationDateEnd: { type: GraphQLString },
+    salesStatus: { type: GraphQLString },
+  }),
+});
 
 const PromotedLeadType = new GraphQLObjectType({
   name: 'PromotedLeadType',
@@ -64,8 +76,23 @@ const LeadsMutation = new GraphQLObjectType({
         salesStatus: { type: SalesStatusesEnum },
         totalRecords: { type: GraphQLInt },
       },
+      // fix this
       type: ResponseType(new GraphQLList(GraphQLString)),
       resolve: bulkLeadPromote,
+    },
+    bulkLeadUpdate: {
+      args: {
+        teamId: { type: GraphQLString },
+        salesRep: { type: GraphQLString },
+        salesStatus: { type: GraphQLString },
+        type: { type: new GraphQLNonNull(GraphQLString) },
+        ids: { type: new GraphQLList(GraphQLString) },
+        allRowsSelected: { type: GraphQLBoolean },
+        totalElements: { type: GraphQLInt },
+        searchParams: { type: LeadSearchParams },
+      },
+      type: ResponseType(GraphQLString, 'leadRepresentativeBulkUpdate'),
+      resolve: bulkLeadUpdate,
     },
   }),
 });
