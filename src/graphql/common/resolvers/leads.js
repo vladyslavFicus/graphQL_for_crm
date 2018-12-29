@@ -2,7 +2,7 @@ const { pickBy, omit, isEmpty } = require('lodash');
 const { userTypes } = require('../../../constants/hierarchy');
 const { createQueryHrznProfile, createQueryTradingProfile } = require('../../../utils/profile');
 const { getLeads, getLeadById, updateLead, bulkUpdateLead } = require('../../../utils/leadRequests');
-const { bulkMassAssignHierarchyUser } = require('../../../utils/hierarchyRequests');
+const { bulkMassAssignHierarchyUser, getHierarchyBranch } = require('../../../utils/hierarchyRequests');
 
 const promoteLead = async args => {
   const profile = await createQueryHrznProfile(omit(args, ['phone']));
@@ -149,18 +149,29 @@ const bulkLeadUpdate = async (
 
   const idsForUpdate = await getIds({ allRowsSelected, searchParams, totalElements, ids }, context);
 
-  const hierarchyArgs = {
+  let hierarchyArgs = {
     parentUsers: salesRep ? [salesRep] : [],
     userType: userTypes.LEAD_CUSTOMER,
     uuids: idsForUpdate,
   };
 
-  const leadArgs = {
+  let leadArgs = {
     ids: idsForUpdate,
     brandId,
     salesAgent: salesRep,
     salesStatus,
   };
+
+  if (teamId) {
+    const { defaultUser, error, jwtError } = await getHierarchyBranch(teamId, authorization);
+
+    if (error || jwtError) {
+      return { error: error || jwtError };
+    }
+
+    leadArgs.salesAgent = defaultUser;
+    hierarchyArgs.parentUsers = [defaultUser];
+  }
 
   const leadBulkUpdate = await bulkUpdateLead(leadArgs, authorization);
 
