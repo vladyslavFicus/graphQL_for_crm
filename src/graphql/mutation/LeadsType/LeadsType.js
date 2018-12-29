@@ -5,6 +5,7 @@ const {
   GraphQLString,
   GraphQLBoolean,
   GraphQLNonNull,
+  GraphQLInputObjectType,
 } = require('graphql');
 const {
   leads: { bulkLeadPromote, bulkLeadUpdate, promoteLeadToClient, updateLeadProfile },
@@ -12,6 +13,17 @@ const {
 const { ResponseType } = require('../../common/types');
 const { SalesStatusesEnum } = require('../../query/TradingProfileType/TradingProfileEnums');
 const LeadType = require('../../query/LeadType');
+
+const LeadSearchParams = new GraphQLInputObjectType({
+  name: 'LeadSearchParams',
+  fields: () => ({
+    searchKeyword: { type: GraphQLString },
+    countries: { type: new GraphQLList(GraphQLString) },
+    registrationDateStart: { type: GraphQLString },
+    registrationDateEnd: { type: GraphQLString },
+    salesStatus: { type: GraphQLString },
+  }),
+});
 
 const PromotedLeadType = new GraphQLObjectType({
   name: 'PromotedLeadType',
@@ -70,17 +82,16 @@ const LeadsMutation = new GraphQLObjectType({
     },
     bulkLeadUpdate: {
       args: {
-        leadIds: { type: new GraphQLNonNull(new GraphQLList(GraphQLString)) },
-        operatorIds: { type: new GraphQLList(GraphQLString) },
-        allRecords: { type: GraphQLBoolean },
-        totalRecords: { type: GraphQLInt },
-        countries: { type: new GraphQLList(GraphQLString) },
-        searchKeyword: { type: GraphQLString },
-        registrationDateEnd: { type: GraphQLString },
-        registrationDateStart: { type: GraphQLString },
-        salesStatus: { type: SalesStatusesEnum },
+        teamId: { type: GraphQLString },
+        salesRep: { type: GraphQLString },
+        salesStatus: { type: GraphQLString },
+        type: { type: new GraphQLNonNull(GraphQLString) },
+        ids: { type: new GraphQLList(GraphQLString) },
+        allRowsSelected: { type: GraphQLBoolean },
+        totalElements: { type: GraphQLInt },
+        searchParams: { type: LeadSearchParams },
       },
-      type: ResponseType(new GraphQLList(GraphQLString), 'FAST_BANE'),
+      type: ResponseType(GraphQLString, 'leadRepresentativeBulkUpdate'),
       resolve: bulkLeadUpdate,
     },
   }),

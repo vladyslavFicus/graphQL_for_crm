@@ -1,6 +1,7 @@
 const { pickBy, omit, isEmpty } = require('lodash');
+const { userTypes } = require('../../../constants/hierarchy');
 const { createQueryHrznProfile, createQueryTradingProfile } = require('../../../utils/profile');
-const { getLeads, getLeadById, updateLead } = require('../../../utils/leadRequests');
+const { getLeads, getLeadById, updateLead, bulkUpdateLead } = require('../../../utils/leadRequests');
 const { bulkMassAssignHierarchyUser } = require('../../../utils/hierarchyRequests');
 
 const promoteLead = async args => {
@@ -97,69 +98,85 @@ const bulkLeadPromote = async (
   return result;
 };
 
-const getIds = async ({ allRowsSelected, totalElements, leadIds, ...searchParams }, { authorization, brandId }) => {
-  console.log('searchParams', searchParams);
+const getUpdateIds = async (promise, excludeIds) => {
+  const pageableObj = await promise;
+
+  if (pageableObj.error) {
+    return { error: pageableObj };
+  }
+  const ids = pageableObj.data.content.map(({ id }) => id);
+
+  if (excludeIds.length > 0) {
+    return ids.filter(id => excludeIds.indexOf(id) === -1);
+  }
+
+  return ids;
+};
+
+const getIds = async ({ allRowsSelected, totalElements, ids, searchParams }, context) => {
+  const {
+    headers: { authorization },
+    brand: { id: brandId },
+  } = context;
+
   if (allRowsSelected) {
     const queryParams = {
-      page: 1,
-      size: totalElements,
-      brandId,
-      ...(!isEmpty(searchParams) && searchParams),
+      page: 0,
+      limit: totalElements,
+      ...(searchParams && searchParams),
     };
-    console.log('queryParams', queryParams);
-    const idsForUpdate = await getLeads(queryParams, authorization);
+    const idsForUpdate = await getUpdateIds(getTradingLeads(null, queryParams, context), ids);
 
     if (idsForUpdate.error || idsForUpdate.jwtError) {
       return { error: idsForUpdate };
     }
 
-    return leadIds.length > 0 ? idsForUpdate.filter(id => !leadIds.includes(id)) : idsForUpdate;
+    return ids.length > 0 ? idsForUpdate.filter(id => !ids.includes(id)) : idsForUpdate;
   }
 
-  return leadIds;
+  return ids;
 };
 
 const bulkLeadUpdate = async (
   _,
-  {
-    allRecords,
-    totalRecords,
-    countries,
-    searchKeyword,
-    registrationDateEnd,
-    registrationDateStart,
-    salesStatus,
-    leadIds,
-  },
-  { headers: { authorization }, brand: { id: brandId } }
+  { allRowsSelected, ids, searchParams, totalElements, salesRep, teamId, type, salesStatus },
+  context
 ) => {
-  // console.log('DITCH');
-  console.log('ARGS', {
-    allRecords,
-    totalRecords,
-    countries,
-    searchKeyword,
-    registrationDateEnd,
-    registrationDateStart,
-    salesStatus,
-    leadIds,
-  });
-  const getUpdateIds = await getIds(
-    {
-      allRecords,
-      totalRecords,
-      countries,
-      searchKeyword,
-      registrationDateEnd,
-      registrationDateStart,
-      salesStatus,
-      leadIds,
-    },
-    { authorization, brandId }
-  );
+  const {
+    brand: { id: brandId },
+    headers: { authorization },
+  } = context;
 
-  console.log('getUpdateIds', getUpdateIds);
-  // const request = await bulkMassAssignHierarchyUser(args, authorization);
+  const idsForUpdate = await getIds({ allRowsSelected, searchParams, totalElements, ids }, context);
+
+  const hierarchyArgs = {
+    parentUsers: salesRep ? [salesRep] : [],
+    userType: userTypes.LEAD_CUSTOMER,
+    uuids: idsForUpdate,
+  };
+
+  const leadArgs = {
+    ids: idsForUpdate,
+    brandId,
+    salesAgent: salesRep,
+    salesStatus,
+  };
+
+  const leadBulkUpdate = await bulkUpdateLead(leadArgs, authorization);
+
+  if (leadBulkUpdate.error) {
+    return { error: leadBulkUpdate };
+  }
+
+  if (hierarchyArgs.parentUsers.length) {
+    const hierarchyBulkUpdate = await bulkMassAssignHierarchyUser(hierarchyArgs, authorization);
+
+    if (hierarchyBulkUpdate.error) {
+      return { error: hierarchyBulkUpdate };
+    }
+  }
+
+  return { data: 'success' };
 };
 
 const promoteLeadToClient = async (_, args, { brand: { id: brandId, currency } }) => {

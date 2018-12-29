@@ -60,79 +60,78 @@ const bulkRepresentativeUpdate = async (
   } = context;
   const idsForUpdate = await getIds({ allRowsSelected, searchParams, totalElements, ids }, context);
 
-  // if (idsForUpdate.error) {
-  //   return { error: idsForUpdate.error };
-  // }
+  if (idsForUpdate.error) {
+    return { error: idsForUpdate.error };
+  }
 
-  // let profileParams = {
-  //   ids: idsForUpdate,
-  //   brandId,
-  //   ...(salesStatus && { salesStatus }),
-  //   ...(retentionStatus && { retentionStatus }),
-  //   ...(aquisitionStatus && { aquisitionStatus }),
-  // };
-  // let hierarchyParams = idsForUpdate;
+  let profileParams = {
+    ids: idsForUpdate,
+    brandId,
+    ...(salesStatus && { salesStatus }),
+    ...(retentionStatus && { retentionStatus }),
+    ...(salesRep && { salesRep }),
+    ...(retentionRep && { retentionRep }),
+    ...(aquisitionStatus && { aquisitionStatus }),
+  };
+  let hierarchyParams = idsForUpdate;
 
-  // if (teamId) {
-  //   if (retentionRep || salesRep) {
-  //     hierarchyParams = hierarchyParams.map(uuid => ({
-  //       uuid,
-  //       userType: userTypes.CUSTOMER,
-  //       parentBranches: [teamId],
-  //       parentUsers: [retentionRep || salesRep],
-  //     }));
-  //   } else {
-  //     const { defaultUser, error, jwtError } = await getHierarchyBranch(teamId, authorization);
+  if (teamId) {
+    if (retentionRep || salesRep) {
+      hierarchyParams = hierarchyParams.map(uuid => ({
+        uuid,
+        userType: userTypes.CUSTOMER,
+        parentBranches: [teamId],
+        parentUsers: [retentionRep || salesRep],
+      }));
+    } else {
+      const { defaultUser, error, jwtError } = await getHierarchyBranch(teamId, authorization);
 
-  //     if (error || jwtError) {
-  //       return { error: error || jwtError };
-  //     }
+      if (error || jwtError) {
+        return { error: error || jwtError };
+      }
 
-  //     profileParams = {
-  //       ...profileParams,
-  //       ...(type === deskTypes.SALES ? { salesRep: defaultUser } : { retentionRep: defaultUser }),
-  //     };
-  //     hierarchyParams = hierarchyParams.map(uuid => ({
-  //       uuid,
-  //       userType: userTypes.CUSTOMER,
-  //       parentBranches: [teamId],
-  //       parentUsers: [defaultUser],
-  //     }));
-  //   }
-  // } else {
-  //   if (retentionRep || salesRep) {
-  //     const { error, jwtError, parentBranches } = await getHierarchyUser(retentionRep || salesRep, authorization);
+      profileParams = {
+        ...profileParams,
+        ...(type === deskTypes.SALES ? { salesRep: defaultUser } : { retentionRep: defaultUser }),
+      };
+      hierarchyParams = hierarchyParams.map(uuid => ({
+        uuid,
+        userType: userTypes.CUSTOMER,
+        parentBranches: [teamId],
+        parentUsers: [defaultUser],
+      }));
+    }
+  } else {
+    if (retentionRep || salesRep) {
+      const { error, jwtError, parentBranches } = await getHierarchyUser(retentionRep || salesRep, authorization);
 
-  //     if (error || jwtError) {
-  //       return { error: error || jwtError };
-  //     }
+      if (error || jwtError) {
+        return { error: error || jwtError };
+      }
 
-  //     hierarchyParams = hierarchyParams.map(uuid => ({
-  //       uuid,
-  //       userType: userTypes.CUSTOMER,
-  //       parentUsers: [retentionRep || salesRep],
-  //       ...(parentBranches && parentBranches[0] && { parentBranches: [parentBranches[0].uuid] }),
-  //     }));
-  //   } else {
-  //     hierarchyParams = null;
-  //   }
-  // }
-  // console.log('profileParams', profileParams);
-  // if (salesStatus || retentionStatus || aquisitionStatus) {
-  //   const profileBulkUpdate = await bulkProfileUpdate(profileParams, authorization);
-  //   console.log('profileBulkUpdate', profileBulkUpdate);
-  //   if (profileBulkUpdate.error) {
-  //     return { error: profileBulkUpdate };
-  //   }
-  // }
-  // console.log('hierarchyParams', hierarchyParams);
-  // if (hierarchyParams) {
-  //   const hierarchyBulkUpdate = await bulkUpdateHierarchyUser({ users: hierarchyParams }, authorization);
-  //   console.log('hierarchyBulkUpdate', hierarchyBulkUpdate);
-  //   if (hierarchyBulkUpdate.error) {
-  //     return { error: hierarchyBulkUpdate };
-  //   }
-  // }
+      hierarchyParams = hierarchyParams.map(uuid => ({
+        uuid,
+        userType: userTypes.CUSTOMER,
+        parentUsers: [retentionRep || salesRep],
+        ...(parentBranches && parentBranches[0] && { parentBranches: [parentBranches[0].uuid] }),
+      }));
+    } else {
+      hierarchyParams = null;
+    }
+  }
+  const profileBulkUpdate = await bulkProfileUpdate(profileParams, authorization);
+
+  if (profileBulkUpdate.error) {
+    return { error: profileBulkUpdate };
+  }
+
+  if (hierarchyParams) {
+    const hierarchyBulkUpdate = await bulkUpdateHierarchyUser({ users: hierarchyParams }, authorization);
+
+    if (hierarchyBulkUpdate.error) {
+      return { error: hierarchyBulkUpdate };
+    }
+  }
 
   return { data: 'success' };
 };

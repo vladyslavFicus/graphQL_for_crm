@@ -45,8 +45,24 @@ const updateLead = ({ id, ...args }, authorization) => {
   });
 };
 
+const bulkUpdateLead = (args, authorization) => {
+  return fetch(`${global.appConfig.apiUrl}/trading_lead/bulk`, {
+    method: 'PUT',
+    headers: {
+      authorization,
+      accept: 'application/json',
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(args),
+  })
+    .then(response => response.text())
+    .then(response => parseJson(response))
+    .then(response => response);
+};
+
 module.exports = {
   getLeads,
   getLeadById,
   updateLead,
+  bulkUpdateLead,
 };
