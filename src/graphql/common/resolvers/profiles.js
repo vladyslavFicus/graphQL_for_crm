@@ -42,7 +42,11 @@ const profilesQuery = ({
   queryBuild.match('profileStatus', status),
   queryBuild.match('city', city),
   queryBuild.match('country', countries, { type: 'array' }),
-  queryBuild.queryString(['firstName', 'playerUUID', 'email'], searchValue, { prefix: '*', postfix: '*' }),
+  queryBuild.queryString(
+    ['firstName', 'playerUUID', 'email', 'tradingProfile.phone1', 'tradingProfile.phone2'],
+    searchValue,
+    { prefix: '*', postfix: '*' }
+  ),
   assignStatus === assignStatuses.UN_ASSIGN &&
     queryBuild.should(
       [
@@ -96,6 +100,13 @@ const getProfiles = async function(_, { page, size, ...args }, context) {
 
   const { hierarchy } = context;
   const _args = hierarchy.buildQueryArgs(args, { hierarchyUsers: hierarchy.getCustomerIds() });
+
+  // If phone provided in searchValue --> replace + and 00 from start
+  const phone = _args.searchValue && _args.searchValue.match(/^(?:00|\+)(\d+)/);
+
+  if (phone && phone[1]) {
+    _args.searchValue = phone[1];
+  }
 
   const response = await getSearchData(context.brand.id, profilesQuery(_args), sortParams, { page, size }, 'profile');
   const error = get(response, 'error');
