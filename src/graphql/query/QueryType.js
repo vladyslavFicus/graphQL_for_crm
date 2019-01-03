@@ -299,6 +299,7 @@ const QueryType = new GraphQLObjectType({
         amountFrom: { type: GraphQLString },
         amountTo: { type: GraphQLString },
         currency: { type: GraphQLString },
+        agentIds: { type: new GraphQLList(GraphQLString) },
       },
     },
     clientPaymentsByUuid: {
@@ -318,6 +319,7 @@ const QueryType = new GraphQLObjectType({
         creationTimeTo: { type: GraphQLString },
         amountFrom: { type: GraphQLString },
         amountTo: { type: GraphQLString },
+        agentIds: { type: new GraphQLList(GraphQLString) },
       },
     },
     clientPaymentsStatistic: {
