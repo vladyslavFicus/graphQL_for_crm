@@ -11,8 +11,9 @@ const {
 const moment = require('moment');
 
 const { getClientPaymentOriginalAgent } = require('../../common/resolvers/payment');
+const { getNotes } = require('../../common/resolvers/notes');
 const OperatorType = require('../OperatorType');
-const PaymentStatusType = require('./PaymentStatusType');
+const { NoteType } = require('../NoteType');
 
 const PaymentMethodLimitType = new GraphQLObjectType({
   name: 'PaymentMethodLimit',
@@ -93,6 +94,16 @@ const PaymentType = new GraphQLObjectType({
         resolve: getClientPaymentOriginalAgent,
       },
       paymentMetadata: { type: PaymentMetadata },
+      note: {
+        type: NoteType,
+        resolve: async ({ paymentId }, _, context) => {
+          const {
+            data: { content },
+          } = await getNotes(null, { targetUUID: paymentId }, context);
+
+          return content[0];
+        },
+      },
     };
   },
 });

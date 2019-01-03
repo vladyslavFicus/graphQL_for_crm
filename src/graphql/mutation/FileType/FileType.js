@@ -23,14 +23,14 @@ const FileType = new GraphQLObjectType({
         uuid: { type: new GraphQLNonNull(GraphQLString) },
       },
       type: ResponseType(FileQueryType, 'RefuseFileType'),
-      resolve: verify,
+      resolve: refuse,
     },
     verify: {
       args: {
         uuid: { type: new GraphQLNonNull(GraphQLString) },
       },
       type: ResponseType(FileQueryType, 'VerifyFileType'),
-      resolve: refuse,
+      resolve: verify,
     },
     delete: {
       args: {

@@ -114,10 +114,10 @@ const QueryType = new GraphQLObjectType({
       resolve: profile.getProfile,
     },
     notes: {
-      type: ResponseType(PageableType(NoteType, {}, 'PlayerNotes')),
+      type: ResponseType(PageableType(NoteType, {}, 'NoteType')),
       resolve: getNotes,
       args: {
-        playerUUID: { type: new GraphQLNonNull(GraphQLString) },
+        targetUUID: { type: new GraphQLNonNull(GraphQLString) },
         pinned: { type: GraphQLBoolean },
         size: { type: GraphQLInt },
         page: { type: GraphQLInt },
