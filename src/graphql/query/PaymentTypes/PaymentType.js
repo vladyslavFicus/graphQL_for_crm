@@ -73,6 +73,10 @@ const PaymentType = new GraphQLObjectType({
   name: 'PaymentTrading',
   fields() {
     return {
+      _id: {
+        type: new GraphQLNonNull(GraphQLString),
+        resolve: ({ paymentId }) => paymentId,
+      },
       login: { type: new GraphQLNonNull(GraphQLString) },
       paymentId: { type: new GraphQLNonNull(GraphQLString) },
       paymentType: { type: new GraphQLNonNull(GraphQLString) },
