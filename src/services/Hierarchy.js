@@ -23,7 +23,7 @@ class Hierarchy {
    */
   setHierarchySubtree(hierarchySubtree) {
     hierarchySubtree.forEach(({ uuid, userType }) => {
-      this.types[userType] = [...this.types[userType], uuid];
+      this.types[userType].push(uuid);
     });
 
     return this;
