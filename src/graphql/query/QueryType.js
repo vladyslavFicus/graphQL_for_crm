@@ -45,7 +45,7 @@ const {
   leads: { getTradingLeads, getLeadProfile },
   tags: { getPlayerTags, getTagsByText },
   rules: { getRules },
-  callbacks: { getCallbacks },
+  callbacks: { getCallbacks, getCallback },
   operators: { getOperators },
 } = require('../common/resolvers');
 const cmsResolvers = require('../common/resolvers/cms');
@@ -466,7 +466,7 @@ const QueryType = new GraphQLObjectType({
       resolve: getConditionalTags,
     },
     callbacks: {
-      type: ResponseType(PageableType(CallbackType)),
+      type: ResponseType(PageableType(CallbackType), 'PageableCallbackType'),
       args: {
         id: { type: GraphQLString },
         statuses: { type: new GraphQLList(CallbackStatusEnum) },
@@ -478,6 +478,13 @@ const QueryType = new GraphQLObjectType({
         callbackTimeTo: { type: GraphQLString },
       },
       resolve: getCallbacks,
+    },
+    callback: {
+      type: ResponseType(CallbackType, 'CallbackType'),
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      resolve: getCallback,
     },
     operators: {
       type: ResponseType(PageableType(OperatorType)),

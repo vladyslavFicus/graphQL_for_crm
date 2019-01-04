@@ -27,6 +27,16 @@ const getCallbacks = async (_, args, { headers: { authorization }, hierarchy }) 
   return { data: callbacks };
 };
 
+const getCallback = async (...args) => {
+  const { data, error } = await getCallbacks(...args);
+
+  if (error) {
+    return { error };
+  }
+
+  return { data: data.content[0] };
+};
+
 // Get operator by callback source
 const getOperator = ({ operatorId }, _, { headers: { authorization } }) => {
   return getOperatorFromCache(operatorId, authorization);
@@ -65,6 +75,7 @@ const createCallback = async (_, args, { headers: { authorization } }) => {
 
 module.exports = {
   getCallbacks,
+  getCallback,
   getOperator,
   getClient,
   updateCallback,
