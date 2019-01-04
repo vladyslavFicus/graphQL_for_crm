@@ -193,7 +193,7 @@ const createClientPayment = async (
       break;
   }
 
-  const { error, jwtError } = await createTradingPayment(paymentType, tradingArgs, authorization);
+  const { error, jwtError, ...tradingPayment } = await createTradingPayment(paymentType, tradingArgs, authorization);
 
   if (error || jwtError) {
     return {
@@ -203,7 +203,7 @@ const createClientPayment = async (
   }
 
   return {
-    data: casinoPayment,
+    data: casinoPayment || { ...tradingPayment, generationDate: tradingPayment.creationTime },
     error: null,
   };
 };

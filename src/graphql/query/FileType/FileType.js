@@ -1,4 +1,6 @@
 const { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLID } = require('graphql');
+const { getNotes } = require('../../common/resolvers/notes');
+const { NoteType } = require('../NoteType');
 
 const FileStatusType = new GraphQLObjectType({
   name: 'FileStatus',
@@ -39,6 +41,16 @@ const FileType = new GraphQLObjectType({
       },
     },
     status: { type: FileStatusType },
+    note: {
+      type: NoteType,
+      resolve: async ({ uuid }, _, context) => {
+        const {
+          data: { content },
+        } = await getNotes(null, { targetUUID: uuid }, context);
+
+        return content[0];
+      },
+    },
   }),
 });
 
