@@ -16,6 +16,21 @@ const multipleRequest = array =>
     };
   });
 
+const createUser = (args, authorization) => {
+  return fetch(`${global.appConfig.apiUrl}/trading_hierarchy/user`, {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      authorization,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(args),
+  })
+    .then(response => response.text())
+    .then(response => parseJson(response))
+    .then(response => response);
+};
+
 const createBranch = (args, authorization) => {
   return fetch(`${global.appConfig.apiUrl}/trading_hierarchy/branch`, {
     method: 'POST',
@@ -224,6 +239,7 @@ const bulkMassAssignHierarchyUser = (args, authorization) => {
 module.exports = {
   buildRequestObject,
   multipleRequest,
+  createUser,
   createBranch,
   getHierarchyUser,
   getHierarchyBranch,

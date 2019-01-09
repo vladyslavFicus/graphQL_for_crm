@@ -3,6 +3,7 @@ const { branchTypes, userTypes } = require('../../../constants/hierarchy');
 const {
   buildRequestObject,
   multipleRequest,
+  createUser: createUserMutation,
   createBranch,
   getHierarchyUser,
   getHierarchyBranch,
@@ -30,6 +31,23 @@ const getHierarchyMappedOperators = async (hierarchyOperators, auth) => {
       return { ...item, fullName: [firstName, lastName].filter(v => v).join(' ') };
     })
     .filter(item => item);
+};
+
+const createUser = async (_, { userId, branchId, userType }, { headers: { authorization } }) => {
+  const user = await createUserMutation(
+    {
+      uuid: userId,
+      parentBranches: [...(branchId && [branchId])],
+      userType,
+    },
+    authorization
+  );
+
+  if (user.error) {
+    return { error: user.error };
+  }
+
+  return { data: user.uuid };
 };
 
 const createOffice = async (_, { officeManager, ...args }, { headers: { authorization }, userUUID: operatorId }) => {
@@ -256,6 +274,7 @@ const getBranchChildren = async (_, { uuid }, { headers: { authorization } }) =>
 };
 
 module.exports = {
+  createUser,
   createOffice,
   createDesk,
   createTeam,
