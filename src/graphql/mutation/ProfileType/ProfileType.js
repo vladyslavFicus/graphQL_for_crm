@@ -176,6 +176,9 @@ const PlayerMutation = new GraphQLObjectType({
         birthDate: {
           type: GraphQLString,
         },
+        languageCode: {
+          type: GraphQLString,
+        },
         login: {
           type: GraphQLString,
         },

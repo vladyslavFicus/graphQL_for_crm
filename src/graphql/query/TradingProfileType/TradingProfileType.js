@@ -84,6 +84,7 @@ const TradingProfileType = new GraphQLObjectType({
     marginLevel: { type: GraphQLFloat },
     phone1: { type: GraphQLString },
     phone2: { type: GraphQLString },
+    languageCode: { type: GraphQLString },
   }),
 });
 
