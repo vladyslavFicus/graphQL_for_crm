@@ -1,6 +1,6 @@
 const { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLList, GraphQLBoolean } = require('graphql');
 const {
-  hierarchy: { createOffice, createDesk, createTeam, addOperatorToBranch },
+  hierarchy: { createUser, createOffice, createDesk, createTeam, addOperatorToBranch },
 } = require('../../common/resolvers');
 const { DeskTypeEnum } = require('../../query/HierarchyQueryType/HierarchyType/HierarchyEnums');
 const ResponseType = require('../../common/types/ResponseType');
@@ -17,6 +17,15 @@ const HierarchyResponseType = customName =>
 const HierarchyMutation = new GraphQLObjectType({
   name: 'HierarchyMutation',
   fields: () => ({
+    createUser: {
+      args: {
+        userId: { type: new GraphQLNonNull(GraphQLString) },
+        userType: { type: new GraphQLNonNull(GraphQLString) },
+        branchId: { type: GraphQLString },
+      },
+      type: ResponseType(GraphQLString, 'createdHierarchyUserType'),
+      resolve: createUser,
+    },
     createOffice: {
       args: {
         name: { type: new GraphQLNonNull(GraphQLString) },
