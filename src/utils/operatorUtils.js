@@ -1,8 +1,8 @@
 const { getOperatorByUUID } = require('./operatorRequests');
 // make folder with files
-const getOperatorFromCache = (id, auth) => {
+const getOperatorFromCache = async (id, auth) => {
   if (!global.cache.operators[id]) {
-    global.cache.operators[id] = getOperator(id, auth);
+    global.cache.operators[id] = await getOperator(id, auth);
     setTimeout(() => {
       delete global.cache.operators[id];
     }, 3600000);
