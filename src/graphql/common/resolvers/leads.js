@@ -1,4 +1,4 @@
-const { pickBy, omit, isEmpty } = require('lodash');
+const { pickBy, omit } = require('lodash');
 const { userTypes } = require('../../../constants/hierarchy');
 const { createQueryHrznProfile, createQueryTradingProfile } = require('../../../utils/profile');
 const { getLeads, getLeadById, updateLead, bulkUpdateLead } = require('../../../utils/leadRequests');
@@ -54,12 +54,10 @@ const bulkLeadPromote = async (
     }),
   });
 
-  const { error, content, jwtError } = await getLeads(leadsArguments, authorization);
+  const { error, content } = await getLeads(leadsArguments, authorization);
 
-  if (error || jwtError) {
-    return {
-      error,
-    };
+  if (error) {
+    return { error };
   }
 
   const promises = [];
@@ -114,11 +112,6 @@ const getUpdateIds = async (promise, excludeIds) => {
 };
 
 const getIds = async ({ allRowsSelected, totalElements, ids, searchParams }, context) => {
-  const {
-    headers: { authorization },
-    brand: { id: brandId },
-  } = context;
-
   if (allRowsSelected) {
     const queryParams = {
       page: 0,
@@ -139,7 +132,7 @@ const getIds = async ({ allRowsSelected, totalElements, ids, searchParams }, con
 
 const bulkLeadUpdate = async (
   _,
-  { allRowsSelected, ids, searchParams, totalElements, salesRep, teamId, type, salesStatus },
+  { allRowsSelected, ids, searchParams, totalElements, salesRep, teamId, salesStatus },
   context
 ) => {
   const {
@@ -159,14 +152,14 @@ const bulkLeadUpdate = async (
     ids: idsForUpdate,
     brandId,
     salesAgent: salesRep,
-    salesStatus,
+    ...(salesStatus && { salesStatus }),
   };
 
   if (teamId && !salesRep) {
-    const { defaultUser, error, jwtError } = await getHierarchyBranch(teamId, authorization);
+    const { defaultUser, error } = await getHierarchyBranch(teamId, authorization);
 
-    if (error || jwtError) {
-      return { error: error || jwtError };
+    if (error) {
+      return { error };
     }
 
     leadArgs.salesAgent = defaultUser;
@@ -218,15 +211,7 @@ const getTradingLeads = async (_, args, { headers: { authorization }, brand: { i
   const _args = hierarchy.buildQueryArgs(args, { ids: hierarchy.getLeadCustomersIds() });
   const leads = await getLeads({ ..._args, brandId }, authorization);
 
-  if (leads.error || leads.jwtError) {
-    return {
-      error: leads.error,
-    };
-  }
-
-  return {
-    data: leads,
-  };
+  return leads;
 };
 
 const updateLeadProfile = async (_, args, { headers: { authorization }, brand: { id: brandId } }) => {

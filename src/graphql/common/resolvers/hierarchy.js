@@ -172,8 +172,8 @@ const addOperatorToBranch = async (_, { operatorId, branchId }, { headers: { aut
   };
   const request = await updateUserHierarchy(requestParams, authorization);
 
-  if (request.error || request.jwtError) {
-    return { error: request };
+  if (request.error) {
+    return request;
   }
 
   return { data: true };
@@ -182,23 +182,22 @@ const addOperatorToBranch = async (_, { operatorId, branchId }, { headers: { aut
 const getUserBranchHierarchy = async (_, { userId }, { headers: { authorization } }) => {
   const hierarchy = await getUserBranchHierarchyQuery(userId, authorization);
 
-  if (hierarchy.error || hierarchy.jwtError) {
-    return { error: hierarchy };
+  if (hierarchy.error) {
+    return hierarchy;
   }
 
-  const hierarchyByBranch = groupBy(hierarchy, 'branchType');
-
+  const hierarchyByBranch = groupBy(hierarchy.data, 'branchType');
   return { data: hierarchyByBranch };
 };
 
 const getUsersByType = async (_, { userTypes }, { headers: { authorization } }) => {
   const users = await getUsersByTypeQuery(userTypes, authorization);
 
-  if (users.error || users.jwtError) {
-    return { error: users };
+  if (users.error) {
+    return users;
   }
 
-  const mappedUsers = await getHierarchyMappedOperators(users, authorization);
+  const mappedUsers = await getHierarchyMappedOperators(users.data, authorization);
 
   return { data: groupBy(mappedUsers, 'userType') };
 };
@@ -206,31 +205,19 @@ const getUsersByType = async (_, { userTypes }, { headers: { authorization } }) 
 const getBranchInfo = async (_, { branchId }, { headers: { authorization } }) => {
   const branch = await getHierarchyBranch(branchId, authorization);
 
-  if (branch.error || branch.jwtError) {
-    return { error: branch };
-  }
-
-  return { data: branch };
+  return branch;
 };
 
 const getBranchHierarchy = async (_, args, { headers: { authorization } }) => {
   const hierarchy = await getBranchHierarchyQuery(args, authorization);
 
-  if (hierarchy.error || hierarchy.jwtError) {
-    return { error: hierarchy };
-  }
-
-  return { data: hierarchy };
+  return hierarchy;
 };
 
 const getBranchHierarchyTree = async (_, { branchUUID }, { headers: { authorization } }) => {
   const data = await getBranchHierarchyTreeQuery(branchUUID, authorization);
 
-  if (data.error || data.jwtError) {
-    return { error: data };
-  }
-
-  return { data };
+  return data;
 };
 
 const getOperator = ({ uuid }, _, { headers: { authorization } }) => {
@@ -240,21 +227,17 @@ const getOperator = ({ uuid }, _, { headers: { authorization } }) => {
 const getUserHierarchy = async (_, __, { headers: { authorization }, userUUID }) => {
   const data = await getHierarchyUser(userUUID, authorization);
 
-  if (data.error || data.jwtError) {
-    return { error: data };
-  }
-
-  return { data };
+  return data;
 };
 
 const getUsersByBranch = async (_, { uuid }, { headers: { authorization } }) => {
   const users = await getUsersByBranchQuery(uuid, authorization);
 
-  if (users.error || users.jwtError) {
-    return { error: users };
+  if (users.error) {
+    return users;
   }
 
-  const mappedUsers = await getHierarchyMappedOperators(users, authorization);
+  const mappedUsers = await getHierarchyMappedOperators(users.data, authorization);
 
   return {
     data: mappedUsers.filter(({ userType }) => [userTypes.CUSTOMER, userTypes.LEAD_CUSTOMER].indexOf(userType) === -1),
@@ -264,13 +247,7 @@ const getUsersByBranch = async (_, { uuid }, { headers: { authorization } }) => 
 const getBranchChildren = async (_, { uuid }, { headers: { authorization } }) => {
   const data = await getBranchChildrenQuery(uuid, authorization);
 
-  if (data.error || data.jwtError) {
-    return { error: data };
-  }
-
-  return {
-    data,
-  };
+  return data;
 };
 
 module.exports = {

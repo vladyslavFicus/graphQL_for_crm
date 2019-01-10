@@ -10,10 +10,7 @@ const getOperators = (args, authorization) => {
       authorization,
       'content-type': 'application/json',
     },
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => response);
+  }).then(response => response.json());
 };
 
 const getOperatorByUUID = (operatorId, authorization) => {

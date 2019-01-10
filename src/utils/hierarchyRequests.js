@@ -54,10 +54,7 @@ const getHierarchyUser = (userId, authorization) => {
       accept: 'application/json',
       'content-type': 'application/json',
     },
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => response);
+  }).then(response => response.json());
 };
 
 const getHierarchyUserSubtree = (userId, authorization) => {
@@ -82,24 +79,18 @@ const getHierarchyBranch = (branchId, authorization) => {
       accept: 'application/json',
       'content-type': 'application/json',
     },
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => response);
+  }).then(response => response.json());
 };
 
 const getBranchHierarchyTree = (uuid, authorization) => {
   return fetch(`${global.appConfig.apiUrl}/trading_hierarchy_updater/branch/hierarchy/${uuid}`, {
     method: 'GET',
     headers: {
-      authorization,
+      authorization: 'asd',
       accept: 'application/json',
       'content-type': 'application/json',
     },
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => response);
+  }).then(response => response.json());
 };
 
 const getUserBranchHierarchy = (userId, authorization) => {
@@ -110,10 +101,7 @@ const getUserBranchHierarchy = (userId, authorization) => {
       accept: 'application/json',
       'content-type': 'application/json',
     },
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => response);
+  }).then(response => response.json());
 };
 
 const getUsersByType = (types, authorization) => {
@@ -124,10 +112,7 @@ const getUsersByType = (types, authorization) => {
       authorization,
       'content-type': 'application/json',
     },
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => response);
+  }).then(response => response.json());
 };
 
 const getBranchHierarchy = ({ operatorId, branchType, ...args }, authorization) => {
@@ -142,10 +127,7 @@ const getBranchHierarchy = ({ operatorId, branchType, ...args }, authorization) 
       },
       body: JSON.stringify(args),
     }
-  )
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => response);
+  ).then(response => response.json());
 };
 
 const getUsersByBranch = (uuid, authorization) => {
@@ -156,10 +138,7 @@ const getUsersByBranch = (uuid, authorization) => {
       authorization,
       'content-type': 'application/json',
     },
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => response);
+  }).then(response => response.json());
 };
 
 const getBranchChildren = (uuid, authorization) => {
@@ -170,10 +149,7 @@ const getBranchChildren = (uuid, authorization) => {
       authorization,
       'content-type': 'application/json',
     },
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => response);
+  }).then(response => response.json());
 };
 
 const updateUserHierarchy = ({ operatorId, ...args }, authorization) => {
@@ -185,10 +161,7 @@ const updateUserHierarchy = ({ operatorId, ...args }, authorization) => {
       'content-type': 'application/json',
     },
     body: JSON.stringify(args),
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => response);
+  }).then(response => response.json());
 };
 
 const updateBranchHierarchy = ({ uuid, ...args }, authorization) => {
@@ -215,10 +188,7 @@ const bulkUpdateHierarchyUser = (args, authorization) => {
       'content-type': 'application/json',
     },
     body: JSON.stringify(args),
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => response);
+  }).then(response => response.json());
 };
 
 const bulkMassAssignHierarchyUser = (args, authorization) => {

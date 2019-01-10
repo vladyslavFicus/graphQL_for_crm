@@ -54,13 +54,7 @@ const getClientPayments = async (_, args, { headers: { authorization }, hierarch
 
   const tradingPayments = await getTradingPaymentsQuery(_args, authorization);
 
-  if (tradingPayments.jwtError || tradingPayments.error) {
-    return { error: tradingPayments.error };
-  }
-
-  return {
-    data: tradingPayments,
-  };
+  return tradingPayments;
 };
 
 const getClientPaymentOriginalAgent = ({ agentId }, _, { headers: { authorization } }) => {
@@ -70,13 +64,7 @@ const getClientPaymentOriginalAgent = ({ agentId }, _, { headers: { authorizatio
 const getClientPaymentsByUuid = async (_, { playerUUID, ...args }, { headers: { authorization } }) => {
   const tradingPayments = await getTradingPaymentsQuery({ profileIds: [playerUUID], ...args }, authorization);
 
-  if (tradingPayments.jwtError || tradingPayments.error) {
-    return { error: tradingPayments.error };
-  }
-
-  return {
-    data: tradingPayments,
-  };
+  return tradingPayments;
 };
 
 // INFO: when trading_payment statistic endpoint ready - this will be rewritten
@@ -193,12 +181,12 @@ const createClientPayment = async (
       break;
   }
 
-  const { error, jwtError, ...tradingPayment } = await createTradingPayment(paymentType, tradingArgs, authorization);
+  const { error, ...tradingPayment } = await createTradingPayment(paymentType, tradingArgs, authorization);
 
-  if (error || jwtError) {
+  if (error) {
     return {
       data: null,
-      error: error || jwtError,
+      error,
     };
   }
 

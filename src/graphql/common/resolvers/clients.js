@@ -84,10 +84,10 @@ const bulkRepresentativeUpdate = async (
         parentUsers: [retentionRep || salesRep],
       }));
     } else {
-      const { defaultUser, error, jwtError } = await getHierarchyBranch(teamId, authorization);
+      const { defaultUser, error } = await getHierarchyBranch(teamId, authorization);
 
-      if (error || jwtError) {
-        return { error: error || jwtError };
+      if (error) {
+        return { error };
       }
 
       profileParams = {
@@ -103,10 +103,10 @@ const bulkRepresentativeUpdate = async (
     }
   } else {
     if (retentionRep || salesRep) {
-      const { error, jwtError, parentBranches } = await getHierarchyUser(retentionRep || salesRep, authorization);
+      const { error, parentBranches } = await getHierarchyUser(retentionRep || salesRep, authorization);
 
-      if (error || jwtError) {
-        return { error: error || jwtError };
+      if (error) {
+        return { error };
       }
 
       hierarchyParams = hierarchyParams.map(uuid => ({

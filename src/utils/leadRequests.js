@@ -1,6 +1,5 @@
 const fetch = require('./fetch');
 const parseJson = require('./parseJson');
-const buildQueryString = require('./buildQueryString');
 
 const getLeads = (args, authorization) => {
   return fetch(`${global.appConfig.apiUrl}/trading_lead_updater/search`, {
@@ -11,10 +10,7 @@ const getLeads = (args, authorization) => {
       'content-type': 'application/json',
     },
     body: JSON.stringify(args),
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => response);
+  }).then(response => response.json());
 };
 
 const getLeadById = (leadId, authorization) => {
