@@ -7,7 +7,7 @@ const {
   GraphQLInputObjectType,
 } = require('graphql');
 const {
-  rules: { createRule, deleteRule },
+  rules: { createRule, createRuleRetention, deleteRule, deleteRuleRetention },
 } = require('../../common/resolvers');
 const { ResponseType } = require('../../common/types');
 const RuleType = require('../../query/RuleType');
@@ -45,12 +45,33 @@ const RulesMutation = new GraphQLObjectType({
       type: ResponseType(RuleType, 'CreateRule'),
       resolve: createRule,
     },
+    createRuleRetention: {
+      args: {
+        name: { type: new GraphQLNonNull(GraphQLString) },
+        countries: { type: new GraphQLNonNull(new GraphQLList(GraphQLString)) },
+        languages: { type: new GraphQLNonNull(new GraphQLList(GraphQLString)) },
+        priority: { type: new GraphQLNonNull(GraphQLInt) },
+        actions: { type: new GraphQLNonNull(new GraphQLList(RuleActionsInputType)) },
+        createdBy: { type: new GraphQLNonNull(GraphQLString) },
+        depositAmountFrom: { type: new GraphQLNonNull(GraphQLString) },
+        depositAmountTo: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      type: ResponseType(RuleType, 'CreateRuleRetention'),
+      resolve: createRuleRetention,
+    },
     deleteRule: {
       args: {
         uuid: { type: new GraphQLNonNull(GraphQLString) },
       },
       type: ResponseType(RuleUuidType, 'DeletedRuleUuid'),
       resolve: deleteRule,
+    },
+    deleteRuleRetention: {
+      args: {
+        uuid: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      type: ResponseType(RuleUuidType, 'DeletedRuleUuidRetention'),
+      resolve: deleteRuleRetention,
     },
   }),
 });

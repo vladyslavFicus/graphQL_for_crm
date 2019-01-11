@@ -10,10 +10,18 @@ const getRules = (args, authorization) => {
       authorization,
       'content-type': 'application/json',
     },
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => response);
+  }).then(response => response.json());
+};
+
+const getRulesRetention = (args, authorization) => {
+  return fetch(`${global.appConfig.apiUrl}/trading_rules_payment/?${buildQueryString(args)}`, {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      authorization,
+      'content-type': 'application/json',
+    },
+  }).then(response => response.json());
 };
 
 const createRule = (args, authorization) => {
@@ -25,10 +33,19 @@ const createRule = (args, authorization) => {
       'content-type': 'application/json',
     },
     body: JSON.stringify(args),
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => response);
+  }).then(response => response.json());
+};
+
+const createRuleRetention = (args, authorization) => {
+  return fetch(`${global.appConfig.apiUrl}/trading_rules_payment/`, {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      authorization,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(args),
+  }).then(response => response.json());
 };
 
 const deleteRule = (uuid, authorization) => {
@@ -42,8 +59,22 @@ const deleteRule = (uuid, authorization) => {
   }).then(response => (response.status === 200 ? { data: { uuid } } : { error: 'rules.error.delete' }));
 };
 
+const deleteRuleRetention = (uuid, authorization) => {
+  return fetch(`${global.appConfig.apiUrl}/trading_rules_payment/${uuid}`, {
+    method: 'DELETE',
+    headers: {
+      accept: 'application/json',
+      'content-type': 'application/json',
+      authorization,
+    },
+  }).then(response => (response.status === 200 ? { data: { uuid } } : { error: 'rules.error.delete' }));
+};
+
 module.exports = {
   getRules,
+  getRulesRetention,
   createRule,
+  createRuleRetention,
   deleteRule,
+  deleteRuleRetention,
 };

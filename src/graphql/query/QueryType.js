@@ -44,7 +44,7 @@ const {
   profiles: { getProfiles },
   leads: { getTradingLeads, getLeadProfile },
   tags: { getPlayerTags, getTagsByText },
-  rules: { getRules },
+  rules: { getRules, getRulesRetention },
   callbacks: { getCallbacks, getCallback },
   operators: { getOperators },
 } = require('../common/resolvers');
@@ -455,6 +455,18 @@ const QueryType = new GraphQLObjectType({
         parentId: { type: GraphQLString },
       },
       resolve: getRules,
+    },
+    rulesRetention: {
+      type: ResponseType(new GraphQLList(RuleType), 'RulesTypeRetention'),
+      args: {
+        uuid: { type: new GraphQLList(GraphQLString) },
+        country: { type: GraphQLString },
+        language: { type: GraphQLString },
+        createdByOrUuid: { type: GraphQLString },
+        name: { type: GraphQLString },
+        parentId: { type: GraphQLString },
+      },
+      resolve: getRulesRetention,
     },
     conditionalTags: {
       type: ResponseType(PageableType(ConditionalTagType), 'ConditionalTagList'),
