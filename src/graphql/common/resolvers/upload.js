@@ -3,7 +3,8 @@ const fetch = require('../../../utils/fetch');
 
 const leadCsvUpload = async (_, { file }, { headers: { authorization }, brand: { id: brandId } }) => {
   const fileStream = await file;
-  const leads = await new Promise(resolve => {
+
+  return new Promise(resolve => {
     const buffs = [];
     const readStream = fileStream.createReadStream();
     readStream.on('data', d => {
@@ -24,17 +25,10 @@ const leadCsvUpload = async (_, { file }, { headers: { authorization }, brand: {
         body: formData,
       })
         .then(res => res.json())
-        .then(response => resolve(response));
+        .then(response => resolve(response))
+        .catch(response => resolve(response));
     });
   });
-
-  if (leads.error) {
-    return {
-      error: { ...leads.error },
-    };
-  }
-
-  return leads;
 };
 
 module.exports = {

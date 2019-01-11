@@ -7,7 +7,7 @@ const ErrorType = new GraphQLObjectType({
     error: {
       type: GraphQLString,
       resolve(_) {
-        return _.error || _.errorMessage || _;
+        return _.error || _.errorMessage || (typeof _ === 'string' ? _ : null);
       },
     },
     fields_errors: {
