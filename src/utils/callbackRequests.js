@@ -1,5 +1,4 @@
 const fetch = require('./fetch');
-const parseJson = require('./parseJson');
 const buildQueryString = require('./buildQueryString');
 
 const getCallbacks = (args, authorization) => {
@@ -10,10 +9,7 @@ const getCallbacks = (args, authorization) => {
       authorization,
       'content-type': 'application/json',
     },
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => response);
+  }).then(response => response.json());
 };
 
 const createCallback = (args, authorization) => {
@@ -25,10 +21,7 @@ const createCallback = (args, authorization) => {
       'content-type': 'application/json',
     },
     body: JSON.stringify(args),
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => response);
+  }).then(response => response.json());
 };
 
 const updateCallback = ({ callbackId, ...args }, authorization) => {

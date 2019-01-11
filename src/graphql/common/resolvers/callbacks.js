@@ -20,11 +20,7 @@ const getCallbacks = async (_, args, { headers: { authorization }, hierarchy }) 
 
   const callbacks = await getCallbacksRequest(_args, authorization);
 
-  if (callbacks.error || callbacks.jwtError) {
-    return { error: callbacks };
-  }
-
-  return { data: callbacks };
+  return callbacks;
 };
 
 const getCallback = async (...args) => {
@@ -56,11 +52,11 @@ const updateCallback = async (_, args, { headers: { authorization } }) => {
 
   const callbacks = await getCallbacksRequest({ id: args.callbackId }, authorization);
 
-  if (callbacks.error || callbacks.jwtError) {
-    return { error: callbacks };
+  if (callbacks.error) {
+    return callbacks;
   }
 
-  return { data: callbacks.content[0] };
+  return { data: callbacks.data.content[0] };
 };
 
 const createCallback = async (_, args, { headers: { authorization } }) => {
@@ -70,7 +66,7 @@ const createCallback = async (_, args, { headers: { authorization } }) => {
     return { error: 'error.create.callback' };
   }
 
-  return { data: callback };
+  return { callback };
 };
 
 module.exports = {

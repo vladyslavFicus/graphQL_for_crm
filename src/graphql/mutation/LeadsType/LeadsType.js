@@ -76,7 +76,6 @@ const LeadsMutation = new GraphQLObjectType({
         salesStatus: { type: SalesStatusesEnum },
         totalRecords: { type: GraphQLInt },
       },
-      // fix this
       type: ResponseType(new GraphQLList(GraphQLString)),
       resolve: bulkLeadPromote,
     },

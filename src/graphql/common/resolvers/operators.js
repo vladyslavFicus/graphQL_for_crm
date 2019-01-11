@@ -6,13 +6,15 @@ const getOperators = async (_, args, { headers: { authorization }, hierarchy }) 
 
   const operators = await getOperatorsRequest(_args, authorization);
 
-  if (operators.error || operators.jwtError) {
-    return { error: operators };
+  if (operators.error) {
+    return operators;
   }
 
-  const filteredOperators = operators.content.filter(operator => hierarchy.getOperatorsIds().includes(operator.uuid));
+  const filteredOperators = operators.data.content.filter(operator =>
+    hierarchy.getOperatorsIds().includes(operator.uuid)
+  );
 
-  return { data: { ...operators, content: filteredOperators } };
+  return { data: { ...operators.data, content: filteredOperators } };
 };
 
 module.exports = {

@@ -21,9 +21,7 @@ const getTradingPayments = (args, authorization) => {
       authorization,
     },
     body: JSON.stringify(args),
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response));
+  }).then(response => response.json());
 };
 
 const getCasinoPayments = (args, authorization) => {
@@ -92,10 +90,7 @@ const createTradingPayment = (paymentType, args, authorization) => {
       authorization,
     },
     body: JSON.stringify(args),
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => response);
+  }).then(response => response.json());
 };
 
 const createCasinoPayment = ({ playerUUID, paymentType, ...args }, authorization) => {

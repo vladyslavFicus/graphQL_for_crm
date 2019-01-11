@@ -4,8 +4,6 @@ const ProfileType = require('./ProfileType');
 const NoteType = require('./NoteType');
 const { PaymentType } = require('./PaymentType');
 const TagType = require('./TagType');
-const CampaignType = require('./CampaignType');
-const BonusTemplateType = require('./BonusTemplateType');
 const FreeSpinTemplateType = require('./FreeSpinTemplateType');
 const FreeSpinType = require('./FreeSpinType');
 const WageringFulfillmentType = require('./WageringFulfillmentType');
@@ -51,18 +49,6 @@ const MutationType = new GraphQLObjectType({
     },
     tag: {
       type: TagType,
-      resolve() {
-        return {};
-      },
-    },
-    campaign: {
-      type: CampaignType,
-      resolve() {
-        return {};
-      },
-    },
-    bonusTemplate: {
-      type: BonusTemplateType,
       resolve() {
         return {};
       },
