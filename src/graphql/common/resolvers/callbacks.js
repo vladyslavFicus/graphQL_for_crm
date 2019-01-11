@@ -7,7 +7,8 @@ const { getOperatorFromCache } = require('../../../utils/operatorUtils');
 const getPlayerProfileFromESByUUID = require('../../../utils/getPlayerProfileFromESByUUID');
 
 const getCallbacks = async (_, args, { headers: { authorization }, hierarchy }) => {
-  const _args = hierarchy.buildQueryArgs(args, { operatorIds: hierarchy.getOperatorsIds() });
+  const operatorIds = await hierarchy.getOperatorsIds();
+  const _args = { ...args, operatorIds };
 
   // If operatorId arg exist and hierarchy exist --> filter by hierarchy ids
   if (_args.operatorId && _args.operatorIds) {
@@ -18,9 +19,7 @@ const getCallbacks = async (_, args, { headers: { authorization }, hierarchy }) 
     _args.operatorIds = [_args.operatorId];
   }
 
-  const callbacks = await getCallbacksRequest(_args, authorization);
-
-  return callbacks;
+  return getCallbacksRequest(_args, authorization);
 };
 
 const getCallback = async (...args) => {

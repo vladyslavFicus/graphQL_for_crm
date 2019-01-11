@@ -98,8 +98,8 @@ const getProfiles = async function(_, { page, size, ...args }, context) {
     return { error: access.error };
   }
 
-  const { hierarchy } = context;
-  const _args = hierarchy.buildQueryArgs(args, { hierarchyUsers: hierarchy.getCustomerIds() });
+  const customersIds = await context.hierarchy.getCustomersIds();
+  const _args = { ...args, hierarchyUsers: customersIds };
 
   // If phone provided in searchValue --> replace + and 00 from start
   const phone = _args.searchValue && _args.searchValue.match(/^(?:00|\+)(\d+)/);

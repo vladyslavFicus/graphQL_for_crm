@@ -18,10 +18,11 @@ const getRegisteredUserStatistic = async function(_, args, context) {
     return { error: access.error };
   }
 
+  const clientIds = await context.hierarchy.getCustomersIds();
   const argsInUtc = convertToUtcDates(args);
   const response = await getScrollData(
     context.brand.id,
-    registerStatQuery(context.hierarchy.buildQueryArgs(argsInUtc, { clientIds: context.hierarchy.getCustomerIds() })),
+    registerStatQuery({ ...argsInUtc, clientIds }),
     '1s',
     'profile',
     ['registrationDate']
@@ -76,9 +77,10 @@ const getRegisteredUserTotals = async (_, { timezone }, context) => {
     return { error: access.error };
   }
 
+  const clientIds = await context.hierarchy.getCustomersIds();
   const queries = getCountQueryRanges(timezone);
   const keys = Object.keys(queries);
-  const ids = !context.hierarchy.isAdministration && queryBuild.ids(context.hierarchy.getCustomerIds());
+  const ids = queryBuild.ids(clientIds);
 
   const result = await Promise.all(
     Object.values(queries).map(value => getCountData(context.brand.id, [...value, ...(ids ? [ids] : [])], 'profile'))
