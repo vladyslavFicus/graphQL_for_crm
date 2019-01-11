@@ -181,18 +181,14 @@ const createClientPayment = async (
       break;
   }
 
-  const { error, ...tradingPayment } = await createTradingPayment(paymentType, tradingArgs, authorization);
+  const tradingPayment = await createTradingPayment(paymentType, tradingArgs, authorization);
 
-  if (error) {
-    return {
-      data: null,
-      error,
-    };
+  if (tradingPayment.error) {
+    return tradingPayment;
   }
 
   return {
-    data: casinoPayment || { ...tradingPayment, generationDate: tradingPayment.creationTime },
-    error: null,
+    data: casinoPayment || { ...tradingPayment.data, generationDate: tradingPayment.creationTime },
   };
 };
 
