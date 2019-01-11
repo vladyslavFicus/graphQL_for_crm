@@ -50,7 +50,8 @@ const paymentAccumulated = function(_, { playerUUID }, { headers: { authorizatio
 };
 
 const getClientPayments = async (_, args, { headers: { authorization }, hierarchy }) => {
-  const _args = hierarchy.buildQueryArgs(args, { profileIds: hierarchy.getCustomerIds() });
+  const profileIds = await hierarchy.getCustomersIds();
+  const _args = { ...args, profileIds };
 
   const tradingPayments = await getTradingPaymentsQuery(_args, authorization);
 

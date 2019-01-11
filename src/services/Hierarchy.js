@@ -1,121 +1,82 @@
-const { values, omit, pick, flatten } = require('lodash');
-const { userTypes } = require('../constants/hierarchy');
+const { getCustomersSubtree, getLeadsSubtree, getOperatorsSubtree } = require('../utils/hierarchyRequests');
 
 class Hierarchy {
-  constructor() {
-    this.types = this._initPrimaryTypes();
+  constructor(userUUID, authorization) {
+    this._userUUID = userUUID;
+    this._authorization = authorization;
 
-    return this;
+    this._customersPromise = null;
+    this._operatorsPromise = null;
+    this._leadsPromise = null;
   }
 
   /**
-   * Init primary user types with empty array of ids
+   * Load customers ids
+   * @return {Promise<void>}
    * @private
    */
-  _initPrimaryTypes() {
-    return Object.keys(userTypes).reduce((acc, curr) => ({ ...acc, [curr]: [] }), {});
+  async _loadCustomers() {
+    const customers = await getCustomersSubtree(this._userUUID, this._authorization);
+
+    return customers.map(({ uuid }) => uuid);
   }
 
   /**
-   * Set hierarchy subtree from response (hierarchy-service)/user/{uuid}/hierarchy
-   * @param hierarchySubtree
-   * @return {Hierarchy}
+   * Load operators ids
+   * @return {Promise<void>}
+   * @private
    */
-  setHierarchySubtree(hierarchySubtree) {
-    hierarchySubtree.forEach(({ uuid, userType }) => {
-      this.types[userType].push(uuid);
-    });
+  async _loadOperators() {
+    const operators = await getOperatorsSubtree(this._userUUID, this._authorization);
 
-    return this;
+    return operators.map(({ uuid }) => uuid);
   }
 
   /**
-   * Get all user types
+   * Load leads ids
+   * @return {Promise<void>}
+   * @private
+   */
+  async _loadLeads() {
+    const leads = await getLeadsSubtree(this._userUUID, this._authorization);
+
+    return leads.map(({ uuid }) => uuid);
+  }
+
+  /**
+   * Get customers ids from hierarchy tree
    * @return {Array}
    */
-  getAllTypes() {
-    return values(userTypes);
+  async getCustomersIds() {
+    if (!this._customersPromise) {
+      this._customersPromise = this._loadCustomers();
+    }
+
+    return await this._customersPromise;
   }
 
   /**
-   * Get filtered operator types
+   * Get operators ids from hierarchy tree
    * @return {Array}
    */
-  getOperatorTypes() {
-    return values(omit(userTypes, [...this.getCustomerTypes(), ...this.getLeadCustomerTypes()]));
+  async getOperatorsIds() {
+    if (!this._operatorsPromise) {
+      this._operatorsPromise = this._loadOperators();
+    }
+
+    return await this._operatorsPromise;
   }
 
   /**
-   * Get filtered customer types
+   * Get leads ids from hierarchy tree
    * @return {Array}
    */
-  getCustomerTypes() {
-    return [userTypes.CUSTOMER];
-  }
+  async getLeadsIds() {
+    if (!this._leadsPromise) {
+      this._leadsPromise = this._loadLeads();
+    }
 
-  /**
-   * Get filtered leads types
-   * @return {Array}
-   */
-  getLeadCustomerTypes() {
-    return [userTypes.LEAD_CUSTOMER];
-  }
-
-  /**
-   * Get all ids from hierarchy tree
-   * @return {Array}
-   */
-  getAllIds() {
-    return flatten(values(this.types));
-  }
-
-  /**
-   * Get filtered operator ids from hierarchy tree
-   * @return {Array}
-   */
-  getOperatorsIds() {
-    return flatten(values(pick(this.types, this.getOperatorTypes())));
-  }
-
-  /**
-   * Get filtered customer ids from hierarchy tree
-   * @return {Array}
-   */
-  getCustomerIds() {
-    return flatten(values(pick(this.types, this.getCustomerTypes())));
-  }
-
-  /**
-   * Get filtered leads ids from hierarchy tree
-   * @return {Array}
-   */
-  getLeadCustomersIds() {
-    return flatten(values(pick(this.types, this.getLeadCustomerTypes())));
-  }
-
-  /**
-   * FAST FIX removed dependency on isAdministration
-   * Helper method for build query args depends on isAdministration flag
-   * Example:
-   *
-   * If administration:
-   * -----------------------------------------------
-   * (isAdministration = true)
-   * buildQueryArgs(args, { operatorIds: [...] }) // return only args, because administrator can see all entities
-   * -----------------------------------------------
-   *
-   * If isn't administration:
-   * -----------------------------------------------
-   * (isAdministration = false)
-   * buildQueryArgs(args, { operatorIds: [...] }) // return assigned object { ...{ operatorIds: [...] }, ...args }
-   * -----------------------------------------------
-   *
-   * @param args
-   * @param filter
-   * @return {{}}
-   */
-  buildQueryArgs(args, filter) {
-    return { ...args, ...filter };
+    return await this._leadsPromise;
   }
 }
 

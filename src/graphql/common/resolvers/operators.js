@@ -10,9 +10,9 @@ const getOperators = async (_, args, { headers: { authorization }, hierarchy }) 
     return operators;
   }
 
-  const filteredOperators = operators.data.content.filter(operator =>
-    hierarchy.getOperatorsIds().includes(operator.uuid)
-  );
+  const operatorsIds = await hierarchy.getOperatorsIds();
+
+  const filteredOperators = operators.data.content.filter(operator => operatorsIds.includes(operator.uuid));
 
   return { data: { ...operators.data, content: filteredOperators } };
 };

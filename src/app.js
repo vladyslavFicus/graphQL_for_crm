@@ -6,11 +6,9 @@ const bodyParser = require('body-parser');
 const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
 const schema = require('./graphql/schema');
 const Hierarchy = require('./services/Hierarchy');
-const { getHierarchyUserSubtree } = require('./utils/hierarchyRequests');
 const formatError = require('./utils/formatError');
 const Logger = require('./utils/logger');
 const loggerMiddleware = require('./middlewares/logger');
-const { departments } = require('./constants/departments');
 
 process.on('unhandledRejection', err => {
   Logger.fatal({ err }, 'Unhandled rejection');
@@ -40,22 +38,12 @@ process.on('uncaughtException', err => {
       };
 
       if (headers && headers.authorization && headers.authorization !== 'undefined') {
-        const { brandId, user_uuid: userUUID, department } = jwtDecode(headers.authorization);
-
-        const isAdministration = department === departments.ADMINISTRATION;
-        const hierarchy = new Hierarchy(isAdministration);
-
-        if (department !== departments.PLAYER) {
-          Logger.info('Getting Hierarchy Subtree');
-          const hierarchySubtree = await getHierarchyUserSubtree(userUUID, headers.authorization);
-
-          hierarchy.setHierarchySubtree(hierarchySubtree);
-        }
+        const { brandId, user_uuid: userUUID } = jwtDecode(headers.authorization);
 
         Object.assign(context, {
           userUUID,
           brand: global.appConfig.brands[brandId],
-          hierarchy,
+          hierarchy: new Hierarchy(userUUID, headers.authorization),
         });
       }
 
@@ -63,7 +51,6 @@ process.on('uncaughtException', err => {
         schema,
         context,
         formatError,
-        tracing: true,
       };
     })
   );

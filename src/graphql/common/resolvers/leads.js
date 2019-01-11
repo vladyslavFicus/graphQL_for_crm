@@ -40,7 +40,8 @@ const bulkLeadPromote = async (
   },
   { headers: { authorization }, brand: { id: brandId, currency }, hierarchy }
 ) => {
-  const queryIds = allRecords ? hierarchy.getLeadCustomersIds() : leadIds;
+  const hierarchyLeadsIds = await hierarchy.getLeadsIds();
+  const queryIds = allRecords ? hierarchyLeadsIds : leadIds;
   const leadsArguments = pickBy({
     limit: totalRecords,
     brandId,
@@ -208,10 +209,10 @@ const getLeadProfile = async (_, { leadId }, { headers: { authorization } }) => 
 };
 
 const getTradingLeads = async (_, args, { headers: { authorization }, brand: { id: brandId }, hierarchy }) => {
-  const _args = hierarchy.buildQueryArgs(args, { ids: hierarchy.getLeadCustomersIds() });
-  const leads = await getLeads({ ..._args, brandId }, authorization);
+  const leadsIds = await hierarchy.getLeadsIds();
+  const _args = { ...args, brandId, ids: leadsIds };
 
-  return leads;
+  return getLeads(_args, authorization);
 };
 
 const updateLeadProfile = async (_, args, { headers: { authorization }, brand: { id: brandId } }) => {
