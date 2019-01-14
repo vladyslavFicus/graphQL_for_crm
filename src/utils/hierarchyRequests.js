@@ -114,7 +114,7 @@ const getBranchHierarchyTree = (uuid, authorization) => {
   return fetch(`${global.appConfig.apiUrl}/trading_hierarchy_updater/branch/hierarchy/${uuid}`, {
     method: 'GET',
     headers: {
-      authorization: 'asd',
+      authorization,
       accept: 'application/json',
       'content-type': 'application/json',
     },
