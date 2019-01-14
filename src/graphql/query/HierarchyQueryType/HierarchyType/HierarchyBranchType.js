@@ -9,7 +9,7 @@ const HierarchyBranchType = new GraphQLObjectType({
     name: { type: new GraphQLNonNull(GraphQLString) },
     country: { type: GraphQLString },
     defaultUser: { type: GraphQLString },
-    parentBranches: { type: new GraphQLList(GraphQLString) },
+    parentBranch: { type: HierarchyBranchType },
     deskType: { type: DeskTypeEnum },
     language: { type: GraphQLString },
     defaultBranch: { type: GraphQLString },

@@ -29,7 +29,7 @@ const leadFields = {
   city: { type: GraphQLString },
   language: { type: GraphQLString },
   registrationDate: { type: new GraphQLNonNull(GraphQLString) },
-  statusChangeDate: { type: GraphQLString },
+  statusChangedDate: { type: GraphQLString },
 };
 
 const LeadType = new GraphQLObjectType({

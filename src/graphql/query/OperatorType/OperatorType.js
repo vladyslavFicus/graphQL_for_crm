@@ -1,4 +1,8 @@
 const { GraphQLObjectType, GraphQLString } = require('graphql');
+const {
+  HierarchyUsersType: { UserType },
+} = require('../HierarchyQueryType/HierarchyType');
+const { getHierarchyUser } = require('../../../utils/hierarchyRequests');
 
 module.exports = new GraphQLObjectType({
   name: 'OperatorType',
@@ -19,5 +23,12 @@ module.exports = new GraphQLObjectType({
     statusChangeDate: { type: GraphQLString },
     statusReason: { type: GraphQLString },
     uuid: { type: GraphQLString },
+    hierarchy: {
+      type: UserType,
+      resolve: async ({ uuid }, _, { headers: { authorization } }) => {
+        const hierarchyUser = await getHierarchyUser(uuid, authorization);
+        return hierarchyUser.data;
+      },
+    },
   }),
 });
