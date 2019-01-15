@@ -101,7 +101,7 @@ const getUpdateIds = async (promise, excludeIds) => {
   const pageableObj = await promise;
 
   if (pageableObj.error) {
-    return { error: pageableObj };
+    return pageableObj;
   }
   const ids = pageableObj.data.content.map(({ id }) => id);
 
@@ -144,7 +144,7 @@ const bulkLeadUpdate = async (
   const idsForUpdate = await getIds({ allRowsSelected, searchParams, totalElements, ids }, context);
 
   let hierarchyArgs = {
-    parentUsers: salesRep ? [salesRep] : [],
+    parentUsers: salesRep || [],
     userType: userTypes.LEAD_CUSTOMER,
     uuids: idsForUpdate,
   };
@@ -152,7 +152,6 @@ const bulkLeadUpdate = async (
   let leadArgs = {
     ids: idsForUpdate,
     brandId,
-    salesAgent: salesRep,
     ...(salesStatus && { salesStatus }),
   };
 
@@ -167,17 +166,19 @@ const bulkLeadUpdate = async (
     hierarchyArgs.parentUsers = [defaultUser];
   }
 
-  const leadBulkUpdate = await bulkUpdateLead(leadArgs, authorization);
+  if (salesStatus) {
+    const leadBulkUpdate = await bulkUpdateLead(leadArgs, authorization);
 
-  if (leadBulkUpdate.error) {
-    return { error: leadBulkUpdate };
+    if (leadBulkUpdate.error) {
+      return leadBulkUpdate;
+    }
   }
 
   if (hierarchyArgs.parentUsers.length) {
     const hierarchyBulkUpdate = await bulkMassAssignHierarchyUser(hierarchyArgs, authorization);
 
     if (hierarchyBulkUpdate.error) {
-      return { error: hierarchyBulkUpdate };
+      return hierarchyBulkUpdate;
     }
   }
 
