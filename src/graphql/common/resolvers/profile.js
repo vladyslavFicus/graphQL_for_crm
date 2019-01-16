@@ -1,6 +1,7 @@
 const moment = require('moment');
 const { get, isEmpty } = require('lodash');
 const fetch = require('../../../utils/fetch');
+const Logger = require('../../../utils/logger');
 const accessValidate = require('../../../utils/accessValidate');
 const parseJson = require('../../../utils/parseJson');
 const { updateQueryTradingProfile, updateQueryProfile } = require('../../../utils/profile');
@@ -116,6 +117,30 @@ const updateSubscription = async function(_, { playerUUID, ...args }, context) {
   return { data: { playerUUID, ...args } };
 };
 
+const getProfilePolling = async (playerUUID, brandId, attempt = 0) => {
+  const response = await getPlayerProfileFromESByUUID(brandId, playerUUID);
+
+  // Return error if polling attempting overflow
+  if (attempt > 10) {
+    Logger.error({ playerUUID }, 'profile polling failed');
+
+    return { error: 'polling failed' };
+  }
+
+  // Polling if HRZN profile is not created yet
+  if (!response.playerUUID || isEmpty(response.tradingProfile)) {
+    Logger.info({ playerUUID, attempt: attempt + 1 }, 'profile polling again');
+
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve(getProfilePolling(playerUUID, brandId, attempt + 1));
+      }, 1000);
+    });
+  }
+
+  return response;
+};
+
 const getProfile = async function(_, { playerUUID }, context) {
   const access = await accessValidate(context, playerUUID);
 
@@ -123,17 +148,8 @@ const getProfile = async function(_, { playerUUID }, context) {
     return access;
   }
 
-  const response = await getPlayerProfileFromESByUUID(context.brand.id, playerUUID);
+  const response = await getProfilePolling(playerUUID, context.brand.id);
   const error = get(response, 'error');
-
-  // Polling if HRZN profile is not created yet
-  if (!response.playerUUID || isEmpty(response.tradingProfile)) {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve(getProfile(_, { playerUUID }, context));
-      }, 1000);
-    });
-  }
 
   if (!error) {
     return { data: response };
