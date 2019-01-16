@@ -120,6 +120,13 @@ const updateSubscription = async function(_, { playerUUID, ...args }, context) {
 const getProfilePolling = async (playerUUID, brandId, attempt = 0) => {
   const response = await getPlayerProfileFromESByUUID(brandId, playerUUID);
 
+  // Return error if ES return error (for example if entity not found)
+  if (response.error) {
+    Logger.info({ playerUUID, ...response }, 'get profile ES response error');
+
+    return response;
+  }
+
   // Return error if polling attempting overflow
   if (attempt > 10) {
     Logger.error({ playerUUID }, 'profile polling failed');
