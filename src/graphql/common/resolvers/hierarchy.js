@@ -222,6 +222,10 @@ const getUserHierarchy = (_, __, { headers: { authorization }, userUUID }) => {
   return getHierarchyUser(userUUID, authorization);
 };
 
+const getUserHierarchyById = (_, { userId }, { headers: { authorization } }) => {
+  return getHierarchyUser(userId, authorization);
+};
+
 const getUsersByBranch = async (_, { uuid }, { headers: { authorization } }) => {
   const users = await getUsersByBranchQuery(uuid, authorization);
 
@@ -247,6 +251,7 @@ module.exports = {
   createTeam,
   addOperatorToBranch,
   getUserHierarchy,
+  getUserHierarchyById,
   getUserBranchHierarchy,
   getUsersByType,
   getBranchInfo,
