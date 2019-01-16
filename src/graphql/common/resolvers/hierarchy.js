@@ -202,32 +202,24 @@ const getUsersByType = async (_, { userTypes }, { headers: { authorization } }) 
   return { data: groupBy(mappedUsers, 'userType') };
 };
 
-const getBranchInfo = async (_, { branchId }, { headers: { authorization } }) => {
-  const branch = await getHierarchyBranch(branchId, authorization);
-
-  return branch;
+const getBranchInfo = (_, { branchId }, { headers: { authorization } }) => {
+  return getHierarchyBranch(branchId, authorization);
 };
 
-const getBranchHierarchy = async (_, args, { headers: { authorization } }) => {
-  const hierarchy = await getBranchHierarchyQuery(args, authorization);
-
-  return hierarchy;
+const getBranchHierarchy = (_, args, { headers: { authorization } }) => {
+  return getBranchHierarchyQuery(args, authorization);
 };
 
-const getBranchHierarchyTree = async (_, { branchUUID }, { headers: { authorization } }) => {
-  const data = await getBranchHierarchyTreeQuery(branchUUID, authorization);
-
-  return data;
+const getBranchHierarchyTree = (_, { branchUUID }, { headers: { authorization } }) => {
+  return getBranchHierarchyTreeQuery(branchUUID, authorization);
 };
 
 const getOperator = ({ uuid }, _, { headers: { authorization } }) => {
   return getOperatorFromCache(uuid, authorization);
 };
 
-const getUserHierarchy = async (_, __, { headers: { authorization }, userUUID }) => {
-  const data = await getHierarchyUser(userUUID, authorization);
-
-  return data;
+const getUserHierarchy = (_, __, { headers: { authorization }, userUUID }) => {
+  return getHierarchyUser(userUUID, authorization);
 };
 
 const getUsersByBranch = async (_, { uuid }, { headers: { authorization } }) => {
@@ -244,10 +236,8 @@ const getUsersByBranch = async (_, { uuid }, { headers: { authorization } }) => 
   };
 };
 
-const getBranchChildren = async (_, { uuid }, { headers: { authorization } }) => {
-  const data = await getBranchChildrenQuery(uuid, authorization);
-
-  return data;
+const getBranchChildren = (_, { uuid }, { headers: { authorization } }) => {
+  return getBranchChildrenQuery(uuid, authorization);
 };
 
 module.exports = {

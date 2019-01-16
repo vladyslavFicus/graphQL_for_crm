@@ -114,7 +114,7 @@ const getBranchHierarchyTree = (uuid, authorization) => {
   return fetch(`${global.appConfig.apiUrl}/trading_hierarchy_updater/branch/hierarchy/${uuid}`, {
     method: 'GET',
     headers: {
-      authorization: 'asd',
+      authorization,
       accept: 'application/json',
       'content-type': 'application/json',
     },
@@ -228,10 +228,7 @@ const bulkMassAssignHierarchyUser = (args, authorization) => {
       'content-type': 'application/json',
     },
     body: JSON.stringify(args),
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => response);
+  }).then(response => response.json());
 };
 
 module.exports = {

@@ -82,7 +82,7 @@ const LeadsMutation = new GraphQLObjectType({
     bulkLeadUpdate: {
       args: {
         teamId: { type: GraphQLString },
-        salesRep: { type: GraphQLString },
+        salesRep: { type: new GraphQLList(GraphQLString) },
         salesStatus: { type: GraphQLString },
         type: { type: new GraphQLNonNull(GraphQLString) },
         ids: { type: new GraphQLList(GraphQLString) },
