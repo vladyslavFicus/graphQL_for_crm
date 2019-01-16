@@ -190,14 +190,16 @@ const getUserBranchHierarchy = async (_, { userId }, { headers: { authorization 
   return { data: hierarchyByBranch };
 };
 
-const getUsersByType = async (_, { userTypes }, { headers: { authorization } }) => {
+const getUsersByType = async (_, { userTypes }, { headers: { authorization }, hierarchy }) => {
   const users = await getUsersByTypeQuery(userTypes, authorization);
 
   if (users.error) {
     return users;
   }
 
-  const mappedUsers = await getHierarchyMappedOperators(users.data, authorization);
+  const visibleUsers = await hierarchy.getOperatorsIds();
+  const hierarchyUsers = users.data.filter(({ uuid }) => visibleUsers.includes(uuid));
+  const mappedUsers = await getHierarchyMappedOperators(hierarchyUsers, authorization);
 
   return { data: groupBy(mappedUsers, 'userType') };
 };
