@@ -6,6 +6,7 @@ const HierarchyBranchType = new GraphQLObjectType({
   fields: () => ({
     uuid: { type: new GraphQLNonNull(GraphQLString) },
     branchType: { type: new GraphQLNonNull(GraphQLString) },
+    brandId: { type: GraphQLString },
     name: { type: new GraphQLNonNull(GraphQLString) },
     country: { type: GraphQLString },
     defaultUser: { type: GraphQLString },
