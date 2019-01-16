@@ -12,7 +12,7 @@ const TradingActivityType = new GraphQLObjectType({
     symbol: { type: GraphQLString },
     digits: { type: GraphQLInt },
     cmd: { type: CommandsEnum },
-    volume: { type: GraphQLInt },
+    volume: { type: GraphQLFloat },
     openTime: { type: BigInt },
     closeTime: { type: BigInt },
     openPrice: { type: GraphQLFloat },
