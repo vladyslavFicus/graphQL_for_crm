@@ -189,7 +189,7 @@ const createClientPayment = async (
   }
 
   return {
-    data: casinoPayment || { ...tradingPayment.data, generationDate: tradingPayment.creationTime },
+    data: casinoPayment || { ...tradingPayment.data, generationDate: tradingPayment.data.creationTime },
   };
 };
 
