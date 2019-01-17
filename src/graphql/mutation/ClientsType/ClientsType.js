@@ -29,6 +29,7 @@ const ClientSearchParams = new GraphQLInputObjectType({
     currency: { type: GraphQLString },
     repIds: { type: new GraphQLList(GraphQLString) },
     assignStatus: { type: GraphQLString },
+    profileStatus: { type: GraphQLString },
     kycStatus: { type: GraphQLString },
     firstDeposit: { type: GraphQLString },
     salesStatuses: { type: new GraphQLList(GraphQLString) },

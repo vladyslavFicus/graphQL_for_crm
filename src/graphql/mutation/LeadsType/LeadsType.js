@@ -21,7 +21,8 @@ const LeadSearchParams = new GraphQLInputObjectType({
     countries: { type: new GraphQLList(GraphQLString) },
     registrationDateStart: { type: GraphQLString },
     registrationDateEnd: { type: GraphQLString },
-    salesStatus: { type: GraphQLString },
+    salesStatuses: { type: new GraphQLList(GraphQLString) },
+    salesAgents: { type: new GraphQLList(GraphQLString) },
   }),
 });
 
