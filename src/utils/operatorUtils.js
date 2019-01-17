@@ -5,7 +5,7 @@ const getOperatorFromCache = async (id, auth) => {
     global.cache.operators[id] = await getOperator(id, auth);
     setTimeout(() => {
       delete global.cache.operators[id];
-    }, 3600000);
+    }, 300000);
   }
 
   return global.cache.operators[id];
