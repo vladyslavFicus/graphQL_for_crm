@@ -43,7 +43,7 @@ const profilesQuery = ({
   queryBuild.match('city', city),
   queryBuild.match('country', countries, { type: 'array' }),
   queryBuild.queryString(
-    ['firstName', 'playerUUID', 'email', 'tradingProfile.phone1', 'tradingProfile.phone2'],
+    ['firstName', 'lastName', 'playerUUID', 'email', 'tradingProfile.phone1', 'tradingProfile.phone2'],
     searchValue,
     { prefix: '*', postfix: '*' }
   ),
