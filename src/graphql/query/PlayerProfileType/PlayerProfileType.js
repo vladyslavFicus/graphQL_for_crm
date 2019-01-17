@@ -130,48 +130,6 @@ const PlayerProfileType = new GraphQLObjectType({
       type: new GraphQLNonNull(GraphQLBoolean),
       resolve: root => root.tailorMadeSMS || false,
     },
-    phone: {
-      type: GraphQLString,
-      resolve(
-        { phone, phoneNumber },
-        _,
-        context,
-        {
-          variableValues: { phone: argPhone },
-        }
-      ) {
-        if (!phone && !phoneNumber && !argPhone) {
-          return null;
-        }
-
-        if (phone) {
-          return phone;
-        }
-
-        return argPhone;
-      },
-    },
-    phone2: {
-      type: GraphQLString,
-      resolve(
-        { phone2, phoneNumber },
-        _,
-        context,
-        {
-          variableValues: { phone2: argPhone },
-        }
-      ) {
-        if (!phone2 && !phoneNumber && !argPhone) {
-          return null;
-        }
-
-        if (phone2) {
-          return phone2;
-        }
-
-        return argPhone;
-      },
-    },
     phoneNumber: {
       type: GraphQLString,
       resolve({ phone, phoneCode, phoneNumber }) {

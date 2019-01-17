@@ -16,6 +16,7 @@ const promoteLead = async args => {
     brandId: args.brandId,
     email: args.email,
     phone1: args.phone,
+    phone2: args.phone2,
     languageCode: args.languageCode,
   });
 
@@ -65,7 +66,7 @@ const bulkLeadPromote = async (
   const leadsToPromote =
     allRecords && leadIds.length > 0 ? content.filter(item => leadIds.indexOf(item.id) === -1) : content;
 
-  leadsToPromote.forEach(({ email, name, surname, country, city, phone, language }) => {
+  leadsToPromote.forEach(({ email, name, surname, country, city, phone, mobile, language }) => {
     const request = promoteLead(
       {
         password: `A${Math.random().toString(36)}1#`,
@@ -77,6 +78,7 @@ const bulkLeadPromote = async (
         city,
         currency,
         phone,
+        phone2: mobile,
         languageCode: language,
       },
       authorization
