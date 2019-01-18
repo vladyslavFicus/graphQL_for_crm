@@ -24,6 +24,25 @@ const representativeResolver = fieldName => ({ [fieldName]: repId }, _, { header
   return getOperatorFromCache(repId, authorization);
 };
 
+const AffiliateDocumentType = new GraphQLObjectType({
+  name: 'AffiliateDocumentType',
+  fields: () => ({
+    _id: {
+      type: new GraphQLNonNull(GraphQLString),
+      resolve: ({ affiliateUuid }) => affiliateUuid,
+    },
+    affiliateUuid: { type: new GraphQLNonNull(GraphQLString) },
+    source: { type: GraphQLString },
+    referral: { type: GraphQLString },
+    affiliate: {
+      type: OperatorType,
+      resolve: ({ affiliateUuid }, _, { headers: { authorization } }) => {
+        return getOperatorFromCache(affiliateUuid, authorization);
+      },
+    },
+  }),
+});
+
 const Mt4UserType = new GraphQLObjectType({
   name: 'Mt4User',
   fields: () => ({
@@ -85,6 +104,9 @@ const TradingProfileType = new GraphQLObjectType({
     phone1: { type: GraphQLString },
     phone2: { type: GraphQLString },
     languageCode: { type: GraphQLString },
+    affiliateProfileDocument: {
+      type: AffiliateDocumentType,
+    },
   }),
 });
 
