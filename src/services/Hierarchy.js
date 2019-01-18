@@ -1,4 +1,5 @@
 const { getCustomersSubtree, getLeadsSubtree, getOperatorsSubtree } = require('../utils/hierarchyRequests');
+const Logger = require('../utils/logger');
 
 class Hierarchy {
   constructor(userUUID, authorization) {
@@ -16,9 +17,14 @@ class Hierarchy {
    * @private
    */
   async _loadCustomers() {
-    const customers = await getCustomersSubtree(this._userUUID, this._authorization);
+    const { error, data } = await getCustomersSubtree(this._userUUID, this._authorization);
 
-    return customers.map(({ uuid }) => uuid);
+    if (error || !Array.isArray(data)) {
+      Logger.error({ message: 'Get Hierarchy Customers Subtree Query Failed', error, data });
+      return [];
+    }
+
+    return data.map(({ uuid }) => uuid);
   }
 
   /**
@@ -27,9 +33,14 @@ class Hierarchy {
    * @private
    */
   async _loadOperators() {
-    const operators = await getOperatorsSubtree(this._userUUID, this._authorization);
+    const { error, data } = await getOperatorsSubtree(this._userUUID, this._authorization);
 
-    return operators.map(({ uuid }) => uuid);
+    if (error || !Array.isArray(data)) {
+      Logger.error({ message: 'Get Hierarchy Operators Subtree Query Failed', error, data });
+      return [];
+    }
+
+    return data.map(({ uuid }) => uuid);
   }
 
   /**
@@ -38,9 +49,14 @@ class Hierarchy {
    * @private
    */
   async _loadLeads() {
-    const leads = await getLeadsSubtree(this._userUUID, this._authorization);
+    const { error, data } = await getLeadsSubtree(this._userUUID, this._authorization);
 
-    return leads.map(({ uuid }) => uuid);
+    if (error || !Array.isArray(data)) {
+      Logger.error({ message: 'Get Hierarchy Leads Subtree Query Failed', error, data });
+      return [];
+    }
+
+    return data.map(({ uuid }) => uuid);
   }
 
   /**

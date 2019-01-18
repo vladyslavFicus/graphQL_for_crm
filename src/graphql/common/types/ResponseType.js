@@ -8,12 +8,14 @@ const ResponseType = (ContentType, customName = '') =>
     fields: () => ({
       error: { type: ErrorType },
       errors: { type: new GraphQLList(ErrorType) },
-      data: {
-        type: ContentType,
-        resolve(_) {
-          return Array.isArray(_) ? _ : _.data;
+      ...(ContentType && {
+        data: {
+          type: ContentType,
+          resolve(_) {
+            return Array.isArray(_) ? _ : _.data;
+          },
         },
-      },
+      }),
     }),
   });
 
