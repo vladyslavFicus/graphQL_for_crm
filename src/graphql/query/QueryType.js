@@ -400,6 +400,7 @@ const QueryType = new GraphQLObjectType({
         countries: { type: new GraphQLList(GraphQLString) },
         registrationDateStart: { type: GraphQLString },
         registrationDateEnd: { type: GraphQLString },
+        status: { type: GraphQLString },
         salesStatus: { type: TradingSalesStatuses },
         salesAgents: { type: new GraphQLList(GraphQLString) },
       },
