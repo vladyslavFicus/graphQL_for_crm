@@ -37,17 +37,13 @@ const createUser = async (_, { userId, branchId, userType }, { headers: { author
   const user = await createUserMutation(
     {
       uuid: userId,
-      parentBranches: [...(branchId && [branchId])],
       userType,
+      ...(branchId && { parentBranches: [branchId] }),
     },
     authorization
   );
 
-  if (user.error) {
-    return { error: user.error };
-  }
-
-  return { data: user.uuid };
+  return user;
 };
 
 const createOffice = async (_, { officeManager, ...args }, { headers: { authorization }, userUUID: operatorId }) => {

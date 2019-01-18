@@ -23,7 +23,7 @@ const HierarchyMutation = new GraphQLObjectType({
         userType: { type: new GraphQLNonNull(GraphQLString) },
         branchId: { type: GraphQLString },
       },
-      type: ResponseType(GraphQLString, 'createdHierarchyUserType'),
+      type: ResponseType(null, 'createdHierarchyUserType'),
       resolve: createUser,
     },
     createOffice: {

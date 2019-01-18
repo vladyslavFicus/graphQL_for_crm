@@ -25,10 +25,7 @@ const createUser = (args, authorization) => {
       'content-type': 'application/json',
     },
     body: JSON.stringify(args),
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => response);
+  }).then(response => response.json());
 };
 
 const createBranch = (args, authorization) => {
@@ -65,10 +62,7 @@ const getCustomersSubtree = (userId, authorization) => {
       accept: 'application/json',
       'content-type': 'application/json',
     },
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => response);
+  }).then(response => response.json());
 };
 
 const getLeadsSubtree = (userId, authorization) => {
@@ -79,10 +73,7 @@ const getLeadsSubtree = (userId, authorization) => {
       accept: 'application/json',
       'content-type': 'application/json',
     },
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => response);
+  }).then(response => response.json());
 };
 
 const getOperatorsSubtree = (userId, authorization) => {
@@ -93,10 +84,7 @@ const getOperatorsSubtree = (userId, authorization) => {
       accept: 'application/json',
       'content-type': 'application/json',
     },
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => response);
+  }).then(response => response.json());
 };
 
 const getHierarchyBranch = (branchId, authorization) => {
