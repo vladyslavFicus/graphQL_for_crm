@@ -100,7 +100,7 @@ const PlayerProfileType = new GraphQLObjectType({
         return !isNil(completed) ? completed : alreadyCompleted;
       },
     },
-    country: { type: new GraphQLNonNull(GraphQLString) },
+    country: { type: GraphQLString },
     creationDate: { type: new GraphQLNonNull(GraphQLString) },
     currency: { type: new GraphQLNonNull(GraphQLString) },
     email: { type: new GraphQLNonNull(GraphQLString) },

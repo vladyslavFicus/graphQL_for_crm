@@ -48,7 +48,7 @@ const ProfilesType = new GraphQLObjectType({
       type: GraphQLString,
       resolve: ({ firstName, lastName }) => [firstName, lastName].filter(v => v).join(' '),
     },
-    country: { type: new GraphQLNonNull(GraphQLString) },
+    country: { type: GraphQLString },
     affiliateId: { type: GraphQLString },
     username: { type: GraphQLString },
     languageCode: { type: new GraphQLNonNull(GraphQLString) },
