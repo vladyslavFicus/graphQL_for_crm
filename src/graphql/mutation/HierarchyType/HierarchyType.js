@@ -1,6 +1,6 @@
 const { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLList, GraphQLBoolean } = require('graphql');
 const {
-  hierarchy: { createUser, createOffice, createDesk, createTeam, addOperatorToBranch },
+  hierarchy: { createUser, createOffice, createDesk, createTeam, addOperatorToBranch, updateHierarchyUser },
 } = require('../../common/resolvers');
 const { DeskTypeEnum } = require('../../query/HierarchyQueryType/HierarchyType/HierarchyEnums');
 const ResponseType = require('../../common/types/ResponseType');
@@ -60,6 +60,19 @@ const HierarchyMutation = new GraphQLObjectType({
       },
       type: ResponseType(GraphQLBoolean, 'SuccessAddedOperatorToBranch'),
       resolve: addOperatorToBranch,
+    },
+    updateUser: {
+      args: {
+        operatorId: { type: new GraphQLNonNull(GraphQLString) },
+        assignToBranch: { type: GraphQLString },
+        assignToOperator: { type: GraphQLString },
+        parentBranches: { type: new GraphQLList(GraphQLString) },
+        parentUsers: { type: new GraphQLList(GraphQLString) },
+        unassignFromBranch: { type: GraphQLString },
+        unassignFromOperator: { type: GraphQLString },
+      },
+      type: ResponseType(null, 'updateHierarchyOperatorType'),
+      resolve: updateHierarchyUser,
     },
   }),
 });
