@@ -145,6 +145,10 @@ const bulkLeadUpdate = async (
 
   const idsForUpdate = await getIds({ allRowsSelected, searchParams, totalElements, ids }, context);
 
+  if (idsForUpdate.error) {
+    return idsForUpdate;
+  }
+
   let hierarchyArgs = {
     parentUsers: salesRep || [],
     userType: userTypes.LEAD_CUSTOMER,
