@@ -175,6 +175,10 @@ const addOperatorToBranch = async (_, { operatorId, branchId }, { headers: { aut
   return { data: true };
 };
 
+const updateHierarchyUser = (_, args, { headers: { authorization } }) => {
+  return updateUserHierarchy(args, authorization);
+};
+
 const getUserBranchHierarchy = async (_, { userId }, { headers: { authorization } }) => {
   const hierarchy = await getUserBranchHierarchyQuery(userId, authorization);
 
@@ -248,6 +252,7 @@ module.exports = {
   createDesk,
   createTeam,
   addOperatorToBranch,
+  updateHierarchyUser,
   getUserHierarchy,
   getUserHierarchyById,
   getUserBranchHierarchy,
