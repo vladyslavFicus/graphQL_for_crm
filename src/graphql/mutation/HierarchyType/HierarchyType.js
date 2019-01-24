@@ -64,6 +64,7 @@ const HierarchyMutation = new GraphQLObjectType({
     updateUser: {
       args: {
         operatorId: { type: new GraphQLNonNull(GraphQLString) },
+        userType: { type: GraphQLString },
         assignToBranch: { type: GraphQLString },
         assignToOperator: { type: GraphQLString },
         parentBranches: { type: new GraphQLList(GraphQLString) },
