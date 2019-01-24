@@ -401,7 +401,7 @@ const QueryType = new GraphQLObjectType({
         registrationDateStart: { type: GraphQLString },
         registrationDateEnd: { type: GraphQLString },
         status: { type: GraphQLString },
-        salesStatus: { type: TradingSalesStatuses },
+        salesStatuses: { type: new GraphQLList(TradingSalesStatuses) },
         salesAgents: { type: new GraphQLList(GraphQLString) },
       },
       resolve: getTradingLeads,
