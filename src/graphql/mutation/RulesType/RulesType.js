@@ -48,8 +48,8 @@ const RulesMutation = new GraphQLObjectType({
     createRuleRetention: {
       args: {
         name: { type: new GraphQLNonNull(GraphQLString) },
-        countries: { type: new GraphQLNonNull(new GraphQLList(GraphQLString)) },
-        languages: { type: new GraphQLNonNull(new GraphQLList(GraphQLString)) },
+        countries: { type: new GraphQLList(GraphQLString) },
+        languages: { type: new GraphQLList(GraphQLString) },
         priority: { type: new GraphQLNonNull(GraphQLInt) },
         actions: { type: new GraphQLNonNull(new GraphQLList(RuleActionsInputType)) },
         createdBy: { type: new GraphQLNonNull(GraphQLString) },
