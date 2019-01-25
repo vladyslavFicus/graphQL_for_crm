@@ -65,6 +65,7 @@ const LeadsMutation = new GraphQLObjectType({
         phone: { type: new GraphQLNonNull(GraphQLString) },
         phone2: { type: GraphQLString },
         languageCode: { type: new GraphQLNonNull(GraphQLString) },
+        leadUuid: { type: new GraphQLNonNull(GraphQLString) },
       },
       type: ResponseType(PromotedLeadType),
       resolve: promoteLeadToClient,

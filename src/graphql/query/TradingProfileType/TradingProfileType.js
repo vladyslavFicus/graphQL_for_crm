@@ -88,6 +88,7 @@ const TradingProfileType = new GraphQLObjectType({
     balance: { type: GraphQLString },
     credit: { type: GraphQLString },
     equity: { type: GraphQLString },
+    convertedFromLeadUuid: { type: GraphQLString },
     baseCurrencyBalance: { type: GraphQLString },
     baseCurrencyEquity: { type: GraphQLString },
     mt4Users: { type: new GraphQLList(Mt4UserType) },

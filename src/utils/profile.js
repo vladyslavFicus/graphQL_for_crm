@@ -13,11 +13,12 @@ const createQueryHrznProfile = args => {
   }).then(response => response.json().then(({ data, error }) => ({ status: response.status, data, error })));
 };
 
-const createQueryTradingProfile = args => {
-  return fetch(`${global.appConfig.apiUrl}/trading_profile/public/create`, {
+const createQueryTradingProfile = (args, authorization) => {
+  return fetch(`${global.appConfig.apiUrl}/trading_profile/conversion/lead`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
+      authorization,
       'content-type': 'application/json',
     },
     body: JSON.stringify(args),

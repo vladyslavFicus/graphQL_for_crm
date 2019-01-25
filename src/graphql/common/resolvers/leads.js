@@ -4,21 +4,25 @@ const { createQueryHrznProfile, createQueryTradingProfile } = require('../../../
 const { getLeads, getLeadById, updateLead, bulkUpdateLead } = require('../../../utils/leadRequests');
 const { bulkMassAssignHierarchyUser, getHierarchyBranch } = require('../../../utils/hierarchyRequests');
 
-const promoteLead = async args => {
+const promoteLead = async (args, authorization) => {
   const profile = await createQueryHrznProfile(omit(args, ['phone']));
 
   if (profile.status !== 200) {
     return profile;
   }
 
-  const tradingProfile = await createQueryTradingProfile({
-    profileId: profile.data.playerUUID,
-    brandId: args.brandId,
-    email: args.email,
-    phone1: args.phone,
-    phone2: args.phone2,
-    languageCode: args.languageCode,
-  });
+  const tradingProfile = await createQueryTradingProfile(
+    {
+      profileId: profile.data.playerUUID,
+      brandId: args.brandId,
+      email: args.email,
+      phone1: args.phone,
+      phone2: args.phone2,
+      languageCode: args.languageCode,
+      leadUuid: args.leadUuid,
+    },
+    authorization
+  );
 
   if (tradingProfile.status !== 200) {
     return tradingProfile;
@@ -191,8 +195,8 @@ const bulkLeadUpdate = async (
   return { data: 'success' };
 };
 
-const promoteLeadToClient = async (_, args, { brand: { id: brandId, currency } }) => {
-  const { status, data, error } = await promoteLead({ brandId, currency, ...args });
+const promoteLeadToClient = async (_, args, { brand: { id: brandId, currency }, headers: { authorization } }) => {
+  const { status, data, error } = await promoteLead({ brandId, currency, ...args }, authorization);
 
   if (status !== 200) {
     return { error };
