@@ -25,6 +25,8 @@ const leadFields = {
   salesStatus: { type: SalesStatusesEnum },
   birthDate: { type: GraphQLString },
   affiliate: { type: GraphQLString },
+  convertedByOperatorUuid: { type: GraphQLString },
+  convertedToClientUuid: { type: GraphQLString },
   gender: { type: GraphQLString },
   city: { type: GraphQLString },
   language: { type: GraphQLString },
