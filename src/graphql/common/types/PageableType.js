@@ -6,25 +6,20 @@ const createPageableType = (ContentType, additionalFields = {}, customName = '')
     fields: () => ({
       page: {
         type: new GraphQLNonNull(GraphQLInt),
-        resolve(object) {
-          return object.page || 0;
-        },
+        resolve: ({ page }) => page || 0,
       },
       number: { type: GraphQLInt },
       totalElements: { type: GraphQLInt },
       totalPages: {
         type: GraphQLInt,
-        resolve({ size, totalElements }) {
-          return totalElements && size ? Math.ceil(totalElements / size) : 0;
-        },
+        resolve: ({ size, totalElements }) => (totalElements && size ? Math.ceil(totalElements / size) : 0),
       },
       size: { type: new GraphQLNonNull(GraphQLInt) },
       content: { type: new GraphQLList(ContentType) },
       last: {
         type: new GraphQLNonNull(GraphQLBoolean),
-        resolve(object) {
-          return object.last || object.content.length === 0 || object.content.length < object.size;
-        },
+        resolve: ({ last, totalElements, totalPages, number }) =>
+          last || totalElements === 0 || totalPages - 1 === number,
       },
       ...additionalFields,
     }),

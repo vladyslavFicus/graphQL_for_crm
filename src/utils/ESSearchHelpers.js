@@ -59,8 +59,10 @@ const queryBuild = {
 
 const parseToPageable = ({ hits: { total, hits } }, page, size) => ({
   totalElements: total,
+  totalPages: total ? Math.ceil(total / size) : 0,
   content: hits.map(hit => ({ ...hit._source })),
   last: size >= total,
+  number: page,
   page,
   size,
 });
@@ -119,7 +121,7 @@ const getScrollData = async (brandId, query, scroll, documentType, source = true
   };
 };
 
-const getSearchData = (brandId, query, sort, { page = 1, size }, documentType) =>
+const getSearchData = (brandId, query, sort, { page = 0, size }, documentType) =>
   new Promise(resolve => {
     let filter = null;
 
@@ -141,7 +143,7 @@ const getSearchData = (brandId, query, sort, { page = 1, size }, documentType) =
           },
           ...(sort && { sort }),
           size,
-          from: (page - 1) * size,
+          from: page * size,
         },
       },
       (error, response) => {

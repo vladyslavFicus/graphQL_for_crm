@@ -6,7 +6,6 @@ const {
   GraphQLScalarType,
   GraphQLString,
   GraphQLList,
-  GraphQLFloat,
 } = require('graphql');
 const ResponseType = require('../common/types/ResponseType');
 const {
