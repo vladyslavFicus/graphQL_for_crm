@@ -14,7 +14,7 @@ const getOperators = async (_, args, { headers: { authorization }, hierarchy }) 
 
   const filteredOperators = operators.data.content.filter(operator => operatorsIds.includes(operator.uuid));
 
-  return { data: { ...operators.data, content: filteredOperators } };
+  return { data: { ...operators.data, content: filteredOperators, totalElements: filteredOperators.length } };
 };
 
 module.exports = {
