@@ -2,13 +2,14 @@ const fetch = require('./fetch');
 const buildQueryString = require('./buildQueryString');
 
 const getCallbacks = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_callback/?${buildQueryString(args)}`, {
-    method: 'GET',
+  return fetch(`${global.appConfig.apiUrl}/trading_callback/search`, {
+    method: 'POST',
     headers: {
       accept: 'application/json',
       authorization,
       'content-type': 'application/json',
     },
+    body: JSON.stringify(args),
   }).then(response => response.json());
 };
 

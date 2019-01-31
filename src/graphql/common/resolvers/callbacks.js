@@ -65,7 +65,7 @@ const createCallback = async (_, args, { headers: { authorization } }) => {
     return { error: 'error.create.callback' };
   }
 
-  return { callback };
+  return callback;
 };
 
 module.exports = {
