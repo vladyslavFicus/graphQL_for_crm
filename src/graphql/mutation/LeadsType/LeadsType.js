@@ -23,6 +23,7 @@ const LeadSearchParams = new GraphQLInputObjectType({
     registrationDateEnd: { type: GraphQLString },
     salesStatuses: { type: new GraphQLList(GraphQLString) },
     salesAgents: { type: new GraphQLList(GraphQLString) },
+    status: { type: GraphQLString },
   }),
 });
 
@@ -72,6 +73,7 @@ const LeadsMutation = new GraphQLObjectType({
       resolve: promoteLeadToClient,
     },
     bulkPromote: {
+      // args needs to be fixed according to leadFilters as in bulkLeadUpdate
       args: {
         allRecords: { type: GraphQLBoolean },
         leadIds: { type: new GraphQLList(GraphQLString) },
