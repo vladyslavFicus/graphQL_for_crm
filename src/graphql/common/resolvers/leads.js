@@ -166,7 +166,10 @@ const bulkLeadUpdate = async (
   };
 
   if (teamId && !salesRep) {
-    const { defaultUser, error } = await getHierarchyBranch(teamId, authorization);
+    const {
+      data: { defaultUser },
+      error,
+    } = await getHierarchyBranch(teamId, authorization);
 
     if (error) {
       return { error };

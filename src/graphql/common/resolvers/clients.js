@@ -21,10 +21,11 @@ const getUpdateIds = async (promise, excludeIds) => {
 const getIds = async ({ allRowsSelected, searchParams, totalElements, ids }, context) => {
   if (allRowsSelected) {
     const ESQueryParams = {
-      page: 1,
+      page: 0,
       size: totalElements,
       ...(searchParams && searchParams),
     };
+
     const idsForUpdate = await getUpdateIds(getProfiles(null, ESQueryParams, context), ids);
 
     if (idsForUpdate.error || idsForUpdate.jwtError) {
@@ -84,7 +85,10 @@ const bulkRepresentativeUpdate = async (
         parentUsers: [retentionRep || salesRep],
       }));
     } else {
-      const { defaultUser, error } = await getHierarchyBranch(teamId, authorization);
+      const {
+        data: { defaultUser },
+        error,
+      } = await getHierarchyBranch(teamId, authorization);
 
       if (error) {
         return { error };
