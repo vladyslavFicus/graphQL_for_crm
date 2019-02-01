@@ -3,8 +3,8 @@ const parseJson = require('../../../utils/parseJson');
 
 const signUpOptions = function(_, { brandId }) {
   return fetch(`${global.appConfig.apiUrl}/profile/public/signup?brandId=${brandId}`, { method: 'OPTIONS' })
-    .then(response => response.text())
-    .then(response => parseJson(response))
+    .then(response => console.log('firstStuff', response) || response.text())
+    .then(response => console.log('response', response) || parseJson(response))
     .then(response => ({ ...response, brandId }));
 };
 

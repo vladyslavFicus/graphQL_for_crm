@@ -8,12 +8,6 @@ const { updateQueryTradingProfile, updateQueryProfile } = require('../../../util
 const getPlayerProfileFromESByUUID = require('../../../utils/getPlayerProfileFromESByUUID');
 const { statuses } = require('../../../constants/player');
 
-const signUpOptions = function(_, { brandId }) {
-  return fetch(`${global.appConfig.apiUrl}/profile/public/signup?brandId=${brandId}`, { method: 'OPTIONS' })
-    .then(response => response.text())
-    .then(response => parseJson(response));
-};
-
 const passwordResetRequest = (_, { brandId, playerUUID }, { headers: { authorization } }) => {
   return fetch(`${global.appConfig.apiUrl}/auth/password/${brandId}/${playerUUID}/reset/request`, {
     method: 'POST',
@@ -422,9 +416,6 @@ const updateProfile = async function(_, { playerUUID, ...args }, { headers: { au
 };
 
 module.exports = {
-  signUp: {
-    options: signUpOptions,
-  },
   updateSubscription,
   resume,
   sendActivationLink,
