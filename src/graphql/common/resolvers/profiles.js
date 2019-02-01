@@ -44,8 +44,7 @@ const profilesQuery = ({
   queryBuild.match('country', countries, { type: 'array' }),
   queryBuild.queryString(
     ['firstName', 'lastName', 'playerUUID', 'email', 'tradingProfile.phone1', 'tradingProfile.phone2'],
-    searchValue,
-    { prefix: '*', postfix: '*' }
+    searchValue
   ),
   assignStatus === assignStatuses.UN_ASSIGN &&
     queryBuild.should(
@@ -69,10 +68,11 @@ const profilesQuery = ({
         queryBuild.must(queryBuild.exists('tradingProfile.retentionRep')),
       ]
     ),
-  queryBuild.filter([
-    queryBuild.match('tradingProfile.retentionRep', repIds, { type: 'array' }),
-    queryBuild.match('tradingProfile.salesRep', repIds, { type: 'array' }),
-  ]),
+  repIds &&
+    queryBuild.should(
+      [queryBuild.must(queryBuild.match('tradingProfile.retentionRep', repIds))],
+      [queryBuild.must(queryBuild.match('tradingProfile.salesRep', repIds))]
+    ),
   queryBuild.match('tradingProfile.kycStatus', kycStatus),
   firstDeposit === firstDepositStatuses.YES && queryBuild.exists('tradingProfile.firstDepositDate'),
   firstDeposit === firstDepositStatuses.NO &&

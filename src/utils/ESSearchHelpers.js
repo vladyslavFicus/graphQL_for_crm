@@ -54,7 +54,6 @@ const queryBuild = {
           },
         }
       : {},
-  filter: value => value.filter(item => !isEmpty(item)),
 };
 
 const parseToPageable = ({ hits: { total, hits } }, page, size) => ({
