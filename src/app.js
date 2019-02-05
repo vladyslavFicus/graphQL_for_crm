@@ -28,9 +28,9 @@ process.on('uncaughtException', err => {
     '/gql',
     bodyParser.json(),
     apolloUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }),
-    // loggerMiddleware({
-    //   logging: global.isLoggingEnabled,
-    // }),
+    loggerMiddleware({
+      logging: global.isLoggingEnabled,
+    }),
     graphqlExpress(async ({ headers, ip }) => {
       const context = {
         headers,
