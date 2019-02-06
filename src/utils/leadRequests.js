@@ -21,10 +21,7 @@ const getLeadById = (leadId, authorization) => {
       accept: 'application/json',
       'content-type': 'application/json',
     },
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => response);
+  }).then(response => response.json());
 };
 
 const updateLead = ({ id, ...args }, authorization) => {

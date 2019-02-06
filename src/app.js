@@ -1,14 +1,12 @@
 require('./dotenv');
 const express = require('express');
 const jwtDecode = require('jwt-decode');
-const { apolloUploadExpress } = require('apollo-upload-server');
-const bodyParser = require('body-parser');
-const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
+const { ApolloServer } = require('apollo-server-express');
+const { v4 } = require('uuid');
 const schema = require('./graphql/schema');
+const LoggerExtension = require('./graphql/extensions/LoggerExtension');
 const Hierarchy = require('./services/Hierarchy');
-const formatError = require('./utils/formatError');
 const Logger = require('./utils/logger');
-const loggerMiddleware = require('./middlewares/logger');
 
 process.on('unhandledRejection', err => {
   Logger.fatal({ err }, 'Unhandled rejection');
@@ -24,15 +22,17 @@ process.on('uncaughtException', err => {
   await require('./bootstrap')(app);
 
   app.set('trust proxy', true);
-  app.use(
-    '/gql',
-    bodyParser.json(),
-    apolloUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }),
-    loggerMiddleware({
-      logging: global.isLoggingEnabled,
-    }),
-    graphqlExpress(async ({ headers, ip }) => {
+
+  app.get('/health', (req, res) => res.status(200).json({ status: 'UP' }));
+
+  app.use('/player', require('./routes/player'));
+
+  const server = new ApolloServer({
+    schema,
+    extensions: global.isLoggingEnabled && [() => new LoggerExtension()],
+    context: ({ req: { headers, ip } }) => {
       const context = {
+        requestId: v4(),
         headers,
         ip,
       };
@@ -47,22 +47,14 @@ process.on('uncaughtException', err => {
         });
       }
 
-      return {
-        schema,
-        context,
-        formatError,
-      };
-    })
-  );
-  app.get(
-    '/graphiql',
-    graphiqlExpress({
-      endpointURL: `${global.appConfig.baseUrl}/gql`,
-    })
-  );
-  app.get('/health', (req, res) => res.status(200).json({ status: 'UP' }));
+      return context;
+    },
+  });
 
-  app.use('/player', require('./routes/player'));
+  server.applyMiddleware({
+    app,
+    path: '/gql',
+  });
 
   app.listen(global.appConfig.port, () => Logger.info('Service started'));
 })();

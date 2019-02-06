@@ -1,5 +1,5 @@
 const { GraphQLObjectType, GraphQLNonNull, GraphQLString } = require('graphql');
-const { GraphQLUpload } = require('apollo-upload-server');
+const { GraphQLUpload } = require('apollo-server-express');
 const ResponseType = require('../../common/types/ResponseType');
 const { addTags, disable } = require('../../common/resolvers/conditionalTags');
 const { ConditionalTagType } = require('../../query/ConditionalTagType');

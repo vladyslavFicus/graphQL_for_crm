@@ -1,5 +1,5 @@
 const { GraphQLObjectType, GraphQLList } = require('graphql');
-const { GraphQLUpload } = require('apollo-upload-server');
+const { GraphQLUpload } = require('apollo-server-express');
 const { ResponseType } = require('../../common/types');
 const { LeadUploadType } = require('../../query/LeadType');
 const {

@@ -208,19 +208,7 @@ const promoteLeadToClient = async (_, args, { brand: { id: brandId, currency }, 
   return { data };
 };
 
-const getLeadProfile = async (_, { leadId }, { headers: { authorization } }) => {
-  const lead = await getLeadById(leadId, authorization);
-
-  if (lead.error) {
-    return {
-      error: lead.error,
-    };
-  }
-
-  return {
-    data: lead,
-  };
-};
+const getLeadProfile = (_, { leadId }, { headers: { authorization } }) => getLeadById(leadId, authorization);
 
 const getTradingLeads = async (_, args, { headers: { authorization }, brand: { id: brandId }, hierarchy }) => {
   const leadsIds = await hierarchy.getLeadsIds();
