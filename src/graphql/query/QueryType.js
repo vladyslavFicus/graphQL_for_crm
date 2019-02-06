@@ -292,7 +292,7 @@ const QueryType = new GraphQLObjectType({
         statuses: { type: new GraphQLList(GraphQLString) },
         paymentTypes: { type: new GraphQLList(GraphQLString) },
         paymentAggregator: { type: GraphQLString },
-        paymentMethod: { type: GraphQLString },
+        paymentMethod: { type: new GraphQLList(GraphQLString) },
         creationTimeFrom: { type: GraphQLString },
         creationTimeTo: { type: GraphQLString },
         amountFrom: { type: GraphQLString },
