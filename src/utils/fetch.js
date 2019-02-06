@@ -1,5 +1,5 @@
 const contextService = require('request-context');
-const HttpError = require('../graphql/HttpError');
+const { AuthenticationError } = require('apollo-server-express');
 const Logger = require('./logger');
 const parseResponse = require('./parseResponse');
 
@@ -19,7 +19,7 @@ module.exports = function(url, config) {
       response.status &&
       (response.status === 401 || (response.status === 400 && response.headers.get('HRZN-JwtError')))
     ) {
-      throw new HttpError('You must be authenticated', 401);
+      throw new AuthenticationError('You must be authenticated');
     }
 
     return response.text().then(res => {
