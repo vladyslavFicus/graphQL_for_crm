@@ -27,6 +27,14 @@ const LeadSearchParams = new GraphQLInputObjectType({
   }),
 });
 
+const LeadBulkUpdateType = new GraphQLInputObjectType({
+  name: 'LeadBulkUpdateType',
+  fields: () => ({
+    uuid: { type: new GraphQLNonNull(GraphQLString) },
+    unassignFrom: { type: GraphQLString },
+  }),
+});
+
 const PromotedLeadType = new GraphQLObjectType({
   name: 'PromotedLeadType',
   fields: () => ({
@@ -93,7 +101,7 @@ const LeadsMutation = new GraphQLObjectType({
         salesRep: { type: new GraphQLList(GraphQLString) },
         salesStatus: { type: GraphQLString },
         type: { type: new GraphQLNonNull(GraphQLString) },
-        ids: { type: new GraphQLList(GraphQLString) },
+        leads: { type: new GraphQLList(LeadBulkUpdateType) },
         allRowsSelected: { type: GraphQLBoolean },
         totalElements: { type: GraphQLInt },
         searchParams: { type: LeadSearchParams },
