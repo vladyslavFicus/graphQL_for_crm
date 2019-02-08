@@ -14,15 +14,7 @@ const {
   RetentionStatusesEnum,
 } = require('./TradingProfileEnums');
 const OperatorType = require('../OperatorType');
-const { getOperatorFromCache } = require('../../../utils/operatorUtils');
-
-const representativeResolver = fieldName => ({ [fieldName]: repId }, _, { headers: { authorization } }) => {
-  if (!repId) {
-    return {};
-  }
-
-  return getOperatorFromCache(repId, authorization);
-};
+const { getOperator } = require('../../common/resolvers/operators');
 
 const AffiliateDocumentType = new GraphQLObjectType({
   name: 'AffiliateDocumentType',
@@ -36,9 +28,7 @@ const AffiliateDocumentType = new GraphQLObjectType({
     referral: { type: GraphQLString },
     affiliate: {
       type: OperatorType,
-      resolve: ({ affiliateUuid }, _, { headers: { authorization } }) => {
-        return getOperatorFromCache(affiliateUuid, authorization);
-      },
+      resolve: getOperator('affiliateUuid'),
     },
   }),
 });
@@ -67,23 +57,23 @@ const TradingProfileType = new GraphQLObjectType({
     isTestUser: { type: GraphQLBoolean },
     aquisitionRep: {
       type: OperatorType,
-      resolve: representativeResolver('aquisitionRep'),
+      resolve: getOperator('aquisitionRep'),
     },
     aquisitionStatus: { type: AquisitionStatusesEnum },
     kycStatus: { type: KYCStatusesEnum },
     salesRep: {
       type: OperatorType,
-      resolve: representativeResolver('salesRep'),
+      resolve: getOperator('salesRep'),
     },
     salesStatus: { type: SalesStatusesEnum },
     retentionRep: {
       type: OperatorType,
-      resolve: representativeResolver('retentionRep'),
+      resolve: getOperator('retentionRep'),
     },
     retentionStatus: { type: RetentionStatusesEnum },
     kycRep: {
       type: OperatorType,
-      resolve: representativeResolver('kycRep'),
+      resolve: getOperator('kycRep'),
     },
     balance: { type: GraphQLString },
     credit: { type: GraphQLString },

@@ -6,11 +6,9 @@ const {
   GraphQLInt,
   GraphQLID,
   GraphQLFloat,
-  GraphQLList,
 } = require('graphql');
-const moment = require('moment');
 
-const { getClientPaymentOriginalAgent } = require('../../common/resolvers/payment');
+const { getOperator } = require('../../common/resolvers/operators');
 const { getNotes } = require('../../common/resolvers/notes');
 const OperatorType = require('../OperatorType');
 const { NoteType } = require('../NoteType');
@@ -95,7 +93,7 @@ const PaymentType = new GraphQLObjectType({
       playerProfile: { type: PaymentPlayerType },
       originalAgent: {
         type: OperatorType,
-        resolve: getClientPaymentOriginalAgent,
+        resolve: getOperator('agentId'),
       },
       paymentMetadata: { type: PaymentMetadata },
       note: {

@@ -1,5 +1,6 @@
 const { GraphQLObjectType, GraphQLNonNull, GraphQLID, GraphQLString } = require('graphql');
-const { getOperator, getClient } = require('../../common/resolvers/callbacks');
+const { getClient } = require('../../common/resolvers/callbacks');
+const { getOperator } = require('../../common/resolvers/operators');
 const { getNotes } = require('../../common/resolvers/notes');
 const { NoteType } = require('../NoteType');
 const OperatorType = require('../OperatorType');
@@ -19,7 +20,7 @@ const CallbackType = new GraphQLObjectType({
     userId: { type: new GraphQLNonNull(GraphQLString) },
     operator: {
       type: OperatorType,
-      resolve: getOperator,
+      resolve: getOperator('operatorId'),
     },
     client: {
       type: PlayerProfileType,

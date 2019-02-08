@@ -3,7 +3,6 @@ const {
   updateCallback: updateCallbackRequest,
   createCallback: createCallbackRequest,
 } = require('../../../utils/callbackRequests');
-const { getOperatorFromCache } = require('../../../utils/operatorUtils');
 const getPlayerProfileFromESByUUID = require('../../../utils/getPlayerProfileFromESByUUID');
 
 const getCallbacks = async (_, args, { headers: { authorization }, hierarchy }) => {
@@ -30,11 +29,6 @@ const getCallback = async (...args) => {
   }
 
   return { data: data.content[0] };
-};
-
-// Get operator by callback source
-const getOperator = ({ operatorId }, _, { headers: { authorization } }) => {
-  return getOperatorFromCache(operatorId, authorization);
 };
 
 // Get client by callback source
@@ -71,7 +65,6 @@ const createCallback = async (_, args, { headers: { authorization } }) => {
 module.exports = {
   getCallbacks,
   getCallback,
-  getOperator,
   getClient,
   updateCallback,
   createCallback,

@@ -17,6 +17,21 @@ const getOperators = async (_, args, { headers: { authorization }, hierarchy }) 
   return { data: { ...operators.data, content: filteredOperators, totalElements: filteredOperators.length } };
 };
 
+/**
+ * Retrieve operator depends on source fieldName
+ *
+ * @param fieldName
+ * @return {Function}
+ */
+const getOperator = fieldName => ({ [fieldName]: operatorId }, _, { dataloaders }) => {
+  if (!operatorId) {
+    return {};
+  }
+
+  return dataloaders.operators.load(operatorId);
+};
+
 module.exports = {
   getOperators,
+  getOperator,
 };

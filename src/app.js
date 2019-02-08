@@ -4,6 +4,7 @@ const jwtDecode = require('jwt-decode');
 const { ApolloServer } = require('apollo-server-express');
 const { v4 } = require('uuid');
 const schema = require('./graphql/schema');
+const { createDataloaders } = require('./graphql/dataloaders');
 const LoggerExtension = require('./graphql/extensions/LoggerExtension');
 const Hierarchy = require('./services/Hierarchy');
 const Logger = require('./utils/logger');
@@ -44,6 +45,7 @@ process.on('uncaughtException', err => {
           userUUID,
           brand: global.appConfig.brands[brandId],
           hierarchy: new Hierarchy(userUUID, headers.authorization),
+          dataloaders: createDataloaders(headers.authorization),
         });
       }
 
