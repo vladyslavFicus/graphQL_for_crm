@@ -1,5 +1,6 @@
 const contextService = require('request-context');
 const { AuthenticationError } = require('apollo-server-express');
+const parseJson = require('../utils/parseJson');
 const Logger = require('./logger');
 const parseResponse = require('./parseResponse');
 
@@ -23,6 +24,15 @@ module.exports = function(url, config) {
     }
 
     return response.text().then(res => {
+      // Throw authentication error if something with JWT token
+      if (response.status === 400) {
+        const { jwtError } = parseJson(res);
+
+        if (jwtError) {
+          throw new AuthenticationError('You must be authenticated');
+        }
+      }
+
       if (global.isLoggingEnabled) {
         Logger.info({
           message: res,
