@@ -1,48 +1,53 @@
+const { get } = require('lodash');
 const { getProfiles } = require('./profiles');
-const { userTypes, deskTypes } = require('../../../constants/hierarchy');
+const { userTypes } = require('../../../constants/hierarchy');
 const { bulkProfileUpdate } = require('../../../utils/clientsRequests');
-const { bulkUpdateHierarchyUser, getHierarchyBranch, getHierarchyUser } = require('../../../utils/hierarchyRequests');
+const { bulkMassAssignHierarchyUser, getHierarchyBranch } = require('../../../utils/hierarchyRequests');
 
-const getUpdateIds = async (promise, excludeIds) => {
+const getDataForUpdate = async (promise, operatorType, excludeIds) => {
   const pageableObj = await promise;
 
   if (pageableObj.error) {
     return { error: pageableObj };
   }
-  const ids = pageableObj.data.content.map(({ playerUUID }) => playerUUID);
+  const data = pageableObj.data.content.map(({ playerUUID, tradingProfile }) => ({
+    uuid: playerUUID,
+    unassignFrom: get(tradingProfile, `${operatorType.toLowerCase()}Rep`) || null,
+  }));
 
-  if (excludeIds.length > 0) {
-    return ids.filter(id => excludeIds.indexOf(id) === -1);
+  if (excludeIds.length) {
+    return data.filter(({ uuid }) => excludeIds.indexOf(uuid) === -1);
   }
 
-  return ids;
+  return data;
 };
 
-const getIds = async ({ allRowsSelected, searchParams, totalElements, ids }, context) => {
-  if (allRowsSelected) {
-    const ESQueryParams = {
-      page: 0,
-      size: totalElements,
-      ...(searchParams && searchParams),
-    };
-
-    const idsForUpdate = await getUpdateIds(getProfiles(null, ESQueryParams, context), ids);
-
-    if (idsForUpdate.error || idsForUpdate.jwtError) {
-      return { error: idsForUpdate };
-    }
-
-    return idsForUpdate;
+const getClientUpdateData = async ({ allRowsSelected, searchParams, totalElements, clients, type }, context) => {
+  if (!allRowsSelected || (allRowsSelected && clients.length === totalElements)) {
+    return clients;
   }
 
-  return ids;
+  const ESQueryParams = {
+    page: 0,
+    size: totalElements,
+    ...(searchParams && searchParams),
+  };
+
+  const excludeIds = clients.map(({ uuid }) => uuid);
+  const data = await getDataForUpdate(getProfiles(null, ESQueryParams, context), type, excludeIds);
+
+  if (data.error || data.jwtError) {
+    return { error: data };
+  }
+
+  return data;
 };
 
 const bulkRepresentativeUpdate = async (
   _,
   {
     allRowsSelected,
-    ids,
+    clients,
     searchParams,
     totalElements,
     salesRep,
@@ -59,32 +64,32 @@ const bulkRepresentativeUpdate = async (
     headers: { authorization },
     brand: { id: brandId },
   } = context;
-  const idsForUpdate = await getIds({ allRowsSelected, searchParams, totalElements, ids }, context);
 
-  if (idsForUpdate.error) {
-    return { error: idsForUpdate.error };
+  const updateData = await getClientUpdateData(
+    { allRowsSelected, searchParams, totalElements, clients, type },
+    context
+  );
+
+  if (updateData.error) {
+    return { error: updateData.error };
   }
 
   let profileParams = {
-    ids: idsForUpdate,
+    ids: updateData.map(({ uuid }) => uuid),
     brandId,
     ...(salesStatus && { salesStatus }),
     ...(retentionStatus && { retentionStatus }),
-    ...(salesRep && { salesRep }),
-    ...(retentionRep && { retentionRep }),
     ...(aquisitionStatus && { aquisitionStatus }),
   };
-  let hierarchyParams = idsForUpdate;
+  let hierarchyParams = {
+    userType: userTypes.CUSTOMER,
+    users: updateData,
+  };
 
-  if (teamId) {
-    if (retentionRep || salesRep) {
-      hierarchyParams = hierarchyParams.map(uuid => ({
-        uuid,
-        userType: userTypes.CUSTOMER,
-        parentBranches: [teamId],
-        parentUsers: [retentionRep || salesRep],
-      }));
-    } else {
+  if (retentionRep || salesRep) {
+    hierarchyParams.parentUsers = retentionRep || salesRep;
+  } else {
+    if (teamId) {
       const {
         data: { defaultUser },
         error,
@@ -94,43 +99,27 @@ const bulkRepresentativeUpdate = async (
         return { error };
       }
 
-      profileParams = {
-        ...profileParams,
-        ...(type === deskTypes.SALES ? { salesRep: defaultUser } : { retentionRep: defaultUser }),
-      };
-      hierarchyParams = hierarchyParams.map(uuid => ({
-        uuid,
-        userType: userTypes.CUSTOMER,
-        parentBranches: [teamId],
-        parentUsers: [defaultUser],
-      }));
-    }
-  } else {
-    if (retentionRep || salesRep) {
-      const { error, parentBranches } = await getHierarchyUser(retentionRep || salesRep, authorization);
-
-      if (error) {
-        return { error };
+      if (defaultUser) {
+        hierarchyParams.parentUsers = [defaultUser];
+      } else {
+        hierarchyParams = null;
       }
-
-      hierarchyParams = hierarchyParams.map(uuid => ({
-        uuid,
-        userType: userTypes.CUSTOMER,
-        parentUsers: [retentionRep || salesRep],
-        ...(parentBranches && parentBranches[0] && { parentBranches: [parentBranches[0].uuid] }),
-      }));
     } else {
       hierarchyParams = null;
     }
   }
-  const profileBulkUpdate = await bulkProfileUpdate(profileParams, authorization);
 
-  if (profileBulkUpdate.error) {
-    return { error: profileBulkUpdate };
+  // HACK: not to do request when there is no other params except {brandId} and {ids}
+  if (Object.keys(profileParams).length !== 2) {
+    const profileBulkUpdate = await bulkProfileUpdate(profileParams, authorization);
+
+    if (profileBulkUpdate.error) {
+      return { error: profileBulkUpdate };
+    }
   }
 
   if (hierarchyParams) {
-    const hierarchyBulkUpdate = await bulkUpdateHierarchyUser({ users: hierarchyParams }, authorization);
+    const hierarchyBulkUpdate = await bulkMassAssignHierarchyUser(hierarchyParams, authorization);
 
     if (hierarchyBulkUpdate.error) {
       return { error: hierarchyBulkUpdate };

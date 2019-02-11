@@ -103,43 +103,47 @@ const bulkLeadPromote = async (
   return result;
 };
 
-const getUpdateIds = async (promise, excludeIds) => {
+const getDataForUpdate = async (promise, excludeIds) => {
   const pageableObj = await promise;
 
   if (pageableObj.error) {
     return pageableObj;
   }
-  const ids = pageableObj.data.content.map(({ id }) => id);
+  const data = pageableObj.data.content.map(({ id, salesAgent }) => ({
+    uuid: id,
+    unassignFrom: salesAgent,
+  }));
 
   if (excludeIds.length > 0) {
-    return ids.filter(id => excludeIds.indexOf(id) === -1);
+    return data.filter(({ uuid }) => excludeIds.indexOf(uuid) === -1);
   }
 
-  return ids;
+  return data;
 };
 
-const getIds = async ({ allRowsSelected, totalElements, ids, searchParams }, context) => {
-  if (allRowsSelected) {
-    const queryParams = {
-      page: 0,
-      limit: totalElements,
-      ...(searchParams && searchParams),
-    };
-    const idsForUpdate = await getUpdateIds(getTradingLeads(null, queryParams, context), ids);
-
-    if (idsForUpdate.error || idsForUpdate.jwtError) {
-      return { error: idsForUpdate };
-    }
-
-    return ids.length > 0 ? idsForUpdate.filter(id => !ids.includes(id)) : idsForUpdate;
+const getLeadsUpdateData = async ({ allRowsSelected, totalElements, leads, searchParams }, context) => {
+  if (!allRowsSelected || (allRowsSelected && leads.length === totalElements)) {
+    return leads;
   }
 
-  return ids;
+  const queryParams = {
+    page: 0,
+    limit: totalElements,
+    ...(searchParams && searchParams),
+  };
+  const excludeIds = leads.map(({ uuid }) => uuid);
+  const data = await getDataForUpdate(getTradingLeads(null, queryParams, context), excludeIds);
+
+  if (data.error) {
+    return data;
+  }
+
+  return data;
 };
 
 const bulkLeadUpdate = async (
   _,
-  { allRowsSelected, ids, searchParams, totalElements, salesRep, teamId, salesStatus },
+  { allRowsSelected, leads, searchParams, totalElements, salesRep, teamId, salesStatus },
   context
 ) => {
   const {
@@ -147,20 +151,20 @@ const bulkLeadUpdate = async (
     headers: { authorization },
   } = context;
 
-  const idsForUpdate = await getIds({ allRowsSelected, searchParams, totalElements, ids }, context);
+  const updateData = await getLeadsUpdateData({ allRowsSelected, searchParams, totalElements, leads }, context);
 
-  if (idsForUpdate.error) {
-    return idsForUpdate;
+  if (updateData.error) {
+    return updateData;
   }
 
   let hierarchyArgs = {
     parentUsers: salesRep || [],
     userType: userTypes.LEAD_CUSTOMER,
-    uuids: idsForUpdate,
+    users: updateData,
   };
 
   let leadArgs = {
-    ids: idsForUpdate,
+    ids: updateData.map(({ uuid }) => uuid),
     brandId,
     ...(salesStatus && { salesStatus }),
   };
@@ -175,8 +179,9 @@ const bulkLeadUpdate = async (
       return { error };
     }
 
-    leadArgs.salesAgent = defaultUser;
-    hierarchyArgs.parentUsers = [defaultUser];
+    if (defaultUser) {
+      hierarchyArgs.parentUsers = [defaultUser];
+    }
   }
 
   if (salesStatus) {

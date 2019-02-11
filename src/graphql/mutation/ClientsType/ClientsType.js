@@ -37,19 +37,27 @@ const ClientSearchParams = new GraphQLInputObjectType({
   }),
 });
 
+const ClientBulkUpdateType = new GraphQLInputObjectType({
+  name: 'ClientBulkUpdateType',
+  fields: () => ({
+    uuid: { type: new GraphQLNonNull(GraphQLString) },
+    unassignFrom: { type: GraphQLString },
+  }),
+});
+
 const ClientsMutation = new GraphQLObjectType({
   name: 'ClientsMutation',
   fields: () => ({
     bulkRepresentativeUpdate: {
       args: {
         teamId: { type: GraphQLString },
-        salesRep: { type: GraphQLString },
-        retentionRep: { type: GraphQLString },
+        salesRep: { type: new GraphQLList(GraphQLString) },
+        retentionRep: { type: new GraphQLList(GraphQLString) },
         salesStatus: { type: GraphQLString },
         retentionStatus: { type: GraphQLString },
         aquisitionStatus: { type: GraphQLString },
         type: { type: new GraphQLNonNull(GraphQLString) },
-        ids: { type: new GraphQLList(GraphQLString) },
+        clients: { type: new GraphQLList(ClientBulkUpdateType) },
         allRowsSelected: { type: GraphQLBoolean },
         totalElements: { type: GraphQLInt },
         searchParams: { type: ClientSearchParams },
