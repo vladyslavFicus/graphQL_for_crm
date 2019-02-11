@@ -120,7 +120,7 @@ const getScrollData = async (brandId, query, scroll, documentType, source = true
   };
 };
 
-const getSearchData = (brandId, query, sort, { page = 0, size }, documentType) =>
+const getSearchData = (brandId, query, sort, { page = 0, size = 20 }, documentType) =>
   new Promise(resolve => {
     let filter = null;
 

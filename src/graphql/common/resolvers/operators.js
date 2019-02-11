@@ -25,7 +25,7 @@ const getOperators = async (_, args, { headers: { authorization }, hierarchy }) 
  */
 const getOperator = fieldName => ({ [fieldName]: operatorId }, _, { dataloaders }) => {
   if (!operatorId) {
-    return {};
+    return null;
   }
 
   return dataloaders.operators.load(operatorId);

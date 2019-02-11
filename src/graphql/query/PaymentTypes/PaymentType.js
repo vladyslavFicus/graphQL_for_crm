@@ -9,7 +9,7 @@ const {
 } = require('graphql');
 
 const { getOperator } = require('../../common/resolvers/operators');
-const { getNotes } = require('../../common/resolvers/notes');
+const { getNote } = require('../../common/resolvers/notes');
 const OperatorType = require('../OperatorType');
 const { NoteType } = require('../NoteType');
 
@@ -98,13 +98,7 @@ const PaymentType = new GraphQLObjectType({
       paymentMetadata: { type: PaymentMetadata },
       note: {
         type: NoteType,
-        resolve: async ({ paymentId }, _, context) => {
-          const {
-            data: { content },
-          } = await getNotes(null, { targetUUID: paymentId }, context);
-
-          return content[0];
-        },
+        resolve: getNote('paymentId'),
       },
     };
   },

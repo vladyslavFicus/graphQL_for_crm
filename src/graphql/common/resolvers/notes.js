@@ -1,50 +1,34 @@
-const fetch = require('../../../utils/fetch');
-const buildQueryString = require('../../../utils/buildQueryString');
+const {
+  getNotes: getNotesRequest,
+  addNote: addNoteRequest,
+  updateNote: updateNoteRequest,
+  removeNote: removeNoteRequest,
+} = require('../../../utils/notesRequests');
 
 const getNotes = function(_, args, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/tag/note/search?${buildQueryString(args)}`, {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      authorization,
-      'content-type': 'application/json',
-    },
-  }).then(response => response.json());
+  return getNotesRequest(args, authorization);
 };
 
 const addNote = function(_, args, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/tag/note`, {
-    method: 'POST',
-    headers: {
-      accept: 'application/json',
-      authorization,
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify(args),
-  }).then(response => response.json());
+  return addNoteRequest(args, authorization);
 };
 
-const removeNote = function(_, { noteId, ...args }, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/tag/note/${noteId}`, {
-    method: 'DELETE',
-    headers: {
-      accept: 'application/json',
-      authorization,
-      'content-type': 'application/json',
-    },
-  }).then(response => (response.status === 200 ? { data: { noteId } } : { error: 'error.note.remove' }));
+const removeNote = function(_, args, { headers: { authorization } }) {
+  return removeNoteRequest(args, authorization);
 };
 
-const updateNote = function(_, { noteId, ...args }, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/tag/note/${noteId}`, {
-    method: 'PUT',
-    headers: {
-      accept: 'application/json',
-      authorization,
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify(args),
-  }).then(response => response.json());
+const updateNote = function(_, args, { headers: { authorization } }) {
+  return updateNoteRequest(args, authorization);
+};
+
+/**
+ * Retrieve note depends on source fieldName
+ *
+ * @param fieldName
+ * @return {Function}
+ */
+const getNote = fieldName => ({ [fieldName]: targetUUID }, _, { dataloaders }) => {
+  return dataloaders.notes.load(targetUUID);
 };
 
 module.exports = {
@@ -52,4 +36,5 @@ module.exports = {
   removeNote,
   updateNote,
   getNotes,
+  getNote,
 };

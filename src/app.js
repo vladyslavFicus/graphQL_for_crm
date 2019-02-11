@@ -45,7 +45,7 @@ process.on('uncaughtException', err => {
           userUUID,
           brand: global.appConfig.brands[brandId],
           hierarchy: new Hierarchy(userUUID, headers.authorization),
-          dataloaders: createDataloaders(headers.authorization),
+          dataloaders: createDataloaders(headers.authorization, brandId),
         });
       }
 

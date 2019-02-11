@@ -14,14 +14,14 @@ const getOperators = (args, authorization) => {
 };
 
 const getOperatorsByUUIDs = (uuids, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/operator/operators/search`, {
+  return fetch(`${global.appConfig.apiUrl}/operator/operators/search?size=${uuids.length}`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
       authorization,
       'content-type': 'application/json',
     },
-    body: JSON.stringify({ uuids, limit: uuids.length }),
+    body: JSON.stringify({ uuids }),
   }).then(response => response.json());
 };
 
