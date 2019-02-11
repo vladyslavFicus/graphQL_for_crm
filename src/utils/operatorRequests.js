@@ -13,21 +13,19 @@ const getOperators = (args, authorization) => {
   }).then(response => response.json());
 };
 
-const getOperatorByUUID = (operatorId, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/operator/operators/${operatorId}`, {
-    method: 'GET',
+const getOperatorsByUUIDs = (uuids, authorization) => {
+  return fetch(`${global.appConfig.apiUrl}/operator/operators/search?size=${uuids.length}`, {
+    method: 'POST',
     headers: {
       accept: 'application/json',
       authorization,
       'content-type': 'application/json',
     },
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => response);
+    body: JSON.stringify({ uuids }),
+  }).then(response => response.json());
 };
 
 module.exports = {
   getOperators,
-  getOperatorByUUID,
+  getOperatorsByUUIDs,
 };

@@ -1,6 +1,7 @@
 const { GraphQLObjectType, GraphQLNonNull, GraphQLID, GraphQLString } = require('graphql');
-const { getOperator, getClient } = require('../../common/resolvers/callbacks');
-const { getNotes } = require('../../common/resolvers/notes');
+const { getProfile } = require('../../common/resolvers/profiles');
+const { getOperator } = require('../../common/resolvers/operators');
+const { getNote } = require('../../common/resolvers/notes');
 const { NoteType } = require('../NoteType');
 const OperatorType = require('../OperatorType');
 const PlayerProfileType = require('../PlayerProfileType');
@@ -19,21 +20,15 @@ const CallbackType = new GraphQLObjectType({
     userId: { type: new GraphQLNonNull(GraphQLString) },
     operator: {
       type: OperatorType,
-      resolve: getOperator,
+      resolve: getOperator('operatorId'),
     },
     client: {
       type: PlayerProfileType,
-      resolve: getClient,
+      resolve: getProfile('userId'),
     },
     note: {
       type: NoteType,
-      resolve: async ({ callbackId }, _, context) => {
-        const {
-          data: { content },
-        } = await getNotes(null, { targetUUID: callbackId }, context);
-
-        return content[0];
-      },
+      resolve: getNote('callbackId'),
     },
   }),
 });

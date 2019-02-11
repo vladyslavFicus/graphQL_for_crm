@@ -25,9 +25,8 @@ module.exports = new GraphQLObjectType({
     uuid: { type: GraphQLString },
     hierarchy: {
       type: UserType,
-      resolve: async ({ uuid }, _, { headers: { authorization } }) => {
-        const hierarchyUser = await getHierarchyUser(uuid, authorization);
-        return hierarchyUser.data;
+      resolve: ({ uuid }, _, { dataloaders }) => {
+        return dataloaders.usersHierarchy.load(uuid);
       },
     },
   }),

@@ -12,7 +12,6 @@ const {
   getStatistic,
   normalizeAccumulated,
 } = require('../../../utils/payment');
-const { getOperatorFromCache } = require('../../../utils/operatorUtils');
 const { mapActionToStatus } = require('../../../constants/payment');
 
 const paymentAccumulated = function(_, { playerUUID }, { headers: { authorization }, brand: { currency } }) {
@@ -56,10 +55,6 @@ const getClientPayments = async (_, args, { headers: { authorization }, hierarch
   const tradingPayments = await getTradingPaymentsQuery(_args, authorization);
 
   return tradingPayments;
-};
-
-const getClientPaymentOriginalAgent = ({ agentId }, _, { headers: { authorization } }) => {
-  return agentId ? getOperatorFromCache(agentId, authorization) : null;
 };
 
 const getClientPaymentsByUuid = async (_, { playerUUID, ...args }, { headers: { authorization } }) => {
@@ -256,7 +251,6 @@ module.exports = {
   getClientPayments,
   getClientPaymentsByUuid,
   getClientPaymentsStatistic,
-  getClientPaymentOriginalAgent,
   getPaymentStatuses,
   changeStatus,
   acceptPayment,

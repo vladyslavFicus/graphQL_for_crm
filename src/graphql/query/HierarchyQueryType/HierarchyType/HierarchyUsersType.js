@@ -1,6 +1,6 @@
 const { GraphQLObjectType, GraphQLNonNull, GraphQLString, GraphQLList } = require('graphql');
 const { userTypes } = require('../../../../constants/hierarchy');
-const { getOperator } = require('../../../common/resolvers/hierarchy');
+const { getOperator } = require('../../../common/resolvers/operators');
 const HierarchyBranchType = require('./HierarchyBranchType');
 
 const UserType = new GraphQLObjectType({
@@ -13,7 +13,7 @@ const UserType = new GraphQLObjectType({
     fullName: { type: GraphQLString },
     operator: {
       type: require('../../../query/OperatorType'),
-      resolve: getOperator,
+      resolve: getOperator('uuid'),
     },
   }),
 });

@@ -1,7 +1,7 @@
 const { GraphQLString, GraphQLNonNull, GraphQLObjectType } = require('graphql');
+const { getOperator } = require('../../common/resolvers/operators');
 const OperatorType = require('../OperatorType');
 const { SalesStatusesEnum } = require('../TradingProfileType/TradingProfileEnums');
-const { getOperatorFromCache } = require('../../../utils/operatorUtils');
 
 const leadFields = {
   _id: {
@@ -20,7 +20,7 @@ const leadFields = {
   source: { type: GraphQLString },
   salesAgent: {
     type: OperatorType,
-    resolve: ({ salesAgent }, _, { headers: { authorization } }) => getOperatorFromCache(salesAgent, authorization),
+    resolve: getOperator('salesAgent'),
   },
   salesStatus: { type: SalesStatusesEnum },
   birthDate: { type: GraphQLString },

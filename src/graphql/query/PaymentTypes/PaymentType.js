@@ -6,12 +6,10 @@ const {
   GraphQLInt,
   GraphQLID,
   GraphQLFloat,
-  GraphQLList,
 } = require('graphql');
-const moment = require('moment');
 
-const { getClientPaymentOriginalAgent } = require('../../common/resolvers/payment');
-const { getNotes } = require('../../common/resolvers/notes');
+const { getOperator } = require('../../common/resolvers/operators');
+const { getNote } = require('../../common/resolvers/notes');
 const OperatorType = require('../OperatorType');
 const { NoteType } = require('../NoteType');
 
@@ -95,18 +93,12 @@ const PaymentType = new GraphQLObjectType({
       playerProfile: { type: PaymentPlayerType },
       originalAgent: {
         type: OperatorType,
-        resolve: getClientPaymentOriginalAgent,
+        resolve: getOperator('agentId'),
       },
       paymentMetadata: { type: PaymentMetadata },
       note: {
         type: NoteType,
-        resolve: async ({ paymentId }, _, context) => {
-          const {
-            data: { content },
-          } = await getNotes(null, { targetUUID: paymentId }, context);
-
-          return content[0];
-        },
+        resolve: getNote('paymentId'),
       },
     };
   },
