@@ -12,7 +12,7 @@ const {
   profile,
   files: { getFiles },
   auth: {
-    credentials: { getAuthorities },
+    credentials: { getAuthorities, getLoginLock },
   },
   conditionalTags: { getConditionalTags },
   notes: { getNotes },
@@ -100,6 +100,20 @@ const QueryType = new GraphQLObjectType({
         uuid: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve: getAuthorities,
+    },
+    loginLock: {
+      args: {
+        playerUUID: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      type: new GraphQLObjectType({
+        name: 'getLoginLock',
+        fields: () => ({
+          lock: { type: new GraphQLNonNull(GraphQLBoolean) },
+          lockExpirationDate: { type: GraphQLString },
+          lockReason: { type: GraphQLString },
+        }),
+      }),
+      resolve: getLoginLock,
     },
     options: {
       type: OptionsType,
