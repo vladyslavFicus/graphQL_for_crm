@@ -9,7 +9,7 @@ const {
   GraphQLBoolean,
 } = require('graphql');
 const {
-  clients: { bulkRepresentativeUpdate, profileBulkUpdate },
+  clients: { bulkRepresentativeUpdate },
 } = require('../../common/resolvers');
 const { ResponseType } = require('../../common/types');
 
@@ -64,17 +64,6 @@ const ClientsMutation = new GraphQLObjectType({
       },
       type: ResponseType(GraphQLString, 'clientRepresentativeBulkUpdate'),
       resolve: bulkRepresentativeUpdate,
-    },
-    profileBulkUpdate: {
-      args: {
-        aquisitionStatus: { type: GraphQLString },
-        allRowsSelected: { type: new GraphQLNonNull(GraphQLBoolean) },
-        ids: { type: new GraphQLList(GraphQLString) },
-        totalElements: { type: GraphQLInt },
-        searchParams: { type: ClientSearchParams },
-      },
-      type: ResponseType(GraphQLString, 'profileBulkUpdate'),
-      resolve: profileBulkUpdate,
     },
   }),
 });

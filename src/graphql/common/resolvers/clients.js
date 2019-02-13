@@ -129,31 +129,6 @@ const bulkRepresentativeUpdate = async (
   return { data: 'success' };
 };
 
-const profileBulkUpdate = async (
-  _,
-  { allRowsSelected, ids, searchParams, totalElements, aquisitionStatus },
-  context
-) => {
-  const {
-    headers: { authorization },
-    brand: { id: brandId },
-  } = context;
-  const idsForUpdate = await getIds({ allRowsSelected, searchParams, totalElements, ids }, context);
-
-  if (idsForUpdate.error) {
-    return { error: idsForUpdate.error };
-  }
-
-  const bulkUpdate = await bulkProfileUpdate({ brandId, aquisitionStatus, ids }, authorization);
-
-  if (bulkUpdate.error) {
-    return { error: bulkUpdate };
-  }
-
-  return { data: 'success' };
-};
-
 module.exports = {
   bulkRepresentativeUpdate,
-  profileBulkUpdate,
 };
