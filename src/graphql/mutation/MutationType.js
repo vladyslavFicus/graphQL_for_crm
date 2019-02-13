@@ -4,13 +4,7 @@ const ProfileType = require('./ProfileType');
 const NoteType = require('./NoteType');
 const { PaymentType } = require('./PaymentType');
 const TagType = require('./TagType');
-const FreeSpinTemplateType = require('./FreeSpinTemplateType');
-const FreeSpinType = require('./FreeSpinType');
-const WageringFulfillmentType = require('./WageringFulfillmentType');
-const DepositFulfillmentMutationType = require('./DepositFulfillmentMutationType');
-const GamingFulfillmentMutationType = require('./GamingFulfillmentMutationType');
 const FileType = require('./FileType');
-const { ActiveRewardPlan, PendingRewardPlan } = require('./RewardPlanMutationType');
 const UploadType = require('./UploadType');
 const LeadsType = require('./LeadsType');
 const HierarchyType = require('./HierarchyType');
@@ -49,48 +43,6 @@ const MutationType = new GraphQLObjectType({
     },
     tag: {
       type: TagType,
-      resolve() {
-        return {};
-      },
-    },
-    freeSpinTemplate: {
-      type: FreeSpinTemplateType,
-      resolve() {
-        return {};
-      },
-    },
-    freeSpin: {
-      type: FreeSpinType,
-      resolve() {
-        return {};
-      },
-    },
-    wageringFulfillment: {
-      type: WageringFulfillmentType,
-      resolve() {
-        return {};
-      },
-    },
-    depositFulfillment: {
-      type: DepositFulfillmentMutationType,
-      resolve() {
-        return {};
-      },
-    },
-    gamingFulfillment: {
-      type: GamingFulfillmentMutationType,
-      resolve() {
-        return {};
-      },
-    },
-    activeRewardPlan: {
-      type: ActiveRewardPlan,
-      resolve() {
-        return {};
-      },
-    },
-    pendingRewardPlan: {
-      type: PendingRewardPlan,
       resolve() {
         return {};
       },

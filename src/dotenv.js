@@ -11,3 +11,12 @@ const defaultEnvPath = path.resolve(process.cwd(), '.env');
 const envPath = fs.existsSync(defaultEnvPath) ? defaultEnvPath : customEnvPath;
 
 require('dotenv').config({ path: envPath });
+
+// ========================================================== //
+
+// Define global NODE_ENV based variables to easily usage
+const { NODE_ENV = 'production' } = process.env;
+
+global.NODE_ENV = NODE_ENV;
+global.__DEV__ = NODE_ENV === 'development';
+global.__PROD__ = NODE_ENV === 'production';

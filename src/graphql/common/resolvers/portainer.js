@@ -1,6 +1,5 @@
 const yaml = require('yamljs');
 const { get } = require('lodash');
-const { services: customServices } = require('../../../constants/services');
 const parseJson = require('../../../utils/parseJson');
 const Logger = require('../../../utils/logger');
 
@@ -38,10 +37,6 @@ const getServices = async function() {
 
         return name;
       });
-    }
-
-    if (get(global, 'appConfig.secrets.dwh_api', false)) {
-      services.push(customServices.dwh);
     }
 
     return services;
