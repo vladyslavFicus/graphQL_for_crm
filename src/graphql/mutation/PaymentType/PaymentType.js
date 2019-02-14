@@ -4,6 +4,7 @@ const {
   GraphQLNonNull,
   GraphQLString,
   GraphQLFloat,
+  GraphQLInt,
   GraphQLBoolean,
 } = require('graphql');
 const ResponseType = require('../../common/types/ResponseType');
@@ -31,7 +32,7 @@ const PaymentType = new GraphQLObjectType({
         currency: { type: new GraphQLNonNull(GraphQLString) },
         paymentType: { type: new GraphQLNonNull(GraphQLString) },
         paymentMethod: { type: GraphQLString },
-        login: { type: GraphQLString },
+        login: { type: GraphQLInt },
         source: { type: GraphQLString },
         target: { type: GraphQLString },
         externalReference: { type: GraphQLString },
