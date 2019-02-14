@@ -7,7 +7,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "nodemon --expose-gc --inspect=9222 src/app.js",
+    "start": "nodemon --expose-gc --inspect=9222 --inspect-brk=0.0.0.0 src/app.js",
     "start:dev": "APP_ENV=development npm run start",
     "start:staging": "APP_ENV=staging npm run start",
     "start:production": "APP_ENV=production npm run start",
