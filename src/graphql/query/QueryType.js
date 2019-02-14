@@ -76,7 +76,7 @@ const QueryType = new GraphQLObjectType({
       type: new GraphQLObjectType({
         name: 'getLoginLock',
         fields: () => ({
-          lock: { type: new GraphQLNonNull(GraphQLBoolean) },
+          lock: { type: GraphQLBoolean },
           lockExpirationDate: { type: GraphQLString },
           lockReason: { type: GraphQLString },
         }),
