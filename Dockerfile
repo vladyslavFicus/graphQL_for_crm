@@ -14,4 +14,6 @@ EXPOSE $PORT
 
 HEALTHCHECK CMD curl --fail http://localhost:$PORT/health || exit 1
 
-ENTRYPOINT [ "npm", "start" ]
+#ENTRYPOINT [ "npm", "start" ]
+
+ENTRYPOINT [ "node --expose-gc --inspect=9222 src/app.js" ]
