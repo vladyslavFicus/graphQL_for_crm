@@ -69,12 +69,13 @@ class LogFunctionExtension {
         `${operationName}-WARNING`
       );
     } else {
-      const errors = graphqlResponse.errors.map(({ message }) => message).join(', ');
+      const errors = graphqlResponse.errors.map(({ stack }) => stack);
 
       Logger.error(
         {
           authorization: context.headers.authorization ? jwtDecode(context.headers.authorization) : null,
-          message: errors,
+          message: graphqlResponse.errors.map(({ message }) => message).join(', '),
+          errors,
           headers: context.headers,
           requestId: context.requestId,
           meta,

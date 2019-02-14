@@ -16,19 +16,6 @@ const {
   },
   conditionalTags: { getConditionalTags },
   notes: { getNotes },
-  campaigns: {
-    rewards: {
-      getShortFreeSpinTemplates,
-      fetchFreeSpinTemplate,
-      fetchBonusTemplate,
-      getFreeSpinTemplateOptions,
-      getShortBonusTemplates,
-    },
-    fulfillments: { getWageringFulfillmentByUUID, getDepositFulfillmentByUUID },
-    getCampaigns,
-    getCampaign,
-  },
-  games: { getGames, getGameProviders },
   payment: {
     getPaymentMethods,
     getOperatorPaymentMethods,
@@ -37,8 +24,6 @@ const {
     getClientPaymentsStatistic,
     getPaymentStatuses,
   },
-  freeSpin: { fetchFreeSpin },
-  rewardPlan: { fetchActiveRewardPlan, fetchPendingRewardPlan },
   tradingActivities: { getTradingActivities },
   profiles: { getProfiles },
   leads: { getTradingLeads, getLeadProfile },
@@ -47,30 +32,21 @@ const {
   callbacks: { getCallbacks, getCallback },
   operators: { getOperators },
 } = require('../common/resolvers');
-const cmsResolvers = require('../common/resolvers/cms');
 const PageableType = require('../common/types/PageableType');
 const FileType = require('./FileType');
 const { AuthorityType } = require('./AuthType');
-const GameType = require('./GameType');
-const { CmsGameType, CmsGameAggregatorType, CmsGameProviderType } = require('./CmsTypes');
 const PlayerProfileType = require('./PlayerProfileType');
-const FreeSpinTemplateType = require('./CampaignType/RewardTypes/FreeSpinType');
-const FreeSpinType = require('./FreeSpinType');
 const OptionsType = require('./OptionsType');
-const BonusType = require('./CampaignType/RewardTypes/BonusType');
-const { DepositFulfillmentType, WageringFulfillmentType } = require('./CampaignType/FulfillmentTypes');
 const {
   PaymentType: { PaymentMethodType, PaymentType },
   ClientPaymentStatisticType,
   PaymentStatusType,
 } = require('./PaymentTypes');
-const { ActiveRewardPlan, PendingRewardPlan } = require('./RewardPlanType');
 const {
   TradingActivityType,
   TradingActivityEnums: { CommandsEnum, StatusesEnum },
 } = require('./TradingActivityType');
 const ProfilesType = require('./ProfilesType');
-const CampaignType = require('./CampaignType');
 const { NoteType } = require('./NoteType');
 const StatisticsType = require('./StatisticsType');
 const LeadType = require('./LeadType');
@@ -82,14 +58,6 @@ const { RuleTypeEnum } = require('./RuleType/RuleEnums');
 const { ConditionalTagType, ConditionalTagStatusEnum } = require('./ConditionalTagType');
 const { CallbackType, CallbackStatusEnum } = require('./CallbackType');
 const OperatorType = require('./OperatorType');
-
-const CmsGamesListType = new GraphQLObjectType({
-  name: 'CmsGamesList',
-  fields: () => ({
-    offset: { type: GraphQLInt },
-    content: { type: new GraphQLList(CmsGameType) },
-  }),
-});
 
 const QueryType = new GraphQLObjectType({
   name: 'Query',
@@ -139,135 +107,6 @@ const QueryType = new GraphQLObjectType({
         changedAtFrom: { type: GraphQLString },
       },
     },
-    campaigns: {
-      type: PageableType(CampaignType),
-      resolve: getCampaigns,
-      args: {
-        size: { type: GraphQLInt },
-        page: { type: GraphQLInt },
-        searchBy: { type: GraphQLString },
-        status: { type: GraphQLString },
-        fulfilmentType: { type: GraphQLString },
-        targetType: { type: GraphQLString },
-        optIn: { type: GraphQLBoolean },
-        creationDateFrom: { type: GraphQLString },
-        creationDateTo: { type: GraphQLString },
-        activityDateFrom: { type: GraphQLString },
-        activityDateTo: { type: GraphQLString },
-      },
-    },
-    campaign: {
-      type: ResponseType(CampaignType),
-      args: {
-        campaignUUID: { type: GraphQLString },
-      },
-      resolve: getCampaign,
-    },
-    freeSpinTemplates: {
-      type: GraphQLList(FreeSpinTemplateType),
-      resolve: getShortFreeSpinTemplates,
-    },
-    freeSpinTemplate: {
-      type: ResponseType(FreeSpinTemplateType),
-      args: {
-        uuid: { type: new GraphQLNonNull(GraphQLString) },
-        aggregatorId: { type: new GraphQLNonNull(GraphQLString) },
-      },
-      resolve: fetchFreeSpinTemplate,
-    },
-    freeSpin: {
-      type: ResponseType(FreeSpinType),
-      args: {
-        playerUUID: { type: new GraphQLNonNull(GraphQLString) },
-        uuid: { type: new GraphQLNonNull(GraphQLString) },
-      },
-      resolve: fetchFreeSpin,
-    },
-    shortBonusTemplates: {
-      type: GraphQLList(BonusType),
-      resolve: getShortBonusTemplates,
-    },
-    bonusTemplate: {
-      type: ResponseType(BonusType),
-      args: {
-        uuid: { type: new GraphQLNonNull(GraphQLString) },
-      },
-      resolve: fetchBonusTemplate,
-    },
-    freeSpinOptions: {
-      type: new GraphQLScalarType({
-        name: 'freeSpinOptions',
-        serialize: value => value,
-      }),
-      resolve: getFreeSpinTemplateOptions,
-    },
-    games: {
-      type: PageableType(GameType, {
-        category: {
-          type: GraphQLString,
-          resolve({ category }) {
-            return category;
-          },
-        },
-      }),
-      args: {
-        brandId: { type: new GraphQLNonNull(GraphQLString) },
-        size: { type: GraphQLInt },
-        category: { type: GraphQLString },
-        term: { type: GraphQLString },
-        aggregator: { type: GraphQLString },
-        withLines: { type: GraphQLBoolean },
-        gameProvider: { type: GraphQLString },
-        sort: { type: GraphQLString },
-        playerUUID: { type: GraphQLString },
-        page: { type: new GraphQLNonNull(GraphQLInt) },
-        country: { type: GraphQLString },
-        type: { type: GraphQLString },
-      },
-      resolve: getGames,
-    },
-    gameProviders: {
-      type: new GraphQLList(GraphQLString),
-      args: {
-        brandId: { type: GraphQLString },
-      },
-      resolve: getGameProviders,
-    },
-    cmsGames: {
-      type: CmsGamesListType,
-      args: {
-        brandId: { type: new GraphQLNonNull(GraphQLString) },
-        platform: { type: CmsGameType.CmsGamePlatformEnum },
-        technology: { type: CmsGameType.CmsGameTechnologyEnum },
-        freeSpinsStatus: { type: CmsGameType.CmsGameFreeSpinsStatus },
-        limit: { type: new GraphQLNonNull(GraphQLInt) },
-        offset: { type: new GraphQLNonNull(GraphQLInt) },
-        status: { type: CmsGameType.CmsGameStatusEnum },
-      },
-      resolve: cmsResolvers.games.getGames,
-    },
-    cmsAggregators: {
-      type: new GraphQLList(CmsGameAggregatorType),
-      resolve: cmsResolvers.aggregators.getAggregators,
-    },
-    cmsProviders: {
-      type: new GraphQLList(CmsGameProviderType),
-      resolve: cmsResolvers.providers.getProviders,
-    },
-    wagering: {
-      type: ResponseType(WageringFulfillmentType),
-      args: {
-        uuid: { type: new GraphQLNonNull(GraphQLString) },
-      },
-      resolve: getWageringFulfillmentByUUID,
-    },
-    depositFulfillment: {
-      type: ResponseType(DepositFulfillmentType),
-      args: {
-        uuid: { type: new GraphQLNonNull(GraphQLString) },
-      },
-      resolve: getDepositFulfillmentByUUID,
-    },
     paymentMethods: {
       type: ResponseType(new GraphQLList(PaymentMethodType), 'PaymentMethods'),
       args: {
@@ -279,20 +118,6 @@ const QueryType = new GraphQLObjectType({
     operatorPaymentMethods: {
       type: ResponseType(new GraphQLList(PaymentMethodType), 'OperatorPaymentMethods'),
       resolve: getOperatorPaymentMethods,
-    },
-    activeRewardPlan: {
-      type: ResponseType(ActiveRewardPlan),
-      args: {
-        playerUUID: { type: new GraphQLNonNull(GraphQLString) },
-      },
-      resolve: fetchActiveRewardPlan,
-    },
-    pendingRewardPlan: {
-      type: ResponseType(PendingRewardPlan),
-      args: {
-        playerUUID: { type: new GraphQLNonNull(GraphQLString) },
-      },
-      resolve: fetchPendingRewardPlan,
     },
     clientPayments: {
       type: ResponseType(PageableType(PaymentType, {}, 'ClientPayments')),
