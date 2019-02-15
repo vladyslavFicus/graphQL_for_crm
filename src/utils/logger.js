@@ -2,6 +2,7 @@ const bunyan = require('bunyan');
 const bunyanFormat = require('bunyan-format');
 
 const config = require('../config');
+const BunyanToGelfStream = require('./BunyanToGelfStream');
 
 const streams = [
   {
@@ -15,11 +16,12 @@ const streams = [
 ];
 
 if (process.env.NODE_ENV === 'production') {
-  const gelfStream = require('gelf-stream');
-
   streams.push({
     type: 'raw',
-    stream: gelfStream.forBunyan(config.logstash.host, config.logstash.port),
+    stream: new BunyanToGelfStream({
+      host: config.logstash.host,
+      port: config.logstash.port,
+    }),
   });
 }
 
