@@ -34,7 +34,6 @@
     "elasticsearch": "^14.2.2",
     "express": "^4.16.4",
     "form-data": "^2.3.2",
-    "gelf-stream": "^1.1.1",
     "graphql": "^14.1.1",
     "graphql-bigint": "^1.0.0",
     "isomorphic-fetch": "^2.2.1",
