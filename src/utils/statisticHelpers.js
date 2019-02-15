@@ -89,8 +89,33 @@ const getCountQueryRanges = timezone => ({
   total: [queryBuild.range('registrationDate', { lte: moment.utc().format() })],
 });
 
+const getPaymentStatisticTotals = (index, { paymentsCount, totalAmount }) => {
+  let propName = '';
+
+  switch (index) {
+    case 0: {
+      propName = 'today';
+      break;
+    }
+    case 1: {
+      propName = 'month';
+      break;
+    }
+    case 2: {
+      propName = 'total';
+      break;
+    }
+  }
+
+  return {
+    [`${propName}Amount`]: totalAmount,
+    [`${propName}Count`]: paymentsCount,
+  };
+};
+
 module.exports = {
   compareDateFormat,
   getStatisticInitialArray,
   getCountQueryRanges,
+  getPaymentStatisticTotals,
 };
