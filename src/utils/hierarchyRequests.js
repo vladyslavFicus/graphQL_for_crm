@@ -231,6 +231,20 @@ const bulkMassAssignHierarchyUser = (args, authorization) => {
   }).then(response => response.json());
 };
 
+const getBrand = (brandId, authorization) => {
+  return fetch(
+    `${global.appConfig.apiUrl}/trading_hierarchy_updater/branch/brand?${buildQueryString({ name: brandId })}`,
+    {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        authorization,
+        'content-type': 'application/json',
+      },
+    }
+  ).then(response => response.json());
+};
+
 module.exports = {
   buildRequestObject,
   multipleRequest,
@@ -252,4 +266,5 @@ module.exports = {
   updateBranchHierarchy,
   bulkUpdateHierarchyUser,
   bulkMassAssignHierarchyUser,
+  getBrand,
 };

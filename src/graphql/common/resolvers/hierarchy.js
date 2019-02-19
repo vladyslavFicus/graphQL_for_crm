@@ -14,6 +14,7 @@ const {
   getUsersByBranch: getUsersByBranchQuery,
   getBranchChildren: getBranchChildrenQuery,
   updateUserHierarchy,
+  getBrand,
 } = require('../../../utils/hierarchyRequests');
 
 const getHierarchyMappedOperators = async (hierarchyOperators, dataloaders) => {
@@ -45,12 +46,18 @@ const createUser = async (_, { userId, branchId, userType }, { headers: { author
   return user;
 };
 
-const createOffice = async (_, { officeManager, ...args }, { headers: { authorization }, userUUID: operatorId }) => {
+const createOffice = async (_, { officeManager, ...args }, { headers: { authorization }, brand: { id: brandId } }) => {
   const successMessages = [];
   const errorMessages = [];
+
+  const {
+    data: { uuid },
+  } = await getBrand(brandId, authorization);
+
   const office = await createBranch(
     {
       branchType: branchTypes.OFFICE,
+      parentBranches: [uuid],
       ...args,
     },
     authorization
@@ -68,10 +75,6 @@ const createOffice = async (_, { officeManager, ...args }, { headers: { authoriz
     operatorId: officeManager,
     assignToBranch: office.uuid,
   };
-  const updateOperatorParams = {
-    operatorId,
-    assignToBranch: office.uuid,
-  };
 
   const { succeed, errors } = await multipleRequest([
     buildRequestObject(
@@ -79,17 +82,12 @@ const createOffice = async (_, { officeManager, ...args }, { headers: { authoriz
       'hierarchy.offices.success.updateOfficeManager',
       'hierarchy.offices.fail.updateOfficeManager'
     ),
-    buildRequestObject(
-      updateUserHierarchy(updateOperatorParams, authorization),
-      'hierarchy.offices.success.updateOperator',
-      'hierarchy.offices.fail.updateOperator'
-    ),
   ]);
 
   return { data: [...successMessages, ...succeed], error: [...errorMessages, ...errors] };
 };
 
-const createDesk = async (_, { officeId, ...args }, { headers: { authorization }, userUUID: operatorId }) => {
+const createDesk = async (_, { officeId, ...args }, { headers: { authorization } }) => {
   const successMessages = [];
   const errorMessages = [];
   const desk = await createBranch(
@@ -109,23 +107,10 @@ const createDesk = async (_, { officeId, ...args }, { headers: { authorization }
 
   successMessages.push('hierarchy.desks.success.createDesk');
 
-  const updateOperatorParams = {
-    operatorId,
-    assignToBranch: desk.uuid,
-  };
-
-  const { succeed, errors } = await multipleRequest([
-    buildRequestObject(
-      updateUserHierarchy(updateOperatorParams, authorization),
-      'hierarchy.desks.success.updateOperator',
-      'hierarchy.desks.fail.updateOperator'
-    ),
-  ]);
-
-  return { data: [...successMessages, ...succeed], error: [...errorMessages, ...errors] };
+  return { data: successMessages, error: errorMessages };
 };
 
-const createTeam = async (_, { deskId, ...args }, { headers: { authorization }, userUUID: operatorId }) => {
+const createTeam = async (_, { deskId, ...args }, { headers: { authorization } }) => {
   const successMessages = [];
   const errorMessages = [];
   const team = await createBranch(
@@ -144,20 +129,8 @@ const createTeam = async (_, { deskId, ...args }, { headers: { authorization }, 
   }
 
   successMessages.push('hierarchy.teams.success.createTeam');
-  const updateOperatorParams = {
-    operatorId,
-    assignToBranch: team.uuid,
-  };
 
-  const { succeed, errors } = await multipleRequest([
-    buildRequestObject(
-      updateUserHierarchy(updateOperatorParams, authorization),
-      'hierarchy.teams.success.updateOperator',
-      'hierarchy.teams.fail.updateOperator'
-    ),
-  ]);
-
-  return { data: [...successMessages, ...succeed], error: [...errorMessages, ...errors] };
+  return { data: successMessages, error: errorMessages };
 };
 
 const addOperatorToBranch = async (_, { operatorId, branchId }, { headers: { authorization } }) => {
