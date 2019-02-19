@@ -230,7 +230,9 @@ const getUsersByBranch = async (_, { uuid }, { headers: { authorization }, datal
     return users;
   }
 
-  const mappedUsers = await getHierarchyMappedOperators(users.data, dataloaders);
+  // TODO. CRUTCH: We should use /user/branch/${uuid}/operators query, after it will be implemented
+  const operators = users.data.filter(({ uuid }) => uuid.startsWith('OPERATOR'));
+  const mappedUsers = await getHierarchyMappedOperators(operators, dataloaders);
 
   return {
     data: mappedUsers.filter(({ userType }) => [userTypes.CUSTOMER, userTypes.LEAD_CUSTOMER].indexOf(userType) === -1),
