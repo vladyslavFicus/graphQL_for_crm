@@ -221,6 +221,7 @@ const QueryType = new GraphQLObjectType({
         firstDeposit: { type: GraphQLString },
         salesStatuses: { type: new GraphQLList(GraphQLString) },
         retentionStatuses: { type: new GraphQLList(GraphQLString) },
+        searchAffiliate: { type: GraphQLString },
       },
       resolve: getProfiles,
     },

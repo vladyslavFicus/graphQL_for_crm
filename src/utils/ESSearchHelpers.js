@@ -54,6 +54,19 @@ const queryBuild = {
           },
         }
       : {},
+  shouldTerm: (...query) => ({
+    bool: {
+      should: query.map(condition => condition),
+    },
+  }),
+  term: (searchField, value) =>
+    value
+      ? {
+          term: {
+            [searchField]: value,
+          },
+        }
+      : {},
 };
 
 const parseToPageable = ({ hits: { total, hits } }, page, size) => ({

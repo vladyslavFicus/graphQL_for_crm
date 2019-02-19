@@ -29,6 +29,7 @@ const profilesQuery = ({
   firstDeposit,
   salesStatuses,
   retentionStatuses,
+  searchAffiliate,
 }) => [
   queryBuild.ids(ids),
   queryBuild.range('tradingProfile.balance', { gte: tradingBalanceFrom, lte: tradingBalanceTo }),
@@ -48,6 +49,11 @@ const profilesQuery = ({
     ['firstName', 'lastName', 'playerUUID', 'email', 'tradingProfile.phone1', 'tradingProfile.phone2'],
     searchValue
   ),
+  searchAffiliate &&
+    queryBuild.shouldTerm(
+      queryBuild.term(['tradingProfile.affiliateProfileDocument.source'], searchAffiliate),
+      queryBuild.term(['tradingProfile.affiliateProfileDocument.affiliateUuid'], searchAffiliate)
+    ),
   assignStatus === assignStatuses.UN_ASSIGN &&
     queryBuild.should(
       [
