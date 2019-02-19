@@ -1,4 +1,4 @@
-const { GraphQLObjectType, GraphQLNonNull, GraphQLString } = require('graphql');
+const { GraphQLObjectType, GraphQLNonNull, GraphQLString, GraphQLInt } = require('graphql');
 const SuccessType = require('../../query/SuccessType');
 
 const {
@@ -22,7 +22,7 @@ const TradingAccountType = new GraphQLObjectType({
     },
     changePassword: {
       args: {
-        login: { type: new GraphQLNonNull(GraphQLString) },
+        login: { type: new GraphQLNonNull(GraphQLInt) },
         password: { type: new GraphQLNonNull(GraphQLString) },
       },
       type: SuccessType,
