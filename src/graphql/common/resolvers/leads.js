@@ -238,11 +238,7 @@ const updateLeadProfile = async (_, args, { headers: { authorization }, brand: {
     };
   }
 
-  const lead = await getLeadById(args.id, authorization);
-
-  return {
-    data: lead,
-  };
+  return getLeadById(args.id, authorization);
 };
 
 module.exports = {
