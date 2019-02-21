@@ -24,6 +24,17 @@ const KYCStatusesEnum = new GraphQLEnumType({
   },
 });
 
+const ClientTypeEnum = new GraphQLEnumType({
+  name: 'tradingProfileClientType',
+  values: {
+    NONE: { value: 'NONE' },
+    INDIVIDUAL_RETAIL: { value: 'INDIVIDUAL_RETAIL' },
+    INDIVIDUAL_PPROFESSIONAL: { value: 'INDIVIDUAL_PPROFESSIONAL' },
+    CORPORATE_RETAIL: { value: 'CORPORATE_RETAIL' },
+    CORPORATE_PROFESSIONAL: { value: 'CORPORATE_PROFESSIONAL' },
+  },
+});
+
 const SalesStatusesEnum = new GraphQLEnumType({
   name: 'tradingProfileSalesStatus',
   values: {
@@ -73,6 +84,7 @@ const RetentionStatusesEnum = new GraphQLEnumType({
 
 module.exports = {
   AquisitionStatusesEnum,
+  ClientTypeEnum,
   KYCStatusesEnum,
   SalesStatusesEnum,
   RetentionStatusesEnum,

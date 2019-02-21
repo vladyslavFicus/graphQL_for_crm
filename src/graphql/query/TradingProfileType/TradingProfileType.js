@@ -12,6 +12,7 @@ const {
   KYCStatusesEnum,
   SalesStatusesEnum,
   RetentionStatusesEnum,
+  ClientTypeEnum,
 } = require('./TradingProfileEnums');
 const OperatorType = require('../OperatorType');
 const { getOperator } = require('../../common/resolvers/operators');
@@ -70,6 +71,7 @@ const TradingProfileType = new GraphQLObjectType({
       type: OperatorType,
       resolve: getOperator('retentionRep'),
     },
+    clientType: { type: ClientTypeEnum },
     retentionStatus: { type: RetentionStatusesEnum },
     kycRep: {
       type: OperatorType,
