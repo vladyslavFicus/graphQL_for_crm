@@ -1,6 +1,6 @@
 const dgram = require('dgram');
 const zlib = require('zlib');
-const stringify = require('json-stringify-safe');
+const JSON = require('circular-json');
 
 const LEVELS = {
   EMERGENCY: 0,
@@ -86,7 +86,7 @@ class BunyanToGelfStream {
       short_message: log.msg,
       facility: log.name,
       level: this._mapBunyanLevelToGelf(log.level),
-      full_message: stringify(log, null, 2),
+      full_message: JSON.stringify(log, null, 2),
     };
 
     // Remove gelf ignored fields
@@ -96,7 +96,7 @@ class BunyanToGelfStream {
       message[`_${key}`] = log[key];
     });
 
-    const buffer = Buffer.from(stringify(message));
+    const buffer = Buffer.from(JSON.stringify(message));
 
     // Gzipping is required to send to log services
     zlib.gzip(buffer, (err, compressed) => {
