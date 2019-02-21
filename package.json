@@ -37,6 +37,7 @@
     "graphql": "^14.1.1",
     "graphql-bigint": "^1.0.0",
     "isomorphic-fetch": "^2.2.1",
+    "json-stringify-safe": "^5.0.1",
     "jwt-decode": "^2.2.0",
     "keymirror": "^0.1.1",
     "lodash": "4.17.11",
