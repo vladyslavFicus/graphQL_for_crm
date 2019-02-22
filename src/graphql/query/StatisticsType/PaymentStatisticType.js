@@ -1,4 +1,34 @@
-const { GraphQLObjectType, GraphQLNonNull, GraphQLInt, GraphQLString, GraphQLList, GraphQLFloat } = require('graphql');
+const {
+  GraphQLObjectType,
+  GraphQLInt,
+  GraphQLString,
+  GraphQLList,
+  GraphQLFloat,
+  GraphQLEnumType,
+  GraphQLInputObjectType,
+} = require('graphql');
+
+const commonTotalFields = {
+  totalAmount: { type: GraphQLFloat },
+  totalCount: { type: GraphQLInt },
+};
+
+const DetalizationEnum = new GraphQLEnumType({
+  name: 'DetalizationEnum',
+  values: {
+    PER_DAYS: { value: 'PER_DAYS' },
+    PER_HOURS: { value: 'PER_HOURS' },
+    PER_MINUTES: { value: 'PER_MINUTES' },
+  },
+});
+
+const AdditionalStatisticInputType = new GraphQLInputObjectType({
+  name: 'AdditionalStatisticInput',
+  fields: () => ({
+    dateFrom: { type: GraphQLString },
+    dateTo: { type: GraphQLString },
+  }),
+});
 
 const PaymentEntryType = new GraphQLObjectType({
   name: 'PaymentEntry',
@@ -9,23 +39,31 @@ const PaymentEntryType = new GraphQLObjectType({
   }),
 });
 
-const PaymentStatisticItemType = new GraphQLObjectType({
-  name: 'PaymentStatisticItem',
+const TotalType = new GraphQLObjectType({
+  name: 'TotalType',
   fields: () => ({
-    deposits: { type: PaymentEntryType },
-    withdraws: { type: PaymentEntryType },
+    ...commonTotalFields,
+    todayAmount: { type: GraphQLFloat },
+    todayCount: { type: GraphQLInt },
+    monthAmount: { type: GraphQLFloat },
+    monthCount: { type: GraphQLInt },
   }),
+});
+
+const ItemTotalType = new GraphQLObjectType({
+  name: 'ItemTotalType',
+  fields: () => commonTotalFields,
 });
 
 const PaymentsStatisticType = new GraphQLObjectType({
   name: 'PaymentsStatistic',
   fields: () => ({
-    items: { type: new GraphQLList(PaymentStatisticItemType) },
-    totalDepositsAmount: { type: new GraphQLNonNull(GraphQLFloat) },
-    totalDepositsCount: { type: new GraphQLNonNull(GraphQLInt) },
-    totalWithdrawsAmount: { type: new GraphQLNonNull(GraphQLFloat) },
-    totalWithdrawsCount: { type: new GraphQLNonNull(GraphQLInt) },
+    items: { type: new GraphQLList(PaymentEntryType) },
+    itemsTotal: { type: ItemTotalType },
+    additionalTotal: { type: TotalType },
   }),
 });
 
 module.exports = PaymentsStatisticType;
+module.exports.DetalizationEnum = DetalizationEnum;
+module.exports.AdditionalStatisticInputType = AdditionalStatisticInputType;

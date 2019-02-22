@@ -1,22 +1,4 @@
 const fetch = require('./fetch');
-const parseJson = require('./parseJson');
-
-/**
- * Get available currencies to create trading account
- * @param brandId
- * @param authorization
- * @return {Promise|*|PromiseLike<T | never>|Promise<T | never>}
- */
-const getAvailableCurrencies = (brandId, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_mt4_updater/groups/currencies?brandId=${brandId}`, {
-    method: 'GET',
-    headers: {
-      authorization,
-    },
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response));
-};
 
 /**
  * Create trading account on MT4
@@ -33,7 +15,7 @@ const createTradingAccount = (args, authorization) => {
       'content-type': 'application/json',
     },
     body: JSON.stringify(args),
-  }).then(response => response.status === 200);
+  }).then(response => response.json());
 };
 
 /**
@@ -51,11 +33,10 @@ const tradingAccountChangePassword = (args, authorization) => {
       'content-type': 'application/json',
     },
     body: JSON.stringify(args),
-  }).then(response => response.status === 200);
+  }).then(response => response.json());
 };
 
 module.exports = {
-  getAvailableCurrencies,
   createTradingAccount,
   tradingAccountChangePassword,
 };

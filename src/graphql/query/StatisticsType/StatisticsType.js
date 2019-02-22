@@ -1,11 +1,11 @@
 const { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLList, GraphQLInt } = require('graphql');
-
 const {
   statistics: { getRegisteredUserStatistic, getPaymentsStatistic, getRegisteredUserTotals },
 } = require('../../common/resolvers');
 const ResponseType = require('../../common/types/ResponseType');
 const { ChartStatisticType, ChartTotalsType } = require('./ChartType');
 const PaymentStatisticType = require('./PaymentStatisticType');
+const { DetalizationEnum, AdditionalStatisticInputType } = require('./PaymentStatisticType');
 
 const StatisticsType = new GraphQLObjectType({
   name: 'Statistics',
@@ -29,8 +29,13 @@ const StatisticsType = new GraphQLObjectType({
     payments: {
       type: ResponseType(PaymentStatisticType, 'paymentsStatistic'),
       args: {
-        dateFrom: { type: new GraphQLNonNull(GraphQLString) },
-        dateTo: { type: new GraphQLNonNull(GraphQLString) },
+        dateFrom: { type: GraphQLString },
+        dateTo: { type: GraphQLString },
+        playerUUID: { type: GraphQLString },
+        detalization: { type: DetalizationEnum },
+        paymentStatus: { type: GraphQLString },
+        paymentType: { type: GraphQLString },
+        additionalStatistics: { type: new GraphQLList(AdditionalStatisticInputType) },
       },
       resolve: getPaymentsStatistic,
     },

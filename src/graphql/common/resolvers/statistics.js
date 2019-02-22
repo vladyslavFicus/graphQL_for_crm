@@ -1,10 +1,17 @@
 const { get } = require('lodash');
 const moment = require('moment');
 const { getScrollData, getCountData, queryBuild } = require('../../../utils/ESSearchHelpers');
-const { getDailyPayments } = require('./reconciliation');
+const {
+  queries: { getPaymentsStatistics },
+} = require('../../../utils/payment');
 const accessValidate = require('../../../utils/accessValidate');
 const { convertToUtcDates } = require('../../../utils/utcHelpers');
-const { compareDateFormat, getStatisticInitialArray, getCountQueryRanges } = require('../../../utils/statisticHelpers');
+const {
+  compareDateFormat,
+  getStatisticInitialArray,
+  getCountQueryRanges,
+  getPaymentStatisticTotals,
+} = require('../../../utils/statisticHelpers');
 
 const registerStatQuery = ({ registrationDateFrom, registrationDateTo, clientIds }) => [
   queryBuild.ids(clientIds),
@@ -89,7 +96,7 @@ const getRegisteredUserTotals = async (_, { timezone }, context) => {
       (acc, { count, error }, index) => ({
         ...acc,
         [keys[index]]: {
-          count,
+          value: count,
           error,
         },
       }),
@@ -100,82 +107,95 @@ const getRegisteredUserTotals = async (_, { timezone }, context) => {
   return result;
 };
 
-const getPaymentsStatistic = async function(_, { dateFrom, dateTo }, context) {
-  const access = await accessValidate(context);
-
-  if (access.error) {
-    return { error: access.error };
-  }
-
-  const {
-    headers: { authorization },
-    brand: { id: brandId, currency },
-  } = context;
-  const timezone = dateFrom.substr(-6);
-
-  const dailyPayments = await getDailyPayments(
-    _,
+const getPaymentsStatistic = async function(
+  _,
+  { additionalStatistics, dateFrom, dateTo, playerUUID, ...args },
+  { hierarchy, headers: { authorization } }
+) {
+  const { data, error } = await getPaymentsStatistics(
     {
-      dateFrom: moment(dateFrom).format(compareDateFormat),
-      dateTo: moment(dateTo).format(compareDateFormat),
-      currency,
-      brandId,
+      ...args,
+      ...(dateFrom && {
+        dateFrom: moment(dateFrom)
+          .utc()
+          .format(),
+      }),
+      ...(dateTo && {
+        dateTo: moment(dateTo)
+          .utc()
+          .format(),
+      }),
+      // HACK to get one player statistic
+      profileIds: playerUUID ? [playerUUID] : await hierarchy.getCustomersIds(),
+      ...(additionalStatistics && {
+        additionalStatistics: additionalStatistics.map(obj =>
+          Object.entries(obj).reduce(
+            (acc, [key, value]) => ({
+              ...acc,
+              [key]: moment(value)
+                .utc()
+                .format(),
+            }),
+            {}
+          )
+        ),
+      }),
     },
-    { headers: { authorization } }
+    authorization
   );
-  const error = get(dailyPayments, 'error');
 
   if (error) {
     return { error };
   }
 
-  const initialObj = {
-    data: {
-      items: [],
-      totalDepositsAmount: 0,
-      totalDepositsCount: 0,
-      totalWithdrawsAmount: 0,
-      totalWithdrawsCount: 0,
-    },
-  };
+  const { payments, totalAmount, totalCount, additionalStatistics: extraStat } = data;
+  let result = { items: [] };
 
-  if (Array.isArray(dailyPayments) && dailyPayments.length !== 0) {
+  if (Array.isArray(payments) && payments.length) {
+    const timezone = dateFrom.substr(-6);
     const dateArray = getStatisticInitialArray(dateFrom, dateTo, timezone);
 
     const items = dateArray.map(date => {
-      const data = dailyPayments.find(data => moment(date).diff(moment(data.date).format(compareDateFormat)) === 0);
+      const entity = payments.find(({ date: paymentDate }) => moment(date).diff(moment(paymentDate), 'days') === 0);
 
       return {
-        deposits: {
-          amount: data ? Number(data.deposits).toFixed(2) : 0,
-          count: data ? data.depositsCount : 0,
-          entryDate: date,
-        },
-        withdraws: {
-          amount: data ? Number(data.withdraws).toFixed(2) : 0,
-          count: data ? data.withdrawsCount : 0,
-          entryDate: date,
-        },
+        amount: entity ? Number(entity.amount).toFixed(2) : 0,
+        count: entity ? entity.count : 0,
+        entryDate: date,
       };
     });
 
-    const result = dailyPayments.reduce(
-      (acc, curr) => ({
-        data: {
-          ...acc.data,
-          totalDepositsAmount: Math.round((acc.data.totalDepositsAmount + curr.deposits) * 100) / 100,
-          totalDepositsCount: acc.data.totalDepositsCount + curr.depositsCount,
-          totalWithdrawsAmount: acc.data.totalWithdrawsAmount + curr.withdraws,
-          totalWithdrawsCount: acc.data.totalWithdrawsCount + curr.withdrawsCount,
-        },
-      }),
-      { data: { ...initialObj.data, items } }
-    );
-
-    return result;
+    result = {
+      ...result,
+      items,
+      itemsTotal: {
+        totalAmount,
+        totalCount,
+      },
+    };
   }
 
-  return initialObj;
+  let additionalStatisticData = null;
+
+  if (Array.isArray(extraStat) && extraStat.length) {
+    additionalStatisticData = extraStat.reduce(
+      (acc, entry, index) => ({
+        ...acc,
+        additionalTotal: {
+          ...acc.additionalTotal,
+          ...getPaymentStatisticTotals(index, entry),
+        },
+      }),
+      { additionalTotal: {} }
+    );
+  }
+
+  return {
+    data: {
+      ...result,
+      ...(additionalStatisticData && additionalStatisticData),
+    },
+  };
 };
 
 module.exports = {

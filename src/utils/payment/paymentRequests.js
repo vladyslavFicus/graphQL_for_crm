@@ -61,17 +61,16 @@ const getCasinoPaymentsByUuid = ({ playerUUID, ...args }, authorization) => {
     .then(response => parseJson(response));
 };
 
-const getClientPaymentsStatistic = ({ playerUUID, ...args }, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/payment/payments/${playerUUID}?${buildQueryString(args)}`, {
-    method: 'GET',
+const getPaymentsStatistics = (data, authorization) => {
+  return fetch(`${global.appConfig.apiUrl}/trading_payment/statistics`, {
+    method: 'POST',
     headers: {
       accept: 'application/json',
       authorization,
       'content-type': 'application/json',
     },
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response));
+    body: JSON.stringify(data),
+  }).then(response => response.json());
 };
 
 const createTradingPayment = (paymentType, args, authorization) => {
@@ -114,7 +113,7 @@ module.exports = {
   getCasinoPayments,
   getPaymentMethods,
   getCasinoPaymentsByUuid,
-  getClientPaymentsStatistic,
+  getPaymentsStatistics,
   createTradingPayment,
   createCasinoPayment,
 };

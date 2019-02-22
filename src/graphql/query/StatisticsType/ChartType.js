@@ -19,7 +19,7 @@ const ChartStatisticType = new GraphQLObjectType({
 const CountResponseType = new GraphQLObjectType({
   name: 'CountResponseType',
   fields: () => ({
-    count: { type: GraphQLInt },
+    value: { type: new GraphQLNonNull(GraphQLInt) },
     error: { type: GraphQLString },
   }),
 });

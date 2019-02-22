@@ -1,15 +1,5 @@
-const fetch = require('../../../utils/fetch');
-const parseJson = require('../../../utils/parseJson');
 const { getProfile } = require('../resolvers/profile');
-const {
-  getAvailableCurrencies,
-  createTradingAccount,
-  tradingAccountChangePassword,
-} = require('../../../utils/mt4Requests');
-
-const getAvailableCurrenciesResolver = (_, args, { headers: { authorization }, brand: { id: brandId } }) => {
-  return getAvailableCurrencies(brandId, authorization);
-};
+const { createTradingAccount, tradingAccountChangePassword } = require('../../../utils/mt4Requests');
 
 const createTradingAccountResolver = async (_, { profileId, name, mode, currency, password }, context) => {
   const { data, error } = await getProfile(_, { playerUUID: profileId }, context);
@@ -43,15 +33,24 @@ const createTradingAccountResolver = async (_, { profileId, name, mode, currency
     mode,
   };
 
-  return createTradingAccount(args, authorization).then(success => ({ success }));
+  const acc = await createTradingAccount(args, authorization);
+
+  return {
+    success: !acc.error,
+    ...(acc.error && acc),
+  };
 };
 
-const tradingAccountChangePasswordResolver = (_, { login, password }, { headers: { authorization } }) => {
-  return tradingAccountChangePassword({ login, password }, authorization).then(success => ({ success }));
+const tradingAccountChangePasswordResolver = async (_, { login, password }, { headers: { authorization } }) => {
+  const response = await tradingAccountChangePassword({ login, password }, authorization);
+
+  return {
+    success: !response.error,
+    ...(response.error && response),
+  };
 };
 
 module.exports = {
-  getAvailableCurrenciesResolver,
   createTradingAccountResolver,
   tradingAccountChangePasswordResolver,
 };

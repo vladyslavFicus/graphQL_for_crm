@@ -4,7 +4,6 @@ const {
   GraphQLBoolean,
   GraphQLInt,
   GraphQLFloat,
-  GraphQLScalarType,
   GraphQLString,
   GraphQLList,
 } = require('graphql');
@@ -22,7 +21,6 @@ const {
     getOperatorPaymentMethods,
     getClientPayments,
     getClientPaymentsByUuid,
-    getClientPaymentsStatistic,
     getPaymentStatuses,
   },
   tradingActivities: { getTradingActivities },
@@ -159,17 +157,6 @@ const QueryType = new GraphQLObjectType({
         amountFrom: { type: GraphQLString },
         amountTo: { type: GraphQLString },
         agentIds: { type: new GraphQLList(GraphQLString) },
-      },
-    },
-    clientPaymentsStatistic: {
-      type: ClientPaymentStatisticType,
-      resolve: getClientPaymentsStatistic,
-      args: {
-        playerUUID: { type: new GraphQLNonNull(GraphQLString) },
-        limit: { type: GraphQLInt },
-        page: { type: GraphQLInt },
-        startDate: { type: GraphQLString },
-        endDate: { type: GraphQLString },
       },
     },
     paymentStatuses: {

@@ -5,48 +5,11 @@ const {
   queries: {
     getPaymentMethods: getPaymentMethodsQuery,
     getTradingPayments: getTradingPaymentsQuery,
-    getClientPaymentsStatistic: getClientPaymentsStatisticQuery,
     createTradingPayment,
     createCasinoPayment,
   },
-  getStatistic,
-  normalizeAccumulated,
 } = require('../../../utils/payment');
 const { mapActionToStatus } = require('../../../constants/payment');
-
-const paymentAccumulated = function(_, { playerUUID }, { headers: { authorization }, brand: { currency } }) {
-  return fetch(`${global.appConfig.apiUrl}/payment/accumulated/${playerUUID}`, {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      authorization,
-      'content-type': 'application/json',
-    },
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => {
-      const defaultValue = {
-        amount: 0,
-        currency,
-      };
-
-      return {
-        baseCurrencyDeposits: response.baseCurrencyDeposits
-          ? normalizeAccumulated(response.baseCurrencyDeposits, currency)
-          : defaultValue,
-        baseCurrencyWithdraws: response.baseCurrencyWithdraws
-          ? normalizeAccumulated(response.baseCurrencyWithdraws, currency)
-          : defaultValue,
-        walletCurrencyDeposits: response.walletCurrencyDeposits
-          ? normalizeAccumulated(response.walletCurrencyDeposits, currency)
-          : defaultValue,
-        walletCurrencyWithdraws: response.walletCurrencyWithdraws
-          ? normalizeAccumulated(response.walletCurrencyWithdraws, currency)
-          : defaultValue,
-      };
-    });
-};
 
 const getClientPayments = async (_, args, { headers: { authorization }, hierarchy }) => {
   const profileIds = await hierarchy.getCustomersIds();
@@ -61,13 +24,6 @@ const getClientPaymentsByUuid = async (_, { playerUUID, ...args }, { headers: { 
   const tradingPayments = await getTradingPaymentsQuery({ profileIds: [playerUUID], ...args }, authorization);
 
   return tradingPayments;
-};
-
-// INFO: when trading_payment statistic endpoint ready - this will be rewritten
-const getClientPaymentsStatistic = async (_, args, { headers: { authorization } }) => {
-  const statistic = await getClientPaymentsStatisticQuery(args, authorization);
-
-  return getStatistic(statistic.content);
 };
 
 const getPaymentStatuses = function(_, { paymentId, playerUUID }, { headers: { authorization } }) {
@@ -243,14 +199,12 @@ const acceptPayment = async function(_, { typeAcc, ...args }, context) {
 };
 
 module.exports = {
-  accumulated: paymentAccumulated,
   getPaymentMethods,
   getRates,
   getOperatorPaymentMethods,
   createClientPayment,
   getClientPayments,
   getClientPaymentsByUuid,
-  getClientPaymentsStatistic,
   getPaymentStatuses,
   changeStatus,
   acceptPayment,

@@ -1,11 +1,9 @@
-const { getStatistic, normalizeAccumulated } = require('./paymentUtils');
-
 const {
   getTradingPayments,
   getCasinoPayments,
   getPaymentMethods,
   getCasinoPaymentsByUuid,
-  getClientPaymentsStatistic,
+  getPaymentsStatistics,
   createTradingPayment,
   createCasinoPayment,
 } = require('./paymentRequests');
@@ -16,10 +14,8 @@ module.exports = {
     getCasinoPayments,
     getPaymentMethods,
     getCasinoPaymentsByUuid,
-    getClientPaymentsStatistic,
+    getPaymentsStatistics,
     createTradingPayment,
     createCasinoPayment,
   },
-  getStatistic,
-  normalizeAccumulated,
 };

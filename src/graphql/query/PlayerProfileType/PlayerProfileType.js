@@ -13,9 +13,6 @@ const {
 } = require('graphql');
 const TagType = require('../TagType');
 const MoneyType = require('../../common/types/MoneyType');
-const {
-  payment: { accumulated },
-} = require('../../common/resolvers');
 const TradingProfileType = require('../TradingProfileType');
 const SignInIpType = require('./SignInIpType');
 const getSignInIPs = require('../../../utils/signInIpsHelper');
@@ -35,16 +32,6 @@ const DeviceType = new GraphQLObjectType({
   }),
 });
 
-const AccumulatedType = new GraphQLObjectType({
-  name: 'Accumulated',
-  fields: () => ({
-    baseCurrencyDeposits: { type: MoneyType },
-    baseCurrencyWithdraws: { type: MoneyType },
-    walletCurrencyDeposits: { type: MoneyType },
-    walletCurrencyWithdraws: { type: MoneyType },
-  }),
-});
-
 const PlayerProfileType = new GraphQLObjectType({
   name: 'PlayerProfile',
   fields: () => ({
@@ -52,12 +39,6 @@ const PlayerProfileType = new GraphQLObjectType({
       type: new GraphQLNonNull(GraphQLID),
       resolve({ playerUUID }) {
         return playerUUID;
-      },
-    },
-    accumulated: {
-      type: AccumulatedType,
-      resolve({ playerUUID }, _, context) {
-        return accumulated(null, { playerUUID }, context);
       },
     },
     acceptedTermsUUID: { type: new GraphQLNonNull(GraphQLString) },
