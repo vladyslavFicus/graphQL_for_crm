@@ -34,6 +34,16 @@ const AffiliateDocumentType = new GraphQLObjectType({
   }),
 });
 
+const PassportType = new GraphQLObjectType({
+  name: 'passport',
+  fields: () => ({
+    passportNumber: { type: GraphQLString },
+    passportIssueDate: { type: GraphQLString },
+    expirationDate: { type: GraphQLString },
+    countryOfIssue: { type: GraphQLString },
+  }),
+});
+
 const Mt4UserType = new GraphQLObjectType({
   name: 'Mt4User',
   fields: () => ({
@@ -100,6 +110,7 @@ const TradingProfileType = new GraphQLObjectType({
     affiliateProfileDocument: {
       type: AffiliateDocumentType,
     },
+    passport: { type: PassportType },
   }),
 });
 

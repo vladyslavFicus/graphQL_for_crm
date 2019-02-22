@@ -209,6 +209,18 @@ const PlayerMutation = new GraphQLObjectType({
         playerUUID: {
           type: new GraphQLNonNull(GraphQLString),
         },
+        passportNumber: {
+          type: GraphQLString,
+        },
+        passportIssueDate: {
+          type: GraphQLString,
+        },
+        expirationDate: {
+          type: GraphQLString,
+        },
+        countryOfIssue: {
+          type: GraphQLString,
+        },
       },
       type: ResponseType(PlayerProfileType, 'UpdatePlayer'),
       resolve: updateProfile,
