@@ -14,7 +14,7 @@ const commonTotalFields = {
 };
 
 const DetalizationEnum = new GraphQLEnumType({
-  name: 'detalizationEnum',
+  name: 'DetalizationEnum',
   values: {
     PER_DAYS: { value: 'PER_DAYS' },
     PER_HOURS: { value: 'PER_HOURS' },
@@ -23,7 +23,7 @@ const DetalizationEnum = new GraphQLEnumType({
 });
 
 const AdditionalStatisticInputType = new GraphQLInputObjectType({
-  name: 'additionalStatisticInput',
+  name: 'AdditionalStatisticInput',
   fields: () => ({
     dateFrom: { type: GraphQLString },
     dateTo: { type: GraphQLString },

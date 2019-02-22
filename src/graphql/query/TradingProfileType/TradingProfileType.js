@@ -7,14 +7,14 @@ const {
   GraphQLInt,
   GraphQLFloat,
 } = require('graphql');
+const { getOperator } = require('../../common/resolvers/operators');
+const OperatorType = require('../OperatorType');
 const {
   AquisitionStatusesEnum,
   KYCStatusesEnum,
   SalesStatusesEnum,
   RetentionStatusesEnum,
 } = require('./TradingProfileEnums');
-const OperatorType = require('../OperatorType');
-const { getOperator } = require('../../common/resolvers/operators');
 
 const AffiliateDocumentType = new GraphQLObjectType({
   name: 'AffiliateDocumentType',

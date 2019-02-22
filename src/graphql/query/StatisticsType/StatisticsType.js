@@ -1,5 +1,4 @@
 const { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLList, GraphQLInt } = require('graphql');
-
 const {
   statistics: { getRegisteredUserStatistic, getPaymentsStatistic, getRegisteredUserTotals },
 } = require('../../common/resolvers');
@@ -32,7 +31,7 @@ const StatisticsType = new GraphQLObjectType({
       args: {
         dateFrom: { type: GraphQLString },
         dateTo: { type: GraphQLString },
-        profileIds: { type: new GraphQLList(GraphQLString) },
+        playerUUID: { type: GraphQLString },
         detalization: { type: DetalizationEnum },
         paymentStatus: { type: GraphQLString },
         paymentType: { type: GraphQLString },

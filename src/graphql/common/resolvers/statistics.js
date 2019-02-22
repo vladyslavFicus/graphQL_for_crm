@@ -109,7 +109,7 @@ const getRegisteredUserTotals = async (_, { timezone }, context) => {
 
 const getPaymentsStatistic = async function(
   _,
-  { additionalStatistics, dateFrom, dateTo, profileIds, ...args },
+  { additionalStatistics, dateFrom, dateTo, playerUUID, ...args },
   { hierarchy, headers: { authorization } }
 ) {
   const { data, error } = await getPaymentsStatistics(
@@ -126,7 +126,7 @@ const getPaymentsStatistic = async function(
           .format(),
       }),
       // HACK to get one player statistic
-      profileIds: profileIds ? profileIds : await hierarchy.getCustomersIds(),
+      profileIds: playerUUID ? [playerUUID] : await hierarchy.getCustomersIds(),
       ...(additionalStatistics && {
         additionalStatistics: additionalStatistics.map(obj =>
           Object.entries(obj).reduce(
