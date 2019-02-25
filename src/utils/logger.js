@@ -1,8 +1,8 @@
 const bunyan = require('bunyan');
 const bunyanFormat = require('bunyan-format');
+const BunyanToGelfStream = require('bunyan-gelf');
 
 const config = require('../config');
-const BunyanToGelfStream = require('./BunyanToGelfStream');
 
 const streams = [
   {
