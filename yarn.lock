@@ -517,6 +517,12 @@ bunyan-format@^0.2.1:
     ansistyles "~0.1.1"
     xtend "~2.1.1"
 
+bunyan-gelf@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/bunyan-gelf/-/bunyan-gelf-1.0.0.tgz#fe983e99347ab2b4f5b478679071893bc7537114"
+  dependencies:
+    circular-json "^0.5.9"
+
 bunyan@^1.8.12:
   version "1.8.12"
   resolved "https://registry.yarnpkg.com/bunyan/-/bunyan-1.8.12.tgz#f150f0f6748abdd72aeae84f04403be2ef113797"
