@@ -40,7 +40,6 @@ const PlayerProfileType = require('./PlayerProfileType');
 const OptionsType = require('./OptionsType');
 const {
   PaymentType: { PaymentMethodType, PaymentType },
-  ClientPaymentStatisticType,
   PaymentStatusType,
 } = require('./PaymentTypes');
 const {
@@ -137,8 +136,8 @@ const QueryType = new GraphQLObjectType({
         paymentMethods: { type: new GraphQLList(GraphQLString) },
         creationTimeFrom: { type: GraphQLString },
         creationTimeTo: { type: GraphQLString },
-        amountFrom: { type: GraphQLString },
-        amountTo: { type: GraphQLString },
+        amountFrom: { type: GraphQLFloat },
+        amountTo: { type: GraphQLFloat },
         currency: { type: GraphQLString },
         agentIds: { type: new GraphQLList(GraphQLString) },
       },
@@ -158,8 +157,8 @@ const QueryType = new GraphQLObjectType({
         paymentMethods: { type: new GraphQLList(GraphQLString) },
         creationTimeFrom: { type: GraphQLString },
         creationTimeTo: { type: GraphQLString },
-        amountFrom: { type: GraphQLString },
-        amountTo: { type: GraphQLString },
+        amountFrom: { type: GraphQLFloat },
+        amountTo: { type: GraphQLFloat },
         agentIds: { type: new GraphQLList(GraphQLString) },
       },
     },
