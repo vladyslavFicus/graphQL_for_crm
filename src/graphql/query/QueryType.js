@@ -31,6 +31,7 @@ const {
   callbacks: { getCallbacks, getCallback },
   operators: { getOperators, getOperatorByUUID },
   partners: { getPartners },
+  audit: { getFeeds, getFeedTypes },
 } = require('../common/resolvers');
 const PageableType = require('../common/types/PageableType');
 const FileType = require('./FileType');
@@ -50,6 +51,7 @@ const ProfilesType = require('./ProfilesType');
 const { NoteType } = require('./NoteType');
 const StatisticsType = require('./StatisticsType');
 const LeadType = require('./LeadType');
+const { FeedType, FeedTypes } = require('./AuditType/FeedType');
 const TagType = require('./TagType');
 const { SalesStatusesEnum: TradingSalesStatuses } = require('./TradingProfileType/TradingProfileEnums');
 const HierarchyQueryType = require('./HierarchyQueryType');
@@ -360,6 +362,28 @@ const QueryType = new GraphQLObjectType({
         uuid: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve: getOperatorByUUID,
+    },
+    feeds: {
+      type: ResponseType(PageableType(FeedType)),
+      args: {
+        searchBy: { type: GraphQLString },
+        auditLogType: { type: GraphQLString },
+        creationDateFrom: { type: GraphQLString },
+        creationDateTo: { type: GraphQLString },
+        page: { type: GraphQLInt },
+        limit: { type: GraphQLInt },
+        sortColumn: { type: GraphQLString },
+        sortDirection: { type: GraphQLString },
+        targetUUID: { type: GraphQLString },
+      },
+      resolve: getFeeds,
+    },
+    feedTypes: {
+      type: ResponseType(FeedTypes, 'feedTypes'),
+      args: {
+        playerUUID: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      resolve: getFeedTypes,
     },
   }),
 });
