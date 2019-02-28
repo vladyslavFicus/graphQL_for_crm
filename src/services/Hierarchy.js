@@ -1,4 +1,9 @@
-const { getCustomersSubtree, getLeadsSubtree, getOperatorsSubtree } = require('../utils/hierarchyRequests');
+const {
+  getCustomersSubtree,
+  getLeadsSubtree,
+  getOperatorsSubtree,
+  getPartnersSubtree,
+} = require('../utils/hierarchyRequests');
 const Logger = require('../utils/logger');
 
 class Hierarchy {
@@ -8,6 +13,7 @@ class Hierarchy {
 
     this._customersPromise = null;
     this._operatorsPromise = null;
+    this._partnersPromise = null;
     this._leadsPromise = null;
   }
 
@@ -37,6 +43,22 @@ class Hierarchy {
 
     if (error || !Array.isArray(data)) {
       Logger.error({ message: 'Get Hierarchy Operators Subtree Query Failed', error, data });
+      return [];
+    }
+
+    return data.map(({ uuid }) => uuid);
+  }
+
+  /**
+   * Load partners ids
+   * @return {Promise<void>}
+   * @private
+   */
+  async _loadPartners() {
+    const { error, data } = await getPartnersSubtree(this._userUUID, this._authorization);
+
+    if (error || !Array.isArray(data)) {
+      Logger.error({ message: 'Get Hierarchy Partners Subtree Query Failed', error, data });
       return [];
     }
 
@@ -81,6 +103,18 @@ class Hierarchy {
     }
 
     return await this._operatorsPromise;
+  }
+
+  /**
+   * Get partners ids from hierarchy tree
+   * @return {Array}
+   */
+  async getPartnersIds() {
+    if (!this._partnersPromise) {
+      this._partnersPromise = this._loadPartners();
+    }
+
+    return await this._partnersPromise;
   }
 
   /**

@@ -1,4 +1,12 @@
-const { getOperators: getOperatorsRequest } = require('../../../utils/operatorRequests');
+const { get } = require('lodash');
+const {
+  getOperators: getOperatorsRequest,
+  createOperator: createOperatorRequest,
+  getOperatorByUUID: getOperatorByUUIDRequest,
+  updateOperator: updateOperatorRequest,
+} = require('../../../utils/operatorRequests');
+const { createUser } = require('../../../utils/hierarchyRequests');
+const { addAuthorities, getAuthorities, removeAuthorities } = require('../../../utils/auth');
 
 const getOperators = async (_, args, { headers: { authorization }, hierarchy }) => {
   // Hack: Get all operators and then filter it by hierarchy
@@ -17,6 +25,37 @@ const getOperators = async (_, args, { headers: { authorization }, hierarchy }) 
   return { data: { ...operators.data, content: filteredOperators, totalElements: filteredOperators.length } };
 };
 
+const getOperatorByUUID = async (_, { uuid }, { headers: { authorization } }) =>
+  getOperatorByUUIDRequest(uuid, authorization);
+
+const createOperator = async (_, args, { headers: { authorization }, brand: { id: brandId } }) => {
+  const { department, role, userType, branchId } = args;
+
+  const operator = await createOperatorRequest(args, authorization);
+  const uuid = get(operator, 'data.uuid');
+
+  if (operator.error) return operator;
+
+  const authorities = await addAuthorities({ uuid, brandId, department, role }, authorization);
+
+  if (authorities.error) return { data: operator.data, error: authorities.error };
+
+  const userHierarchy = await createUser(
+    {
+      uuid,
+      userType,
+      ...(branchId && { parentBranches: [branchId] }),
+    },
+    authorization
+  );
+
+  if (userHierarchy.error) return { data: operator.data, error: userHierarchy.error };
+
+  return operator;
+};
+
+const updateOperator = (_, args, { headers: { authorization } }) => updateOperatorRequest(args, authorization);
+
 /**
  * Retrieve operator depends on source fieldName
  *
@@ -31,7 +70,36 @@ const getOperator = fieldName => ({ [fieldName]: operatorId }, _, { dataloaders 
   return dataloaders.operators.load(operatorId);
 };
 
+const removeDepartment = async (_, args, { headers: { authorization }, brand: { id: brandId } }) => {
+  const removedAuthorities = await removeAuthorities({ ...args, brandId }, authorization);
+  const authorities = await getAuthorities(args.uuid, authorization);
+
+  return {
+    data: {
+      authorities: authorities.data,
+    },
+    error: removedAuthorities.error || authorities.error,
+  };
+};
+
+const addDepartment = async (_, args, { headers: { authorization }, brand: { id: brandId } }) => {
+  const addedAuthorities = await addAuthorities({ ...args, brandId }, authorization);
+  const authorities = await getAuthorities(args.uuid, authorization);
+
+  return {
+    data: {
+      authorities: authorities.data,
+    },
+    error: addedAuthorities.error || authorities.error,
+  };
+};
+
 module.exports = {
+  addDepartment,
+  removeDepartment,
   getOperators,
+  getOperatorByUUID,
+  createOperator,
+  updateOperator,
   getOperator,
 };

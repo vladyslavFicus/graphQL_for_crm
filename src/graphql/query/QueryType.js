@@ -29,7 +29,8 @@ const {
   tags: { getPlayerTags, getTagsByText },
   rules: { getRules, getRulesRetention },
   callbacks: { getCallbacks, getCallback },
-  operators: { getOperators },
+  operators: { getOperators, getOperatorByUUID },
+  partners: { getPartners },
 } = require('../common/resolvers');
 const PageableType = require('../common/types/PageableType');
 const FileType = require('./FileType');
@@ -57,6 +58,7 @@ const { RuleTypeEnum } = require('./RuleType/RuleEnums');
 const { ConditionalTagType, ConditionalTagStatusEnum } = require('./ConditionalTagType');
 const { CallbackType, CallbackStatusEnum } = require('./CallbackType');
 const OperatorType = require('./OperatorType');
+const PartnerType = require('./PartnerType');
 
 const QueryType = new GraphQLObjectType({
   name: 'Query',
@@ -340,6 +342,24 @@ const QueryType = new GraphQLObjectType({
         size: { type: GraphQLInt },
       },
       resolve: getOperators,
+    },
+    operator: {
+      type: ResponseType(OperatorType),
+      args: {
+        uuid: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      resolve: getOperatorByUUID,
+    },
+    partners: {
+      type: ResponseType(PageableType(PartnerType)),
+      resolve: getPartners,
+    },
+    partner: {
+      type: ResponseType(PartnerType),
+      args: {
+        uuid: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      resolve: getOperatorByUUID,
     },
   }),
 });

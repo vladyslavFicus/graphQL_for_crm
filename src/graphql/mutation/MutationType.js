@@ -1,6 +1,8 @@
 const { GraphQLObjectType } = require('graphql');
 const AuthType = require('./AuthType');
 const ProfileType = require('./ProfileType');
+const OperatorType = require('./OperatorType');
+const PartnerType = require('./PartnerType');
 const NoteType = require('./NoteType');
 const { PaymentType } = require('./PaymentType');
 const TagType = require('./TagType');
@@ -25,6 +27,18 @@ const MutationType = new GraphQLObjectType({
     },
     profile: {
       type: ProfileType,
+      resolve() {
+        return {};
+      },
+    },
+    operator: {
+      type: OperatorType,
+      resolve() {
+        return {};
+      },
+    },
+    partner: {
+      type: PartnerType,
       resolve() {
         return {};
       },

@@ -1,5 +1,6 @@
 const fetch = require('../../../utils/fetch');
 const parseJson = require('../../../utils/parseJson');
+const { getAuthorities: getAuthoritiesRequest } = require('../../../utils/auth');
 
 const getCredentialsLock = function(_, { playerUUID }, { headers: { authorization } }) {
   return fetch(`${global.appConfig.apiUrl}/auth/credentials/${playerUUID}/lock`, {
@@ -30,18 +31,7 @@ const removeCredentialsLock = function(_, { playerUUID }, { headers: { authoriza
     );
 };
 
-const getAuthorities = function(_, { uuid }, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/auth/credentials/${uuid}/authorities`, {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      authorization,
-      'content-type': 'application/json',
-    },
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response));
-};
+const getAuthorities = (_, { uuid }, { headers: { authorization } }) => getAuthoritiesRequest(uuid, authorization);
 
 module.exports = {
   credentials: {

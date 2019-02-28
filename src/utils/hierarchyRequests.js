@@ -99,6 +99,17 @@ const getOperatorsSubtree = (userId, authorization) => {
   }).then(response => response.json());
 };
 
+const getPartnersSubtree = (userId, authorization) => {
+  return fetch(`${global.appConfig.apiUrl}/trading_hierarchy_updater/user/${userId}/affiliate-partners`, {
+    method: 'GET',
+    headers: {
+      authorization,
+      accept: 'application/json',
+      'content-type': 'application/json',
+    },
+  }).then(response => response.json());
+};
+
 const getHierarchyBranch = (branchId, authorization) => {
   return fetch(`${global.appConfig.apiUrl}/trading_hierarchy_updater/branch/${branchId}`, {
     method: 'GET',
@@ -256,6 +267,7 @@ module.exports = {
   getCustomersSubtree,
   getLeadsSubtree,
   getOperatorsSubtree,
+  getPartnersSubtree,
   getUserBranchHierarchy,
   getUsersByType,
   getBranchHierarchy,

@@ -1,4 +1,4 @@
-const { GraphQLString, GraphQLObjectType, GraphQLNonNull } = require('graphql');
+const { GraphQLString, GraphQLObjectType, GraphQLNonNull, GraphQLInt } = require('graphql');
 
 const AuthorityType = new GraphQLObjectType({
   name: 'Authority',
@@ -11,7 +11,7 @@ const AuthorityType = new GraphQLObjectType({
         type: new GraphQLNonNull(GraphQLString),
       },
       id: {
-        type: new GraphQLNonNull(GraphQLString),
+        type: new GraphQLNonNull(GraphQLInt),
       },
       role: {
         type: new GraphQLNonNull(GraphQLString),

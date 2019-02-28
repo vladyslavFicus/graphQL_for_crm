@@ -1,0 +1,85 @@
+const { get } = require('lodash');
+const { updateOperator: updateOperatorRequest, getOperatorsByUUIDs } = require('../../../utils/operatorRequests');
+const {
+  getForexOperator: getForexOperatorRequest,
+  createForexOperator: createForexOperatorRequest,
+  updateForexOperator: updateForexOperatorRequest,
+} = require('../../../utils/partnerRequests');
+const { createOperator } = require('./operators');
+
+const getPartners = async (_, args, { headers: { authorization }, hierarchy }) => {
+  const partnersIds = await hierarchy.getPartnersIds();
+  return getOperatorsByUUIDs(partnersIds, authorization);
+};
+
+const getForexOperatorByUUID = async ({ uuid }, _, { headers: { authorization } }) =>
+  getForexOperatorRequest(uuid, authorization);
+
+const createPartner = async (_, args, context) => {
+  const {
+    headers: { authorization },
+  } = context;
+  const partner = await createOperator(
+    _,
+    {
+      ...args,
+      department: 'AFFILIATE_PARTNER',
+      role: 'ROLE1',
+      userType: 'AFFILIATE_PARTNER',
+    },
+    context
+  );
+
+  if (partner.error) return partner;
+
+  const forexOperator = await createForexOperatorRequest(
+    {
+      permission: {
+        allowedIpAddresses: [],
+        forbiddenCountries: [],
+      },
+      uuid: partner.data.uuid,
+    },
+    authorization
+  );
+
+  return {
+    data: {
+      ...partner.data,
+    },
+    error: get(forexOperator, 'error'),
+  };
+};
+
+const updatePartner = async (
+  _,
+  { allowedIpAddresses, forbiddenCountries, ...args },
+  { headers: { authorization } }
+) => {
+  const operator = await updateOperatorRequest(args, authorization);
+
+  const forexOperatorRequestBody = {
+    permission: {
+      allowedIpAddresses: allowedIpAddresses,
+      forbiddenCountries: forbiddenCountries,
+    },
+    uuid: args.uuid,
+  };
+
+  const forexOperator = await updateForexOperatorRequest(forexOperatorRequestBody, authorization);
+
+  return {
+    data: {
+      ...operator.data,
+      forexOperator: forexOperator.data,
+    },
+    error: operator.error || forexOperator.error,
+  };
+};
+
+module.exports = {
+  getPartners,
+  updatePartner,
+  createPartner,
+  getForexOperatorByUUID,
+};

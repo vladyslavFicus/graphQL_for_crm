@@ -16,4 +16,5 @@ module.exports = {
   clients: require('./clients'),
   callbacks: require('./callbacks'),
   operators: require('./operators'),
+  partners: require('./partners'),
 };
