@@ -28,6 +28,30 @@ const getOperators = async (_, args, { headers: { authorization }, hierarchy }) 
 const getOperatorByUUID = async (_, { uuid }, { headers: { authorization } }) =>
   getOperatorByUUIDRequest(uuid, authorization);
 
+const operatorPolling = async (uuid, authorization, attempt = 0) => {
+  const response = await getOperatorByUUIDRequest(uuid, authorization);
+
+  // Return error if polling attempting overflow
+  if (attempt > 10) {
+    Logger.error({ uuid }, 'operator creation polling failed');
+
+    return { error: 'polling failed' };
+  }
+
+  // Polling if operator is not created yet
+  if (!get(response, 'data.uuid')) {
+    Logger.info({ uuid, attempt: attempt + 1 }, 'operator creation polling again');
+
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve(operatorPolling(uuid, authorization, attempt + 1));
+      }, 1000);
+    });
+  }
+
+  return response;
+};
+
 const createOperator = async (_, args, { headers: { authorization }, brand: { id: brandId } }) => {
   const { department, role, userType, branchId } = args;
 
@@ -35,6 +59,10 @@ const createOperator = async (_, args, { headers: { authorization }, brand: { id
   const uuid = get(operator, 'data.uuid');
 
   if (operator.error) return operator;
+
+  const createdOperator = await operatorPolling(uuid, authorization);
+
+  if (createdOperator.error) return createdOperator;
 
   const authorities = await addAuthorities({ uuid, brandId, department, role }, authorization);
 
