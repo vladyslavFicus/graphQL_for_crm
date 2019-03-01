@@ -7,6 +7,7 @@ const {
 } = require('../../../utils/operatorRequests');
 const { createUser } = require('../../../utils/hierarchyRequests');
 const { addAuthorities, getAuthorities, removeAuthorities } = require('../../../utils/auth');
+const Logger = require('../../../utils/logger');
 
 const getOperators = async (_, args, { headers: { authorization }, hierarchy }) => {
   // Hack: Get all operators and then filter it by hierarchy
@@ -28,23 +29,22 @@ const getOperators = async (_, args, { headers: { authorization }, hierarchy }) 
 const getOperatorByUUID = async (_, { uuid }, { headers: { authorization } }) =>
   getOperatorByUUIDRequest(uuid, authorization);
 
-const operatorPolling = async (uuid, authorization, attempt = 0) => {
-  const response = await getOperatorByUUIDRequest(uuid, authorization);
-
+const authoritiesPolling = async (uuid, authorization, attempt = 0) => {
+  const response = await getAuthorities(uuid, authorization);
   // Return error if polling attempting overflow
-  if (attempt > 10) {
-    Logger.error({ uuid }, 'operator creation polling failed');
+  if (attempt > 5) {
+    Logger.error({ uuid }, 'authorities polling failed');
 
     return { error: 'polling failed' };
   }
 
-  // Polling if operator is not created yet
-  if (!get(response, 'data.uuid')) {
-    Logger.info({ uuid, attempt: attempt + 1 }, 'operator creation polling again');
+  // Polling if authorities return error
+  if (response.error) {
+    Logger.info({ uuid, attempt: attempt + 1 }, 'authorities polling again');
 
     return new Promise(resolve => {
       setTimeout(() => {
-        resolve(operatorPolling(uuid, authorization, attempt + 1));
+        resolve(authoritiesPolling(uuid, authorization, attempt + 1));
       }, 1000);
     });
   }
@@ -60,10 +60,7 @@ const createOperator = async (_, args, { headers: { authorization }, brand: { id
 
   if (operator.error) return operator;
 
-  const createdOperator = await operatorPolling(uuid, authorization);
-
-  if (createdOperator.error) return createdOperator;
-
+  await authoritiesPolling(uuid, authorization);
   const authorities = await addAuthorities({ uuid, brandId, department, role }, authorization);
 
   if (authorities.error) return { data: operator.data, error: authorities.error };
