@@ -50,14 +50,18 @@ const createOffice = async (_, { officeManager, ...args }, { headers: { authoriz
   const successMessages = [];
   const errorMessages = [];
 
-  const {
-    data: { uuid },
-  } = await getBrand(brandId, authorization);
+  const { data, error } = await getBrand(brandId, authorization);
+
+  if (!data || error) {
+    errorMessages.push('hierarchy.offices.fail.createOffice');
+
+    return { error: errorMessages, data: [] };
+  }
 
   const office = await createBranch(
     {
       branchType: branchTypes.OFFICE,
-      parentBranches: [uuid],
+      parentBranches: [data.uuid],
       ...args,
     },
     authorization
@@ -66,7 +70,7 @@ const createOffice = async (_, { officeManager, ...args }, { headers: { authoriz
   if (office.error) {
     errorMessages.push('hierarchy.offices.fail.createOffice');
 
-    return { error: errorMessages };
+    return { error: errorMessages, data: [] };
   }
 
   successMessages.push('hierarchy.offices.success.createOffice');
