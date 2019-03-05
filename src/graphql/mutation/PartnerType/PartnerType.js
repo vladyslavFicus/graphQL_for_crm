@@ -13,7 +13,7 @@ const PartnerMutation = new GraphQLObjectType({
         firstName: { type: new GraphQLNonNull(GraphQLString) },
         lastName: { type: new GraphQLNonNull(GraphQLString) },
         phone: { type: GraphQLString },
-        sendMail: { type: new GraphQLNonNull(GraphQLBoolean) },
+        password: { type: new GraphQLNonNull(GraphQLString) },
       },
       type: ResponseType(PartnerType, 'CreatedPartnerType'),
       resolve: createPartner,

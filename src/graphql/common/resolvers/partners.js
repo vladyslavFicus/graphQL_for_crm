@@ -1,5 +1,10 @@
 const { get } = require('lodash');
-const { updateOperator: updateOperatorRequest, getOperatorsByUUIDs } = require('../../../utils/operatorRequests');
+const {
+  updateOperator: updateOperatorRequest,
+  getOperatorsByUUIDs,
+  resetToken: resetTokenRequest,
+  activateOperator: activateOperatorRequest,
+} = require('../../../utils/operatorRequests');
 const {
   getForexOperator: getForexOperatorRequest,
   createForexOperator: createForexOperatorRequest,
@@ -15,9 +20,10 @@ const getPartners = async (_, args, { headers: { authorization }, hierarchy }) =
 const getForexOperatorByUUID = async ({ uuid }, _, { headers: { authorization } }) =>
   getForexOperatorRequest(uuid, authorization);
 
-const createPartner = async (_, args, context) => {
+const createPartner = async (_, { password, ...args }, context) => {
   const {
     headers: { authorization },
+    brand: { id: brandId },
   } = context;
   const partner = await createOperator(
     _,
@@ -26,6 +32,7 @@ const createPartner = async (_, args, context) => {
       department: 'AFFILIATE_PARTNER',
       role: 'ROLE1',
       userType: 'AFFILIATE_PARTNER',
+      sendMail: false,
     },
     context
   );
@@ -43,11 +50,21 @@ const createPartner = async (_, args, context) => {
     authorization
   );
 
+  const token = await resetTokenRequest(partner.data.uuid, authorization);
+  const activateOperator = await activateOperatorRequest(
+    {
+      password,
+      token,
+    },
+    authorization,
+    brandId
+  );
+
   return {
     data: {
       ...partner.data,
     },
-    error: get(forexOperator, 'error'),
+    error: get(forexOperator, 'error') || get(activateOperator, 'error'),
   };
 };
 

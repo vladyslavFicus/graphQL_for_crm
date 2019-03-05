@@ -35,8 +35,31 @@ const getOperatorByUUID = (operatorId, authorization) => {
   }).then(response => response.json());
 };
 
+const resetToken = (uuid, authorization) => {
+  return fetch(`${global.appConfig.apiUrl}/operator/operators/reset-token?operatorUUID=${uuid}`, {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      authorization,
+      'content-type': 'application/json',
+    },
+  }).then(response => response.text());
+};
+
 const createOperator = (args, authorization) => {
   return fetch(`${global.appConfig.apiUrl}/operator/operators`, {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      authorization,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(args),
+  }).then(response => response.json());
+};
+
+const activateOperator = (args, authorization, brandId) => {
+  return fetch(`${global.appConfig.apiUrl}/operator/public/operators/activate?brandId=${brandId}`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -65,4 +88,6 @@ module.exports = {
   updateOperator,
   getOperatorsByUUIDs,
   getOperatorByUUID,
+  resetToken,
+  activateOperator,
 };
