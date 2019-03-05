@@ -67,6 +67,17 @@ const queryBuild = {
           },
         }
       : {},
+  multiMatch: (searchField, value) =>
+    value
+      ? {
+          multi_match: {
+            query: value,
+            type: 'cross_fields',
+            fields: searchField,
+            operator: 'and',
+          },
+        }
+      : {},
 };
 
 const parseToPageable = ({ hits: { total, hits } }, page, size) => ({

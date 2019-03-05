@@ -30,7 +30,6 @@ const profilesQuery = ({
   salesStatuses,
   retentionStatuses,
   searchAffiliate,
-  searchName,
 }) => [
   queryBuild.ids(ids),
   queryBuild.range('tradingProfile.balance', { gte: tradingBalanceFrom, lte: tradingBalanceTo }),
@@ -46,14 +45,10 @@ const profilesQuery = ({
   queryBuild.match('profileStatus', status),
   queryBuild.match('city', city),
   queryBuild.match('country', countries, { type: 'array' }),
-  searchName && queryBuild.queryString(['firstName', 'lastName'], searchName),
-  searchValue &&
-    queryBuild.shouldTerm(
-      queryBuild.term(['playerUUID'], searchValue),
-      queryBuild.term(['email'], searchValue),
-      queryBuild.term(['tradingProfile.phone1'], searchValue),
-      queryBuild.term(['tradingProfile.phone2'], searchValue)
-    ),
+  queryBuild.multiMatch(
+    ['firstName', 'lastName', 'playerUUID', 'email', 'tradingProfile.phone1', 'tradingProfile.phone2'],
+    searchValue
+  ),
   searchAffiliate &&
     queryBuild.shouldTerm(
       queryBuild.term(['tradingProfile.affiliateProfileDocument.source'], searchAffiliate),
