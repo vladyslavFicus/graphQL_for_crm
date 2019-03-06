@@ -1,4 +1,4 @@
-const { GraphQLObjectType, GraphQLList, GraphQLString } = require('graphql');
+const { GraphQLObjectType, GraphQLList, GraphQLString, GraphQLBoolean } = require('graphql');
 
 module.exports = new GraphQLObjectType({
   name: 'ForexOperatorType',
@@ -9,6 +9,8 @@ module.exports = new GraphQLObjectType({
         fields: () => ({
           allowedIpAddresses: { type: new GraphQLList(GraphQLString) },
           forbiddenCountries: { type: new GraphQLList(GraphQLString) },
+          showNotes: { type: GraphQLBoolean },
+          showSalesStatus: { type: GraphQLBoolean },
         }),
       }),
     },

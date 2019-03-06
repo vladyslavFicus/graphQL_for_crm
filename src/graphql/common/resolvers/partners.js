@@ -70,15 +70,17 @@ const createPartner = async (_, { password, ...args }, context) => {
 
 const updatePartner = async (
   _,
-  { allowedIpAddresses, forbiddenCountries, ...args },
+  { allowedIpAddresses, forbiddenCountries, showNotes, showSalesStatus, ...args },
   { headers: { authorization } }
 ) => {
   const operator = await updateOperatorRequest(args, authorization);
 
   const forexOperatorRequestBody = {
     permission: {
-      allowedIpAddresses: allowedIpAddresses,
-      forbiddenCountries: forbiddenCountries,
+      allowedIpAddresses,
+      forbiddenCountries,
+      showNotes,
+      showSalesStatus,
     },
     uuid: args.uuid,
   };
