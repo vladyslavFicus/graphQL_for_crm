@@ -4,6 +4,7 @@ const {
   getOperatorsByUUIDs,
   resetToken: resetTokenRequest,
   activateOperator: activateOperatorRequest,
+  getOperatorByUUID: getOperatorByUUIDRequest,
 } = require('../../../utils/operatorRequests');
 const {
   getForexOperator: getForexOperatorRequest,
@@ -19,6 +20,9 @@ const getPartners = async (_, args, { headers: { authorization }, hierarchy }) =
 
 const getForexOperatorByUUID = async ({ uuid }, _, { headers: { authorization } }) =>
   getForexOperatorRequest(uuid, authorization);
+
+const getPartnerByUUID = async (_, { uuid }, { headers: { authorization } }) =>
+  getOperatorByUUIDRequest(uuid, authorization);
 
 const createPartner = async (_, { password, ...args }, context) => {
   const {
@@ -101,4 +105,5 @@ module.exports = {
   updatePartner,
   createPartner,
   getForexOperatorByUUID,
+  getPartnerByUUID,
 };

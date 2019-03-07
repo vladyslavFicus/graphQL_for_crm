@@ -30,7 +30,7 @@ const {
   rules: { getRules, getRulesRetention },
   callbacks: { getCallbacks, getCallback },
   operators: { getOperators, getOperatorByUUID },
-  partners: { getPartners },
+  partners: { getPartners, getPartnerByUUID },
   audit: { getFeeds, getFeedTypes },
 } = require('../common/resolvers');
 const PageableType = require('../common/types/PageableType');
@@ -360,7 +360,7 @@ const QueryType = new GraphQLObjectType({
       args: {
         uuid: { type: new GraphQLNonNull(GraphQLString) },
       },
-      resolve: getOperatorByUUID,
+      resolve: getPartnerByUUID,
     },
     feeds: {
       type: ResponseType(PageableType(FeedType)),
