@@ -26,8 +26,18 @@ const getOperators = async (_, args, { headers: { authorization }, hierarchy }) 
   return { data: { ...operators.data, content: filteredOperators, totalElements: filteredOperators.length } };
 };
 
-const getOperatorByUUID = async (_, { uuid }, { headers: { authorization } }) =>
-  getOperatorByUUIDRequest(uuid, authorization);
+const getOperatorByUUID = async (_, { uuid }, { headers: { authorization }, hierarchy }) => {
+  const operatorIds = await hierarchy.getOperatorsIds();
+  if (!operatorIds.includes(uuid)) {
+    return {
+      data: null,
+      error: {
+        error: 'Not Found',
+      },
+    };
+  }
+  return getOperatorByUUIDRequest(uuid, authorization);
+};
 
 const authoritiesPolling = async (uuid, authorization, attempt = 0) => {
   const response = await getAuthorities(uuid, authorization);

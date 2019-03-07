@@ -213,7 +213,19 @@ const promoteLeadToClient = async (_, args, { brand: { id: brandId, currency }, 
   return { data };
 };
 
-const getLeadProfile = (_, { leadId }, { headers: { authorization } }) => getLeadById(leadId, authorization);
+const getLeadProfile = async (_, { leadId }, { headers: { authorization }, hierarchy }) => {
+  const leadsIds = await hierarchy.getLeadsIds();
+
+  if (!leadsIds.includes(leadId)) {
+    return {
+      data: null,
+      error: {
+        error: 'Not Found',
+      },
+    };
+  }
+  return getLeadById(leadId, authorization);
+};
 
 const getTradingLeads = async (_, args, { headers: { authorization }, brand: { id: brandId }, hierarchy }) => {
   const leadsIds = await hierarchy.getLeadsIds();

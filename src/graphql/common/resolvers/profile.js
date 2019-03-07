@@ -149,6 +149,17 @@ const getProfile = async function(_, { playerUUID }, context) {
     return access;
   }
 
+  const customersIds = await context.hierarchy.getCustomersIds();
+
+  if (!customersIds.includes(playerUUID)) {
+    return {
+      data: null,
+      error: {
+        error: 'Not Found',
+      },
+    };
+  }
+
   const response = await getProfilePolling(playerUUID, context.brand.id);
   const error = get(response, 'error');
 
