@@ -60,6 +60,10 @@ const SalesStatusesEnum = new GraphQLEnumType({
     DUPLICATE: { value: 'DUPLICATE' },
     VOICEMAIL: { value: 'VOICEMAIL' },
     NEVER_ANSWER: { value: 'NEVER_ANSWER' },
+    HIGH_POTENTIAL: { value: 'HIGH_POTENTIAL'},
+    LOW_POTENTIAL: { value: 'LOW_POTENTIAL'},
+    CONVERTED: { value: 'CONVERTED'},
+    CALLBACK: { value: 'CALLBACK'},
   },
 });
 
