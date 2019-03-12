@@ -28,6 +28,7 @@ const getOperators = async (_, args, { headers: { authorization }, hierarchy }) 
 
 const getOperatorByUUID = async (_, { uuid }, { headers: { authorization }, hierarchy }) => {
   const operatorIds = await hierarchy.getOperatorsIds();
+
   if (!operatorIds.includes(uuid)) {
     return {
       data: null,
@@ -36,6 +37,7 @@ const getOperatorByUUID = async (_, { uuid }, { headers: { authorization }, hier
       },
     };
   }
+
   return getOperatorByUUIDRequest(uuid, authorization);
 };
 

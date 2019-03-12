@@ -13,7 +13,7 @@ const {
 } = require('../../../utils/partnerRequests');
 const { createOperator } = require('./operators');
 
-const getPartners = async (_, args, { headers: { authorization }, hierarchy }) => {
+const getPartners = async (_, __, { headers: { authorization }, hierarchy }) => {
   const partnersIds = await hierarchy.getPartnersIds();
   return getOperatorsByUUIDs(partnersIds, authorization);
 };
@@ -21,8 +21,20 @@ const getPartners = async (_, args, { headers: { authorization }, hierarchy }) =
 const getForexOperatorByUUID = async ({ uuid }, _, { headers: { authorization } }) =>
   getForexOperatorRequest(uuid, authorization);
 
-const getPartnerByUUID = async (_, { uuid }, { headers: { authorization } }) =>
-  getOperatorByUUIDRequest(uuid, authorization);
+const getPartnerByUUID = async (_, { uuid }, { headers: { authorization }, hierarchy }) => {
+  const partnersIds = await hierarchy.getPartnersIds();
+
+  if (!partnersIds.includes(uuid)) {
+    return {
+      data: null,
+      error: {
+        error: 'Not Found',
+      },
+    };
+  }
+
+  return getOperatorByUUIDRequest(uuid, authorization);
+};
 
 const createPartner = async (_, { password, ...args }, context) => {
   const {
