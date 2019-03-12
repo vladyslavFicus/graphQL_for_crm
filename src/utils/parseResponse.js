@@ -8,7 +8,9 @@ function parseResponse(data, status) {
   if (status >= 400) {
     return {
       error: {
-        error: !isEmpty(response) ? response.error || response.jwtError || response : mapErrorsCodes[status],
+        error: !isEmpty(response)
+          ? response.error || response.jwtError || response.message || response
+          : mapErrorsCodes[status],
         fields_errors: !isEmpty(response) ? response.fields_errors : null,
       },
     };
