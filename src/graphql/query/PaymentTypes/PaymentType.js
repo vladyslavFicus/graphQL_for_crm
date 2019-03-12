@@ -100,6 +100,10 @@ const PaymentType = new GraphQLObjectType({
         type: NoteType,
         resolve: getNote('paymentId'),
       },
+      paymentMigrationId: { type: GraphQLString },
+      userMigrationId: { type: GraphQLString },
+      normalizedAmount: { type: GraphQLString },
+      declineReason: { type: GraphQLString },
     };
   },
 });
