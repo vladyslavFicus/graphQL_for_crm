@@ -83,6 +83,11 @@ const RetentionStatusesEnum = new GraphQLEnumType({
     SEASSIONS_ONLY: { value: 'SEASSIONS_ONLY' },
     RECOVERY_DEPOSITOR: { value: 'RECOVERY_DEPOSITOR' },
     RECEIVED_WITHDRAWAL: { value: 'RECEIVED_WITHDRAWAL' },
+    INVALID: { value: 'INVALID' },
+    ACTIVE: { value: 'ACTIVE' },
+    DEPOSIT_WITH_ME: { value: 'DEPOSIT_WITH_ME' },
+    RECOVER: { value: 'RECOVER' },
+    NO_ANSWER: { value: 'NO_ANSWER' },
   },
 });
 
