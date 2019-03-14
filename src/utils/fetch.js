@@ -1,5 +1,6 @@
 const contextService = require('request-context');
 const { AuthenticationError } = require('apollo-server-express');
+const { isEmpty } = require('lodash');
 const parseJson = require('../utils/parseJson');
 const Logger = require('./logger');
 const parseResponse = require('./parseResponse');
@@ -19,9 +20,13 @@ const logResponseError = (response, url, { headers }, messageTitle) => {
   });
 
   return {
-    originService: serviceName,
-    failedResponse,
-    errorDescription,
+    json: () => ({
+      error: {
+        error: errorDescription,
+        fields_errors: !isEmpty(response) ? response.fields_errors : null,
+      },
+    }),
+    text: () => res,
   };
 };
 
@@ -56,30 +61,16 @@ module.exports = function(url, config) {
           break;
         }
         case 403: {
-          const { jwtError } = parseJson(res);
-
-          if (jwtError) {
-            const { error } = logResponseError(res, url, options, 'JWT error');
-
-            return { error };
-          }
-
-          break;
+          return logResponseError(res, url, options, 'JWT error');
         }
         case 500: {
-          const { error } = logResponseError(res, url, options, 'Service Down');
-
-          return { error };
+          return logResponseError(res, url, options, 'Service Down');
         }
         case 502: {
-          const { error } = logResponseError(res, url, options, 'Bad gateway');
-
-          return { error };
+          return logResponseError(res, url, options, 'Bad gateway');
         }
         case 503: {
-          const { error } = logResponseError(res, url, options, 'Service unavailable');
-
-          return { error };
+          return logResponseError(res, url, options, 'Service unavailable');
         }
       }
 
