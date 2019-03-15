@@ -54,6 +54,7 @@ const PaymentPlayerType = new GraphQLObjectType({
       type: GraphQLString,
       resolve: ({ firstName, lastName }) => [firstName, lastName].filter(v => v).join(' '),
     },
+    country: { type: GraphQLString },
   }),
 });
 
