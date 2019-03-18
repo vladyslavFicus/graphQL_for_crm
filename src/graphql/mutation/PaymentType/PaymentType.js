@@ -67,6 +67,7 @@ const PaymentType = new GraphQLObjectType({
       args: {
         paymentId: { type: new GraphQLNonNull(GraphQLString) },
         paymentMethod: { type: GraphQLString },
+        declineReason: { type: GraphQLString },
         typeAcc: { type: GraphQLString },
       },
       type: ResponseType(
