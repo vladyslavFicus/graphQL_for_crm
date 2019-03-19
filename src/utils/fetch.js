@@ -26,7 +26,7 @@ const logResponseError = (response, url, { headers }, messageTitle) => {
         fields_errors: !isEmpty(response) ? response.fields_errors : null,
       },
     }),
-    text: () => res,
+    text: () => response,
   };
 };
 
