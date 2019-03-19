@@ -6,10 +6,24 @@ function parseResponse(data, status) {
   const response = typeof data === 'string' ? parseJson(data) : data;
 
   if (status >= 400) {
+    let error = null;
+    let fields_errors = null;
+
+    if (!isEmpty(response)) {
+      error = response.error || response.jwtError || response.message || response;
+      fields_errors = response.fields_errors;
+
+      if (typeof error !== 'string') {
+        error = JSON.stringify(error);
+      }
+    } else {
+      error = mapErrorsCodes[status];
+    }
+
     return {
       error: {
-        error: !isEmpty(response) ? response.error || response.jwtError || response : mapErrorsCodes[status],
-        fields_errors: !isEmpty(response) ? response.fields_errors : null,
+        error,
+        fields_errors,
       },
     };
   }

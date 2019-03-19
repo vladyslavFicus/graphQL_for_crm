@@ -1,8 +1,34 @@
 const contextService = require('request-context');
 const { AuthenticationError } = require('apollo-server-express');
+const { isEmpty } = require('lodash');
 const parseJson = require('../utils/parseJson');
 const Logger = require('./logger');
 const parseResponse = require('./parseResponse');
+
+const logResponseError = (response, url, { headers }, messageTitle) => {
+  const serviceName = url.replace(global.appConfig.apiUrl, '').split('/')[1];
+  const failedResponse = parseJson(response);
+  const error = failedResponse.message || failedResponse.error || failedResponse.jwtError || 'Something went wrong';
+  const errorDescription = typeof error === 'string' ? error : JSON.stringify(error);
+
+  Logger.error({
+    message: `${messageTitle} - *${serviceName}*. Error: ${errorDescription}`,
+    status: response.status,
+    response: failedResponse,
+    originService: serviceName,
+    headers,
+  });
+
+  return {
+    json: () => ({
+      error: {
+        error: errorDescription,
+        fields_errors: !isEmpty(response) ? response.fields_errors : null,
+      },
+    }),
+    text: () => res,
+  };
+};
 
 module.exports = function(url, config) {
   const expressRequest = contextService.get('request:req');
@@ -24,12 +50,27 @@ module.exports = function(url, config) {
     }
 
     return response.text().then(res => {
-      // Throw authentication error if something with JWT token
-      if (response.status === 400) {
-        const { jwtError } = parseJson(res);
+      switch (response.status) {
+        case 400: {
+          const { jwtError } = parseJson(res);
 
-        if (jwtError) {
-          throw new AuthenticationError('You must be authenticated');
+          if (jwtError) {
+            throw new AuthenticationError('You must be authenticated');
+          }
+
+          break;
+        }
+        case 403: {
+          return logResponseError(res, url, options, 'JWT error');
+        }
+        case 500: {
+          return logResponseError(res, url, options, 'Service Down');
+        }
+        case 502: {
+          return logResponseError(res, url, options, 'Bad gateway');
+        }
+        case 503: {
+          return logResponseError(res, url, options, 'Service unavailable');
         }
       }
 

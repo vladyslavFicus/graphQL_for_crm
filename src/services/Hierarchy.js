@@ -4,7 +4,6 @@ const {
   getOperatorsSubtree,
   getPartnersSubtree,
 } = require('../utils/hierarchyRequests');
-const Logger = require('../utils/logger');
 
 class Hierarchy {
   constructor(userUUID, authorization) {
@@ -26,7 +25,6 @@ class Hierarchy {
     const { error, data } = await getCustomersSubtree(this._userUUID, this._authorization);
 
     if (error || !Array.isArray(data)) {
-      Logger.error({ message: 'Get Hierarchy Customers Subtree Query Failed', error, data });
       return [];
     }
 
@@ -42,7 +40,6 @@ class Hierarchy {
     const { error, data } = await getOperatorsSubtree(this._userUUID, this._authorization);
 
     if (error || !Array.isArray(data)) {
-      Logger.error({ message: 'Get Hierarchy Operators Subtree Query Failed', error, data });
       return [];
     }
 
@@ -58,7 +55,6 @@ class Hierarchy {
     const { error, data } = await getPartnersSubtree(this._userUUID, this._authorization);
 
     if (error || !Array.isArray(data)) {
-      Logger.error({ message: 'Get Hierarchy Partners Subtree Query Failed', error, data });
       return [];
     }
 
@@ -74,7 +70,6 @@ class Hierarchy {
     const { error, data } = await getLeadsSubtree(this._userUUID, this._authorization);
 
     if (error || !Array.isArray(data)) {
-      Logger.error({ message: 'Get Hierarchy Leads Subtree Query Failed', error, data });
       return [];
     }
 
