@@ -12,6 +12,7 @@ const logResponseError = (response, url, { headers }, messageTitle) => {
   const errorDescription = typeof error === 'string' ? error : JSON.stringify(error);
 
   Logger.error({
+    url,
     message: `${messageTitle} - *${serviceName}*. Error: ${errorDescription}`,
     status: response.status,
     response: failedResponse,
