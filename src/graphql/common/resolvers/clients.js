@@ -15,6 +15,10 @@ const getDataForUpdate = async (promise, operatorType, excludeIds) => {
     unassignFrom: get(tradingProfile, `${operatorType.toLowerCase()}Rep`) || null,
   }));
 
+  if (!data.length) {
+    return { error: 'Data is empty' };
+  }
+
   if (excludeIds.length) {
     return data.filter(({ uuid }) => excludeIds.indexOf(uuid) === -1);
   }
@@ -34,13 +38,7 @@ const getClientUpdateData = async ({ allRowsSelected, searchParams, totalElement
   };
 
   const excludeIds = clients.map(({ uuid }) => uuid);
-  const data = await getDataForUpdate(getProfiles(null, ESQueryParams, context), type, excludeIds);
-
-  if (data.error || data.jwtError) {
-    return { error: data };
-  }
-
-  return data;
+  return await getDataForUpdate(getProfiles(null, ESQueryParams, context), type, excludeIds);
 };
 
 const bulkRepresentativeUpdate = async (
@@ -71,7 +69,7 @@ const bulkRepresentativeUpdate = async (
   );
 
   if (updateData.error) {
-    return { error: updateData.error };
+    return updateData;
   }
 
   let profileParams = {
@@ -96,7 +94,7 @@ const bulkRepresentativeUpdate = async (
       } = await getHierarchyBranch(teamId, authorization);
 
       if (error) {
-        return { error };
+        return error;
       }
 
       if (defaultUser) {
@@ -114,7 +112,7 @@ const bulkRepresentativeUpdate = async (
     const profileBulkUpdate = await bulkProfileUpdate(profileParams, authorization);
 
     if (profileBulkUpdate.error) {
-      return { error: profileBulkUpdate };
+      return profileBulkUpdate;
     }
   }
 
@@ -122,7 +120,7 @@ const bulkRepresentativeUpdate = async (
     const hierarchyBulkUpdate = await bulkMassAssignHierarchyUser(hierarchyParams, authorization);
 
     if (hierarchyBulkUpdate.error) {
-      return { error: hierarchyBulkUpdate };
+      return hierarchyBulkUpdate;
     }
   }
 

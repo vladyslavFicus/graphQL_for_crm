@@ -1,22 +1,29 @@
 const contextService = require('request-context');
 const { AuthenticationError } = require('apollo-server-express');
 const { isEmpty } = require('lodash');
+const jwtDecode = require('jwt-decode');
 const parseJson = require('../utils/parseJson');
 const Logger = require('./logger');
 const parseResponse = require('./parseResponse');
 
-const logResponseError = (response, url, { headers }, messageTitle) => {
+const logResponseError = (response, url, { headers, method }, messageTitle) => {
   const serviceName = url.replace(global.appConfig.apiUrl, '').split('/')[1];
   const failedResponse = parseJson(response);
   const error = failedResponse.message || failedResponse.error || failedResponse.jwtError || 'Something went wrong';
   const errorDescription = typeof error === 'string' ? error : JSON.stringify(error);
+  const { sub, role, department, user_uuid, brandId } = jwtDecode(headers.authorization);
 
   Logger.error({
-    url,
-    message: `${messageTitle} - *${serviceName}*. Error: ${errorDescription}`,
+    // * and _ this is markdown for better look in Slack
+    message:
+      `${messageTitle} - *${serviceName}*. Error: ${errorDescription} \n` +
+      `*Brand*: ${brandId} \n` +
+      `*URL*: ${url}, _method_: ${method} \n` +
+      `*Operator*: _id_ - ${user_uuid}, _role_ - ${role}, _department_ - ${department}, _email_: ${sub}`,
     status: response.status,
     response: failedResponse,
     originService: serviceName,
+    url: { url, method },
     headers,
   });
 
