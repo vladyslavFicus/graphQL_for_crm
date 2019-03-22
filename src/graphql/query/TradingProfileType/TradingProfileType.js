@@ -111,6 +111,8 @@ const TradingProfileType = new GraphQLObjectType({
       type: AffiliateDocumentType,
     },
     passport: { type: PassportType },
+    migrationId: { type: GraphQLString },
+    fnsStatus: { type: GraphQLString },
   }),
 });
 
