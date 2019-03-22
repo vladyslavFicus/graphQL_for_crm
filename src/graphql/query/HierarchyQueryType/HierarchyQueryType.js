@@ -1,4 +1,4 @@
-const { GraphQLObjectType, GraphQLNonNull, GraphQLList, GraphQLString } = require('graphql');
+const { GraphQLObjectType, GraphQLNonNull, GraphQLList, GraphQLString, GraphQLBoolean } = require('graphql');
 const {
   UserBranchHierarchyType,
   HierarchyUsersType,
@@ -27,6 +27,7 @@ const HierarchyQueryType = new GraphQLObjectType({
       type: ResponseType(UserBranchHierarchyType),
       args: {
         userId: { type: new GraphQLNonNull(GraphQLString) },
+        withoutBrandFilter: { type: GraphQLBoolean },
       },
       resolve: getUserBranchHierarchy,
     },

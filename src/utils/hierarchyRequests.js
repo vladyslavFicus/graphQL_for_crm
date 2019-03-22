@@ -132,15 +132,20 @@ const getBranchHierarchyTree = (uuid, authorization) => {
   }).then(response => response.json());
 };
 
-const getUserBranchHierarchy = (userId, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_hierarchy_updater/branch/hierarchy/user/${userId}`, {
-    method: 'GET',
-    headers: {
-      authorization,
-      accept: 'application/json',
-      'content-type': 'application/json',
-    },
-  }).then(response => response.json());
+const getUserBranchHierarchy = (userId, authorization, brandId) => {
+  return fetch(
+    `${global.appConfig.apiUrl}/trading_hierarchy_updater/branch/hierarchy/user/${userId}?${buildQueryString({
+      brandId,
+    })}`,
+    {
+      method: 'GET',
+      headers: {
+        authorization,
+        accept: 'application/json',
+        'content-type': 'application/json',
+      },
+    }
+  ).then(response => response.json());
 };
 
 const getUsersByType = (types, authorization) => {

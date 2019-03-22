@@ -155,8 +155,13 @@ const updateHierarchyUser = (_, args, { headers: { authorization } }) => {
   return updateUserHierarchy(args, authorization);
 };
 
-const getUserBranchHierarchy = async (_, { userId }, { headers: { authorization }, dataloaders }) => {
-  const hierarchy = await getUserBranchHierarchyQuery(userId, authorization);
+const getUserBranchHierarchy = async (
+  _,
+  { userId, withoutBrandFilter },
+  { headers: { authorization }, brand: { id: brandId } }
+) => {
+  const _brandId = withoutBrandFilter ? '' : brandId;
+  const hierarchy = await getUserBranchHierarchyQuery(userId, authorization, _brandId);
 
   if (hierarchy.error) {
     return hierarchy;
