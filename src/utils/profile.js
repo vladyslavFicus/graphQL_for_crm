@@ -168,10 +168,21 @@ const updateQueryProfile = (args, playerUUID, authorization) => {
     .then(response => parseJson(response));
 };
 
+const checkMigrationQuery = (_, args) =>
+  fetch(`${global.appConfig.apiUrl}/trading_profile_updater/public/migration/check`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(args),
+  }).then(response => response.json());
+
 module.exports = {
   createQueryHrznProfile,
   createQueryTradingProfile,
   updateQueryTradingProfile,
   updateQueryProfile,
   getProfiles,
+  checkMigrationQuery,
 };
