@@ -60,6 +60,7 @@ const { ConditionalTagType, ConditionalTagStatusEnum } = require('./ConditionalT
 const { CallbackType, CallbackStatusEnum } = require('./CallbackType');
 const OperatorType = require('./OperatorType');
 const PartnerType = require('./PartnerType');
+const { checkMigrationQuery } = require('../../utils/profile');
 
 const QueryType = new GraphQLObjectType({
   name: 'Query',
@@ -383,6 +384,20 @@ const QueryType = new GraphQLObjectType({
         playerUUID: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve: getFeedTypes,
+    },
+    checkMigration: {
+      type: ResponseType(
+        new GraphQLObjectType({
+          name: 'checkMigrationType',
+          fields: () => ({ migrated: { type: GraphQLBoolean } }),
+        }),
+        'checkMigration'
+      ),
+      args: {
+        email: { type: new GraphQLNonNull(GraphQLString) },
+        brandId: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      resolve: checkMigrationQuery,
     },
   }),
 });
