@@ -17,7 +17,7 @@ const {
   getBrand,
 } = require('../../../utils/hierarchyRequests');
 
-const getHierarchyMappedOperators = async (hierarchyOperators, onlyActive, dataloaders) => {
+const getHierarchyMappedOperators = async (hierarchyOperators, dataloaders, onlyActive) => {
   const operatorsType = onlyActive ? 'activeOperators' : 'operators';
   const operators = await Promise.all(hierarchyOperators.map(({ uuid }) => dataloaders[operatorsType].load(uuid)));
 
@@ -181,7 +181,7 @@ const getUsersByType = async (_, { userTypes, onlyActive }, { headers: { authori
 
   const visibleUsers = await hierarchy.getOperatorsIds();
   const hierarchyUsers = users.data.filter(({ uuid }) => visibleUsers.includes(uuid));
-  const mappedUsers = await getHierarchyMappedOperators(hierarchyUsers, onlyActive, dataloaders);
+  const mappedUsers = await getHierarchyMappedOperators(hierarchyUsers, dataloaders, onlyActive);
 
   return { data: groupBy(mappedUsers, 'userType') };
 };
