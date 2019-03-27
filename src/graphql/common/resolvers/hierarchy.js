@@ -17,18 +17,19 @@ const {
   getBrand,
 } = require('../../../utils/hierarchyRequests');
 
-const getHierarchyMappedOperators = async (hierarchyOperators, dataloaders) => {
-  const operators = await Promise.all(hierarchyOperators.map(({ uuid }) => dataloaders.operators.load(uuid)));
+const getHierarchyMappedOperators = async (hierarchyOperators, onlyActive, dataloaders) => {
+  const operatorsType = onlyActive ? 'activeOperators' : 'operators';
+  const operators = await Promise.all(hierarchyOperators.map(({ uuid }) => dataloaders[operatorsType].load(uuid)));
 
   return hierarchyOperators
     .map((item, index) => {
-      const { firstName, lastName, error } = operators[index];
+      const { firstName, lastName, error, operatorStatus } = operators[index] || {};
 
       if (isEmpty(operators[index]) || error) {
         return null;
       }
 
-      return { ...item, fullName: [firstName, lastName].filter(v => v).join(' ') };
+      return { ...item, operatorStatus, fullName: [firstName, lastName].filter(v => v).join(' ') };
     })
     .filter(item => item);
 };
@@ -171,7 +172,7 @@ const getUserBranchHierarchy = async (
   return { data: hierarchyByBranch };
 };
 
-const getUsersByType = async (_, { userTypes }, { headers: { authorization }, hierarchy, dataloaders }) => {
+const getUsersByType = async (_, { userTypes, onlyActive }, { headers: { authorization }, hierarchy, dataloaders }) => {
   const users = await getUsersByTypeQuery(userTypes, authorization);
 
   if (users.error) {
@@ -180,7 +181,7 @@ const getUsersByType = async (_, { userTypes }, { headers: { authorization }, hi
 
   const visibleUsers = await hierarchy.getOperatorsIds();
   const hierarchyUsers = users.data.filter(({ uuid }) => visibleUsers.includes(uuid));
-  const mappedUsers = await getHierarchyMappedOperators(hierarchyUsers, dataloaders);
+  const mappedUsers = await getHierarchyMappedOperators(hierarchyUsers, onlyActive, dataloaders);
 
   return { data: groupBy(mappedUsers, 'userType') };
 };

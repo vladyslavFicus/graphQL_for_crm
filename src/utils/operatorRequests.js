@@ -12,15 +12,15 @@ const getOperators = (args, authorization) => {
   }).then(response => response.json());
 };
 
-const getOperatorsByUUIDs = (uuids, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/operator/operators/search?size=${uuids.length}`, {
+const getOperatorsByUUIDs = (args, authorization) => {
+  return fetch(`${global.appConfig.apiUrl}/operator/operators/search?size=${args.uuids.length}`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
       authorization,
       'content-type': 'application/json',
     },
-    body: JSON.stringify({ uuids }),
+    body: JSON.stringify(args),
   }).then(response => response.json());
 };
 

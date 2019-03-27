@@ -11,6 +11,7 @@ const UserType = new GraphQLObjectType({
     parentBranches: { type: new GraphQLList(HierarchyBranchType) },
     parentUsers: { type: new GraphQLList(UserType) },
     fullName: { type: GraphQLString },
+    operatorStatus: { type: GraphQLString },
     operator: {
       type: require('../../../query/OperatorType'),
       resolve: getOperator('uuid'),

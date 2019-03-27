@@ -4,10 +4,17 @@ const { getOperatorsByUUIDs } = require('../utils/operatorRequests');
 const { getNotes } = require('../utils/notesRequests');
 const { getProfiles } = require('../utils/profile');
 const { getHierarchyUsers } = require('../utils/hierarchyRequests');
+const { operatorTypes } = require('../constants/operator');
 
 exports.createDataloaders = (authorization, brandId) => ({
   operators: new DataLoader(async ids => {
-    const { data } = await getOperatorsByUUIDs(ids, authorization);
+    const { data } = await getOperatorsByUUIDs({ uuids: ids }, authorization);
+
+    return orderByArray(ids, data.content, 'uuid');
+  }),
+
+  activeOperators: new DataLoader(async ids => {
+    const { data } = await getOperatorsByUUIDs({ uuids: ids, status: operatorTypes.ACTIVE }, authorization);
 
     return orderByArray(ids, data.content, 'uuid');
   }),

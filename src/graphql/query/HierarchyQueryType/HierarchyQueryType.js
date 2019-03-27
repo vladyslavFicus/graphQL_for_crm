@@ -34,6 +34,7 @@ const HierarchyQueryType = new GraphQLObjectType({
     hierarchyUsersByType: {
       args: {
         userTypes: { type: new GraphQLNonNull(new GraphQLList(GraphQLString)) },
+        onlyActive: { type: GraphQLBoolean },
       },
       type: ResponseType(HierarchyUsersType),
       resolve: getUsersByType,
