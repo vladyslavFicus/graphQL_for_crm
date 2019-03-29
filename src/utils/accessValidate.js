@@ -10,7 +10,7 @@ module.exports = async ({ headers: { authorization }, brand }, playerUUID) => {
 
   const accessValidationResponse = await api.accessValidate({
     token,
-    url: `/profiles/${playerUUID}`,
+    url: `/profiles${playerUUID ? `/${playerUUID}` : ''}`,
     method: 'GET',
     service: 'profile',
   });

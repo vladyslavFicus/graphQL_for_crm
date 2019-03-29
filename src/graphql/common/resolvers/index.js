@@ -18,4 +18,5 @@ module.exports = {
   callbacks: require('./callbacks'),
   operators: require('./operators'),
   partners: require('./partners'),
+  metabase: require('./metabase'),
 };

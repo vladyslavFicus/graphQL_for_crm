@@ -1,5 +1,4 @@
 const fetch = require('./fetch');
-const parseJson = require('./parseJson');
 const buildQueryString = require('./buildQueryString');
 
 const getRules = (args, authorization) => {

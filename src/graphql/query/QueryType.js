@@ -32,6 +32,7 @@ const {
   operators: { getOperators, getOperatorByUUID },
   partners: { getPartners, getPartnerByUUID },
   audit: { getFeeds, getFeedTypes },
+  metabase: { getMetabaseToken },
 } = require('../common/resolvers');
 const PageableType = require('../common/types/PageableType');
 const FileType = require('./FileType');
@@ -388,7 +389,7 @@ const QueryType = new GraphQLObjectType({
     checkMigration: {
       type: ResponseType(
         new GraphQLObjectType({
-          name: 'checkMigrationType',
+          name: 'CheckMigrationType',
           fields: () => ({ migrated: { type: GraphQLBoolean } }),
         }),
         'checkMigration'
@@ -398,6 +399,16 @@ const QueryType = new GraphQLObjectType({
         brandId: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve: checkMigrationQuery,
+    },
+    getMetabaseToken: {
+      type: new GraphQLObjectType({
+        name: 'MetabaseTokenType',
+        fields: () => ({ token: { type: new GraphQLNonNull(GraphQLString) } }),
+      }),
+      args: {
+        agent_id: { type: GraphQLString },
+      },
+      resolve: getMetabaseToken,
     },
   }),
 });
