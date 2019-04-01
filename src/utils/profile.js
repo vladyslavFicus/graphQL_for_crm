@@ -149,9 +149,7 @@ const updateQueryTradingProfile = (args, authorization) => {
       'content-type': 'application/json',
     },
     body: JSON.stringify(args),
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response));
+  }).then(response => response.json());
 };
 
 const updateQueryProfile = (args, playerUUID, authorization) => {
