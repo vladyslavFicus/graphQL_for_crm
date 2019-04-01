@@ -2,12 +2,25 @@ const { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLNonNull, GraphQLBool
 const OperatorType = require('../../query/OperatorType');
 const { AuthorityType } = require('../../query/AuthType');
 const ResponseType = require('../../common/types/ResponseType');
-const { createOperator, updateOperator, removeDepartment, addDepartment } = require('../../common/resolvers/operators');
+const {
+  createOperator,
+  updateOperator,
+  removeDepartment,
+  addDepartment,
+  addExistingOperator,
+} = require('../../common/resolvers/operators');
 
 const OperatorTypeAuthorities = new GraphQLObjectType({
   name: 'OperatorTypeAuthorities',
   fields: () => ({
     authorities: { type: new GraphQLList(AuthorityType) },
+  }),
+});
+
+const OperatorTypeExisting = new GraphQLObjectType({
+  name: 'OperatorTypeExisting',
+  fields: () => ({
+    uuid: { type: GraphQLString },
   }),
 });
 
@@ -57,6 +70,16 @@ const OperatorMutation = new GraphQLObjectType({
       },
       type: ResponseType(OperatorTypeAuthorities, 'OperatorTypeAddedDepartment'),
       resolve: addDepartment,
+    },
+    addExistingOperator: {
+      args: {
+        email: { type: new GraphQLNonNull(GraphQLString) },
+        department: { type: new GraphQLNonNull(GraphQLString) },
+        role: { type: new GraphQLNonNull(GraphQLString) },
+        branchId: { type: GraphQLString },
+      },
+      type: ResponseType(OperatorTypeExisting, 'OperatorTypeAddExisting'),
+      resolve: addExistingOperator,
     },
   }),
 });

@@ -8,6 +8,7 @@ const {
 const { createUser } = require('../../../utils/hierarchyRequests');
 const { addAuthorities, getAuthorities, removeAuthorities } = require('../../../utils/auth');
 const Logger = require('../../../utils/logger');
+const { addOperatorToBranch } = require('./hierarchy');
 
 const getOperators = async (_, args, { headers: { authorization }, hierarchy }) => {
   // Hack: Get all operators and then filter it by hierarchy
@@ -131,6 +132,28 @@ const addDepartment = async (_, args, { headers: { authorization }, brand: { id:
   };
 };
 
+const addExistingOperator = async (_, { email, department, role, branchId }, context) => {
+  const operator = await getOperatorsRequest({ searchBy: email }, context.headers.authorization);
+  const {
+    data: { content },
+    error,
+  } = operator;
+
+  if (error) {
+    return operator;
+  }
+
+  const _addDepartment = await addDepartment(_, { uuid: content[0].uuid, department, role }, context);
+  const _addOperatorToBranch = await addOperatorToBranch(_, { operatorId: content[0].uuid, branchId }, context);
+
+  return {
+    data: {
+      uuid: content[0].uuid,
+    },
+    error: _addDepartment.error || _addOperatorToBranch.error,
+  };
+};
+
 module.exports = {
   addDepartment,
   removeDepartment,
@@ -139,4 +162,5 @@ module.exports = {
   createOperator,
   updateOperator,
   getOperator,
+  addExistingOperator,
 };

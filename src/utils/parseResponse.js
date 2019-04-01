@@ -3,9 +3,9 @@ const parseJson = require('./parseJson');
 const { mapErrorsCodes } = require('../constants/errors');
 
 function parseResponse(data, status) {
-  const response = typeof data === 'string' ? parseJson(data) : data;
+  const response = data && typeof data === 'string' ? parseJson(data) : data;
 
-  if (status >= 400) {
+  if (status >= 400 || response.parseError) {
     let error = null;
     let fields_errors = null;
 
