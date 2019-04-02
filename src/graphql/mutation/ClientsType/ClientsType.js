@@ -42,7 +42,8 @@ const ClientBulkUpdateType = new GraphQLInputObjectType({
   name: 'ClientBulkUpdateType',
   fields: () => ({
     uuid: { type: new GraphQLNonNull(GraphQLString) },
-    unassignFrom: { type: GraphQLString },
+    unassignFromOperator: { type: GraphQLString },
+    assignToOperator: { type: GraphQLString },
   }),
 });
 
@@ -56,8 +57,8 @@ const ClientsMutation = new GraphQLObjectType({
         retentionRep: { type: new GraphQLList(GraphQLString) },
         salesStatus: { type: GraphQLString },
         retentionStatus: { type: GraphQLString },
-        aquisitionStatus: { type: GraphQLString },
         type: { type: new GraphQLNonNull(GraphQLString) },
+        isMoveAction: { type: GraphQLBoolean },
         clients: { type: new GraphQLList(ClientBulkUpdateType) },
         allRowsSelected: { type: GraphQLBoolean },
         totalElements: { type: GraphQLInt },

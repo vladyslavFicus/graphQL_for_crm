@@ -31,7 +31,7 @@ const LeadBulkUpdateType = new GraphQLInputObjectType({
   name: 'LeadBulkUpdateType',
   fields: () => ({
     uuid: { type: new GraphQLNonNull(GraphQLString) },
-    unassignFrom: { type: GraphQLString },
+    unassignFromOperator: { type: GraphQLString },
   }),
 });
 

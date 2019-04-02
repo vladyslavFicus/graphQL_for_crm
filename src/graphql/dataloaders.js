@@ -3,7 +3,9 @@ const orderByArray = require('../utils/orderByArray');
 const { getOperatorsByUUIDs } = require('../utils/operatorRequests');
 const { getNotes } = require('../utils/notesRequests');
 const { getProfiles } = require('../utils/profile');
-const { getHierarchyUsers } = require('../utils/hierarchyRequests');
+const {
+  requests: { getHierarchyUsers },
+} = require('../utils/hierarchy');
 const { operatorTypes } = require('../constants/operator');
 
 exports.createDataloaders = (authorization, brandId) => ({

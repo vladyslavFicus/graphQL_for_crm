@@ -1,20 +1,6 @@
-const fetch = require('./fetch');
-const parseJson = require('./parseJson');
-const buildQueryString = require('../utils/buildQueryString');
-
-const buildRequestObject = (func, success, error) => ({ func, success, error });
-
-const multipleRequest = array =>
-  Promise.all(array.map(({ func }) => func)).then(data => {
-    const succeed = [];
-    const errors = [];
-    data.forEach((res, i) => (res.error ? errors.push(array[i].error || res) : succeed.push(array[i].success || res)));
-
-    return {
-      succeed,
-      errors,
-    };
-  });
+const fetch = require('../fetch');
+const parseJson = require('../parseJson');
+const buildQueryString = require('../buildQueryString');
 
 const createUser = (args, authorization) => {
   return fetch(`${global.appConfig.apiUrl}/trading_hierarchy/user`, {
@@ -262,8 +248,6 @@ const getBrand = (brandId, authorization) => {
 };
 
 module.exports = {
-  buildRequestObject,
-  multipleRequest,
   createUser,
   createBranch,
   getHierarchyUser,

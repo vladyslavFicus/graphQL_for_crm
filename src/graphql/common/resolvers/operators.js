@@ -5,7 +5,9 @@ const {
   getOperatorByUUID: getOperatorByUUIDRequest,
   updateOperator: updateOperatorRequest,
 } = require('../../../utils/operatorRequests');
-const { createUser } = require('../../../utils/hierarchyRequests');
+const {
+  requests: { createUser },
+} = require('../../../utils/hierarchy');
 const { addAuthorities, getAuthorities, removeAuthorities } = require('../../../utils/auth');
 const Logger = require('../../../utils/logger');
 

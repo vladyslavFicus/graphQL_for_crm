@@ -1,9 +1,6 @@
 const {
-  getCustomersSubtree,
-  getLeadsSubtree,
-  getOperatorsSubtree,
-  getPartnersSubtree,
-} = require('../utils/hierarchyRequests');
+  requests: { getCustomersSubtree, getLeadsSubtree, getOperatorsSubtree, getPartnersSubtree },
+} = require('../utils/hierarchy');
 
 class Hierarchy {
   constructor(userUUID, authorization) {
