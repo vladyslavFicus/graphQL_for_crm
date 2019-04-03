@@ -70,6 +70,7 @@ const SalesStatusesEnum = new GraphQLEnumType({
     INITIAL_CALL: { value: 'INITIAL_CALL' },
     NO_MONEY: { value: 'NO_MONEY' },
     TEST: { value: 'TEST' },
+    DEPOSITOR: { value: 'DEPOSITOR' },
   },
 });
 
