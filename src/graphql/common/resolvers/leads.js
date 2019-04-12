@@ -2,7 +2,9 @@ const { pickBy, omit } = require('lodash');
 const { userTypes } = require('../../../constants/hierarchy');
 const { createQueryHrznProfile, createQueryTradingProfile } = require('../../../utils/profile');
 const { getLeads, getLeadById, updateLead, bulkUpdateLead } = require('../../../utils/leadRequests');
-const { bulkMassAssignHierarchyUser, getHierarchyBranch } = require('../../../utils/hierarchyRequests');
+const {
+  requests: { bulkMassAssignHierarchyUser, getHierarchyBranch },
+} = require('../../../utils/hierarchy');
 
 const promoteLead = async (args, authorization) => {
   const profile = await createQueryHrznProfile(omit(args, ['phone']));
@@ -109,13 +111,20 @@ const getDataForUpdate = async (promise, excludeIds) => {
   if (pageableObj.error) {
     return pageableObj;
   }
-  const data = pageableObj.data.content.map(({ id, salesAgent }) => ({
-    uuid: id,
-    unassignFrom: salesAgent,
-  }));
+
+  let data = pageableObj.data.content;
 
   if (excludeIds.length > 0) {
-    return data.filter(({ uuid }) => excludeIds.indexOf(uuid) === -1);
+    data = data.filter(({ uuid }) => excludeIds.indexOf(uuid) === -1);
+  }
+
+  data = data.map(({ id, salesAgent }) => ({
+    uuid: id,
+    unassignFromOperator: salesAgent,
+  }));
+
+  if (!data.length) {
+    return { error: 'Data is empty' };
   }
 
   return data;
@@ -132,13 +141,8 @@ const getLeadsUpdateData = async ({ allRowsSelected, totalElements, leads, searc
     ...(searchParams && searchParams),
   };
   const excludeIds = leads.map(({ uuid }) => uuid);
-  const data = await getDataForUpdate(getTradingLeads(null, queryParams, context), excludeIds);
 
-  if (data.error) {
-    return data;
-  }
-
-  return data;
+  return getDataForUpdate(getTradingLeads(null, queryParams, context), excludeIds);
 };
 
 const bulkLeadUpdate = async (

@@ -1,38 +1,22 @@
 const { groupBy, isEmpty } = require('lodash');
 const { branchTypes, userTypes } = require('../../../constants/hierarchy');
 const {
-  buildRequestObject,
-  multipleRequest,
-  createUser: createUserMutation,
-  createBranch,
-  getHierarchyUser,
-  getHierarchyBranch,
-  getBranchHierarchyTree: getBranchHierarchyTreeQuery,
-  getUserBranchHierarchy: getUserBranchHierarchyQuery,
-  getUsersByType: getUsersByTypeQuery,
-  getBranchHierarchy: getBranchHierarchyQuery,
-  getUsersByBranch: getUsersByBranchQuery,
-  getBranchChildren: getBranchChildrenQuery,
-  updateUserHierarchy,
-  getBrand,
-} = require('../../../utils/hierarchyRequests');
-
-const getHierarchyMappedOperators = async (hierarchyOperators, dataloaders, onlyActive) => {
-  const operatorsType = onlyActive ? 'activeOperators' : 'operators';
-  const operators = await Promise.all(hierarchyOperators.map(({ uuid }) => dataloaders[operatorsType].load(uuid)));
-
-  return hierarchyOperators
-    .map((item, index) => {
-      const { firstName, lastName, error, operatorStatus } = operators[index] || {};
-
-      if (isEmpty(operators[index]) || error) {
-        return null;
-      }
-
-      return { ...item, operatorStatus, fullName: [firstName, lastName].filter(v => v).join(' ') };
-    })
-    .filter(item => item);
-};
+  requests: {
+    createUser: createUserMutation,
+    createBranch,
+    getHierarchyUser,
+    getHierarchyBranch,
+    getBranchHierarchyTree: getBranchHierarchyTreeQuery,
+    getUserBranchHierarchy: getUserBranchHierarchyQuery,
+    getUsersByType: getUsersByTypeQuery,
+    getBranchHierarchy: getBranchHierarchyQuery,
+    getUsersByBranch: getUsersByBranchQuery,
+    getBranchChildren: getBranchChildrenQuery,
+    updateUserHierarchy,
+    getBrand,
+  },
+  helpers: { getHierarchyMappedOperators, buildRequestObject, multipleRequest },
+} = require('../../../utils/hierarchy');
 
 const createUser = async (_, { userId, branchId, userType }, { headers: { authorization } }) => {
   const user = await createUserMutation(

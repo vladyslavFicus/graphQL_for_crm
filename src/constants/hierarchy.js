@@ -3,7 +3,6 @@ const keyMirror = require('keymirror');
 const deskTypes = keyMirror({
   RETENTION: null,
   SALES: null,
-  NINJA: null,
 });
 
 const branchTypes = keyMirror({
