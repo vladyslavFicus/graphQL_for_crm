@@ -125,7 +125,7 @@ const getDataForUpdate = async (promise, { type, isMoveAction }, excludeIds) => 
  * @param  {number} totalElements - number of total clients to search
  * @param  {Object[]} clients - array of clients from FE
  * @param  {Object} bulkActionObject - Object which contains { type, isMoveAction }
- * @return {Promise}
+ * @return {Object[]}
  */
 const getClientBulkUpdateData = async (
   { allRowsSelected, searchParams, totalElements, clients },

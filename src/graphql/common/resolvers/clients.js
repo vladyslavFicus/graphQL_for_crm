@@ -28,7 +28,7 @@ const bulkRepresentativeUpdate = async (
     brand: { id: brandId },
   } = context;
 
-  // check access cause we can permorm ES query
+  // check access cause we can perform ES query at line 38
   const access = await accessValidate(context);
 
   if (access.error) {
@@ -94,7 +94,7 @@ const bulkRepresentativeUpdate = async (
     }
   }
 
-  if (hierarchyParams) {
+  if (hierarchyParams && hierarchyParams.users.length) {
     let hierarchyBulkUpdate = null;
 
     // if move action performed, we need to call another api with modified params
