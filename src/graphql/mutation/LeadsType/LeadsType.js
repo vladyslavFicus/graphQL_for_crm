@@ -24,6 +24,7 @@ const LeadSearchParams = new GraphQLInputObjectType({
     salesStatuses: { type: new GraphQLList(GraphQLString) },
     salesAgents: { type: new GraphQLList(GraphQLString) },
     status: { type: GraphQLString },
+    requestId: { type: GraphQLString },
   }),
 });
 
