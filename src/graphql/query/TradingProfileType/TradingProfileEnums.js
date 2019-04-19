@@ -12,15 +12,12 @@ const KYCStatusesEnum = new GraphQLEnumType({
   name: 'tradingProfileKYCStatus',
   values: {
     NO_KYC: { value: 'NO_KYC' },
-    AWAITING: { value: 'AWAITING' },
-    REVIEW: { value: 'REVIEW' },
-    PARTIAL_KYC: { value: 'PARTIAL_KYC' },
-    PARTIAL_KYC_CAN_TRADE: { value: 'PARTIAL_KYC_CAN_TRADE' },
+    AWAITING_REVIEW: { value: 'AWAITING_REVIEW' },
+    PARTIAL: { value: 'PARTIAL' },
     APPROVED: { value: 'APPROVED' },
     REJECTED: { value: 'REJECTED' },
-    FLAGGED_NON_COMPLIANT: { value: 'FLAGGED_NON_COMPLIANT' },
-    REFUNDED_NON_COMPLIANT: { value: 'REFUNDED_NON_COMPLIANT' },
-    PRIOR_TO_REFUND: { value: 'PRIOR_TO_REFUND' },
+    PENDING: { value: 'PENDING' },
+    RISK: { value: 'RISK' },
   },
 });
 
