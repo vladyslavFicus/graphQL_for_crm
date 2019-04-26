@@ -1,4 +1,6 @@
 const { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLBoolean } = require('graphql');
+const { getOperator } = require('../../common/resolvers/operators');
+const OperatorType = require('../OperatorType');
 
 const NoteType = new GraphQLObjectType({
   name: 'Note',
@@ -13,6 +15,10 @@ const NoteType = new GraphQLObjectType({
     _id: {
       type: new GraphQLNonNull(GraphQLString),
       resolve: ({ noteId }) => noteId,
+    },
+    operator: {
+      type: OperatorType,
+      resolve: getOperator('changedBy'),
     },
   }),
 });
