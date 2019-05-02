@@ -130,7 +130,7 @@ const getDataForUpdate = async (promise, { type, isMoveAction }, excludeIds) => 
 const getClientBulkUpdateData = async (
   { allRowsSelected, searchParams, totalElements, clients },
   bulkActionObject,
-  brandId
+  { brandId, hierarchy }
 ) => {
   // return clients as they came from FE if AllRows are not selected
   // and if client length equals to totalElements
@@ -141,8 +141,10 @@ const getClientBulkUpdateData = async (
   const ESQueryParams = {
     page: 0,
     size: totalElements,
+    ids: await hierarchy.getCustomersIds(),
     ...(searchParams && searchParams),
   };
+
   const excludeIds = clients.map(({ uuid }) => uuid);
 
   return getDataForUpdate(getProfiles(brandId, ESQueryParams), bulkActionObject, excludeIds);

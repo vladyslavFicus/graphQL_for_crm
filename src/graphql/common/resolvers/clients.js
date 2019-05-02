@@ -26,6 +26,7 @@ const bulkRepresentativeUpdate = async (
   const {
     headers: { authorization },
     brand: { id: brandId },
+    hierarchy,
   } = context;
 
   // check access cause we can perform ES query at line 38
@@ -38,7 +39,7 @@ const bulkRepresentativeUpdate = async (
   let updateData = await getClientBulkUpdateData(
     { allRowsSelected, searchParams, totalElements, clients },
     { type, isMoveAction },
-    brandId
+    { brandId, hierarchy }
   );
 
   if (updateData.error) {
