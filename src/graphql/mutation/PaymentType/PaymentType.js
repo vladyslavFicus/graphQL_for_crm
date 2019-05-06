@@ -9,7 +9,7 @@ const {
 } = require('graphql');
 const ResponseType = require('../../common/types/ResponseType');
 const {
-  payment: { createClientPayment, changeStatus, acceptPayment },
+  payment: { createClientPayment, changeStatus, acceptPayment, changePaymentMethod, changePaymentStatus },
 } = require('../../common/resolvers');
 const { CreatedPaymentType } = require('./CreatedPaymentType');
 
@@ -80,6 +80,38 @@ const PaymentType = new GraphQLObjectType({
         'acceptTransaction'
       ),
       resolve: acceptPayment,
+    },
+    changePaymentMethod: {
+      args: {
+        paymentId: { type: new GraphQLNonNull(GraphQLString) },
+        paymentMethod: { type: GraphQLString },
+      },
+      type: ResponseType(
+        new GraphQLObjectType({
+          name: 'changePaymentMethod',
+          fields: () => ({
+            success: { type: GraphQLBoolean },
+          }),
+        }),
+        'changeTransactionMethod'
+      ),
+      resolve: changePaymentMethod,
+    },
+    changePaymentStatus: {
+      args: {
+        paymentId: { type: new GraphQLNonNull(GraphQLString) },
+        paymentStatus: { type: GraphQLString },
+      },
+      type: ResponseType(
+        new GraphQLObjectType({
+          name: 'changePaymentStatus',
+          fields: () => ({
+            success: { type: GraphQLBoolean },
+          }),
+        }),
+        'changeTransactionStatus'
+      ),
+      resolve: changePaymentStatus,
     },
   }),
 });

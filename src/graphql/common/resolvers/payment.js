@@ -198,6 +198,30 @@ const acceptPayment = async function(_, { typeAcc, ...args }, context) {
   return { data: { success: response.status === 200 } };
 };
 
+const changePaymentMethod = function(_, args, { headers: { authorization } }) {
+  return fetch(`${global.appConfig.apiUrl}/trading_payment/${args.paymentId}/method`, {
+    method: 'PUT',
+    headers: {
+      Accept: 'application/json',
+      authorization,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ paymentMethod: args.paymentMethod }),
+  }).then(response => ({ data: { success: response.status === 200 } }));
+};
+
+const changePaymentStatus = function(_, args, { headers: { authorization } }) {
+  return fetch(`${global.appConfig.apiUrl}/trading_payment/${args.paymentId}/status`, {
+    method: 'PUT',
+    headers: {
+      Accept: 'application/json',
+      authorization,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ paymentStatus: args.paymentStatus }),
+  }).then(response => ({ data: { success: response.status === 200 } }));
+};
+
 module.exports = {
   getPaymentMethods,
   getRates,
@@ -208,4 +232,6 @@ module.exports = {
   getPaymentStatuses,
   changeStatus,
   acceptPayment,
+  changePaymentMethod,
+  changePaymentStatus,
 };
