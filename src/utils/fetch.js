@@ -23,18 +23,23 @@ const logResponseError = (response, url, { headers, method }, messageTitle) => {
     status: response.status,
     response: failedResponse,
     originService: serviceName,
-    url: { url, method },
     headers,
   });
 
   return {
-    json: () => ({
-      error: {
-        error: errorDescription,
-        fields_errors: !isEmpty(response) ? response.fields_errors : null,
-      },
-    }),
-    text: () => response,
+    json: () =>
+      new Promise(resolve => {
+        resolve({
+          error: {
+            error: errorDescription,
+            fields_errors: !isEmpty(response) ? response.fields_errors : null,
+          },
+        });
+      }),
+    text: () =>
+      new Promise(resolve => {
+        resolve(response);
+      }),
   };
 };
 
