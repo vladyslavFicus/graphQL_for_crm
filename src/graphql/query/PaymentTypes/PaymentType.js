@@ -63,7 +63,7 @@ const PaymentMetadata = new GraphQLObjectType({
   fields: () => ({
     clientIp: { type: GraphQLString },
     isMobile: { type: GraphQLBoolean },
-    userAgent: { type: new GraphQLNonNull(GraphQLString) },
+    userAgent: { type: GraphQLString },
     country: { type: GraphQLString },
   }),
 });
