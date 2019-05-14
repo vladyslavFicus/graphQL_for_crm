@@ -13,9 +13,9 @@ const {
 } = require('../../../utils/partnerRequests');
 const { createOperator } = require('./operators');
 
-const getPartners = async (_, __, { headers: { authorization }, hierarchy }) => {
+const getPartners = async (_, args, { headers: { authorization }, hierarchy }) => {
   const partnersIds = await hierarchy.getPartnersIds();
-  return getOperatorsByUUIDs({ uuids: partnersIds }, authorization);
+  return getOperatorsByUUIDs({ ...args, uuids: partnersIds }, authorization);
 };
 
 const getForexOperatorByUUID = async ({ uuid }, _, { headers: { authorization } }) =>
