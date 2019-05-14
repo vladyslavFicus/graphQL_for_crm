@@ -354,6 +354,13 @@ const QueryType = new GraphQLObjectType({
     },
     partners: {
       type: ResponseType(PageableType(PartnerType)),
+      args: {
+        searchBy: { type: GraphQLString },
+        country: { type: GraphQLString },
+        status: { type: GraphQLString },
+        registrationDateFrom: { type: GraphQLString },
+        registrationDateTo: { type: GraphQLString },
+      },
       resolve: getPartners,
     },
     partner: {
