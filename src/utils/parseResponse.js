@@ -1,9 +1,17 @@
 const { isEmpty } = require('lodash');
 const parseJson = require('./parseJson');
+const Logger = require('./logger');
 const { mapErrorsCodes } = require('../constants/errors');
 
-function parseResponse(data, status) {
+function parseResponse(data, status, url) {
   const response = data && typeof data === 'string' ? parseJson(data) : data;
+
+  if (response.parseError) {
+    Logger.error({
+      // * and _ this is markdown for better look in Slack
+      message: `*Error*: Cannot parse to JSON.\n` + `*URL*: ${url}\n` + `*Data*: ${data}\n`,
+    });
+  }
 
   if (status >= 400 || response.parseError) {
     let error = null;

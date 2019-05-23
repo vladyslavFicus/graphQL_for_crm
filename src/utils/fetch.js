@@ -100,7 +100,7 @@ module.exports = function(url, config) {
           ...response,
           json: () =>
             new Promise(resolve => {
-              resolve(parseResponse(res, response.status));
+              resolve(parseResponse(res, response.status, url));
             }),
           text: () =>
             new Promise(resolve => {
