@@ -115,7 +115,7 @@ const getDataForUpdate = async (promise, excludeIds) => {
   let data = pageableObj.data.content;
 
   if (excludeIds.length > 0) {
-    data = data.filter(({ uuid }) => excludeIds.indexOf(uuid) === -1);
+    data = data.filter(({ id }) => excludeIds.indexOf(id) === -1);
   }
 
   data = data.map(({ id, salesAgent }) => ({

@@ -89,7 +89,7 @@ const getDataForUpdate = async (promise, { type, isMoveAction }, excludeIds) => 
   let data = [...pageableObj.data.content];
 
   if (excludeIds.length) {
-    data = data.filter(({ uuid }) => excludeIds.indexOf(uuid) === -1);
+    data = data.filter(({ playerUUID }) => excludeIds.indexOf(playerUUID) === -1);
   }
 
   // throw error to FE, if any of loaded client doesn't have assigned {{type}} representative
