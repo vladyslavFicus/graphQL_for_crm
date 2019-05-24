@@ -20,15 +20,17 @@ async function fetchBrandsConfigs() {
 
   const nextBrands = await Promise.all(
     brands.map(async id => {
-      const [currency, locale] = await Promise.all([
+      const [currency, locale, clickToCallUrl] = await Promise.all([
         getData(zookeeperClient, getZookeeperBrandPropertyPath(id, 'nas.brand.currencies.base')),
         getData(zookeeperClient, getZookeeperBrandPropertyPath(id, 'nas.brand.locale.defaultLanguage')),
+        getData(zookeeperClient, getZookeeperBrandPropertyPath(id, 'nas.brand.clickToCall.url')),
       ]);
 
       return {
         id,
         currency,
         locale,
+        clickToCallUrl,
       };
     })
   );

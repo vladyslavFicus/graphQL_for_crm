@@ -430,6 +430,24 @@ const updateProfile = async function(_, { playerUUID, ...args }, { headers: { au
   };
 };
 
+const clickToCall = async (_, args, context) => {
+  const access = await accessValidate(context);
+
+  if (access.error) {
+    return access;
+  }
+
+  return fetch(global.appConfig.brands[context.brand.id].clickToCallUrl, {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      authorization: context.headers.authorization,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(args),
+  }).then(response => ({ success: response.status === 204 }));
+};
+
 module.exports = {
   updateSubscription,
   resume,
@@ -448,4 +466,5 @@ module.exports = {
   updateBTAG,
   updateAffiliate,
   markIsTest,
+  clickToCall,
 };

@@ -20,6 +20,7 @@ const {
     changePassword,
     passwordResetRequest,
     markIsTest,
+    clickToCall,
   },
 } = require('../../common/resolvers');
 
@@ -262,6 +263,21 @@ const PlayerMutation = new GraphQLObjectType({
       },
       type: ResponseType(PlayerProfileType, 'MarkAsTest'),
       resolve: markIsTest,
+    },
+    clickToCall: {
+      args: {
+        agent: { type: new GraphQLNonNull(GraphQLString) },
+        number: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      type: new GraphQLObjectType({
+        name: 'ClickToCall',
+        fields: () => ({
+          success: {
+            type: new GraphQLNonNull(GraphQLBoolean),
+          },
+        }),
+      }),
+      resolve: clickToCall,
     },
   }),
 });
