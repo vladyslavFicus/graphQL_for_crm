@@ -448,6 +448,18 @@ const clickToCall = async (_, args, context) => {
   }).then(response => ({ success: response.status === 204 }));
 };
 
+const updateFATCA = (_, args, { headers: { authorization }, brand: { id: brandId } }) => {
+  return fetch(`${global.appConfig.apiUrl}/trading_profile/regulated`, {
+    method: 'PUT',
+    headers: {
+      Accept: 'application/json',
+      authorization,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ brandId, ...args }),
+  }).then(response => ({ success: response.status === 200 }));
+};
+
 module.exports = {
   updateSubscription,
   resume,
@@ -467,4 +479,5 @@ module.exports = {
   updateAffiliate,
   markIsTest,
   clickToCall,
+  updateFATCA,
 };

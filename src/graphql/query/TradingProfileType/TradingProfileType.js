@@ -113,6 +113,14 @@ const TradingProfileType = new GraphQLObjectType({
     passport: { type: PassportType },
     migrationId: { type: GraphQLString },
     fnsStatus: { type: GraphQLString },
+    fatca: {
+      type: new GraphQLObjectType({
+        name: 'FatcaType',
+        fields: () => ({
+          provided: { type: GraphQLBoolean },
+        }),
+      }),
+    },
   }),
 });
 

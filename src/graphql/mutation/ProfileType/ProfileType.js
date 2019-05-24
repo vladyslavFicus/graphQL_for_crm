@@ -21,6 +21,7 @@ const {
     passwordResetRequest,
     markIsTest,
     clickToCall,
+    updateFATCA,
   },
 } = require('../../common/resolvers');
 
@@ -32,6 +33,13 @@ const SuspendDurationType = new GraphQLInputObjectType({
       unit: { type: new GraphQLNonNull(GraphQLString) },
     };
   },
+});
+
+const FATCAInput = new GraphQLInputObjectType({
+  name: 'FATCAInput',
+  fields: () => ({
+    provided: { type: new GraphQLNonNull(GraphQLBoolean) },
+  }),
 });
 
 const PlayerMutation = new GraphQLObjectType({
@@ -278,6 +286,21 @@ const PlayerMutation = new GraphQLObjectType({
         }),
       }),
       resolve: clickToCall,
+    },
+    updateFATCA: {
+      args: {
+        profileId: { type: new GraphQLNonNull(GraphQLString) },
+        fatca: { type: FATCAInput },
+      },
+      type: new GraphQLObjectType({
+        name: 'FATCAResponseType',
+        fields: () => ({
+          success: {
+            type: new GraphQLNonNull(GraphQLBoolean),
+          },
+        }),
+      }),
+      resolve: updateFATCA,
     },
   }),
 });
