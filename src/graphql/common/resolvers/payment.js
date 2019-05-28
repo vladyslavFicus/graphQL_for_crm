@@ -6,7 +6,6 @@ const {
     getPaymentMethods: getPaymentMethodsQuery,
     getTradingPayments: getTradingPaymentsQuery,
     createTradingPayment,
-    createCasinoPayment,
   },
 } = require('../../../utils/payment');
 const { mapActionToStatus } = require('../../../constants/payment');
@@ -57,38 +56,11 @@ const createClientPayment = async (
   { playerProfile, paymentType, login, externalReference, country, language, source, target, expirationDate, ...args },
   { headers: { authorization } }
 ) => {
-  let casinoPayment = null;
   let tradingArgs = {};
-
-  const typesWithoutCreatePayment = [
-    PAYMENT_TYPES.TRANSFER,
-    PAYMENT_TYPES.WITHDRAW,
-    PAYMENT_TYPES.CREDIT_IN,
-    PAYMENT_TYPES.CREDIT_OUT,
-  ];
-
-  if (!typesWithoutCreatePayment.includes(paymentType.toUpperCase())) {
-    casinoPayment = await createCasinoPayment(
-      {
-        playerUUID: playerProfile.uuid,
-        paymentType,
-        ...args,
-      },
-      authorization
-    );
-
-    if (casinoPayment.error) {
-      return {
-        data: null,
-        error: casinoPayment.error,
-      };
-    }
-  }
 
   switch (paymentType.toUpperCase()) {
     case PAYMENT_TYPES.DEPOSIT:
       tradingArgs = {
-        paymentId: casinoPayment.paymentId,
         playerProfile,
         login,
         externalReference,
@@ -140,7 +112,7 @@ const createClientPayment = async (
   }
 
   return {
-    data: casinoPayment || { ...tradingPayment.data, generationDate: tradingPayment.data.creationTime },
+    data: { ...tradingPayment.data, generationDate: tradingPayment.data.creationTime },
   };
 };
 

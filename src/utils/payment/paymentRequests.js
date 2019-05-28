@@ -76,10 +76,9 @@ const getPaymentsStatistics = (data, authorization) => {
 const createTradingPayment = (paymentType, args, authorization) => {
   let postfix = null;
 
-  // will be implemented later depends on role
-  // if (paymentType.toLowerCase() === PAYMENT_TYPES.WITHDRAW.toLowerCase()) {
-  //   postfix = '/manual';
-  // }
+  if ([PAYMENT_TYPES.DEPOSIT.toLowerCase()].includes(paymentType.toLowerCase())) {
+    postfix = '/manual';
+  }
 
   return fetch(`${global.appConfig.apiUrl}/trading_payment/${paymentType.toLowerCase()}${postfix || ''}`, {
     method: 'POST',
