@@ -384,23 +384,10 @@ const markIsTest = async function(_, { playerUUID, isTest }, { headers: { author
 };
 
 const updateProfile = async function(_, { playerUUID, ...args }, { headers: { authorization }, brand }) {
-  const {
-    phone1,
-    phone2,
-    languageCode,
-    passportNumber,
-    passportIssueDate,
-    expirationDate,
-    countryOfIssue,
-    ...dataProfile
-  } = args;
+  const { passportNumber, passportIssueDate, expirationDate, countryOfIssue, ...dataProfile } = args;
 
-  const updateProfile = await updateQueryProfile(dataProfile, playerUUID, authorization);
   const updateTradingProfile = await updateQueryTradingProfile(
     {
-      phone1,
-      phone2,
-      languageCode,
       profileId: playerUUID,
       brandId: brand.id,
       passport: {
@@ -409,6 +396,7 @@ const updateProfile = async function(_, { playerUUID, ...args }, { headers: { au
         expirationDate,
         countryOfIssue,
       },
+      ...dataProfile,
     },
     authorization
   );
@@ -418,12 +406,10 @@ const updateProfile = async function(_, { playerUUID, ...args }, { headers: { au
   return {
     data: {
       ...profile,
-      ...args,
+      ...dataProfile,
       tradingProfile: {
         ...profile.tradingProfile,
-        phone1: phone1 || profile.tradingProfile.phone1,
-        phone2: phone2 || profile.tradingProfile.phone2,
-        languageCode: languageCode || profile.tradingProfile.languageCode,
+        ...dataProfile,
       },
     },
     error: updateProfile.error || updateTradingProfile.error || null,

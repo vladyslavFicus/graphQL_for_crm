@@ -1,37 +1,12 @@
 const { pickBy, omit } = require('lodash');
 const { userTypes } = require('../../../constants/hierarchy');
-const { createQueryHrznProfile, createQueryTradingProfile } = require('../../../utils/profile');
+const { createQueryTradingProfile } = require('../../../utils/profile');
 const { getLeads, getLeadById, updateLead, bulkUpdateLead } = require('../../../utils/leadRequests');
 const {
   requests: { bulkMassAssignHierarchyUser, getHierarchyBranch },
 } = require('../../../utils/hierarchy');
 
-const promoteLead = async (args, authorization) => {
-  const profile = await createQueryHrznProfile(omit(args, ['phone']));
-
-  if (profile.status !== 200) {
-    return profile;
-  }
-
-  const tradingProfile = await createQueryTradingProfile(
-    {
-      profileId: profile.data.playerUUID,
-      brandId: args.brandId,
-      email: args.email,
-      phone1: args.phone,
-      phone2: args.phone2,
-      languageCode: args.languageCode,
-      leadUuid: args.leadUuid,
-    },
-    authorization
-  );
-
-  if (tradingProfile.status !== 200) {
-    return tradingProfile;
-  }
-
-  return profile;
-};
+const promoteLead = (args, authorization) => createQueryTradingProfile(args, authorization);
 
 const bulkLeadPromote = async (
   _,

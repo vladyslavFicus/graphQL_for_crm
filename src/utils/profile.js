@@ -117,19 +117,8 @@ const getProfiles = async function(brandId, { page, size, ...args }) {
   return { data: parseToPageable(response, page, size) };
 };
 
-const createQueryHrznProfile = args => {
-  return fetch(`${global.appConfig.apiUrl}/profile/public/signup?${buildQueryString({ brandId: args.brandId })}`, {
-    method: 'POST',
-    headers: {
-      accept: 'application/json',
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify(args),
-  }).then(response => response.json().then(({ data, error }) => ({ status: response.status, data, error })));
-};
-
 const createQueryTradingProfile = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_profile/conversion/lead`, {
+  return fetch(`${global.appConfig.apiUrl}/trading_profile/v2/conversion/lead`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -141,7 +130,7 @@ const createQueryTradingProfile = (args, authorization) => {
 };
 
 const updateQueryTradingProfile = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_profile/`, {
+  return fetch(`${global.appConfig.apiUrl}/trading_profile/v2/`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',
@@ -177,7 +166,6 @@ const checkMigrationQuery = (_, args) =>
   }).then(response => response.json());
 
 module.exports = {
-  createQueryHrznProfile,
   createQueryTradingProfile,
   updateQueryTradingProfile,
   updateQueryProfile,
