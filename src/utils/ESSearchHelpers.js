@@ -75,6 +75,7 @@ const queryBuild = {
             type: 'cross_fields',
             fields: searchField,
             operator: 'and',
+            lenient: true,
           },
         }
       : {},
