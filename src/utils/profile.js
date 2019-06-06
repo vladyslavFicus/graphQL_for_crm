@@ -51,6 +51,7 @@ const profilesQuery = ({
       'lastName',
       'playerUUID',
       'email',
+      'tradingProfile.email2',
       'tradingProfile.phone1',
       'tradingProfile.phone2',
       'tradingProfile.mt4Users.login',
