@@ -30,7 +30,7 @@ const profilesQuery = ({
   salesStatuses,
   retentionStatuses,
   searchAffiliate,
-  searchMigrationId,
+  migrationId,
 }) => [
   queryBuild.ids(ids),
   queryBuild.range('tradingProfile.balance', { gte: tradingBalanceFrom, lte: tradingBalanceTo }),
@@ -59,7 +59,7 @@ const profilesQuery = ({
     ],
     searchValue
   ),
-  queryBuild.match('tradingProfile.migrationId', searchMigrationId),
+  queryBuild.match('tradingProfile.migrationId', migrationId),
   searchAffiliate &&
     queryBuild.shouldTerm(
       queryBuild.term(['tradingProfile.affiliateProfileDocument.source'], searchAffiliate),
