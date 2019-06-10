@@ -215,6 +215,7 @@ const QueryType = new GraphQLObjectType({
         salesStatuses: { type: new GraphQLList(GraphQLString) },
         retentionStatuses: { type: new GraphQLList(GraphQLString) },
         searchAffiliate: { type: GraphQLString },
+        searchMigrationId: { type: GraphQLString },
       },
       resolve: getProfiles,
     },

@@ -35,6 +35,7 @@ const ClientSearchParams = new GraphQLInputObjectType({
     salesStatuses: { type: new GraphQLList(GraphQLString) },
     retentionStatuses: { type: new GraphQLList(GraphQLString) },
     searchAffiliate: { type: GraphQLString },
+    searchMigrationId: { type: GraphQLString },
     requestId: { type: GraphQLString },
   }),
 });
