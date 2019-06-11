@@ -32,6 +32,7 @@ const leadFields = {
   language: { type: GraphQLString },
   registrationDate: { type: new GraphQLNonNull(GraphQLString) },
   statusChangedDate: { type: GraphQLString },
+  migrationId: { type: GraphQLString },
 };
 
 const LeadType = new GraphQLObjectType({
