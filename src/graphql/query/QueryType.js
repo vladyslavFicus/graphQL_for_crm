@@ -236,6 +236,7 @@ const QueryType = new GraphQLObjectType({
         status: { type: GraphQLString },
         salesStatuses: { type: new GraphQLList(TradingSalesStatuses) },
         salesAgents: { type: new GraphQLList(GraphQLString) },
+        migrationId: { type: GraphQLString },
       },
       resolve: getTradingLeads,
     },
