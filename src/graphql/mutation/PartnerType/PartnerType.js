@@ -14,6 +14,7 @@ const PartnerMutation = new GraphQLObjectType({
         lastName: { type: new GraphQLNonNull(GraphQLString) },
         phone: { type: GraphQLString },
         password: { type: new GraphQLNonNull(GraphQLString) },
+        type: { type: GraphQLString },
       },
       type: ResponseType(PartnerType, 'CreatedPartnerType'),
       resolve: createPartner,
