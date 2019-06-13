@@ -29,7 +29,6 @@ const PaymentType = new GraphQLObjectType({
     createClientPayment: {
       args: {
         amount: { type: new GraphQLNonNull(GraphQLFloat) },
-        currency: { type: new GraphQLNonNull(GraphQLString) },
         paymentType: { type: new GraphQLNonNull(GraphQLString) },
         paymentMethod: { type: GraphQLString },
         login: { type: GraphQLInt },
