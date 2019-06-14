@@ -18,6 +18,10 @@ const KYCStatusesEnum = new GraphQLEnumType({
     REJECTED: { value: 'REJECTED' },
     PENDING: { value: 'PENDING' },
     RISK: { value: 'RISK' },
+    PARTIAL_KYC_CAN_TRADE: { value: 'PARTIAL_KYC_CAN_TRADE' },
+    FLAGGED_NON_COMPLIANT: { value: 'FLAGGED_NON_COMPLIANT' },
+    REFUNDED_NON_COMPLIANT: { value: 'REFUNDED_NON_COMPLIANT' },
+    PRIOR_TO_REFUND: { value: 'PRIOR_TO_REFUND' },
   },
 });
 
