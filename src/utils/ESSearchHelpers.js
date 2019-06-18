@@ -1,5 +1,5 @@
 const { ENTITY_NOT_FOUND, INTERNAL } = require('../constants/errors');
-const { isEmpty } = require('lodash');
+const { isEmpty, isUndefined } = require('lodash');
 
 const regexp = /([\+\-\=><!(){}[\]\^"~\*\?:\/\\]|&&|\|\|)/g;
 const escapeESCharacters = str => str.replace(regexp, ch => `\\${ch}`);
@@ -14,14 +14,14 @@ const queryBuild = {
         }
       : {},
   range: (searchField, { lt, gt, lte, gte }) =>
-    lt || gt || lte || gte
+    !isUndefined(lt) || !isUndefined(gt) || !isUndefined(lte) || !isUndefined(gte)
       ? {
           range: {
             [`${searchField}`]: {
-              ...(lt && { lt }),
-              ...(gt && { gt }),
-              ...(lte && { lte }),
-              ...(gte && { gte }),
+              ...(!isUndefined(lt) && { lt }),
+              ...(!isUndefined(gt) && { gt }),
+              ...(!isUndefined(lte) && { lte }),
+              ...(!isUndefined(gte) && { gte }),
             },
           },
         }
