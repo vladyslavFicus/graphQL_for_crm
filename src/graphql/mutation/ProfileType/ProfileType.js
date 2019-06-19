@@ -230,6 +230,9 @@ const PlayerMutation = new GraphQLObjectType({
         countryOfIssue: {
           type: GraphQLString,
         },
+        kycStatus: {
+          type: GraphQLString,
+        },
       },
       type: ResponseType(PlayerProfileType, 'UpdatePlayer'),
       resolve: updateProfile,
