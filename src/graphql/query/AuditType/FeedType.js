@@ -1,4 +1,6 @@
 const { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLInt } = require('graphql');
+const { getAssignedToOperator } = require('../../common/resolvers/audit');
+const OperatorType = require('../OperatorType');
 
 const FeedType = new GraphQLObjectType({
   name: 'Feed',
@@ -14,6 +16,10 @@ const FeedType = new GraphQLObjectType({
     targetUuid: { type: new GraphQLNonNull(GraphQLString) },
     uuid: { type: GraphQLString },
     type: { type: new GraphQLNonNull(GraphQLString) },
+    operator: {
+      type: OperatorType,
+      resolve: getAssignedToOperator,
+    },
   }),
 });
 
@@ -27,6 +33,7 @@ const FeedTypes = new GraphQLObjectType({
     PLAYER_PROFILE_REGISTERED: { type: GraphQLString },
     LOG_OUT: { type: GraphQLString },
     FAILED_LOGIN_ATTEMPT: { type: GraphQLString },
+    PROFILE_ASSIGN: { type: GraphQLString },
   }),
 });
 
