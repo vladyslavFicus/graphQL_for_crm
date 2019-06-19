@@ -28,7 +28,7 @@ exports.createDataloaders = (authorization, brandId) => ({
   }),
 
   clients: new DataLoader(async ids => {
-    const { data } = await getProfiles(brandId, { ids });
+    const { data } = await getProfiles(brandId, { ids, size: ids.length });
 
     return orderByArray(ids, data.content, 'playerUUID');
   }),
