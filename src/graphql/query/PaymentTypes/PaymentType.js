@@ -105,6 +105,8 @@ const PaymentType = new GraphQLObjectType({
       userMigrationId: { type: GraphQLString },
       normalizedAmount: { type: GraphQLString },
       declineReason: { type: GraphQLString },
+      modificationTime: { type: GraphQLString },
+      modifiedBy: { type: GraphQLString },
     };
   },
 });
