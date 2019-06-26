@@ -5,8 +5,8 @@ const {
   removeNote: removeNoteRequest,
 } = require('../../../utils/notesRequests');
 
-const getNotes = function(_, args, { headers: { authorization } }) {
-  return getNotesRequest(args, authorization);
+const getNotes = function(_, { targetUUID, ...args }, { headers: { authorization } }) {
+  return getNotesRequest({ ...args, targetUUIDs: [targetUUID] }, authorization);
 };
 
 const addNote = function(_, args, { headers: { authorization } }) {

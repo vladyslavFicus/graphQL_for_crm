@@ -1,14 +1,15 @@
 const fetch = require('./fetch');
 const buildQueryString = require('./buildQueryString');
 
-const getNotes = function(args, authorization) {
-  return fetch(`${global.appConfig.apiUrl}/tag/note/search?${buildQueryString(args)}`, {
-    method: 'GET',
+const getNotes = function({ size, page, ...args }, authorization) {
+  return fetch(`${global.appConfig.apiUrl}/tag/note/search?${buildQueryString({ size, page })}`, {
+    method: 'POST',
     headers: {
       accept: 'application/json',
       authorization,
       'content-type': 'application/json',
     },
+    body: JSON.stringify(args),
   }).then(response => response.json());
 };
 
