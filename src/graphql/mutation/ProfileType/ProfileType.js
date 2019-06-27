@@ -2,6 +2,7 @@ const { GraphQLBoolean, GraphQLObjectType, GraphQLInputObjectType, GraphQLNonNul
 
 const ResponseType = require('../../common/types/ResponseType');
 const PlayerProfileType = require('../../query/PlayerProfileType');
+const SuccessType = require('../../query/SuccessType');
 const {
   profile: {
     updateSubscription,
@@ -22,6 +23,7 @@ const {
     markIsTest,
     clickToCall,
     updateFATCA,
+    limitedUpdateProfile,
   },
 } = require('../../common/resolvers');
 
@@ -236,6 +238,21 @@ const PlayerMutation = new GraphQLObjectType({
       },
       type: ResponseType(PlayerProfileType, 'UpdatePlayer'),
       resolve: updateProfile,
+    },
+    limitedUpdate: {
+      args: {
+        profileId: {
+          type: new GraphQLNonNull(GraphQLString),
+        },
+        phone2: {
+          type: GraphQLString,
+        },
+        email2: {
+          type: GraphQLString,
+        },
+      },
+      type: SuccessType,
+      resolve: limitedUpdateProfile,
     },
     email: {
       args: {

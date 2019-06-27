@@ -416,6 +416,18 @@ const updateProfile = async function(_, { playerUUID, ...args }, { headers: { au
   };
 };
 
+const limitedUpdateProfile = async (_, args, { headers: { authorization } }) => {
+  return fetch(`${global.appConfig.apiUrl}/trading_profile/v2/limited/update`, {
+    method: 'PUT',
+    headers: {
+      accept: 'application/json',
+      authorization,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(args),
+  }).then(response => ({ success: response.status === 200 }));
+};
+
 const clickToCall = async (_, args, context) => {
   const access = await accessValidate(context);
 
@@ -466,4 +478,5 @@ module.exports = {
   markIsTest,
   clickToCall,
   updateFATCA,
+  limitedUpdateProfile,
 };

@@ -107,6 +107,7 @@ const TradingProfileType = new GraphQLObjectType({
     phone1: { type: GraphQLString },
     phone2: { type: GraphQLString },
     languageCode: { type: GraphQLString },
+    email2: { type: GraphQLString },
     affiliateProfileDocument: {
       type: AffiliateDocumentType,
     },
