@@ -22,7 +22,7 @@ exports.createDataloaders = (authorization, brandId) => ({
   }),
 
   notes: new DataLoader(async ids => {
-    const { data } = await getNotes({ targetUUID: ids, size: ids.length }, authorization);
+    const { data } = await getNotes({ targetUUIDs: ids, size: ids.length }, authorization);
 
     return orderByArray(ids, data.content, 'targetUUID');
   }),
