@@ -73,7 +73,7 @@ const LeadsMutation = new GraphQLObjectType({
         city: { type: GraphQLString },
         gender: { type: GraphQLString },
         birthDate: { type: GraphQLString },
-        phone: { type: new GraphQLNonNull(GraphQLString) },
+        phone1: { type: new GraphQLNonNull(GraphQLString) },
         phone2: { type: GraphQLString },
         languageCode: { type: new GraphQLNonNull(GraphQLString) },
         leadUuid: { type: new GraphQLNonNull(GraphQLString) },
