@@ -8,8 +8,6 @@ const { getSearchData, queryBuild, parseToPageable } = require('./ESSearchHelper
 
 const profilesQuery = ({
   ids,
-  balanceFrom,
-  balanceTo,
   ageFrom,
   ageTo,
   tradingBalanceFrom,
@@ -33,8 +31,7 @@ const profilesQuery = ({
   migrationId,
 }) => [
   queryBuild.ids(ids),
-  queryBuild.range('tradingProfile.balance', { gte: tradingBalanceFrom, lte: tradingBalanceTo }),
-  queryBuild.range('totalBalance.amount', { gte: balanceFrom, lte: balanceTo }),
+  queryBuild.range('tradingProfile.baseCurrencyBalance', { gte: tradingBalanceFrom, lte: tradingBalanceTo }),
   queryBuild.range('birthDate', {
     gte: ageTo ? moment().subtract(ageTo, 'years') : undefined,
     lte: ageFrom ? moment().subtract(ageFrom, 'years') : undefined,
