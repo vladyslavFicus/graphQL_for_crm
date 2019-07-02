@@ -86,7 +86,7 @@ const createPartner = async (_, { password, ...args }, context) => {
 
 const updatePartner = async (
   _,
-  { allowedIpAddresses, forbiddenCountries, showNotes, showSalesStatus, ...args },
+  { allowedIpAddresses, forbiddenCountries, showNotes, showSalesStatus, showFTDAmount, ...args },
   { headers: { authorization } }
 ) => {
   const operator = await updateOperatorRequest(args, authorization);
@@ -97,6 +97,7 @@ const updatePartner = async (
       forbiddenCountries,
       showNotes,
       showSalesStatus,
+      showFTDAmount,
     },
     uuid: args.uuid,
   };
