@@ -30,6 +30,7 @@ const PartnerMutation = new GraphQLObjectType({
         forbiddenCountries: { type: new GraphQLList(GraphQLString) },
         showNotes: { type: GraphQLBoolean },
         showSalesStatus: { type: GraphQLBoolean },
+        showFTDAmount: { type: GraphQLBoolean },
       },
       type: ResponseType(PartnerType, 'UpdatedPartnerType'),
       resolve: updatePartner,

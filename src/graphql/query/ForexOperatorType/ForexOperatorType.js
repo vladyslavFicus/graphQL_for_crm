@@ -11,6 +11,7 @@ module.exports = new GraphQLObjectType({
           forbiddenCountries: { type: new GraphQLList(GraphQLString) },
           showNotes: { type: GraphQLBoolean },
           showSalesStatus: { type: GraphQLBoolean },
+          showFTDAmount: { type: GraphQLBoolean },
         }),
       }),
     },
