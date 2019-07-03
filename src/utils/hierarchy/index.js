@@ -14,11 +14,10 @@ const {
   getBranchHierarchyTree,
   getUsersByBranch,
   getBranchChildren,
-  updateUserHierarchy,
-  updateBranchHierarchy,
   bulkUpdateHierarchyUser,
   bulkMassAssignHierarchyUser,
   getBrand,
+  updateUserBranches,
 } = require('./hierarchyRequests');
 
 const {
@@ -51,10 +50,9 @@ module.exports = {
     getBranchHierarchyTree,
     getUsersByBranch,
     getBranchChildren,
-    updateUserHierarchy,
-    updateBranchHierarchy,
     bulkUpdateHierarchyUser,
     bulkMassAssignHierarchyUser,
     getBrand,
+    updateUserBranches,
   },
 };

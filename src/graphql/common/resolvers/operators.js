@@ -84,7 +84,7 @@ const createOperator = async (_, args, { headers: { authorization }, brand: { id
     {
       uuid,
       userType,
-      ...(branchId && { parentBranches: [branchId] }),
+      parentBranch: branchId,
     },
     authorization
   );
