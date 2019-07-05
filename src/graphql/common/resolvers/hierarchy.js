@@ -12,23 +12,21 @@ const {
     getBranchHierarchy: getBranchHierarchyQuery,
     getUsersByBranch: getUsersByBranchQuery,
     getBranchChildren: getBranchChildrenQuery,
-    updateUserHierarchy,
+    updateUserBranches,
     getBrand,
   },
   helpers: { getHierarchyMappedOperators, buildRequestObject, multipleRequest },
 } = require('../../../utils/hierarchy');
 
-const createUser = async (_, { userId, branchId, userType }, { headers: { authorization } }) => {
-  const user = await createUserMutation(
+const createUser = (_, { userId, branchId, userType }, { headers: { authorization } }) => {
+  return createUserMutation(
     {
       uuid: userId,
       userType,
-      ...(branchId && { parentBranches: [branchId] }),
+      parentBranch: branchId,
     },
     authorization
   );
-
-  return user;
 };
 
 const createOffice = async (_, { officeManager, ...args }, { headers: { authorization }, brand: { id: brandId } }) => {
@@ -46,7 +44,7 @@ const createOffice = async (_, { officeManager, ...args }, { headers: { authoriz
   const office = await createBranch(
     {
       branchType: branchTypes.OFFICE,
-      parentBranches: [data.uuid],
+      parentBranch: data.uuid,
       ...args,
     },
     authorization
@@ -60,20 +58,7 @@ const createOffice = async (_, { officeManager, ...args }, { headers: { authoriz
 
   successMessages.push('hierarchy.offices.success.createOffice');
 
-  const updateManagerParams = {
-    operatorId: officeManager,
-    assignToBranch: office.uuid,
-  };
-
-  const { succeed, errors } = await multipleRequest([
-    buildRequestObject(
-      updateUserHierarchy(updateManagerParams, authorization),
-      'hierarchy.offices.success.updateOfficeManager',
-      'hierarchy.offices.fail.updateOfficeManager'
-    ),
-  ]);
-
-  return { data: [...successMessages, ...succeed], error: [...errorMessages, ...errors] };
+  return { data: successMessages, error: errorMessages };
 };
 
 const createDesk = async (_, { officeId, ...args }, { headers: { authorization } }) => {
@@ -82,7 +67,7 @@ const createDesk = async (_, { officeId, ...args }, { headers: { authorization }
   const desk = await createBranch(
     {
       branchType: branchTypes.DESK,
-      parentBranches: [officeId],
+      parentBranch: officeId,
       ...args,
     },
     authorization
@@ -105,7 +90,7 @@ const createTeam = async (_, { deskId, ...args }, { headers: { authorization } }
   const team = await createBranch(
     {
       branchType: branchTypes.TEAM,
-      parentBranches: [deskId],
+      parentBranch: deskId,
       ...args,
     },
     authorization
@@ -127,7 +112,7 @@ const addOperatorToBranch = async (_, { operatorId, branchId }, { headers: { aut
     operatorId,
     assignToBranch: branchId,
   };
-  const request = await updateUserHierarchy(requestParams, authorization);
+  const request = await updateUserBranches(requestParams, authorization);
 
   if (request.error) {
     return request;
@@ -137,7 +122,7 @@ const addOperatorToBranch = async (_, { operatorId, branchId }, { headers: { aut
 };
 
 const updateHierarchyUser = (_, args, { headers: { authorization } }) => {
-  return updateUserHierarchy(args, authorization);
+  return updateUserBranches(args, authorization);
 };
 
 const getUserBranchHierarchy = async (

@@ -138,8 +138,7 @@ const bulkLeadUpdate = async (
 
   let hierarchyArgs = {
     parentUsers: salesRep || [],
-    userType: userTypes.LEAD_CUSTOMER,
-    users: updateData,
+    userUuids: updateData.map(({ uuid }) => uuid),
   };
 
   let leadArgs = {

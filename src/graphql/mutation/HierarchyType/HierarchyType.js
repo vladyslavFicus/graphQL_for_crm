@@ -30,7 +30,6 @@ const HierarchyMutation = new GraphQLObjectType({
       args: {
         name: { type: new GraphQLNonNull(GraphQLString) },
         country: { type: new GraphQLNonNull(GraphQLString) },
-        officeManager: { type: new GraphQLNonNull(GraphQLString) },
       },
       type: HierarchyResponseType('CreateOffice'),
       resolve: createOffice,

@@ -57,8 +57,7 @@ const bulkRepresentativeUpdate = async (
   };
 
   let hierarchyParams = {
-    userType: userTypes.CUSTOMER,
-    users: updateData,
+    userUuids: updateData.map(({ uuid }) => uuid),
   };
 
   if (!isMoveAction) {
@@ -95,17 +94,12 @@ const bulkRepresentativeUpdate = async (
     }
   }
 
-  if (hierarchyParams && hierarchyParams.users.length) {
+  if (hierarchyParams && hierarchyParams.userUuids.length) {
     let hierarchyBulkUpdate = null;
 
     // if move action performed, we need to call another api with modified params
     if (isMoveAction) {
-      const users = hierarchyParams.users.map(obj => ({
-        ...obj,
-        userType: hierarchyParams.userType,
-      }));
-
-      hierarchyBulkUpdate = await bulkUpdateHierarchyUser({ users }, authorization);
+      hierarchyBulkUpdate = await bulkUpdateHierarchyUser({ assignments: updateData }, authorization);
     } else {
       hierarchyBulkUpdate = await bulkMassAssignHierarchyUser(hierarchyParams, authorization);
     }
