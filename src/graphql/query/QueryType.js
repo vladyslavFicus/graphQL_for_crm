@@ -35,6 +35,7 @@ const {
   metabase: { getMetabaseToken },
 } = require('../common/resolvers');
 const PageableType = require('../common/types/PageableType');
+const ClientSearchInputType = require('../input/ClientSearchInputType');
 const FileType = require('./FileType');
 const { AuthorityType } = require('./AuthType');
 const PlayerProfileType = require('./PlayerProfileType');
@@ -197,26 +198,7 @@ const QueryType = new GraphQLObjectType({
     },
     profiles: {
       type: ResponseType(PageableType(ProfilesType)),
-      args: {
-        page: { type: GraphQLInt },
-        size: { type: GraphQLInt },
-        acquisitionStatus: { type: GraphQLString },
-        tradingBalanceFrom: { type: GraphQLFloat },
-        tradingBalanceTo: { type: GraphQLFloat },
-        countries: { type: new GraphQLList(GraphQLString) },
-        registrationDateFrom: { type: GraphQLString },
-        registrationDateTo: { type: GraphQLString },
-        searchValue: { type: GraphQLString },
-        status: { type: GraphQLString },
-        repIds: { type: new GraphQLList(GraphQLString) },
-        assignStatus: { type: GraphQLString },
-        kycStatus: { type: GraphQLString },
-        firstDeposit: { type: GraphQLString },
-        salesStatuses: { type: new GraphQLList(GraphQLString) },
-        retentionStatuses: { type: new GraphQLList(GraphQLString) },
-        searchAffiliate: { type: GraphQLString },
-        migrationId: { type: GraphQLString },
-      },
+      args: ClientSearchInputType.getFields(),
       resolve: getProfiles,
     },
     statistics: {

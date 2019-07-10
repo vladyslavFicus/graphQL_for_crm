@@ -12,33 +12,7 @@ const {
   clients: { bulkRepresentativeUpdate },
 } = require('../../common/resolvers');
 const { ResponseType } = require('../../common/types');
-
-const ClientSearchParams = new GraphQLInputObjectType({
-  name: 'ClientSearchParams',
-  fields: () => ({
-    acquisitionStatus: { type: GraphQLString },
-    tradingBalanceFrom: { type: GraphQLFloat },
-    tradingBalanceTo: { type: GraphQLFloat },
-    countries: { type: new GraphQLList(GraphQLString) },
-    registrationDateFrom: { type: GraphQLString },
-    registrationDateTo: { type: GraphQLString },
-    searchValue: { type: GraphQLString },
-    status: { type: GraphQLString },
-    teams: { type: GraphQLString },
-    desks: { type: GraphQLString },
-    currency: { type: GraphQLString },
-    repIds: { type: new GraphQLList(GraphQLString) },
-    assignStatus: { type: GraphQLString },
-    profileStatus: { type: GraphQLString },
-    kycStatus: { type: GraphQLString },
-    firstDeposit: { type: GraphQLString },
-    salesStatuses: { type: new GraphQLList(GraphQLString) },
-    retentionStatuses: { type: new GraphQLList(GraphQLString) },
-    searchAffiliate: { type: GraphQLString },
-    migrationId: { type: GraphQLString },
-    requestId: { type: GraphQLString },
-  }),
-});
+const ClientSearchInputType = require('../../input/ClientSearchInputType');
 
 const ClientBulkUpdateType = new GraphQLInputObjectType({
   name: 'ClientBulkUpdateType',
@@ -64,7 +38,7 @@ const ClientsMutation = new GraphQLObjectType({
         clients: { type: new GraphQLList(ClientBulkUpdateType) },
         allRowsSelected: { type: GraphQLBoolean },
         totalElements: { type: GraphQLInt },
-        searchParams: { type: ClientSearchParams },
+        searchParams: { type: ClientSearchInputType },
       },
       type: ResponseType(GraphQLString, 'clientRepresentativeBulkUpdate'),
       resolve: bulkRepresentativeUpdate,

@@ -79,6 +79,7 @@ const queryBuild = {
           },
         }
       : {},
+  nested: (path, query) => ({ nested: { path, query } }),
 };
 
 const parseToPageable = ({ hits: { total, hits } }, page, size) => ({

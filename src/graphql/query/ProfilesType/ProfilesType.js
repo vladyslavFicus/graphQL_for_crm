@@ -59,6 +59,8 @@ const ProfilesType = new GraphQLObjectType({
     totalBalance: { type: MoneyType },
     lastDeposit: { type: LastDepositType },
     login: { type: GraphQLString },
+    lastNote: { type: GraphQLString },
+    lastNoteDate: { type: GraphQLString },
   }),
 });
 
