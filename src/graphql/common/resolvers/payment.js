@@ -194,6 +194,18 @@ const changePaymentStatus = function(_, args, { headers: { authorization } }) {
   }).then(response => ({ data: { success: response.status === 200 } }));
 };
 
+const changeOriginalAgent = function(_, { paymentId, ...args }, { headers: { authorization } }) {
+  return fetch(`${global.appConfig.apiUrl}/trading_payment/${paymentId}/agent`, {
+    method: 'PUT',
+    headers: {
+      Accept: 'application/json',
+      authorization,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(args),
+  }).then(response => ({ success: response.status === 200 }));
+};
+
 module.exports = {
   getPaymentMethods,
   getRates,
@@ -206,4 +218,5 @@ module.exports = {
   acceptPayment,
   changePaymentMethod,
   changePaymentStatus,
+  changeOriginalAgent,
 };
