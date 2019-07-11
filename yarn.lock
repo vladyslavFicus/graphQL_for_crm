@@ -28,7 +28,7 @@
 
 "@hrzn/zookeeper@^1.0.3-alpha.43":
   version "1.0.3-alpha.43"
-  resolved "https://nexus.newage.io/repository/hrzn-npm/@hrzn/zookeeper/-/zookeeper-1.0.3-alpha.43.tgz#b5730a6ffe1ed820809ceda2304721887118275a"
+  resolved "https://nexus.flcn.pro/repository/hrzn-npm/@hrzn/zookeeper/-/zookeeper-1.0.3-alpha.43.tgz#b5730a6ffe1ed820809ceda2304721887118275a"
   dependencies:
     lodash "^4.17.11"
     loose-envify "^1.4.0"
