@@ -191,6 +191,18 @@ const updateUserBranches = ({ operatorId, ...args }, authorization) => {
   }).then(response => response.json());
 };
 
+const updateHierarchyUser = ({ operatorId, ...args }, authorization) => {
+  return fetch(`${global.appConfig.apiUrl}/trading_hierarchy_updater/user/${operatorId}`, {
+    method: 'PUT',
+    headers: {
+      accept: 'application/json',
+      authorization,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(args),
+  }).then(response => response.json());
+};
+
 const bulkUpdateHierarchyUser = (args, authorization) => {
   return fetch(`${global.appConfig.apiUrl}/trading_hierarchy_updater/bulk/user/relationship/parent-user`, {
     method: 'PUT',
@@ -246,4 +258,5 @@ module.exports = {
   bulkMassAssignHierarchyUser,
   getBrand,
   updateUserBranches,
+  updateHierarchyUser,
 };

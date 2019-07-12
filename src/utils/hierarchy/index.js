@@ -18,6 +18,7 @@ const {
   bulkMassAssignHierarchyUser,
   getBrand,
   updateUserBranches,
+  updateHierarchyUser,
 } = require('./hierarchyRequests');
 
 const {
@@ -54,5 +55,6 @@ module.exports = {
     bulkMassAssignHierarchyUser,
     getBrand,
     updateUserBranches,
+    updateHierarchyUser,
   },
 };

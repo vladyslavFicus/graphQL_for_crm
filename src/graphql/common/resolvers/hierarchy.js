@@ -14,6 +14,7 @@ const {
     getBranchChildren: getBranchChildrenQuery,
     updateUserBranches,
     getBrand,
+    updateHierarchyUser: updateHierarchyUserRequest,
   },
   helpers: { getHierarchyMappedOperators, buildRequestObject, multipleRequest },
 } = require('../../../utils/hierarchy');
@@ -121,8 +122,22 @@ const addOperatorToBranch = async (_, { operatorId, branchId }, { headers: { aut
   return { data: true };
 };
 
+const removeOperatorFromBranch = async (_, { operatorId, branchId }, { headers: { authorization } }) => {
+  const requestParams = {
+    operatorId,
+    unassignFromBranch: branchId,
+  };
+  const request = await updateUserBranches(requestParams, authorization);
+
+  if (request.error) {
+    return request;
+  }
+
+  return { data: true };
+};
+
 const updateHierarchyUser = (_, args, { headers: { authorization } }) => {
-  return updateUserBranches(args, authorization);
+  return updateHierarchyUserRequest(args, authorization);
 };
 
 const getUserBranchHierarchy = async (
@@ -201,6 +216,7 @@ module.exports = {
   createDesk,
   createTeam,
   addOperatorToBranch,
+  removeOperatorFromBranch,
   updateHierarchyUser,
   getUserHierarchy,
   getUserHierarchyById,
