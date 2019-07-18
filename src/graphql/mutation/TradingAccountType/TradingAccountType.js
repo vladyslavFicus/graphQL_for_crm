@@ -1,8 +1,9 @@
-const { GraphQLObjectType, GraphQLNonNull, GraphQLString, GraphQLInt } = require('graphql');
+const { GraphQLObjectType, GraphQLNonNull, GraphQLString, GraphQLInt, GraphQLBoolean } = require('graphql');
 const SuccessType = require('../../query/SuccessType');
 
 const {
   createTradingAccountResolver,
+  updateTradingAccountResolver,
   tradingAccountChangePasswordResolver,
 } = require('../../common/resolvers/tradingAccount');
 
@@ -19,6 +20,18 @@ const TradingAccountType = new GraphQLObjectType({
       },
       type: SuccessType,
       resolve: createTradingAccountResolver,
+    },
+    update: {
+      args: {
+        profileId: { type: new GraphQLNonNull(GraphQLString) },
+        login: { type: new GraphQLNonNull(GraphQLInt) },
+        name: { type: GraphQLString },
+        mode: { type: GraphQLString },
+        currency: { type: GraphQLString },
+        isReadOnly: { type: GraphQLBoolean },
+      },
+      type: SuccessType,
+      resolve: updateTradingAccountResolver,
     },
     changePassword: {
       args: {

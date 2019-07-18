@@ -1,5 +1,9 @@
 const { getProfile } = require('../resolvers/profile');
-const { createTradingAccount, tradingAccountChangePassword } = require('../../../utils/mt4Requests');
+const {
+  createTradingAccount,
+  updateTradingAccount,
+  tradingAccountChangePassword,
+} = require('../../../utils/mt4Requests');
 
 const createTradingAccountResolver = async (_, { profileId, name, mode, currency, password }, context) => {
   const { data, error } = await getProfile(_, { playerUUID: profileId }, context);
@@ -41,6 +45,20 @@ const createTradingAccountResolver = async (_, { profileId, name, mode, currency
   };
 };
 
+const updateTradingAccountResolver = async (_, args, context) => {
+  const {
+    brand: { id: brandId },
+    headers: { authorization },
+  } = context;
+
+  const acc = await updateTradingAccount({ ...args, brandId }, authorization);
+
+  return {
+    success: !acc.error,
+    ...(acc.error && acc),
+  };
+};
+
 const tradingAccountChangePasswordResolver = async (_, { login, password }, { headers: { authorization } }) => {
   const response = await tradingAccountChangePassword({ login, password }, authorization);
 
@@ -52,5 +70,6 @@ const tradingAccountChangePasswordResolver = async (_, { login, password }, { he
 
 module.exports = {
   createTradingAccountResolver,
+  updateTradingAccountResolver,
   tradingAccountChangePasswordResolver,
 };

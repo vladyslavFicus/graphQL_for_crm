@@ -59,6 +59,12 @@ const Mt4UserType = new GraphQLObjectType({
     margin: { type: GraphQLFloat },
     createdBy: { type: GraphQLString },
     credit: { type: GraphQLFloat },
+    isReadOnly: { type: GraphQLBoolean },
+    readOnlyUpdateTime: { type: GraphQLString },
+    readOnlyUpdatedBy: {
+      type: OperatorType,
+      resolve: getOperator('readOnlyUpdatedBy'),
+    },
   }),
 });
 
