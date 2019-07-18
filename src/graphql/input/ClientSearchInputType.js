@@ -29,6 +29,7 @@ const ClientSearchInputType = new GraphQLInputObjectType({
     retentionStatuses: { type: new GraphQLList(GraphQLString) },
     searchAffiliate: { type: GraphQLString },
     migrationId: { type: GraphQLString },
+    requestId: { type: GraphQLString },
   }),
 });
 
