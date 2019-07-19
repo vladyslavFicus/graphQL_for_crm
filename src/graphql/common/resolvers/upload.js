@@ -16,7 +16,7 @@ const leadCsvUpload = async (_, { file }, { headers: { authorization }, brand: {
       formData.append('file', bufferedFile, fileStream.filename);
       formData.append('brandId', brandId);
 
-      fetch(`${global.appConfig.apiUrl}/trading_lead/lead/csv`, {
+      fetch(`${global.appConfig.apiUrl}/trading_lead_updater/lead/csv`, {
         method: 'POST',
         headers: {
           authorization,
