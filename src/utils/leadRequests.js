@@ -40,7 +40,7 @@ const updateLead = ({ id, ...args }, authorization) => {
 };
 
 const bulkUpdateLead = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_lead_updater/lead/sales-status`, {
+  return fetch(`${global.appConfig.apiUrl}/trading_lead_updater/bulk/lead/sales-status`, {
     method: 'PUT',
     headers: {
       authorization,
