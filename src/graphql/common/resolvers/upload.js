@@ -7,9 +7,11 @@ const leadCsvUpload = async (_, { file }, { headers: { authorization }, brand: {
   return new Promise(resolve => {
     const buffs = [];
     const readStream = fileStream.createReadStream();
+
     readStream.on('data', d => {
       buffs.push(d);
     });
+
     readStream.on('end', () => {
       let bufferedFile = Buffer.concat(buffs);
       const formData = new FormData();
@@ -25,8 +27,7 @@ const leadCsvUpload = async (_, { file }, { headers: { authorization }, brand: {
         body: formData,
       })
         .then(res => res.json())
-        .then(response => resolve(response))
-        .catch(response => resolve(response));
+        .then(response => resolve({ success: !!response.data, ...response }));
     });
   });
 };

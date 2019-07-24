@@ -1,7 +1,7 @@
 const { GraphQLObjectType, GraphQLList } = require('graphql');
 const { GraphQLUpload } = require('apollo-server-express');
 const { ResponseType } = require('../../common/types');
-const { LeadUploadType } = require('../../query/LeadType');
+const SuccessType = require('../../query/SuccessType');
 const {
   upload: { leadCsvUpload },
 } = require('../../common/resolvers');
@@ -13,7 +13,7 @@ const UploadMutation = new GraphQLObjectType({
       args: {
         file: { type: GraphQLUpload },
       },
-      type: ResponseType(new GraphQLList(LeadUploadType), 'LeadCsvUpload'),
+      type: SuccessType,
       resolve: leadCsvUpload,
     },
   }),
