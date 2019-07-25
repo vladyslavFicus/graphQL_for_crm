@@ -235,6 +235,12 @@ const PlayerMutation = new GraphQLObjectType({
         kycStatus: {
           type: GraphQLString,
         },
+        countrySpecificIdentifier: {
+          type: GraphQLString,
+        },
+        countrySpecificIdentifierType: {
+          type: GraphQLString,
+        },
       },
       type: ResponseType(PlayerProfileType, 'UpdatePlayer'),
       resolve: updateProfile,

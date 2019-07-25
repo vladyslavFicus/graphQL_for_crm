@@ -122,6 +122,8 @@ const TradingProfileType = new GraphQLObjectType({
     passport: { type: PassportType },
     migrationId: { type: GraphQLString },
     fnsStatus: { type: GraphQLString },
+    countrySpecificIdentifier: { type: GraphQLString },
+    countrySpecificIdentifierType: { type: GraphQLString },
     fatca: {
       type: new GraphQLObjectType({
         name: 'FatcaType',
