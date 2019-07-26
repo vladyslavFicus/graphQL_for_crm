@@ -20,9 +20,9 @@ const getOperators = async (_, args, { headers: { authorization }, hierarchy }) 
 };
 
 const getOperatorByUUID = async (_, { uuid }, { headers: { authorization }, hierarchy }) => {
-  const operatorIds = await hierarchy.getOperatorsIds();
+  const allowed = await hierarchy.checkAccess(uuid);
 
-  if (!operatorIds.includes(uuid)) {
+  if (!allowed) {
     return {
       data: null,
       error: {

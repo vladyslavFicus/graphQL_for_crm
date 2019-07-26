@@ -22,9 +22,9 @@ const getForexOperatorByUUID = async ({ uuid }, _, { headers: { authorization } 
   getForexOperatorRequest(uuid, authorization);
 
 const getPartnerByUUID = async (_, { uuid }, { headers: { authorization }, hierarchy }) => {
-  const partnersIds = await hierarchy.getPartnersIds();
+  const allowed = await hierarchy.checkAccess(uuid);
 
-  if (!partnersIds.includes(uuid)) {
+  if (!allowed) {
     return {
       data: null,
       error: {

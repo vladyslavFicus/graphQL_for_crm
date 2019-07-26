@@ -74,7 +74,11 @@ module.exports = function(url, config) {
           break;
         }
         case 403: {
-          return logResponseError(res, url, options, 'JWT error');
+          if (res.includes('ACCESS_FORBIDDEN')) {
+            return logResponseError(res, url, options, 'JWT error');
+          }
+
+          break;
         }
         case 500: {
           return logResponseError(res, url, options, 'Service Down');

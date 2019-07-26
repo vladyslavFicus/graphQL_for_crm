@@ -1,5 +1,5 @@
 const {
-  requests: { getCustomersSubtree, getLeadsSubtree, getOperatorsSubtree, getPartnersSubtree },
+  requests: { getCustomersSubtree, getLeadsSubtree, getOperatorsSubtree, getPartnersSubtree, checkAccess },
 } = require('../utils/hierarchy');
 
 class Hierarchy {
@@ -119,6 +119,17 @@ class Hierarchy {
     }
 
     return await this._leadsPromise;
+  }
+
+  /**
+   * Check operator permission to access the entity
+   * Note: Allow or disallow operator to see entity (leads, operators, clients, partners) regarding him hierarchy tree
+   *
+   * @param uuid
+   * @return {Promise<*>}
+   */
+  checkAccess(uuid) {
+    return checkAccess(uuid, this._authorization);
   }
 }
 

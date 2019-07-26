@@ -192,9 +192,9 @@ const promoteLeadToClient = async (_, args, { brand: { id: brandId, currency }, 
 };
 
 const getLeadProfile = async (_, { leadId }, { headers: { authorization }, hierarchy }) => {
-  const leadsIds = await hierarchy.getLeadsIds();
+  const allowed = await hierarchy.checkAccess(leadId);
 
-  if (!leadsIds.includes(leadId)) {
+  if (!allowed) {
     return {
       data: null,
       error: {
@@ -202,6 +202,7 @@ const getLeadProfile = async (_, { leadId }, { headers: { authorization }, hiera
       },
     };
   }
+
   return getLeadById(leadId, authorization);
 };
 
