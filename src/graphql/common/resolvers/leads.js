@@ -207,8 +207,8 @@ const getLeadProfile = async (_, { leadId }, { headers: { authorization }, hiera
 };
 
 const getTradingLeads = async (_, args, { headers: { authorization }, brand: { id: brandId }, hierarchy }) => {
-  const leadsIds = await hierarchy.getLeadsIds();
-  const _args = { ...args, brandId, ids: leadsIds };
+  const observerForIds = await hierarchy.getObserverForIds();
+  const _args = { ...args, brandId, observedFrom: observerForIds };
 
   // If phone provided in searchValue --> replace + and 00 from start
   const phone = _args.searchKeyword && _args.searchKeyword.match(/^(?:00|\+)(\d+)/);

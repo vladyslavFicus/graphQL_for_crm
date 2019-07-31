@@ -1,5 +1,12 @@
 const {
-  requests: { getCustomersSubtree, getLeadsSubtree, getOperatorsSubtree, getPartnersSubtree, checkAccess },
+  requests: {
+    getCustomersSubtree,
+    getLeadsSubtree,
+    getOperatorsSubtree,
+    getPartnersSubtree,
+    getObserverForSubtree,
+    checkAccess,
+  },
 } = require('../utils/hierarchy');
 
 class Hierarchy {
@@ -11,6 +18,7 @@ class Hierarchy {
     this._operatorsPromise = null;
     this._partnersPromise = null;
     this._leadsPromise = null;
+    this._observerForPromise = null;
   }
 
   /**
@@ -74,6 +82,21 @@ class Hierarchy {
   }
 
   /**
+   * Load observer for ids
+   * @return {Promise<void>}
+   * @private
+   */
+  async _loadObserverFor() {
+    const { error, data } = await getObserverForSubtree(this._userUUID, this._authorization);
+
+    if (error || !Array.isArray(data)) {
+      return [];
+    }
+
+    return data;
+  }
+
+  /**
    * Get customers ids from hierarchy tree
    * @return {Array}
    */
@@ -119,6 +142,18 @@ class Hierarchy {
     }
 
     return await this._leadsPromise;
+  }
+
+  /**
+   * Get observer for ids from hierarchy tree
+   * @return {Array}
+   */
+  async getObserverForIds() {
+    if (!this._observerForPromise) {
+      this._observerForPromise = this._loadObserverFor();
+    }
+
+    return await this._observerForPromise;
   }
 
   /**

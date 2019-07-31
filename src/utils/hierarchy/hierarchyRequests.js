@@ -74,6 +74,17 @@ const getLeadsSubtree = (userId, authorization) => {
   }).then(response => response.json());
 };
 
+const getObserverForSubtree = (userId, authorization) => {
+  return fetch(`${global.appConfig.apiUrl}/trading_hierarchy/user/${userId}/observer-for`, {
+    method: 'GET',
+    headers: {
+      authorization,
+      accept: 'application/json',
+      'content-type': 'application/json',
+    },
+  }).then(response => response.json());
+};
+
 const getOperatorsSubtree = (userId, authorization) => {
   return fetch(`${global.appConfig.apiUrl}/trading_hierarchy/user/${userId}/operators`, {
     method: 'GET',
@@ -259,6 +270,7 @@ module.exports = {
   getLeadsSubtree,
   getOperatorsSubtree,
   getPartnersSubtree,
+  getObserverForSubtree,
   checkAccess,
   getUserBranchHierarchy,
   getUsersByType,

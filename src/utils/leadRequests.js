@@ -2,7 +2,7 @@ const fetch = require('./fetch');
 const parseJson = require('./parseJson');
 
 const getLeads = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_lead/leads/search`, {
+  return fetch(`${global.appConfig.apiUrl}/trading_lead/v2/leads/search`, {
     method: 'POST',
     headers: {
       authorization,
