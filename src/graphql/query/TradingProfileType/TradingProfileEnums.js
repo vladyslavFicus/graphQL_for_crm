@@ -63,6 +63,7 @@ const SalesStatusesEnum = new GraphQLEnumType({
     NO_MONEY: { value: 'NO_MONEY' },
     TEST: { value: 'TEST' },
     DEPOSITOR: { value: 'DEPOSITOR' },
+    DO_NOT_CALL: { value: 'DO_NOT_CALL' },
     INVALID_COUNTRY: { value: 'INVALID_COUNTRY' },
   },
 });
@@ -84,6 +85,11 @@ const RetentionStatusesEnum = new GraphQLEnumType({
     PAMM: { value: 'PAMM' },
     NEED_DOCS: { value: 'NEED_DOCS' },
     NO_TRADES: { value: 'NO_TRADES' },
+    POTENTIAL_HIGH: { value: 'POTENTIAL_HIGH' },
+    POTENTIAL_LOW: { value: 'POTENTIAL_LOW' },
+    NO_INTEREST: { value: 'NO_INTEREST' },
+    UNDER_18: { value: 'UNDER_18' },
+    INVALID_LANGUAGE: { value: 'INVALID_LANGUAGE' },
     REASSIGN: { value: 'REASSIGN' },
   },
 });
