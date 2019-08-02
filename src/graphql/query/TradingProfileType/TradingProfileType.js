@@ -132,6 +132,37 @@ const TradingProfileType = new GraphQLObjectType({
         }),
       }),
     },
+    gdpr: {
+      type: new GraphQLObjectType({
+        name: 'GDPR',
+        fields: () => ({
+          sms: { type: GraphQLBoolean },
+          email: { type: GraphQLBoolean },
+          phone: { type: GraphQLBoolean },
+          socialMedia: { type: GraphQLBoolean },
+        }),
+      }),
+    },
+    spam: {
+      type: new GraphQLObjectType({
+        name: 'SPAM',
+        fields: () => ({
+          marketNews: { type: GraphQLBoolean },
+          information: { type: GraphQLBoolean },
+          educational: { type: GraphQLBoolean },
+          promosAndOffers: { type: GraphQLBoolean },
+          statisticsAndSummary: { type: GraphQLBoolean },
+        }),
+      }),
+    },
+    webCookies: {
+      type: new GraphQLObjectType({
+        name: 'webCookies',
+        fields: () => ({
+          enabled: { type: GraphQLBoolean },
+        }),
+      }),
+    },
   }),
 });
 
