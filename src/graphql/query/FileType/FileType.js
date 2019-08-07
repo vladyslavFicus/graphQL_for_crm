@@ -23,7 +23,11 @@ const FileType = new GraphQLObjectType({
     },
     author: { type: new GraphQLNonNull(GraphQLString) },
     category: { type: GraphQLString },
-    name: { type: new GraphQLNonNull(GraphQLString) },
+    fullName: { type: GraphQLString },
+    name: { type: GraphQLString },
+    fileName: { type: GraphQLString },
+    documentCategory: { type: GraphQLString },
+    statusDocument: { type: GraphQLString },
     playerUUID: {
       type: new GraphQLNonNull(GraphQLString),
       resolve({ playerUuid }) {
@@ -32,7 +36,7 @@ const FileType = new GraphQLObjectType({
     },
     realName: { type: GraphQLString },
     uuid: { type: new GraphQLNonNull(GraphQLString) },
-    type: { type: new GraphQLNonNull(GraphQLString) },
+    type: { type: GraphQLString },
     uploadDate: { type: new GraphQLNonNull(GraphQLString) },
     targetUUID: {
       type: GraphQLString,

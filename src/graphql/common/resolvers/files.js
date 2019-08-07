@@ -32,6 +32,35 @@ const getFiles = function(_, { playerUUID, ...args }, { headers: { authorization
     });
 };
 
+const getFileList = async function(_, args, { headers: { authorization }, hierarchy }) {
+  const customersIds = await hierarchy.getCustomersIds();
+
+  return fetch(`${global.appConfig.apiUrl}/forex_attachments/`, {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      authorization,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({ playerUUIDs: customersIds, ...args }),
+  })
+    .then(response => response.text())
+    .then(response => parseJson(response))
+    .then(response => response);
+};
+
+const updateFileStatus = async function(_, { fileUUID, ...args }, { headers: { authorization } }) {
+  return fetch(`${global.appConfig.apiUrl}/profile/files/${fileUUID}`, {
+    method: 'PUT',
+    headers: {
+      accept: 'application/json',
+      authorization,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(args),
+  }).then(response => ({ success: response.status === 200 }));
+};
+
 const refuse = function(_, { uuid, ...args }, { headers: { authorization } }) {
   return fetch(`${global.appConfig.apiUrl}/profile/files/${uuid}/status/refuse${buildQueryString(args)}`, {
     method: 'DELETE',
@@ -157,4 +186,6 @@ module.exports = {
   uploadFile,
   verify,
   confirmFiles,
+  getFileList,
+  updateFileStatus,
 };

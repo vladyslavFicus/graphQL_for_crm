@@ -2,8 +2,9 @@ const { GraphQLObjectType, GraphQLList, GraphQLNonNull, GraphQLInputObjectType, 
 const { GraphQLUpload } = require('apollo-server-express');
 const ResponseType = require('../../common/types/ResponseType');
 const FileQueryType = require('../../query/FileType');
+const SuccessType = require('../../query/SuccessType');
 const {
-  files: { refuse, verify, deleteFile, uploadFile, confirmFiles },
+  files: { refuse, verify, deleteFile, uploadFile, confirmFiles, updateFileStatus },
 } = require('../../common/resolvers');
 
 const InputFile = new GraphQLInputObjectType({
@@ -54,6 +55,14 @@ const FileType = new GraphQLObjectType({
       },
       type: ResponseType(new GraphQLList(FileQueryType), 'ConfirmFileType'),
       resolve: confirmFiles,
+    },
+    updateFileStatus: {
+      args: {
+        fileUUID: { type: new GraphQLNonNull(GraphQLString) },
+        documentStatus: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      type: SuccessType,
+      resolve: updateFileStatus,
     },
   }),
 });

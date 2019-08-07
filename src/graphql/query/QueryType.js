@@ -10,7 +10,7 @@ const {
 const ResponseType = require('../common/types/ResponseType');
 const {
   profile,
-  files: { getFiles },
+  files: { getFiles, getFileList },
   auth: {
     credentials: { getAuthorities, getLoginLock },
   },
@@ -233,6 +233,19 @@ const QueryType = new GraphQLObjectType({
         fileCategory: { type: GraphQLString },
         uploadDateFrom: { type: GraphQLString },
         uploadDateTo: { type: GraphQLString },
+      },
+    },
+    fileList: {
+      type: PageableType(FileType, {}, 'FileList'),
+      resolve: getFileList,
+      args: {
+        size: { type: GraphQLInt },
+        page: { type: GraphQLInt },
+        searchBy: { type: GraphQLString },
+        documentStatus: { type: GraphQLString },
+        uploadDateFrom: { type: GraphQLString },
+        uploadDateTo: { type: GraphQLString },
+        targetUuid: { type: GraphQLString },
       },
     },
     leadProfile: {
