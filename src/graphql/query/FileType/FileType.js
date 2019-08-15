@@ -38,6 +38,7 @@ const FileType = new GraphQLObjectType({
     uuid: { type: new GraphQLNonNull(GraphQLString) },
     type: { type: GraphQLString },
     uploadDate: { type: new GraphQLNonNull(GraphQLString) },
+    expirationTime: { type: GraphQLString },
     targetUUID: {
       type: GraphQLString,
       resolve({ targetUuid }) {
