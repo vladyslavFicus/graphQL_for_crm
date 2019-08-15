@@ -164,7 +164,7 @@ const getProfile = async function(_, { playerUUID, accountType }, context) {
   const error = get(response, 'error');
 
   if (!error) {
-    if (accountType) {
+    if (accountType && response.tradingProfile.mt4Users) {
       response.tradingProfile.mt4Users = response.tradingProfile.mt4Users.filter(
         mt4User => mt4User.accountType === accountType
       );
