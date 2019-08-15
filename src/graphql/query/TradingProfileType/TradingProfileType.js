@@ -65,6 +65,7 @@ const Mt4UserType = new GraphQLObjectType({
       type: OperatorType,
       resolve: getOperator('readOnlyUpdatedBy'),
     },
+    accountType: { type: GraphQLString },
   }),
 });
 

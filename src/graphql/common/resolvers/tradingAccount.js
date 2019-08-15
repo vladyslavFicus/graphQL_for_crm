@@ -5,7 +5,11 @@ const {
   tradingAccountChangePassword,
 } = require('../../../utils/mt4Requests');
 
-const createTradingAccountResolver = async (_, { profileId, name, mode, currency, password }, context) => {
+const createTradingAccountResolver = async (
+  _,
+  { profileId, name, currency, password, accountType, amount },
+  context
+) => {
   const { data, error } = await getProfile(_, { playerUUID: profileId }, context);
 
   if (error) {
@@ -34,7 +38,8 @@ const createTradingAccountResolver = async (_, { profileId, name, mode, currency
     state,
     status: '',
     zipCode,
-    mode,
+    accountType,
+    amount,
   };
 
   const acc = await createTradingAccount(args, authorization);

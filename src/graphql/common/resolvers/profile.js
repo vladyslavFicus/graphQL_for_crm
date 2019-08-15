@@ -142,7 +142,7 @@ const getProfilePolling = async (playerUUID, brandId, attempt = 0) => {
   return response;
 };
 
-const getProfile = async function(_, { playerUUID }, context) {
+const getProfile = async function(_, { playerUUID, accountType }, context) {
   const access = await accessValidate(context, playerUUID);
 
   if (access.error) {
@@ -164,6 +164,12 @@ const getProfile = async function(_, { playerUUID }, context) {
   const error = get(response, 'error');
 
   if (!error) {
+    if (accountType) {
+      response.tradingProfile.mt4Users = response.tradingProfile.mt4Users.filter(
+        mt4User => mt4User.accountType === accountType
+      );
+    }
+
     return { data: response };
   }
 

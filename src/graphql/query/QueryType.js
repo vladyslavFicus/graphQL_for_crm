@@ -97,6 +97,7 @@ const QueryType = new GraphQLObjectType({
       type: ResponseType(PlayerProfileType),
       args: {
         playerUUID: { type: new GraphQLNonNull(GraphQLString) },
+        accountType: { type: GraphQLString },
       },
       resolve: profile.getProfile,
     },
@@ -144,6 +145,7 @@ const QueryType = new GraphQLObjectType({
         amountTo: { type: GraphQLFloat },
         currency: { type: GraphQLString },
         agentIds: { type: new GraphQLList(GraphQLString) },
+        accountType: { type: GraphQLString },
       },
     },
     clientPaymentsByUuid: {
@@ -164,6 +166,7 @@ const QueryType = new GraphQLObjectType({
         amountFrom: { type: GraphQLFloat },
         amountTo: { type: GraphQLFloat },
         agentIds: { type: new GraphQLList(GraphQLString) },
+        accountType: { type: GraphQLString },
       },
     },
     paymentStatuses: {
@@ -179,6 +182,7 @@ const QueryType = new GraphQLObjectType({
       args: {
         playerUUID: { type: GraphQLString },
         tradeId: { type: GraphQLInt },
+        tradeType: { type: GraphQLString },
         openTimeStart: { type: GraphQLString },
         openTimeEnd: { type: GraphQLString },
         closeTimeStart: { type: GraphQLString },

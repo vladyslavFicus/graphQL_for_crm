@@ -8,6 +8,7 @@ const TradingActivityType = new GraphQLObjectType({
   fields: () => ({
     id: { type: new GraphQLNonNull(GraphQLInt) },
     tradeId: { type: new GraphQLNonNull(GraphQLInt) },
+    tradeType: { type: GraphQLString },
     login: { type: new GraphQLNonNull(GraphQLInt) },
     symbol: { type: GraphQLString },
     digits: { type: GraphQLInt },
