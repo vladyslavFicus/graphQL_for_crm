@@ -1,4 +1,5 @@
 const { GraphQLObjectType, GraphQLNonNull, GraphQLString, GraphQLList, GraphQLInt } = require('graphql');
+const PartnerType = require('../PartnerType');
 const { RuleTypeEnum, RuleActionTypeEnum } = require('./RuleEnums');
 
 const RuleActionType = new GraphQLObjectType({
@@ -22,6 +23,13 @@ const RuleType = new GraphQLObjectType({
     createdBy: { type: GraphQLString },
     deletedAt: { type: GraphQLString },
     languages: { type: new GraphQLList(GraphQLString) },
+    partners: {
+      type: new GraphQLList(PartnerType),
+      resolve({ affiliateUUIDs }, _, { dataloaders }) {
+        return affiliateUUIDs.map(uuid => dataloaders.operators.load(uuid));
+      },
+    },
+    sources: { type: new GraphQLList(GraphQLString) },
     name: { type: GraphQLString },
     priority: { type: new GraphQLNonNull(GraphQLInt) },
     type: { type: RuleTypeEnum },

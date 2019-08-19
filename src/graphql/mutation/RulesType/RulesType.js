@@ -37,6 +37,8 @@ const RulesMutation = new GraphQLObjectType({
         name: { type: new GraphQLNonNull(GraphQLString) },
         countries: { type: new GraphQLList(GraphQLString) },
         languages: { type: new GraphQLList(GraphQLString) },
+        affiliateUUIDs: { type: new GraphQLList(GraphQLString) },
+        sources: { type: new GraphQLList(GraphQLString) },
         priority: { type: new GraphQLNonNull(GraphQLInt) },
         type: { type: new GraphQLNonNull(RuleTypeEnum) },
         actions: { type: new GraphQLNonNull(new GraphQLList(RuleActionsInputType)) },

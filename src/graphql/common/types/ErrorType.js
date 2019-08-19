@@ -18,6 +18,14 @@ const ErrorType = new GraphQLObjectType({
         },
       }),
     },
+    errorParameters: {
+      type: new GraphQLScalarType({
+        name: 'errorParameters',
+        serialize(value) {
+          return value;
+        },
+      }),
+    },
   }),
 });
 

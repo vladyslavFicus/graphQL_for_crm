@@ -16,10 +16,12 @@ function parseResponse(data, status, url) {
   if (status >= 400 || response.parseError) {
     let error = null;
     let fields_errors = null;
+    let errorParameters = null;
 
     if (!isEmpty(response)) {
       error = response.error || response.jwtError || response.message || response;
       fields_errors = response.fields_errors;
+      errorParameters = response.errorParameters;
 
       if (typeof error !== 'string') {
         error = JSON.stringify(error);
@@ -32,6 +34,7 @@ function parseResponse(data, status, url) {
       error: {
         error,
         fields_errors,
+        errorParameters,
       },
     };
   }
