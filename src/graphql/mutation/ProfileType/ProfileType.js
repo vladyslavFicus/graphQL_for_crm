@@ -22,7 +22,7 @@ const {
     passwordResetRequest,
     markIsTest,
     clickToCall,
-    updateFATCA,
+    updateRegulated,
     limitedUpdateProfile,
   },
 } = require('../../common/resolvers');
@@ -313,20 +313,21 @@ const PlayerMutation = new GraphQLObjectType({
       }),
       resolve: clickToCall,
     },
-    updateFATCA: {
+    updateRegulated: {
       args: {
         profileId: { type: new GraphQLNonNull(GraphQLString) },
         fatca: { type: FATCAInput },
+        crs: { type: GraphQLBoolean },
       },
       type: new GraphQLObjectType({
-        name: 'FATCAResponseType',
+        name: 'RegulatedResponseType',
         fields: () => ({
           success: {
             type: new GraphQLNonNull(GraphQLBoolean),
           },
         }),
       }),
-      resolve: updateFATCA,
+      resolve: updateRegulated,
     },
   }),
 });

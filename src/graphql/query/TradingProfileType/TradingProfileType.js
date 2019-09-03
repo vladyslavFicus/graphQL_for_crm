@@ -133,6 +133,7 @@ const TradingProfileType = new GraphQLObjectType({
         }),
       }),
     },
+    crs: { type: GraphQLBoolean },
     gdpr: {
       type: new GraphQLObjectType({
         name: 'GDPR',

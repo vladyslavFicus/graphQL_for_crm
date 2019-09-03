@@ -463,7 +463,7 @@ const clickToCall = async (_, args, context) => {
   }).then(response => ({ success: response.status === 204 }));
 };
 
-const updateFATCA = (_, args, { headers: { authorization }, brand: { id: brandId } }) => {
+const updateRegulated = (_, args, { headers: { authorization }, brand: { id: brandId } }) => {
   return fetch(`${global.appConfig.apiUrl}/trading_profile/regulated`, {
     method: 'PUT',
     headers: {
@@ -494,6 +494,6 @@ module.exports = {
   updateAffiliate,
   markIsTest,
   clickToCall,
-  updateFATCA,
+  updateRegulated,
   limitedUpdateProfile,
 };
