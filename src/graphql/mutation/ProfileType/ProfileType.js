@@ -241,6 +241,9 @@ const PlayerMutation = new GraphQLObjectType({
         countrySpecificIdentifierType: {
           type: GraphQLString,
         },
+        enableInternalTransfer: {
+          type: GraphQLBoolean,
+        },
       },
       type: ResponseType(PlayerProfileType, 'UpdatePlayer'),
       resolve: updateProfile,

@@ -165,6 +165,7 @@ const TradingProfileType = new GraphQLObjectType({
         }),
       }),
     },
+    enableInternalTransfer: { type: GraphQLBoolean },
   }),
 });
 
