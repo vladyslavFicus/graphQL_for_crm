@@ -15,12 +15,12 @@ const getRulesRetention = async (_, args, { headers: { authorization }, brand: {
   return await getRulesRetentionQuery({ brandId, ...args }, authorization);
 };
 
-const createRule = async (_, args, { headers: { authorization }, brand: { id: brandId } }) => {
-  return await createRuleQuery({ brandId, ...args }, authorization);
+const createRule = async (_, args, { headers: { authorization }, brand: { id: brandId, userUUID } }) => {
+  return await createRuleQuery({ ...args, brandId, createdBy: userUUID }, authorization);
 };
 
-const createRuleRetention = async (_, args, { headers: { authorization }, brand: { id: brandId } }) => {
-  return await createRuleRetentionQuery({ brandId, ...args }, authorization);
+const createRuleRetention = async (_, args, { headers: { authorization }, brand: { id: brandId, userUUID } }) => {
+  return await createRuleRetentionQuery({ ...args, brandId, userUUID }, authorization);
 };
 
 const deleteRule = async (_, { uuid }, { headers: { authorization } }) => {
