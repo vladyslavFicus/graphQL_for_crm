@@ -67,6 +67,7 @@ const queryBuild = {
           },
         }
       : {},
+  terms: (field, value) => ({ terms: { [field]: value } }),
   multiMatch: (searchField, value) =>
     value
       ? {

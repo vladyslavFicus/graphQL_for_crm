@@ -101,9 +101,9 @@ const profilesQuery = ({
       ]
     ),
   repIds &&
-    queryBuild.should(
-      [queryBuild.must(queryBuild.match('tradingProfile.retentionRep', repIds))],
-      [queryBuild.must(queryBuild.match('tradingProfile.salesRep', repIds))]
+    queryBuild.shouldTerm(
+      queryBuild.terms('tradingProfile.retentionRep', repIds),
+      queryBuild.terms('tradingProfile.salesRep', repIds)
     ),
   queryBuild.match('tradingProfile.kycStatus', kycStatus),
   firstDeposit === firstDepositStatuses.YES && queryBuild.exists('tradingProfile.firstDepositDate'),
