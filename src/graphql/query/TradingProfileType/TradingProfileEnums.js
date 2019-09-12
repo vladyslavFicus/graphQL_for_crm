@@ -15,6 +15,7 @@ const KYCStatusesEnum = new GraphQLEnumType({
     AWAITING_REVIEW: { value: 'AWAITING_REVIEW' },
     PARTIAL: { value: 'PARTIAL' },
     APPROVED: { value: 'APPROVED' },
+    APPROVED_AWAITING_REVIEW: { value: 'APPROVED_AWAITING_REVIEW' },
     REJECTED: { value: 'REJECTED' },
     PENDING: { value: 'PENDING' },
     RISK: { value: 'RISK' },
