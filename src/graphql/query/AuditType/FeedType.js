@@ -34,6 +34,7 @@ const FeedTypes = new GraphQLObjectType({
     LOG_OUT: { type: GraphQLString },
     FAILED_LOGIN_ATTEMPT: { type: GraphQLString },
     PROFILE_ASSIGN: { type: GraphQLString },
+    CHANGE_LEVERAGE_REQUESTED: { type: GraphQLString },
   }),
 });
 
