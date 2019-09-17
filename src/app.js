@@ -41,9 +41,16 @@ process.on('uncaughtException', err => {
       if (headers && headers.authorization && headers.authorization !== 'undefined') {
         const { brandId, user_uuid: userUUID } = jwtDecode(headers.authorization);
 
+        const brand = global.appConfig.brands[brandId];
+
+        // Throw an error if brand wasn't found
+        if (!brand) {
+          throw new Error('Brand not found in brand configuration');
+        }
+
         Object.assign(context, {
           userUUID,
-          brand: global.appConfig.brands[brandId],
+          brand,
           hierarchy: new Hierarchy(userUUID, headers.authorization),
           dataloaders: createDataloaders(headers.authorization, brandId),
         });

@@ -1,49 +1,29 @@
-const zookeeper = require('node-zookeeper-client');
-const { getData, getChildren, configure } = require('@hrzn/zookeeper');
+const getBrandsConfig = require('@hrzn/brands-config');
 const Logger = require('../utils/logger');
+const mapZookeeperBrandsConfig = require('./utils/mapZookeeperBrandsConfig');
 const { platform } = require('./core');
 
-let configs;
+const options = {
+  watchFunction: brandsConfig => {
+    global.appConfig.brands = mapZookeeperBrandsConfig(brandsConfig);
 
-function getZookeeperBrandPropertyPath(brand, property) {
-  return `/system/${brand}/nas/brand/${property}`;
-}
+    Logger.info('✅ Zookeeper configuration updated successfully');
+  },
+};
 
-async function fetchBrandsConfigs() {
-  configure({ logger: e => Logger.info({ message: `Zookeeper.Event: ${e}` }) });
+async function load() {
+  Logger.info('⏳ Zookeeper configuration loading...');
 
-  const zookeeperClient = zookeeper.createClient(platform.zookeeper.url);
-
-  zookeeperClient.connect();
-
-  const brands = await getChildren(zookeeperClient, '/system');
-
-  const nextBrands = await Promise.all(
-    brands.map(async id => {
-      const [currency, locale, clickToCallUrl] = await Promise.all([
-        getData(zookeeperClient, getZookeeperBrandPropertyPath(id, 'nas.brand.currencies.base')),
-        getData(zookeeperClient, getZookeeperBrandPropertyPath(id, 'nas.brand.locale.defaultLanguage')),
-        getData(zookeeperClient, getZookeeperBrandPropertyPath(id, 'nas.brand.clickToCall.url')),
-      ]);
-
-      return {
-        id,
-        currency,
-        locale,
-        clickToCallUrl,
-      };
-    })
+  const brandsConfig = await getBrandsConfig(
+    platform.zookeeper.url,
+    ['nas.brand.currencies.base', 'nas.brand.clickToCall.url'],
+    null,
+    options
   );
 
-  zookeeperClient.close();
+  global.appConfig.brands = mapZookeeperBrandsConfig(brandsConfig);
 
-  return nextBrands;
+  Logger.info('✅ Zookeeper configuration loaded successfully');
 }
 
-module.exports = async brand => {
-  if (!configs) {
-    configs = await fetchBrandsConfigs();
-  }
-
-  return configs.reduce((acc, curr) => ({ ...acc, [curr.id]: { ...curr } }), {});
-};
+module.exports = { load };

@@ -5,7 +5,7 @@ const cors = require('cors');
 const compression = require('compression');
 const elasticsearch = require('elasticsearch');
 const parseElasticSearchHosts = require('./utils/parseElasticSearchHosts');
-const getZookeeperBrandsConfig = require('./config/zookeeper');
+const zookeeper = require('./config/zookeeper');
 const Logger = require('./utils/logger');
 const { ENABLE_LOGGING } = process.env;
 
@@ -14,7 +14,7 @@ module.exports = async app => {
   app.disable('etag');
 
   global.appConfig = require('./config');
-  global.appConfig.brands = await getZookeeperBrandsConfig();
+  await zookeeper.load();
   global.appClients = {};
   global.cache = { operators: {} };
   global.isLoggingEnabled = !!(ENABLE_LOGGING && ENABLE_LOGGING === 'true');
