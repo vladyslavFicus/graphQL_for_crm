@@ -7,6 +7,7 @@ const {
   GraphQLString,
   GraphQLList,
 } = require('graphql');
+const { GraphQLJSONObject } = require('graphql-type-json');
 const ResponseType = require('../common/types/ResponseType');
 const {
   profile,
@@ -33,6 +34,7 @@ const {
   partners: { getPartners, getPartnerByUUID },
   audit: { getFeeds, getFeedTypes },
   metabase: { getMetabaseToken },
+  filterSet: { getFilterSets, getFilterSetById },
 } = require('../common/resolvers');
 const PageableType = require('../common/types/PageableType');
 const ClientSearchInputType = require('../input/ClientSearchInputType');
@@ -63,6 +65,8 @@ const { ConditionalTagType, ConditionalTagStatusEnum } = require('./ConditionalT
 const { CallbackType, CallbackStatusEnum } = require('./CallbackType');
 const OperatorType = require('./OperatorType');
 const PartnerType = require('./PartnerType');
+const FilterSetType = require('./FilterSetType');
+const { FilterSetTypeEnum } = require('./FilterSetType');
 const { checkMigrationQuery } = require('../../utils/profile');
 
 const QueryType = new GraphQLObjectType({
@@ -425,6 +429,20 @@ const QueryType = new GraphQLObjectType({
     questionnaire: {
       type: QuestionnaireQueryType,
       resolve: () => ({}),
+    },
+    filterSets: {
+      type: ResponseType(FilterSetType, 'FilterSetQueryType'),
+      args: {
+        type: { type: new GraphQLNonNull(FilterSetTypeEnum) },
+      },
+      resolve: getFilterSets,
+    },
+    filterSet: {
+      type: ResponseType(GraphQLJSONObject, 'FilterSetFieldsType'),
+      args: {
+        uuid: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      resolve: getFilterSetById,
     },
   }),
 });

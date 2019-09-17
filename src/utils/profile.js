@@ -3,7 +3,6 @@ const moment = require('moment');
 const { aquisitionStatuses, assignStatuses, firstDepositStatuses } = require('../constants/profile');
 const fetch = require('./fetch');
 const parseJson = require('./parseJson');
-const buildQueryString = require('./buildQueryString');
 const { getSearchData, queryBuild, parseToPageable } = require('./ESSearchHelpers');
 
 const profilesQuery = ({

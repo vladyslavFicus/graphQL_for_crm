@@ -30,6 +30,8 @@ const ClientSearchInputType = new GraphQLInputObjectType({
     searchAffiliate: { type: GraphQLString },
     migrationId: { type: GraphQLString },
     requestId: { type: GraphQLString },
+    desk: { type: GraphQLString },
+    team: { type: GraphQLString },
   }),
 });
 

@@ -16,6 +16,7 @@ const ConditionalTagType = require('./ConditionalTagType');
 const TradingAccountType = require('./TradingAccountType');
 const CallbacksType = require('./CallbacksType');
 const QuestionnaireType = require('./QuestionnaireType');
+const FilterSetType = require('./FilterSetType');
 
 const MutationType = new GraphQLObjectType({
   name: 'ApiMutation',
@@ -118,6 +119,12 @@ const MutationType = new GraphQLObjectType({
     },
     questionnaire: {
       type: QuestionnaireType,
+      resolve() {
+        return {};
+      },
+    },
+    filterSet: {
+      type: FilterSetType,
       resolve() {
         return {};
       },

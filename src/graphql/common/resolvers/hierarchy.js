@@ -16,7 +16,7 @@ const {
     getBrand,
     updateHierarchyUser: updateHierarchyUserRequest,
   },
-  helpers: { getHierarchyMappedOperators, buildRequestObject, multipleRequest },
+  helpers: { getHierarchyMappedOperators },
 } = require('../../../utils/hierarchy');
 
 const createUser = (_, { userId, branchId, userType }, { headers: { authorization } }) => {
