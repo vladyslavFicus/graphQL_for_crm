@@ -27,6 +27,7 @@ const AffiliateDocumentType = new GraphQLObjectType({
     affiliateUuid: { type: new GraphQLNonNull(GraphQLString) },
     source: { type: GraphQLString },
     referral: { type: GraphQLString },
+    sms: { type: GraphQLString },
     affiliate: {
       type: OperatorType,
       resolve: getOperator('affiliateUuid'),
