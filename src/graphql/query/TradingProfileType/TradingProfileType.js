@@ -67,6 +67,7 @@ const Mt4UserType = new GraphQLObjectType({
       resolve: getOperator('readOnlyUpdatedBy'),
     },
     accountType: { type: GraphQLString },
+    archived: { type: GraphQLBoolean },
   }),
 });
 
