@@ -48,7 +48,6 @@ const createPartner = async (_, { password, ...args }, context) => {
       department: 'AFFILIATE_PARTNER',
       role: 'ROLE1',
       userType: 'AFFILIATE_PARTNER',
-      sendMail: false,
     },
     context
   );
