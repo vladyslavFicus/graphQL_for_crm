@@ -1,21 +1,9 @@
-const {
-  getTradingPayments,
-  getCasinoPayments,
-  getPaymentMethods,
-  getCasinoPaymentsByUuid,
-  getPaymentsStatistics,
-  createTradingPayment,
-  createCasinoPayment,
-} = require('./paymentRequests');
+const { getTradingPayments, getPaymentsStatistics, createTradingPayment } = require('./paymentRequests');
 
 module.exports = {
   queries: {
     getTradingPayments,
-    getCasinoPayments,
-    getPaymentMethods,
-    getCasinoPaymentsByUuid,
     getPaymentsStatistics,
     createTradingPayment,
-    createCasinoPayment,
   },
 };

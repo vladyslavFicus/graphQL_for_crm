@@ -22,16 +22,6 @@ const {
 } = require('../../common/resolvers');
 const { CreatedPaymentType } = require('./CreatedPaymentType');
 
-const PlayerProfileInput = new GraphQLInputObjectType({
-  name: 'PlayerProfileInput',
-  fields: () => ({
-    country: { type: GraphQLString },
-    firstName: { type: GraphQLString },
-    lastName: { type: GraphQLString },
-    uuid: { type: new GraphQLNonNull(GraphQLString) },
-  }),
-});
-
 const PaymentType = new GraphQLObjectType({
   name: 'PaymentMutation',
   fields: () => ({
@@ -46,8 +36,7 @@ const PaymentType = new GraphQLObjectType({
         externalReference: { type: GraphQLString },
         expirationDate: { type: GraphQLString },
         country: { type: GraphQLString },
-        language: { type: GraphQLString },
-        playerProfile: { type: PlayerProfileInput },
+        profileUUID: { type: GraphQLString },
       },
       type: ResponseType(CreatedPaymentType),
       resolve: createClientPayment,
