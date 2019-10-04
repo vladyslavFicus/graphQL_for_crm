@@ -2,7 +2,7 @@ const fetch = require('../../../utils/fetch');
 const { getOperator } = require('../../common/resolvers/operators');
 
 const getFeeds = function(_, args, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/forex_audit/logs/search`, {
+  return fetch(`${global.appConfig.apiUrl}/audit/logs/search`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -25,7 +25,7 @@ const getAssignedToOperator = async function(...args) {
 };
 
 const getFeedTypes = function(_, { playerUUID }, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/forex_audit/logs/${playerUUID}/types`, {
+  return fetch(`${global.appConfig.apiUrl}/audit/logs/${playerUUID}/types`, {
     method: 'GET',
     headers: {
       accept: 'application/json',

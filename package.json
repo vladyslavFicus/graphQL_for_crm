@@ -1,9 +1,9 @@
 {
-  "name": "forex_graphql",
+  "name": "backoffice-graphql",
   "version": "1.0.0",
-  "description": "Forex GraphQL",
+  "description": "Backoffice GraphQL",
   "main": "src/app.js",
-  "repository": "git@bitbucket.org:nasio/forex_graphql.git",
+  "repository": "git@bitbucket.org:nasio/backoffice-graphql.git",
   "license": "MIT",
   "private": true,
   "scripts": {

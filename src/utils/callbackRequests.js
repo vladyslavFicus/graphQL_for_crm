@@ -2,7 +2,7 @@ const fetch = require('./fetch');
 const buildQueryString = require('./buildQueryString');
 
 const getCallbacks = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_callback/search`, {
+  return fetch(`${global.appConfig.apiUrl}/callback/search`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -14,7 +14,7 @@ const getCallbacks = (args, authorization) => {
 };
 
 const createCallback = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_callback/`, {
+  return fetch(`${global.appConfig.apiUrl}/callback/`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -26,7 +26,7 @@ const createCallback = (args, authorization) => {
 };
 
 const updateCallback = ({ callbackId, ...args }, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_callback/${callbackId}`, {
+  return fetch(`${global.appConfig.apiUrl}/callback/${callbackId}`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',

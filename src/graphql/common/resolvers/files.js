@@ -35,7 +35,7 @@ const getFiles = function(_, { playerUUID, ...args }, { headers: { authorization
 const getFileList = async function(_, args, { headers: { authorization }, hierarchy }) {
   const customersIds = await hierarchy.getCustomersIds();
 
-  return fetch(`${global.appConfig.apiUrl}/forex_attachments/`, {
+  return fetch(`${global.appConfig.apiUrl}/attachments/`, {
     method: 'POST',
     headers: {
       accept: 'application/json',

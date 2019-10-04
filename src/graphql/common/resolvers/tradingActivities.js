@@ -4,7 +4,7 @@ const buildQueryString = require('../../../utils/buildQueryString');
 const { getProfile } = require('./profile');
 
 const getTradingActivitiesQuery = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_activity/?${buildQueryString(args, true)}`, {
+  return fetch(`${global.appConfig.apiUrl}/trading-activity/?${buildQueryString(args, true)}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',

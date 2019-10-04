@@ -7,7 +7,7 @@ const fetch = require('./fetch');
  * @return {*}
  */
 const createTradingAccount = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_mt4_updater/user`, {
+  return fetch(`${global.appConfig.apiUrl}/mt4-updater/user`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -25,7 +25,7 @@ const createTradingAccount = (args, authorization) => {
  * @return {*}
  */
 const updateTradingAccount = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_mt4_updater/user`, {
+  return fetch(`${global.appConfig.apiUrl}/mt4-updater/user`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',
@@ -43,7 +43,7 @@ const updateTradingAccount = (args, authorization) => {
  * @return {*}
  */
 const tradingAccountChangePassword = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_mt4_updater/user/password`, {
+  return fetch(`${global.appConfig.apiUrl}/mt4-updater/user/password`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',

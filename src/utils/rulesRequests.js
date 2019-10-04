@@ -2,7 +2,7 @@ const fetch = require('./fetch');
 const buildQueryString = require('./buildQueryString');
 
 const getRules = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_rules_profile/?${buildQueryString(args)}`, {
+  return fetch(`${global.appConfig.apiUrl}/rules-profile/?${buildQueryString(args)}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -13,7 +13,7 @@ const getRules = (args, authorization) => {
 };
 
 const getRulesRetention = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_rules_payment/?${buildQueryString(args)}`, {
+  return fetch(`${global.appConfig.apiUrl}/rules-payment/?${buildQueryString(args)}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -24,7 +24,7 @@ const getRulesRetention = (args, authorization) => {
 };
 
 const createRule = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_rules_profile/`, {
+  return fetch(`${global.appConfig.apiUrl}/rules-profile/`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -36,7 +36,7 @@ const createRule = (args, authorization) => {
 };
 
 const createRuleRetention = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_rules_payment/`, {
+  return fetch(`${global.appConfig.apiUrl}/rules-payment/`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -48,7 +48,7 @@ const createRuleRetention = (args, authorization) => {
 };
 
 const deleteRule = (uuid, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_rules_profile/${uuid}`, {
+  return fetch(`${global.appConfig.apiUrl}/rules-profile/${uuid}`, {
     method: 'DELETE',
     headers: {
       accept: 'application/json',
@@ -59,7 +59,7 @@ const deleteRule = (uuid, authorization) => {
 };
 
 const deleteRuleRetention = (uuid, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_rules_payment/${uuid}`, {
+  return fetch(`${global.appConfig.apiUrl}/rules-payment/${uuid}`, {
     method: 'DELETE',
     headers: {
       accept: 'application/json',

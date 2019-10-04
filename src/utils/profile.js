@@ -141,7 +141,7 @@ const getProfiles = async function(brandId, { page, size, ...args }) {
 };
 
 const createQueryTradingProfile = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_profile/v2/conversion/lead`, {
+  return fetch(`${global.appConfig.apiUrl}/trading-profile/v2/conversion/lead`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -153,7 +153,7 @@ const createQueryTradingProfile = (args, authorization) => {
 };
 
 const updateQueryTradingProfile = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_profile/v2/`, {
+  return fetch(`${global.appConfig.apiUrl}/trading-profile/v2/`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',
@@ -179,7 +179,7 @@ const updateQueryProfile = (args, playerUUID, authorization) => {
 };
 
 const checkMigrationQuery = (_, args) =>
-  fetch(`${global.appConfig.apiUrl}/trading_profile_updater/public/migration/check`, {
+  fetch(`${global.appConfig.apiUrl}/trading-profile-updater/public/migration/check`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',

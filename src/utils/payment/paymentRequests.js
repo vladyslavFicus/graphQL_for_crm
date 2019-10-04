@@ -2,7 +2,7 @@ const fetch = require('../fetch');
 const { PAYMENT_TYPES } = require('../../constants/payment');
 
 const getTradingPayments = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_payment/search`, {
+  return fetch(`${global.appConfig.apiUrl}/payment/search`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -14,7 +14,7 @@ const getTradingPayments = (args, authorization) => {
 };
 
 const getPaymentsStatistics = (data, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_payment/statistics`, {
+  return fetch(`${global.appConfig.apiUrl}/payment/statistics`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -31,7 +31,7 @@ const createTradingPayment = (paymentType, args, authorization) => {
   if ([PAYMENT_TYPES.DEPOSIT.toLowerCase()].includes(paymentType.toLowerCase())) {
     postfix = '/manual';
   }
-  return fetch(`${global.appConfig.apiUrl}/trading_payment/${paymentType.toLowerCase()}${postfix || ''}`, {
+  return fetch(`${global.appConfig.apiUrl}/payment/${paymentType.toLowerCase()}${postfix || ''}`, {
     method: 'POST',
     headers: {
       accept: 'application/json',

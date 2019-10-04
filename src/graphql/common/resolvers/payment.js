@@ -94,7 +94,7 @@ const acceptPayment = async function(_, { typeAcc, ...args }, context) {
   const {
     headers: { authorization },
   } = context;
-  const response = await fetch(`${global.appConfig.apiUrl}/trading_payment/${typeAcc}`, {
+  const response = await fetch(`${global.appConfig.apiUrl}/payment/${typeAcc}`, {
     method: 'PUT',
     headers: {
       Accept: 'application/json',
@@ -108,7 +108,7 @@ const acceptPayment = async function(_, { typeAcc, ...args }, context) {
 };
 
 const changePaymentMethod = function(_, args, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/trading_payment/${args.paymentId}/method`, {
+  return fetch(`${global.appConfig.apiUrl}/payment/${args.paymentId}/method`, {
     method: 'PUT',
     headers: {
       Accept: 'application/json',
@@ -120,7 +120,7 @@ const changePaymentMethod = function(_, args, { headers: { authorization } }) {
 };
 
 const changePaymentStatus = function(_, args, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/trading_payment/${args.paymentId}/status`, {
+  return fetch(`${global.appConfig.apiUrl}/payment/${args.paymentId}/status`, {
     method: 'PUT',
     headers: {
       Accept: 'application/json',
@@ -132,7 +132,7 @@ const changePaymentStatus = function(_, args, { headers: { authorization } }) {
 };
 
 const changeOriginalAgent = function(_, { paymentId, ...args }, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/trading_payment/${paymentId}/agent`, {
+  return fetch(`${global.appConfig.apiUrl}/payment/${paymentId}/agent`, {
     method: 'PUT',
     headers: {
       Accept: 'application/json',

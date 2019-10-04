@@ -10,7 +10,7 @@ const buildQueryString = require('./buildQueryString');
  * @return {*}
  */
 const getLastProfileData = (profileUUID, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/forex_questionnaire/profile/${profileUUID}`, {
+  return fetch(`${global.appConfig.apiUrl}/questionnaire/profile/${profileUUID}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -30,7 +30,7 @@ const getLastProfileData = (profileUUID, authorization) => {
  * @return {*}
  */
 const changeStatus = ({ questionnaireUUID, ...args }, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/forex_questionnaire/${questionnaireUUID}`, {
+  return fetch(`${global.appConfig.apiUrl}/questionnaire/${questionnaireUUID}`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',

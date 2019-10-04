@@ -1,7 +1,7 @@
 const fetch = require('./fetch');
 
 const getForexOperator = (operatorUUID, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/forex_operator/operator/${operatorUUID}`, {
+  return fetch(`${global.appConfig.apiUrl}/affiliate/operator/${operatorUUID}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -12,7 +12,7 @@ const getForexOperator = (operatorUUID, authorization) => {
 };
 
 const createForexOperator = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/forex_operator/operator`, {
+  return fetch(`${global.appConfig.apiUrl}/affiliate/operator`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -24,7 +24,7 @@ const createForexOperator = (args, authorization) => {
 };
 
 const updateForexOperator = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/forex_operator/operator`, {
+  return fetch(`${global.appConfig.apiUrl}/affiliate/operator`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',

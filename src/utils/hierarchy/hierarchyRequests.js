@@ -3,7 +3,7 @@ const parseJson = require('../parseJson');
 const buildQueryString = require('../buildQueryString');
 
 const createUser = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_hierarchy_updater/user`, {
+  return fetch(`${global.appConfig.apiUrl}/hierarchy-updater/user`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -15,7 +15,7 @@ const createUser = (args, authorization) => {
 };
 
 const createBranch = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_hierarchy_updater/branch`, {
+  return fetch(`${global.appConfig.apiUrl}/hierarchy-updater/branch`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -30,7 +30,7 @@ const createBranch = (args, authorization) => {
 };
 
 const getHierarchyUser = (userId, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_hierarchy/user/${userId}`, {
+  return fetch(`${global.appConfig.apiUrl}/hierarchy/user/${userId}`, {
     method: 'GET',
     headers: {
       authorization,
@@ -41,7 +41,7 @@ const getHierarchyUser = (userId, authorization) => {
 };
 
 const getHierarchyUsers = (userUuids, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_hierarchy/user/search`, {
+  return fetch(`${global.appConfig.apiUrl}/hierarchy/user/search`, {
     method: 'POST',
     headers: {
       authorization,
@@ -53,7 +53,7 @@ const getHierarchyUsers = (userUuids, authorization) => {
 };
 
 const getCustomersSubtree = (userId, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_hierarchy/user/${userId}/customers`, {
+  return fetch(`${global.appConfig.apiUrl}/hierarchy/user/${userId}/customers`, {
     method: 'GET',
     headers: {
       authorization,
@@ -64,7 +64,7 @@ const getCustomersSubtree = (userId, authorization) => {
 };
 
 const getLeadsSubtree = (userId, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_hierarchy/user/${userId}/leads`, {
+  return fetch(`${global.appConfig.apiUrl}/hierarchy/user/${userId}/leads`, {
     method: 'GET',
     headers: {
       authorization,
@@ -75,7 +75,7 @@ const getLeadsSubtree = (userId, authorization) => {
 };
 
 const getObserverForSubtree = (userId, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_hierarchy/user/${userId}/observer-for`, {
+  return fetch(`${global.appConfig.apiUrl}/hierarchy/user/${userId}/observer-for`, {
     method: 'GET',
     headers: {
       authorization,
@@ -86,7 +86,7 @@ const getObserverForSubtree = (userId, authorization) => {
 };
 
 const getOperatorsSubtree = (userId, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_hierarchy/user/${userId}/operators`, {
+  return fetch(`${global.appConfig.apiUrl}/hierarchy/user/${userId}/operators`, {
     method: 'GET',
     headers: {
       authorization,
@@ -97,7 +97,7 @@ const getOperatorsSubtree = (userId, authorization) => {
 };
 
 const getPartnersSubtree = (userId, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_hierarchy/user/${userId}/affiliate-partners`, {
+  return fetch(`${global.appConfig.apiUrl}/hierarchy/user/${userId}/affiliate-partners`, {
     method: 'GET',
     headers: {
       authorization,
@@ -108,7 +108,7 @@ const getPartnersSubtree = (userId, authorization) => {
 };
 
 const checkAccess = (uuid, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_hierarchy/user/${uuid}/check-access`, {
+  return fetch(`${global.appConfig.apiUrl}/hierarchy/user/${uuid}/check-access`, {
     method: 'GET',
     headers: {
       authorization,
@@ -119,7 +119,7 @@ const checkAccess = (uuid, authorization) => {
 };
 
 const getHierarchyBranch = (branchId, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_hierarchy/branch/${branchId}`, {
+  return fetch(`${global.appConfig.apiUrl}/hierarchy/branch/${branchId}`, {
     method: 'GET',
     headers: {
       authorization,
@@ -130,7 +130,7 @@ const getHierarchyBranch = (branchId, authorization) => {
 };
 
 const getBranchHierarchyTree = (uuid, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_hierarchy/branch/hierarchy/${uuid}`, {
+  return fetch(`${global.appConfig.apiUrl}/hierarchy/branch/hierarchy/${uuid}`, {
     method: 'GET',
     headers: {
       authorization,
@@ -142,7 +142,7 @@ const getBranchHierarchyTree = (uuid, authorization) => {
 
 const getUserBranchHierarchy = (userId, authorization, brandId) => {
   return fetch(
-    `${global.appConfig.apiUrl}/trading_hierarchy/branch/hierarchy/user/${userId}?${buildQueryString({
+    `${global.appConfig.apiUrl}/hierarchy/branch/hierarchy/user/${userId}?${buildQueryString({
       brandId,
     })}`,
     {
@@ -157,7 +157,7 @@ const getUserBranchHierarchy = (userId, authorization, brandId) => {
 };
 
 const getUsersByType = (types, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_hierarchy/user/bytype?${buildQueryString({ t: types })}`, {
+  return fetch(`${global.appConfig.apiUrl}/hierarchy/user/bytype?${buildQueryString({ t: types })}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -168,7 +168,7 @@ const getUsersByType = (types, authorization) => {
 };
 
 const getBranchHierarchy = ({ operatorId, branchType, ...args }, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_hierarchy/branch/hierarchy/user/${operatorId}/${branchType}`, {
+  return fetch(`${global.appConfig.apiUrl}/hierarchy/branch/hierarchy/user/${operatorId}/${branchType}`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -180,7 +180,7 @@ const getBranchHierarchy = ({ operatorId, branchType, ...args }, authorization) 
 };
 
 const getUsersByBranch = (uuid, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_hierarchy/user/branch/${uuid}`, {
+  return fetch(`${global.appConfig.apiUrl}/hierarchy/user/branch/${uuid}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -191,7 +191,7 @@ const getUsersByBranch = (uuid, authorization) => {
 };
 
 const getBranchChildren = (uuid, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_hierarchy/branch/${uuid}/children`, {
+  return fetch(`${global.appConfig.apiUrl}/hierarchy/branch/${uuid}/children`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -202,7 +202,7 @@ const getBranchChildren = (uuid, authorization) => {
 };
 
 const updateUserBranches = ({ operatorId, ...args }, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_hierarchy_updater/user/${operatorId}/relationship/parent-branch`, {
+  return fetch(`${global.appConfig.apiUrl}/hierarchy-updater/user/${operatorId}/relationship/parent-branch`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',
@@ -214,7 +214,7 @@ const updateUserBranches = ({ operatorId, ...args }, authorization) => {
 };
 
 const updateHierarchyUser = ({ operatorId, ...args }, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_hierarchy_updater/user/${operatorId}`, {
+  return fetch(`${global.appConfig.apiUrl}/hierarchy-updater/user/${operatorId}`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',
@@ -226,7 +226,7 @@ const updateHierarchyUser = ({ operatorId, ...args }, authorization) => {
 };
 
 const bulkUpdateHierarchyUser = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_hierarchy_updater/bulk/user/relationship/parent-user`, {
+  return fetch(`${global.appConfig.apiUrl}/hierarchy-updater/bulk/user/relationship/parent-user`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',
@@ -238,7 +238,7 @@ const bulkUpdateHierarchyUser = (args, authorization) => {
 };
 
 const bulkMassAssignHierarchyUser = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_hierarchy_updater/bulk/user/multi-assignment`, {
+  return fetch(`${global.appConfig.apiUrl}/hierarchy-updater/bulk/user/multi-assignment`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',
@@ -250,7 +250,7 @@ const bulkMassAssignHierarchyUser = (args, authorization) => {
 };
 
 const getBrand = (brandId, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading_hierarchy/branch/brand?${buildQueryString({ brandId })}`, {
+  return fetch(`${global.appConfig.apiUrl}/hierarchy/branch/brand?${buildQueryString({ brandId })}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
