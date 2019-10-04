@@ -1,9 +1,13 @@
-const yamlReader = require('yamljs');
+const path = require('path');
+const ymlReader = require('yamljs');
 
-const { NAS_PROJECT, NAS_SERVICE } = process.env;
-const SECRET_PATH = process.env.SECRET_PATH || `/${NAS_SERVICE}/lib/etc`;
+const { NAS_PROJECT, SECRET_PATH = '/backoffice-graphql/lib/etc/' } = process.env;
 
-const platform = yamlReader.load(`${SECRET_PATH}/application-${NAS_PROJECT}.yml`);
+if (!NAS_PROJECT) {
+  throw new Error('Missing required environment variable "NAS_PROJECT"');
+}
+
+const platform = ymlReader.load(path.resolve(SECRET_PATH, `application-${NAS_PROJECT}.yml`));
 
 module.exports = {
   platform,
