@@ -434,7 +434,7 @@ const updateProfile = async function(_, { playerUUID, ...args }, { headers: { au
 };
 
 const limitedUpdateProfile = async (_, args, { headers: { authorization } }) => {
-  return fetch(`${global.appConfig.apiUrl}/profile/v2/limited/update`, {
+  return fetch(`${global.appConfig.apiUrl}/trading-profile/v2/limited/update`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',
@@ -464,7 +464,7 @@ const clickToCall = async (_, args, context) => {
 };
 
 const updateRegulated = (_, args, { headers: { authorization }, brand: { id: brandId } }) => {
-  return fetch(`${global.appConfig.apiUrl}/profile/regulated`, {
+  return fetch(`${global.appConfig.apiUrl}/trading-profile/regulated`, {
     method: 'PUT',
     headers: {
       Accept: 'application/json',
