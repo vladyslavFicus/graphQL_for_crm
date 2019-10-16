@@ -442,7 +442,7 @@ const limitedUpdateProfile = async (_, args, { headers: { authorization } }) => 
       'content-type': 'application/json',
     },
     body: JSON.stringify(args),
-  }).then(response => ({ success: response.status === 200 }));
+  }).then(response => (response.status === 200 ? { success: true } : { error: 'error' }));
 };
 
 const clickToCall = async (_, args, context) => {
