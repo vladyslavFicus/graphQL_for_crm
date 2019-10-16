@@ -137,7 +137,7 @@ const QueryType = new GraphQLObjectType({
         limit: { type: GraphQLInt },
         page: { type: GraphQLInt },
         searchParam: { type: GraphQLString },
-        country: { type: GraphQLString },
+        countries: { type: new GraphQLList(GraphQLString) },
         type: { type: GraphQLString },
         statuses: { type: new GraphQLList(GraphQLString) },
         paymentTypes: { type: new GraphQLList(GraphQLString) },
