@@ -9,7 +9,7 @@ module.exports = {
   port: PORT || 3000,
   apiUrl: __DEV__ ? get(platform, 'hrzn.api_url') : 'http://kong',
   logstash: {
-    host: new URL(platform.logstash.url).hostname,
+    host: platform.logstash.url,
     port: 12201,
   },
   elasticsearch: platform.elasticsearch6,
