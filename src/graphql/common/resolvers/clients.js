@@ -1,10 +1,10 @@
-const { userTypes } = require('../../../constants/hierarchy');
 const { bulkProfileUpdate } = require('../../../utils/clientsRequests');
 const {
   requests: { bulkUpdateHierarchyUser, bulkMassAssignHierarchyUser, getHierarchyBranch },
   helpers: { getClientBulkUpdateData },
 } = require('../../../utils/hierarchy');
 const accessValidate = require('../../../utils/accessValidate');
+const { getClientsSearchFieldsByHierarchy } = require('../utils/hierarchy');
 
 const bulkRepresentativeUpdate = async (
   _,
@@ -36,10 +36,13 @@ const bulkRepresentativeUpdate = async (
     return { error: access.error };
   }
 
+  const hierarchySearchFields = await getClientsSearchFieldsByHierarchy(searchParams, context);
+  const searchFields = { ...searchParams, ...hierarchySearchFields };
+
   let updateData = await getClientBulkUpdateData(
-    { allRowsSelected, searchParams, totalElements, clients },
-    { type, isMoveAction },
-    { brandId, hierarchy }
+    brandId,
+    { allRowsSelected, searchParams: searchFields, totalElements, clients },
+    { type, isMoveAction }
   );
 
   if (updateData.error) {

@@ -120,6 +120,7 @@ const getDataForUpdate = async (promise, { type, isMoveAction }, excludeIds) => 
 /**
  * Returns array with objects which will be passed to update requests
  *
+ * @param  {string} brandId
  * @param  {boolean} allRowsSelected - flag which shows whether all clients were selected on FE
  * @param  {Object} searchParams - params to be passed to ES query
  * @param  {number} totalElements - number of total clients to search
@@ -128,9 +129,9 @@ const getDataForUpdate = async (promise, { type, isMoveAction }, excludeIds) => 
  * @return {Object[]}
  */
 const getClientBulkUpdateData = async (
+  brandId,
   { allRowsSelected, searchParams, totalElements, clients },
-  bulkActionObject,
-  { brandId, hierarchy }
+  bulkActionObject
 ) => {
   // return clients as they came from FE if AllRows are not selected
   // and if client length equals to totalElements
@@ -141,7 +142,6 @@ const getClientBulkUpdateData = async (
   const ESQueryParams = {
     page: 0,
     size: totalElements,
-    ids: await hierarchy.getCustomersIds(),
     ...(searchParams && searchParams),
   };
 

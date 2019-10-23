@@ -1,6 +1,6 @@
 const { getProfiles: getProfilesRequest } = require('../../../utils/profile');
 const accessValidate = require('../../../utils/accessValidate');
-const { getUsersByBranch } = require('./hierarchy');
+const { getClientsSearchFieldsByHierarchy } = require('../utils/hierarchy');
 
 const getProfiles = async function(_, args, context) {
   const access = await accessValidate(context);
@@ -9,21 +9,10 @@ const getProfiles = async function(_, args, context) {
     return { error: access.error };
   }
 
-  const customersIds = await context.hierarchy.getCustomersIds();
-  let repIds = args.repIds;
+  const hierarchySearchFields = await getClientsSearchFieldsByHierarchy(args, context);
+  const searchFields = { ...args, ...hierarchySearchFields };
 
-  // Get representative ids, when desks or teams arg provided
-  if (!(Array.isArray(repIds) && repIds.length) && (args.desk || args.team)) {
-    const branchOperators = await getUsersByBranch(null, { uuid: args.team || args.desk }, context);
-
-    if (branchOperators.error) {
-      return branchOperators;
-    }
-
-    repIds = branchOperators.data.map(({ uuid }) => uuid);
-  }
-
-  return getProfilesRequest(context.brand.id, { ...args, repIds, ids: customersIds });
+  return getProfilesRequest(context.brand.id, searchFields);
 };
 
 /**
