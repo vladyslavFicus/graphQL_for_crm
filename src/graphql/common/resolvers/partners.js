@@ -45,6 +45,7 @@ const createPartner = async (_, { password, ...args }, context) => {
     _,
     {
       ...args,
+      password,
       department: 'AFFILIATE_PARTNER',
       role: 'ROLE1',
       userType: 'AFFILIATE_PARTNER',
@@ -65,21 +66,9 @@ const createPartner = async (_, { password, ...args }, context) => {
     authorization
   );
 
-  const token = await resetTokenRequest(partner.data.uuid, authorization);
-  const activateOperator = await activateOperatorRequest(
-    {
-      password,
-      token,
-    },
-    authorization,
-    brandId
-  );
-
   return {
-    data: {
-      ...partner.data,
-    },
-    error: get(forexOperator, 'error') || get(activateOperator, 'error'),
+    data: partner.data,
+    error: get(forexOperator, 'error'),
   };
 };
 
