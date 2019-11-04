@@ -205,6 +205,7 @@ const QueryType = new GraphQLObjectType({
         page: { type: GraphQLInt },
         limit: { type: GraphQLInt },
         loginIds: { type: new GraphQLList(GraphQLInt) },
+        agentIds: { type: new GraphQLList(GraphQLString) },
       },
       resolve: getTradingActivities,
     },

@@ -1,6 +1,7 @@
 const { GraphQLObjectType, GraphQLID, GraphQLNonNull, GraphQLString, GraphQLInt, GraphQLFloat } = require('graphql');
 const BigInt = require('graphql-bigint');
-
+const { getOperator } = require('../../common/resolvers/operators');
+const OperatorType = require('../OperatorType');
 const { CommandsEnum } = require('./TradingActivityEnums');
 
 const TradingActivityType = new GraphQLObjectType({
@@ -32,6 +33,10 @@ const TradingActivityType = new GraphQLObjectType({
     magic: { type: GraphQLInt },
     comment: { type: GraphQLString },
     timestamp: { type: BigInt },
+    originalAgent: {
+      type: OperatorType,
+      resolve: getOperator('agentId'),
+    },
   }),
 });
 

@@ -36,6 +36,19 @@ const getTradingActivities = async (_, { playerUUID, ...args }, context) => {
   );
 };
 
+const changeOriginalAgent = function(_, args, { headers: { authorization } }) {
+  return fetch(`${global.appConfig.apiUrl}/trading-activity/record`, {
+    method: 'PUT',
+    headers: {
+      Accept: 'application/json',
+      authorization,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(args),
+  }).then(response => ({ success: response.status === 200 }));
+};
+
 module.exports = {
   getTradingActivities,
+  changeOriginalAgent,
 };

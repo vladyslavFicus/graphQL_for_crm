@@ -14,6 +14,7 @@ const RulesType = require('./RulesType');
 const ClientsType = require('./ClientsType');
 const ConditionalTagType = require('./ConditionalTagType');
 const TradingAccountType = require('./TradingAccountType');
+const TradingActivityType = require('./TradingActivityType');
 const CallbacksType = require('./CallbacksType');
 const QuestionnaireType = require('./QuestionnaireType');
 const FilterSetType = require('./FilterSetType');
@@ -107,6 +108,12 @@ const MutationType = new GraphQLObjectType({
     },
     tradingAccount: {
       type: TradingAccountType,
+      resolve() {
+        return {};
+      },
+    },
+    tradingActivity: {
+      type: TradingActivityType,
       resolve() {
         return {};
       },
