@@ -1,16 +1,16 @@
 const { get } = require('lodash');
 const fetch = require('../../../utils/fetch');
-const buildQueryString = require('../../../utils/buildQueryString');
 const { getProfile } = require('./profile');
 
 const getTradingActivitiesQuery = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading-activity/?${buildQueryString(args, true)}`, {
-    method: 'GET',
+  return fetch(`${global.appConfig.apiUrl}/trading-activity/`, {
+    method: 'POST',
     headers: {
       accept: 'application/json',
       authorization,
       'content-type': 'application/json',
     },
+    body: JSON.stringify(args),
   }).then(response => response.json());
 };
 
