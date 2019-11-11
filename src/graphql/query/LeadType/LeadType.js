@@ -33,6 +33,16 @@ const leadFields = {
   registrationDate: { type: new GraphQLNonNull(GraphQLString) },
   statusChangedDate: { type: GraphQLString },
   migrationId: { type: GraphQLString },
+  lastNote: {
+    type: new GraphQLObjectType({
+      name: 'lastNote',
+      fields: () => ({
+        uuid: { type: new GraphQLNonNull(GraphQLString) },
+        changedAt: { type: new GraphQLNonNull(GraphQLString) },
+        content: { type: new GraphQLNonNull(GraphQLString) },
+      }),
+    }),
+  },
 };
 
 const LeadType = new GraphQLObjectType({
