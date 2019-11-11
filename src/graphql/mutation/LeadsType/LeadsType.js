@@ -48,7 +48,7 @@ const LeadsMutation = new GraphQLObjectType({
   fields: () => ({
     update: {
       args: {
-        id: { type: new GraphQLNonNull(GraphQLString) },
+        uuid: { type: new GraphQLNonNull(GraphQLString) },
         name: { type: GraphQLString },
         surname: { type: GraphQLString },
         phone: { type: GraphQLString },

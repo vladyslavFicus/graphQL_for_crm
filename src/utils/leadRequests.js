@@ -1,5 +1,4 @@
 const fetch = require('./fetch');
-const parseJson = require('./parseJson');
 
 const getLeads = (args, authorization) => {
   return fetch(`${global.appConfig.apiUrl}/lead/v2/leads/search`, {
@@ -24,8 +23,8 @@ const getLeadById = (leadId, authorization) => {
   }).then(response => response.json());
 };
 
-const updateLead = ({ id, ...args }, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/lead-updater/lead/${id}`, {
+const updateLead = ({ uuid, ...args }, authorization) => {
+  return fetch(`${global.appConfig.apiUrl}/lead-updater/lead/${uuid}`, {
     method: 'PUT',
     headers: {
       authorization,
@@ -33,10 +32,7 @@ const updateLead = ({ id, ...args }, authorization) => {
       'content-type': 'application/json',
     },
     body: JSON.stringify(args),
-  }).then(async response => {
-    const data = await response.text();
-    return { status: response.status, data: parseJson(data) };
-  });
+  }).then(response => response.json());
 };
 
 const bulkUpdateLead = (args, authorization) => {

@@ -6,9 +6,9 @@ const { SalesStatusesEnum } = require('../TradingProfileType/TradingProfileEnums
 const leadFields = {
   _id: {
     type: new GraphQLNonNull(GraphQLString),
-    resolve: ({ id }) => id,
+    resolve: ({ uuid }) => uuid,
   },
-  id: { type: new GraphQLNonNull(GraphQLString) },
+  uuid: { type: new GraphQLNonNull(GraphQLString) },
   brandId: { type: new GraphQLNonNull(GraphQLString) },
   name: { type: new GraphQLNonNull(GraphQLString) },
   surname: { type: new GraphQLNonNull(GraphQLString) },
@@ -40,13 +40,4 @@ const LeadType = new GraphQLObjectType({
   fields: () => leadFields,
 });
 
-const LeadUploadType = new GraphQLObjectType({
-  name: 'LeadUpload',
-  fields: () => ({
-    ...leadFields,
-    salesAgent: { type: GraphQLString },
-  }),
-});
-
 module.exports = LeadType;
-module.exports.LeadUploadType = LeadUploadType;

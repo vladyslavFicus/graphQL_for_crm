@@ -220,16 +220,8 @@ const getTradingLeads = async (_, args, { headers: { authorization }, brand: { i
   return getLeads(_args, authorization);
 };
 
-const updateLeadProfile = async (_, args, { headers: { authorization }, brand: { id: brandId } }) => {
-  const { status, data } = await updateLead({ brandId, ...args }, authorization);
-
-  if (status !== 200) {
-    return {
-      error: data,
-    };
-  }
-
-  return getLeadById(args.id, authorization);
+const updateLeadProfile = (_, args, { headers: { authorization }, brand: { id: brandId } }) => {
+  return updateLead({ brandId, ...args }, authorization);
 };
 
 module.exports = {

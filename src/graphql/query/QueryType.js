@@ -221,7 +221,7 @@ const QueryType = new GraphQLObjectType({
     leads: {
       type: ResponseType(PageableType(LeadType)),
       args: {
-        ids: { type: new GraphQLList(GraphQLString) },
+        uuids: { type: new GraphQLList(GraphQLString) },
         searchKeyword: { type: GraphQLString },
         page: { type: GraphQLInt },
         limit: { type: GraphQLInt },
