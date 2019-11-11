@@ -25,6 +25,7 @@ const NoteMutation = new GraphQLObjectType({
         targetUUID: { type: new GraphQLNonNull(GraphQLString) },
         playerUUID: { type: new GraphQLNonNull(GraphQLString) },
         pinned: { type: new GraphQLNonNull(GraphQLBoolean) },
+        targetType: { type: new GraphQLNonNull(GraphQLString) },
       },
       type: ResponseType(NoteType, 'addNote'),
       resolve: addNote,
