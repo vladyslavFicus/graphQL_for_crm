@@ -90,11 +90,11 @@ const getDataForUpdate = async (promise, excludeIds) => {
   let data = pageableObj.data.content;
 
   if (excludeIds.length > 0) {
-    data = data.filter(({ id }) => excludeIds.indexOf(id) === -1);
+    data = data.filter(({ uuid }) => excludeIds.indexOf(uuid) === -1);
   }
 
-  data = data.map(({ id, salesAgent }) => ({
-    uuid: id,
+  data = data.map(({ uuid, salesAgent }) => ({
+    uuid,
     unassignFromOperator: salesAgent,
   }));
 
@@ -142,7 +142,7 @@ const bulkLeadUpdate = async (
   };
 
   let leadArgs = {
-    ids: updateData.map(({ uuid }) => uuid),
+    uuids: updateData.map(({ uuid }) => uuid),
     brandId,
     ...(salesStatus && { salesStatus }),
   };
