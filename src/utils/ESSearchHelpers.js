@@ -1,3 +1,4 @@
+const Logger = require('./logger');
 const { ENTITY_NOT_FOUND, INTERNAL } = require('../constants/errors');
 const { isEmpty, isUndefined } = require('lodash');
 
@@ -174,6 +175,7 @@ const getSearchData = (brandId, query, sort, { page = 0, size = 20 }, documentTy
       },
       (error, response) => {
         if (error) {
+          Logger.error('Elastic Search query error', { error });
           return resolve({ error: error.statusCode === 404 ? ENTITY_NOT_FOUND : INTERNAL });
         }
 

@@ -9,6 +9,7 @@ const options = {
 
     Logger.info('✅ Zookeeper configuration updated successfully');
   },
+  logger: Logger,
 };
 
 async function load() {
