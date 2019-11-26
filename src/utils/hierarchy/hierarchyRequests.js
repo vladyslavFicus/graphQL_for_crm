@@ -179,14 +179,15 @@ const getBranchHierarchy = ({ operatorId, branchType, ...args }, authorization) 
   }).then(response => response.json());
 };
 
-const getUsersByBranch = (uuid, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/hierarchy/user/branch/${uuid}`, {
-    method: 'GET',
+const getUsersByBranch = (args, authorization) => {
+  return fetch(`${global.appConfig.apiUrl}/hierarchy/user/search/hierarchy`, {
+    method: 'POST',
     headers: {
       accept: 'application/json',
       authorization,
       'content-type': 'application/json',
     },
+    body: JSON.stringify(args),
   }).then(response => response.json());
 };
 

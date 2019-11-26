@@ -80,7 +80,7 @@ const HierarchyQueryType = new GraphQLObjectType({
     },
     usersByBranch: {
       args: {
-        uuid: { type: new GraphQLNonNull(GraphQLString) },
+        uuids: { type: new GraphQLNonNull(new GraphQLList(GraphQLString)) },
         onlyActive: { type: GraphQLBoolean },
       },
       type: ResponseType(new GraphQLList(UserType), 'UsersByBranchType'),

@@ -190,8 +190,8 @@ const getUserHierarchyById = (_, { userId }, { headers: { authorization } }) => 
   return getHierarchyUser(userId, authorization);
 };
 
-const getUsersByBranch = async (_, { uuid, onlyActive }, { headers: { authorization }, dataloaders }) => {
-  const users = await getUsersByBranchQuery(uuid, authorization);
+const getUsersByBranch = async (_, { uuids, onlyActive }, { headers: { authorization }, dataloaders }) => {
+  const users = await getUsersByBranchQuery({ uuids }, authorization);
 
   if (users.error) {
     return users;
