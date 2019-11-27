@@ -27,7 +27,7 @@ module.exports = {
   hierarchy: {
     type: UserType,
     resolve: ({ uuid }, _, { dataloaders }) => {
-      return dataloaders.usersHierarchy.load(uuid);
+      return uuid ? dataloaders.usersHierarchy.load(uuid) : null;
     },
   },
   authorities: {

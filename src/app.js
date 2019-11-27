@@ -31,14 +31,22 @@ process.on('uncaughtException', err => {
   const server = new ApolloServer({
     schema,
     extensions: global.isLoggingEnabled && [() => new LoggerExtension()],
-    context: ({ req: { headers, ip } }) => {
+    context: ({ req: { headers, ip, body } }) => {
       const context = {
         requestId: v4(),
         headers,
         ip,
       };
 
-      if (headers && headers.authorization && headers.authorization !== 'undefined') {
+      const operationName = Array.isArray(body) ? body[0].operationName : body.operationName;
+
+      if (
+        headers &&
+        operationName !== 'signIn' &&
+        operationName !== 'chooseDepartment' &&
+        headers.authorization &&
+        headers.authorization !== 'undefined'
+      ) {
         const { brandId, user_uuid: userUUID } = jwtDecode(headers.authorization);
 
         const brand = global.appConfig.brands[brandId];

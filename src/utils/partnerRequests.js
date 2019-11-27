@@ -1,18 +1,7 @@
 const fetch = require('./fetch');
 
-const getForexOperator = (operatorUUID, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/affiliate/operator/${operatorUUID}`, {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      authorization,
-      'content-type': 'application/json',
-    },
-  }).then(response => response.json());
-};
-
-const createForexOperator = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/affiliate/operator`, {
+const getPartnersByUUIDs = (args, authorization) => {
+  return fetch(`${global.appConfig.apiUrl}/affiliate/affiliates/search`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -23,8 +12,19 @@ const createForexOperator = (args, authorization) => {
   }).then(response => response.json());
 };
 
-const updateForexOperator = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/affiliate/operator`, {
+const getPartnerByUUID = (partnerId, authorization) => {
+  return fetch(`${global.appConfig.apiUrl}/affiliate/affiliates/${partnerId}`, {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      authorization,
+      'content-type': 'application/json',
+    },
+  }).then(response => response.json());
+};
+
+const updatePartner = ({ uuid, ...args }, authorization) => {
+  return fetch(`${global.appConfig.apiUrl}/affiliate/affiliates/${uuid}`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',
@@ -35,8 +35,34 @@ const updateForexOperator = (args, authorization) => {
   }).then(response => response.json());
 };
 
+const createPartner = (args, authorization) => {
+  return fetch(`${global.appConfig.apiUrl}/affiliate/affiliates`, {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      authorization,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(args),
+  }).then(response => response.json());
+};
+
+const changeStatus = ({ uuid, ...args }, authorization) => {
+  return fetch(`${global.appConfig.apiUrl}/affiliate/affiliates/${uuid}/status`, {
+    method: 'PUT',
+    headers: {
+      accept: 'application/json',
+      authorization,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(args),
+  }).then(response => ({ success: response.status === 200 }));
+};
+
 module.exports = {
-  getForexOperator,
-  createForexOperator,
-  updateForexOperator,
+  changeStatus,
+  createPartner,
+  updatePartner,
+  getPartnerByUUID,
+  getPartnersByUUIDs,
 };

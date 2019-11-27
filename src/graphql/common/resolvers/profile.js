@@ -2,9 +2,15 @@ const moment = require('moment');
 const { get, isEmpty } = require('lodash');
 const fetch = require('../../../utils/fetch');
 const Logger = require('../../../utils/logger');
-const accessValidate = require('../../../utils/accessValidate');
 const parseJson = require('../../../utils/parseJson');
-const { updateQueryTradingProfile, updateQueryProfile } = require('../../../utils/profile');
+const {
+  updateQueryTradingProfile,
+  updateQueryProfile,
+  getQueryNewProfiles,
+  getQueryProfileView,
+  changeProfileStatusQuery,
+} = require('../../../utils/profile');
+const { getOperatorByUUID } = require('./operators');
 const getPlayerProfileFromESByUUID = require('../../../utils/getPlayerProfileFromESByUUID');
 const { statuses } = require('../../../constants/player');
 
@@ -142,6 +148,74 @@ const getProfilePolling = async (playerUUID, brandId, attempt = 0) => {
   return response;
 };
 
+const getProfileNew = async function(_, args, { headers: { authorization } }) {
+  return await getQueryNewProfiles(args, authorization);
+};
+
+const getProfileView = async function(uuid, authorization) {
+  return await getQueryProfileView(uuid, authorization);
+};
+
+const updatePersonalInformation = function(_, args, { headers: { authorization } }) {
+  return fetch(`${global.appConfig.apiUrl}/profile/admin/profiles/${args.playerUUID}/personal-information`, {
+    method: 'PUT',
+    headers: {
+      authorization,
+      accept: 'application/json',
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(args),
+  }).then(response => ({ success: response.status === 200 }));
+};
+
+const updateKYCStatus = function(_, args, { headers: { authorization } }) {
+  return fetch(`${global.appConfig.apiUrl}/profile/admin/profiles/${args.playerUUID}/kyc/status`, {
+    method: 'PUT',
+    headers: {
+      authorization,
+      accept: 'application/json',
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(args),
+  }).then(response => ({ success: response.status === 200 }));
+};
+
+const updateConfiguration = function(_, args, { headers: { authorization } }) {
+  return fetch(`${global.appConfig.apiUrl}/profile/admin/profiles/${args.playerUUID}/configuration`, {
+    method: 'PUT',
+    headers: {
+      authorization,
+      accept: 'application/json',
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(args),
+  }).then(response => ({ success: response.status === 200 }));
+};
+
+const updateContacts = function(_, args, { headers: { authorization } }) {
+  return fetch(`${global.appConfig.apiUrl}/profile/admin/profiles/${args.playerUUID}/contacts`, {
+    method: 'PUT',
+    headers: {
+      authorization,
+      accept: 'application/json',
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(args),
+  }).then(response => ({ success: response.status === 200 }));
+};
+
+const updateAddress = function(_, args, { headers: { authorization } }) {
+  return fetch(`${global.appConfig.apiUrl}/profile/admin/profiles/${args.playerUUID}/address`, {
+    method: 'PUT',
+    headers: {
+      authorization,
+      accept: 'application/json',
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(args),
+  }).then(response => ({ success: response.status === 200 }));
+};
+
 const getProfile = async function(_, { playerUUID, accountType }, context) {
   const access = await accessValidate(context, playerUUID);
 
@@ -194,28 +268,8 @@ const resume = function(_, { playerUUID, ...args }, { headers: { authorization }
     }));
 };
 
-const block = function(_, { playerUUID, ...args }, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/profile/profiles/${playerUUID}/block`, {
-    method: 'PUT',
-    headers: {
-      Accept: 'application/json',
-      authorization,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(args),
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => ({
-      data: !response.error
-        ? {
-            playerUUID,
-            ...response,
-            profileStatusDate: moment().toISOString(),
-          }
-        : null,
-      error: response.error || null,
-    }));
+const changeProfileStatus = async function(_, args, { headers: { authorization } }) {
+  return await changeProfileStatusQuery(args, authorization);
 };
 
 const unblock = function(_, { playerUUID, ...args }, { headers: { authorization } }) {
@@ -326,11 +380,8 @@ const updateEmail = async function(_, { playerUUID, ...args }, context) {
   };
 };
 
-const verifyPhone = async function(_, { playerUUID, ...args }, context) {
-  const {
-    headers: { authorization },
-  } = context;
-  const response = await fetch(`${global.appConfig.apiUrl}/profile/verification/${playerUUID}/phone`, {
+const verifyPhone = async function(_, { playerUUID, ...args }, { headers: { authorization } }) {
+  return await fetch(`${global.appConfig.apiUrl}/profile/admin/profiles/${playerUUID}/verification/phone`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -338,18 +389,19 @@ const verifyPhone = async function(_, { playerUUID, ...args }, context) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(args),
-  });
+  }).then(response => ({ success: response.status === 200 }));
+};
 
-  if (response.status !== 200) {
-    return { error: 'error.verify.phone' };
-  }
-
-  return {
-    data: {
-      playerUUID,
-      phoneNumberVerified: true,
+const verifyEmail = async function(_, { playerUUID, ...args }, { headers: { authorization } }) {
+  return await fetch(`${global.appConfig.apiUrl}/profile/admin/profiles/${playerUUID}/verification/email`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      authorization,
+      'Content-Type': 'application/json',
     },
-  };
+    body: JSON.stringify(args),
+  }).then(response => ({ success: response.status === 200 }));
 };
 
 const verifyProfile = async function(_, { playerUUID, ...args }, context) {
@@ -446,11 +498,9 @@ const limitedUpdateProfile = async (_, args, { headers: { authorization } }) => 
 };
 
 const clickToCall = async (_, args, context) => {
-  const access = await accessValidate(context);
-
-  if (access.error) {
-    return access;
-  }
+  const {
+    data: { phoneNumber },
+  } = await getOperatorByUUID(_, { uuid: context.userUUID }, context);
 
   return fetch(global.appConfig.brands[context.brand.id].clickToCallUrl, {
     method: 'POST',
@@ -459,7 +509,7 @@ const clickToCall = async (_, args, context) => {
       authorization: context.headers.authorization,
       'content-type': 'application/json',
     },
-    body: JSON.stringify(args),
+    body: JSON.stringify({ agent: phoneNumber, ...args }),
   }).then(response => ({ success: response.status === 204 }));
 };
 
@@ -483,10 +533,8 @@ module.exports = {
   suspendProlong,
   suspend,
   updateProfile,
-  verifyProfile,
   verifyPhone,
   updateEmail,
-  block,
   passwordResetRequest,
   getProfile,
   changePassword,
@@ -496,4 +544,14 @@ module.exports = {
   clickToCall,
   updateRegulated,
   limitedUpdateProfile,
+  getProfileNew,
+  updatePersonalInformation,
+  updateKYCStatus,
+  updateConfiguration,
+  updateContacts,
+  updateAddress,
+  verifyEmail,
+  verifyProfile,
+  changeProfileStatus,
+  getProfileView,
 };

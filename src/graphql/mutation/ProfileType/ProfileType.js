@@ -12,8 +12,9 @@ const {
     updateBTAG,
     updateAffiliate,
     suspend,
-    block,
+    changeProfileStatus,
     verifyPhone,
+    verifyEmail,
     verifyProfile,
     updateEmail,
     sendActivationLink,
@@ -24,6 +25,11 @@ const {
     clickToCall,
     updateRegulated,
     limitedUpdateProfile,
+    updatePersonalInformation,
+    updateKYCStatus,
+    updateConfiguration,
+    updateContacts,
+    updateAddress,
   },
 } = require('../../common/resolvers');
 
@@ -37,10 +43,15 @@ const SuspendDurationType = new GraphQLInputObjectType({
   },
 });
 
-const FATCAInput = new GraphQLInputObjectType({
-  name: 'FATCAInput',
+const passportInput = new GraphQLInputObjectType({
+  name: 'PassportInput',
   fields: () => ({
-    provided: { type: new GraphQLNonNull(GraphQLBoolean) },
+    number: { type: GraphQLString },
+    issueDate: { type: GraphQLString },
+    expirationDate: { type: GraphQLString },
+    countryOfIssue: { type: GraphQLString },
+    countrySpecificIdentifier: { type: GraphQLString },
+    countrySpecificIdentifierType: { type: GraphQLString },
   }),
 });
 
@@ -114,14 +125,22 @@ const PlayerMutation = new GraphQLObjectType({
       type: ResponseType(PlayerProfileType, 'PlayerAffiliate'),
       resolve: updateAffiliate,
     },
-    block: {
+    changeProfileStatus: {
       args: {
         playerUUID: { type: new GraphQLNonNull(GraphQLString) },
         comment: { type: GraphQLString },
         reason: { type: new GraphQLNonNull(GraphQLString) },
+        status: { type: new GraphQLNonNull(GraphQLString) },
       },
-      type: ResponseType(PlayerProfileType, 'PlayerBlock'),
-      resolve: block,
+      type: new GraphQLObjectType({
+        name: 'changeProfileStatus',
+        fields: () => ({
+          success: {
+            type: new GraphQLNonNull(GraphQLBoolean),
+          },
+        }),
+      }),
+      resolve: changeProfileStatus,
     },
     passwordResetRequest: {
       args: {
@@ -280,9 +299,35 @@ const PlayerMutation = new GraphQLObjectType({
         playerUUID: {
           type: new GraphQLNonNull(GraphQLString),
         },
+        phone: {
+          type: GraphQLString,
+        },
       },
-      type: ResponseType(PlayerProfileType, 'VerifyPlayerPhone'),
+      type: new GraphQLObjectType({
+        name: 'VerifyPhoneType',
+        fields: () => ({
+          success: {
+            type: new GraphQLNonNull(GraphQLBoolean),
+          },
+        }),
+      }),
       resolve: verifyPhone,
+    },
+    verifyEmail: {
+      args: {
+        playerUUID: {
+          type: new GraphQLNonNull(GraphQLString),
+        },
+      },
+      type: new GraphQLObjectType({
+        name: 'VerifyEmailType',
+        fields: () => ({
+          success: {
+            type: new GraphQLNonNull(GraphQLBoolean),
+          },
+        }),
+      }),
+      resolve: verifyEmail,
     },
     verifyProfile: {
       args: {
@@ -303,7 +348,6 @@ const PlayerMutation = new GraphQLObjectType({
     },
     clickToCall: {
       args: {
-        agent: { type: new GraphQLNonNull(GraphQLString) },
         number: { type: new GraphQLNonNull(GraphQLString) },
       },
       type: new GraphQLObjectType({
@@ -319,7 +363,7 @@ const PlayerMutation = new GraphQLObjectType({
     updateRegulated: {
       args: {
         profileId: { type: new GraphQLNonNull(GraphQLString) },
-        fatca: { type: FATCAInput },
+        fatca: { type: new GraphQLNonNull(GraphQLBoolean) },
         crs: { type: GraphQLBoolean },
       },
       type: new GraphQLObjectType({
@@ -331,6 +375,143 @@ const PlayerMutation = new GraphQLObjectType({
         }),
       }),
       resolve: updateRegulated,
+    },
+    updateKYCStatus: {
+      args: {
+        playerUUID: {
+          type: new GraphQLNonNull(GraphQLString),
+        },
+        kycStatus: {
+          type: GraphQLString,
+        },
+      },
+      type: new GraphQLObjectType({
+        name: 'UpdateKYCStatusType',
+        fields: () => ({
+          success: {
+            type: new GraphQLNonNull(GraphQLBoolean),
+          },
+        }),
+      }),
+      resolve: updateKYCStatus,
+    },
+    updateConfiguration: {
+      args: {
+        playerUUID: {
+          type: new GraphQLNonNull(GraphQLString),
+        },
+        internalTransfer: {
+          type: GraphQLBoolean,
+        },
+        crs: {
+          type: GraphQLBoolean,
+        },
+        fatca: {
+          type: GraphQLBoolean,
+        },
+      },
+      type: new GraphQLObjectType({
+        name: 'UpdateConfigurationType',
+        fields: () => ({
+          success: {
+            type: new GraphQLNonNull(GraphQLBoolean),
+          },
+        }),
+      }),
+      resolve: updateConfiguration,
+    },
+    updateContacts: {
+      args: {
+        playerUUID: {
+          type: new GraphQLNonNull(GraphQLString),
+        },
+        phone: {
+          type: GraphQLString,
+        },
+        additionalEmail: {
+          type: GraphQLString,
+        },
+        additionalPhone: {
+          type: GraphQLString,
+        },
+        email: {
+          type: GraphQLString,
+        },
+      },
+      type: new GraphQLObjectType({
+        name: 'UpdateContactsType',
+        fields: () => ({
+          success: {
+            type: new GraphQLNonNull(GraphQLBoolean),
+          },
+        }),
+      }),
+      resolve: updateContacts,
+    },
+    updateAddress: {
+      args: {
+        playerUUID: {
+          type: new GraphQLNonNull(GraphQLString),
+        },
+        countryCode: {
+          type: GraphQLString,
+        },
+        city: {
+          type: GraphQLString,
+        },
+        state: {
+          type: GraphQLString,
+        },
+        postCode: {
+          type: GraphQLString,
+        },
+        address: {
+          type: GraphQLString,
+        },
+      },
+      type: new GraphQLObjectType({
+        name: 'UpdateAddressType',
+        fields: () => ({
+          success: {
+            type: new GraphQLNonNull(GraphQLBoolean),
+          },
+        }),
+      }),
+      resolve: updateAddress,
+    },
+    updatePersonalInformation: {
+      args: {
+        playerUUID: {
+          type: new GraphQLNonNull(GraphQLString),
+        },
+        firstName: {
+          type: GraphQLString,
+        },
+        lastName: {
+          type: GraphQLString,
+        },
+        languageCode: {
+          type: GraphQLString,
+        },
+        gender: {
+          type: GraphQLString,
+        },
+        birthDate: {
+          type: GraphQLString,
+        },
+        passport: {
+          type: passportInput,
+        },
+      },
+      type: new GraphQLObjectType({
+        name: 'UpdatePersonalInformationType',
+        fields: () => ({
+          success: {
+            type: new GraphQLNonNull(GraphQLBoolean),
+          },
+        }),
+      }),
+      resolve: updatePersonalInformation,
     },
   }),
 });

@@ -1,4 +1,11 @@
-const { GraphQLObjectType } = require('graphql');
+const {
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLBoolean,
+  GraphQLFloat,
+  GraphQLNonNull,
+  GraphQLInt,
+} = require('graphql');
 const Mt4Type = require('../Mt4Type');
 
 const TradingAccountType = new GraphQLObjectType({
@@ -8,6 +15,29 @@ const TradingAccountType = new GraphQLObjectType({
       type: Mt4Type,
       resolve: () => ({}),
     },
+    accountUUID: { type: GraphQLString },
+    accountType: { type: GraphQLString },
+    archived: { type: GraphQLBoolean },
+    balance: { type: GraphQLFloat },
+    brandId: { type: GraphQLString },
+    closedTradeProfit: { type: GraphQLFloat },
+    createdAt: { type: GraphQLString },
+    createdBy: { type: GraphQLString },
+    credit: { type: GraphQLFloat },
+    currency: { type: GraphQLString },
+    group: { type: GraphQLString },
+    leverage: { type: GraphQLString },
+    login: { type: new GraphQLNonNull(GraphQLInt) },
+    margin: { type: GraphQLFloat },
+    name: { type: GraphQLString },
+    platformType: { type: GraphQLString },
+    profileUUID: { type: GraphQLString },
+    readOnly: { type: GraphQLBoolean },
+    readOnlyUpdateTime: { type: GraphQLString },
+    readOnlyUpdatedBy: { type: GraphQLString },
+    equity: { type: GraphQLFloat },
+    closedTradeAmount: { type: GraphQLFloat },
+    serverId: { type: GraphQLInt },
   }),
 });
 

@@ -26,7 +26,6 @@ const HierarchyQueryType = new GraphQLObjectType({
     userBranchHierarchy: {
       type: ResponseType(UserBranchHierarchyType),
       args: {
-        userId: { type: new GraphQLNonNull(GraphQLString) },
         withoutBrandFilter: { type: GraphQLBoolean },
       },
       resolve: getUserBranchHierarchy,
@@ -59,7 +58,6 @@ const HierarchyQueryType = new GraphQLObjectType({
     },
     branchHierarchy: {
       args: {
-        operatorId: { type: new GraphQLNonNull(GraphQLString) },
         branchType: { type: new GraphQLNonNull(GraphQLString) },
         keyword: { type: GraphQLString },
         officeUuid: { type: GraphQLString },

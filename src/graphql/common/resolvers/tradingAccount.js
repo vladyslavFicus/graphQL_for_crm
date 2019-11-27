@@ -3,6 +3,7 @@ const {
   createTradingAccount,
   updateTradingAccount,
   tradingAccountChangePassword,
+  tradingAccountQuery,
 } = require('../../../utils/mt4Requests');
 
 const createTradingAccountResolver = async (
@@ -73,8 +74,13 @@ const tradingAccountChangePasswordResolver = async (_, { login, password }, { he
   };
 };
 
+const getTradingAccounts = async (_, args, authorization) => {
+  return await tradingAccountQuery(args, authorization);
+};
+
 module.exports = {
   createTradingAccountResolver,
   updateTradingAccountResolver,
   tradingAccountChangePasswordResolver,
+  getTradingAccounts,
 };

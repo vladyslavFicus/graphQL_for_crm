@@ -1,20 +1,37 @@
-const { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLList, GraphQLBoolean } = require('graphql');
+const {
+  GraphQLInputObjectType,
+  GraphQLObjectType,
+  GraphQLNonNull,
+  GraphQLBoolean,
+  GraphQLString,
+  GraphQLList,
+} = require('graphql');
 const PartnerType = require('../../query/PartnerType');
 const ResponseType = require('../../common/types/ResponseType');
-const { updatePartner, createPartner } = require('../../common/resolvers/partners');
+const { createPartner, updatePartner, changeStatus } = require('../../common/resolvers/partners');
+
+const PartnerPermissionInputType = new GraphQLInputObjectType({
+  name: 'PartnerPermissionUpdate',
+  fields: () => ({
+    showNotes: { type: GraphQLBoolean },
+    showFTDAmount: { type: GraphQLBoolean },
+    showSalesStatus: { type: GraphQLBoolean },
+    forbiddenCountries: { type: new GraphQLList(GraphQLString) },
+    allowedIpAddresses: { type: new GraphQLList(GraphQLString) },
+  }),
+});
 
 const PartnerMutation = new GraphQLObjectType({
   name: 'PartnerMutation',
   fields: () => ({
     createPartner: {
       args: {
-        branchId: { type: GraphQLString },
         email: { type: new GraphQLNonNull(GraphQLString) },
         firstName: { type: new GraphQLNonNull(GraphQLString) },
         lastName: { type: new GraphQLNonNull(GraphQLString) },
         phone: { type: GraphQLString },
         password: { type: new GraphQLNonNull(GraphQLString) },
-        type: { type: GraphQLString },
+        affiliateType: { type: GraphQLString },
       },
       type: ResponseType(PartnerType, 'CreatedPartnerType'),
       resolve: createPartner,
@@ -24,16 +41,29 @@ const PartnerMutation = new GraphQLObjectType({
         uuid: { type: new GraphQLNonNull(GraphQLString) },
         firstName: { type: new GraphQLNonNull(GraphQLString) },
         lastName: { type: new GraphQLNonNull(GraphQLString) },
-        phoneNumber: { type: GraphQLString },
+        phone: { type: GraphQLString },
         country: { type: GraphQLString },
-        allowedIpAddresses: { type: new GraphQLList(GraphQLString) },
-        forbiddenCountries: { type: new GraphQLList(GraphQLString) },
-        showNotes: { type: GraphQLBoolean },
-        showSalesStatus: { type: GraphQLBoolean },
-        showFTDAmount: { type: GraphQLBoolean },
+        email: { type: GraphQLString },
+        permission: { type: PartnerPermissionInputType },
       },
       type: ResponseType(PartnerType, 'UpdatedPartnerType'),
       resolve: updatePartner,
+    },
+    changeStatus: {
+      args: {
+        uuid: { type: new GraphQLNonNull(GraphQLString) },
+        reason: { type: new GraphQLNonNull(GraphQLString) },
+        status: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      type: new GraphQLObjectType({
+        name: 'changePartnerStatusType',
+        fields: () => ({
+          success: {
+            type: new GraphQLNonNull(GraphQLBoolean),
+          },
+        }),
+      }),
+      resolve: changeStatus,
     },
   }),
 });

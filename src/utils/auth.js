@@ -39,8 +39,20 @@ const getAuthorities = (uuid, authorization) => {
   }).then(response => response.json());
 };
 
+const getPermission = authorization => {
+  return fetch(`${global.appConfig.apiUrl}/auth/permissions`, {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      authorization,
+      'content-type': 'application/json',
+    },
+  }).then(response => response.json());
+};
+
 module.exports = {
   addAuthorities,
   removeAuthorities,
   getAuthorities,
+  getPermission,
 };

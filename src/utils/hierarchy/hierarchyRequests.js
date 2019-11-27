@@ -140,9 +140,9 @@ const getBranchHierarchyTree = (uuid, authorization) => {
   }).then(response => response.json());
 };
 
-const getUserBranchHierarchy = (userId, authorization, brandId) => {
+const getUserBranchHierarchy = (userUUID, authorization, brandId) => {
   return fetch(
-    `${global.appConfig.apiUrl}/hierarchy/branch/hierarchy/user/${userId}?${buildQueryString({
+    `${global.appConfig.apiUrl}/hierarchy/branch/hierarchy/user/${userUUID}?${buildQueryString({
       brandId,
     })}`,
     {
@@ -167,8 +167,8 @@ const getUsersByType = (types, authorization) => {
   }).then(response => response.json());
 };
 
-const getBranchHierarchy = ({ operatorId, branchType, ...args }, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/hierarchy/branch/hierarchy/user/${operatorId}/${branchType}`, {
+const getBranchHierarchy = ({ branchType, ...args }, userUUID, authorization) => {
+  return fetch(`${global.appConfig.apiUrl}/hierarchy/branch/hierarchy/user/${userUUID}/${branchType}`, {
     method: 'POST',
     headers: {
       accept: 'application/json',

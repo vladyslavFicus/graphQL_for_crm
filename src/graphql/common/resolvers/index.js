@@ -1,11 +1,13 @@
 module.exports = {
   audit: require('./audit'),
   auth: require('./auth'),
+  authorization: require('./authorization'),
   payment: require('./payment'),
   profile: require('./profile'),
   notes: require('./notes'),
   tags: require('./tags'),
   tradingActivities: require('./tradingActivities'),
+  tradingAccount: require('./tradingAccount'),
   statistics: require('./statistics'),
   profiles: require('./profiles'),
   upload: require('./upload'),

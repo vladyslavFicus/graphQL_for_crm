@@ -5,8 +5,8 @@ const {
   getOperatorByUUID: getOperatorByUUIDRequest,
   getOperatorsByUUIDs: getOperatorsByUUIDsRequest,
   updateOperator: updateOperatorRequest,
-  resetToken: resetTokenRequest,
-  activateOperator: activateOperatorRequest,
+  sendInvitation: sendInvitationRequest,
+  changeStatus: changeStatusRequest,
 } = require('../../../utils/operatorRequests');
 const {
   requests: { createUser },
@@ -59,19 +59,15 @@ const authoritiesPolling = async (uuid, authorization, attempt = 0) => {
   return response;
 };
 
-const createOperator = async (_, { password, ...args }, { headers: { authorization }, brand: { id: brandId } }) => {
-  const { department, role, userType, branchId } = args;
-
-  const operator = await createOperatorRequest({ sendMail: false, ...args }, authorization);
+const createOperator = async (
+  _,
+  { branchId, userType, ...args },
+  { headers: { authorization }, brand: { id: brandId } }
+) => {
+  const operator = await createOperatorRequest({ brandId, type: 'OPERATOR', ...args }, authorization);
   const uuid = get(operator, 'data.uuid');
 
   if (operator.error) return operator;
-
-  await authoritiesPolling(uuid, authorization);
-  const authorities = await addAuthorities({ uuid, brandId, department, role }, authorization);
-
-  if (authorities.error) return { data: operator.data, error: authorities.error };
-
   const userHierarchy = await createUser(
     {
       uuid,
@@ -81,25 +77,17 @@ const createOperator = async (_, { password, ...args }, { headers: { authorizati
     authorization
   );
 
-  const token = await resetTokenRequest(operator.data.uuid, authorization);
-  const activateOperator = await activateOperatorRequest(
-    {
-      password,
-      token,
-    },
-    authorization,
-    brandId
-  );
-
   return {
-    data: {
-      ...operator.data,
-    },
-    error: get(userHierarchy, 'error') || get(activateOperator, 'error'),
+    data: operator.data,
+    error: get(userHierarchy, 'error'),
   };
 };
 
 const updateOperator = (_, args, { headers: { authorization } }) => updateOperatorRequest(args, authorization);
+
+const sendInvitation = (_, args, { headers: { authorization } }) => sendInvitationRequest(args, authorization);
+
+const changeStatus = (_, args, { headers: { authorization } }) => changeStatusRequest(args, authorization);
 
 /**
  * Retrieve operator depends on source fieldName
@@ -170,4 +158,6 @@ module.exports = {
   updateOperator,
   getOperator,
   addExistingOperator,
+  sendInvitation,
+  changeStatus,
 };

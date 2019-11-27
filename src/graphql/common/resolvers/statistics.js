@@ -4,7 +4,6 @@ const { getScrollData, getCountData, queryBuild } = require('../../../utils/ESSe
 const {
   queries: { getPaymentsStatistics },
 } = require('../../../utils/payment');
-const accessValidate = require('../../../utils/accessValidate');
 const { convertToUtcDates } = require('../../../utils/utcHelpers');
 const {
   compareDateFormat,
@@ -19,12 +18,6 @@ const registerStatQuery = ({ registrationDateFrom, registrationDateTo, clientIds
 ];
 
 const getRegisteredUserStatistic = async function(_, args, context) {
-  const access = await accessValidate(context);
-
-  if (access.error) {
-    return { error: access.error };
-  }
-
   const clientIds = await context.hierarchy.getCustomersIds();
   const argsInUtc = convertToUtcDates(args);
   const response = await getScrollData(
@@ -78,12 +71,6 @@ const getRegisteredUserStatistic = async function(_, args, context) {
 };
 
 const getRegisteredUserTotals = async (_, { timezone }, context) => {
-  const access = await accessValidate(context);
-
-  if (access.error) {
-    return { error: access.error };
-  }
-
   const clientIds = await context.hierarchy.getCustomersIds();
   const queries = getCountQueryRanges(timezone);
   const keys = Object.keys(queries);

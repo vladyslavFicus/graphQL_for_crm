@@ -1,37 +1,94 @@
-const { GraphQLInputObjectType, GraphQLInt, GraphQLString, GraphQLFloat, GraphQLList } = require('graphql');
+const {
+  GraphQLInputObjectType,
+  GraphQLBoolean,
+  GraphQLString,
+  GraphQLFloat,
+  GraphQLList,
+  GraphQLInt,
+} = require('graphql');
 
 const ClientSearchInputType = new GraphQLInputObjectType({
   name: 'ClientSearchParams',
   fields: () => ({
-    page: { type: GraphQLInt },
-    size: { type: GraphQLInt },
     acquisitionStatus: { type: GraphQLString },
-    tradingBalanceFrom: { type: GraphQLFloat },
-    tradingBalanceTo: { type: GraphQLFloat },
-    countries: { type: new GraphQLList(GraphQLString) },
-    registrationDateFrom: { type: GraphQLString },
-    registrationDateTo: { type: GraphQLString },
-    lastNoteDateFrom: { type: GraphQLString },
-    lastNoteDateTo: { type: GraphQLString },
-    lastTradeDateFrom: { type: GraphQLString },
-    lastTradeDateTo: { type: GraphQLString },
-    lastLoginDateFrom: { type: GraphQLString },
-    lastLoginDateTo: { type: GraphQLString },
-    lastModificationDateFrom: { type: GraphQLString },
-    lastModificationDateTo: { type: GraphQLString },
-    searchValue: { type: GraphQLString },
-    status: { type: new GraphQLList(GraphQLString) },
-    repIds: { type: new GraphQLList(GraphQLString) },
     assignStatus: { type: GraphQLString },
-    kycStatus: { type: new GraphQLList(GraphQLString) },
-    firstDeposit: { type: GraphQLString },
-    salesStatuses: { type: new GraphQLList(GraphQLString) },
-    retentionStatuses: { type: new GraphQLList(GraphQLString) },
-    searchAffiliate: { type: GraphQLString },
+    balanceRange: {
+      type: new GraphQLInputObjectType({
+        name: 'ClientSearchBalance',
+        fields: () => ({
+          from: { type: GraphQLFloat },
+          to: { type: GraphQLFloat },
+        }),
+      }),
+    },
+    countries: { type: new GraphQLList(GraphQLString) },
+    desks: { type: new GraphQLList(GraphQLString) },
+    firstTimeDeposit: { type: GraphQLBoolean },
+    kycStatus: { type: GraphQLString },
+    lastLoginDateRange: {
+      type: new GraphQLInputObjectType({
+        name: 'ClientSearchLastLoginDateRange',
+        fields: () => ({
+          from: { type: GraphQLString },
+          to: { type: GraphQLString },
+        }),
+      }),
+    },
+    lastModificationDateRange: {
+      type: new GraphQLInputObjectType({
+        name: 'ClientSearchLastModificationDateRange',
+        fields: () => ({
+          from: { type: GraphQLString },
+          to: { type: GraphQLString },
+        }),
+      }),
+    },
+    lastNoteDateRange: {
+      type: new GraphQLInputObjectType({
+        name: 'ClientSearchLastNoteDateRange',
+        fields: () => ({
+          from: { type: GraphQLString },
+          to: { type: GraphQLString },
+        }),
+      }),
+    },
+    lastTradeDateRange: {
+      type: new GraphQLInputObjectType({
+        name: 'ClientSearchLastTradeDateRange',
+        fields: () => ({
+          from: { type: GraphQLString },
+          to: { type: GraphQLString },
+        }),
+      }),
+    },
     migrationId: { type: GraphQLString },
+    operators: { type: new GraphQLList(GraphQLString) },
+    page: {
+      type: new GraphQLInputObjectType({
+        name: 'ClientSearchPageAttr',
+        fields: () => ({
+          from: { type: GraphQLInt },
+          size: { type: GraphQLInt },
+        }),
+      }),
+    },
+    profileStatus: { type: GraphQLString },
+    registrationDateRange: {
+      type: new GraphQLInputObjectType({
+        name: 'ClientSearchRegistrationDateRange',
+        fields: () => ({
+          from: { type: GraphQLString },
+          to: { type: GraphQLString },
+        }),
+      }),
+    },
+    representativeUuids: { type: new GraphQLList(GraphQLString) },
+    retentionStatuses: { type: new GraphQLList(GraphQLString) },
     requestId: { type: GraphQLString },
-    desk: { type: new GraphQLList(GraphQLString) },
-    team: { type: new GraphQLList(GraphQLString) },
+    salesStatuses: { type: new GraphQLList(GraphQLString) },
+    searchByAffiliateIdentifiers: { type: GraphQLString },
+    searchByIdentifiers: { type: GraphQLString },
+    teams: { type: new GraphQLList(GraphQLString) },
   }),
 });
 

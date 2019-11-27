@@ -1,3 +1,4 @@
+const { get } = require('lodash');
 const {
   getLastProfileData: getLastProfileDataRequest,
   changeStatus: changeStatusRequest,
@@ -12,8 +13,14 @@ const {
  *
  * @return {Promise<*>}
  */
-const getLastProfileData = (_, args, { headers: { authorization } }) => {
-  return getLastProfileDataRequest(args.profileUUID, authorization);
+const getLastProfileData = async (_, args, { headers: { authorization } }) => {
+  try {
+    return await getLastProfileDataRequest(args.profileUUID, authorization);
+  } catch (e) {
+    if (get(e, 'response.status') === 404) {
+      return { error: 'error.entity.not.found' };
+    }
+  }
 };
 
 /**

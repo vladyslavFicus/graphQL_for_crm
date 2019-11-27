@@ -47,6 +47,7 @@ const resetToken = (uuid, authorization) => {
 };
 
 const createOperator = (args, authorization) => {
+  console.log('createOperatorRequestArgs: ', args);
   return fetch(`${global.appConfig.apiUrl}/operator/operators`, {
     method: 'POST',
     headers: {
@@ -55,7 +56,12 @@ const createOperator = (args, authorization) => {
       'content-type': 'application/json',
     },
     body: JSON.stringify(args),
-  }).then(response => response.json());
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log('createOperatorResponseData: ', data);
+      return data;
+    });
 };
 
 const activateOperator = (args, authorization, brandId) => {
@@ -70,6 +76,18 @@ const activateOperator = (args, authorization, brandId) => {
   }).then(response => response.json());
 };
 
+const changeStatus = (args, authorization) => {
+  return fetch(`${global.appConfig.apiUrl}/operator/operators/status`, {
+    method: 'PUT',
+    headers: {
+      accept: 'application/json',
+      authorization,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(args),
+  }).then(response => ({ success: response.status === 200 }));
+};
+
 const updateOperator = (args, authorization) => {
   return fetch(`${global.appConfig.apiUrl}/operator/operators/${args.uuid}`, {
     method: 'PUT',
@@ -82,12 +100,26 @@ const updateOperator = (args, authorization) => {
   }).then(response => response.json());
 };
 
+const sendInvitation = (args, authorization) => {
+  return fetch(`${global.appConfig.apiUrl}/operator/operators/${args.uuid}/send/invitation`, {
+    method: 'PUT',
+    headers: {
+      accept: 'application/json',
+      authorization,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(args),
+  }).then(response => ({ success: response.status === 200 }));
+};
+
 module.exports = {
-  getOperators,
-  createOperator,
-  updateOperator,
   getOperatorsByUUIDs,
   getOperatorByUUID,
-  resetToken,
   activateOperator,
+  createOperator,
+  updateOperator,
+  sendInvitation,
+  changeStatus,
+  getOperators,
+  resetToken,
 };

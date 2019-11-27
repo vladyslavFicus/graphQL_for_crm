@@ -4,9 +4,9 @@ const {
   createCallback: createCallbackRequest,
 } = require('../../../utils/callbackRequests');
 
-const getCallbacks = async (_, args, { headers: { authorization }, hierarchy }) => {
+const getCallbacks = async (_, args, { headers: { authorization }, hierarchy, userUUID: operatorId }) => {
   const operatorIds = await hierarchy.getOperatorsIds();
-  const _args = { ...args, operatorIds };
+  const _args = { ...args, operatorIds, operatorId };
 
   // If operatorId arg exist and hierarchy exist --> filter by hierarchy ids
   if (_args.operatorId && _args.operatorIds) {

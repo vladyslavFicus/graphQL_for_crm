@@ -1,118 +1,107 @@
-const { bulkProfileUpdate } = require('../../../utils/clientsRequests');
 const {
-  requests: { bulkUpdateHierarchyUser, bulkMassAssignHierarchyUser, getHierarchyBranch },
-  helpers: { getClientBulkUpdateData },
+  requests: { bulkUpdateHierarchyUser, bulkMassAssignHierarchyUser },
 } = require('../../../utils/hierarchy');
-const accessValidate = require('../../../utils/accessValidate');
-const { getClientsSearchFieldsByHierarchy } = require('../utils/hierarchy');
+const { getProfiles, bulkUpdateSalesStasuses, bulkUpdateRetentionStasuses } = require('../../../utils/profile');
 
-const bulkRepresentativeUpdate = async (
-  _,
-  {
-    allRowsSelected,
-    clients,
-    searchParams,
-    totalElements,
-    salesRep,
-    retentionRep,
-    teamId,
-    type,
-    isMoveAction,
-    salesStatus,
-    retentionStatus,
-  },
-  context
-) => {
+const bulkRepresentativeUpdate = async (_, args, { headers: { authorization } }) => {
   const {
-    headers: { authorization },
-    brand: { id: brandId },
-    hierarchy,
-  } = context;
+    allRowsSelected,
+    clients: clientsData,
+    searchParams,
+    salesRepresentative,
+    salesStatus,
+    retentionRepresentative,
+    retentionStatus,
+    totalElements,
+    isMoveAction,
+    type,
+  } = args;
 
-  // check access cause we can perform ES query at line 38
-  const access = await accessValidate(context);
+  let clients = [];
+  const filters = searchParams || {};
+  const bulkUpdateSize = totalElements < 10000 ? totalElements : 10000;
 
-  if (access.error) {
-    return { error: access.error };
+  if (allRowsSelected) {
+    const excludeUuids = clientsData.length !== totalElements ? clientsData.map(client => client.uuid) : [];
+
+    const getProfilesResponse = await getProfiles(
+      {
+        ...filters,
+        page: {
+          from: 0,
+          size: bulkUpdateSize,
+        },
+        fields: ['uuid', 'acquisition'],
+        excludeByUuids: excludeUuids,
+      },
+      authorization
+    );
+
+    clients = getProfilesResponse.data.content;
+  } else {
+    clients = clientsData;
   }
 
-  const hierarchySearchFields = await getClientsSearchFieldsByHierarchy(searchParams, context);
-  const searchFields = { ...searchParams, ...hierarchySearchFields };
+  if (salesStatus) {
+    const { error } = await bulkUpdateSalesStasuses(
+      {
+        salesStatus,
+        uuids: clients.map(client => client.uuid),
+      },
+      authorization
+    );
 
-  let updateData = await getClientBulkUpdateData(
-    brandId,
-    { allRowsSelected, searchParams: searchFields, totalElements, clients },
-    { type, isMoveAction }
-  );
-
-  if (updateData.error) {
-    return updateData;
-  }
-
-  // filter out nullable entries in array
-  updateData = updateData.filter(item => item);
-
-  let profileParams = {
-    ids: updateData.map(({ uuid }) => uuid),
-    brandId,
-    ...(salesStatus && { salesStatus }),
-    ...(retentionStatus && { retentionStatus }),
-  };
-
-  let hierarchyParams = {
-    userUuids: updateData.map(({ uuid }) => uuid),
-  };
-
-  if (!isMoveAction) {
-    if (retentionRep || salesRep) {
-      hierarchyParams.parentUsers = retentionRep || salesRep;
-    } else {
-      if (teamId) {
-        const {
-          data: { defaultUser },
-          error,
-        } = await getHierarchyBranch(teamId, authorization);
-
-        if (error) {
-          return error;
-        }
-
-        if (defaultUser) {
-          hierarchyParams.parentUsers = [defaultUser];
-        } else {
-          hierarchyParams = null;
-        }
-      } else {
-        hierarchyParams = null;
-      }
+    if (error) {
+      return { error };
     }
   }
 
-  // Skip request when there is no other params except {brandId} and {ids}
-  if (Object.keys(profileParams).length !== 2) {
-    const profileBulkUpdate = await bulkProfileUpdate(profileParams, authorization);
+  if (retentionStatus) {
+    const { error } = await bulkUpdateRetentionStasuses(
+      {
+        retentionStatus,
+        uuids: clients.map(client => client.uuid),
+      },
+      authorization
+    );
 
-    if (profileBulkUpdate.error) {
-      return profileBulkUpdate;
+    if (error) {
+      return { error };
     }
   }
 
-  if (hierarchyParams && hierarchyParams.userUuids.length) {
-    let hierarchyBulkUpdate = null;
+  if (salesRepresentative || retentionRepresentative) {
+    const { error } = await bulkMassAssignHierarchyUser(
+      {
+        parentUsers: salesRepresentative || retentionRepresentative,
+        userUuids: clients.map(client => client.uuid),
+      },
+      authorization
+    );
 
-    // if move action performed, we need to call another api with modified params
-    if (isMoveAction) {
-      hierarchyBulkUpdate = await bulkUpdateHierarchyUser({ assignments: updateData }, authorization);
-    } else {
-      hierarchyBulkUpdate = await bulkMassAssignHierarchyUser(hierarchyParams, authorization);
-    }
-
-    if (hierarchyBulkUpdate.error) {
-      return hierarchyBulkUpdate;
+    if (error) {
+      return { error };
     }
   }
 
-  return { data: 'success' };
+  if (isMoveAction) {
+    const { error } = await bulkUpdateHierarchyUser(
+      {
+        assignments: clients.map(client => ({
+          uuid: client.uuid,
+          assignToOperator:
+            type === 'SALES'
+              ? client.salesRepresentative || client.acquisition.salesRepresentative
+              : client.retentionRepresentative || client.acquisition.retentionRepresentative,
+        })),
+      },
+      authorization
+    );
+
+    if (error) {
+      return { error };
+    }
+  }
 };
 
 module.exports = {

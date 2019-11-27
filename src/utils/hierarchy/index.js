@@ -23,19 +23,11 @@ const {
   updateHierarchyUser,
 } = require('./hierarchyRequests');
 
-const {
-  getHierarchyMappedOperators,
-  buildRequestObject,
-  multipleRequest,
-  getClientBulkUpdateData,
-} = require('./hierarchyHelpers');
+const { getHierarchyMappedOperators } = require('./hierarchyHelpers');
 
 module.exports = {
   helpers: {
     getHierarchyMappedOperators,
-    buildRequestObject,
-    multipleRequest,
-    getClientBulkUpdateData,
   },
   requests: {
     createUser,

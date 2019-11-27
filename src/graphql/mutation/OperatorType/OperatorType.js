@@ -1,4 +1,4 @@
-const { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLNonNull, GraphQLBoolean, GraphQLList } = require('graphql');
+const { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLBoolean, GraphQLList } = require('graphql');
 const OperatorType = require('../../query/OperatorType');
 const { AuthorityType } = require('../../query/AuthType');
 const ResponseType = require('../../common/types/ResponseType');
@@ -8,6 +8,8 @@ const {
   removeDepartment,
   addDepartment,
   addExistingOperator,
+  sendInvitation,
+  changeStatus,
 } = require('../../common/resolvers/operators');
 
 const OperatorTypeAuthorities = new GraphQLObjectType({
@@ -80,6 +82,36 @@ const OperatorMutation = new GraphQLObjectType({
       },
       type: ResponseType(OperatorTypeExisting, 'OperatorTypeAddExisting'),
       resolve: addExistingOperator,
+    },
+    changeStatus: {
+      args: {
+        uuid: { type: new GraphQLNonNull(GraphQLString) },
+        reason: { type: new GraphQLNonNull(GraphQLString) },
+        status: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      type: new GraphQLObjectType({
+        name: 'changeStatusType',
+        fields: () => ({
+          success: {
+            type: new GraphQLNonNull(GraphQLBoolean),
+          },
+        }),
+      }),
+      resolve: changeStatus,
+    },
+    sendInvitation: {
+      args: {
+        uuid: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      type: new GraphQLObjectType({
+        name: 'sendInvitation',
+        fields: () => ({
+          success: {
+            type: new GraphQLNonNull(GraphQLBoolean),
+          },
+        }),
+      }),
+      resolve: sendInvitation,
     },
   }),
 });

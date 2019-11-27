@@ -13,7 +13,7 @@ const {
   profile,
   files: { getFiles, getFileList },
   auth: {
-    credentials: { getAuthorities, getLoginLock },
+    credentials: { getAuthorities, getLoginLock, getPermissions, getAuthoritiesOptions },
   },
   conditionalTags: { getConditionalTags },
   notes: { getNotes },
@@ -39,9 +39,11 @@ const {
 const PageableType = require('../common/types/PageableType');
 const ClientSearchInputType = require('../input/ClientSearchInputType');
 const FileType = require('./FileType');
-const { AuthorityType } = require('./AuthType');
+const { AuthorityType, AuthorityOptionsType } = require('./AuthType');
 const PlayerProfileType = require('./PlayerProfileType');
+const NewPlayerProfileType = require('./NewPlayerProfileType');
 const OptionsType = require('./OptionsType');
+const ProfileViewType = require('./ProfileViewType');
 const {
   PaymentType: { PaymentMethodType, PaymentType },
   PaymentStatusType,
@@ -50,7 +52,6 @@ const {
   TradingActivityType,
   TradingActivityEnums: { CommandsEnum, StatusesEnum },
 } = require('./TradingActivityType');
-const ProfilesType = require('./ProfilesType');
 const { NoteType } = require('./NoteType');
 const StatisticsType = require('./StatisticsType');
 const LeadType = require('./LeadType');
@@ -79,6 +80,10 @@ const QueryType = new GraphQLObjectType({
       },
       resolve: getAuthorities,
     },
+    authoritiesOptions: {
+      type: ResponseType(AuthorityOptionsType),
+      resolve: getAuthoritiesOptions,
+    },
     loginLock: {
       args: {
         playerUUID: { type: new GraphQLNonNull(GraphQLString) },
@@ -93,6 +98,10 @@ const QueryType = new GraphQLObjectType({
       }),
       resolve: getLoginLock,
     },
+    permission: {
+      type: ResponseType(new GraphQLList(GraphQLString), 'Permission'),
+      resolve: getPermissions,
+    },
     options: {
       type: OptionsType,
       resolve: () => ({}),
@@ -104,6 +113,13 @@ const QueryType = new GraphQLObjectType({
         accountType: { type: GraphQLString },
       },
       resolve: profile.getProfile,
+    },
+    newProfile: {
+      type: ResponseType(NewPlayerProfileType, 'NewProfile'),
+      args: {
+        playerUUID: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      resolve: profile.getProfileNew,
     },
     notes: {
       type: ResponseType(PageableType(NoteType, {}, 'NoteType')),
@@ -210,8 +226,10 @@ const QueryType = new GraphQLObjectType({
       resolve: getTradingActivities,
     },
     profiles: {
-      type: ResponseType(PageableType(ProfilesType)),
-      args: ClientSearchInputType.getFields(),
+      type: ResponseType(PageableType(ProfileViewType)),
+      args: {
+        args: { type: ClientSearchInputType },
+      },
       resolve: getProfiles,
     },
     statistics: {
@@ -327,7 +345,6 @@ const QueryType = new GraphQLObjectType({
         id: { type: GraphQLString },
         statuses: { type: new GraphQLList(CallbackStatusEnum) },
         userId: { type: GraphQLString },
-        operatorId: { type: GraphQLString },
         page: { type: GraphQLInt },
         limit: { type: GraphQLInt },
         callbackTimeFrom: { type: GraphQLString },

@@ -18,8 +18,8 @@ const ClientBulkUpdateType = new GraphQLInputObjectType({
   name: 'ClientBulkUpdateType',
   fields: () => ({
     uuid: { type: new GraphQLNonNull(GraphQLString) },
-    unassignFromOperator: { type: GraphQLString },
-    assignToOperator: { type: GraphQLString },
+    salesRepresentative: { type: GraphQLString },
+    retentionRepresentative: { type: GraphQLString },
   }),
 });
 
@@ -29,8 +29,8 @@ const ClientsMutation = new GraphQLObjectType({
     bulkRepresentativeUpdate: {
       args: {
         teamId: { type: GraphQLString },
-        salesRep: { type: new GraphQLList(GraphQLString) },
-        retentionRep: { type: new GraphQLList(GraphQLString) },
+        salesRepresentative: { type: new GraphQLList(GraphQLString) },
+        retentionRepresentative: { type: new GraphQLList(GraphQLString) },
         salesStatus: { type: GraphQLString },
         retentionStatus: { type: GraphQLString },
         type: { type: new GraphQLNonNull(GraphQLString) },

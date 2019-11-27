@@ -1,110 +1,43 @@
-const { get } = require('lodash');
 const {
-  updateOperator: updateOperatorRequest,
-  getOperatorsByUUIDs,
-  resetToken: resetTokenRequest,
-  activateOperator: activateOperatorRequest,
-  getOperatorByUUID: getOperatorByUUIDRequest,
-} = require('../../../utils/operatorRequests');
-const {
-  getForexOperator: getForexOperatorRequest,
-  createForexOperator: createForexOperatorRequest,
-  updateForexOperator: updateForexOperatorRequest,
+  updatePartner: updatePartnerRequest,
+  getPartnersByUUIDs,
+  createPartner: createPartnerRequest,
+  getPartnerByUUID: getPartnerByUUIDRequest,
+  changeStatus: changeStatusRequest,
 } = require('../../../utils/partnerRequests');
-const { createOperator } = require('./operators');
 
-const getPartners = async (_, args, { headers: { authorization }, hierarchy }) => {
-  const partnersIds = await hierarchy.getPartnersIds();
-  return getOperatorsByUUIDs({ ...args, uuids: partnersIds }, authorization);
+const getPartners = async (_, args, { headers: { authorization } }) => {
+  return getPartnersByUUIDs(args, authorization);
 };
 
-const getForexOperatorByUUID = async ({ uuid }, _, { headers: { authorization } }) =>
-  getForexOperatorRequest(uuid, authorization);
-
-const getPartnerByUUID = async (_, { uuid }, { headers: { authorization }, hierarchy }) => {
-  const allowed = await hierarchy.checkAccess(uuid);
-
-  if (!allowed) {
-    return {
-      data: null,
-      error: {
-        error: 'Not Found',
-      },
-    };
-  }
-
-  return getOperatorByUUIDRequest(uuid, authorization);
+const getPartnerByUUID = async (_, { uuid }, { headers: { authorization } }) => {
+  return getPartnerByUUIDRequest(uuid, authorization);
 };
 
-const createPartner = async (_, { password, ...args }, context) => {
-  const {
-    headers: { authorization },
-    brand: { id: brandId },
-  } = context;
-  const partner = await createOperator(
-    _,
-    {
-      ...args,
-      password,
-      department: 'AFFILIATE_PARTNER',
-      role: 'ROLE1',
-      userType: 'AFFILIATE_PARTNER',
-    },
-    context
-  );
-
-  if (partner.error) return partner;
-
-  const forexOperator = await createForexOperatorRequest(
-    {
-      permission: {
-        allowedIpAddresses: [],
-        forbiddenCountries: [],
-      },
-      uuid: partner.data.uuid,
-    },
-    authorization
-  );
+const createPartner = async (_, args, { headers: { authorization } }) => {
+  const { data, error } = await createPartnerRequest(args, authorization);
 
   return {
-    data: partner.data,
-    error: get(forexOperator, 'error'),
+    data,
+    error,
   };
 };
 
-const updatePartner = async (
-  _,
-  { allowedIpAddresses, forbiddenCountries, showNotes, showSalesStatus, showFTDAmount, ...args },
-  { headers: { authorization } }
-) => {
-  const operator = await updateOperatorRequest(args, authorization);
-
-  const forexOperatorRequestBody = {
-    permission: {
-      allowedIpAddresses,
-      forbiddenCountries,
-      showNotes,
-      showSalesStatus,
-      showFTDAmount,
-    },
-    uuid: args.uuid,
-  };
-
-  const forexOperator = await updateForexOperatorRequest(forexOperatorRequestBody, authorization);
+const updatePartner = async (_, args, { headers: { authorization } }) => {
+  const { data, error } = await updatePartnerRequest(args, authorization);
 
   return {
-    data: {
-      ...operator.data,
-      forexOperator: forexOperator.data,
-    },
-    error: operator.error || forexOperator.error,
+    data,
+    error,
   };
 };
+
+const changeStatus = (_, args, { headers: { authorization } }) => changeStatusRequest(args, authorization);
 
 module.exports = {
   getPartners,
+  changeStatus,
   updatePartner,
   createPartner,
-  getForexOperatorByUUID,
   getPartnerByUUID,
 };

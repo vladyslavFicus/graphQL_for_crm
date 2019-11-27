@@ -1,4 +1,5 @@
 const fetch = require('./fetch');
+const buildQueryString = require('./buildQueryString');
 
 /**
  * Create trading account on MT4
@@ -54,8 +55,32 @@ const tradingAccountChangePassword = (args, authorization) => {
   }).then(response => response.json());
 };
 
+/**
+ * Get trading account
+ * @param args
+ * @param authorization
+ * @return {*}
+ */
+const tradingAccountQuery = ({ accountType = '', uuid }, authorization) => {
+  return fetch(
+    `${global.appConfig.apiUrl}/trading-account/account/search?${buildQueryString({
+      profileUUID: uuid,
+      accountType,
+    })}`,
+    {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        authorization,
+        'content-type': 'application/json',
+      },
+    }
+  ).then(response => response.json().then(({ data }) => data));
+};
+
 module.exports = {
   createTradingAccount,
   updateTradingAccount,
   tradingAccountChangePassword,
+  tradingAccountQuery,
 };

@@ -1,5 +1,5 @@
 const contextService = require('request-context');
-const { AuthenticationError } = require('apollo-server-express');
+const { ApolloError, AuthenticationError } = require('apollo-server-express');
 const { isEmpty } = require('lodash');
 const jwtDecode = require('jwt-decode');
 const parseJson = require('../utils/parseJson');
@@ -55,11 +55,13 @@ module.exports = function(url, config) {
   };
 
   return fetch(url, options).then(response => {
+    let error;
+
     if (
       response.status &&
       (response.status === 401 || (response.status === 400 && response.headers.get('HRZN-JwtError')))
     ) {
-      throw new AuthenticationError('You must be authenticated');
+      error = new AuthenticationError('You must be authenticated');
     }
 
     return response.text().then(res => {
@@ -68,7 +70,7 @@ module.exports = function(url, config) {
           const { jwtError } = parseJson(res);
 
           if (jwtError) {
-            throw new AuthenticationError('You must be authenticated');
+            error = new AuthenticationError('You must be authenticated');
           }
 
           break;
@@ -96,7 +98,23 @@ module.exports = function(url, config) {
           message: res,
           url,
           status: response.status,
+          error,
         });
+      }
+
+      if (!response.ok || error) {
+        error = error || new ApolloError(`${response.status}: ${response.statusText}`);
+
+        Object.assign(error, {
+          response: {
+            url: response.url,
+            status: response.status,
+            statusText: response.statusText,
+            body: parseJson(res),
+          },
+        });
+
+        throw error;
       }
 
       return new Promise(resolve => {
