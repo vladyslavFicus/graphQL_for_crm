@@ -217,8 +217,8 @@ const NewPlayerProfileType = new GraphQLObjectType({
     },
     tradingAccount: {
       type: new GraphQLList(TradingAccountType),
-      resolve: ({ uuid }, _, { headers: { authorization } }) => {
-        return getTradingAccounts(_, { uuid }, authorization);
+      resolve: ({ uuid }, _, context) => {
+        return getTradingAccounts(_, { uuid }, context);
       },
     },
     clientType: { type: GraphQLString },

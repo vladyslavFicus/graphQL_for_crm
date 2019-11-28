@@ -35,6 +35,7 @@ const {
   audit: { getFeeds, getFeedTypes },
   metabase: { getMetabaseToken },
   filterSet: { getFilterSets, getFilterSetById },
+  tradingAccount: { getTradingAccounts },
 } = require('../common/resolvers');
 const PageableType = require('../common/types/PageableType');
 const ClientSearchInputType = require('../input/ClientSearchInputType');
@@ -44,6 +45,7 @@ const PlayerProfileType = require('./PlayerProfileType');
 const NewPlayerProfileType = require('./NewPlayerProfileType');
 const OptionsType = require('./OptionsType');
 const ProfileViewType = require('./ProfileViewType');
+const TradingAccountType = require('./TradingAccountType');
 const {
   PaymentType: { PaymentMethodType, PaymentType },
   PaymentStatusType,
@@ -120,6 +122,14 @@ const QueryType = new GraphQLObjectType({
         playerUUID: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve: profile.getProfileNew,
+    },
+    tradingAccount: {
+      type: new GraphQLList(TradingAccountType),
+      args: {
+        uuid: { type: new GraphQLNonNull(GraphQLString) },
+        accountType: { type: GraphQLString },
+      },
+      resolve: getTradingAccounts,
     },
     notes: {
       type: ResponseType(PageableType(NoteType, {}, 'NoteType')),

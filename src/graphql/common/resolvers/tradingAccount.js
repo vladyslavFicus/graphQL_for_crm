@@ -74,7 +74,7 @@ const tradingAccountChangePasswordResolver = async (_, { login, password }, { he
   };
 };
 
-const getTradingAccounts = async (_, args, authorization) => {
+const getTradingAccounts = async (_, args, { headers: { authorization } }) => {
   return await tradingAccountQuery(args, authorization);
 };
 
