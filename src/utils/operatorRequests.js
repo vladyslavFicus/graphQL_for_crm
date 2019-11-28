@@ -121,5 +121,4 @@ module.exports = {
   sendInvitation,
   changeStatus,
   getOperators,
-  resetToken,
 };
