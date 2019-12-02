@@ -1,12 +1,8 @@
-const { pickBy, omit } = require('lodash');
-const { userTypes } = require('../../../constants/hierarchy');
-const { createQueryTradingProfile } = require('../../../utils/profile');
+const { pickBy } = require('lodash');
 const { getLeads, getLeadById, updateLead, bulkUpdateLead } = require('../../../utils/leadRequests');
 const {
   requests: { bulkMassAssignHierarchyUser, getHierarchyBranch },
 } = require('../../../utils/hierarchy');
-
-const promoteLead = (args, authorization) => createQueryTradingProfile(args, authorization);
 
 const bulkLeadPromote = async (
   _,
@@ -181,16 +177,6 @@ const bulkLeadUpdate = async (
   return { data: 'success' };
 };
 
-const promoteLeadToClient = async (_, args, { brand: { id: brandId, currency }, headers: { authorization } }) => {
-  const { status, data, error } = await promoteLead({ brandId, currency, ...args }, authorization);
-
-  if (status !== 200) {
-    return { error };
-  }
-
-  return { data };
-};
-
 const getLeadProfile = async (_, { leadId }, { headers: { authorization }, hierarchy }) => {
   const allowed = await hierarchy.checkAccess(leadId);
 
@@ -229,6 +215,5 @@ module.exports = {
   getLeadProfile,
   bulkLeadPromote,
   bulkLeadUpdate,
-  promoteLeadToClient,
   updateLeadProfile,
 };

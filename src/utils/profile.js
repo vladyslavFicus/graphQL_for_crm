@@ -59,18 +59,6 @@ const getQueryProfileView = (uuid, authorization) => {
   }).then(response => response.json().then(({ data }) => data));
 };
 
-const createQueryTradingProfile = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading-profile/v2/conversion/lead`, {
-    method: 'POST',
-    headers: {
-      accept: 'application/json',
-      authorization,
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify(args),
-  }).then(response => response.json().then(({ data, error }) => ({ status: response.status, data, error })));
-};
-
 const updateQueryTradingProfile = (args, authorization) => {
   return fetch(`${global.appConfig.apiUrl}/trading-profile/v2/`, {
     method: 'PUT',
@@ -122,7 +110,6 @@ const changeProfileStatusQuery = ({ playerUUID, ...args }, authorization) => {
 module.exports = {
   bulkUpdateRetentionStasuses,
   bulkUpdateSalesStasuses,
-  createQueryTradingProfile,
   updateQueryTradingProfile,
   updateQueryProfile,
   getProfiles,

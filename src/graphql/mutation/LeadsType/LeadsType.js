@@ -8,8 +8,10 @@ const {
   GraphQLInputObjectType,
 } = require('graphql');
 const {
-  leads: { bulkLeadPromote, bulkLeadUpdate, promoteLeadToClient, updateLeadProfile },
+  leads: { bulkLeadPromote, bulkLeadUpdate, updateLeadProfile },
+  profile: { createProfile },
 } = require('../../common/resolvers');
+const CreateProfileInputType = require('../../input/CreateProfileInputType');
 const { ResponseType } = require('../../common/types');
 const { SalesStatusesEnum } = require('../../query/TradingProfileType/TradingProfileEnums');
 const LeadType = require('../../query/LeadType');
@@ -39,7 +41,7 @@ const LeadBulkUpdateType = new GraphQLInputObjectType({
 const PromotedLeadType = new GraphQLObjectType({
   name: 'PromotedLeadType',
   fields: () => ({
-    playerUUID: { type: new GraphQLNonNull(GraphQLString) },
+    uuid: { type: new GraphQLNonNull(GraphQLString) },
   }),
 });
 
@@ -64,22 +66,10 @@ const LeadsMutation = new GraphQLObjectType({
     },
     promote: {
       args: {
-        password: { type: new GraphQLNonNull(GraphQLString) },
-        email: { type: new GraphQLNonNull(GraphQLString) },
-        firstName: { type: new GraphQLNonNull(GraphQLString) },
-        lastName: { type: new GraphQLNonNull(GraphQLString) },
-        country: { type: new GraphQLNonNull(GraphQLString) },
-        currency: { type: new GraphQLNonNull(GraphQLString) },
-        city: { type: GraphQLString },
-        gender: { type: GraphQLString },
-        birthDate: { type: GraphQLString },
-        phone1: { type: new GraphQLNonNull(GraphQLString) },
-        phone2: { type: GraphQLString },
-        languageCode: { type: new GraphQLNonNull(GraphQLString) },
-        leadUuid: { type: new GraphQLNonNull(GraphQLString) },
+        args: { type: CreateProfileInputType },
       },
       type: ResponseType(PromotedLeadType),
-      resolve: promoteLeadToClient,
+      resolve: createProfile,
     },
     bulkPromote: {
       // args needs to be fixed according to leadFilters as in bulkLeadUpdate
