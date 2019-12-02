@@ -1,7 +1,7 @@
 const { getProfiles: getProfilesRequest } = require('../../../utils/profile');
 
-const getProfiles = async function(_, args, { headers: { authorization } }) {
-  return getProfilesRequest(args.args, authorization);
+const getProfiles = async function(_, { args }, { headers: { authorization } }) {
+  return getProfilesRequest(args, authorization);
 };
 
 /**

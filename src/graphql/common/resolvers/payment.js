@@ -3,8 +3,8 @@ const { PAYMENT_TYPES } = require('../../../constants/payment');
 const {
   queries: {
     getPaymentMethods: getPaymentMethodsQuery,
-    getTradingPayments: getTradingPaymentsQuery,
-    createTradingPayment,
+    getPayments: getPaymentsQuery,
+    createPayment: createPaymentQuery,
   },
 } = require('../../../utils/payment');
 
@@ -12,15 +12,15 @@ const getClientPayments = async (_, args, { headers: { authorization }, hierarch
   const profileIds = await hierarchy.getCustomersIds();
   const _args = { ...args, profileIds, withOriginalAgent: true };
 
-  const tradingPayments = await getTradingPaymentsQuery(_args, authorization);
+  const payments = await getPaymentsQuery(_args, authorization);
 
-  return tradingPayments;
+  return payments;
 };
 
 const getClientPaymentsByUuid = async (_, { playerUUID, ...args }, { headers: { authorization } }) => {
-  const tradingPayments = await getTradingPaymentsQuery({ profileIds: [playerUUID], ...args }, authorization);
+  const payments = await getPaymentsQuery({ profileIds: [playerUUID], ...args }, authorization);
 
-  return tradingPayments;
+  return payments;
 };
 
 const createClientPayment = async (
@@ -29,6 +29,8 @@ const createClientPayment = async (
   { headers: { authorization } }
 ) => {
   let tradingArgs = {};
+
+  console.log({ paymentType, login, externalReference, country, source, target, expirationDate, profileUUID, ...args });
 
   switch (paymentType.toUpperCase()) {
     case PAYMENT_TYPES.DEPOSIT:
@@ -73,14 +75,14 @@ const createClientPayment = async (
       break;
   }
 
-  const tradingPayment = await createTradingPayment(paymentType, tradingArgs, authorization);
+  const payment = await createPaymentQuery(paymentType, tradingArgs, authorization);
 
-  if (tradingPayment.error) {
-    return tradingPayment;
+  if (payment.error) {
+    return payment;
   }
 
   return {
-    data: { ...tradingPayment.data, generationDate: tradingPayment.data.creationTime },
+    data: { ...payment.data, generationDate: payment.data.creationTime },
   };
 };
 
