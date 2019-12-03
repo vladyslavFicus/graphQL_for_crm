@@ -72,7 +72,6 @@ const ClientSearchInputType = new GraphQLInputObjectType({
         }),
       }),
     },
-    profileStatus: { type: GraphQLString },
     registrationDateRange: {
       type: new GraphQLInputObjectType({
         name: 'ClientSearchRegistrationDateRange',
@@ -88,6 +87,7 @@ const ClientSearchInputType = new GraphQLInputObjectType({
     salesStatuses: { type: new GraphQLList(GraphQLString) },
     searchByAffiliateIdentifiers: { type: GraphQLString },
     searchByIdentifiers: { type: GraphQLString },
+    statuses: { type: new GraphQLList(GraphQLString) },
     teams: { type: new GraphQLList(GraphQLString) },
   }),
 });
