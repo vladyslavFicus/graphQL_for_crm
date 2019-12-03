@@ -91,8 +91,12 @@ const bulkRepresentativeUpdate = async (_, args, { headers: { authorization } })
           uuid: client.uuid,
           assignToOperator:
             type === 'SALES'
-              ? client.salesRepresentative || client.acquisition.salesRepresentative
-              : client.retentionRepresentative || client.acquisition.retentionRepresentative,
+              ? client.acquisition
+                ? client.acquisition.salesRepresentative
+                : client.salesRepresentative
+              : client.acquisition
+              ? client.acquisition.retentionRepresentative
+              : client.retentionRepresentative,
         })),
       },
       authorization
