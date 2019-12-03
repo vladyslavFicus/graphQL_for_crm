@@ -250,6 +250,18 @@ const getProfile = async function(_, { playerUUID, accountType }, context) {
   return response;
 };
 
+const createProfile = function(_, { args }, { headers: { authorization } }) {
+  return fetch(`${global.appConfig.apiUrl}/profile/admin/profiles`, {
+    method: 'POST',
+    headers: {
+      authorization,
+      accept: 'application/json',
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(args),
+  }).then(response => response.json());
+};
+
 const resume = function(_, { playerUUID, ...args }, { headers: { authorization } }) {
   return fetch(`${global.appConfig.apiUrl}/profile/profiles/${playerUUID}/resume`, {
     method: 'PUT',
@@ -526,6 +538,7 @@ const updateRegulated = (_, args, { headers: { authorization }, brand: { id: bra
 };
 
 module.exports = {
+  createProfile,
   updateSubscription,
   resume,
   sendActivationLink,

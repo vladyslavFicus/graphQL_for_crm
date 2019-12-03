@@ -1,8 +1,25 @@
 const fetch = require('../fetch');
 const { PAYMENT_TYPES } = require('../../constants/payment');
 
-const getTradingPayments = (args, authorization) => {
+const getPayments = (args, authorization) => {
   return fetch(`${global.appConfig.apiUrl}/payment/search`, {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      'content-type': 'application/json',
+      authorization,
+    },
+    body: JSON.stringify(args),
+  }).then(response => response.json());
+};
+
+const createPayment = (paymentType, args, authorization) => {
+  let postfix = null;
+
+  if ([PAYMENT_TYPES.DEPOSIT.toLowerCase()].includes(paymentType.toLowerCase())) {
+    postfix = '/manual';
+  }
+  return fetch(`${global.appConfig.apiUrl}/payment/${paymentType.toLowerCase()}${postfix || ''}`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -25,25 +42,8 @@ const getPaymentsStatistics = (data, authorization) => {
   }).then(response => response.json());
 };
 
-const createTradingPayment = (paymentType, args, authorization) => {
-  let postfix = null;
-
-  if ([PAYMENT_TYPES.DEPOSIT.toLowerCase()].includes(paymentType.toLowerCase())) {
-    postfix = '/manual';
-  }
-  return fetch(`${global.appConfig.apiUrl}/payment/${paymentType.toLowerCase()}${postfix || ''}`, {
-    method: 'POST',
-    headers: {
-      accept: 'application/json',
-      'content-type': 'application/json',
-      authorization,
-    },
-    body: JSON.stringify(args),
-  }).then(response => response.json());
-};
-
 module.exports = {
-  getTradingPayments,
+  getPayments,
+  createPayment,
   getPaymentsStatistics,
-  createTradingPayment,
 };

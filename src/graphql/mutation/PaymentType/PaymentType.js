@@ -27,6 +27,7 @@ const PaymentType = new GraphQLObjectType({
   fields: () => ({
     createClientPayment: {
       args: {
+        accountUUID: { type: new GraphQLNonNull(GraphQLString) },
         amount: { type: new GraphQLNonNull(GraphQLFloat) },
         paymentType: { type: new GraphQLNonNull(GraphQLString) },
         paymentMethod: { type: GraphQLString },
