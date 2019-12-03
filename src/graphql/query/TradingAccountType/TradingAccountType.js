@@ -6,7 +6,9 @@ const {
   GraphQLNonNull,
   GraphQLInt,
 } = require('graphql');
+const { getOperator } = require('../../common/resolvers/operators');
 const Mt4Type = require('../Mt4Type');
+const OperatorType = require('../OperatorType');
 
 const TradingAccountType = new GraphQLObjectType({
   name: 'TradingAccountQuery',
@@ -38,6 +40,10 @@ const TradingAccountType = new GraphQLObjectType({
     equity: { type: GraphQLFloat },
     closedTradeAmount: { type: GraphQLFloat },
     serverId: { type: GraphQLInt },
+    operator: {
+      type: OperatorType,
+      resolve: getOperator('readOnlyUpdatedBy'),
+    },
   }),
 });
 

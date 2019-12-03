@@ -1,4 +1,4 @@
-const { getProfile } = require('../resolvers/profile');
+const { getProfileNew } = require('../resolvers/profile');
 const {
   createTradingAccount,
   updateTradingAccount,
@@ -11,8 +11,7 @@ const createTradingAccountResolver = async (
   { profileId, name, currency, password, accountType, amount },
   context
 ) => {
-  const { data, error } = await getProfile(_, { playerUUID: profileId }, context);
-
+  const { data, error } = await getProfileNew(_, { playerUUID: profileId }, context);
   if (error) {
     return { success: false };
   }
@@ -22,7 +21,10 @@ const createTradingAccountResolver = async (
     headers: { authorization },
   } = context;
 
-  const { address, city, country, email, phoneNumber: phone, state, postCode: zipCode } = data;
+  const {
+    address: { address, city, countryCode: country, state, postCode: zipCode },
+    contacts: { email, phone },
+  } = data;
 
   const args = {
     profileId,
@@ -65,8 +67,8 @@ const updateTradingAccountResolver = async (_, args, context) => {
   };
 };
 
-const tradingAccountChangePasswordResolver = async (_, { login, password }, { headers: { authorization } }) => {
-  const response = await tradingAccountChangePassword({ login, password }, authorization);
+const tradingAccountChangePasswordResolver = async (_, args, { headers: { authorization } }) => {
+  const response = await tradingAccountChangePassword(args, authorization);
 
   return {
     success: !response.error,

@@ -8,7 +8,7 @@ const buildQueryString = require('./buildQueryString');
  * @return {*}
  */
 const createTradingAccount = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/mt4-updater/user`, {
+  return fetch(`${global.appConfig.apiUrl}/trading-account/account`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -26,7 +26,7 @@ const createTradingAccount = (args, authorization) => {
  * @return {*}
  */
 const updateTradingAccount = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/mt4-updater/user`, {
+  return fetch(`${global.appConfig.apiUrl}/trading-account/account`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',
@@ -44,7 +44,7 @@ const updateTradingAccount = (args, authorization) => {
  * @return {*}
  */
 const tradingAccountChangePassword = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/mt4-updater/user/password`, {
+  return fetch(`${global.appConfig.apiUrl}/trading-account/account/${args.accountUUID}/password`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',

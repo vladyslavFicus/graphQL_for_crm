@@ -32,18 +32,19 @@ const TradingAccountType = new GraphQLObjectType({
     update: {
       args: {
         profileId: { type: new GraphQLNonNull(GraphQLString) },
-        login: { type: new GraphQLNonNull(GraphQLInt) },
+        accountUUID: { type: new GraphQLNonNull(GraphQLString) },
         name: { type: GraphQLString },
         mode: { type: GraphQLString },
         currency: { type: GraphQLString },
-        isReadOnly: { type: GraphQLBoolean },
+        readOnly: { type: GraphQLBoolean },
       },
       type: SuccessType,
       resolve: updateTradingAccountResolver,
     },
     changePassword: {
       args: {
-        login: { type: new GraphQLNonNull(GraphQLInt) },
+        profileUUID: { type: new GraphQLNonNull(GraphQLString) },
+        accountUUID: { type: new GraphQLNonNull(GraphQLString) },
         password: { type: new GraphQLNonNull(GraphQLString) },
       },
       type: SuccessType,
