@@ -24,16 +24,6 @@ const passwordResetRequest = (_, { brandId, playerUUID }, { headers: { authoriza
     },
   }).then(response => ({ success: response.status === 200 }));
 };
-const sendActivationLink = (_, { brandId, playerUUID }, { headers: { authorization } }) => {
-  return fetch(`${global.appConfig.apiUrl}/profile/profiles/${playerUUID}/send-activation-link`, {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      authorization,
-      'Content-Type': 'application/json',
-    },
-  }).then(response => ({ success: response.status === 200 }));
-};
 const changePassword = (_, { playerUUID, ...args }, { headers: { authorization } }) => {
   return fetch(`${global.appConfig.apiUrl}/auth/credentials/${playerUUID}/password`, {
     method: 'POST',

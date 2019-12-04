@@ -17,7 +17,6 @@ const {
     verifyEmail,
     verifyProfile,
     updateEmail,
-    sendActivationLink,
     updateProfile,
     changePassword,
     passwordResetRequest,
@@ -156,20 +155,6 @@ const PlayerMutation = new GraphQLObjectType({
         }),
       }),
       resolve: passwordResetRequest,
-    },
-    sendActivationLink: {
-      args: {
-        playerUUID: { type: new GraphQLNonNull(GraphQLString) },
-      },
-      type: new GraphQLObjectType({
-        name: 'sendActivationLink',
-        fields: () => ({
-          success: {
-            type: new GraphQLNonNull(GraphQLBoolean),
-          },
-        }),
-      }),
-      resolve: sendActivationLink,
     },
     changePassword: {
       args: {
