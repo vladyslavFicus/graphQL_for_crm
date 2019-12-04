@@ -159,7 +159,13 @@ const bulkLeadUpdate = async (
   }
 
   if (salesStatus) {
-    const leadBulkUpdate = await bulkUpdateLead(leadArgs, authorization);
+    const leadBulkUpdate = await bulkUpdateLead(
+      {
+        ids: leadArgs.uuids,
+        ...leadArgs,
+      },
+      authorization
+    );
 
     if (leadBulkUpdate.error) {
       return leadBulkUpdate;
