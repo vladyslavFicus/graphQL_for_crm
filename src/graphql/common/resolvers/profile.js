@@ -531,7 +531,6 @@ module.exports = {
   createProfile,
   updateSubscription,
   resume,
-  sendActivationLink,
   unblock,
   suspendProlong,
   suspend,
