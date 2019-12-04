@@ -13,7 +13,7 @@ const getOperators = (args, authorization) => {
 };
 
 const getOperatorsByUUIDs = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/operator/operators/search?size=${args.uuids.length}`, {
+  return fetch(`${global.appConfig.apiUrl}/operator/operators/search`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
