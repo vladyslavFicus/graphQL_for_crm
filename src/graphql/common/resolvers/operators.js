@@ -18,7 +18,14 @@ const { addOperatorToBranch } = require('./hierarchy');
 const getOperators = async (_, args, { headers: { authorization }, hierarchy }) => {
   const operatorsIds = await hierarchy.getOperatorsIds();
 
-  return getOperatorsByUUIDsRequest({ ...args, uuids: operatorsIds }, authorization);
+  return getOperatorsByUUIDsRequest(
+    {
+      ...args,
+      uuids: operatorsIds,
+      limit: operatorsIds.length,
+    },
+    authorization
+  );
 };
 
 const getOperatorByUUID = async (_, { uuid }, { headers: { authorization }, hierarchy }) => {

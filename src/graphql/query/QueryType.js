@@ -379,7 +379,6 @@ const QueryType = new GraphQLObjectType({
         registrationDateFrom: { type: GraphQLString },
         registrationDateTo: { type: GraphQLString },
         page: { type: GraphQLInt },
-        size: { type: GraphQLInt },
       },
       resolve: getOperators,
     },
