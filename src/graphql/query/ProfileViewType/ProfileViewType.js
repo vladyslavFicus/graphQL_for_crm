@@ -116,6 +116,10 @@ const ProfileViewType = new GraphQLObjectType({
       balance: { type: ProfileViewBalanceType },
       firstName: { type: GraphQLString },
       lastName: { type: GraphQLString },
+      fullName: {
+        type: GraphQLString,
+        resolve: ({ firstName, lastName }) => [firstName, lastName].filter(v => v).join(' '),
+      },
       lastNote: { type: ProfileViewLastNote },
       languageCode: { type: new GraphQLNonNull(GraphQLString) },
       paymentDetails: { type: ProfileViewPaymentDetails },

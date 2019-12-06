@@ -1,11 +1,13 @@
 const { GraphQLObjectType, GraphQLNonNull, GraphQLID, GraphQLString } = require('graphql');
-const { getProfile } = require('../../common/resolvers/profiles');
 const { getOperator } = require('../../common/resolvers/operators');
 const { getNote } = require('../../common/resolvers/notes');
 const { NoteType } = require('../NoteType');
 const OperatorType = require('../OperatorType');
-const PlayerProfileType = require('../PlayerProfileType');
+const ProfileViewType = require('../ProfileViewType');
 const CallbackStatusEnum = require('./CallbackStatusEnum');
+const {
+  profile: { getProfileView },
+} = require('../../common/resolvers');
 
 const CallbackType = new GraphQLObjectType({
   name: 'Callback',
@@ -23,8 +25,10 @@ const CallbackType = new GraphQLObjectType({
       resolve: getOperator('operatorId'),
     },
     client: {
-      type: PlayerProfileType,
-      resolve: getProfile('userId'),
+      type: ProfileViewType,
+      resolve: ({ userId }, _, { headers: { authorization } }) => {
+        return getProfileView(userId, authorization);
+      },
     },
     note: {
       type: NoteType,
