@@ -214,7 +214,7 @@ const QueryType = new GraphQLObjectType({
     clientTradingActivity: {
       type: ResponseType(PageableType(TradingActivityType)),
       args: {
-        playerUUID: { type: GraphQLString },
+        profileUUID: { type: GraphQLString },
         tradeId: { type: GraphQLInt },
         tradeType: { type: GraphQLString },
         openTimeStart: { type: GraphQLString },
