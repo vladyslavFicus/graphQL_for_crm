@@ -27,13 +27,13 @@ const PaymentType = new GraphQLObjectType({
   fields: () => ({
     createClientPayment: {
       args: {
-        accountUUID: { type: new GraphQLNonNull(GraphQLString) },
+        accountUUID: { type: GraphQLString },
         amount: { type: new GraphQLNonNull(GraphQLFloat) },
         paymentType: { type: new GraphQLNonNull(GraphQLString) },
         paymentMethod: { type: GraphQLString },
         login: { type: GraphQLInt },
-        source: { type: GraphQLInt },
-        target: { type: GraphQLInt },
+        source: { type: GraphQLString },
+        target: { type: GraphQLString },
         externalReference: { type: GraphQLString },
         expirationDate: { type: GraphQLString },
         country: { type: GraphQLString },
