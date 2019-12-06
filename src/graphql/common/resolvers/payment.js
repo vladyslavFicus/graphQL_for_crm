@@ -30,8 +30,6 @@ const createClientPayment = async (
 ) => {
   let tradingArgs = {};
 
-  console.log({ paymentType, login, externalReference, country, source, target, expirationDate, profileUUID, ...args });
-
   switch (paymentType.toUpperCase()) {
     case PAYMENT_TYPES.DEPOSIT:
       tradingArgs = {
