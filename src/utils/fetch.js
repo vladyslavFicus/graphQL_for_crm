@@ -102,7 +102,7 @@ module.exports = function(url, config) {
         });
       }
 
-      if (!response.ok || error) {
+      if (error) {
         error = error || new ApolloError(`${response.status}: ${response.statusText}`);
 
         Object.assign(error, {
