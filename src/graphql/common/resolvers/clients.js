@@ -19,7 +19,16 @@ const bulkRepresentativeUpdate = async (_, args, { headers: { authorization } })
 
   let clients = [];
   const filters = searchParams || {};
-  const bulkUpdateSize = totalElements < 10000 ? totalElements : 10000;
+  const { searchLimit } = filters;
+  const maxUpdateLimit = 10000;
+
+  const bulkUpdateSize = searchLimit
+    ? searchLimit < maxUpdateLimit
+      ? searchLimit
+      : maxUpdateLimit
+    : totalElements < maxUpdateLimit
+    ? totalElements
+    : maxUpdateLimit;
 
   if (allRowsSelected) {
     const excludeUuids = clientsData.length !== totalElements ? clientsData.map(client => client.uuid) : [];
