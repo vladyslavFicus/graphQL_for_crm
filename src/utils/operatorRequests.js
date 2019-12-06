@@ -47,7 +47,6 @@ const resetToken = (uuid, authorization) => {
 };
 
 const createOperator = (args, authorization) => {
-  console.log('createOperatorRequestArgs: ', args);
   return fetch(`${global.appConfig.apiUrl}/operator/operators`, {
     method: 'POST',
     headers: {
@@ -58,10 +57,7 @@ const createOperator = (args, authorization) => {
     body: JSON.stringify(args),
   })
     .then(response => response.json())
-    .then(data => {
-      console.log('createOperatorResponseData: ', data);
-      return data;
-    });
+    .then(data => data);
 };
 
 const activateOperator = (args, authorization, brandId) => {

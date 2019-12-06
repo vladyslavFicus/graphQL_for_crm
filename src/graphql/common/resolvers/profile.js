@@ -207,12 +207,6 @@ const updateAddress = function(_, args, { headers: { authorization } }) {
 };
 
 const getProfile = async function(_, { playerUUID, accountType }, context) {
-  const access = await accessValidate(context, playerUUID);
-
-  if (access.error) {
-    return access;
-  }
-
   const allowed = await context.hierarchy.checkAccess(playerUUID);
 
   if (!allowed) {
