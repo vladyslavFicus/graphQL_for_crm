@@ -2,13 +2,14 @@ const fetch = require('./fetch');
 const buildQueryString = require('./buildQueryString');
 
 const getRules = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/rules-profile/?${buildQueryString(args)}`, {
-    method: 'GET',
+  return fetch(`${global.appConfig.apiUrl}/rules-profile/search`, {
+    method: 'POST',
     headers: {
       accept: 'application/json',
       authorization,
       'content-type': 'application/json',
     },
+    body: JSON.stringify(args),
   }).then(response => response.json());
 };
 
