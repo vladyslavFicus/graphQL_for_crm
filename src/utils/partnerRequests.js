@@ -1,6 +1,6 @@
 const fetch = require('./fetch');
 
-const getPartnersByUUIDs = (args, authorization) => {
+const getPartners = (args, authorization) => {
   return fetch(`${global.appConfig.apiUrl}/affiliate/affiliates/search`, {
     method: 'POST',
     headers: {
@@ -64,5 +64,5 @@ module.exports = {
   createPartner,
   updatePartner,
   getPartnerByUUID,
-  getPartnersByUUIDs,
+  getPartners,
 };

@@ -26,7 +26,7 @@ const RuleType = new GraphQLObjectType({
     partners: {
       type: new GraphQLList(PartnerType),
       resolve({ affiliateUUIDs }, _, { dataloaders }) {
-        return affiliateUUIDs.map(uuid => dataloaders.operators.load(uuid));
+        return affiliateUUIDs.map(uuid => dataloaders.partners.load(uuid));
       },
     },
     sources: { type: new GraphQLList(GraphQLString) },

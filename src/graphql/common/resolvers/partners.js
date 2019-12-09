@@ -1,13 +1,13 @@
 const {
   updatePartner: updatePartnerRequest,
-  getPartnersByUUIDs,
+  getPartners: getPartnersRequest,
   createPartner: createPartnerRequest,
   getPartnerByUUID: getPartnerByUUIDRequest,
   changeStatus: changeStatusRequest,
 } = require('../../../utils/partnerRequests');
 
 const getPartners = async (_, args, { headers: { authorization } }) => {
-  return getPartnersByUUIDs(args, authorization);
+  return getPartnersRequest(args, authorization);
 };
 
 const getPartnerByUUID = async (_, { uuid }, { headers: { authorization } }) => {
