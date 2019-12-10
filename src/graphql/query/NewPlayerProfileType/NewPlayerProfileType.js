@@ -204,8 +204,8 @@ const NewPlayerProfileType = new GraphQLObjectType({
   fields: () => ({
     _id: {
       type: new GraphQLNonNull(GraphQLID),
-      resolve({ playerUUID }) {
-        return playerUUID;
+      resolve({ uuid }) {
+        return uuid;
       },
     },
     age: { type: GraphQLString },

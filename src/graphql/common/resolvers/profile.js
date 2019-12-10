@@ -138,8 +138,8 @@ const getProfilePolling = async (playerUUID, brandId, attempt = 0) => {
   return response;
 };
 
-const getProfileNew = async function(_, args, { headers: { authorization } }) {
-  return await getQueryNewProfiles(args, authorization);
+const getProfileNew = async function(_, { playerUUID }, { headers: { authorization } }) {
+  return await getQueryNewProfiles(playerUUID, authorization);
 };
 
 const getProfileView = async function(uuid, authorization) {
@@ -182,8 +182,9 @@ const updateConfiguration = function(_, args, { headers: { authorization } }) {
   }).then(response => ({ success: response.status === 200 }));
 };
 
-const updateContacts = function(_, args, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/profile/admin/profiles/${args.playerUUID}/contacts`, {
+const updateContacts = async function(_, args, { headers: { authorization } }) {
+  const { playerUUID } = args;
+  const { success } = await fetch(`${global.appConfig.apiUrl}/profile/admin/profiles/${playerUUID}/contacts`, {
     method: 'PUT',
     headers: {
       authorization,
@@ -192,6 +193,14 @@ const updateContacts = function(_, args, { headers: { authorization } }) {
     },
     body: JSON.stringify(args),
   }).then(response => ({ success: response.status === 200 }));
+
+  if (!success) return { error: 'error.updateContacts' };
+
+  const { data, error } = await getQueryNewProfiles(playerUUID, authorization);
+
+  if (error) return { error: 'error.getUpdatedProfile' };
+
+  return { data };
 };
 
 const updateAddress = function(_, args, { headers: { authorization } }) {

@@ -1,7 +1,15 @@
-const { GraphQLBoolean, GraphQLObjectType, GraphQLInputObjectType, GraphQLNonNull, GraphQLString } = require('graphql');
+const {
+  GraphQLInputObjectType,
+  GraphQLObjectType,
+  GraphQLBoolean,
+  GraphQLNonNull,
+  GraphQLString,
+  GraphQLID,
+} = require('graphql');
 
 const ResponseType = require('../../common/types/ResponseType');
 const PlayerProfileType = require('../../query/PlayerProfileType');
+const NewPlayerProfileType = require('../../query/NewPlayerProfileType');
 const SuccessType = require('../../query/SuccessType');
 const {
   profile: {
@@ -423,14 +431,7 @@ const PlayerMutation = new GraphQLObjectType({
           type: GraphQLString,
         },
       },
-      type: new GraphQLObjectType({
-        name: 'UpdateContactsType',
-        fields: () => ({
-          success: {
-            type: new GraphQLNonNull(GraphQLBoolean),
-          },
-        }),
-      }),
+      type: ResponseType(NewPlayerProfileType, 'updatedContactsNewPlayerProfile'),
       resolve: updateContacts,
     },
     updateAddress: {

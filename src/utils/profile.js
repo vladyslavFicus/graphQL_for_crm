@@ -37,7 +37,7 @@ const getProfiles = (args, authorization) => {
   }).then(response => response.json());
 };
 
-const getQueryNewProfiles = ({ playerUUID }, authorization) => {
+const getQueryNewProfiles = (playerUUID, authorization) => {
   return fetch(`${global.appConfig.apiUrl}/profile/admin/profiles/${playerUUID}`, {
     method: 'GET',
     headers: {
