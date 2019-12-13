@@ -104,7 +104,7 @@ const changeProfileStatusQuery = ({ playerUUID, ...args }, authorization) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(args),
-  }).then(response => ({ success: response.status === 200 }));
+  }).then(response => response.json());
 };
 
 module.exports = {

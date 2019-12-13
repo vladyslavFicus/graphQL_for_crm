@@ -273,8 +273,8 @@ const resume = function(_, { playerUUID, ...args }, { headers: { authorization }
     }));
 };
 
-const changeProfileStatus = async function(_, args, { headers: { authorization } }) {
-  return await changeProfileStatusQuery(args, authorization);
+const changeProfileStatus = function(_, args, { headers: { authorization } }) {
+  return changeProfileStatusQuery(args, authorization);
 };
 
 const unblock = function(_, { playerUUID, ...args }, { headers: { authorization } }) {

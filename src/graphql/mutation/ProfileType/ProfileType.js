@@ -139,14 +139,7 @@ const PlayerMutation = new GraphQLObjectType({
         reason: { type: new GraphQLNonNull(GraphQLString) },
         status: { type: new GraphQLNonNull(GraphQLString) },
       },
-      type: new GraphQLObjectType({
-        name: 'changeProfileStatus',
-        fields: () => ({
-          success: {
-            type: new GraphQLNonNull(GraphQLBoolean),
-          },
-        }),
-      }),
+      type: ResponseType(NewPlayerProfileType, 'changeProfileStatus'),
       resolve: changeProfileStatus,
     },
     passwordResetRequest: {
