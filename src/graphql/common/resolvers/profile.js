@@ -385,8 +385,8 @@ const updateEmail = async function(_, { playerUUID, ...args }, context) {
   };
 };
 
-const verifyPhone = async function(_, { playerUUID, ...args }, { headers: { authorization } }) {
-  return await fetch(`${global.appConfig.apiUrl}/profile/admin/profiles/${playerUUID}/verification/phone`, {
+const verifyPhone = function(_, { playerUUID, ...args }, { headers: { authorization } }) {
+  return fetch(`${global.appConfig.apiUrl}/profile/admin/profiles/${playerUUID}/verification/phone`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -394,11 +394,11 @@ const verifyPhone = async function(_, { playerUUID, ...args }, { headers: { auth
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(args),
-  }).then(response => ({ success: response.status === 200 }));
+  }).then(response => response.json());
 };
 
-const verifyEmail = async function(_, { playerUUID, ...args }, { headers: { authorization } }) {
-  return await fetch(`${global.appConfig.apiUrl}/profile/admin/profiles/${playerUUID}/verification/email`, {
+const verifyEmail = function(_, { playerUUID, ...args }, { headers: { authorization } }) {
+  return fetch(`${global.appConfig.apiUrl}/profile/admin/profiles/${playerUUID}/verification/email`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -406,7 +406,7 @@ const verifyEmail = async function(_, { playerUUID, ...args }, { headers: { auth
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(args),
-  }).then(response => ({ success: response.status === 200 }));
+  }).then(response => response.json());
 };
 
 const verifyProfile = async function(_, { playerUUID, ...args }, context) {

@@ -289,14 +289,7 @@ const PlayerMutation = new GraphQLObjectType({
           type: GraphQLString,
         },
       },
-      type: new GraphQLObjectType({
-        name: 'VerifyPhoneType',
-        fields: () => ({
-          success: {
-            type: new GraphQLNonNull(GraphQLBoolean),
-          },
-        }),
-      }),
+      type: ResponseType(NewPlayerProfileType, 'verifyPhoneNewPlayerProfile'),
       resolve: verifyPhone,
     },
     verifyEmail: {
@@ -305,14 +298,7 @@ const PlayerMutation = new GraphQLObjectType({
           type: new GraphQLNonNull(GraphQLString),
         },
       },
-      type: new GraphQLObjectType({
-        name: 'VerifyEmailType',
-        fields: () => ({
-          success: {
-            type: new GraphQLNonNull(GraphQLBoolean),
-          },
-        }),
-      }),
+      type: ResponseType(NewPlayerProfileType, 'verifyEmailNewPlayerProfile'),
       resolve: verifyEmail,
     },
     verifyProfile: {
