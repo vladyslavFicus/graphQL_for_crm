@@ -146,8 +146,8 @@ const getProfileView = async function(uuid, authorization) {
   return await getQueryProfileView(uuid, authorization);
 };
 
-const updatePersonalInformation = function(_, args, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/profile/admin/profiles/${args.playerUUID}/personal-information`, {
+const updatePersonalInformation = async function(_, { playerUUID, ...args }, { headers: { authorization } }) {
+  await fetch(`${global.appConfig.apiUrl}/profile/admin/profiles/${playerUUID}/personal-information`, {
     method: 'PUT',
     headers: {
       authorization,
@@ -155,7 +155,9 @@ const updatePersonalInformation = function(_, args, { headers: { authorization }
       'content-type': 'application/json',
     },
     body: JSON.stringify(args),
-  }).then(response => ({ success: response.status === 200 }));
+  });
+
+  return getQueryNewProfiles(playerUUID, authorization);
 };
 
 const updateKYCStatus = function(_, args, { headers: { authorization } }) {
@@ -182,9 +184,8 @@ const updateConfiguration = function(_, args, { headers: { authorization } }) {
   }).then(response => ({ success: response.status === 200 }));
 };
 
-const updateContacts = async function(_, args, { headers: { authorization } }) {
-  const { playerUUID } = args;
-  const { success } = await fetch(`${global.appConfig.apiUrl}/profile/admin/profiles/${playerUUID}/contacts`, {
+const updateContacts = async function(_, { playerUUID, ...args }, { headers: { authorization } }) {
+  await fetch(`${global.appConfig.apiUrl}/profile/admin/profiles/${playerUUID}/contacts`, {
     method: 'PUT',
     headers: {
       authorization,
@@ -192,19 +193,13 @@ const updateContacts = async function(_, args, { headers: { authorization } }) {
       'content-type': 'application/json',
     },
     body: JSON.stringify(args),
-  }).then(response => ({ success: response.status === 200 }));
+  });
 
-  if (!success) return { error: 'error.updateContacts' };
-
-  const { data, error } = await getQueryNewProfiles(playerUUID, authorization);
-
-  if (error) return { error: 'error.getUpdatedProfile' };
-
-  return { data };
+  return getQueryNewProfiles(playerUUID, authorization);
 };
 
-const updateAddress = function(_, args, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/profile/admin/profiles/${args.playerUUID}/address`, {
+const updateAddress = async function(_, { playerUUID, ...args }, { headers: { authorization } }) {
+  await fetch(`${global.appConfig.apiUrl}/profile/admin/profiles/${playerUUID}/address`, {
     method: 'PUT',
     headers: {
       authorization,
@@ -212,7 +207,9 @@ const updateAddress = function(_, args, { headers: { authorization } }) {
       'content-type': 'application/json',
     },
     body: JSON.stringify(args),
-  }).then(response => ({ success: response.status === 200 }));
+  });
+
+  return getQueryNewProfiles(playerUUID, authorization);
 };
 
 const getProfile = async function(_, { playerUUID, accountType }, context) {

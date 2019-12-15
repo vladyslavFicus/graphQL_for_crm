@@ -434,14 +434,7 @@ const PlayerMutation = new GraphQLObjectType({
           type: GraphQLString,
         },
       },
-      type: new GraphQLObjectType({
-        name: 'UpdateAddressType',
-        fields: () => ({
-          success: {
-            type: new GraphQLNonNull(GraphQLBoolean),
-          },
-        }),
-      }),
+      type: ResponseType(NewPlayerProfileType, 'UpdatePlayerProfileAddressType'),
       resolve: updateAddress,
     },
     updatePersonalInformation: {
@@ -468,14 +461,7 @@ const PlayerMutation = new GraphQLObjectType({
           type: passportInput,
         },
       },
-      type: new GraphQLObjectType({
-        name: 'UpdatePersonalInformationType',
-        fields: () => ({
-          success: {
-            type: new GraphQLNonNull(GraphQLBoolean),
-          },
-        }),
-      }),
+      type: ResponseType(NewPlayerProfileType, 'UpdatePlayerPersonalInformationType'),
       resolve: updatePersonalInformation,
     },
   }),
