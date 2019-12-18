@@ -1,9 +1,7 @@
 const { get } = require('lodash');
 const moment = require('moment');
 const { getScrollData, getCountData, queryBuild } = require('../../../utils/ESSearchHelpers');
-const {
-  queries: { getPaymentsStatistics },
-} = require('../../../utils/payment');
+const { getPaymentsStatisticsQuery } = require('../../../utils/payment');
 const { convertToUtcDates } = require('../../../utils/utcHelpers');
 const {
   compareDateFormat,
@@ -99,7 +97,7 @@ const getPaymentsStatistic = async function(
   { additionalStatistics, dateFrom, dateTo, playerUUID, ...args },
   { hierarchy, headers: { authorization } }
 ) {
-  const { data, error } = await getPaymentsStatistics(
+  const { data, error } = await getPaymentsStatisticsQuery(
     {
       ...args,
       ...(dateFrom && {

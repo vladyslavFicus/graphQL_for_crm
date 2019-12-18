@@ -1,11 +1,10 @@
 const fetch = require('../../../utils/fetch');
 const { PAYMENT_TYPES } = require('../../../constants/payment');
 const {
-  queries: {
-    getPaymentMethods: getPaymentMethodsQuery,
-    getPayments: getPaymentsQuery,
-    createPayment: createPaymentQuery,
-  },
+  getPaymentsQuery,
+  createPaymentQuery,
+  getPaymentMethodsQuery,
+  getManualPaymentMethodsQuery,
 } = require('../../../utils/payment');
 
 const getClientPayments = async (_, args, { headers: { authorization }, hierarchy }) => {
@@ -84,12 +83,6 @@ const createClientPayment = async (
   };
 };
 
-const getPaymentMethods = async (_, args, { headers: { authorization } }) => {
-  const methods = await getPaymentMethodsQuery(args, authorization);
-
-  return Array.isArray(methods) ? methods : [];
-};
-
 const acceptPayment = async function(_, { typeAcc, ...args }, context) {
   const {
     headers: { authorization },
@@ -143,8 +136,29 @@ const changeOriginalAgent = function(_, { paymentId, ...args }, { headers: { aut
   }).then(response => ({ success: response.status === 200 }));
 };
 
+const getPaymentMethods = async (_, __, { headers: { authorization } }) => {
+  const response = await getPaymentMethodsQuery(authorization);
+
+  if (response.error) {
+    return response;
+  }
+
+  return [...response.data].filter(method => method && method !== 'null').sort();
+};
+
+const getManualPaymentMethods = async (_, __, { headers: { authorization } }) => {
+  const response = await getManualPaymentMethodsQuery(authorization);
+
+  if (response.error) {
+    return response;
+  }
+
+  return [...response.data].sort();
+};
+
 module.exports = {
   getPaymentMethods,
+  getManualPaymentMethods,
   createClientPayment,
   getClientPayments,
   getClientPaymentsByUuid,

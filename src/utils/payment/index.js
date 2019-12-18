@@ -1,9 +1,15 @@
-const { getPayments, getPaymentsStatistics, createPayment } = require('./paymentRequests');
+const {
+  getPayments: getPaymentsQuery,
+  getPaymentsStatistics: getPaymentsStatisticsQuery,
+  createPayment: createPaymentQuery,
+  getPaymentMethods: getPaymentMethodsQuery,
+  getManualPaymentMethods: getManualPaymentMethodsQuery,
+} = require('./paymentRequests');
 
 module.exports = {
-  queries: {
-    getPayments,
-    getPaymentsStatistics,
-    createPayment,
-  },
+  getPaymentsQuery,
+  getPaymentsStatisticsQuery,
+  createPaymentQuery,
+  getPaymentMethodsQuery,
+  getManualPaymentMethodsQuery,
 };

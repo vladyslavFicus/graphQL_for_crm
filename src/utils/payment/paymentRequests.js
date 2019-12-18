@@ -42,8 +42,30 @@ const getPaymentsStatistics = (data, authorization) => {
   }).then(response => response.json());
 };
 
+const getPaymentMethods = authorization =>
+  fetch(`${global.appConfig.apiUrl}/payment/metadata/payment-methods`, {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      authorization,
+      'content-type': 'application/json',
+    },
+  }).then(response => response.json());
+
+const getManualPaymentMethods = authorization =>
+  fetch(`${global.appConfig.apiUrl}/payment/metadata/manual-payment-methods`, {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      authorization,
+      'content-type': 'application/json',
+    },
+  }).then(response => response.json());
+
 module.exports = {
   getPayments,
   createPayment,
   getPaymentsStatistics,
+  getPaymentMethods,
+  getManualPaymentMethods,
 };

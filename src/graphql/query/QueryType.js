@@ -19,6 +19,7 @@ const {
   notes: { getNotes },
   payment: {
     getPaymentMethods,
+    getManualPaymentMethods,
     getOperatorPaymentMethods,
     getClientPayments,
     getClientPaymentsByUuid,
@@ -145,12 +146,12 @@ const QueryType = new GraphQLObjectType({
       },
     },
     paymentMethods: {
-      type: ResponseType(new GraphQLList(PaymentMethodType), 'PaymentMethods'),
-      args: {
-        countryCode: { type: GraphQLString },
-        status: { type: GraphQLString },
-      },
+      type: ResponseType(new GraphQLList(GraphQLString), 'PaymentMethods'),
       resolve: getPaymentMethods,
+    },
+    manualPaymentMethods: {
+      type: ResponseType(new GraphQLList(GraphQLString), 'ManualPaymentMethods'),
+      resolve: getManualPaymentMethods,
     },
     operatorPaymentMethods: {
       type: ResponseType(new GraphQLList(PaymentMethodType), 'OperatorPaymentMethods'),
