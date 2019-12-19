@@ -1,31 +1,27 @@
 const { GraphQLObjectType, GraphQLList, GraphQLNonNull, GraphQLInputObjectType, GraphQLString } = require('graphql');
 const { GraphQLUpload } = require('apollo-server-express');
 const ResponseType = require('../../common/types/ResponseType');
-const FileQueryType = require('../../query/FileType');
+const { FileType: FileQueryType } = require('../../query/FileType/FileType');
 const SuccessType = require('../../query/SuccessType');
 const {
-  files: { refuse, verify, deleteFile, uploadFile, confirmFiles, updateFileStatus },
+  files: { verify, deleteFile, uploadFile, confirmFilesUpload, updateFileStatus, updateFileMeta },
 } = require('../../common/resolvers');
 
-const InputFile = new GraphQLInputObjectType({
-  name: 'InputFile',
+const InputFileType = new GraphQLInputObjectType({
+  name: 'InputFileType',
   fields: () => ({
-    uuid: { type: new GraphQLNonNull(GraphQLString) },
-    name: { type: new GraphQLNonNull(GraphQLString) },
-    category: { type: new GraphQLNonNull(GraphQLString) },
+    fileUuid: { type: new GraphQLNonNull(GraphQLString) },
+    documentType: { type: new GraphQLNonNull(GraphQLString) },
+    verificationType: { type: new GraphQLNonNull(GraphQLString) },
+    title: { type: new GraphQLNonNull(GraphQLString) },
+    comment: { type: GraphQLString },
+    expirationDate: { type: GraphQLString },
   }),
 });
 
 const FileType = new GraphQLObjectType({
   name: 'FileType',
   fields: () => ({
-    refuse: {
-      args: {
-        uuid: { type: new GraphQLNonNull(GraphQLString) },
-      },
-      type: ResponseType(FileQueryType, 'RefuseFileType'),
-      resolve: refuse,
-    },
     verify: {
       args: {
         uuid: { type: new GraphQLNonNull(GraphQLString) },
@@ -36,33 +32,52 @@ const FileType = new GraphQLObjectType({
     delete: {
       args: {
         uuid: { type: new GraphQLNonNull(GraphQLString) },
-        playerUUID: { type: new GraphQLNonNull(GraphQLString) },
       },
       type: ResponseType(FileQueryType, 'DeleteFileType'),
       resolve: deleteFile,
     },
     upload: {
       args: {
-        file: { type: GraphQLUpload },
+        file: { type: new GraphQLNonNull(GraphQLUpload) },
+        profileUUID: { type: new GraphQLNonNull(GraphQLString) },
       },
-      type: ResponseType(FileQueryType, 'UploadFileType'),
+      type: ResponseType(
+        new GraphQLObjectType({
+          name: 'UploadFileUuidType',
+          fields: () => ({
+            fileUUID: { type: GraphQLString },
+          }),
+        }),
+        'UploadFileType'
+      ),
       resolve: uploadFile,
     },
     confirmFiles: {
       args: {
-        files: { type: new GraphQLList(InputFile) },
-        playerUUID: { type: new GraphQLNonNull(GraphQLString) },
+        documents: { type: new GraphQLList(InputFileType) },
+        profileUuid: { type: new GraphQLNonNull(GraphQLString) },
       },
-      type: ResponseType(new GraphQLList(FileQueryType), 'ConfirmFileType'),
-      resolve: confirmFiles,
+      type: ResponseType(SuccessType, 'ConfirmFileType'),
+      resolve: confirmFilesUpload,
     },
     updateFileStatus: {
       args: {
-        fileUUID: { type: new GraphQLNonNull(GraphQLString) },
-        documentStatus: { type: new GraphQLNonNull(GraphQLString) },
+        clientUuid: { type: new GraphQLNonNull(GraphQLString) },
+        verificationType: { type: GraphQLString },
+        documentType: { type: GraphQLString },
+        verificationStatus: { type: GraphQLString },
       },
       type: SuccessType,
       resolve: updateFileStatus,
+    },
+    updateFileMeta: {
+      args: {
+        uuid: { type: new GraphQLNonNull(GraphQLString) },
+        verificationType: { type: GraphQLString },
+        documentType: { type: GraphQLString },
+      },
+      type: SuccessType,
+      resolve: updateFileMeta,
     },
   }),
 });

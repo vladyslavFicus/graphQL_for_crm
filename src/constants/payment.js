@@ -12,7 +12,6 @@ const PAYMENT_TYPES = {
 const statuses = keyMirror({
   APPROVED: null,
   PENDING: null,
-  REFUSED: null,
   FAILED: null,
   COMPLETED: null,
   CHARGEBACK: null,
@@ -21,13 +20,11 @@ const statuses = keyMirror({
 });
 
 const paymentActions = {
-  REJECT: 'refuse',
   CHARGEBACK: 'chargeback',
   APPROVE: 'approve',
 };
 
 const mapActionToStatus = {
-  [paymentActions.REJECT]: statuses.REFUSED,
   [paymentActions.CHARGEBACK]: statuses.CHARGEBACK,
   [paymentActions.APPROVE]: statuses.APPROVED,
 };

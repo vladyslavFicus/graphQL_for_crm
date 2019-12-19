@@ -11,7 +11,7 @@ const { GraphQLJSONObject } = require('graphql-type-json');
 const ResponseType = require('../common/types/ResponseType');
 const {
   profile,
-  files: { getFiles, getFileList },
+  files: { getFiles, getFilesByProfileUUID, getFileCategoriesList },
   auth: {
     credentials: { getAuthorities, getLoginLock, getPermissions, getAuthoritiesOptions },
   },
@@ -40,7 +40,7 @@ const {
 } = require('../common/resolvers');
 const PageableType = require('../common/types/PageableType');
 const ClientSearchInputType = require('../input/ClientSearchInputType');
-const FileType = require('./FileType');
+const { FileType, FileByUuidType } = require('./FileType/FileType');
 const { AuthorityType, AuthorityOptionsType } = require('./AuthType');
 const PlayerProfileType = require('./PlayerProfileType');
 const NewPlayerProfileType = require('./NewPlayerProfileType');
@@ -266,31 +266,47 @@ const QueryType = new GraphQLObjectType({
       },
       resolve: getTradingLeads,
     },
-    files: {
-      type: PageableType(FileType),
-      resolve: getFiles,
+    // #
+    filesByUuid: {
+      type: ResponseType(GraphQLList(FileByUuidType), 'FilesByUuid'),
+      resolve: getFilesByProfileUUID,
       args: {
         size: { type: GraphQLInt },
         page: { type: GraphQLInt },
-        playerUUID: { type: new GraphQLNonNull(GraphQLString) },
+        clientUUID: { type: new GraphQLNonNull(GraphQLString) },
         searchBy: { type: GraphQLString },
         fileCategory: { type: GraphQLString },
         uploadDateFrom: { type: GraphQLString },
         uploadDateTo: { type: GraphQLString },
       },
     },
+    // #
     fileList: {
-      type: PageableType(FileType, {}, 'FileList'),
-      resolve: getFileList,
+      type: ResponseType(PageableType(FileType, {}, 'FileList')),
+      resolve: getFiles,
       args: {
         size: { type: GraphQLInt },
         page: { type: GraphQLInt },
         searchBy: { type: GraphQLString },
-        documentStatus: { type: GraphQLString },
-        uploadDateFrom: { type: GraphQLString },
-        uploadDateTo: { type: GraphQLString },
+        uploadedDateFrom: { type: GraphQLString },
+        uploadedDateTo: { type: GraphQLString },
         targetUuid: { type: GraphQLString },
+        verificationType: { type: GraphQLString },
+        documentType: { type: GraphQLString },
       },
+    },
+    filesCategoriesList: {
+      type: ResponseType(
+        new GraphQLObjectType({
+          name: 'filesCategoriesType',
+          fields: () => ({
+            DOCUMENT_VERIFICATION: { type: new GraphQLList(GraphQLString) },
+            ADDRESS_VERIFICATION: { type: new GraphQLList(GraphQLString) },
+          }),
+        }),
+        'filesCategoriesListType'
+      ),
+      resolve: getFileCategoriesList,
     },
     leadProfile: {
       type: ResponseType(LeadType),
