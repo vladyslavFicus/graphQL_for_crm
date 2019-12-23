@@ -302,6 +302,7 @@ const QueryType = new GraphQLObjectType({
           fields: () => ({
             DOCUMENT_VERIFICATION: { type: new GraphQLList(GraphQLString) },
             ADDRESS_VERIFICATION: { type: new GraphQLList(GraphQLString) },
+            OTHER: { type: new GraphQLList(GraphQLString) },
           }),
         }),
         'filesCategoriesListType'
