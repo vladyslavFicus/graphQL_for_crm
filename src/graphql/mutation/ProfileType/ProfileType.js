@@ -145,7 +145,6 @@ const PlayerMutation = new GraphQLObjectType({
     passwordResetRequest: {
       args: {
         playerUUID: { type: new GraphQLNonNull(GraphQLString) },
-        brandId: { type: new GraphQLNonNull(GraphQLString) },
       },
       type: new GraphQLObjectType({
         name: 'passwordResetRequest',

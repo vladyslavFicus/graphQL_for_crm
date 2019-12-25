@@ -40,14 +40,13 @@ process.on('uncaughtException', err => {
 
       const operationName = Array.isArray(body) ? body[0].operationName : body.operationName;
 
-      if (
-        headers &&
-        operationName !== 'signIn' &&
-        operationName !== 'chooseDepartment' &&
-        headers.authorization &&
-        headers.authorization !== 'undefined'
-      ) {
+      if (headers && headers.authorization && headers.authorization !== 'undefined') {
         const { brandId, user_uuid: userUUID } = jwtDecode(headers.authorization);
+
+        // Return context if token without brandId field
+        if (!brandId) {
+          return context;
+        }
 
         const brand = global.appConfig.brands[brandId];
 

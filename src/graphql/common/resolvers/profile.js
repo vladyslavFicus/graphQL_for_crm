@@ -14,7 +14,7 @@ const { getOperatorByUUID } = require('./operators');
 const getPlayerProfileFromESByUUID = require('../../../utils/getPlayerProfileFromESByUUID');
 const { statuses } = require('../../../constants/player');
 
-const passwordResetRequest = (_, { brandId, playerUUID }, { headers: { authorization } }) => {
+const passwordResetRequest = (_, { playerUUID }, { headers: { authorization }, brand: { id: brandId } }) => {
   return fetch(`${global.appConfig.apiUrl}/auth/password/${brandId}/${playerUUID}/reset/request`, {
     method: 'POST',
     headers: {
