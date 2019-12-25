@@ -37,6 +37,7 @@ const {
   metabase: { getMetabaseToken },
   filterSet: { getFilterSets, getFilterSetById },
   tradingAccount: { getTradingAccounts },
+  risks: { getRisksQuestionnaire },
 } = require('../common/resolvers');
 const PageableType = require('../common/types/PageableType');
 const ClientSearchInputType = require('../input/ClientSearchInputType');
@@ -64,6 +65,7 @@ const { SalesStatusesEnum: TradingSalesStatuses } = require('./TradingProfileTyp
 const HierarchyQueryType = require('./HierarchyQueryType');
 const QuestionnaireQueryType = require('./QuestionnaireQueryType');
 const RuleType = require('./RuleType');
+const RisksType = require('./RisksType');
 const { RuleTypeEnum } = require('./RuleType/RuleEnums');
 const { ConditionalTagType, ConditionalTagStatusEnum } = require('./ConditionalTagType');
 const { CallbackType, CallbackStatusEnum } = require('./CallbackType');
@@ -266,7 +268,6 @@ const QueryType = new GraphQLObjectType({
       },
       resolve: getTradingLeads,
     },
-    // #
     filesByUuid: {
       type: ResponseType(GraphQLList(FileByUuidType), 'FilesByUuid'),
       resolve: getFilesByProfileUUID,
@@ -280,7 +281,6 @@ const QueryType = new GraphQLObjectType({
         uploadDateTo: { type: GraphQLString },
       },
     },
-    // #
     fileList: {
       type: ResponseType(PageableType(FileType, {}, 'FileList')),
       resolve: getFiles,
@@ -359,6 +359,13 @@ const QueryType = new GraphQLObjectType({
         parentId: { type: GraphQLString },
       },
       resolve: getRulesRetention,
+    },
+    riskQuestionnaire: {
+      type: ResponseType(RisksType, 'RiskQuestionnaireDataType'),
+      args: {
+        clientUuid: { type: GraphQLString },
+      },
+      resolve: getRisksQuestionnaire,
     },
     conditionalTags: {
       type: ResponseType(PageableType(ConditionalTagType), 'ConditionalTagList'),

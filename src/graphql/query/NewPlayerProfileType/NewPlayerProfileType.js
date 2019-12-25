@@ -1,12 +1,15 @@
 const {
   profile: { getProfileView },
   tradingAccount: { getTradingAccounts },
+  risks: { getRisksQuestionnaire },
+  operators: { getOperator },
 } = require('../../common/resolvers');
+const { ResponseType } = require('../../common/types');
 const ProfileViewType = require('../ProfileViewType');
+const RisksType = require('../RisksType');
 const TradingAccountType = require('../TradingAccountType');
 const { GraphQLObjectType, GraphQLNonNull, GraphQLBoolean, GraphQLID, GraphQLString, GraphQLList } = require('graphql');
 const OperatorType = require('../OperatorType');
-const { getOperator } = require('../../common/resolvers/operators');
 
 const AcquisitionType = new GraphQLObjectType({
   name: 'AcquisitionType',
@@ -213,6 +216,12 @@ const NewPlayerProfileType = new GraphQLObjectType({
       type: ProfileViewType,
       resolve: ({ uuid }, _, { headers: { authorization } }) => {
         return getProfileView(uuid, authorization);
+      },
+    },
+    riskQuestionnaire: {
+      type: ResponseType(RisksType, 'ProfileRiskCategory'),
+      resolve: ({ uuid }, _, context) => {
+        return getRisksQuestionnaire(_, { clientUuid: uuid }, context);
       },
     },
     tradingAccount: {

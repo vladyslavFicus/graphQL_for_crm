@@ -12,6 +12,7 @@ const UploadType = require('./UploadType');
 const LeadsType = require('./LeadsType');
 const HierarchyType = require('./HierarchyType');
 const RulesType = require('./RulesType');
+const RisksType = require('./RisksType');
 const ClientsType = require('./ClientsType');
 const ConditionalTagType = require('./ConditionalTagType');
 const TradingAccountType = require('./TradingAccountType');
@@ -97,6 +98,12 @@ const MutationType = new GraphQLObjectType({
     },
     rules: {
       type: RulesType,
+      resolve() {
+        return {};
+      },
+    },
+    risks: {
+      type: RisksType,
       resolve() {
         return {};
       },

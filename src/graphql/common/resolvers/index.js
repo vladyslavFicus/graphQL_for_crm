@@ -22,4 +22,5 @@ module.exports = {
   partners: require('./partners'),
   metabase: require('./metabase'),
   filterSet: require('./filterSet'),
+  risks: require('./risks'),
 };
