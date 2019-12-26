@@ -14,16 +14,6 @@ const {
 } = require('../../common/resolvers');
 const { NoteType } = require('../NoteType');
 
-const FileStatusType = new GraphQLObjectType({
-  name: 'FileStatus',
-  fields: () => ({
-    author: { type: new GraphQLNonNull(GraphQLString) },
-    comment: { type: GraphQLString },
-    value: { type: new GraphQLNonNull(GraphQLString) },
-    editDate: { type: GraphQLString },
-  }),
-});
-
 const FileType = new GraphQLObjectType({
   name: 'File',
   fields: () => ({
@@ -58,7 +48,6 @@ const FileType = new GraphQLObjectType({
     category: { type: GraphQLString },
     name: { type: GraphQLString },
     fileName: { type: GraphQLString },
-    statusDocument: { type: GraphQLString },
     playerUUID: {
       type: new GraphQLNonNull(GraphQLString),
       resolve({ playerUuid }) {
@@ -74,7 +63,7 @@ const FileType = new GraphQLObjectType({
         return targetUuid;
       },
     },
-    status: { type: FileStatusType },
+    status: { type: GraphQLString },
     note: {
       type: NoteType,
       resolve: getNote('uuid'),

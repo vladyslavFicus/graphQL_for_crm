@@ -75,6 +75,7 @@ const FileType = new GraphQLObjectType({
         uuid: { type: new GraphQLNonNull(GraphQLString) },
         verificationType: { type: GraphQLString },
         documentType: { type: GraphQLString },
+        status: { type: GraphQLString },
       },
       type: SuccessType,
       resolve: updateFileMeta,
