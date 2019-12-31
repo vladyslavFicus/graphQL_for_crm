@@ -90,6 +90,7 @@ const ClientSearchInputType = new GraphQLInputObjectType({
     searchLimit: { type: GraphQLInt },
     statuses: { type: new GraphQLList(GraphQLString) },
     teams: { type: new GraphQLList(GraphQLString) },
+    questionnaireStatus: { type: GraphQLString },
   }),
 });
 
