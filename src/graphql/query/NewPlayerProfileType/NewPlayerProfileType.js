@@ -7,6 +7,7 @@ const {
 const { ResponseType } = require('../../common/types');
 const ProfileViewType = require('../ProfileViewType');
 const RisksType = require('../RisksType');
+const PartnerType = require('../PartnerType');
 const TradingAccountType = require('../TradingAccountType');
 const { GraphQLObjectType, GraphQLNonNull, GraphQLBoolean, GraphQLID, GraphQLString, GraphQLList } = require('graphql');
 const OperatorType = require('../OperatorType');
@@ -50,11 +51,16 @@ const AffiliateType = new GraphQLObjectType({
   fields() {
     return {
       externalId: { type: GraphQLString },
-      firstName: { type: GraphQLString },
       referral: { type: GraphQLString },
       sms: { type: GraphQLString },
       source: { type: GraphQLString },
       uuid: { type: GraphQLString },
+      partner: {
+        type: PartnerType,
+        resolve({ uuid }, _, { dataloaders }) {
+          return dataloaders.partners.load(uuid);
+        },
+      },
     };
   },
 });

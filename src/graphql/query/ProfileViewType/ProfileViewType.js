@@ -1,5 +1,6 @@
 const { GraphQLObjectType, GraphQLNonNull, GraphQLInt, GraphQLString, GraphQLList } = require('graphql');
 const OperatorType = require('../OperatorType');
+const PartnerType = require('../PartnerType');
 const { getOperator } = require('../../common/resolvers/operators');
 
 const ProfileViewAcquisition = new GraphQLObjectType({
@@ -36,9 +37,14 @@ const ProfileViewAffiliate = new GraphQLObjectType({
   name: 'ProfileViewAffiliate',
   fields: () => {
     return {
-      firstName: { type: GraphQLString },
-      source: { type: GraphQLString },
       uuid: { type: GraphQLNonNull(GraphQLString) },
+      source: { type: GraphQLString },
+      partner: {
+        type: PartnerType,
+        resolve({ uuid }, _, { dataloaders }) {
+          return dataloaders.partners.load(uuid);
+        },
+      },
     };
   },
 });
