@@ -20,10 +20,6 @@ const {
 const AffiliateDocumentType = new GraphQLObjectType({
   name: 'AffiliateDocumentType',
   fields: () => ({
-    _id: {
-      type: new GraphQLNonNull(GraphQLString),
-      resolve: ({ affiliateUuid }) => affiliateUuid,
-    },
     affiliateUuid: { type: new GraphQLNonNull(GraphQLString) },
     source: { type: GraphQLString },
     referral: { type: GraphQLString },
