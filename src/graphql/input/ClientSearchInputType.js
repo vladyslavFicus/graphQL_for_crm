@@ -63,6 +63,7 @@ const ClientSearchInputType = new GraphQLInputObjectType({
     },
     migrationId: { type: GraphQLString },
     operators: { type: new GraphQLList(GraphQLString) },
+    affiliateUuids: { type: new GraphQLList(GraphQLString) },
     page: {
       type: new GraphQLInputObjectType({
         name: 'ClientSearchPageAttr',

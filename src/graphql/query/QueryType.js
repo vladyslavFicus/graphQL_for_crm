@@ -184,6 +184,7 @@ const QueryType = new GraphQLObjectType({
         agentIds: { type: new GraphQLList(GraphQLString) },
         accountType: { type: GraphQLString },
         firstTimeDeposit: { type: GraphQLBoolean },
+        affiliateUuids: { type: new GraphQLList(GraphQLString) },
       },
     },
     clientPaymentsByUuid: {
