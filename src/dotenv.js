@@ -8,7 +8,7 @@ const fs = require('fs');
 const customEnvPath = path.resolve(process.cwd(), `.env.${process.env.APP_ENV}`);
 const defaultEnvPath = path.resolve(process.cwd(), '.env');
 
-const envPath = fs.existsSync(defaultEnvPath) ? defaultEnvPath : customEnvPath;
+const envPath = fs.existsSync(customEnvPath) ? customEnvPath : defaultEnvPath;
 
 require('dotenv').config({ path: envPath });
 
