@@ -1,26 +1,6 @@
 const { getProfiles: getProfilesRequest } = require('../../../utils/profile');
 
-const getProfiles = async function(
-  _,
-  {
-    args: {
-      searchLimit,
-      page: { from, size },
-      ...rest
-    },
-  },
-  { headers: { authorization } }
-) {
-  const data = {
-    page: {
-      from,
-      size: searchLimit || size,
-    },
-    ...rest,
-  };
-
-  return getProfilesRequest(data, authorization);
-};
+const getProfiles = (_, { args }, { headers: { authorization } }) => getProfilesRequest(args, authorization);
 
 /**
  * Retrieve profile depends on source fieldName

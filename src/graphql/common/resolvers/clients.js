@@ -1,7 +1,18 @@
+const { get } = require('lodash');
 const {
   requests: { bulkUpdateHierarchyUser, bulkMassAssignHierarchyUser },
 } = require('../../../utils/hierarchy');
 const { getProfiles, bulkUpdateSalesStasuses, bulkUpdateRetentionStasuses } = require('../../../utils/profile');
+
+const CLIENTS_SIZE_LIMIT = 10000;
+
+const bulkUpdate = async (body, request, authorization) => {
+  const { error } = await request(body, authorization);
+
+  if (error) {
+    throw error;
+  }
+};
 
 const bulkRepresentativeUpdate = async (_, args, { headers: { authorization } }) => {
   const {
@@ -17,28 +28,20 @@ const bulkRepresentativeUpdate = async (_, args, { headers: { authorization } })
     type,
   } = args;
 
-  let clients = [];
-  const filters = searchParams || {};
-  const { searchLimit } = filters;
-  const maxUpdateLimit = 10000;
+  const { searchLimit, ...filters } = searchParams || { searchLimit: totalElements };
+  const bulkUpdateSize = searchLimit < CLIENTS_SIZE_LIMIT ? searchLimit : CLIENTS_SIZE_LIMIT;
 
-  const bulkUpdateSize = searchLimit
-    ? searchLimit < maxUpdateLimit
-      ? searchLimit
-      : maxUpdateLimit
-    : totalElements < maxUpdateLimit
-    ? totalElements
-    : maxUpdateLimit;
+  let clients = [];
 
   if (allRowsSelected) {
-    const excludeUuids = clientsData.length !== totalElements ? clientsData.map(client => client.uuid) : [];
+    const excludeUuids = clientsData.length !== bulkUpdateSize ? clientsData.map(client => client.uuid) : [];
 
-    const getProfilesResponse = await getProfiles(
+    const { data } = await getProfiles(
       {
         ...filters,
         page: {
           from: 0,
-          size: bulkUpdateSize,
+          size: bulkUpdateSize - excludeUuids.length,
         },
         fields: ['uuid', 'acquisition'],
         excludeByUuids: excludeUuids,
@@ -46,74 +49,66 @@ const bulkRepresentativeUpdate = async (_, args, { headers: { authorization } })
       authorization
     );
 
-    clients = getProfilesResponse.data.content;
+    clients = get(data, 'content') || [];
   } else {
     clients = clientsData;
   }
 
-  if (salesStatus) {
-    const { error } = await bulkUpdateSalesStasuses(
-      {
-        salesStatus,
-        uuids: clients.map(client => client.uuid),
-      },
-      authorization
-    );
-
-    if (error) {
-      return { error };
+  try {
+    if (salesStatus) {
+      bulkUpdate(
+        {
+          salesStatus,
+          uuids: clients.map(client => client.uuid),
+        },
+        bulkUpdateSalesStasuses,
+        authorization
+      );
     }
-  }
 
-  if (retentionStatus) {
-    const { error } = await bulkUpdateRetentionStasuses(
-      {
-        retentionStatus,
-        uuids: clients.map(client => client.uuid),
-      },
-      authorization
-    );
-
-    if (error) {
-      return { error };
+    if (retentionStatus) {
+      bulkUpdate(
+        {
+          retentionStatus,
+          uuids: clients.map(client => client.uuid),
+        },
+        bulkUpdateRetentionStasuses,
+        authorization
+      );
     }
-  }
 
-  if (salesRepresentative || retentionRepresentative) {
-    const { error } = await bulkMassAssignHierarchyUser(
-      {
-        parentUsers: salesRepresentative || retentionRepresentative,
-        userUuids: clients.map(client => client.uuid),
-      },
-      authorization
-    );
-
-    if (error) {
-      return { error };
+    if (salesRepresentative || retentionRepresentative) {
+      bulkUpdate(
+        {
+          parentUsers: salesRepresentative || retentionRepresentative,
+          userUuids: clients.map(client => client.uuid),
+        },
+        bulkMassAssignHierarchyUser,
+        authorization
+      );
     }
-  }
 
-  if (isMoveAction) {
-    const { error } = await bulkUpdateHierarchyUser(
-      {
-        assignments: clients.map(client => ({
-          uuid: client.uuid,
-          assignToOperator:
-            type === 'SALES'
-              ? client.acquisition
-                ? client.acquisition.salesRepresentative
-                : client.salesRepresentative
-              : client.acquisition
-              ? client.acquisition.retentionRepresentative
-              : client.retentionRepresentative,
-        })),
-      },
-      authorization
-    );
-
-    if (error) {
-      return { error };
+    if (isMoveAction) {
+      bulkUpdate(
+        {
+          assignments: clients.map(client => ({
+            uuid: client.uuid,
+            assignToOperator:
+              type === 'SALES'
+                ? client.acquisition
+                  ? client.acquisition.salesRepresentative
+                  : client.salesRepresentative
+                : client.acquisition
+                ? client.acquisition.retentionRepresentative
+                : client.retentionRepresentative,
+          })),
+        },
+        bulkUpdateHierarchyUser,
+        authorization
+      );
     }
+  } catch (error) {
+    return error;
   }
 };
 
