@@ -91,6 +91,15 @@ const ClientSearchInputType = new GraphQLInputObjectType({
         }),
       }),
     },
+    firstDepositDateRange: {
+      type: new GraphQLInputObjectType({
+        name: 'ClientSearchFirstDepositDateRange',
+        fields: () => ({
+          from: { type: GraphQLString },
+          to: { type: GraphQLString },
+        }),
+      }),
+    },
     representativeUuids: { type: new GraphQLList(GraphQLString) },
     retentionStatuses: { type: new GraphQLList(GraphQLString) },
     requestId: { type: GraphQLString },
