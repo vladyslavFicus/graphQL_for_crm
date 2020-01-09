@@ -52,6 +52,15 @@ const ClientSearchInputType = new GraphQLInputObjectType({
         }),
       }),
     },
+    firstNoteDateRange: {
+      type: new GraphQLInputObjectType({
+        name: 'ClientSearchFirstNoteDateRange',
+        fields: () => ({
+          from: { type: GraphQLString },
+          to: { type: GraphQLString },
+        }),
+      }),
+    },
     lastTradeDateRange: {
       type: new GraphQLInputObjectType({
         name: 'ClientSearchLastTradeDateRange',
