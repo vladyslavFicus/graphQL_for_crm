@@ -37,6 +37,7 @@ const {
   metabase: { getMetabaseToken },
   filterSet: { getFilterSets, getFilterSetById },
   tradingAccount: { getTradingAccounts },
+  brandConfig: { getBrandConfig },
   risks: { getRisksQuestionnaire },
 } = require('../common/resolvers');
 const PageableType = require('../common/types/PageableType');
@@ -502,6 +503,13 @@ const QueryType = new GraphQLObjectType({
         uuid: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve: getFilterSetById,
+    },
+    brandConfig: {
+      type: ResponseType(GraphQLJSONObject, 'BrandConfigQueryType'),
+      args: {
+        brandId: { type: GraphQLString },
+      },
+      resolve: getBrandConfig,
     },
   }),
 });

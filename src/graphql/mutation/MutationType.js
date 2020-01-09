@@ -20,6 +20,7 @@ const TradingActivityType = require('./TradingActivityType');
 const CallbacksType = require('./CallbacksType');
 const QuestionnaireType = require('./QuestionnaireType');
 const FilterSetType = require('./FilterSetType');
+const BrandConfigType = require('./BrandConfigType');
 
 const MutationType = new GraphQLObjectType({
   name: 'ApiMutation',
@@ -146,6 +147,12 @@ const MutationType = new GraphQLObjectType({
     },
     filterSet: {
       type: FilterSetType,
+      resolve() {
+        return {};
+      },
+    },
+    brandConfig: {
+      type: BrandConfigType,
       resolve() {
         return {};
       },
