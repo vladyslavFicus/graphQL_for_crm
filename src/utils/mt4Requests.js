@@ -61,11 +61,11 @@ const tradingAccountChangePassword = (args, authorization) => {
  * @param authorization
  * @return {*}
  */
-const tradingAccountQuery = ({ accountType = '', uuid }, authorization) => {
+const tradingAccountQuery = ({ accountType, uuid }, authorization) => {
   return fetch(
     `${global.appConfig.apiUrl}/trading-account/account/search?${buildQueryString({
       profileUUID: uuid,
-      accountType,
+      accountType: accountType ? accountType : '',
     })}`,
     {
       method: 'GET',
