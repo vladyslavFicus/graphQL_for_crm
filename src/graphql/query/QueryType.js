@@ -75,6 +75,8 @@ const PartnerType = require('./PartnerType');
 const FilterSetType = require('./FilterSetType');
 const { FilterSetTypeEnum } = require('./FilterSetType');
 const { checkMigrationQuery } = require('../../utils/profile');
+const PaymentsInputType = require('../input/PaymentsInputType');
+const PaymentsByUuidInputType = require('../input/PaymentsByUuidInputType');
 
 const QueryType = new GraphQLObjectType({
   name: 'Query',
@@ -162,57 +164,17 @@ const QueryType = new GraphQLObjectType({
     },
     clientPayments: {
       type: ResponseType(PageableType(PaymentType, {}, 'ClientPayments')),
-      resolve: getClientPayments,
       args: {
-        limit: { type: GraphQLInt },
-        page: { type: GraphQLInt },
-        searchParam: { type: GraphQLString },
-        countries: { type: new GraphQLList(GraphQLString) },
-        type: { type: GraphQLString },
-        statuses: { type: new GraphQLList(GraphQLString) },
-        paymentTypes: { type: new GraphQLList(GraphQLString) },
-        paymentAggregator: { type: GraphQLString },
-        paymentMethods: { type: new GraphQLList(GraphQLString) },
-        creationTimeFrom: { type: GraphQLString },
-        creationTimeTo: { type: GraphQLString },
-        modificationTimeFrom: { type: GraphQLString },
-        modificationTimeTo: { type: GraphQLString },
-        statusChangedTimeFrom: { type: GraphQLString },
-        statusChangedTimeTo: { type: GraphQLString },
-        amountFrom: { type: GraphQLFloat },
-        amountTo: { type: GraphQLFloat },
-        currency: { type: GraphQLString },
-        agentIds: { type: new GraphQLList(GraphQLString) },
-        accountType: { type: GraphQLString },
-        firstTimeDeposit: { type: GraphQLBoolean },
-        affiliateUuids: { type: new GraphQLList(GraphQLString) },
+        args: { type: PaymentsInputType },
       },
+      resolve: (_, { args }, ctx) => getClientPayments(_, args, ctx),
     },
     clientPaymentsByUuid: {
       type: ResponseType(PageableType(PaymentType, {}, 'ClientPaymentByUuid')),
-      resolve: getClientPaymentsByUuid,
       args: {
-        limit: { type: GraphQLInt },
-        page: { type: GraphQLInt },
-        playerUUID: { type: new GraphQLNonNull(GraphQLString) },
-        searchParam: { type: GraphQLString },
-        type: { type: GraphQLString },
-        statuses: { type: new GraphQLList(GraphQLString) },
-        paymentTypes: { type: new GraphQLList(GraphQLString) },
-        paymentAggregator: { type: GraphQLString },
-        paymentMethods: { type: new GraphQLList(GraphQLString) },
-        creationTimeFrom: { type: GraphQLString },
-        creationTimeTo: { type: GraphQLString },
-        modificationTimeFrom: { type: GraphQLString },
-        modificationTimeTo: { type: GraphQLString },
-        statusChangedTimeFrom: { type: GraphQLString },
-        statusChangedTimeTo: { type: GraphQLString },
-        amountFrom: { type: GraphQLFloat },
-        amountTo: { type: GraphQLFloat },
-        agentIds: { type: new GraphQLList(GraphQLString) },
-        accountType: { type: GraphQLString },
-        firstTimeDeposit: { type: GraphQLBoolean },
+        args: { type: PaymentsByUuidInputType },
       },
+      resolve: (_, { args }, ctx) => getClientPaymentsByUuid(_, args, ctx),
     },
     paymentStatuses: {
       args: {

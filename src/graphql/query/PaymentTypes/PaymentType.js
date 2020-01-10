@@ -107,6 +107,7 @@ const PaymentType = new GraphQLObjectType({
       declineReason: { type: GraphQLString },
       modificationTime: { type: GraphQLString },
       modifiedBy: { type: GraphQLString },
+      statusChangedAt: { type: GraphQLString },
     };
   },
 });
