@@ -112,6 +112,13 @@ const ProfileViewRegistrationDetails = new GraphQLObjectType({
   },
 });
 
+const ProfileViewLastActivity = new GraphQLObjectType({
+  name: 'ProfileViewLastActivity',
+  fields: () => ({
+    date: { type: GraphQLString },
+  }),
+});
+
 const ProfileViewType = new GraphQLObjectType({
   name: 'ProfileViewType',
   fields: () => {
@@ -133,6 +140,7 @@ const ProfileViewType = new GraphQLObjectType({
       lastSignInSessions: { type: new GraphQLList(ProfileViewSessions) },
       registrationDetails: { type: ProfileViewRegistrationDetails },
       uuid: { type: GraphQLNonNull(GraphQLString) },
+      lastActivity: { type: ProfileViewLastActivity },
     };
   },
 });
