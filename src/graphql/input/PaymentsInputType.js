@@ -25,6 +25,7 @@ const PaymentsInputType = new GraphQLInputObjectType({
     modificationTimeTo: { type: GraphQLString },
     statusChangedTimeFrom: { type: GraphQLString },
     statusChangedTimeTo: { type: GraphQLString },
+    requestId: { type: GraphQLString },
     amountFrom: { type: GraphQLFloat },
     amountTo: { type: GraphQLFloat },
     currency: { type: GraphQLString },
