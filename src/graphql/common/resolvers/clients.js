@@ -34,7 +34,7 @@ const bulkRepresentativeUpdate = async (_, args, { headers: { authorization } })
   let clients = [];
 
   if (allRowsSelected) {
-    const excludeUuids = clientsData.length !== bulkUpdateSize ? clientsData.map(client => client.uuid) : [];
+    const excludeUuids = clientsData.length !== totalElements ? clientsData.map(client => client.uuid) : [];
 
     const { data } = await getProfiles(
       {
