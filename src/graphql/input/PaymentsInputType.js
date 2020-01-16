@@ -29,6 +29,8 @@ const PaymentsInputType = new GraphQLInputObjectType({
     amountFrom: { type: GraphQLFloat },
     amountTo: { type: GraphQLFloat },
     currency: { type: GraphQLString },
+    desks: { type: new GraphQLList(GraphQLString) },
+    teams: { type: new GraphQLList(GraphQLString) },
     agentIds: { type: new GraphQLList(GraphQLString) },
     accountType: { type: GraphQLString },
     firstTimeDeposit: { type: GraphQLBoolean },
