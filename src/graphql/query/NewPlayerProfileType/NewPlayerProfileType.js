@@ -51,6 +51,7 @@ const AffiliateType = new GraphQLObjectType({
       referral: { type: GraphQLString },
       sms: { type: GraphQLString },
       source: { type: GraphQLString },
+      campaignId: { type: GraphQLString },
       uuid: { type: GraphQLString },
       partner: {
         type: PartnerType,

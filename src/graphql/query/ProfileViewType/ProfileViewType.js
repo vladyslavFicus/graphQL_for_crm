@@ -39,6 +39,7 @@ const ProfileViewAffiliate = new GraphQLObjectType({
     return {
       uuid: { type: GraphQLNonNull(GraphQLString) },
       source: { type: GraphQLString },
+      campaignId: { type: GraphQLString },
       partner: {
         type: PartnerType,
         resolve({ uuid }, _, { dataloaders }) {
