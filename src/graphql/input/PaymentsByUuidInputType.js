@@ -32,7 +32,6 @@ const PaymentsByUuidInputType = new GraphQLInputObjectType({
     desks: { type: new GraphQLList(GraphQLString) },
     teams: { type: new GraphQLList(GraphQLString) },
     agentIds: { type: new GraphQLList(GraphQLString) },
-    requestId: { type: GraphQLString },
     accountType: { type: GraphQLString },
     firstTimeDeposit: { type: GraphQLBoolean },
   }),
