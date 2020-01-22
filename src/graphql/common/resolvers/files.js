@@ -97,9 +97,7 @@ const uploadFile = (_, { profileUUID, file }, { headers: { authorization } }) =>
 
       resolve(response);
     });
-  })
-    .then(response => response.text())
-    .then(data => ({ data: { fileUUID: data } }));
+  }).then(response => response.json());
 };
 
 const confirmFilesUpload = (_, { profileUuid, ...args }, { headers: { authorization } }) => {

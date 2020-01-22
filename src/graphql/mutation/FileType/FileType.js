@@ -45,7 +45,7 @@ const FileType = new GraphQLObjectType({
         new GraphQLObjectType({
           name: 'UploadFileUuidType',
           fields: () => ({
-            fileUUID: { type: GraphQLString },
+            fileUuid: { type: GraphQLString },
           }),
         }),
         'UploadFileType'
