@@ -54,6 +54,17 @@ const RiskQuestionnaireType = new GraphQLObjectType({
   }),
 });
 
+const RiskDisabledQuestionsType = new GraphQLList(
+  new GraphQLObjectType({
+    name: 'RiskDisabledQuestionsType',
+    fields: () => ({
+      questionId: { type: new GraphQLNonNull(GraphQLInt) },
+      answerId: { type: GraphQLInt },
+      disabledQuestions: { type: new GraphQLList(GraphQLInt) },
+    }),
+  })
+);
+
 const RisksType = new GraphQLObjectType({
   name: 'RisksType',
   fields: () => ({
@@ -65,6 +76,7 @@ const RisksType = new GraphQLObjectType({
     createdAt: { type: GraphQLString },
     createdBy: { type: GraphQLString },
     questionnaire: { type: RiskQuestionnaireType },
+    disabledQuestions: { type: RiskDisabledQuestionsType },
   }),
 });
 
