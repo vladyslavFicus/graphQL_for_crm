@@ -145,6 +145,7 @@ const QueryType = new GraphQLObjectType({
         pinned: { type: GraphQLBoolean },
         size: { type: GraphQLInt },
         page: { type: GraphQLInt },
+        department: { type: GraphQLString },
         targetType: { type: GraphQLString },
         changedAtTo: { type: GraphQLString },
         changedAtFrom: { type: GraphQLString },

@@ -7,6 +7,7 @@ const NoteType = new GraphQLObjectType({
   fields: () => ({
     playerUUID: { type: new GraphQLNonNull(GraphQLString) },
     pinned: { type: new GraphQLNonNull(GraphQLBoolean) },
+    subject: { type: GraphQLString },
     content: { type: new GraphQLNonNull(GraphQLString) },
     targetUUID: { type: new GraphQLNonNull(GraphQLString) },
     changedBy: { type: new GraphQLNonNull(GraphQLString) },
