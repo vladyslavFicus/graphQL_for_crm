@@ -24,4 +24,5 @@ module.exports = {
   filterSet: require('./filterSet'),
   brandConfig: require('./brandConfig'),
   risks: require('./risks'),
+  emailTemplates: require('./emailTemplates'),
 };

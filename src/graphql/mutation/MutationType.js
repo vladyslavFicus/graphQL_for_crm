@@ -21,6 +21,7 @@ const CallbacksType = require('./CallbacksType');
 const QuestionnaireType = require('./QuestionnaireType');
 const FilterSetType = require('./FilterSetType');
 const BrandConfigType = require('./BrandConfigType');
+const EmailTemplatesType = require('./EmailTemplatesType');
 
 const MutationType = new GraphQLObjectType({
   name: 'ApiMutation',
@@ -153,6 +154,12 @@ const MutationType = new GraphQLObjectType({
     },
     brandConfig: {
       type: BrandConfigType,
+      resolve() {
+        return {};
+      },
+    },
+    emailTemplates: {
+      type: EmailTemplatesType,
       resolve() {
         return {};
       },

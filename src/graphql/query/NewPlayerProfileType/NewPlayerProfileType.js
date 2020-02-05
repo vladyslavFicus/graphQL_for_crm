@@ -8,6 +8,7 @@ const PartnerType = require('../PartnerType');
 const TradingAccountType = require('../TradingAccountType');
 const { GraphQLObjectType, GraphQLNonNull, GraphQLBoolean, GraphQLID, GraphQLString, GraphQLList } = require('graphql');
 const OperatorType = require('../OperatorType');
+const EmailType = require('../EmailType');
 
 const AcquisitionType = new GraphQLObjectType({
   name: 'AcquisitionType',
@@ -264,6 +265,11 @@ const NewPlayerProfileType = new GraphQLObjectType({
     passport: { type: PassportType },
     registrationDetails: { type: RegistrationDetailsType },
     verifications: { type: new GraphQLList(GraphQLString) },
+    // waiting for sent emails history
+    // sentEmails: {
+    //   type: new GraphQLList(EmailType),
+    //   resolve: () => {},
+    // },
   }),
 });
 
