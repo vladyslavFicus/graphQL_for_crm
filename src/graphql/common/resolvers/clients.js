@@ -2,23 +2,17 @@ const { get } = require('lodash');
 const {
   requests: { bulkUpdateHierarchyUser, bulkMassAssignHierarchyUser },
 } = require('../../../utils/hierarchy');
-const { getProfiles, bulkUpdateSalesStasuses, bulkUpdateRetentionStasuses } = require('../../../utils/profile');
+const {
+  getProfiles,
+  bulkUpdateSalesStasuses,
+  bulkUpdateRetentionStasuses,
+  bulkMigrateToFsa,
+} = require('../../../utils/profile');
 
 const CLIENTS_SIZE_LIMIT = 10000;
 
-const bulkRepresentativeUpdate = async (_, args, { headers: { authorization } }) => {
-  const {
-    allRowsSelected,
-    clients: clientsData,
-    searchParams,
-    salesRepresentative,
-    salesStatus,
-    retentionRepresentative,
-    retentionStatus,
-    totalElements,
-    isMoveAction,
-    type,
-  } = args;
+const getClientsToBulkUpdate = async args => {
+  const { allRowsSelected, clients: clientsData, searchParams, totalElements } = args;
 
   const { searchLimit, ...filters } = searchParams || { searchLimit: totalElements };
   const bulkUpdateSize = searchLimit < CLIENTS_SIZE_LIMIT ? searchLimit : CLIENTS_SIZE_LIMIT;
@@ -45,6 +39,14 @@ const bulkRepresentativeUpdate = async (_, args, { headers: { authorization } })
   } else {
     clients = clientsData;
   }
+
+  return clients;
+};
+
+const bulkRepresentativeUpdate = async (_, args, { headers: { authorization } }) => {
+  const { salesRepresentative, salesStatus, retentionRepresentative, retentionStatus, isMoveAction, type } = args;
+
+  let clients = await getClientsToBulkUpdate(args);
 
   if (salesStatus) {
     const { error } = await bulkUpdateSalesStasuses(
@@ -112,6 +114,14 @@ const bulkRepresentativeUpdate = async (_, args, { headers: { authorization } })
   }
 };
 
+const bulkMigrationUpdate = async (_, args, { headers: { authorization } }) => {
+  const clients = await getClientsToBulkUpdate(args);
+  const uuids = clients.map(client => client.uuid);
+
+  return await bulkMigrateToFsa({ uuids }, authorization);
+};
+
 module.exports = {
   bulkRepresentativeUpdate,
+  bulkMigrationUpdate,
 };

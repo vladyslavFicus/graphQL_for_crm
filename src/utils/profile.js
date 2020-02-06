@@ -25,6 +25,18 @@ const bulkUpdateSalesStasuses = (args, authorization) => {
   }).then(response => response.json());
 };
 
+const bulkMigrateToFsa = (args, authorization) => {
+  return fetch(`${global.appConfig.apiUrl}/migrationorchestrator/brand-migrations`, {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      authorization,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(args),
+  }).then(response => ({ success: response.status === 200 }));
+};
+
 const getProfiles = (args, authorization) => {
   return fetch(`${global.appConfig.apiUrl}/profileview/admin/profiles/pageable-search`, {
     method: 'POST',
@@ -110,6 +122,7 @@ const changeProfileStatusQuery = ({ playerUUID, ...args }, authorization) => {
 module.exports = {
   bulkUpdateRetentionStasuses,
   bulkUpdateSalesStasuses,
+  bulkMigrateToFsa,
   updateQueryTradingProfile,
   updateQueryProfile,
   getProfiles,

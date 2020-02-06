@@ -207,6 +207,16 @@ const RegistrationDetailsType = new GraphQLObjectType({
   },
 });
 
+const FsaMigrationType = new GraphQLObjectType({
+  name: 'FsaMigrationType',
+  fields() {
+    return {
+      agreedToFsaMigrationDate: { type: GraphQLString },
+      fsaMigrationStatus: { type: GraphQLString },
+    };
+  },
+});
+
 const NewPlayerProfileType = new GraphQLObjectType({
   name: 'NewPlayerProfile',
   fields: () => ({
@@ -265,6 +275,7 @@ const NewPlayerProfileType = new GraphQLObjectType({
     passport: { type: PassportType },
     registrationDetails: { type: RegistrationDetailsType },
     verifications: { type: new GraphQLList(GraphQLString) },
+    fsaMigrationInfo: { type: FsaMigrationType },
     // waiting for sent emails history
     // sentEmails: {
     //   type: new GraphQLList(EmailType),
