@@ -6,19 +6,19 @@ const {
   changeStatus: changeStatusRequest,
 } = require('../../../utils/partnerRequests');
 
-const getPartners = async (_, args, { headers: { authorization } }) => {
+const getPartners = (_, args, { headers: { authorization } }) => {
   return getPartnersRequest(args, authorization);
 };
 
-const getPartnerByUUID = async (_, { uuid }, { headers: { authorization } }) => {
+const getPartnerByUUID = (_, { uuid }, { headers: { authorization } }) => {
   return getPartnerByUUIDRequest(uuid, authorization);
 };
 
-const createPartner = async (_, args, { headers: { authorization } }) => {
+const createPartner = (_, args, { headers: { authorization } }) => {
   return createPartnerRequest(args, authorization);
 };
 
-const updatePartner = async (_, args, { headers: { authorization } }) => {
+const updatePartner = (_, args, { headers: { authorization } }) => {
   return updatePartnerRequest(args, authorization);
 };
 
