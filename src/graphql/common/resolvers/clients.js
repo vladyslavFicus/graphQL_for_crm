@@ -11,7 +11,7 @@ const {
 
 const CLIENTS_SIZE_LIMIT = 10000;
 
-const getClientsToBulkUpdate = async args => {
+const getClientsToBulkUpdate = async (args, authorization) => {
   const { allRowsSelected, clients: clientsData, searchParams, totalElements } = args;
 
   const { searchLimit, ...filters } = searchParams || { searchLimit: totalElements };
@@ -46,7 +46,7 @@ const getClientsToBulkUpdate = async args => {
 const bulkRepresentativeUpdate = async (_, args, { headers: { authorization } }) => {
   const { salesRepresentative, salesStatus, retentionRepresentative, retentionStatus, isMoveAction, type } = args;
 
-  let clients = await getClientsToBulkUpdate(args);
+  let clients = await getClientsToBulkUpdate(args, authorization);
 
   if (salesStatus) {
     const { error } = await bulkUpdateSalesStasuses(
@@ -115,7 +115,7 @@ const bulkRepresentativeUpdate = async (_, args, { headers: { authorization } })
 };
 
 const bulkMigrationUpdate = async (_, args, { headers: { authorization } }) => {
-  const clients = await getClientsToBulkUpdate(args);
+  const clients = await getClientsToBulkUpdate(args, authorization);
   const uuids = clients.map(client => client.uuid);
 
   return await bulkMigrateToFsa({ uuids }, authorization);
