@@ -29,6 +29,8 @@ const PartnerType = new GraphQLObjectType({
       resolve: ({ firstName, lastName }) => `${firstName} ${lastName}`,
     },
     email: { type: GraphQLString },
+    externalAffiliateId: { type: GraphQLString },
+    affiliateType: { type: GraphQLString },
     phone: { type: GraphQLString },
     country: { type: GraphQLString },
     status: { type: GraphQLString },

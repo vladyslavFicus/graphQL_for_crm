@@ -15,24 +15,16 @@ const getPartnerByUUID = async (_, { uuid }, { headers: { authorization } }) => 
 };
 
 const createPartner = async (_, args, { headers: { authorization } }) => {
-  const { data, error } = await createPartnerRequest(args, authorization);
-
-  return {
-    data,
-    error,
-  };
+  return createPartnerRequest(args, authorization);
 };
 
 const updatePartner = async (_, args, { headers: { authorization } }) => {
-  const { data, error } = await updatePartnerRequest(args, authorization);
-
-  return {
-    data,
-    error,
-  };
+  return updatePartnerRequest(args, authorization);
 };
 
-const changeStatus = (_, args, { headers: { authorization } }) => changeStatusRequest(args, authorization);
+const changeStatus = (_, args, { headers: { authorization } }) => {
+  return changeStatusRequest(args, authorization);
+};
 
 module.exports = {
   getPartners,
