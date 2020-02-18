@@ -33,7 +33,7 @@ const PartnerMutation = new GraphQLObjectType({
         affiliateType: { type: new GraphQLNonNull(GraphQLString) },
         public: { type: GraphQLBoolean },
         cellexpert: { type: GraphQLBoolean },
-        externalAffiliateId: { type: new GraphQLNonNull(GraphQLString) },
+        externalAffiliateId: { type: GraphQLString },
         password: { type: new GraphQLNonNull(GraphQLString) },
       },
       type: ResponseType(PartnerType, 'CreatedPartnerType'),
