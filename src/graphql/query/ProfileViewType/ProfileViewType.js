@@ -123,6 +123,13 @@ const ProfileViewFsaMigrationType = new GraphQLObjectType({
   },
 });
 
+const ProfileViewLastActivity = new GraphQLObjectType({
+  name: 'ProfileViewLastActivity',
+  fields: () => ({
+    date: { type: GraphQLString },
+  }),
+});
+
 const ProfileViewType = new GraphQLObjectType({
   name: 'ProfileViewType',
   fields: () => {
@@ -145,6 +152,7 @@ const ProfileViewType = new GraphQLObjectType({
       registrationDetails: { type: ProfileViewRegistrationDetails },
       uuid: { type: GraphQLNonNull(GraphQLString) },
       fsaMigrationInfo: { type: ProfileViewFsaMigrationType },
+      lastActivity: { type: ProfileViewLastActivity },
     };
   },
 });
