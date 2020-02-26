@@ -377,7 +377,7 @@ const updateEmail = async function(_, { playerUUID, ...args }, context) {
     data: {
       playerUUID,
       ...args,
-      profileStatus: statuses.INACTIVE,
+      profileStatus: statuses.NOT_VERIFIED,
     },
   };
 };
@@ -427,7 +427,7 @@ const verifyProfile = async function(_, { playerUUID, ...args }, context) {
   return {
     data: {
       playerUUID,
-      profileStatus: statuses.ACTIVE,
+      profileStatus: statuses.VERIFIED,
     },
   };
 };

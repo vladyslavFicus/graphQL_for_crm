@@ -1,8 +1,8 @@
 const keyMirror = require('keymirror');
 
 const statuses = keyMirror({
-  INACTIVE: null,
-  ACTIVE: null,
+  NOT_VERIFIED: null,
+  VERIFIED: null,
   BLOCKED: null,
   SUSPENDED: null,
   PERMANENT_SUSPENDED: null,
