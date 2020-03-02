@@ -459,6 +459,9 @@ const PlayerMutation = new GraphQLObjectType({
         passport: {
           type: passportInput,
         },
+        identificationNumber: {
+          type: GraphQLString,
+        },
       },
       type: ResponseType(NewPlayerProfileType, 'UpdatePlayerPersonalInformationType'),
       resolve: updatePersonalInformation,
