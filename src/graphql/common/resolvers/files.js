@@ -112,8 +112,8 @@ const confirmFilesUpload = (_, { profileUuid, ...args }, { headers: { authorizat
   }).then(response => ({ data: { success: response.status === 200 } }));
 };
 
-const getFileCategoriesList = (_, __, { headers: { authorization } }) => {
-  return fetch(`${global.appConfig.apiUrl}/attachments/verification/types/mapping`, {
+const getFileCategoriesList = async (_, __, { headers: { authorization } }) => {
+  const { data } = await fetch(`${global.appConfig.apiUrl}/attachments/verification/types/mapping`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -121,6 +121,21 @@ const getFileCategoriesList = (_, __, { headers: { authorization } }) => {
       'content-type': 'application/json',
     },
   }).then(response => response.json());
+
+  if (data) {
+    return {
+      data: {
+        ...data,
+        ADDRESS_VERIFICATION: [
+          ...data.ADDRESS_VERIFICATION.filter(docType => {
+            return docType !== 'PASSPORT' && docType !== 'EMPLOYER_LETTER';
+          }),
+        ],
+      },
+    };
+  }
+
+  return {};
 };
 
 const updateFileStatus = async function(_, { clientUuid, ...args }, { headers: { authorization } }) {
