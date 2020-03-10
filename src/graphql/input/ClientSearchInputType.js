@@ -111,6 +111,7 @@ const ClientSearchInputType = new GraphQLInputObjectType({
     statuses: { type: new GraphQLList(GraphQLString) },
     teams: { type: new GraphQLList(GraphQLString) },
     questionnaireStatus: { type: GraphQLString },
+    warnings: { type: new GraphQLList(GraphQLString) },
     affiliateType: { type: new GraphQLList(GraphQLString) },
   }),
 });

@@ -153,6 +153,7 @@ const ProfileViewType = new GraphQLObjectType({
       uuid: { type: GraphQLNonNull(GraphQLString) },
       fsaMigrationInfo: { type: ProfileViewFsaMigrationType },
       lastActivity: { type: ProfileViewLastActivity },
+      warnings: { type: new GraphQLList(GraphQLString) },
     };
   },
 });

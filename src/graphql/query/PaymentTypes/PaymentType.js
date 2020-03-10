@@ -6,6 +6,7 @@ const {
   GraphQLInt,
   GraphQLID,
   GraphQLFloat,
+  GraphQLList,
 } = require('graphql');
 
 const { getOperator } = require('../../common/resolvers/operators');
@@ -107,6 +108,7 @@ const PaymentType = new GraphQLObjectType({
       declineReason: { type: GraphQLString },
       modifiedBy: { type: GraphQLString },
       statusChangedAt: { type: GraphQLString },
+      warnings: { type: new GraphQLList(GraphQLString) },
     };
   },
 });

@@ -35,6 +35,7 @@ const PaymentsInputType = new GraphQLInputObjectType({
     accountType: { type: GraphQLString },
     firstTimeDeposit: { type: GraphQLBoolean },
     affiliateUuids: { type: new GraphQLList(GraphQLString) },
+    warnings: { type: new GraphQLList(GraphQLString) },
   }),
 });
 
