@@ -354,34 +354,6 @@ const suspendProlong = function(_, { playerUUID, duration, ...args }, { headers:
     }));
 };
 
-const updateEmail = async function(_, { playerUUID, ...args }, context) {
-  const {
-    headers: { authorization },
-  } = context;
-
-  const response = await fetch(`${global.appConfig.apiUrl}/profile/profiles/${playerUUID}/email`, {
-    method: 'PUT',
-    headers: {
-      Accept: 'application/json',
-      authorization,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(args),
-  });
-
-  if (response.status !== 200) {
-    return { error: 'error.update.email' };
-  }
-
-  return {
-    data: {
-      playerUUID,
-      ...args,
-      profileStatus: statuses.NOT_VERIFIED,
-    },
-  };
-};
-
 const verifyPhone = function(_, { playerUUID, ...args }, { headers: { authorization } }) {
   return fetch(`${global.appConfig.apiUrl}/profile/admin/profiles/${playerUUID}/verification/phone`, {
     method: 'POST',
@@ -392,6 +364,18 @@ const verifyPhone = function(_, { playerUUID, ...args }, { headers: { authorizat
     },
     body: JSON.stringify(args),
   }).then(response => response.json());
+};
+
+const updateEmail = async function(_, { playerUUID, ...args }, { headers: { authorization } }) {
+  return fetch(`${global.appConfig.apiUrl}/profile/admin/profiles/${playerUUID}/contacts/email`, {
+    method: 'PUT',
+    headers: {
+      authorization,
+      accept: 'application/json',
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(args),
+  }).then(response => ({ success: response.status === 200 }));
 };
 
 const verifyEmail = function(_, { playerUUID, ...args }, { headers: { authorization } }) {
