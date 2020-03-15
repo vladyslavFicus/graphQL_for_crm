@@ -2,6 +2,7 @@ const {
   profile: { getProfileView },
   tradingAccount: { getTradingAccounts },
   operators: { getOperator },
+  notes: { getNotes },
 } = require('../../common/resolvers');
 const ProfileViewType = require('../ProfileViewType');
 const PartnerType = require('../PartnerType');
@@ -9,6 +10,7 @@ const TradingAccountType = require('../TradingAccountType');
 const { GraphQLObjectType, GraphQLNonNull, GraphQLBoolean, GraphQLID, GraphQLString, GraphQLList } = require('graphql');
 const OperatorType = require('../OperatorType');
 const EmailType = require('../EmailType');
+const { NoteType } = require('../NoteType');
 
 const AcquisitionType = new GraphQLObjectType({
   name: 'AcquisitionType',
@@ -262,12 +264,31 @@ const NewPlayerProfileType = new GraphQLObjectType({
     bankDetails: { type: BankDetailsType },
     configuration: { type: ConfigurationType },
     contacts: { type: ContactsType },
+    kycNote: {
+      type: NoteType,
+      resolve: async ({ uuid, kyc: { uuid: kycUUID } }, _, context) => {
+        const {
+          data: { content },
+        } = await getNotes(
+          _,
+          {
+            playerUUIDs: [uuid],
+            targetUUID: kycUUID,
+            targetType: 'KYC',
+          },
+          context
+        );
+
+        return content.length ? content[0] : null;
+      },
+    },
     kyc: {
       type: new GraphQLObjectType({
         name: 'KYC_NEW',
         fields() {
           return {
             status: { type: GraphQLString },
+            uuid: { type: GraphQLID },
           };
         },
       }),

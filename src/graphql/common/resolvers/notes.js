@@ -27,14 +27,15 @@ const updateNote = function(_, args, { headers: { authorization } }) {
  * @param fieldName
  * @return {Function}
  */
+
 const getNote = fieldName => ({ [fieldName]: targetUUID }, _, { dataloaders }) => {
   return dataloaders.notes.load(targetUUID);
 };
 
 module.exports = {
-  addNote,
   removeNote,
   updateNote,
   getNotes,
+  addNote,
   getNote,
 };

@@ -12,10 +12,10 @@ const NoteMutation = new GraphQLObjectType({
     update: {
       args: {
         noteId: { type: new GraphQLNonNull(GraphQLString) },
-        targetUUID: { type: new GraphQLNonNull(GraphQLString) },
+        targetUUID: { type: GraphQLString },
         subject: { type: GraphQLString },
         content: { type: new GraphQLNonNull(GraphQLString) },
-        pinned: { type: new GraphQLNonNull(GraphQLBoolean) },
+        pinned: { type: GraphQLBoolean },
       },
       type: ResponseType(NoteType, 'updateNote'),
       resolve: updateNote,
@@ -26,7 +26,7 @@ const NoteMutation = new GraphQLObjectType({
         content: { type: new GraphQLNonNull(GraphQLString) },
         targetUUID: { type: new GraphQLNonNull(GraphQLString) },
         playerUUID: { type: new GraphQLNonNull(GraphQLString) },
-        pinned: { type: new GraphQLNonNull(GraphQLBoolean) },
+        pinned: { type: GraphQLBoolean },
         targetType: { type: new GraphQLNonNull(GraphQLString) },
       },
       type: ResponseType(NoteType, 'addNote'),
