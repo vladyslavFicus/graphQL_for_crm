@@ -2,7 +2,7 @@ const { GraphQLObjectType, GraphQLID, GraphQLNonNull, GraphQLString, GraphQLInt,
 const BigInt = require('graphql-bigint');
 const { getOperator } = require('../../common/resolvers/operators');
 const OperatorType = require('../OperatorType');
-const { CommandsEnum } = require('./TradingActivityEnums');
+const { operationTypesEnum } = require('./TradingActivityEnums');
 
 const TradingActivityType = new GraphQLObjectType({
   name: 'TradingActivity',
@@ -11,9 +11,10 @@ const TradingActivityType = new GraphQLObjectType({
     tradeId: { type: new GraphQLNonNull(GraphQLInt) },
     tradeType: { type: GraphQLString },
     login: { type: new GraphQLNonNull(GraphQLInt) },
+    platformType: { type: GraphQLString },
     symbol: { type: GraphQLString },
     digits: { type: GraphQLInt },
-    cmd: { type: CommandsEnum },
+    operationType: { type: operationTypesEnum },
     volume: { type: GraphQLFloat },
     openTime: { type: BigInt },
     closeTime: { type: BigInt },
@@ -27,12 +28,13 @@ const TradingActivityType = new GraphQLObjectType({
     reason: { type: GraphQLString },
     commission: { type: GraphQLFloat },
     commissionAgent: { type: GraphQLFloat },
-    storage: { type: GraphQLFloat },
+    swap: { type: GraphQLFloat },
     profit: { type: GraphQLFloat },
     taxes: { type: GraphQLFloat },
     magic: { type: GraphQLInt },
     comment: { type: GraphQLString },
     timestamp: { type: BigInt },
+    tradeStatus: { type: GraphQLString },
     originalAgent: {
       type: OperatorType,
       resolve: getOperator('agentId'),

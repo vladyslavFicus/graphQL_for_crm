@@ -8,7 +8,7 @@ const {
 
 const createTradingAccountResolver = async (
   _,
-  { profileId, name, currency, password, accountType, amount },
+  { profileId, name, currency, password, accountType, platformType, amount },
   context
 ) => {
   const { data, error } = await getProfileNew(_, { playerUUID: profileId }, context);
@@ -42,6 +42,7 @@ const createTradingAccountResolver = async (
     status: '',
     zipCode,
     accountType,
+    platformType,
     amount,
   };
 

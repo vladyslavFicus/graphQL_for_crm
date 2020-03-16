@@ -78,6 +78,8 @@ const PaymentType = new GraphQLObjectType({
         resolve: ({ paymentId }) => paymentId,
       },
       login: { type: new GraphQLNonNull(GraphQLString) },
+      platformType: { type: new GraphQLNonNull(GraphQLString) },
+      accountType: { type: new GraphQLNonNull(GraphQLString) },
       paymentId: { type: new GraphQLNonNull(GraphQLString) },
       paymentType: { type: new GraphQLNonNull(GraphQLString) },
       status: { type: new GraphQLNonNull(GraphQLString) },

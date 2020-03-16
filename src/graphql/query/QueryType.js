@@ -57,7 +57,7 @@ const {
 } = require('./PaymentTypes');
 const {
   TradingActivityType,
-  TradingActivityEnums: { CommandsEnum, StatusesEnum },
+  TradingActivityEnums: { operationTypesEnum, StatusesEnum },
 } = require('./TradingActivityType');
 const { NoteType } = require('./NoteType');
 const StatisticsType = require('./StatisticsType');
@@ -198,7 +198,7 @@ const QueryType = new GraphQLObjectType({
         openTimeEnd: { type: GraphQLString },
         closeTimeStart: { type: GraphQLString },
         closeTimeEnd: { type: GraphQLString },
-        cmd: { type: CommandsEnum },
+        operationType: { type: operationTypesEnum },
         symbol: { type: GraphQLString },
         volumeFrom: { type: GraphQLFloat },
         volumeTo: { type: GraphQLFloat },
