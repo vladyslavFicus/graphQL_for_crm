@@ -5,7 +5,7 @@ const {
   getSocialTradingSubscribersOnProviders,
 } = require('../../../utils/socialTrading');
 
-const { tradingAccountQuery } = require('../../../utils/mt4requests');
+const { tradingAccountQuery } = require('../../../utils/mt4Requests');
 
 const socialTradingResolver = async () => {
   return await getSocialTradingToken();
