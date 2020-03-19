@@ -3,7 +3,7 @@ const { platform } = require('../config/core');
 
 const API_KEY = get(platform, 'brokeree.api_key') || '';
 const BASE_URL = get(platform, 'brokeree.cabinet_url') || '';
-const DEFAULT_ADMIN_LOGIN = 399;
+const DEFAULT_ADMIN_LOGIN = get(platform, 'brokeree.manager_login') || '';
 
 const getSocialTradingToken = () => {
   return fetch(`${BASE_URL}/api/auth`, {
