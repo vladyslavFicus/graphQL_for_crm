@@ -7,6 +7,8 @@ const {
   GraphQLInt,
 } = require('graphql');
 
+const PageInputType = require('./PageInputType');
+
 const ClientSearchInputType = new GraphQLInputObjectType({
   name: 'ClientSearchParams',
   fields: () => ({
@@ -74,15 +76,7 @@ const ClientSearchInputType = new GraphQLInputObjectType({
     migrationId: { type: GraphQLString },
     operators: { type: new GraphQLList(GraphQLString) },
     affiliateUuids: { type: new GraphQLList(GraphQLString) },
-    page: {
-      type: new GraphQLInputObjectType({
-        name: 'ClientSearchPageAttr',
-        fields: () => ({
-          from: { type: GraphQLInt },
-          size: { type: GraphQLInt },
-        }),
-      }),
-    },
+    page: { type: PageInputType },
     registrationDateRange: {
       type: new GraphQLInputObjectType({
         name: 'ClientSearchRegistrationDateRange',

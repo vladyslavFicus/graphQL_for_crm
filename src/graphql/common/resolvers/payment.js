@@ -16,8 +16,15 @@ const getClientPayments = async (_, args, { headers: { authorization }, hierarch
   return payments;
 };
 
-const getClientPaymentsByUuid = async (_, { playerUUID, ...args }, { headers: { authorization } }) => {
-  const payments = await getPaymentsQuery({ profileIds: [playerUUID], ...args }, authorization);
+const getClientPaymentsByUuid = async (_, { playerUUID, accountType, ...args }, { headers: { authorization } }) => {
+  const payments = await getPaymentsQuery(
+    {
+      profileIds: [playerUUID],
+      ...(accountType && { accountType }),
+      ...args,
+    },
+    authorization
+  );
 
   return payments;
 };

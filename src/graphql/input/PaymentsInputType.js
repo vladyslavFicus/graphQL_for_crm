@@ -1,17 +1,11 @@
-const {
-  GraphQLInputObjectType,
-  GraphQLBoolean,
-  GraphQLString,
-  GraphQLFloat,
-  GraphQLList,
-  GraphQLInt,
-} = require('graphql');
+const { GraphQLInputObjectType, GraphQLBoolean, GraphQLString, GraphQLFloat, GraphQLList } = require('graphql');
+
+const PageInputType = require('./PageInputType');
 
 const PaymentsInputType = new GraphQLInputObjectType({
   name: 'PaymentsInputType',
   fields: () => ({
-    limit: { type: GraphQLInt },
-    page: { type: GraphQLInt },
+    page: { type: PageInputType },
     searchParam: { type: GraphQLString },
     countries: { type: new GraphQLList(GraphQLString) },
     type: { type: GraphQLString },

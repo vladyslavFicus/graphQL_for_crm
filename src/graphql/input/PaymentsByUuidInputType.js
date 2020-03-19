@@ -5,14 +5,14 @@ const {
   GraphQLString,
   GraphQLFloat,
   GraphQLList,
-  GraphQLInt,
 } = require('graphql');
+
+const PageInputType = require('./PageInputType');
 
 const PaymentsByUuidInputType = new GraphQLInputObjectType({
   name: 'PaymentsByUuidInputType',
   fields: () => ({
-    limit: { type: GraphQLInt },
-    page: { type: GraphQLInt },
+    page: { type: PageInputType },
     playerUUID: { type: new GraphQLNonNull(GraphQLString) },
     searchParam: { type: GraphQLString },
     type: { type: GraphQLString },
