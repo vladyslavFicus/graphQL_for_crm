@@ -88,11 +88,17 @@ const SocialTradingType = new GraphQLObjectType({
   fields: () => ({
     subscribers: {
       type: ResponseType(new GraphQLList(SocialTradingSubscriberType), 'SocialTradingSubscribersType'),
+      args: {
+        profileUuid: { type: new GraphQLNonNull(GraphQLString) },
+      },
       resolve: ({ token }, { profileUuid }, { headers: { authorization } }) =>
         getSubscribers(token, profileUuid, authorization),
     },
     providers: {
       type: ResponseType(new GraphQLList(SocialTradingProviderType), 'SocialTradingProvidersType'),
+      args: {
+        profileUuid: { type: new GraphQLNonNull(GraphQLString) },
+      },
       resolve: ({ token }, { profileUuid }, { headers: { authorization } }) =>
         getProviders(token, profileUuid, authorization),
     },

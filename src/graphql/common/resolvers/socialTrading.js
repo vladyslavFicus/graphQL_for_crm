@@ -16,11 +16,13 @@ const getSubscribers = async (token, profileUuid, authorization) => {
 
   const subscribers = await Promise.all(
     tradingAccounts.map(async tradingAccount => {
-      return await getSocialTradingSubscribers(tradingAccount.login, token);
+      const result = await getSocialTradingSubscribers(tradingAccount.login, token);
+
+      return result.error ? undefined : result;
     })
   );
 
-  return subscribers.flat(1);
+  return subscribers.filter(subscriber => !!subscriber).flat(1);
 };
 
 const getProviders = async (token, profileUuid, authorization) => {
@@ -28,15 +30,19 @@ const getProviders = async (token, profileUuid, authorization) => {
 
   const providers = await Promise.all(
     tradingAccounts.map(async tradingAccount => {
-      return await getSocialTradingProviders(tradingAccount.login, token);
+      const result = await getSocialTradingProviders(tradingAccount.login, token);
+
+      return result.error ? undefined : result;
     })
   );
 
-  return providers.flat(1);
+  return providers.filter(provider => !!provider).flat(1);
 };
 
 const getSubscriptionsOnProviders = async (token, providerId) => {
-  return await getSocialTradingSubscribersOnProviders(providerId, token);
+  const result = await getSocialTradingSubscribersOnProviders(providerId, token);
+
+  return result.length > 0 ? result : [];
 };
 
 module.exports = {
