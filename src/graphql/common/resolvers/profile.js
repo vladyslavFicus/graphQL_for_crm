@@ -375,7 +375,7 @@ const updateEmail = async function(_, { playerUUID, ...args }, { headers: { auth
       'content-type': 'application/json',
     },
     body: JSON.stringify(args),
-  }).then(response => ({ success: response.status === 200 }));
+  }).then(response => response.json());
 };
 
 const verifyEmail = function(_, { playerUUID, ...args }, { headers: { authorization } }) {

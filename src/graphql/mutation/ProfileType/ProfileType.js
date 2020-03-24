@@ -269,7 +269,7 @@ const PlayerMutation = new GraphQLObjectType({
           type: new GraphQLNonNull(GraphQLString),
         },
       },
-      type: SuccessType,
+      type: ResponseType(null, 'updateEmailType'),
       resolve: updateEmail,
     },
     verifyPhone: {
