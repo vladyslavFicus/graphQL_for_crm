@@ -1,95 +1,23 @@
-const { get } = require('lodash');
 const moment = require('moment');
-const { getScrollData, getCountData, queryBuild } = require('../../../utils/ESSearchHelpers');
 const { getPaymentsStatisticsQuery } = require('../../../utils/payment');
-const { convertToUtcDates } = require('../../../utils/utcHelpers');
+const { getRegisteredUsersStatistic: getRegisteredUsersStatisticRequest } = require('../../../utils/statisticRequests');
 const {
-  compareDateFormat,
-  getStatisticInitialArray,
-  getCountQueryRanges,
-  getPaymentStatisticTotals,
+  prepareAdditionalStatsUsersRegistration,
+  prepareRegistrationsData,
 } = require('../../../utils/statisticHelpers');
+const { getPaymentStatisticTotals, getStatisticInitialArray } = require('../../../utils/statisticHelpers');
 
-const registerStatQuery = ({ registrationDateFrom, registrationDateTo, clientIds }) => [
-  queryBuild.ids(clientIds),
-  queryBuild.range('registrationDate', { gte: registrationDateFrom, lte: registrationDateTo }),
-];
-
-const getRegisteredUserStatistic = async function(_, args, context) {
-  const clientIds = await context.hierarchy.getCustomersIds();
-  const argsInUtc = convertToUtcDates(args);
-  const response = await getScrollData(
-    context.brand.id,
-    registerStatQuery({ ...argsInUtc, clientIds }),
-    '1s',
-    'profile',
-    ['registrationDate']
-  );
-  const error = get(response, 'error');
-
-  if (error) {
-    return { error };
-  }
-
-  const { registrationDateFrom, registrationDateTo } = args;
-  const timezone = registrationDateFrom.substr(-6);
-
-  const statistic = response.hits.reduce(
-    (acc, curr) => ({
-      ...acc,
-      [moment(curr)
-        .utcOffset(timezone)
-        .format(compareDateFormat)]: acc[
-        moment(curr)
-          .utcOffset(timezone)
-          .format(compareDateFormat)
-      ]
-        ? acc[
-            moment(curr)
-              .utcOffset(timezone)
-              .format(compareDateFormat)
-          ] + 1
-        : 1,
-    }),
-    {}
-  );
-
-  const dateArray = getStatisticInitialArray(registrationDateFrom, registrationDateTo, timezone);
-  const items = dateArray.map(date => ({
-    entries: statistic[date] || 0,
-    entryDate: date,
-  }));
+const getRegisteredUsersChartData = async (_, args, { headers: { authorization } }) => {
+  const {
+    data: { additionalStatistics, registrations },
+  } = await getRegisteredUsersStatisticRequest(args, authorization);
 
   return {
     data: {
-      total: response.total,
-      items,
+      additionalStatistics: prepareAdditionalStatsUsersRegistration(additionalStatistics),
+      registrations: prepareRegistrationsData(registrations),
     },
   };
-};
-
-const getRegisteredUserTotals = async (_, { timezone }, context) => {
-  const clientIds = await context.hierarchy.getCustomersIds();
-  const queries = getCountQueryRanges(timezone);
-  const keys = Object.keys(queries);
-  const ids = queryBuild.ids(clientIds);
-
-  const result = await Promise.all(
-    Object.values(queries).map(value => getCountData(context.brand.id, [...value, ...(ids ? [ids] : [])], 'profile'))
-  ).then(data =>
-    data.reduce(
-      (acc, { count, error }, index) => ({
-        ...acc,
-        [keys[index]]: {
-          value: count,
-          error,
-        },
-      }),
-      {}
-    )
-  );
-
-  return result;
 };
 
 const getPaymentsStatistic = async function(
@@ -142,11 +70,10 @@ const getPaymentsStatistic = async function(
 
     const items = dateArray.map(date => {
       const entity = payments.find(({ date: paymentDate }) => moment(date).diff(moment(paymentDate), 'days') === 0);
-
       return {
         amount: entity ? Number(entity.amount).toFixed(2) : 0,
         count: entity ? entity.count : 0,
-        entryDate: date,
+        entryDate: moment(date).format('DD.MM'),
       };
     });
 
@@ -184,7 +111,6 @@ const getPaymentsStatistic = async function(
 };
 
 module.exports = {
-  getRegisteredUserStatistic,
-  getRegisteredUserTotals,
+  getRegisteredUsersChartData,
   getPaymentsStatistic,
 };

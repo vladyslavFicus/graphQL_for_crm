@@ -65,29 +65,39 @@ const getStatisticInitialArray = (from, to, timezone) => {
   return resultArray;
 };
 
-const getCountQueryRanges = timezone => ({
-  today: [
-    queryBuild.range('registrationDate', {
-      gte: moment()
-        .startOf('day')
-        .utcOffset(timezone)
-        .utc()
-        .format(),
-      lte: moment.utc().format(),
-    }),
-  ],
-  month: [
-    queryBuild.range('registrationDate', {
-      gte: moment()
-        .startOf('month')
-        .utcOffset(timezone)
-        .utc()
-        .format(),
-      lte: moment.utc().format(),
-    }),
-  ],
-  total: [queryBuild.range('registrationDate', { lte: moment.utc().format() })],
-});
+const prepareAdditionalStatsUsersRegistration = stats => {
+  return stats.reduce(
+    (acc, { count }, idx) => {
+      switch (idx) {
+        case 0:
+          acc.total.value = count;
+          break;
+        case 1:
+          acc.month.value = count;
+          break;
+        case 2:
+          acc.today.value = count;
+          break;
+        default:
+          return null;
+      }
+
+      return acc;
+    },
+    {
+      total: { value: null },
+      month: { value: null },
+      today: { value: null },
+    }
+  );
+};
+
+const prepareRegistrationsData = registrations => {
+  return registrations.map(({ count, date }) => ({
+    entryDate: moment(date).format('DD.MM'),
+    entries: count,
+  }));
+};
 
 const getPaymentStatisticTotals = (index, { paymentsCount, totalAmount }) => {
   let propName = '';
@@ -115,7 +125,8 @@ const getPaymentStatisticTotals = (index, { paymentsCount, totalAmount }) => {
 
 module.exports = {
   compareDateFormat,
+  prepareRegistrationsData,
   getStatisticInitialArray,
-  getCountQueryRanges,
   getPaymentStatisticTotals,
+  prepareAdditionalStatsUsersRegistration,
 };

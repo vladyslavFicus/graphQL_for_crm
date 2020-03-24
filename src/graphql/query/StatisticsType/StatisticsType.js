@@ -1,30 +1,25 @@
-const { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLList, GraphQLInt } = require('graphql');
+const { GraphQLObjectType, GraphQLString, GraphQLList } = require('graphql');
 const {
-  statistics: { getRegisteredUserStatistic, getPaymentsStatistic, getRegisteredUserTotals },
+  statistics: { getPaymentsStatistic, getRegisteredUsersChartData },
 } = require('../../common/resolvers');
 const ResponseType = require('../../common/types/ResponseType');
-const { ChartStatisticType, ChartTotalsType } = require('./ChartType');
 const PaymentStatisticType = require('./PaymentStatisticType');
+const RegistrationStatisticType = require('./RegistrationStatisticType');
+const { AdditionalStatisticRegistrationInputType } = require('./RegistrationStatisticType');
 const { DetalizationEnum, AdditionalStatisticInputType } = require('./PaymentStatisticType');
 
 const StatisticsType = new GraphQLObjectType({
   name: 'Statistics',
   fields: () => ({
-    registrations: {
-      type: ResponseType(ChartStatisticType, 'registrationsStatistic'),
+    registrationStatistic: {
+      type: ResponseType(RegistrationStatisticType, 'RegistrationStatisticType'),
       args: {
-        registrationDateFrom: { type: new GraphQLNonNull(GraphQLString) },
-        registrationDateTo: { type: new GraphQLNonNull(GraphQLString) },
-        clientIds: { type: new GraphQLList(GraphQLString) },
+        dateTo: { type: GraphQLString },
+        dateFrom: { type: GraphQLString },
+        detalization: { type: DetalizationEnum },
+        additionalStatistics: { type: new GraphQLList(AdditionalStatisticRegistrationInputType) },
       },
-      resolve: getRegisteredUserStatistic,
-    },
-    registrationTotals: {
-      type: ChartTotalsType,
-      args: {
-        timezone: { type: new GraphQLNonNull(GraphQLInt) },
-      },
-      resolve: getRegisteredUserTotals,
+      resolve: getRegisteredUsersChartData,
     },
     payments: {
       type: ResponseType(PaymentStatisticType, 'paymentsStatistic'),
