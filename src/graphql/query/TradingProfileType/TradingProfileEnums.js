@@ -66,6 +66,11 @@ const SalesStatusesEnum = new GraphQLEnumType({
     DEPOSITOR: { value: 'DEPOSITOR' },
     DO_NOT_CALL: { value: 'DO_NOT_CALL' },
     INVALID_COUNTRY: { value: 'INVALID_COUNTRY' },
+    DIALER_NA: { value: 'DIALER_NA' },
+    DIALER_NEW: { value: 'DIALER_NEW' },
+    DIALER_ASSIGNED: { value: 'DIALER_ASSIGNED' },
+    DIALER_FAILED: { value: 'DIALER_FAILED' },
+    DIALER_DROP: { value: 'DIALER_DROP' },
   },
 });
 
