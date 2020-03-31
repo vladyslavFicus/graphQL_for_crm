@@ -4,6 +4,9 @@ const {
   updateTradingAccount,
   tradingAccountChangePassword,
   tradingAccountQuery,
+  changeLeverage,
+  rejectChangeLeverage,
+  approveChangeLeverage,
 } = require('../../../utils/mt4Requests');
 
 const createTradingAccountResolver = async (
@@ -81,9 +84,24 @@ const getTradingAccounts = async (_, args, { headers: { authorization } }) => {
   return await tradingAccountQuery(args, authorization);
 };
 
+const changeLeverageResolver = (_, args, { headers: { authorization } }) => {
+  return changeLeverage(args, authorization);
+};
+
+const approveChangeLeverageResolver = (_, args, { headers: { authorization } }) => {
+  return approveChangeLeverage(args, authorization);
+};
+
+const rejectChangeLeverageResolver = (_, args, { headers: { authorization } }) => {
+  return rejectChangeLeverage(args, authorization);
+};
+
 module.exports = {
   createTradingAccountResolver,
   updateTradingAccountResolver,
   tradingAccountChangePasswordResolver,
   getTradingAccounts,
+  changeLeverageResolver,
+  rejectChangeLeverageResolver,
+  approveChangeLeverageResolver,
 };

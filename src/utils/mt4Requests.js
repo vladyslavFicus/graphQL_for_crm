@@ -78,9 +78,64 @@ const tradingAccountQuery = ({ accountType, uuid }, authorization) => {
   ).then(response => response.json().then(({ data }) => data));
 };
 
+/**
+ * Change leverage on MT4
+ * @param args
+ * @param authorization
+ * @return {*}
+ */
+const changeLeverage = (args, authorization) => {
+  return fetch(`${global.appConfig.apiUrl}/trading-account/account/${args.accountUUID}/leverage`, {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      authorization,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(args),
+  }).then(response => ({ success: response.status === 200 }));
+};
+
+/**
+ * Approve change leverage on MT4
+ * @param accountUUID
+ * @param authorization
+ * @return {*}
+ */
+const approveChangeLeverage = ({ accountUUID }, authorization) => {
+  return fetch(`${global.appConfig.apiUrl}/trading-account/account/${accountUUID}/leverage/approve`, {
+    method: 'PUT',
+    headers: {
+      accept: 'application/json',
+      authorization,
+      'content-type': 'application/json',
+    },
+  }).then(response => ({ success: response.status === 200 }));
+};
+
+/**
+ * Reject change leverage on MT4
+ * @param accountUUID
+ * @param authorization
+ * @return {*}
+ */
+const rejectChangeLeverage = ({ accountUUID }, authorization) => {
+  return fetch(`${global.appConfig.apiUrl}/trading-account/account/${accountUUID}/leverage/reject`, {
+    method: 'PUT',
+    headers: {
+      accept: 'application/json',
+      authorization,
+      'content-type': 'application/json',
+    },
+  }).then(response => ({ success: response.status === 200 }));
+};
+
 module.exports = {
   createTradingAccount,
   updateTradingAccount,
   tradingAccountChangePassword,
   tradingAccountQuery,
+  changeLeverage,
+  approveChangeLeverage,
+  rejectChangeLeverage,
 };

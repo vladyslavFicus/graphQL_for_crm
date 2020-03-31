@@ -12,6 +12,9 @@ const {
   createTradingAccountResolver,
   updateTradingAccountResolver,
   tradingAccountChangePasswordResolver,
+  changeLeverageResolver,
+  approveChangeLeverageResolver,
+  rejectChangeLeverageResolver,
 } = require('../../common/resolvers/tradingAccount');
 
 const TradingAccountType = new GraphQLObjectType({
@@ -50,6 +53,28 @@ const TradingAccountType = new GraphQLObjectType({
       },
       type: SuccessType,
       resolve: tradingAccountChangePasswordResolver,
+    },
+    changeLeverageRequest: {
+      args: {
+        accountUUID: { type: new GraphQLNonNull(GraphQLString) },
+        leverage: { type: new GraphQLNonNull(GraphQLInt) },
+      },
+      type: SuccessType,
+      resolve: changeLeverageResolver,
+    },
+    approveChangeLeverageRequest: {
+      args: {
+        accountUUID: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      type: SuccessType,
+      resolve: approveChangeLeverageResolver,
+    },
+    rejectChangeLeverageRequest: {
+      args: {
+        accountUUID: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      type: SuccessType,
+      resolve: rejectChangeLeverageResolver,
     },
   }),
 });

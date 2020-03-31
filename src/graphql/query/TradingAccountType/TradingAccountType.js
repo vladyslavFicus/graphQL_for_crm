@@ -10,6 +10,16 @@ const { getOperator } = require('../../common/resolvers/operators');
 const Mt4Type = require('../Mt4Type');
 const OperatorType = require('../OperatorType');
 
+const LastLeverageChangeRequest = new GraphQLObjectType({
+  name: 'LastLeverageChangeRequest',
+  fields: () => ({
+    changeLeverageFrom: { type: GraphQLString },
+    changeLeverageTo: { type: GraphQLString },
+    status: { type: GraphQLString },
+    createDate: { type: GraphQLString },
+  }),
+});
+
 const TradingAccountType = new GraphQLObjectType({
   name: 'TradingAccountQuery',
   fields: () => ({
@@ -44,6 +54,7 @@ const TradingAccountType = new GraphQLObjectType({
       type: OperatorType,
       resolve: getOperator('readOnlyUpdatedBy'),
     },
+    lastLeverageChangeRequest: { type: LastLeverageChangeRequest },
   }),
 });
 
