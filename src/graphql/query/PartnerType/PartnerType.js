@@ -41,6 +41,7 @@ const PartnerType = new GraphQLObjectType({
     createdAt: { type: GraphQLString },
     cellexpert: { type: GraphQLBoolean },
     public: { type: GraphQLBoolean },
+    satellite: { type: GraphQLString },
     permission: { type: PartnerPermissionType },
     authorities: {
       type: ResponseType(new GraphQLList(AuthorityType), 'PartnerAuthoritiesList'),
