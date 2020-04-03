@@ -22,22 +22,12 @@ const getRegisteredUsersChartData = async (_, args, { headers: { authorization }
 
 const getPaymentsStatistic = async function(
   _,
-  { additionalStatistics, dateFrom, dateTo, playerUUID, ...args },
+  { additionalStatistics, playerUUID, ...args },
   { hierarchy, headers: { authorization } }
 ) {
   const { data, error } = await getPaymentsStatisticsQuery(
     {
       ...args,
-      ...(dateFrom && {
-        dateFrom: moment(dateFrom)
-          .utc()
-          .format(),
-      }),
-      ...(dateTo && {
-        dateTo: moment(dateTo)
-          .utc()
-          .format(),
-      }),
       // HACK to get one player statistic
       profileIds: playerUUID ? [playerUUID] : await hierarchy.getCustomersIds(),
       ...(additionalStatistics && {
@@ -65,8 +55,8 @@ const getPaymentsStatistic = async function(
   let result = { items: [] };
 
   if (Array.isArray(payments) && payments.length) {
-    const timezone = dateFrom.substr(-6);
-    const dateArray = getStatisticInitialArray(dateFrom, dateTo, timezone);
+    const { dateFrom, dateTo } = args;
+    const dateArray = getStatisticInitialArray(dateFrom, dateTo);
 
     const items = dateArray.map(date => {
       const entity = payments.find(({ date: paymentDate }) => moment(date).diff(moment(paymentDate), 'days') === 0);

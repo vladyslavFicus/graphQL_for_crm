@@ -1,16 +1,15 @@
 const moment = require('moment');
-const { queryBuild } = require('./ESSearchHelpers');
 
 const compareDateFormat = 'YYYY-MM-DD';
 
-const getStatisticInitialArray = (from, to, timezone) => {
+const getStatisticInitialArray = (from, to) => {
   const diffDays = moment(to).diff(moment(from), 'days');
   const diffMonth = moment(to).diff(moment(from), 'month');
 
   let resultArray = [];
 
   if (diffMonth === 0) {
-    let date = moment(from).utcOffset(timezone);
+    let date = moment(from);
 
     if (diffDays === 0) {
       resultArray.push(date.format(compareDateFormat));
@@ -21,31 +20,19 @@ const getStatisticInitialArray = (from, to, timezone) => {
       }
     }
   } else {
-    const fromDateDayNumber = Number(
-      moment(from)
-        .utcOffset(timezone)
-        .format('D')
-    );
-    const toDateDayNumber = Number(
-      moment(to)
-        .utcOffset(timezone)
-        .format('D')
-    );
     const endOfPrevMonthDayNumber = Number(
       moment(from)
-        .utcOffset(timezone)
         .endOf('month')
         .format('D')
     );
+    const fromDateDayNumber = Number(moment(from).format('D'));
+    const toDateDayNumber = Number(moment(to).format('D'));
 
     for (let i = fromDateDayNumber; i <= endOfPrevMonthDayNumber; i++) {
       const entryDate =
         i === fromDateDayNumber
-          ? moment(from)
-              .utcOffset(timezone)
-              .format(compareDateFormat)
+          ? moment(from).format(compareDateFormat)
           : moment(from)
-              .utcOffset(timezone)
               .add(i - fromDateDayNumber, 'days')
               .format(compareDateFormat);
 
@@ -54,7 +41,6 @@ const getStatisticInitialArray = (from, to, timezone) => {
 
     for (let i = 1; i < toDateDayNumber; i++) {
       const entryDate = moment(to)
-        .utcOffset(timezone)
         .subtract(toDateDayNumber - i, 'days')
         .format(compareDateFormat);
 
