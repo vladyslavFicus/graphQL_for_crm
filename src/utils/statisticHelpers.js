@@ -9,7 +9,7 @@ const getStatisticInitialArray = (from, to) => {
   let resultArray = [];
 
   if (diffMonth === 0) {
-    let date = moment(from);
+    let date = moment.parseZone(from);
 
     if (diffDays === 0) {
       resultArray.push(date.format(compareDateFormat));
