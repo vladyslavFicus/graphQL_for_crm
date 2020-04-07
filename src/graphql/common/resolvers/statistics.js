@@ -22,12 +22,14 @@ const getRegisteredUsersChartData = async (_, args, { headers: { authorization }
 
 const getPaymentsStatistic = async function(
   _,
-  { additionalStatistics, playerUUID, ...args },
+  { additionalStatistics, playerUUID, dateFrom, dateTo, ...args },
   { hierarchy, headers: { authorization } }
 ) {
   const { data, error } = await getPaymentsStatisticsQuery(
     {
       ...args,
+      dateFrom: moment(dateFrom).utc(),
+      dateTo: moment(dateTo).utc(),
       // HACK to get one player statistic
       profileIds: playerUUID ? [playerUUID] : await hierarchy.getCustomersIds(),
       ...(additionalStatistics && {
@@ -55,7 +57,6 @@ const getPaymentsStatistic = async function(
   let result = { items: [] };
 
   if (Array.isArray(payments) && payments.length) {
-    const { dateFrom, dateTo } = args;
     const dateArray = getStatisticInitialArray(dateFrom, dateTo);
 
     const items = dateArray.map(date => {
