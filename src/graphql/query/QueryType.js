@@ -319,6 +319,8 @@ const QueryType = new GraphQLObjectType({
         name: { type: GraphQLString },
         type: { type: RuleTypeEnum },
         parentId: { type: GraphQLString },
+        affiliateId: { type: GraphQLString },
+        operatorUuids: { type: new GraphQLList(GraphQLString) },
       },
       resolve: getRules,
     },

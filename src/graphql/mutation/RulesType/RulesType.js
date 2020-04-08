@@ -13,12 +13,21 @@ const { ResponseType } = require('../../common/types');
 const RuleType = require('../../query/RuleType');
 const { RuleTypeEnum, RuleActionTypeEnum } = require('../../query/RuleType/RuleEnums');
 
+const OperatorSpreadType = new GraphQLInputObjectType({
+  name: 'OperatorSpreadMutationType',
+  fields: () => ({
+    percentage: { type: GraphQLInt },
+    parentUser: { type: GraphQLString },
+  }),
+});
+
 const RuleActionsInputType = new GraphQLInputObjectType({
   name: 'RuleActionsInputType',
   fields: () => ({
     parentBranch: { type: GraphQLString },
     parentUser: { type: GraphQLString },
     ruleType: { type: RuleActionTypeEnum },
+    operatorSpreads: { type: new GraphQLList(OperatorSpreadType) },
   }),
 });
 
@@ -40,7 +49,7 @@ const RulesMutation = new GraphQLObjectType({
         affiliateUUIDs: { type: new GraphQLList(GraphQLString) },
         sources: { type: new GraphQLList(GraphQLString) },
         priority: { type: new GraphQLNonNull(GraphQLInt) },
-        type: { type: new GraphQLNonNull(RuleTypeEnum) },
+        type: { type: RuleTypeEnum },
         actions: { type: new GraphQLNonNull(new GraphQLList(RuleActionsInputType)) },
       },
       type: ResponseType(RuleType, 'CreateRule'),

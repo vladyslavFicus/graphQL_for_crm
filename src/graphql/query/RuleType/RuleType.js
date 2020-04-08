@@ -1,6 +1,20 @@
 const { GraphQLObjectType, GraphQLNonNull, GraphQLString, GraphQLList, GraphQLInt } = require('graphql');
 const PartnerType = require('../PartnerType');
 const { RuleTypeEnum, RuleActionTypeEnum } = require('./RuleEnums');
+const OperatorType = require('../OperatorType');
+const { getOperator } = require('../../common/resolvers/operators');
+
+const OperatorSpreadType = new GraphQLObjectType({
+  name: 'OperatorSpreadType',
+  fields: () => ({
+    id: { type: new GraphQLNonNull(GraphQLInt) },
+    percentage: { type: GraphQLInt },
+    operator: {
+      type: OperatorType,
+      resolve: getOperator('parentUser'),
+    },
+  }),
+});
 
 const RuleActionType = new GraphQLObjectType({
   name: 'RuleActionType',
@@ -9,6 +23,7 @@ const RuleActionType = new GraphQLObjectType({
     parentBranch: { type: GraphQLString },
     parentUser: { type: GraphQLString },
     ruleType: { type: RuleActionTypeEnum },
+    operatorSpreads: { type: new GraphQLList(OperatorSpreadType) },
   }),
 });
 
