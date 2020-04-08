@@ -119,6 +119,18 @@ const changeProfileStatusQuery = ({ playerUUID, ...args }, authorization) => {
   }).then(response => response.json());
 };
 
+const getClientsPersonalInfoQuery = (args, authorization) => {
+  return fetch(`${global.appConfig.apiUrl}/profileview/admin/profiles/personal-information`, {
+    method: 'POST',
+    headers: {
+      authorization,
+      accept: 'application/json',
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(args),
+  }).then(response => response.json());
+};
+
 module.exports = {
   bulkUpdateRetentionStasuses,
   bulkUpdateSalesStasuses,
@@ -130,4 +142,5 @@ module.exports = {
   getQueryNewProfiles,
   getQueryProfileView,
   changeProfileStatusQuery,
+  getClientsPersonalInfoQuery,
 };

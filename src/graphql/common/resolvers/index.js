@@ -26,4 +26,5 @@ module.exports = {
   risks: require('./risks'),
   socialTrading: require('./socialTrading'),
   emailTemplates: require('./emailTemplates'),
+  notificationCenter: require('./notificationCenter'),
 };

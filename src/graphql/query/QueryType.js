@@ -42,6 +42,12 @@ const {
   risks: { getRisksQuestionnaire },
   emailTemplates: { getEmailTemplates, getEmailTemplate },
   socialTrading: { socialTradingResolver },
+  notificationCenter: {
+    getNotificationCenter,
+    getNotificationCenterTypes,
+    getNotificationCenterUnread,
+    getNotificationCenterSubtypes,
+  },
 } = require('../common/resolvers');
 const PageableType = require('../common/types/PageableType');
 const ClientSearchInputType = require('../input/ClientSearchInputType');
@@ -82,6 +88,8 @@ const { checkMigrationQuery } = require('../../utils/profile');
 const PaymentsInputType = require('../input/PaymentsInputType');
 const PaymentsByUuidInputType = require('../input/PaymentsByUuidInputType');
 const EmailType = require('./EmailType');
+const NotificationCenterType = require('./NotificationCenterType');
+const NotificationCenterInputType = require('../input/NotificationCenterInputType');
 
 const QueryType = new GraphQLObjectType({
   name: 'Query',
@@ -496,6 +504,25 @@ const QueryType = new GraphQLObjectType({
     socialTrading: {
       type: SocialTradingType,
       resolve: socialTradingResolver,
+    },
+    notificationCenter: {
+      type: ResponseType(PageableType(NotificationCenterType)),
+      args: {
+        args: { type: NotificationCenterInputType },
+      },
+      resolve: getNotificationCenter,
+    },
+    notificationCenterTypes: {
+      type: ResponseType(new GraphQLList(GraphQLString), 'NotificationCenterTypes'),
+      resolve: getNotificationCenterTypes,
+    },
+    notificationCenterSubtypes: {
+      type: ResponseType(new GraphQLList(GraphQLString), 'NotificationCenterSubtypes'),
+      resolve: getNotificationCenterSubtypes,
+    },
+    notificationCenterUnread: {
+      type: ResponseType(GraphQLInt, 'NotificationCenterUnread'),
+      resolve: getNotificationCenterUnread,
     },
   }),
 });

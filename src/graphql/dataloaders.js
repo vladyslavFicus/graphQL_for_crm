@@ -3,7 +3,7 @@ const orderByArray = require('../utils/orderByArray');
 const { getOperatorsByUUIDs } = require('../utils/operatorRequests');
 const { getPartners } = require('../utils/partnerRequests');
 const { getNotes } = require('../utils/notesRequests');
-const { getProfiles } = require('../utils/profile');
+const { getProfiles, getClientsPersonalInfoQuery } = require('../utils/profile');
 const {
   requests: { getHierarchyUsers },
 } = require('../utils/hierarchy');
@@ -38,6 +38,12 @@ exports.createDataloaders = (authorization, brandId) => ({
     const { data } = await getProfiles(brandId, { ids, size: ids.length });
 
     return orderByArray(ids, data.content, 'playerUUID');
+  }),
+
+  clientsPersonalInfo: new DataLoader(async uuids => {
+    const { data } = await getClientsPersonalInfoQuery({ uuids }, authorization);
+
+    return orderByArray(uuids, data, 'uuid');
   }),
 
   usersHierarchy: new DataLoader(async ids => {
