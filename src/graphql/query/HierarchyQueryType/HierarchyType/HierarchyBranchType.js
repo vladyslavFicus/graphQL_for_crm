@@ -1,5 +1,6 @@
 const { GraphQLObjectType, GraphQLNonNull, GraphQLString, GraphQLList, GraphQLBoolean } = require('graphql');
 const { DeskTypeEnum } = require('./HierarchyEnums');
+const { getOperator } = require('../../../common/resolvers/operators');
 
 const HierarchyBranchType = new GraphQLObjectType({
   name: 'HierarchyBranchType',
@@ -15,6 +16,11 @@ const HierarchyBranchType = new GraphQLObjectType({
     language: { type: GraphQLString },
     defaultBranch: { type: GraphQLString },
     isDefault: { type: GraphQLBoolean },
+    manager: { type: GraphQLString },
+    operator: {
+      type: require('../../OperatorType'),
+      resolve: getOperator('manager'),
+    },
   }),
 });
 

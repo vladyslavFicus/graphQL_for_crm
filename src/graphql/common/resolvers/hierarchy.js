@@ -15,6 +15,8 @@ const {
     updateUserBranches,
     getBrand,
     updateHierarchyUser: updateHierarchyUserRequest,
+    addBranchManager: addBranchManagerRequest,
+    removeBranchManager: removeBranchManagerRequest,
   },
   helpers: { getHierarchyMappedOperators },
 } = require('../../../utils/hierarchy');
@@ -122,6 +124,19 @@ const addOperatorToBranch = async (_, { operatorId, branchId }, { headers: { aut
   return { data: true };
 };
 
+const addBranchManager = async (_, { branchUuid, operatorUuid }, { headers: { authorization } }) => {
+  const response = await addBranchManagerRequest({ branchUuid, manager: operatorUuid }, authorization);
+
+  return {
+    success: !response.error,
+    ...response,
+  };
+};
+
+const removeBranchManager = async (_, { branchUuid }, { headers: { authorization } }) => {
+  return removeBranchManagerRequest(branchUuid, authorization);
+};
+
 const removeOperatorFromBranch = async (_, { operatorId, branchId }, { headers: { authorization } }) => {
   const requestParams = {
     operatorId,
@@ -215,6 +230,8 @@ module.exports = {
   createOffice,
   createDesk,
   createTeam,
+  addBranchManager,
+  removeBranchManager,
   addOperatorToBranch,
   removeOperatorFromBranch,
   updateHierarchyUser,

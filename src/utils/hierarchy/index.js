@@ -1,6 +1,8 @@
 const {
   createUser,
   createBranch,
+  addBranchManager,
+  removeBranchManager,
   getHierarchyUser,
   getHierarchyUsers,
   getHierarchyBranch,
@@ -32,6 +34,8 @@ module.exports = {
   requests: {
     createUser,
     createBranch,
+    addBranchManager,
+    removeBranchManager,
     getHierarchyUser,
     getHierarchyUsers,
     getHierarchyBranch,

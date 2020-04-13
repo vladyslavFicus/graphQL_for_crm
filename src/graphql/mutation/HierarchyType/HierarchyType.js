@@ -8,9 +8,12 @@ const {
     addOperatorToBranch,
     removeOperatorFromBranch,
     updateHierarchyUser,
+    addBranchManager,
+    removeBranchManager,
   },
 } = require('../../common/resolvers');
 const { DeskTypeEnum } = require('../../query/HierarchyQueryType/HierarchyType/HierarchyEnums');
+const SuccessType = require('../../query/SuccessType');
 const ResponseType = require('../../common/types/ResponseType');
 
 const HierarchyResponseType = customName =>
@@ -59,6 +62,21 @@ const HierarchyMutation = new GraphQLObjectType({
       },
       type: HierarchyResponseType('CreateTeam'),
       resolve: createTeam,
+    },
+    addBranchManager: {
+      args: {
+        branchUuid: { type: new GraphQLNonNull(GraphQLString) },
+        operatorUuid: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      type: SuccessType,
+      resolve: addBranchManager,
+    },
+    removeBranchManager: {
+      args: {
+        branchUuid: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      type: SuccessType,
+      resolve: removeBranchManager,
     },
     addOperatorToBranch: {
       args: {
