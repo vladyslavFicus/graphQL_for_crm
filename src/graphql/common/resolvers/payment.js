@@ -90,11 +90,8 @@ const createClientPayment = async (
   };
 };
 
-const acceptPayment = async function(_, { typeAcc, ...args }, context) {
-  const {
-    headers: { authorization },
-  } = context;
-  const response = await fetch(`${global.appConfig.apiUrl}/payment/${typeAcc}`, {
+const acceptPayment = (_, { typeAcc, ...args }, { headers: { authorization } }) => {
+  return fetch(`${global.appConfig.apiUrl}/payment/${typeAcc}`, {
     method: 'PUT',
     headers: {
       Accept: 'application/json',
@@ -102,12 +99,10 @@ const acceptPayment = async function(_, { typeAcc, ...args }, context) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(args),
-  });
-
-  return { data: { success: response.status === 200 } };
+  }).then(response => ({ data: { success: response.status === 200 } }));
 };
 
-const changePaymentMethod = function(_, args, { headers: { authorization } }) {
+const changePaymentMethod = (_, args, { headers: { authorization } }) => {
   return fetch(`${global.appConfig.apiUrl}/payment/${args.paymentId}/method`, {
     method: 'PUT',
     headers: {
@@ -119,7 +114,7 @@ const changePaymentMethod = function(_, args, { headers: { authorization } }) {
   }).then(response => ({ data: { success: response.status === 200 } }));
 };
 
-const changePaymentStatus = function(_, args, { headers: { authorization } }) {
+const changePaymentStatus = (_, args, { headers: { authorization } }) => {
   return fetch(`${global.appConfig.apiUrl}/payment/${args.paymentId}/status`, {
     method: 'PUT',
     headers: {
@@ -131,7 +126,7 @@ const changePaymentStatus = function(_, args, { headers: { authorization } }) {
   }).then(response => ({ data: { success: response.status === 200 } }));
 };
 
-const changeOriginalAgent = function(_, { paymentId, ...args }, { headers: { authorization } }) {
+const changeOriginalAgent = (_, { paymentId, ...args }, { headers: { authorization } }) => {
   return fetch(`${global.appConfig.apiUrl}/payment/${paymentId}/agent`, {
     method: 'PUT',
     headers: {
