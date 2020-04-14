@@ -11,6 +11,7 @@ const PaymentsInputType = new GraphQLInputObjectType({
     type: { type: GraphQLString },
     statuses: { type: new GraphQLList(GraphQLString) },
     paymentTypes: { type: new GraphQLList(GraphQLString) },
+    withdrawStatuses: { type: new GraphQLList(GraphQLString) },
     paymentAggregator: { type: GraphQLString },
     paymentMethods: { type: new GraphQLList(GraphQLString) },
     creationTimeFrom: { type: GraphQLString },
