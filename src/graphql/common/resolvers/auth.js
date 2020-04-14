@@ -50,8 +50,8 @@ const getPermissions = async (_, __, { headers: { authorization } }) => {
   return { data: [...response.data.map(item => `${item.serviceName};${item.httpMethod};${item.urlPattern}`)] };
 };
 
-const logout = function(_, __, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/auth/logout`, {
+const logout = (_, __, { headers: { authorization } }) => {
+  return fetch(`${global.appConfig.apiUrl}/auth2/logout`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -61,15 +61,17 @@ const logout = function(_, __, { headers: { authorization } }) {
   }).then(response => ({ success: response.status === 200 }));
 };
 
-const tokenRenew = function(_, __, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/auth/token/renew?token=${authorization.replace('Bearer ', '')}`, {
-    method: 'GET',
+const tokenRenew = (_, __, { headers: { authorization } }) => {
+  return fetch(`${global.appConfig.apiUrl}/auth2/token/renew`, {
+    method: 'POST',
     headers: {
       accept: 'application/json',
       authorization,
       'content-type': 'application/json',
     },
-  }).then(response => response.json().then(({ data: { jwtToken } }) => ({ token: jwtToken })));
+  })
+    .then(response => response.json())
+    .then(({ data: { token } }) => ({ token }));
 };
 
 const resetPassword = function(_, args, { headers: { authorization } }) {
