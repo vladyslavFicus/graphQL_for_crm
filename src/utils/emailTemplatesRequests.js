@@ -59,7 +59,6 @@ const updateEmailTemplate = (args, authorization) => {
 };
 
 const deleteEmailTemplate = function({ id }, authorization) {
-  console.log('id: ', id);
   return fetch(`${global.appConfig.apiUrl}/email/templates/${id}`, {
     method: 'DELETE',
     headers: {

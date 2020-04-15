@@ -40,7 +40,7 @@ const getAuthorities = (uuid, authorization) => {
 };
 
 const getPermission = authorization => {
-  return fetch(`${global.appConfig.apiUrl}/auth/permissions`, {
+  return fetch(`${global.appConfig.apiUrl}/auth2/users/actions`, {
     method: 'GET',
     headers: {
       accept: 'application/json',

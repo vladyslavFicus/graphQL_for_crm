@@ -47,7 +47,7 @@ const getAuthorities = (_, { uuid }, { headers: { authorization } }) => getAutho
 const getPermissions = async (_, __, { headers: { authorization } }) => {
   const response = await getPermissionRequest(authorization);
 
-  return { data: [...response.data.map(item => `${item.serviceName};${item.httpMethod};${item.urlPattern}`)] };
+  return { data: response.data.actions };
 };
 
 const logout = (_, __, { headers: { authorization } }) => {
@@ -74,8 +74,8 @@ const tokenRenew = (_, __, { headers: { authorization } }) => {
     .then(({ data: { token } }) => ({ token }));
 };
 
-const resetPassword = function(_, args, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/auth/password/reset`, {
+const resetPassword = (_, args, { headers: { authorization } }) => {
+  return fetch(`${global.appConfig.apiUrl}/auth2/password/token`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
