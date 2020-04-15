@@ -12,6 +12,7 @@ const PartnerPermissionType = new GraphQLObjectType({
     showNotes: { type: GraphQLBoolean },
     showFTDAmount: { type: GraphQLBoolean },
     showSalesStatus: { type: GraphQLBoolean },
+    showKycStatus: { type: GraphQLBoolean },
     forbiddenCountries: { type: new GraphQLList(GraphQLString) },
     allowedIpAddresses: { type: new GraphQLList(GraphQLString) },
   }),
