@@ -50,6 +50,7 @@ const OperatorMutation = new GraphQLObjectType({
         firstName: { type: new GraphQLNonNull(GraphQLString) },
         lastName: { type: new GraphQLNonNull(GraphQLString) },
         phoneNumber: { type: GraphQLString },
+        sip: { type: GraphQLString },
         country: { type: GraphQLString },
       },
       type: ResponseType(OperatorType, 'UpdatedOperatorType'),
