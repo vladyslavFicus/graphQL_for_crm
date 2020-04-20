@@ -2,6 +2,7 @@ svc: "backoffice-graphql"
 team: "falcon"
 secret: false
 java: false
+hpa: true
 replicaCount: 1
 health:
   startupProbe:
@@ -19,6 +20,8 @@ health:
     period: 5
 resources:
   requests:
-    memory: 1Gi
+    cpu: '0.5'
+    memory: '512Mi'
   limits:
-    memory: 4Gi
+    cpu: '1'
+    memory: '1536Mi'

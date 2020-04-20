@@ -466,7 +466,9 @@ const clickToCall = async (_, args, context) => {
     data: { phoneNumber },
   } = await getOperatorByUUID(_, { uuid: context.userUUID }, context);
 
-  return fetch(global.appConfig.brands[context.brand.id].clickToCallUrl, {
+  const { didlogic } = global.appConfig.brands[context.brand.id].clickToCall;
+
+  return fetch(didlogic.url, {
     method: 'POST',
     headers: {
       accept: 'application/json',

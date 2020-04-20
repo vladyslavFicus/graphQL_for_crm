@@ -1,6 +1,5 @@
 const { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLInt } = require('graphql');
-const { getAssignedToOperator } = require('../../common/resolvers/audit');
-const OperatorType = require('../OperatorType');
+const { getDetails } = require('../../common/resolvers/audit');
 
 const FeedType = new GraphQLObjectType({
   name: 'Feed',
@@ -10,16 +9,15 @@ const FeedType = new GraphQLObjectType({
     authorUuid: { type: new GraphQLNonNull(GraphQLString) },
     brandId: { type: GraphQLString },
     creationDate: { type: new GraphQLNonNull(GraphQLString) },
-    details: { type: GraphQLString },
+    details: {
+      type: GraphQLString,
+      resolve: getDetails,
+    },
     ip: { type: GraphQLString },
     targetFullName: { type: GraphQLString },
     targetUuid: { type: new GraphQLNonNull(GraphQLString) },
     uuid: { type: GraphQLString },
     type: { type: new GraphQLNonNull(GraphQLString) },
-    operator: {
-      type: OperatorType,
-      resolve: getAssignedToOperator,
-    },
   }),
 });
 

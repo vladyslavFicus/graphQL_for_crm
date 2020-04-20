@@ -18,6 +18,7 @@ module.exports = {
   lastName: { type: GraphQLString },
   operatorStatus: { type: GraphQLString },
   phoneNumber: { type: GraphQLString },
+  sip: { type: GraphQLString },
   registeredBy: { type: GraphQLString },
   registrationDate: { type: GraphQLString },
   statusChangeAuthor: { type: GraphQLString },

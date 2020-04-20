@@ -35,8 +35,25 @@ const getFeedTypes = function(_, { playerUUID }, { headers: { authorization } })
   }).then(response => response.json());
 };
 
+const getDetails = async function(...args) {
+  const [source] = args;
+  const { type, details } = source;
+
+  if (details && type === 'PROFILE_ASSIGN') {
+    const parsedDetails = JSON.parse(details);
+    source.acquisitionRepresentativeUuid = parsedDetails.acquisitionRepresentativeUuid;
+    const { firstName, lastName } = await getOperator('acquisitionRepresentativeUuid')(...args);
+    parsedDetails.assignedToName = `${firstName} ${lastName}`;
+
+    return JSON.stringify(parsedDetails);
+  }
+
+  return details;
+};
+
 module.exports = {
   getFeeds,
+  getDetails,
   getFeedTypes,
   getAssignedToOperator,
 };

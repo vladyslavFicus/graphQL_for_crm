@@ -17,7 +17,7 @@ async function load() {
 
   const brandsConfig = await getBrandsConfig(
     platform.zookeeper.url,
-    ['nas.brand.currencies.base', 'nas.brand.clickToCall.url'],
+    ['nas.brand.currencies.base', 'nas.brand.clickToCall'],
     null,
     options
   );

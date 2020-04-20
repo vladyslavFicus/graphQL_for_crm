@@ -7,7 +7,12 @@ module.exports = configs =>
       [id]: {
         id,
         currency: get(config, 'nas.brand.currencies.base'),
-        clickToCallUrl: get(config, 'nas.brand.clickToCall.url'),
+        clickToCall: {
+          didlogic: {
+            url: get(config, 'nas.brand.clickToCall.url'),
+          },
+          asterisk: get(config, 'nas.brand.clickToCall.asterisk', {}),
+        },
       },
     }),
     {}
