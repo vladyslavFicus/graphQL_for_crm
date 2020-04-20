@@ -1,5 +1,4 @@
 const fetch = require('./fetch');
-const buildQueryString = require('./buildQueryString');
 
 const getCallbacks = (args, authorization) => {
   return fetch(`${global.appConfig.apiUrl}/callback/search`, {

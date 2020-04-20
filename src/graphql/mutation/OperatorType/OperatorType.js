@@ -11,6 +11,7 @@ const {
   sendInvitation,
   changeStatus,
 } = require('../../common/resolvers/operators');
+const { changeOperatorPassword, resetUserPassword } = require('../../common/resolvers/auth');
 
 const OperatorTypeAuthorities = new GraphQLObjectType({
   name: 'OperatorTypeAuthorities',
@@ -112,6 +113,35 @@ const OperatorMutation = new GraphQLObjectType({
         }),
       }),
       resolve: sendInvitation,
+    },
+    changeOperatorPassword: {
+      args: {
+        operatorUuid: { type: new GraphQLNonNull(GraphQLString) },
+        newPassword: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      type: new GraphQLObjectType({
+        name: 'changeOperatorPassword',
+        fields: () => ({
+          success: {
+            type: new GraphQLNonNull(GraphQLBoolean),
+          },
+        }),
+      }),
+      resolve: changeOperatorPassword,
+    },
+    resetOperatorPassword: {
+      args: {
+        userUuid: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      type: new GraphQLObjectType({
+        name: 'resetOperatorPassword',
+        fields: () => ({
+          success: {
+            type: new GraphQLNonNull(GraphQLBoolean),
+          },
+        }),
+      }),
+      resolve: resetUserPassword,
     },
   }),
 });

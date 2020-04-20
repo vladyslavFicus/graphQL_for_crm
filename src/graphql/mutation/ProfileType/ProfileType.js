@@ -19,8 +19,6 @@ const {
     verifyProfile,
     updateEmail,
     updateProfile,
-    changePassword,
-    passwordResetRequest,
     markIsTest,
     clickToCall,
     updateRegulated,
@@ -31,6 +29,7 @@ const {
     updateContacts,
     updateAddress,
   },
+  auth: { resetUserPassword, changeClientPassword },
 } = require('../../common/resolvers');
 
 const SuspendDurationType = new GraphQLInputObjectType({
@@ -137,32 +136,32 @@ const PlayerMutation = new GraphQLObjectType({
     },
     passwordResetRequest: {
       args: {
-        playerUUID: { type: new GraphQLNonNull(GraphQLString) },
+        userUuid: { type: new GraphQLNonNull(GraphQLString) },
       },
       type: new GraphQLObjectType({
-        name: 'passwordResetRequest',
+        name: 'resetClientPassword',
         fields: () => ({
           success: {
             type: new GraphQLNonNull(GraphQLBoolean),
           },
         }),
       }),
-      resolve: passwordResetRequest,
+      resolve: resetUserPassword,
     },
     changePassword: {
       args: {
-        playerUUID: { type: new GraphQLNonNull(GraphQLString) },
-        password: { type: new GraphQLNonNull(GraphQLString) },
+        clientUuid: { type: new GraphQLNonNull(GraphQLString) },
+        newPassword: { type: new GraphQLNonNull(GraphQLString) },
       },
       type: new GraphQLObjectType({
-        name: 'changePassword',
+        name: 'changeClientPassword',
         fields: () => ({
           success: {
             type: new GraphQLNonNull(GraphQLBoolean),
           },
         }),
       }),
-      resolve: changePassword,
+      resolve: changeClientPassword,
     },
     update: {
       args: {
