@@ -2,7 +2,11 @@ svc: "backoffice-graphql"
 team: "falcon"
 secret: false
 java: false
-hpa: true
+hpa:
+  enabled: true
+  maxScale: 6
+  cpu: 180
+  memory: 270
 replicaCount: 1
 health:
   startupProbe:
