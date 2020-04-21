@@ -5,8 +5,14 @@ const FeedType = new GraphQLObjectType({
   name: 'Feed',
   fields: () => ({
     id: { type: new GraphQLNonNull(GraphQLInt) },
-    authorFullName: { type: new GraphQLNonNull(GraphQLString) },
-    authorUuid: { type: new GraphQLNonNull(GraphQLString) },
+    authorFullName: {
+      type: new GraphQLNonNull(GraphQLString),
+      resolve: ({ authorFullName, authorUuid }) => (authorUuid === 'SYSTEM' ? 'System' : authorFullName),
+    },
+    authorUuid: {
+      type: new GraphQLNonNull(GraphQLString),
+      resolve: ({ authorUuid }) => (authorUuid === 'SYSTEM' ? '' : authorUuid),
+    },
     brandId: { type: GraphQLString },
     creationDate: { type: new GraphQLNonNull(GraphQLString) },
     details: {
