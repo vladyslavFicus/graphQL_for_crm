@@ -84,6 +84,7 @@ const PaymentType = new GraphQLObjectType({
       paymentType: { type: new GraphQLNonNull(GraphQLString) },
       status: { type: new GraphQLNonNull(GraphQLString) },
       withdrawStatus: { type: GraphQLString },
+      withdrawalScheduledTime: { type: GraphQLString },
       // change to mandatory
       currency: { type: GraphQLString },
       createdBy: { type: GraphQLString },
