@@ -44,16 +44,39 @@ const getDetails = async function(...args) {
     source.acquisitionRepresentativeUuid = parsedDetails.acquisitionRepresentativeUuid;
     const { firstName, lastName } = await getOperator('acquisitionRepresentativeUuid')(...args);
     parsedDetails.assignedToName = `${firstName} ${lastName}`;
-
     return JSON.stringify(parsedDetails);
   }
 
   return details;
 };
 
+const geAuthorFullName = async (...args) => {
+  const [source] = args;
+  const { authorUuid, authorFullName } = source;
+
+  if (authorUuid === 'SYSTEM') {
+    return 'System';
+  }
+
+  const prefix = authorUuid.split('-')[0];
+
+  switch (prefix) {
+    case 'OPERATOR':
+      const { firstName, lastName } = await getOperator('authorUuid')(...args);
+
+      return `${firstName} ${lastName}`;
+    case 'RULE':
+      return 'System';
+
+    default:
+      return authorFullName;
+  }
+};
+
 module.exports = {
   getFeeds,
   getDetails,
   getFeedTypes,
+  geAuthorFullName,
   getAssignedToOperator,
 };
