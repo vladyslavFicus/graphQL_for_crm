@@ -1,4 +1,5 @@
-const { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLBoolean, GraphQLList } = require('graphql');
+const { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLList } = require('graphql');
+const SuccessType = require('../../query/SuccessType');
 const OperatorType = require('../../query/OperatorType');
 const { AuthorityType } = require('../../query/AuthType');
 const ResponseType = require('../../common/types/ResponseType');
@@ -91,28 +92,14 @@ const OperatorMutation = new GraphQLObjectType({
         reason: { type: new GraphQLNonNull(GraphQLString) },
         status: { type: new GraphQLNonNull(GraphQLString) },
       },
-      type: new GraphQLObjectType({
-        name: 'changeStatusType',
-        fields: () => ({
-          success: {
-            type: new GraphQLNonNull(GraphQLBoolean),
-          },
-        }),
-      }),
+      type: SuccessType,
       resolve: changeStatus,
     },
     sendInvitation: {
       args: {
         uuid: { type: new GraphQLNonNull(GraphQLString) },
       },
-      type: new GraphQLObjectType({
-        name: 'sendInvitation',
-        fields: () => ({
-          success: {
-            type: new GraphQLNonNull(GraphQLBoolean),
-          },
-        }),
-      }),
+      type: SuccessType,
       resolve: sendInvitation,
     },
     changeOperatorPassword: {
@@ -120,28 +107,14 @@ const OperatorMutation = new GraphQLObjectType({
         operatorUuid: { type: new GraphQLNonNull(GraphQLString) },
         newPassword: { type: new GraphQLNonNull(GraphQLString) },
       },
-      type: new GraphQLObjectType({
-        name: 'changeOperatorPassword',
-        fields: () => ({
-          success: {
-            type: new GraphQLNonNull(GraphQLBoolean),
-          },
-        }),
-      }),
+      type: SuccessType,
       resolve: changeOperatorPassword,
     },
     resetOperatorPassword: {
       args: {
         userUuid: { type: new GraphQLNonNull(GraphQLString) },
       },
-      type: new GraphQLObjectType({
-        name: 'resetOperatorPassword',
-        fields: () => ({
-          success: {
-            type: new GraphQLNonNull(GraphQLBoolean),
-          },
-        }),
-      }),
+      type: SuccessType,
       resolve: resetUserPassword,
     },
   }),
