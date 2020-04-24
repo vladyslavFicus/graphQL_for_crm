@@ -1,4 +1,4 @@
-FROM node:9-slim
+FROM node:14-slim
 
 ENV PORT 9090
 ENV BUILD_PATH /opt/app
