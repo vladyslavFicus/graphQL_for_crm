@@ -2,20 +2,20 @@ const FormData = require('form-data');
 const fetch = require('../../../utils/fetch');
 
 const leadCsvUpload = async (_, { file }, { headers: { authorization }, brand: { id: brandId } }) => {
-  const fileStream = await file;
+  return new Promise(async resolve => {
+    const { filename, createReadStream } = await file;
 
-  return new Promise(resolve => {
-    const buffs = [];
-    const readStream = fileStream.createReadStream();
+    const buffer = [];
+    const stream = createReadStream();
 
-    readStream.on('data', d => {
-      buffs.push(d);
+    stream.on('data', chunk => {
+      buffer.push(chunk);
     });
 
-    readStream.on('end', () => {
-      let bufferedFile = Buffer.concat(buffs);
+    stream.on('end', async () => {
       const formData = new FormData();
-      formData.append('file', bufferedFile, fileStream.filename);
+
+      formData.append('file', Buffer.concat(buffer), filename);
       formData.append('brandId', brandId);
 
       fetch(`${global.appConfig.apiUrl}/lead-updater/lead/csv`, {

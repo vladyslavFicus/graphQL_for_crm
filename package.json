@@ -52,6 +52,9 @@
     "uuid": "3.3.2",
     "yamljs": "^0.3.0"
   },
+  "resolutions": {
+    "**/graphql-upload": "^10.0.0"
+  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
