@@ -4,9 +4,7 @@ const parseJson = require('../../../utils/parseJson');
 const buildQueryString = require('../../../utils/buildQueryString');
 // const Logger = require('../../../utils/logger');
 
-const getFiles = async (_, args, { headers: { authorization }, hierarchy }) => {
-  const hierarchyUuids = await hierarchy.getCustomersIds();
-
+const getFiles = (_, args, { headers: { authorization } }) => {
   return fetch(`${global.appConfig.apiUrl}/attachments/search`, {
     method: 'POST',
     headers: {
@@ -14,7 +12,7 @@ const getFiles = async (_, args, { headers: { authorization }, hierarchy }) => {
       authorization,
       'content-type': 'application/json',
     },
-    body: JSON.stringify({ hierarchyUuids, ...args }),
+    body: JSON.stringify(args),
   }).then(response => response.json());
 };
 
