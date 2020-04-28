@@ -20,31 +20,12 @@ const getRegisteredUsersChartData = async (_, args, { headers: { authorization }
   };
 };
 
-const getPaymentsStatistic = async function(
-  _,
-  { additionalStatistics, playerUUID, dateFrom, dateTo, ...args },
-  { hierarchy, headers: { authorization } }
-) {
+const getPaymentsStatistic = async function(_, { dateFrom, dateTo, ...args }, { headers: { authorization } }) {
   const { data, error } = await getPaymentsStatisticsQuery(
     {
       ...args,
       dateFrom: moment(dateFrom).utc(),
       dateTo: moment(dateTo).utc(),
-      // HACK to get one player statistic
-      profileIds: playerUUID ? [playerUUID] : await hierarchy.getCustomersIds(),
-      ...(additionalStatistics && {
-        additionalStatistics: additionalStatistics.map(obj =>
-          Object.entries(obj).reduce(
-            (acc, [key, value]) => ({
-              ...acc,
-              [key]: moment(value)
-                .utc()
-                .format(),
-            }),
-            {}
-          )
-        ),
-      }),
     },
     authorization
   );
@@ -53,7 +34,7 @@ const getPaymentsStatistic = async function(
     return { error };
   }
 
-  const { payments, totalAmount, totalCount, additionalStatistics: extraStat } = data;
+  const { payments, totalAmount, totalCount, additionalStatistics } = data;
   let result = { items: [] };
 
   if (Array.isArray(payments) && payments.length) {
@@ -80,8 +61,8 @@ const getPaymentsStatistic = async function(
 
   let additionalStatisticData = null;
 
-  if (Array.isArray(extraStat) && extraStat.length) {
-    additionalStatisticData = extraStat.reduce(
+  if (Array.isArray(additionalStatistics) && additionalStatistics.length) {
+    additionalStatisticData = additionalStatistics.reduce(
       (acc, entry, index) => ({
         ...acc,
         additionalTotal: {

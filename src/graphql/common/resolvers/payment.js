@@ -7,26 +7,12 @@ const {
   getManualPaymentMethodsQuery,
 } = require('../../../utils/payment');
 
-const getClientPayments = async (_, args, { headers: { authorization }, hierarchy }) => {
-  const profileIds = await hierarchy.getCustomersIds();
-  const _args = { ...args, profileIds, withOriginalAgent: true };
-
-  const payments = await getPaymentsQuery(_args, authorization);
-
-  return payments;
+const getClientPayments = (_, args, { headers: { authorization } }) => {
+  return getPaymentsQuery({ ...args, withOriginalAgent: true }, authorization);
 };
 
-const getClientPaymentsByUuid = async (_, { playerUUID, accountType, ...args }, { headers: { authorization } }) => {
-  const payments = await getPaymentsQuery(
-    {
-      profileIds: [playerUUID],
-      ...(accountType && { accountType }),
-      ...args,
-    },
-    authorization
-  );
-
-  return payments;
+const getClientPaymentsByUuid = (_, args, { headers: { authorization } }) => {
+  return getPaymentsQuery(args, authorization);
 };
 
 const createClientPayment = async (

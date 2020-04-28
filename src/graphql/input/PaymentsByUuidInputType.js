@@ -13,7 +13,7 @@ const PaymentsByUuidInputType = new GraphQLInputObjectType({
   name: 'PaymentsByUuidInputType',
   fields: () => ({
     page: { type: PageInputType },
-    playerUUID: { type: new GraphQLNonNull(GraphQLString) },
+    profileId: { type: new GraphQLNonNull(GraphQLString) },
     searchParam: { type: GraphQLString },
     type: { type: GraphQLString },
     statuses: { type: new GraphQLList(GraphQLString) },
