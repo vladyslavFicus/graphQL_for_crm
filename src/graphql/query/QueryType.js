@@ -404,6 +404,8 @@ const QueryType = new GraphQLObjectType({
     partners: {
       type: ResponseType(PageableType(PartnerType)),
       args: {
+        page: { type: GraphQLInt },
+        size: { type: GraphQLInt },
         searchBy: { type: GraphQLString },
         country: { type: GraphQLString },
         status: { type: GraphQLString },
