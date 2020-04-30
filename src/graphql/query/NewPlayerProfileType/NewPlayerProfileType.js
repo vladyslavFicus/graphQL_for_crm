@@ -297,16 +297,7 @@ const NewPlayerProfileType = new GraphQLObjectType({
     registrationDetails: { type: RegistrationDetailsType },
     verifications: { type: new GraphQLList(GraphQLString) },
     fsaMigrationInfo: { type: FsaMigrationType },
-    timeZone: {
-      type: GraphQLString,
-      resolve: ({ timeZone }) => {
-        if (timeZone) {
-          return timeZone.split(' ')[0] === 'UTC' ? timeZone : `UTC ${timeZone}`;
-        }
-
-        return timeZone;
-      },
-    },
+    timeZone: { type: GraphQLString },
     // waiting for sent emails history
     // sentEmails: {
     //   type: new GraphQLList(EmailType),
