@@ -45,7 +45,7 @@ const getPaymentsStatistic = async function(_, { dateFrom, dateTo, ...args }, { 
       return {
         amount: entity ? Number(entity.amount).toFixed(2) : 0,
         count: entity ? entity.count : 0,
-        entryDate: moment(date).format('DD.MM'),
+        entryDate: date,
       };
     });
 
