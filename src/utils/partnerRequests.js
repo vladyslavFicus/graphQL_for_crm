@@ -1,8 +1,7 @@
 const fetch = require('./fetch');
-const buildQueryString = require('./buildQueryString');
 
-const getPartners = ({ page, size, ...args }, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/affiliate/affiliates/search?${buildQueryString({ page, size })}`, {
+const getPartners = (args, authorization) => {
+  return fetch(`${global.appConfig.apiUrl}/affiliate/affiliates/search`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
