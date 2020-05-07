@@ -90,7 +90,7 @@ const getPaymentStatisticTotals = (index, { paymentsCount, totalAmount }) => {
 
   switch (index) {
     case 0: {
-      propName = 'today';
+      propName = 'total';
       break;
     }
     case 1: {
@@ -98,7 +98,7 @@ const getPaymentStatisticTotals = (index, { paymentsCount, totalAmount }) => {
       break;
     }
     case 2: {
-      propName = 'total';
+      propName = 'today';
       break;
     }
   }
