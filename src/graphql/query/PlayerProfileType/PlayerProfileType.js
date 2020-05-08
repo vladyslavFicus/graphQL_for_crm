@@ -11,7 +11,6 @@ const {
   GraphQLList,
   GraphQLInt,
 } = require('graphql');
-const TagType = require('../TagType');
 const MoneyType = require('../../common/types/MoneyType');
 const TradingProfileType = require('../TradingProfileType');
 const SignInIpType = require('./SignInIpType');
@@ -55,12 +54,6 @@ const PlayerProfileType = new GraphQLObjectType({
     signInIps: {
       type: new GraphQLList(SignInIpType),
       resolve: getSignInIPs,
-    },
-    tags: {
-      type: new GraphQLList(TagType),
-      resolve({ tags }) {
-        return tags || [];
-      },
     },
     authorUuid: { type: new GraphQLNonNull(GraphQLString) },
     birthDate: { type: GraphQLString },

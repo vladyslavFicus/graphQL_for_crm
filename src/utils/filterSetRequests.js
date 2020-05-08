@@ -1,7 +1,8 @@
+const config = require('config');
 const fetch = require('./fetch');
 
 const getFilterSetByUserId = ({ userId, type }, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/filter-sets/user/${userId}/type/${type}`, {
+  return fetch(`${config.get('apiUrl')}/filter-sets/user/${userId}/type/${type}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -12,7 +13,7 @@ const getFilterSetByUserId = ({ userId, type }, authorization) => {
 };
 
 const getFilterSetById = ({ uuid }, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/filter-sets/${uuid}`, {
+  return fetch(`${config.get('apiUrl')}/filter-sets/${uuid}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -23,7 +24,7 @@ const getFilterSetById = ({ uuid }, authorization) => {
 };
 
 const createFilterSet = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/filter-sets/`, {
+  return fetch(`${config.get('apiUrl')}/filter-sets/`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -35,7 +36,7 @@ const createFilterSet = (args, authorization) => {
 };
 
 const updateFilterSet = ({ uuid, ...args }, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/filter-sets/${uuid}`, {
+  return fetch(`${config.get('apiUrl')}/filter-sets/${uuid}`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',
@@ -49,7 +50,7 @@ const updateFilterSet = ({ uuid, ...args }, authorization) => {
 };
 
 const updateFilterFavourite = ({ uuid, favourite }, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/filter-sets/${uuid}/favourite/${favourite}`, {
+  return fetch(`${config.get('apiUrl')}/filter-sets/${uuid}/favourite/${favourite}`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',
@@ -62,7 +63,7 @@ const updateFilterFavourite = ({ uuid, favourite }, authorization) => {
 };
 
 const deleteFilterSet = async ({ uuid }, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/filter-sets/${uuid}`, {
+  return fetch(`${config.get('apiUrl')}/filter-sets/${uuid}`, {
     method: 'DELETE',
     headers: {
       accept: 'application/json',

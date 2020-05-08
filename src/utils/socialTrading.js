@@ -1,12 +1,7 @@
-const { get } = require('lodash');
-const { platform } = require('../config/core');
-
-const API_KEY = get(platform, 'brokeree.api_key') || '';
-const BASE_URL = get(platform, 'brokeree.cabinet_url') || '';
-const DEFAULT_ADMIN_LOGIN = get(platform, 'brokeree.manager_login') || '';
+const config = require('config');
 
 const getSocialTradingToken = () => {
-  return fetch(`${BASE_URL}/api/auth`, {
+  return fetch(`${config.get('brokeree.cabinetUrl')}/api/auth`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -14,14 +9,14 @@ const getSocialTradingToken = () => {
     },
     body: JSON.stringify({
       role: 'Admin',
-      login: DEFAULT_ADMIN_LOGIN,
-      apiKey: API_KEY,
+      login: config.get('brokeree.managerLogin'),
+      apiKey: config.get('brokeree.apiKey'),
     }),
   }).then(response => response.json());
 };
 
 const getSocialTradingSubscribers = (id, token) => {
-  return fetch(`${BASE_URL}/api/subscribers/${id}/subscriptions?api_key=${token}`, {
+  return fetch(`${config.get('brokeree.cabinetUrl')}/api/subscribers/${id}/subscriptions?api_key=${token}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -31,7 +26,7 @@ const getSocialTradingSubscribers = (id, token) => {
 };
 
 const getSocialTradingProviders = (id, token) => {
-  return fetch(`${BASE_URL}/api/sources/${id}?api_key=${token}`, {
+  return fetch(`${config.get('brokeree.cabinetUrl')}/api/sources/${id}?api_key=${token}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -41,7 +36,7 @@ const getSocialTradingProviders = (id, token) => {
 };
 
 const getSocialTradingSubscribersOnProviders = (id, token) => {
-  return fetch(`${BASE_URL}/api/sources/${id}/subscriptions?api_key=${token}`, {
+  return fetch(`${config.get('brokeree.cabinetUrl')}/api/sources/${id}/subscriptions?api_key=${token}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',

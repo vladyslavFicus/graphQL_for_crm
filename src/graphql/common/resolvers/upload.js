@@ -1,3 +1,4 @@
+const config = require('config');
 const FormData = require('form-data');
 const fetch = require('../../../utils/fetch');
 
@@ -18,7 +19,7 @@ const leadCsvUpload = async (_, { file }, { headers: { authorization }, brand: {
       formData.append('file', Buffer.concat(buffer), filename);
       formData.append('brandId', brandId);
 
-      fetch(`${global.appConfig.apiUrl}/lead-updater/lead/csv`, {
+      fetch(`${config.get('apiUrl')}/lead-updater/lead/csv`, {
         method: 'POST',
         headers: {
           authorization,

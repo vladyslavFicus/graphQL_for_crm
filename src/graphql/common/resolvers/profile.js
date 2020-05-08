@@ -1,3 +1,4 @@
+const config = require('config');
 const moment = require('moment');
 const { get, isEmpty } = require('lodash');
 const fetch = require('../../../utils/fetch');
@@ -11,11 +12,10 @@ const {
   changeProfileStatusQuery,
 } = require('../../../utils/profile');
 const { getOperatorByUUID } = require('./operators');
-const getPlayerProfileFromESByUUID = require('../../../utils/getPlayerProfileFromESByUUID');
 const { statuses } = require('../../../constants/player');
 
 const passwordResetRequest = (_, { playerUUID }, { headers: { authorization }, brand: { id: brandId } }) => {
-  return fetch(`${global.appConfig.apiUrl}/auth/password/${brandId}/${playerUUID}/reset/request`, {
+  return fetch(`${config.get('apiUrl')}/auth/password/${brandId}/${playerUUID}/reset/request`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -25,7 +25,7 @@ const passwordResetRequest = (_, { playerUUID }, { headers: { authorization }, b
   }).then(response => ({ success: response.status === 200 }));
 };
 const changePassword = (_, { playerUUID, ...args }, { headers: { authorization } }) => {
-  return fetch(`${global.appConfig.apiUrl}/auth/credentials/${playerUUID}/password`, {
+  return fetch(`${config.get('apiUrl')}/auth/credentials/${playerUUID}/password`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -41,7 +41,7 @@ const updateBTAG = async function(_, { playerUUID, ...args }, context) {
     headers: { authorization },
   } = context;
 
-  const response = await fetch(`${global.appConfig.apiUrl}/profile/profiles/${playerUUID}/btag`, {
+  const response = await fetch(`${config.get('apiUrl')}/profile/profiles/${playerUUID}/btag`, {
     method: 'PUT',
     headers: {
       Accept: 'application/json',
@@ -63,7 +63,7 @@ const updateAffiliate = async function(_, { playerUUID, affiliateId }, context) 
     headers: { authorization },
   } = context;
 
-  const response = await fetch(`${global.appConfig.apiUrl}/profile/profiles/${playerUUID}/affiliate`, {
+  const response = await fetch(`${config.get('apiUrl')}/profile/profiles/${playerUUID}/affiliate`, {
     method: 'PUT',
     headers: {
       Accept: 'application/json',
@@ -90,7 +90,7 @@ const updateSubscription = async function(_, { playerUUID, ...args }, context) {
     headers: { authorization },
   } = context;
 
-  const response = await fetch(`${global.appConfig.apiUrl}/profile/profiles/${playerUUID}/subscription`, {
+  const response = await fetch(`${config.get('apiUrl')}/profile/profiles/${playerUUID}/subscription`, {
     method: 'PUT',
     headers: {
       Accept: 'application/json',
@@ -107,37 +107,6 @@ const updateSubscription = async function(_, { playerUUID, ...args }, context) {
   return { data: { playerUUID, ...args } };
 };
 
-const getProfilePolling = async (playerUUID, brandId, attempt = 0) => {
-  const response = await getPlayerProfileFromESByUUID(brandId, playerUUID);
-
-  // Return error if ES return error (for example if entity not found)
-  if (response.error) {
-    Logger.info({ playerUUID, ...response }, 'get profile ES response error');
-
-    return response;
-  }
-
-  // Return error if polling attempting overflow
-  if (attempt > 10) {
-    Logger.error({ playerUUID }, 'profile polling failed');
-
-    return { error: 'polling failed' };
-  }
-
-  // Polling if HRZN profile is not created yet
-  if (!response.playerUUID || isEmpty(response.tradingProfile)) {
-    Logger.info({ playerUUID, attempt: attempt + 1 }, 'profile polling again');
-
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve(getProfilePolling(playerUUID, brandId, attempt + 1));
-      }, 1000);
-    });
-  }
-
-  return response;
-};
-
 const getProfileNew = async function(_, { playerUUID }, { headers: { authorization } }) {
   return await getQueryNewProfiles(playerUUID, authorization);
 };
@@ -147,7 +116,7 @@ const getProfileView = async function(uuid, authorization) {
 };
 
 const updatePersonalInformation = async function(_, { playerUUID, ...args }, { headers: { authorization } }) {
-  await fetch(`${global.appConfig.apiUrl}/profile/admin/profiles/${playerUUID}/personal-information`, {
+  await fetch(`${config.get('apiUrl')}/profile/admin/profiles/${playerUUID}/personal-information`, {
     method: 'PUT',
     headers: {
       authorization,
@@ -161,7 +130,7 @@ const updatePersonalInformation = async function(_, { playerUUID, ...args }, { h
 };
 
 const updateKYCStatus = function(_, args, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/profile/admin/profiles/${args.playerUUID}/kyc/status`, {
+  return fetch(`${config.get('apiUrl')}/profile/admin/profiles/${args.playerUUID}/kyc/status`, {
     method: 'PUT',
     headers: {
       authorization,
@@ -173,7 +142,7 @@ const updateKYCStatus = function(_, args, { headers: { authorization } }) {
 };
 
 const updateConfiguration = function(_, args, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/profile/admin/profiles/${args.playerUUID}/configuration`, {
+  return fetch(`${config.get('apiUrl')}/profile/admin/profiles/${args.playerUUID}/configuration`, {
     method: 'PUT',
     headers: {
       authorization,
@@ -185,7 +154,7 @@ const updateConfiguration = function(_, args, { headers: { authorization } }) {
 };
 
 const updateContacts = async function(_, { playerUUID, ...args }, { headers: { authorization } }) {
-  await fetch(`${global.appConfig.apiUrl}/profile/admin/profiles/${playerUUID}/contacts`, {
+  await fetch(`${config.get('apiUrl')}/profile/admin/profiles/${playerUUID}/contacts`, {
     method: 'PUT',
     headers: {
       authorization,
@@ -199,7 +168,7 @@ const updateContacts = async function(_, { playerUUID, ...args }, { headers: { a
 };
 
 const updateAddress = async function(_, { playerUUID, ...args }, { headers: { authorization } }) {
-  await fetch(`${global.appConfig.apiUrl}/profile/admin/profiles/${playerUUID}/address`, {
+  await fetch(`${config.get('apiUrl')}/profile/admin/profiles/${playerUUID}/address`, {
     method: 'PUT',
     headers: {
       authorization,
@@ -212,36 +181,8 @@ const updateAddress = async function(_, { playerUUID, ...args }, { headers: { au
   return getQueryNewProfiles(playerUUID, authorization);
 };
 
-const getProfile = async function(_, { playerUUID, accountType }, context) {
-  const allowed = await context.hierarchy.checkAccess(playerUUID);
-
-  if (!allowed) {
-    return {
-      data: null,
-      error: {
-        error: 'Not Found',
-      },
-    };
-  }
-
-  const response = await getProfilePolling(playerUUID, context.brand.id);
-  const error = get(response, 'error');
-
-  if (!error) {
-    if (accountType && response.tradingProfile.mt4Users) {
-      response.tradingProfile.mt4Users = response.tradingProfile.mt4Users.filter(
-        mt4User => mt4User.accountType === accountType
-      );
-    }
-
-    return { data: response };
-  }
-
-  return response;
-};
-
 const createProfile = function(_, { args }, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/profile/admin/profiles`, {
+  return fetch(`${config.get('apiUrl')}/profile/admin/profiles`, {
     method: 'POST',
     headers: {
       authorization,
@@ -253,7 +194,7 @@ const createProfile = function(_, { args }, { headers: { authorization } }) {
 };
 
 const resume = function(_, { playerUUID, ...args }, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/profile/profiles/${playerUUID}/resume`, {
+  return fetch(`${config.get('apiUrl')}/profile/profiles/${playerUUID}/resume`, {
     method: 'PUT',
     headers: {
       Accept: 'application/json',
@@ -275,7 +216,7 @@ const changeProfileStatus = function(_, args, { headers: { authorization } }) {
 };
 
 const unblock = function(_, { playerUUID, ...args }, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/profile/profiles/${playerUUID}/unblock`, {
+  return fetch(`${config.get('apiUrl')}/profile/profiles/${playerUUID}/unblock`, {
     method: 'PUT',
     headers: {
       Accept: 'application/json',
@@ -300,7 +241,7 @@ const suspend = function(_, { playerUUID, duration, ...args }, { headers: { auth
     requestBody.durationUnit = duration.unit;
   }
 
-  return fetch(`${global.appConfig.apiUrl}/profile/profiles/${playerUUID}/suspend`, {
+  return fetch(`${config.get('apiUrl')}/profile/profiles/${playerUUID}/suspend`, {
     method: 'PUT',
     headers: {
       Accept: 'application/json',
@@ -331,7 +272,7 @@ const suspendProlong = function(_, { playerUUID, duration, ...args }, { headers:
     requestBody.durationUnit = duration.unit;
   }
 
-  return fetch(`${global.appConfig.apiUrl}/profile/profiles/${playerUUID}/suspend/prolong`, {
+  return fetch(`${config.get('apiUrl')}/profile/profiles/${playerUUID}/suspend/prolong`, {
     method: 'PUT',
     headers: {
       Accept: 'application/json',
@@ -355,7 +296,7 @@ const suspendProlong = function(_, { playerUUID, duration, ...args }, { headers:
 };
 
 const verifyPhone = function(_, { playerUUID, ...args }, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/profile/admin/profiles/${playerUUID}/verification/phone`, {
+  return fetch(`${config.get('apiUrl')}/profile/admin/profiles/${playerUUID}/verification/phone`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -367,7 +308,7 @@ const verifyPhone = function(_, { playerUUID, ...args }, { headers: { authorizat
 };
 
 const updateEmail = async function(_, { playerUUID, ...args }, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/profile/admin/profiles/${playerUUID}/contacts/email`, {
+  return fetch(`${config.get('apiUrl')}/profile/admin/profiles/${playerUUID}/contacts/email`, {
     method: 'PUT',
     headers: {
       authorization,
@@ -379,7 +320,7 @@ const updateEmail = async function(_, { playerUUID, ...args }, { headers: { auth
 };
 
 const verifyEmail = function(_, { playerUUID, ...args }, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/profile/admin/profiles/${playerUUID}/verification/email`, {
+  return fetch(`${config.get('apiUrl')}/profile/admin/profiles/${playerUUID}/verification/email`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -394,7 +335,7 @@ const verifyProfile = async function(_, { playerUUID, ...args }, context) {
   const {
     headers: { authorization },
   } = context;
-  const response = await fetch(`${global.appConfig.apiUrl}/profile/verification/${playerUUID}`, {
+  const response = await fetch(`${config.get('apiUrl')}/profile/verification/${playerUUID}`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -417,7 +358,7 @@ const verifyProfile = async function(_, { playerUUID, ...args }, context) {
 };
 
 const markIsTest = async function(_, { playerUUID, isTest }, { headers: { authorization } }) {
-  const response = await fetch(`${global.appConfig.apiUrl}/profile/profiles/${playerUUID}/is-test`, {
+  const response = await fetch(`${config.get('apiUrl')}/profile/profiles/${playerUUID}/is-test`, {
     method: isTest ? 'POST' : 'DELETE',
     headers: {
       Accept: 'application/json',
@@ -456,23 +397,14 @@ const updateProfile = async function(_, { playerUUID, ...args }, { headers: { au
     authorization
   );
 
-  const profile = await getPlayerProfileFromESByUUID(brand.id, playerUUID);
-
   return {
-    data: {
-      ...profile,
-      ...dataProfile,
-      tradingProfile: {
-        ...profile.tradingProfile,
-        ...dataProfile,
-      },
-    },
+    data: dataProfile,
     error: updateProfile.error || updateTradingProfile.error || null,
   };
 };
 
 const limitedUpdateProfile = async (_, args, { headers: { authorization } }) => {
-  return fetch(`${global.appConfig.apiUrl}/trading-profile/v2/limited/update`, {
+  return fetch(`${config.get('apiUrl')}/trading-profile/v2/limited/update`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',
@@ -488,7 +420,7 @@ const clickToCall = async (_, args, context) => {
     data: { phoneNumber },
   } = await getOperatorByUUID(_, { uuid: context.userUUID }, context);
 
-  const { didlogic } = global.appConfig.brands[context.brand.id].clickToCall;
+  const { didlogic } = context.brand.clickToCall;
 
   return fetch(didlogic.url, {
     method: 'POST',
@@ -502,7 +434,7 @@ const clickToCall = async (_, args, context) => {
 };
 
 const updateRegulated = (_, args, { headers: { authorization }, brand: { id: brandId } }) => {
-  return fetch(`${global.appConfig.apiUrl}/trading-profile/regulated`, {
+  return fetch(`${config.get('apiUrl')}/trading-profile/regulated`, {
     method: 'PUT',
     headers: {
       Accept: 'application/json',
@@ -524,7 +456,6 @@ module.exports = {
   verifyPhone,
   updateEmail,
   passwordResetRequest,
-  getProfile,
   changePassword,
   updateBTAG,
   updateAffiliate,

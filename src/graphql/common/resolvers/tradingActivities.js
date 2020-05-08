@@ -1,7 +1,8 @@
+const config = require('config');
 const fetch = require('../../../utils/fetch');
 
 const getTradingActivitiesQuery = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading-activity/`, {
+  return fetch(`${config.get('apiUrl')}/trading-activity/`, {
     method: 'POST',
     headers: {
       authorization,
@@ -16,7 +17,7 @@ const getTradingActivities = async (_, args, { headers: { authorization } }) => 
 };
 
 const changeOriginalAgent = function(_, args, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/trading-activity/record`, {
+  return fetch(`${config.get('apiUrl')}/trading-activity/record`, {
     method: 'PUT',
     headers: {
       Accept: 'application/json',

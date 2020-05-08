@@ -1,3 +1,4 @@
+const config = require('config');
 const FormData = require('form-data');
 const fetch = require('../../../utils/fetch');
 const parseJson = require('../../../utils/parseJson');
@@ -5,7 +6,7 @@ const buildQueryString = require('../../../utils/buildQueryString');
 // const Logger = require('../../../utils/logger');
 
 const getFiles = (_, args, { headers: { authorization } }) => {
-  return fetch(`${global.appConfig.apiUrl}/attachments/search`, {
+  return fetch(`${config.get('apiUrl')}/attachments/search`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -17,7 +18,7 @@ const getFiles = (_, args, { headers: { authorization } }) => {
 };
 
 const getFilesByProfileUUID = (_, { clientUUID }, { headers: { authorization } }) => {
-  return fetch(`${global.appConfig.apiUrl}/attachments/verification/users/${clientUUID}`, {
+  return fetch(`${config.get('apiUrl')}/attachments/verification/users/${clientUUID}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -28,7 +29,7 @@ const getFilesByProfileUUID = (_, { clientUUID }, { headers: { authorization } }
 };
 
 const updateFileMeta = (_, { uuid, ...args }, { headers: { authorization } }) => {
-  return fetch(`${global.appConfig.apiUrl}/attachments/admin/files/${uuid}`, {
+  return fetch(`${config.get('apiUrl')}/attachments/admin/files/${uuid}`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',
@@ -40,7 +41,7 @@ const updateFileMeta = (_, { uuid, ...args }, { headers: { authorization } }) =>
 };
 
 const deleteFile = (_, { uuid }, { headers: { authorization } }) => {
-  return fetch(`${global.appConfig.apiUrl}/attachments/admin/files/${uuid}`, {
+  return fetch(`${config.get('apiUrl')}/attachments/admin/files/${uuid}`, {
     method: 'DELETE',
     headers: {
       accept: 'application/json',
@@ -51,7 +52,7 @@ const deleteFile = (_, { uuid }, { headers: { authorization } }) => {
 };
 
 const downloadFile = (_, { profileUUID, uuid }, { headers: { authorization } }) => {
-  return fetch(`${global.appConfig.apiUrl}/attachments/users/${profileUUID}/files/${uuid}`, {
+  return fetch(`${config.get('apiUrl')}/attachments/users/${profileUUID}/files/${uuid}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -62,7 +63,7 @@ const downloadFile = (_, { profileUUID, uuid }, { headers: { authorization } }) 
 };
 
 const getUserKYCStatus = ({ clientUuid }, _, { headers: { authorization } }) => {
-  return fetch(`${global.appConfig.apiUrl}/attachments/verification/users/${clientUuid}`, {
+  return fetch(`${config.get('apiUrl')}/attachments/verification/users/${clientUuid}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -84,7 +85,7 @@ const uploadFile = (_, { profileUUID, file }, { headers: { authorization } }) =>
       const formData = new FormData();
       formData.append('file', Buffer.concat(buffer), filename);
 
-      const response = await fetch(`${global.appConfig.apiUrl}/attachments/users/${profileUUID}/files`, {
+      const response = await fetch(`${config.get('apiUrl')}/attachments/users/${profileUUID}/files`, {
         method: 'POST',
         headers: {
           authorization,
@@ -99,7 +100,7 @@ const uploadFile = (_, { profileUUID, file }, { headers: { authorization } }) =>
 };
 
 const confirmFilesUpload = (_, { profileUuid, ...args }, { headers: { authorization } }) => {
-  return fetch(`${global.appConfig.apiUrl}/attachments/admin/users/${profileUuid}/files/confirm`, {
+  return fetch(`${config.get('apiUrl')}/attachments/admin/users/${profileUuid}/files/confirm`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -111,7 +112,7 @@ const confirmFilesUpload = (_, { profileUuid, ...args }, { headers: { authorizat
 };
 
 const getFileCategoriesList = async (_, __, { headers: { authorization } }) => {
-  const { data } = await fetch(`${global.appConfig.apiUrl}/attachments/verification/types/mapping`, {
+  const { data } = await fetch(`${config.get('apiUrl')}/attachments/verification/types/mapping`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -137,7 +138,7 @@ const getFileCategoriesList = async (_, __, { headers: { authorization } }) => {
 };
 
 const updateFileStatus = async function(_, { clientUuid, ...args }, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/attachments/verification/users/${clientUuid}/status`, {
+  return fetch(`${config.get('apiUrl')}/attachments/verification/users/${clientUuid}/status`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',
@@ -151,7 +152,7 @@ const updateFileStatus = async function(_, { clientUuid, ...args }, { headers: {
 // # Old
 // Maybe this function are used for updating file
 // const updateFileStatus = async function(_, { fileUUID, ...args }, { headers: { authorization } }) {
-//   return fetch(`${global.appConfig.apiUrl}/profile/files/${fileUUID}`, {
+//   return fetch(`${config.get('apiUrl')}/profile/files/${fileUUID}`, {
 //     method: 'PUT',
 //     headers: {
 //       accept: 'application/json',
@@ -165,7 +166,7 @@ const updateFileStatus = async function(_, { clientUuid, ...args }, { headers: {
 // # Old
 // Don't understand why we should use this one
 const verify = function(_, { uuid, ...args }, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/profile/files/${uuid}/status/verify?${buildQueryString(args)}`, {
+  return fetch(`${config.get('apiUrl')}/profile/files/${uuid}/status/verify?${buildQueryString(args)}`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',

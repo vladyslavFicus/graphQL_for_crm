@@ -16,7 +16,6 @@ const {
   auth: {
     credentials: { getAuthorities, getLoginLock, getPermissions, getAuthoritiesOptions },
   },
-  conditionalTags: { getConditionalTags },
   notes: { getNotes },
   payment: {
     getPaymentMethods,
@@ -29,7 +28,6 @@ const {
   tradingActivities: { getTradingActivities },
   profiles: { getProfiles },
   leads: { getTradingLeads, getLeadProfile },
-  tags: { getPlayerTags, getTagsByText },
   rules: { getRules, getRulesRetention },
   callbacks: { getCallbacks, getCallback },
   operators: { getOperators, getOperatorByUUID },
@@ -53,7 +51,6 @@ const PageableType = require('../common/types/PageableType');
 const ClientSearchInputType = require('../input/ClientSearchInputType');
 const { FileType, FileByUuidType } = require('./FileType/FileType');
 const { AuthorityType, AuthorityOptionsType } = require('./AuthType');
-const PlayerProfileType = require('./PlayerProfileType');
 const NewPlayerProfileType = require('./NewPlayerProfileType');
 const OptionsType = require('./OptionsType');
 const ProfileViewType = require('./ProfileViewType');
@@ -70,14 +67,12 @@ const { NoteType } = require('./NoteType');
 const StatisticsType = require('./StatisticsType');
 const LeadType = require('./LeadType');
 const { FeedType, FeedTypes } = require('./AuditType/FeedType');
-const TagType = require('./TagType');
 const { SalesStatusesEnum: TradingSalesStatuses } = require('./TradingProfileType/TradingProfileEnums');
 const HierarchyQueryType = require('./HierarchyQueryType');
 const QuestionnaireQueryType = require('./QuestionnaireQueryType');
 const RuleType = require('./RuleType');
 const RisksType = require('./RisksType');
 const { RuleTypeEnum } = require('./RuleType/RuleEnums');
-const { ConditionalTagType, ConditionalTagStatusEnum } = require('./ConditionalTagType');
 const { CallbackType, CallbackStatusEnum } = require('./CallbackType');
 const OperatorType = require('./OperatorType');
 const PartnerType = require('./PartnerType');
@@ -126,14 +121,6 @@ const QueryType = new GraphQLObjectType({
     options: {
       type: OptionsType,
       resolve: () => ({}),
-    },
-    playerProfile: {
-      type: ResponseType(PlayerProfileType),
-      args: {
-        playerUUID: { type: new GraphQLNonNull(GraphQLString) },
-        accountType: { type: GraphQLString },
-      },
-      resolve: profile.getProfile,
     },
     newProfile: {
       type: ResponseType(NewPlayerProfileType, 'NewProfile'),
@@ -302,21 +289,6 @@ const QueryType = new GraphQLObjectType({
       type: HierarchyQueryType,
       resolve: () => ({}),
     },
-    playerTags: {
-      type: PageableType(TagType),
-      args: {
-        playerUUID: { type: new GraphQLNonNull(GraphQLString) },
-        pinned: { type: GraphQLBoolean },
-      },
-      resolve: getPlayerTags,
-    },
-    tagsByText: {
-      type: ResponseType(PageableType(NoteType), 'TagsByText'),
-      resolve: getTagsByText,
-      args: {
-        text: { type: new GraphQLNonNull(GraphQLString) },
-      },
-    },
     rules: {
       type: ResponseType(new GraphQLList(RuleType), 'RulesType'),
       args: {
@@ -351,15 +323,6 @@ const QueryType = new GraphQLObjectType({
         clientUuid: { type: GraphQLString },
       },
       resolve: getRisksQuestionnaire,
-    },
-    conditionalTags: {
-      type: ResponseType(PageableType(ConditionalTagType), 'ConditionalTagList'),
-      args: {
-        size: { type: GraphQLInt },
-        status: { type: ConditionalTagStatusEnum },
-        page: { type: GraphQLInt },
-      },
-      resolve: getConditionalTags,
     },
     callbacks: {
       type: ResponseType(PageableType(CallbackType), 'PageableCallbackType'),

@@ -1,3 +1,4 @@
+const config = require('config');
 const contextService = require('request-context');
 const { ApolloError, AuthenticationError } = require('apollo-server-express');
 const { isEmpty } = require('lodash');
@@ -7,7 +8,7 @@ const Logger = require('./logger');
 const parseResponse = require('./parseResponse');
 
 const logResponseError = (response, url, { headers, method }, messageTitle) => {
-  const serviceName = url.replace(global.appConfig.apiUrl, '').split('/')[1];
+  const serviceName = url.replace(config.get('apiUrl'), '').split('/')[1];
   const failedResponse = parseJson(response);
   const error = failedResponse.message || failedResponse.error || failedResponse.jwtError || 'Something went wrong';
   const errorDescription = typeof error === 'string' ? error : JSON.stringify(error);
@@ -93,14 +94,12 @@ module.exports = function(url, config) {
         }
       }
 
-      if (global.isLoggingEnabled) {
-        Logger.info({
-          message: res,
-          url,
-          status: response.status,
-          error,
-        });
-      }
+      Logger.info({
+        message: res,
+        url,
+        status: response.status,
+        error,
+      });
 
       if (error) {
         error = error || new ApolloError(`${response.status}: ${response.statusText}`);

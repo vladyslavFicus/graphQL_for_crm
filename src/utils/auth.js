@@ -1,7 +1,8 @@
+const config = require('config');
 const fetch = require('./fetch');
 
 const addAuthorities = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/auth/credentials/${args.uuid}/authorities`, {
+  return fetch(`${config.get('apiUrl')}/auth/credentials/${args.uuid}/authorities`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -13,7 +14,7 @@ const addAuthorities = (args, authorization) => {
 };
 
 const removeAuthorities = ({ uuid, department, role, brandId }, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/auth/credentials/${uuid}/authorities`, {
+  return fetch(`${config.get('apiUrl')}/auth/credentials/${uuid}/authorities`, {
     method: 'DELETE',
     headers: {
       accept: 'application/json',
@@ -29,7 +30,7 @@ const removeAuthorities = ({ uuid, department, role, brandId }, authorization) =
 };
 
 const getAuthorities = (uuid, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/auth/credentials/${uuid}/authorities`, {
+  return fetch(`${config.get('apiUrl')}/auth/credentials/${uuid}/authorities`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -40,7 +41,7 @@ const getAuthorities = (uuid, authorization) => {
 };
 
 const getPermission = authorization => {
-  return fetch(`${global.appConfig.apiUrl}/auth/permissions`, {
+  return fetch(`${config.get('apiUrl')}/auth/permissions`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
