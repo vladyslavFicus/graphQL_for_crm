@@ -4,6 +4,7 @@ const {
   updateTradingAccount,
   tradingAccountChangePassword,
   tradingAccountQuery,
+  tradingAccountsQuery,
   changeLeverage,
   rejectChangeLeverage,
   approveChangeLeverage,
@@ -84,6 +85,10 @@ const getTradingAccounts = async (_, args, { headers: { authorization } }) => {
   return await tradingAccountQuery(args, authorization);
 };
 
+const getTradingAccountsList = (_, args, { headers: { authorization } }) => {
+  return tradingAccountsQuery(args, authorization);
+};
+
 const changeLeverageResolver = (_, args, { headers: { authorization } }) => {
   return changeLeverage(args, authorization);
 };
@@ -101,6 +106,7 @@ module.exports = {
   updateTradingAccountResolver,
   tradingAccountChangePasswordResolver,
   getTradingAccounts,
+  getTradingAccountsList,
   changeLeverageResolver,
   rejectChangeLeverageResolver,
   approveChangeLeverageResolver,

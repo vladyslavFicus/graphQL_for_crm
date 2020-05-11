@@ -79,6 +79,17 @@ const tradingAccountQuery = ({ accountType, uuid }, authorization) => {
   ).then(response => response.json().then(({ data }) => data));
 };
 
+const tradingAccountsQuery = (args, authorization) => {
+  return fetch(`${global.appConfig.apiUrl}/accountview/accounts/search?${buildQueryString(args)}`, {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      authorization,
+      'content-type': 'application/json',
+    },
+  }).then(response => response.json());
+};
+
 /**
  * Change leverage on MT4
  * @param args
@@ -136,6 +147,7 @@ module.exports = {
   updateTradingAccount,
   tradingAccountChangePassword,
   tradingAccountQuery,
+  tradingAccountsQuery,
   changeLeverage,
   approveChangeLeverage,
   rejectChangeLeverage,

@@ -35,7 +35,7 @@ const {
   audit: { getFeeds, getFeedTypes },
   metabase: { getMetabaseToken },
   filterSet: { getFilterSets, getFilterSetById },
-  tradingAccount: { getTradingAccounts },
+  tradingAccount: { getTradingAccounts, getTradingAccountsList },
   brandConfig: { getBrandConfig },
   risks: { getRisksQuestionnaire },
   emailTemplates: { getEmailTemplates, getEmailTemplate },
@@ -55,6 +55,7 @@ const NewPlayerProfileType = require('./NewPlayerProfileType');
 const OptionsType = require('./OptionsType');
 const ProfileViewType = require('./ProfileViewType');
 const TradingAccountType = require('./TradingAccountType');
+const TradingAccountsListType = require('./TradingAccountsListType');
 const {
   PaymentType: { PaymentMethodType, PaymentType },
   PaymentStatusType,
@@ -136,6 +137,26 @@ const QueryType = new GraphQLObjectType({
         accountType: { type: GraphQLString },
       },
       resolve: getTradingAccounts,
+    },
+    tradingAccount: {
+      type: new GraphQLList(TradingAccountType),
+      args: {
+        uuid: { type: new GraphQLNonNull(GraphQLString) },
+        accountType: { type: GraphQLString },
+      },
+      resolve: getTradingAccounts,
+    },
+    tradingAccountsList: {
+      type: ResponseType(PageableType(TradingAccountsListType)),
+      args: {
+        searchKeyword: { type: GraphQLString },
+        accountType: { type: GraphQLString },
+        affiliateType: { type: GraphQLString },
+        archived: { type: GraphQLBoolean },
+        page: { type: GraphQLInt },
+        size: { type: GraphQLInt },
+      },
+      resolve: getTradingAccountsList,
     },
     notes: {
       type: ResponseType(PageableType(NoteType, {}, 'NoteType')),
