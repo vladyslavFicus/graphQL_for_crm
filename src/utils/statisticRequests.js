@@ -1,7 +1,8 @@
+const config = require('config');
 const fetch = require('./fetch');
 
 const getRegisteredUsersStatistic = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/profileview/admin/profiles/statistics/registration`, {
+  return fetch(`${config.get('apiUrl')}/profileview/admin/profiles/statistics/registration`, {
     method: 'POST',
     headers: {
       accept: 'application/json',

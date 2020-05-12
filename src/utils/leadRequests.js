@@ -1,7 +1,8 @@
+const config = require('config');
 const fetch = require('./fetch');
 
 const getLeads = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/lead/v2/leads/search`, {
+  return fetch(`${config.get('apiUrl')}/lead/v2/leads/search`, {
     method: 'POST',
     headers: {
       authorization,
@@ -13,7 +14,7 @@ const getLeads = (args, authorization) => {
 };
 
 const getLeadById = (leadId, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/lead/lead/${leadId}`, {
+  return fetch(`${config.get('apiUrl')}/lead/lead/${leadId}`, {
     method: 'GET',
     headers: {
       authorization,
@@ -24,7 +25,7 @@ const getLeadById = (leadId, authorization) => {
 };
 
 const updateLead = ({ uuid, ...args }, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/lead-updater/lead/${uuid}`, {
+  return fetch(`${config.get('apiUrl')}/lead-updater/lead/${uuid}`, {
     method: 'PUT',
     headers: {
       authorization,
@@ -36,7 +37,7 @@ const updateLead = ({ uuid, ...args }, authorization) => {
 };
 
 const bulkUpdateLead = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/lead-updater/bulk/lead/sales-status`, {
+  return fetch(`${config.get('apiUrl')}/lead-updater/bulk/lead/sales-status`, {
     method: 'PUT',
     headers: {
       authorization,

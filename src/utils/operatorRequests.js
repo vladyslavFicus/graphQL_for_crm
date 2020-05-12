@@ -1,8 +1,9 @@
+const config = require('config');
 const fetch = require('./fetch');
 const buildQueryString = require('./buildQueryString');
 
 const getOperators = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/operator/operators?${buildQueryString(args)}`, {
+  return fetch(`${config.get('apiUrl')}/operator/operators?${buildQueryString(args)}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -13,7 +14,7 @@ const getOperators = (args, authorization) => {
 };
 
 const getOperatorsByUUIDs = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/operator/operators/search`, {
+  return fetch(`${config.get('apiUrl')}/operator/operators/search`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -25,7 +26,7 @@ const getOperatorsByUUIDs = (args, authorization) => {
 };
 
 const getOperatorByUUID = (operatorId, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/operator/operators/${operatorId}`, {
+  return fetch(`${config.get('apiUrl')}/operator/operators/${operatorId}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -36,7 +37,7 @@ const getOperatorByUUID = (operatorId, authorization) => {
 };
 
 const resetToken = (uuid, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/operator/operators/reset-token?operatorUUID=${uuid}`, {
+  return fetch(`${config.get('apiUrl')}/operator/operators/reset-token?operatorUUID=${uuid}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -47,7 +48,7 @@ const resetToken = (uuid, authorization) => {
 };
 
 const createOperator = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/operator/operators`, {
+  return fetch(`${config.get('apiUrl')}/operator/operators`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -61,7 +62,7 @@ const createOperator = (args, authorization) => {
 };
 
 const activateOperator = (args, authorization, brandId) => {
-  return fetch(`${global.appConfig.apiUrl}/operator/public/operators/activate?brandId=${brandId}`, {
+  return fetch(`${config.get('apiUrl')}/operator/public/operators/activate?brandId=${brandId}`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -73,7 +74,7 @@ const activateOperator = (args, authorization, brandId) => {
 };
 
 const changeStatus = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/operator/operators/status`, {
+  return fetch(`${config.get('apiUrl')}/operator/operators/status`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',
@@ -85,7 +86,7 @@ const changeStatus = (args, authorization) => {
 };
 
 const updateOperator = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/operator/operators/${args.uuid}`, {
+  return fetch(`${config.get('apiUrl')}/operator/operators/${args.uuid}`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',
@@ -97,7 +98,7 @@ const updateOperator = (args, authorization) => {
 };
 
 const sendInvitation = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/operator/operators/${args.uuid}/send/invitation`, {
+  return fetch(`${config.get('apiUrl')}/operator/operators/${args.uuid}/send/invitation`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',

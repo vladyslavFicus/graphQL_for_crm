@@ -1,7 +1,8 @@
+const config = require('config');
 const fetch = require('../../../utils/fetch');
 
 const getRisksQuestionnaire = (_, { clientUuid }, { headers: { authorization } }) => {
-  return fetch(`${global.appConfig.apiUrl}/risk-calculator/profile-data/${clientUuid}`, {
+  return fetch(`${config.get('apiUrl')}/risk-calculator/profile-data/${clientUuid}`, {
     method: 'GET',
     headers: {
       Accept: 'application/json',
@@ -12,7 +13,7 @@ const getRisksQuestionnaire = (_, { clientUuid }, { headers: { authorization } }
 };
 
 const calculateRisk = (_, args, { headers: { authorization } }) => {
-  return fetch(`${global.appConfig.apiUrl}/risk-calculator/profile-data`, {
+  return fetch(`${config.get('apiUrl')}/risk-calculator/profile-data`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -24,7 +25,7 @@ const calculateRisk = (_, args, { headers: { authorization } }) => {
 };
 
 const saveRiskData = (_, args, { headers: { authorization } }) => {
-  return fetch(`${global.appConfig.apiUrl}/risk-calculator/profile-data`, {
+  return fetch(`${config.get('apiUrl')}/risk-calculator/profile-data`, {
     method: 'PUT',
     headers: {
       Accept: 'application/json',

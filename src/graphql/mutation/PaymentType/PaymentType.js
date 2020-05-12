@@ -15,6 +15,7 @@ const {
     createClientPayment,
     changeStatus,
     acceptPayment,
+    acceptPaymentFinal,
     changePaymentMethod,
     changePaymentStatus,
     changeOriginalAgent,
@@ -64,20 +65,19 @@ const PaymentType = new GraphQLObjectType({
     acceptPayment: {
       args: {
         paymentId: { type: new GraphQLNonNull(GraphQLString) },
-        paymentMethod: { type: GraphQLString },
         declineReason: { type: GraphQLString },
         typeAcc: { type: GraphQLString },
       },
-      type: ResponseType(
-        new GraphQLObjectType({
-          name: 'acceptPayment',
-          fields: () => ({
-            success: { type: GraphQLBoolean },
-          }),
-        }),
-        'acceptTransaction'
-      ),
+      type: ResponseType(SuccessType, 'acceptPayment'),
       resolve: acceptPayment,
+    },
+    acceptPaymentFinal: {
+      args: {
+        paymentId: { type: new GraphQLNonNull(GraphQLString) },
+        paymentMethod: { type: GraphQLString },
+      },
+      type: ResponseType(SuccessType, 'acceptPaymentFinal'),
+      resolve: acceptPaymentFinal,
     },
     changePaymentMethod: {
       args: {

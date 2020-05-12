@@ -1,8 +1,9 @@
+const config = require('config');
 const fetch = require('./fetch');
 const parseJson = require('./parseJson');
 
 const bulkUpdateRetentionStasuses = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/profile/admin/profiles/bulk/acquisition/retention-status`, {
+  return fetch(`${config.get('apiUrl')}/profile/admin/profiles/bulk/acquisition/retention-status`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',
@@ -14,7 +15,7 @@ const bulkUpdateRetentionStasuses = (args, authorization) => {
 };
 
 const bulkUpdateSalesStasuses = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/profile/admin/profiles/bulk/acquisition/sales-status`, {
+  return fetch(`${config.get('apiUrl')}/profile/admin/profiles/bulk/acquisition/sales-status`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',
@@ -26,7 +27,7 @@ const bulkUpdateSalesStasuses = (args, authorization) => {
 };
 
 const bulkMigrateToFsa = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/migrationorchestrator/brand-migrations`, {
+  return fetch(`${config.get('apiUrl')}/migrationorchestrator/brand-migrations`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -38,7 +39,7 @@ const bulkMigrateToFsa = (args, authorization) => {
 };
 
 const getProfiles = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/profileview/admin/profiles/pageable-search`, {
+  return fetch(`${config.get('apiUrl')}/profileview/admin/profiles/pageable-search`, {
     method: 'POST',
     headers: {
       authorization,
@@ -50,7 +51,7 @@ const getProfiles = (args, authorization) => {
 };
 
 const getQueryNewProfiles = (playerUUID, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/profile/admin/profiles/${playerUUID}`, {
+  return fetch(`${config.get('apiUrl')}/profile/admin/profiles/${playerUUID}`, {
     method: 'GET',
     headers: {
       authorization,
@@ -61,7 +62,7 @@ const getQueryNewProfiles = (playerUUID, authorization) => {
 };
 
 const getQueryProfileView = (uuid, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/profileview/admin/profiles/${uuid}`, {
+  return fetch(`${config.get('apiUrl')}/profileview/admin/profiles/${uuid}`, {
     method: 'GET',
     headers: {
       authorization,
@@ -72,7 +73,7 @@ const getQueryProfileView = (uuid, authorization) => {
 };
 
 const updateQueryTradingProfile = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/trading-profile/v2/`, {
+  return fetch(`${config.get('apiUrl')}/trading-profile/v2/`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',
@@ -84,7 +85,7 @@ const updateQueryTradingProfile = (args, authorization) => {
 };
 
 const updateQueryProfile = (args, playerUUID, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/profile/profiles/${playerUUID}`, {
+  return fetch(`${config.get('apiUrl')}/profile/profiles/${playerUUID}`, {
     method: 'PUT',
     headers: {
       Accept: 'application/json',
@@ -98,7 +99,7 @@ const updateQueryProfile = (args, playerUUID, authorization) => {
 };
 
 const checkMigrationQuery = (_, args) =>
-  fetch(`${global.appConfig.apiUrl}/trading-profile-updater/public/migration/check`, {
+  fetch(`${config.get('apiUrl')}/trading-profile-updater/public/migration/check`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -108,7 +109,7 @@ const checkMigrationQuery = (_, args) =>
   }).then(response => response.json());
 
 const changeProfileStatusQuery = ({ playerUUID, ...args }, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/profile/admin/profiles/${playerUUID}/status`, {
+  return fetch(`${config.get('apiUrl')}/profile/admin/profiles/${playerUUID}/status`, {
     method: 'PUT',
     headers: {
       Accept: 'application/json',
@@ -120,7 +121,7 @@ const changeProfileStatusQuery = ({ playerUUID, ...args }, authorization) => {
 };
 
 const getClientsPersonalInfoQuery = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/profileview/admin/profiles/personal-information`, {
+  return fetch(`${config.get('apiUrl')}/profileview/admin/profiles/personal-information`, {
     method: 'POST',
     headers: {
       authorization,

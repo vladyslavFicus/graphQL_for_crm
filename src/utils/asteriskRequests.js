@@ -1,8 +1,9 @@
+const config = require('config');
 const FormData = require('form-data');
 const fetch = require('./fetch');
 
 const createCall = ({ brand, sip, number, prefix }) => {
-  const { asterisk } = global.appConfig.brands[brand].clickToCall;
+  const { asterisk } = config.get('brands')[brand].clickToCall;
 
   const formData = new FormData();
 

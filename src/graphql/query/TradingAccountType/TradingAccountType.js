@@ -20,6 +20,22 @@ const LastLeverageChangeRequest = new GraphQLObjectType({
   }),
 });
 
+const TradingAccountProfileType = new GraphQLObjectType({
+  name: 'TradingAccountProfileType',
+  fields: () => ({
+    uuid: { type: GraphQLString },
+    fullName: { type: GraphQLString },
+  }),
+});
+
+const TradingAccountAffiliateType = new GraphQLObjectType({
+  name: 'TradingAccountAffiliateType',
+  fields: () => ({
+    affiliateType: { type: GraphQLString },
+    source: { type: GraphQLString },
+  }),
+});
+
 const TradingAccountType = new GraphQLObjectType({
   name: 'TradingAccountQuery',
   fields: () => ({
@@ -55,6 +71,8 @@ const TradingAccountType = new GraphQLObjectType({
       resolve: getOperator('readOnlyUpdatedBy'),
     },
     lastLeverageChangeRequest: { type: LastLeverageChangeRequest },
+    profile: { type: TradingAccountProfileType },
+    affiliate: { type: TradingAccountAffiliateType },
   }),
 });
 

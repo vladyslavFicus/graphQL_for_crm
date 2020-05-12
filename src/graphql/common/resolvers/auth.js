@@ -1,9 +1,10 @@
+const config = require('config');
 const fetch = require('../../../utils/fetch');
 const parseJson = require('../../../utils/parseJson');
 const { getAuthorities: getAuthoritiesRequest, getPermission: getPermissionRequest } = require('../../../utils/auth');
 
 const getCredentialsLock = function(_, { playerUUID }, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/auth/credentials/${playerUUID}/lock`, {
+  return fetch(`${config.get('apiUrl')}/auth/credentials/${playerUUID}/lock`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -16,7 +17,7 @@ const getCredentialsLock = function(_, { playerUUID }, { headers: { authorizatio
 };
 
 const removeCredentialsLock = function(_, { playerUUID }, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/auth/credentials/${playerUUID}/lock`, {
+  return fetch(`${config.get('apiUrl')}/auth/credentials/${playerUUID}/lock`, {
     method: 'DELETE',
     headers: {
       accept: 'application/json',
@@ -32,7 +33,7 @@ const removeCredentialsLock = function(_, { playerUUID }, { headers: { authoriza
 };
 
 const getAuthoritiesOptions = (_, args, { headers: { authorization }, userUUID }) => {
-  return fetch(`${global.appConfig.apiUrl}/auth/credentials/${userUUID}/authorities`, {
+  return fetch(`${config.get('apiUrl')}/auth/credentials/${userUUID}/authorities`, {
     method: 'OPTIONS',
     headers: {
       accept: 'application/json',
@@ -51,7 +52,7 @@ const getPermissions = async (_, __, { headers: { authorization } }) => {
 };
 
 const logout = function(_, __, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/auth/logout`, {
+  return fetch(`${config.get('apiUrl')}/auth/logout`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -62,7 +63,7 @@ const logout = function(_, __, { headers: { authorization } }) {
 };
 
 const tokenRenew = function(_, __, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/auth/token/renew?token=${authorization.replace('Bearer ', '')}`, {
+  return fetch(`${config.get('apiUrl')}/auth/token/renew?token=${authorization.replace('Bearer ', '')}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -73,7 +74,7 @@ const tokenRenew = function(_, __, { headers: { authorization } }) {
 };
 
 const resetPassword = function(_, args, { headers: { authorization } }) {
-  return fetch(`${global.appConfig.apiUrl}/auth/password/reset`, {
+  return fetch(`${config.get('apiUrl')}/auth/password/reset`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
