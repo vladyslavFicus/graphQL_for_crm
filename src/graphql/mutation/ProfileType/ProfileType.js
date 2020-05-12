@@ -411,6 +411,9 @@ const PlayerMutation = new GraphQLObjectType({
         identificationNumber: {
           type: GraphQLString,
         },
+        timeZone: {
+          type: GraphQLString,
+        },
       },
       type: ResponseType(NewPlayerProfileType, 'UpdatePlayerPersonalInformationType'),
       resolve: updatePersonalInformation,

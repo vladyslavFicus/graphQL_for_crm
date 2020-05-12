@@ -1,8 +1,9 @@
+const config = require('config');
 const fetch = require('./fetch');
 const buildQueryString = require('./buildQueryString');
 
 const getRules = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/rules-profile/search`, {
+  return fetch(`${config.get('apiUrl')}/rules-profile/search`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -14,7 +15,7 @@ const getRules = (args, authorization) => {
 };
 
 const getRulesRetention = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/rules-payment/?${buildQueryString(args)}`, {
+  return fetch(`${config.get('apiUrl')}/rules-payment/?${buildQueryString(args)}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -25,7 +26,7 @@ const getRulesRetention = (args, authorization) => {
 };
 
 const createRule = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/rules-profile/`, {
+  return fetch(`${config.get('apiUrl')}/rules-profile/`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -37,7 +38,7 @@ const createRule = (args, authorization) => {
 };
 
 const createRuleRetention = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/rules-payment/`, {
+  return fetch(`${config.get('apiUrl')}/rules-payment/`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -49,7 +50,7 @@ const createRuleRetention = (args, authorization) => {
 };
 
 const deleteRule = (uuid, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/rules-profile/${uuid}`, {
+  return fetch(`${config.get('apiUrl')}/rules-profile/${uuid}`, {
     method: 'DELETE',
     headers: {
       accept: 'application/json',
@@ -60,7 +61,7 @@ const deleteRule = (uuid, authorization) => {
 };
 
 const deleteRuleRetention = (uuid, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/rules-payment/${uuid}`, {
+  return fetch(`${config.get('apiUrl')}/rules-payment/${uuid}`, {
     method: 'DELETE',
     headers: {
       accept: 'application/json',

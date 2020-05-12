@@ -26,7 +26,7 @@ const StatisticsType = new GraphQLObjectType({
       args: {
         dateFrom: { type: GraphQLString },
         dateTo: { type: GraphQLString },
-        playerUUID: { type: GraphQLString },
+        profileId: { type: GraphQLString },
         detalization: { type: DetalizationEnum },
         paymentStatus: { type: GraphQLString },
         paymentType: { type: GraphQLString },

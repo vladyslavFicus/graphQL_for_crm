@@ -1,3 +1,4 @@
+const config = require('config');
 const fetch = require('../../../utils/fetch');
 const { PAYMENT_TYPES } = require('../../../constants/payment');
 const {
@@ -7,26 +8,12 @@ const {
   getManualPaymentMethodsQuery,
 } = require('../../../utils/payment');
 
-const getClientPayments = async (_, args, { headers: { authorization }, hierarchy }) => {
-  const profileIds = await hierarchy.getCustomersIds();
-  const _args = { ...args, profileIds, withOriginalAgent: true };
-
-  const payments = await getPaymentsQuery(_args, authorization);
-
-  return payments;
+const getClientPayments = (_, args, { headers: { authorization } }) => {
+  return getPaymentsQuery({ ...args, withOriginalAgent: true }, authorization);
 };
 
-const getClientPaymentsByUuid = async (_, { playerUUID, accountType, ...args }, { headers: { authorization } }) => {
-  const payments = await getPaymentsQuery(
-    {
-      profileIds: [playerUUID],
-      ...(accountType && { accountType }),
-      ...args,
-    },
-    authorization
-  );
-
-  return payments;
+const getClientPaymentsByUuid = (_, args, { headers: { authorization } }) => {
+  return getPaymentsQuery(args, authorization);
 };
 
 const createClientPayment = async (
@@ -91,7 +78,19 @@ const createClientPayment = async (
 };
 
 const acceptPayment = (_, { typeAcc, ...args }, { headers: { authorization } }) => {
-  return fetch(`${global.appConfig.apiUrl}/payment/${typeAcc}`, {
+  return fetch(`${config.get('apiUrl')}/payment/${typeAcc}`, {
+    method: 'PUT',
+    headers: {
+      Accept: 'application/json',
+      authorization,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(args),
+  }).then(response => ({ data: { success: response.status === 200 } }));
+};
+
+const acceptPaymentFinal = (_, { ...args }, { headers: { authorization } }) => {
+  return fetch(`${config.get('apiUrl')}/payment/approve/finance`, {
     method: 'PUT',
     headers: {
       Accept: 'application/json',
@@ -103,7 +102,7 @@ const acceptPayment = (_, { typeAcc, ...args }, { headers: { authorization } }) 
 };
 
 const changePaymentMethod = (_, args, { headers: { authorization } }) => {
-  return fetch(`${global.appConfig.apiUrl}/payment/${args.paymentId}/method`, {
+  return fetch(`${config.get('apiUrl')}/payment/${args.paymentId}/method`, {
     method: 'PUT',
     headers: {
       Accept: 'application/json',
@@ -115,7 +114,7 @@ const changePaymentMethod = (_, args, { headers: { authorization } }) => {
 };
 
 const changePaymentStatus = (_, args, { headers: { authorization } }) => {
-  return fetch(`${global.appConfig.apiUrl}/payment/${args.paymentId}/status`, {
+  return fetch(`${config.get('apiUrl')}/payment/${args.paymentId}/status`, {
     method: 'PUT',
     headers: {
       Accept: 'application/json',
@@ -127,7 +126,7 @@ const changePaymentStatus = (_, args, { headers: { authorization } }) => {
 };
 
 const changeOriginalAgent = (_, { paymentId, ...args }, { headers: { authorization } }) => {
-  return fetch(`${global.appConfig.apiUrl}/payment/${paymentId}/agent`, {
+  return fetch(`${config.get('apiUrl')}/payment/${paymentId}/agent`, {
     method: 'PUT',
     headers: {
       Accept: 'application/json',
@@ -165,6 +164,7 @@ module.exports = {
   getClientPayments,
   getClientPaymentsByUuid,
   acceptPayment,
+  acceptPaymentFinal,
   changePaymentMethod,
   changePaymentStatus,
   changeOriginalAgent,

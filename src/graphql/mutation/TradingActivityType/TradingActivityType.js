@@ -12,6 +12,7 @@ const TradingActivityType = new GraphQLObjectType({
       args: {
         tradeId: { type: new GraphQLNonNull(GraphQLInt) },
         agentId: { type: new GraphQLNonNull(GraphQLString) },
+        platformType: { type: GraphQLString },
       },
       type: SuccessType,
       resolve: changeOriginalAgent,

@@ -1,9 +1,10 @@
+const config = require('config');
 const fetch = require('../fetch');
 const parseJson = require('../parseJson');
 const buildQueryString = require('../buildQueryString');
 
 const createUser = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/hierarchy-updater/user`, {
+  return fetch(`${config.get('apiUrl')}/hierarchy-updater/user`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -15,7 +16,7 @@ const createUser = (args, authorization) => {
 };
 
 const createBranch = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/hierarchy-updater/branch`, {
+  return fetch(`${config.get('apiUrl')}/hierarchy-updater/branch`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -30,7 +31,7 @@ const createBranch = (args, authorization) => {
 };
 
 const getHierarchyUser = (userId, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/hierarchy/user/${userId}`, {
+  return fetch(`${config.get('apiUrl')}/hierarchy/user/${userId}`, {
     method: 'GET',
     headers: {
       authorization,
@@ -41,7 +42,7 @@ const getHierarchyUser = (userId, authorization) => {
 };
 
 const getHierarchyUsers = (userUuids, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/hierarchy/user/search`, {
+  return fetch(`${config.get('apiUrl')}/hierarchy/user/search`, {
     method: 'POST',
     headers: {
       authorization,
@@ -53,7 +54,7 @@ const getHierarchyUsers = (userUuids, authorization) => {
 };
 
 const getCustomersSubtree = (userId, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/hierarchy/user/${userId}/customers`, {
+  return fetch(`${config.get('apiUrl')}/hierarchy/user/${userId}/customers`, {
     method: 'GET',
     headers: {
       authorization,
@@ -64,7 +65,7 @@ const getCustomersSubtree = (userId, authorization) => {
 };
 
 const getLeadsSubtree = (userId, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/hierarchy/user/${userId}/leads`, {
+  return fetch(`${config.get('apiUrl')}/hierarchy/user/${userId}/leads`, {
     method: 'GET',
     headers: {
       authorization,
@@ -75,7 +76,7 @@ const getLeadsSubtree = (userId, authorization) => {
 };
 
 const getObserverForSubtree = (userId, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/hierarchy/user/${userId}/observer-for`, {
+  return fetch(`${config.get('apiUrl')}/hierarchy/user/${userId}/observer-for`, {
     method: 'GET',
     headers: {
       authorization,
@@ -86,7 +87,7 @@ const getObserverForSubtree = (userId, authorization) => {
 };
 
 const getOperatorsSubtree = (userId, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/hierarchy/user/${userId}/operators`, {
+  return fetch(`${config.get('apiUrl')}/hierarchy/user/${userId}/operators`, {
     method: 'GET',
     headers: {
       authorization,
@@ -97,7 +98,7 @@ const getOperatorsSubtree = (userId, authorization) => {
 };
 
 const getPartnersSubtree = (userId, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/hierarchy/user/${userId}/affiliate-partners`, {
+  return fetch(`${config.get('apiUrl')}/hierarchy/user/${userId}/affiliate-partners`, {
     method: 'GET',
     headers: {
       authorization,
@@ -108,7 +109,7 @@ const getPartnersSubtree = (userId, authorization) => {
 };
 
 const checkAccess = (uuid, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/hierarchy/user/${uuid}/check-access`, {
+  return fetch(`${config.get('apiUrl')}/hierarchy/user/${uuid}/check-access`, {
     method: 'GET',
     headers: {
       authorization,
@@ -119,7 +120,7 @@ const checkAccess = (uuid, authorization) => {
 };
 
 const getHierarchyBranch = (branchId, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/hierarchy/branch/${branchId}`, {
+  return fetch(`${config.get('apiUrl')}/hierarchy/branch/${branchId}`, {
     method: 'GET',
     headers: {
       authorization,
@@ -130,7 +131,7 @@ const getHierarchyBranch = (branchId, authorization) => {
 };
 
 const getBranchHierarchyTree = (uuid, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/hierarchy/branch/hierarchy/${uuid}`, {
+  return fetch(`${config.get('apiUrl')}/hierarchy/branch/hierarchy/${uuid}`, {
     method: 'GET',
     headers: {
       authorization,
@@ -142,7 +143,7 @@ const getBranchHierarchyTree = (uuid, authorization) => {
 
 const getUserBranchHierarchy = (userUUID, authorization, brandId) => {
   return fetch(
-    `${global.appConfig.apiUrl}/hierarchy/branch/hierarchy/user/${userUUID}?${buildQueryString({
+    `${config.get('apiUrl')}/hierarchy/branch/hierarchy/user/${userUUID}?${buildQueryString({
       brandId,
     })}`,
     {
@@ -157,7 +158,7 @@ const getUserBranchHierarchy = (userUUID, authorization, brandId) => {
 };
 
 const getUsersByType = (types, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/hierarchy/user/bytype?${buildQueryString({ t: types })}`, {
+  return fetch(`${config.get('apiUrl')}/hierarchy/user/bytype?${buildQueryString({ t: types })}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -168,7 +169,7 @@ const getUsersByType = (types, authorization) => {
 };
 
 const getBranchHierarchy = ({ branchType, ...args }, userUUID, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/hierarchy/branch/hierarchy/user/${userUUID}/${branchType}`, {
+  return fetch(`${config.get('apiUrl')}/hierarchy/branch/hierarchy/user/${userUUID}/${branchType}`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -180,7 +181,7 @@ const getBranchHierarchy = ({ branchType, ...args }, userUUID, authorization) =>
 };
 
 const getUsersByBranch = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/hierarchy/user/search/hierarchy`, {
+  return fetch(`${config.get('apiUrl')}/hierarchy/user/search/hierarchy`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -192,7 +193,7 @@ const getUsersByBranch = (args, authorization) => {
 };
 
 const getBranchChildren = (uuid, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/hierarchy/branch/${uuid}/children`, {
+  return fetch(`${config.get('apiUrl')}/hierarchy/branch/${uuid}/children`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -203,7 +204,7 @@ const getBranchChildren = (uuid, authorization) => {
 };
 
 const updateUserBranches = ({ operatorId, ...args }, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/hierarchy-updater/user/${operatorId}/relationship/parent-branch`, {
+  return fetch(`${config.get('apiUrl')}/hierarchy-updater/user/${operatorId}/relationship/parent-branch`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',
@@ -215,7 +216,7 @@ const updateUserBranches = ({ operatorId, ...args }, authorization) => {
 };
 
 const updateHierarchyUser = ({ operatorId, ...args }, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/hierarchy-updater/user/${operatorId}`, {
+  return fetch(`${config.get('apiUrl')}/hierarchy-updater/user/${operatorId}`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',
@@ -227,7 +228,7 @@ const updateHierarchyUser = ({ operatorId, ...args }, authorization) => {
 };
 
 const bulkUpdateHierarchyUser = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/hierarchy-updater/bulk/user/relationship/parent-user`, {
+  return fetch(`${config.get('apiUrl')}/hierarchy-updater/bulk/user/relationship/parent-user`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',
@@ -239,7 +240,7 @@ const bulkUpdateHierarchyUser = (args, authorization) => {
 };
 
 const bulkMassAssignHierarchyUser = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/hierarchy-updater/bulk/user/multi-assignment`, {
+  return fetch(`${config.get('apiUrl')}/hierarchy-updater/bulk/user/multi-assignment`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',
@@ -251,7 +252,7 @@ const bulkMassAssignHierarchyUser = (args, authorization) => {
 };
 
 const getBrand = (brandId, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/hierarchy/branch/brand?${buildQueryString({ brandId })}`, {
+  return fetch(`${config.get('apiUrl')}/hierarchy/branch/brand?${buildQueryString({ brandId })}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -262,7 +263,7 @@ const getBrand = (brandId, authorization) => {
 };
 
 const addBranchManager = ({ branchUuid, ...args }, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/hierarchy-updater/branch/${branchUuid}/manager`, {
+  return fetch(`${config.get('apiUrl')}/hierarchy-updater/branch/${branchUuid}/manager`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -274,7 +275,7 @@ const addBranchManager = ({ branchUuid, ...args }, authorization) => {
 };
 
 const removeBranchManager = (branchUuid, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/hierarchy-updater/branch/${branchUuid}/manager`, {
+  return fetch(`${config.get('apiUrl')}/hierarchy-updater/branch/${branchUuid}/manager`, {
     method: 'DELETE',
     headers: {
       accept: 'application/json',

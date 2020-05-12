@@ -1,8 +1,9 @@
+const config = require('config');
 const fetch = require('./fetch');
 const buildQueryString = require('./buildQueryString');
 
 const getNotes = function({ size, page, ...args }, authorization) {
-  return fetch(`${global.appConfig.apiUrl}/note/search?${buildQueryString({ size, page })}`, {
+  return fetch(`${config.get('apiUrl')}/note/search?${buildQueryString({ size, page })}`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -14,7 +15,7 @@ const getNotes = function({ size, page, ...args }, authorization) {
 };
 
 const addNote = function(args, authorization) {
-  return fetch(`${global.appConfig.apiUrl}/note/`, {
+  return fetch(`${config.get('apiUrl')}/note/`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -26,7 +27,7 @@ const addNote = function(args, authorization) {
 };
 
 const removeNote = function({ noteId }, authorization) {
-  return fetch(`${global.appConfig.apiUrl}/note/${noteId}`, {
+  return fetch(`${config.get('apiUrl')}/note/${noteId}`, {
     method: 'DELETE',
     headers: {
       accept: 'application/json',
@@ -37,7 +38,7 @@ const removeNote = function({ noteId }, authorization) {
 };
 
 const updateNote = function({ noteId, ...args }, authorization) {
-  return fetch(`${global.appConfig.apiUrl}/note/${noteId}`, {
+  return fetch(`${config.get('apiUrl')}/note/${noteId}`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',

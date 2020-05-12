@@ -17,7 +17,14 @@ const getCallbacks = async (_, args, { headers: { authorization }, hierarchy }) 
     _args.operatorIds = [_args.operatorId];
   }
 
-  return getCallbacksRequest(_args, authorization);
+  const { data } = await getCallbacksRequest(_args, authorization);
+
+  return {
+    data: {
+      page: data.pageable.pageNumber,
+      ...data,
+    },
+  };
 };
 
 const getCallback = async (...args) => {

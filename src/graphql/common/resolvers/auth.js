@@ -1,4 +1,4 @@
-const { get } = require('lodash');
+const config = require('config');
 const fetch = require('../../../utils/fetch');
 const {
   getPermission: getPermissionRequest,
@@ -22,7 +22,7 @@ const resetUserPassword = (_, { userUuid }, { headers: { authorization } }) => {
 };
 
 const getCredentialsLock = (_, { playerUUID }, { headers: { authorization } }) => {
-  return fetch(`${global.appConfig.apiUrl}/auth2/lock/${playerUUID}`, {
+  return fetch(`${config.get('apiUrl')}/auth2/lock/${playerUUID}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -33,7 +33,7 @@ const getCredentialsLock = (_, { playerUUID }, { headers: { authorization } }) =
 };
 
 const removeCredentialsLock = (_, { playerUUID }, { headers: { authorization } }) => {
-  return fetch(`${global.appConfig.apiUrl}/auth2/lock/${playerUUID}`, {
+  return fetch(`${config.get('apiUrl')}/auth2/lock/${playerUUID}`, {
     method: 'DELETE',
     headers: {
       accept: 'application/json',
@@ -77,7 +77,7 @@ const getPermissions = async (_, __, { headers: { authorization } }) => {
 };
 
 const logout = (_, __, { headers: { authorization } }) => {
-  return fetch(`${global.appConfig.apiUrl}/auth2/logout`, {
+  return fetch(`${config.get('apiUrl')}/auth2/logout`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -88,7 +88,7 @@ const logout = (_, __, { headers: { authorization } }) => {
 };
 
 const tokenRenew = (_, __, { headers: { authorization } }) => {
-  return fetch(`${global.appConfig.apiUrl}/auth2/token/renew`, {
+  return fetch(`${config.get('apiUrl')}/auth2/token/renew`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -101,7 +101,7 @@ const tokenRenew = (_, __, { headers: { authorization } }) => {
 };
 
 const resetPassword = (_, args, { headers: { authorization } }) => {
-  return fetch(`${global.appConfig.apiUrl}/auth2/password/token`, {
+  return fetch(`${config.get('apiUrl')}/auth2/password/token`, {
     method: 'POST',
     headers: {
       accept: 'application/json',

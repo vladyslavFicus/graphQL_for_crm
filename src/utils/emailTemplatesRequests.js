@@ -1,7 +1,8 @@
+const config = require('config');
 const fetch = require('./fetch');
 
 const sendEmail = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/email/templated-email`, {
+  return fetch(`${config.get('apiUrl')}/email/templated-email`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -13,7 +14,7 @@ const sendEmail = (args, authorization) => {
 };
 
 const getEmailTemplate = ({ id }, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/email/templates/${id}`, {
+  return fetch(`${config.get('apiUrl')}/email/templates/${id}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -24,7 +25,7 @@ const getEmailTemplate = ({ id }, authorization) => {
 };
 
 const getEmailTemplates = authorization => {
-  return fetch(`${global.appConfig.apiUrl}/email/templates`, {
+  return fetch(`${config.get('apiUrl')}/email/templates`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -35,7 +36,7 @@ const getEmailTemplates = authorization => {
 };
 
 const createEmailTemplate = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/email/templates`, {
+  return fetch(`${config.get('apiUrl')}/email/templates`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -47,7 +48,7 @@ const createEmailTemplate = (args, authorization) => {
 };
 
 const updateEmailTemplate = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/email/templates`, {
+  return fetch(`${config.get('apiUrl')}/email/templates`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',
@@ -59,7 +60,7 @@ const updateEmailTemplate = (args, authorization) => {
 };
 
 const deleteEmailTemplate = function({ id }, authorization) {
-  return fetch(`${global.appConfig.apiUrl}/email/templates/${id}`, {
+  return fetch(`${config.get('apiUrl')}/email/templates/${id}`, {
     method: 'DELETE',
     headers: {
       accept: 'application/json',

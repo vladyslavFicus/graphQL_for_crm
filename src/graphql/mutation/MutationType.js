@@ -6,7 +6,6 @@ const OperatorType = require('./OperatorType');
 const PartnerType = require('./PartnerType');
 const NoteType = require('./NoteType');
 const { PaymentType } = require('./PaymentType');
-const TagType = require('./TagType');
 const FileType = require('./FileType');
 const UploadType = require('./UploadType');
 const LeadsType = require('./LeadsType');
@@ -14,7 +13,6 @@ const HierarchyType = require('./HierarchyType');
 const RulesType = require('./RulesType');
 const RisksType = require('./RisksType');
 const ClientsType = require('./ClientsType');
-const ConditionalTagType = require('./ConditionalTagType');
 const TradingAccountType = require('./TradingAccountType');
 const TradingActivityType = require('./TradingActivityType');
 const CallbacksType = require('./CallbacksType');
@@ -70,12 +68,6 @@ const MutationType = new GraphQLObjectType({
         return {};
       },
     },
-    tag: {
-      type: TagType,
-      resolve() {
-        return {};
-      },
-    },
     upload: {
       type: UploadType,
       resolve() {
@@ -114,12 +106,6 @@ const MutationType = new GraphQLObjectType({
     },
     clients: {
       type: ClientsType,
-      resolve() {
-        return {};
-      },
-    },
-    conditionalTag: {
-      type: ConditionalTagType,
       resolve() {
         return {};
       },

@@ -1,35 +1,40 @@
+const config = require('config');
 const FormData = require('form-data');
 const fetch = require('../../../utils/fetch');
+const buildQueryString = require('../../../utils/buildQueryString');
 
-const leadCsvUpload = async (_, { file }, { headers: { authorization }, brand: { id: brandId } }) => {
-  const fileStream = await file;
+const leadCsvUpload = (_, { file }, { headers: { authorization }, brand: { id } }) => {
+  return new Promise(async resolve => {
+    const { filename, createReadStream } = await file;
 
-  return new Promise(resolve => {
-    const buffs = [];
-    const readStream = fileStream.createReadStream();
+    const buffer = [];
+    const stream = createReadStream();
 
-    readStream.on('data', d => {
-      buffs.push(d);
+    stream.on('data', chunk => {
+      buffer.push(chunk);
     });
 
-    readStream.on('end', () => {
-      let bufferedFile = Buffer.concat(buffs);
+    stream.on('end', async () => {
       const formData = new FormData();
-      formData.append('file', bufferedFile, fileStream.filename);
-      formData.append('brandId', brandId);
+      formData.append('file', Buffer.concat(buffer), filename);
 
-      fetch(`${global.appConfig.apiUrl}/lead-updater/lead/csv`, {
-        method: 'POST',
-        headers: {
-          authorization,
-          ...formData.getHeaders(),
-        },
-        body: formData,
-      })
-        .then(res => res.json())
-        .then(response => resolve({ success: !!response.data, ...response }));
+      const response = await fetch(
+        `${config.get('apiUrl')}/lead-updater/lead/csv?${buildQueryString({ brandId: id })}`,
+        {
+          method: 'POST',
+          headers: {
+            authorization,
+            ...formData.getHeaders(),
+          },
+          body: formData,
+        }
+      );
+
+      resolve(response);
     });
-  });
+  })
+    .then(response => response.json())
+    .then(data => ({ success: !!data.data, error: data.error }));
 };
 
 module.exports = {

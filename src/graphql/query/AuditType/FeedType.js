@@ -1,12 +1,18 @@
 const { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLInt } = require('graphql');
-const { getDetails } = require('../../common/resolvers/audit');
+const { getDetails, geAuthorFullName } = require('../../common/resolvers/audit');
 
 const FeedType = new GraphQLObjectType({
   name: 'Feed',
   fields: () => ({
     id: { type: new GraphQLNonNull(GraphQLInt) },
-    authorFullName: { type: new GraphQLNonNull(GraphQLString) },
-    authorUuid: { type: new GraphQLNonNull(GraphQLString) },
+    authorFullName: {
+      type: new GraphQLNonNull(GraphQLString),
+      resolve: geAuthorFullName,
+    },
+    authorUuid: {
+      type: new GraphQLNonNull(GraphQLString),
+      resolve: ({ authorUuid }) => (authorUuid === 'SYSTEM' ? '' : authorUuid),
+    },
     brandId: { type: GraphQLString },
     creationDate: { type: new GraphQLNonNull(GraphQLString) },
     details: {
