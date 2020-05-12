@@ -86,7 +86,6 @@ const PaymentsByUuidInputType = require('../input/PaymentsByUuidInputType');
 const EmailType = require('./EmailType');
 const NotificationCenterType = require('./NotificationCenterType');
 const NotificationCenterInputType = require('../input/NotificationCenterInputType');
-const SortInputType = require('../input/SortsInputType');
 const PageInputType = require('../input/PageInputType');
 
 const QueryType = new GraphQLObjectType({
@@ -376,9 +375,7 @@ const QueryType = new GraphQLObjectType({
         status: { type: GraphQLString },
         registrationDateFrom: { type: GraphQLString },
         registrationDateTo: { type: GraphQLString },
-        page: { type: GraphQLInt },
-        size: { type: GraphQLInt },
-        sorts: { type: new GraphQLList(SortInputType) },
+        page: { type: PageInputType },
       },
       resolve: getOperators,
     },
