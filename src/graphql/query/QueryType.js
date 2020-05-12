@@ -87,6 +87,7 @@ const EmailType = require('./EmailType');
 const NotificationCenterType = require('./NotificationCenterType');
 const NotificationCenterInputType = require('../input/NotificationCenterInputType');
 const SortInputType = require('../input/SortsInputType');
+const PageInputType = require('../input/PageInputType');
 
 const QueryType = new GraphQLObjectType({
   name: 'Query',
@@ -391,9 +392,7 @@ const QueryType = new GraphQLObjectType({
     partners: {
       type: ResponseType(PageableType(PartnerType)),
       args: {
-        page: { type: GraphQLInt },
-        size: { type: GraphQLInt },
-        sorts: { type: new GraphQLList(SortInputType) },
+        page: { type: PageInputType },
         searchBy: { type: GraphQLString },
         country: { type: GraphQLString },
         status: { type: GraphQLString },
