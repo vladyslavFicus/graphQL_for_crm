@@ -89,18 +89,6 @@ const acceptPayment = (_, { typeAcc, ...args }, { headers: { authorization } }) 
   }).then(response => ({ data: { success: response.status === 200 } }));
 };
 
-const acceptPaymentFinal = (_, { ...args }, { headers: { authorization } }) => {
-  return fetch(`${config.get('apiUrl')}/payment/approve/finance`, {
-    method: 'PUT',
-    headers: {
-      Accept: 'application/json',
-      authorization,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(args),
-  }).then(response => ({ data: { success: response.status === 200 } }));
-};
-
 const changePaymentMethod = (_, args, { headers: { authorization } }) => {
   return fetch(`${config.get('apiUrl')}/payment/${args.paymentId}/method`, {
     method: 'PUT',
@@ -164,7 +152,6 @@ module.exports = {
   getClientPayments,
   getClientPaymentsByUuid,
   acceptPayment,
-  acceptPaymentFinal,
   changePaymentMethod,
   changePaymentStatus,
   changeOriginalAgent,
