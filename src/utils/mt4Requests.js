@@ -80,7 +80,7 @@ const tradingAccountQuery = ({ accountType, uuid }, authorization) => {
 };
 
 const tradingAccountsQuery = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/accountview/accounts/search?${buildQueryString(args)}`, {
+  return fetch(`${config.get('apiUrl')}/accountview/accounts/search?${buildQueryString(args)}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
