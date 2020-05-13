@@ -86,6 +86,7 @@ const PaymentsByUuidInputType = require('../input/PaymentsByUuidInputType');
 const EmailType = require('./EmailType');
 const NotificationCenterType = require('./NotificationCenterType');
 const NotificationCenterInputType = require('../input/NotificationCenterInputType');
+const PageInputType = require('../input/PageInputType');
 
 const QueryType = new GraphQLObjectType({
   name: 'Query',
@@ -374,7 +375,7 @@ const QueryType = new GraphQLObjectType({
         status: { type: GraphQLString },
         registrationDateFrom: { type: GraphQLString },
         registrationDateTo: { type: GraphQLString },
-        page: { type: GraphQLInt },
+        page: { type: PageInputType },
       },
       resolve: getOperators,
     },
@@ -388,6 +389,7 @@ const QueryType = new GraphQLObjectType({
     partners: {
       type: ResponseType(PageableType(PartnerType)),
       args: {
+        page: { type: PageInputType },
         searchBy: { type: GraphQLString },
         country: { type: GraphQLString },
         status: { type: GraphQLString },

@@ -859,9 +859,10 @@ bunyan-format@^0.2.1:
     ansistyles "~0.1.1"
     xtend "~2.1.1"
 
-bunyan-gelf@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/bunyan-gelf/-/bunyan-gelf-1.0.0.tgz#fe983e99347ab2b4f5b478679071893bc7537114"
+bunyan-gelf@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/bunyan-gelf/-/bunyan-gelf-1.1.0.tgz#9a5e657b69f12f2e5d6d909c34466b47ef3f7d1b"
+  integrity sha512-UwiJYbvyO4HFfJlIrAacX5jkx6YJvI5JsIX6lEHjFFsVuES2EtNBR9CoAsdSEM2aJ5yUtyx0C1Yx++hjSRJSpQ==
   dependencies:
     circular-json "^0.5.9"
 

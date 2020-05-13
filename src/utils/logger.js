@@ -31,6 +31,7 @@ Logger.init = () => {
       stream: new BunyanToGelfStream({
         host: config.logstash.host,
         port: config.logstash.port,
+        protocol: 'tcp',
       }),
     });
   }
