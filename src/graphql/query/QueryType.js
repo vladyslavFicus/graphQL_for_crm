@@ -324,6 +324,7 @@ const QueryType = new GraphQLObjectType({
         branchUuid: { type: GraphQLString },
         affiliateId: { type: GraphQLString },
         operatorUuids: { type: new GraphQLList(GraphQLString) },
+        uuids: { type: new GraphQLList(GraphQLString) },
       },
       resolve: getRules,
     },
