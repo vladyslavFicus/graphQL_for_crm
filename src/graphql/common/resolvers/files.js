@@ -3,7 +3,6 @@ const FormData = require('form-data');
 const fetch = require('../../../utils/fetch');
 const parseJson = require('../../../utils/parseJson');
 const buildQueryString = require('../../../utils/buildQueryString');
-// const Logger = require('../../../utils/logger');
 
 const getFiles = (_, args, { headers: { authorization } }) => {
   return fetch(`${config.get('apiUrl')}/attachments/search`, {

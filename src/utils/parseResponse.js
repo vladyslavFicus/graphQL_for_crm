@@ -1,6 +1,6 @@
 const { isEmpty } = require('lodash');
 const parseJson = require('./parseJson');
-const Logger = require('./logger');
+const Logger = require('../lib/Logger');
 const { mapErrorsCodes } = require('../constants/errors');
 
 function parseResponse(data, status, url) {

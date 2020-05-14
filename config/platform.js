@@ -1,6 +1,6 @@
 const config = require('config');
 const ConfigMap = require('@hrzn/k8s-configmap');
-const Logger = require('../src/utils/logger');
+const Logger = require('../src/lib/Logger');
 const mapPlatformConfig = require('./utils/mapPlatformConfig');
 
 const configMap = new ConfigMap({

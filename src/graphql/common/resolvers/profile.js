@@ -2,7 +2,6 @@ const config = require('config');
 const moment = require('moment');
 const { get, isEmpty } = require('lodash');
 const fetch = require('../../../utils/fetch');
-const Logger = require('../../../utils/logger');
 const parseJson = require('../../../utils/parseJson');
 const {
   updateQueryTradingProfile,

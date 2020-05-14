@@ -4,7 +4,7 @@ const { ApolloError, AuthenticationError } = require('apollo-server-express');
 const { isEmpty } = require('lodash');
 const jwtDecode = require('jwt-decode');
 const parseJson = require('../utils/parseJson');
-const Logger = require('./logger');
+const Logger = require('../lib/Logger');
 const parseResponse = require('./parseResponse');
 
 const logResponseError = (response, url, { headers, method }, messageTitle) => {

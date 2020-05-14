@@ -1,33 +1,32 @@
 require('isomorphic-fetch');
 const express = require('express');
-const contextService = require('request-context');
-const cors = require('cors');
-const compression = require('compression');
 const config = require('config');
+const contextService = require('request-context');
+const Logger = require('./lib/Logger');
+const initRoutes = require('./Http/routes');
 const bootstrap = require('./bootstrap');
-const initRoutes = require('./initRoutes');
-const Logger = require('./utils/logger');
 
 process.on('unhandledRejection', err => {
-  Logger.fatal({ err }, 'Unhandled rejection');
+  Logger.error({ err }, 'unhandled rejection');
 });
 
 process.on('uncaughtException', err => {
-  Logger.fatal({ err }, 'Uncaught exception');
+  Logger.error({ err }, 'uncaught exception');
+});
+
+process.on('warning', err => {
+  Logger.warn({ err }, 'warning');
 });
 
 (async () => {
   const app = express();
 
-  app.disable('x-powered-by');
-  app.disable('etag');
   app.set('trust proxy', true);
 
   // Bootstrap application
   await bootstrap(app);
 
-  app.use(compression());
-  app.use(cors());
+  // Init request context middleware
   app.use(contextService.middleware('request'));
   app.use((req, res, next) => {
     contextService.set('request:req', req);

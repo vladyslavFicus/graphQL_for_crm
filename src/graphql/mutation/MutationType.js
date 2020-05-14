@@ -21,7 +21,6 @@ const FilterSetType = require('./FilterSetType');
 const BrandConfigType = require('./BrandConfigType');
 const EmailTemplatesType = require('./EmailTemplatesType');
 const NotificationCenterType = require('./NotificationCenterType');
-const AsteriskType = require('./AsteriskType');
 
 const MutationType = new GraphQLObjectType({
   name: 'ApiMutation',
@@ -154,12 +153,6 @@ const MutationType = new GraphQLObjectType({
     },
     notificationCenter: {
       type: NotificationCenterType,
-      resolve() {
-        return {};
-      },
-    },
-    asterisk: {
-      type: AsteriskType,
       resolve() {
         return {};
       },

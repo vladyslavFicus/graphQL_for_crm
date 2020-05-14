@@ -1,6 +1,6 @@
 const config = require('config');
 const getBrandsConfig = require('@hrzn/brands-config');
-const Logger = require('../src/utils/logger');
+const Logger = require('../src/lib/Logger');
 const mapZookeeperBrandsConfig = require('./utils/mapZookeeperBrandsConfig');
 
 const options = {

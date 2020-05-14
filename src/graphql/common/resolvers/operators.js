@@ -12,7 +12,7 @@ const {
   requests: { createUser },
 } = require('../../../utils/hierarchy');
 const { addAuthorities, getAuthorities, removeAuthorities } = require('../../../utils/auth');
-const Logger = require('../../../utils/logger');
+const Logger = require('../../../lib/Logger');
 const { addOperatorToBranch } = require('./hierarchy');
 
 const getOperators = async (_, args, { headers: { authorization }, hierarchy }) => {
