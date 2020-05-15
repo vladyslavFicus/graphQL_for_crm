@@ -25,5 +25,4 @@ module.exports = {
   socialTrading: require('./socialTrading'),
   emailTemplates: require('./emailTemplates'),
   notificationCenter: require('./notificationCenter'),
-  asterisk: require('./asterisk'),
 };
