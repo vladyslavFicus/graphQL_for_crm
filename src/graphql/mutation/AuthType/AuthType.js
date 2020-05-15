@@ -38,7 +38,6 @@ const AuthType = new GraphQLObjectType({
     resetPassword: {
       args: {
         password: { type: new GraphQLNonNull(GraphQLString) },
-        repeatPassword: { type: new GraphQLNonNull(GraphQLString) },
         token: { type: new GraphQLNonNull(GraphQLString) },
       },
       type: SuccessType,
