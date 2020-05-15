@@ -12,6 +12,7 @@ const CallbacksMutation = new GraphQLObjectType({
     create: {
       args: {
         userId: { type: new GraphQLNonNull(GraphQLString) },
+        reminder: { type: GraphQLString },
         operatorId: { type: new GraphQLNonNull(GraphQLString) },
         callbackTime: { type: new GraphQLNonNull(GraphQLString) },
       },
@@ -24,6 +25,7 @@ const CallbacksMutation = new GraphQLObjectType({
         callbackTime: { type: GraphQLString },
         operatorId: { type: GraphQLString },
         status: { type: CallbackStatusEnum },
+        reminder: { type: GraphQLString },
       },
       type: ResponseType(CallbackType),
       resolve: updateCallback,
