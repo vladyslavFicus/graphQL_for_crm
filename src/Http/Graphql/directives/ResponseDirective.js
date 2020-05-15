@@ -42,11 +42,11 @@ class ResponseDirective extends SchemaDirectiveVisitor {
    *
    * Example:
    * {
-   *  profile: Profile @pageable // Profile
-   *  profile: Profile! @pageable // NonNull_Profile
-   *  profile: [Profile] @pageable // List_Profile
-   *  profile: [Profile]! @pageable // NonNull_List_Profile
-   *  profile: [Profile!]! @pageable // NonNull_List_NonNull_Profile
+   *  profile: Profile @response // Profile
+   *  profile: Profile! @response // NonNull_Profile
+   *  profile: [Profile] @response // List_Profile
+   *  profile: [Profile]! @response // NonNull_List_Profile
+   *  profile: [Profile!]! @response // NonNull_List_NonNull_Profile
    * }
    *
    * @param type
