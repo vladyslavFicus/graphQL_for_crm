@@ -1,5 +1,5 @@
 const { SchemaDirectiveVisitor } = require('graphql-tools');
-const { GraphQLObjectType, GraphQLList } = require('graphql');
+const { GraphQLObjectType, GraphQLList, GraphQLNonNull } = require('graphql');
 const ErrorType = require('../../../graphql/common/types/ErrorType');
 
 /**
@@ -37,9 +37,45 @@ const ResponseTypeFactory = (ContentType, typeName) =>
  * }
  */
 class ResponseDirective extends SchemaDirectiveVisitor {
+  /**
+   * Build type name if exist nested types such as GraphQLNonNull or GraphQLList
+   *
+   * Example:
+   * {
+   *  profile: Profile @pageable // Profile
+   *  profile: Profile! @pageable // NonNull_Profile
+   *  profile: [Profile] @pageable // List_Profile
+   *  profile: [Profile]! @pageable // NonNull_List_Profile
+   *  profile: [Profile!]! @pageable // NonNull_List_NonNull_Profile
+   * }
+   *
+   * @param type
+   *
+   * @return {string}
+   */
+  buildTypeName(type) {
+    let typeName = '';
+
+    if (type instanceof GraphQLNonNull) {
+      typeName += 'NonNull_';
+    }
+
+    if (type instanceof GraphQLList) {
+      typeName += 'List_';
+    }
+
+    if (type.ofType) {
+      typeName += this.buildTypeName(type.ofType);
+    } else {
+      typeName = type.name;
+    }
+
+    return typeName;
+  }
+
   visitFieldDefinition(field) {
-    const { resolve } = field;
-    const ResponseType = ResponseTypeFactory(field.type, this.args.type || `Response__${field.type}`);
+    const typeName = this.args.type || `Response__${this.buildTypeName(field.type)}`;
+    const ResponseType = ResponseTypeFactory(field.type, typeName);
 
     // Workaround to add new created type on top level of schema
     if (!this.schema._typeMap[ResponseType.name]) {
@@ -47,6 +83,8 @@ class ResponseDirective extends SchemaDirectiveVisitor {
     }
 
     field.type = ResponseType;
+
+    const { resolve } = field;
 
     field.resolve = async (...args) => {
       if (resolve) {

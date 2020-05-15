@@ -1,7 +1,16 @@
 const config = require('config');
 const { use } = require('@hrzn/apollo-datasource');
-const { NotificationCenterAPI, OperatorAPI, AsteriskAPI } = require('../dataSources');
+const {
+  NotificationCenterAPI,
+  OperatorAPI,
+  ProfileAPI,
+  AsteriskAPI,
+  HierarchyAPI,
+  AuthAPI,
+} = require('../dataSources');
 
 module.exports = () => ({
-  ...use([NotificationCenterAPI, OperatorAPI, AsteriskAPI], { baseUrl: config.get('apiUrl') })(),
+  ...use([NotificationCenterAPI, OperatorAPI, ProfileAPI, AsteriskAPI, HierarchyAPI, AuthAPI], {
+    baseUrl: config.get('apiUrl'),
+  })(),
 });

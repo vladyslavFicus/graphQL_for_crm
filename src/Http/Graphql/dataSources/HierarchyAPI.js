@@ -2,29 +2,29 @@ const DataLoader = require('dataloader');
 const RESTDataSource = require('@hrzn/apollo-datasource/RESTDataSource');
 const orderByArray = require('../../../utils/orderByArray');
 
-class OperatorAPI extends RESTDataSource {
+class HierarchyAPI extends RESTDataSource {
   constructor(args) {
     super(args);
 
     this.loader = new DataLoader(this._loader.bind(this));
   }
 
-  async _loader(uuids) {
-    const data = await this.post('/operator/operators/search', { uuids });
+  async _loader(userUuids) {
+    const data = await this.post('/hierarchy/user/search', { userUuids });
 
-    return orderByArray(uuids, data.content, 'uuid');
+    return orderByArray(userUuids, data.content, 'uuid');
   }
 
   /**
-   * Get operator by UUID
+   * Get hierarchy user by UUID
    *
-   * @param uuid Operator UUID
+   * @param uuid OperatorUUID
    *
    * @return {Promise}
    */
-  getByUUID(uuid) {
+  getUser(uuid) {
     return this.loader.load(uuid);
   }
 }
 
-module.exports = OperatorAPI;
+module.exports = HierarchyAPI;

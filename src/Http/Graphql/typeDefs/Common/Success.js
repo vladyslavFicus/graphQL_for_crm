@@ -1,8 +1,8 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`
-  type SuccessType {
+  type Success {
     success: Boolean!
-    error: ErrorType
+    error: Error
   }
 `;

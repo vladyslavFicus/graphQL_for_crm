@@ -84,8 +84,7 @@ const { checkMigrationQuery } = require('../../utils/profile');
 const PaymentsInputType = require('../input/PaymentsInputType');
 const PaymentsByUuidInputType = require('../input/PaymentsByUuidInputType');
 const EmailType = require('./EmailType');
-const NotificationCenterType = require('./NotificationCenterType');
-const NotificationCenterInputType = require('../input/NotificationCenterInputType');
+const PageInputType = require('../input/PageInputType');
 
 const QueryType = new GraphQLObjectType({
   name: 'Query',
@@ -323,6 +322,7 @@ const QueryType = new GraphQLObjectType({
         branchUuid: { type: GraphQLString },
         affiliateId: { type: GraphQLString },
         operatorUuids: { type: new GraphQLList(GraphQLString) },
+        uuids: { type: new GraphQLList(GraphQLString) },
       },
       resolve: getRules,
     },
@@ -374,7 +374,7 @@ const QueryType = new GraphQLObjectType({
         status: { type: GraphQLString },
         registrationDateFrom: { type: GraphQLString },
         registrationDateTo: { type: GraphQLString },
-        page: { type: GraphQLInt },
+        page: { type: PageInputType },
       },
       resolve: getOperators,
     },
@@ -388,6 +388,7 @@ const QueryType = new GraphQLObjectType({
     partners: {
       type: ResponseType(PageableType(PartnerType)),
       args: {
+        page: { type: PageInputType },
         searchBy: { type: GraphQLString },
         country: { type: GraphQLString },
         status: { type: GraphQLString },
@@ -489,25 +490,6 @@ const QueryType = new GraphQLObjectType({
     socialTrading: {
       type: SocialTradingType,
       resolve: socialTradingResolver,
-    },
-    notificationCenter: {
-      type: ResponseType(PageableType(NotificationCenterType)),
-      args: {
-        args: { type: NotificationCenterInputType },
-      },
-      resolve: getNotificationCenter,
-    },
-    notificationCenterTypes: {
-      type: ResponseType(new GraphQLList(GraphQLString), 'NotificationCenterTypes'),
-      resolve: getNotificationCenterTypes,
-    },
-    notificationCenterSubtypes: {
-      type: ResponseType(new GraphQLList(GraphQLString), 'NotificationCenterSubtypes'),
-      resolve: getNotificationCenterSubtypes,
-    },
-    notificationCenterUnread: {
-      type: ResponseType(GraphQLInt, 'NotificationCenterUnread'),
-      resolve: getNotificationCenterUnread,
     },
   }),
 });
