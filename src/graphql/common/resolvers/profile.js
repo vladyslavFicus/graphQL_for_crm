@@ -433,7 +433,6 @@ module.exports = {
   updateProfile,
   verifyPhone,
   updateEmail,
-  getProfile,
   updateBTAG,
   updateAffiliate,
   markIsTest,
