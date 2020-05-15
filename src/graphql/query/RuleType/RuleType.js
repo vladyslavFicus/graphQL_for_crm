@@ -9,6 +9,7 @@ const OperatorSpreadType = new GraphQLObjectType({
   fields: () => ({
     id: { type: new GraphQLNonNull(GraphQLInt) },
     percentage: { type: GraphQLInt },
+    parentUser: { type: GraphQLString },
     operator: {
       type: OperatorType,
       resolve: getOperator('parentUser'),
