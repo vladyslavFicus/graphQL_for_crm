@@ -22,6 +22,5 @@ module.exports = {
   filterSet: require('./filterSet'),
   brandConfig: require('./brandConfig'),
   risks: require('./risks'),
-  socialTrading: require('./socialTrading'),
   emailTemplates: require('./emailTemplates'),
 };

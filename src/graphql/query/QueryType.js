@@ -39,13 +39,6 @@ const {
   brandConfig: { getBrandConfig },
   risks: { getRisksQuestionnaire },
   emailTemplates: { getEmailTemplates, getEmailTemplate },
-  socialTrading: { socialTradingResolver },
-  notificationCenter: {
-    getNotificationCenter,
-    getNotificationCenterTypes,
-    getNotificationCenterUnread,
-    getNotificationCenterSubtypes,
-  },
 } = require('../common/resolvers');
 const PageableType = require('../common/types/PageableType');
 const ClientSearchInputType = require('../input/ClientSearchInputType');
@@ -77,7 +70,6 @@ const { RuleTypeEnum } = require('./RuleType/RuleEnums');
 const { CallbackType, CallbackStatusEnum } = require('./CallbackType');
 const OperatorType = require('./OperatorType');
 const PartnerType = require('./PartnerType');
-const SocialTradingType = require('./SocialTradingType');
 const FilterSetType = require('./FilterSetType');
 const { FilterSetTypeEnum } = require('./FilterSetType');
 const { checkMigrationQuery } = require('../../utils/profile');
@@ -486,10 +478,6 @@ const QueryType = new GraphQLObjectType({
     emailTemplates: {
       type: ResponseType(GraphQLList(EmailType), 'EmailTemplates'),
       resolve: getEmailTemplates,
-    },
-    socialTrading: {
-      type: SocialTradingType,
-      resolve: socialTradingResolver,
     },
   }),
 });
