@@ -4,6 +4,7 @@ const ProfileAPI = require('./ProfileAPI');
 const AsteriskAPI = require('./AsteriskAPI');
 const HierarchyAPI = require('./HierarchyAPI');
 const AuthAPI = require('./AuthAPI');
+const EmailAPI = require('./EmailAPI');
 
 module.exports = {
   NotificationCenterAPI,
@@ -12,4 +13,5 @@ module.exports = {
   AsteriskAPI,
   HierarchyAPI,
   AuthAPI,
+  EmailAPI,
 };

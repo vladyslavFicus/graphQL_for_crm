@@ -1,6 +1,12 @@
 const { AuthenticationError } = require('@hrzn/apollo-datasource');
 
 module.exports = {
+  emailTemplate(_, { id }, { dataSources }) {
+    return dataSources.EmailAPI.getTemplate(id);
+  },
+  emailTemplates(_, __, { dataSources }) {
+    return dataSources.EmailAPI.getTemplates();
+  },
   notificationCenter(_, { args }, { dataSources }) {
     const { hierarchical, ...argsBody } = args || {};
 

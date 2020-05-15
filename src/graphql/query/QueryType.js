@@ -6,7 +6,6 @@ const {
   GraphQLFloat,
   GraphQLString,
   GraphQLList,
-  GraphQLID,
 } = require('graphql');
 const { GraphQLJSONObject } = require('graphql-type-json');
 const ResponseType = require('../common/types/ResponseType');
@@ -38,7 +37,6 @@ const {
   tradingAccount: { getTradingAccounts, getTradingAccountsList },
   brandConfig: { getBrandConfig },
   risks: { getRisksQuestionnaire },
-  emailTemplates: { getEmailTemplates, getEmailTemplate },
 } = require('../common/resolvers');
 const PageableType = require('../common/types/PageableType');
 const ClientSearchInputType = require('../input/ClientSearchInputType');
@@ -75,7 +73,6 @@ const { FilterSetTypeEnum } = require('./FilterSetType');
 const { checkMigrationQuery } = require('../../utils/profile');
 const PaymentsInputType = require('../input/PaymentsInputType');
 const PaymentsByUuidInputType = require('../input/PaymentsByUuidInputType');
-const EmailType = require('./EmailType');
 const PageInputType = require('../input/PageInputType');
 
 const QueryType = new GraphQLObjectType({
@@ -467,17 +464,6 @@ const QueryType = new GraphQLObjectType({
         brandId: { type: GraphQLString },
       },
       resolve: getBrandConfig,
-    },
-    emailTemplate: {
-      type: ResponseType(EmailType, 'EmailTemplate'),
-      args: {
-        id: { type: GraphQLNonNull(GraphQLID) },
-      },
-      resolve: getEmailTemplate,
-    },
-    emailTemplates: {
-      type: ResponseType(GraphQLList(EmailType), 'EmailTemplates'),
-      resolve: getEmailTemplates,
     },
   }),
 });

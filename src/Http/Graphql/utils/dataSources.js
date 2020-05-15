@@ -7,10 +7,11 @@ const {
   AsteriskAPI,
   HierarchyAPI,
   AuthAPI,
+  EmailAPI,
 } = require('../dataSources');
 
 module.exports = () => ({
-  ...use([NotificationCenterAPI, OperatorAPI, ProfileAPI, AsteriskAPI, HierarchyAPI, AuthAPI], {
+  ...use([NotificationCenterAPI, OperatorAPI, ProfileAPI, AsteriskAPI, HierarchyAPI, AuthAPI, EmailAPI], {
     baseUrl: config.get('apiUrl'),
   })(),
 });
