@@ -6,7 +6,7 @@ hpa:
   enabled: true
   maxScale: 10
   cpu: 80
-  memory: 120
+  memory: 80
 replicaCount: 1
 health:
   startupProbe:
@@ -24,8 +24,8 @@ health:
     period: 5
 resources:
   requests:
-    cpu: '0.9'
-    memory: '512Mi'
+    cpu: '1'
+    memory: '768Mi'
   limits:
-    cpu: '0.9'
-    memory: '512Mi'
+    cpu: '1'
+    memory: '768Mi'
