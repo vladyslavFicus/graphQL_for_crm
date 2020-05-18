@@ -17,7 +17,7 @@ const AuthorizationMutation = new GraphQLObjectType({
           fields: () => ({
             uuid: { type: GraphQLString },
             token: { type: GraphQLString },
-            brandToAuthorities: { type: GraphQLJSONObject },
+            departmentsByBrand: { type: GraphQLJSONObject },
           }),
         }),
         'SignIn'
@@ -26,9 +26,8 @@ const AuthorizationMutation = new GraphQLObjectType({
     },
     chooseDepartment: {
       args: {
-        brand: { type: new GraphQLNonNull(GraphQLString) },
+        brandId: { type: new GraphQLNonNull(GraphQLString) },
         department: { type: new GraphQLNonNull(GraphQLString) },
-        role: { type: new GraphQLNonNull(GraphQLString) },
       },
       type: ResponseType(
         new GraphQLObjectType({

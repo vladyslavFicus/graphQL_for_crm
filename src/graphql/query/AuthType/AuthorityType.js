@@ -4,7 +4,7 @@ const AuthorityType = new GraphQLObjectType({
   name: 'Authority',
   fields() {
     return {
-      brand: {
+      brandId: {
         type: new GraphQLNonNull(GraphQLString),
       },
       department: {

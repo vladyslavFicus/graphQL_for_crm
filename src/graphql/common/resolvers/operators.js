@@ -110,8 +110,8 @@ const getOperator = fieldName => ({ [fieldName]: operatorId }, _, { dataloaders 
   return dataloaders.operators.load(operatorId);
 };
 
-const removeDepartment = async (_, args, { headers: { authorization }, brand: { id: brand } }) => {
-  const removedAuthorities = await removeAuthorities({ ...args, brand }, authorization);
+const removeDepartment = async (_, args, { headers: { authorization }, brand: { id: brandId } }) => {
+  const removedAuthorities = await removeAuthorities({ ...args, brandId }, authorization);
   const authorities = await getAuthorities(args.uuid, authorization);
 
   return {
@@ -122,8 +122,8 @@ const removeDepartment = async (_, args, { headers: { authorization }, brand: { 
   };
 };
 
-const addDepartment = async (_, args, { headers: { authorization }, brand: { id: brand } }) => {
-  const addedAuthorities = await addAuthorities({ ...args, brand }, authorization);
+const addDepartment = async (_, args, { headers: { authorization }, brand: { id: brandId } }) => {
+  const addedAuthorities = await addAuthorities({ ...args, brandId }, authorization);
   const authorities = await getAuthorities(args.uuid, authorization);
 
   return {

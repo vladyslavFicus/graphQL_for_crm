@@ -14,6 +14,28 @@ const {
 const { getOperatorByUUID } = require('./operators');
 const { statuses } = require('../../../constants/player');
 
+const passwordResetRequest = (_, { playerUUID }, { headers: { authorization }, brand: { id: brandId } }) => {
+  return fetch(`${config.get('apiUrl')}/auth/password/${brandId}/${playerUUID}/reset/request`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      authorization,
+      'Content-Type': 'application/json',
+    },
+  }).then(response => ({ success: response.status === 200 }));
+};
+const changePassword = (_, { playerUUID, ...args }, { headers: { authorization } }) => {
+  return fetch(`${config.get('apiUrl')}/auth/credentials/${playerUUID}/password`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      authorization,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(args),
+  }).then(response => ({ success: response.status === 200 }));
+};
+
 const updateBTAG = async function(_, { playerUUID, ...args }, context) {
   const {
     headers: { authorization },
@@ -433,6 +455,8 @@ module.exports = {
   updateProfile,
   verifyPhone,
   updateEmail,
+  passwordResetRequest,
+  changePassword,
   updateBTAG,
   updateAffiliate,
   markIsTest,
