@@ -1,9 +1,9 @@
-const config = require('config');
 const fetch = require('../fetch');
+const getBaseUrl = require('../getBaseUrl');
 const { PAYMENT_TYPES } = require('../../constants/payment');
 
 const getPayments = (args, authorization) => {
-  return fetch(`${config.get('apiUrl')}/payment/search`, {
+  return fetch(`${getBaseUrl('payment')}/search`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -20,7 +20,7 @@ const createPayment = (paymentType, args, authorization) => {
   if ([PAYMENT_TYPES.DEPOSIT.toLowerCase()].includes(paymentType.toLowerCase())) {
     postfix = '/manual';
   }
-  return fetch(`${config.get('apiUrl')}/payment/${paymentType.toLowerCase()}${postfix || ''}`, {
+  return fetch(`${getBaseUrl('payment')}/${paymentType.toLowerCase()}${postfix || ''}`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -32,7 +32,7 @@ const createPayment = (paymentType, args, authorization) => {
 };
 
 const getPaymentsStatistics = (data, authorization) => {
-  return fetch(`${config.get('apiUrl')}/payment/statistics`, {
+  return fetch(`${getBaseUrl('payment')}/statistics`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -44,7 +44,7 @@ const getPaymentsStatistics = (data, authorization) => {
 };
 
 const getPaymentMethods = authorization =>
-  fetch(`${config.get('apiUrl')}/payment/metadata/payment-methods`, {
+  fetch(`${getBaseUrl('payment')}/metadata/payment-methods`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -54,7 +54,7 @@ const getPaymentMethods = authorization =>
   }).then(response => response.json());
 
 const getManualPaymentMethods = authorization =>
-  fetch(`${config.get('apiUrl')}/payment/metadata/manual-payment-methods`, {
+  fetch(`${getBaseUrl('payment')}/metadata/manual-payment-methods`, {
     method: 'GET',
     headers: {
       accept: 'application/json',

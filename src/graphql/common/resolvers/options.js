@@ -1,9 +1,9 @@
-const config = require('config');
 const fetch = require('../../../utils/fetch');
 const parseJson = require('../../../utils/parseJson');
+const getBaseUrl = require('../../../utils/getBaseUrl');
 
-const signUpOptions = function(_, { brandId }) {
-  return fetch(`${config.get('apiUrl')}/profile/public/signup?brandId=${brandId}`, { method: 'OPTIONS' })
+const signUpOptions = (_, { brandId }) => {
+  return fetch(`${getBaseUrl('profile')}/public/signup?brandId=${brandId}`, { method: 'OPTIONS' })
     .then(response => response.text())
     .then(response => parseJson(response))
     .then(response => ({ ...response, brandId }));

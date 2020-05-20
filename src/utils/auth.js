@@ -1,9 +1,9 @@
-const config = require('config');
 const fetch = require('./fetch');
+const getBaseUrl = require('./getBaseUrl');
 const buildQueryString = require('./buildQueryString');
 
 const getPermission = authorization => {
-  return fetch(`${config.get('apiUrl')}/auth2/users/actions`, {
+  return fetch(`${getBaseUrl('auth2')}/users/actions`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -14,7 +14,7 @@ const getPermission = authorization => {
 };
 
 const changeClientPassword = ({ clientUuid, ...args }, authorization) => {
-  return fetch(`${config.get('apiUrl')}/auth2/password/player/${clientUuid}`, {
+  return fetch(`${getBaseUrl('auth2')}/password/player/${clientUuid}`, {
     method: 'PUT',
     headers: {
       Accept: 'application/json',
@@ -26,7 +26,7 @@ const changeClientPassword = ({ clientUuid, ...args }, authorization) => {
 };
 
 const changeOperatorPassword = ({ operatorUuid, ...args }, authorization) => {
-  return fetch(`${config.get('apiUrl')}/auth2/password/operator/${operatorUuid}`, {
+  return fetch(`${getBaseUrl('auth2')}/password/operator/${operatorUuid}`, {
     method: 'PUT',
     headers: {
       Accept: 'application/json',
@@ -38,7 +38,7 @@ const changeOperatorPassword = ({ operatorUuid, ...args }, authorization) => {
 };
 
 const resetUserPassword = (userUuid, authorization) => {
-  return fetch(`${config.get('apiUrl')}/auth2/password/user/${userUuid}/reset`, {
+  return fetch(`${getBaseUrl('auth2')}/password/user/${userUuid}/reset`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -49,7 +49,7 @@ const resetUserPassword = (userUuid, authorization) => {
 };
 
 const getAllAuthorities = (brand, authorization) => {
-  return fetch(`${config.get('apiUrl')}/auth2/authorities?${buildQueryString({ brand })}`, {
+  return fetch(`${getBaseUrl('auth2')}/authorities?${buildQueryString({ brand })}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -60,7 +60,7 @@ const getAllAuthorities = (brand, authorization) => {
 };
 
 const getAuthorities = (uuid, authorization) => {
-  return fetch(`${config.get('apiUrl')}/auth2/users/${uuid}/authorities`, {
+  return fetch(`${getBaseUrl('auth2')}/users/${uuid}/authorities`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -71,7 +71,7 @@ const getAuthorities = (uuid, authorization) => {
 };
 
 const addAuthorities = ({ uuid, ...args }, authorization) => {
-  return fetch(`${config.get('apiUrl')}/auth2/users/${uuid}/authorities`, {
+  return fetch(`${getBaseUrl('auth2')}/users/${uuid}/authorities`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -83,7 +83,7 @@ const addAuthorities = ({ uuid, ...args }, authorization) => {
 };
 
 const removeAuthorities = ({ uuid, ...args }, authorization) => {
-  return fetch(`${config.get('apiUrl')}/auth2/users/${uuid}/authorities`, {
+  return fetch(`${getBaseUrl('auth2')}/users/${uuid}/authorities`, {
     method: 'DELETE',
     headers: {
       accept: 'application/json',
