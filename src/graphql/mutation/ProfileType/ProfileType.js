@@ -9,8 +9,6 @@ const {
     suspendProlong,
     resume,
     unblock,
-    updateBTAG,
-    updateAffiliate,
     suspend,
     changeProfileStatus,
     verifyPhone,
@@ -106,22 +104,6 @@ const PlayerMutation = new GraphQLObjectType({
       },
       type: ResponseType(PlayerProfileType, 'PlayerUnblock'),
       resolve: unblock,
-    },
-    updateBTAG: {
-      args: {
-        playerUUID: { type: new GraphQLNonNull(GraphQLString) },
-        btag: { type: new GraphQLNonNull(GraphQLString) },
-      },
-      type: ResponseType(PlayerProfileType, 'PlayerBTAG'),
-      resolve: updateBTAG,
-    },
-    updateAffiliate: {
-      args: {
-        playerUUID: { type: new GraphQLNonNull(GraphQLString) },
-        affiliateId: { type: new GraphQLNonNull(GraphQLString) },
-      },
-      type: ResponseType(PlayerProfileType, 'PlayerAffiliate'),
-      resolve: updateAffiliate,
     },
     changeProfileStatus: {
       args: {
