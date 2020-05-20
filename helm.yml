@@ -4,9 +4,9 @@ secret: false
 java: false
 hpa:
   enabled: true
-  maxScale: 6
-  cpu: 180
-  memory: 270
+  maxScale: 10
+  cpu: 80
+  memory: 80
 replicaCount: 1
 health:
   startupProbe:
@@ -24,8 +24,8 @@ health:
     period: 5
 resources:
   requests:
-    cpu: '0.5'
-    memory: '512Mi'
+    cpu: '1'
+    memory: '768Mi'
   limits:
     cpu: '1'
-    memory: '1536Mi'
+    memory: '768Mi'

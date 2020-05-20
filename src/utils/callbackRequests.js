@@ -1,8 +1,8 @@
-const config = require('config');
 const fetch = require('./fetch');
+const getBaseUrl = require('./getBaseUrl');
 
 const getCallbacks = (args, authorization) => {
-  return fetch(`${config.get('apiUrl')}/callback/search`, {
+  return fetch(`${getBaseUrl('callback')}/search`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -14,7 +14,7 @@ const getCallbacks = (args, authorization) => {
 };
 
 const createCallback = (args, authorization) => {
-  return fetch(`${config.get('apiUrl')}/callback/`, {
+  return fetch(`${getBaseUrl('callback')}/`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -26,7 +26,7 @@ const createCallback = (args, authorization) => {
 };
 
 const updateCallback = ({ callbackId, ...args }, authorization) => {
-  return fetch(`${config.get('apiUrl')}/callback/${callbackId}`, {
+  return fetch(`${getBaseUrl('callback')}/${callbackId}`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',

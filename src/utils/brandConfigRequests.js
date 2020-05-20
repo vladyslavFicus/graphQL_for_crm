@@ -1,8 +1,8 @@
-const config = require('config');
 const fetch = require('./fetch');
+const getBaseUrl = require('./getBaseUrl');
 
 const getBrandConfigRequest = (brandId, authorization) =>
-  fetch(`${config.get('apiUrl')}/brand-config-service/brand/${brandId}`, {
+  fetch(`${getBaseUrl('brand-config-service')}/brand/${brandId}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -12,7 +12,7 @@ const getBrandConfigRequest = (brandId, authorization) =>
   }).then(response => response.json());
 
 const createBrandConfigRequest = (args, authorization) =>
-  fetch(`${config.get('apiUrl')}/brand-config-service/brand`, {
+  fetch(`${getBaseUrl('brand-config-service')}/brand`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -23,7 +23,7 @@ const createBrandConfigRequest = (args, authorization) =>
   }).then(response => response.json());
 
 const updateBrandConfigRequest = (args, authorization) =>
-  fetch(`${config.get('apiUrl')}/brand-config-service/brand`, {
+  fetch(`${getBaseUrl('brand-config-service')}/brand`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',
@@ -34,7 +34,7 @@ const updateBrandConfigRequest = (args, authorization) =>
   }).then(response => response.json());
 
 const deleteBrandConfigRequest = (brandId, authorization) =>
-  fetch(`${config.get('apiUrl')}/brand-config-service/brand/${brandId}`, {
+  fetch(`${getBaseUrl('brand-config-service')}/brand/${brandId}`, {
     method: 'DELETE',
     headers: {
       accept: 'application/json',

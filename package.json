@@ -24,7 +24,7 @@
     "prettier": "^1.14.2"
   },
   "dependencies": {
-    "@hrzn/apollo-extension": "^1.0.7",
+    "@hrzn/apollo-extension": "^1.0.12",
     "@hrzn/brands-config": "1.0.10",
     "@hrzn/k8s-configmap": "^1.0.1",
     "apollo-server-express": "^2.12.0",
