@@ -19,7 +19,7 @@ module.exports = (req, res, next) => {
       if (decodedToken) {
         req.auth.department = decodedToken.department;
         req.auth.brandId = decodedToken.brandId;
-        req.auth.uuid = decodedToken.user_uuid;
+        req.auth.uuid = decodedToken.uuid;
       }
     } catch (e) {
       return res
