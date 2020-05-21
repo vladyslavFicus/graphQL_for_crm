@@ -12,6 +12,7 @@ const NotificationCenterDetailsType = new GraphQLObjectType({
     platformType: { type: GraphQLString },
     amount: { type: GraphQLString },
     currency: { type: GraphQLString },
+    callbackTime: { type: GraphQLString },
   }),
 });
 
