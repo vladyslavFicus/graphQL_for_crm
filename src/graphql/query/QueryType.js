@@ -37,7 +37,6 @@ const {
   filterSet: { getFilterSets, getFilterSetById },
   tradingAccount: { getTradingAccounts, getTradingAccountsList },
   brandConfig: { getBrandConfig },
-  risks: { getRisksQuestionnaire },
   emailTemplates: { getEmailTemplates, getEmailTemplate },
   socialTrading: { socialTradingResolver },
   notificationCenter: {
@@ -72,7 +71,6 @@ const { SalesStatusesEnum: TradingSalesStatuses } = require('./TradingProfileTyp
 const HierarchyQueryType = require('./HierarchyQueryType');
 const QuestionnaireQueryType = require('./QuestionnaireQueryType');
 const RuleType = require('./RuleType');
-const RisksType = require('./RisksType');
 const { RuleTypeEnum } = require('./RuleType/RuleEnums');
 const { CallbackType, CallbackStatusEnum } = require('./CallbackType');
 const OperatorType = require('./OperatorType');
@@ -339,13 +337,6 @@ const QueryType = new GraphQLObjectType({
         parentId: { type: GraphQLString },
       },
       resolve: getRulesRetention,
-    },
-    riskQuestionnaire: {
-      type: ResponseType(RisksType, 'RiskQuestionnaireDataType'),
-      args: {
-        clientUuid: { type: GraphQLString },
-      },
-      resolve: getRisksQuestionnaire,
     },
     callbacks: {
       type: ResponseType(PageableType(CallbackType), 'PageableCallbackType'),
