@@ -11,7 +11,6 @@ const {
 const { getOperatorByUUID } = require('./operators');
 const { statuses } = require('../../../constants/player');
 
-
 const updateSubscription = async (_, { playerUUID, ...args }, context) => {
   const {
     headers: { authorization },
