@@ -21,7 +21,6 @@ module.exports = {
   metabase: require('./metabase'),
   filterSet: require('./filterSet'),
   brandConfig: require('./brandConfig'),
-  socialTrading: require('./socialTrading'),
   emailTemplates: require('./emailTemplates'),
   notificationCenter: require('./notificationCenter'),
   asterisk: require('./asterisk'),

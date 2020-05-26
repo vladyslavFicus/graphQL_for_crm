@@ -25,7 +25,6 @@ const ClientSearchInputType = new GraphQLInputObjectType({
     },
     countries: { type: new GraphQLList(GraphQLString) },
     desks: { type: new GraphQLList(GraphQLString) },
-    fsaMigrationStatus: { type: GraphQLString },
     firstTimeDeposit: { type: GraphQLBoolean },
     kycStatuses: { type: new GraphQLList(GraphQLString) },
     lastLoginDateRange: {
