@@ -1,40 +1,30 @@
-const config = require('config');
+const { get } = require('lodash');
 const fetch = require('../../../utils/fetch');
-const parseJson = require('../../../utils/parseJson');
-const { getAuthorities: getAuthoritiesRequest, getPermission: getPermissionRequest } = require('../../../utils/auth');
+const getBaseUrl = require('../../../utils/getBaseUrl');
+const {
+  getPermission: getPermissionRequest,
+  getAuthorities: getAuthoritiesRequest,
+  getAllAuthorities: getAllAuthoritiesRequest,
+  changeClientPassword: changeClientPasswordRequest,
+  changeOperatorPassword: changeOperatorPasswordRequest,
+  resetUserPassword: resetUserPasswordRequest,
+} = require('../../../utils/auth');
 
-const getCredentialsLock = function(_, { playerUUID }, { headers: { authorization } }) {
-  return fetch(`${config.get('apiUrl')}/auth/credentials/${playerUUID}/lock`, {
+const changeClientPassword = (_, args, { headers: { authorization } }) => {
+  return changeClientPasswordRequest(args, authorization);
+};
+
+const changeOperatorPassword = (_, args, { headers: { authorization } }) => {
+  return changeOperatorPasswordRequest(args, authorization);
+};
+
+const resetUserPassword = (_, { userUuid }, { headers: { authorization } }) => {
+  return resetUserPasswordRequest(userUuid, authorization);
+};
+
+const getCredentialsLock = (_, { playerUUID }, { headers: { authorization } }) => {
+  return fetch(`${getBaseUrl('auth2')}/lock/${playerUUID}`, {
     method: 'GET',
-    headers: {
-      accept: 'application/json',
-      authorization,
-      'content-type': 'application/json',
-    },
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response));
-};
-
-const removeCredentialsLock = function(_, { playerUUID }, { headers: { authorization } }) {
-  return fetch(`${config.get('apiUrl')}/auth/credentials/${playerUUID}/lock`, {
-    method: 'DELETE',
-    headers: {
-      accept: 'application/json',
-      authorization,
-      'content-type': 'application/json',
-    },
-  })
-    .then(response => response.text().then(text => ({ status: response.status, text })))
-    .then(response => ({ ...response, json: parseJson(response.text) }))
-    .then(response =>
-      response.status === 200 ? { data: { success: true } } : { error: response.json, data: { success: false } }
-    );
-};
-
-const getAuthoritiesOptions = (_, args, { headers: { authorization }, userUUID }) => {
-  return fetch(`${config.get('apiUrl')}/auth/credentials/${userUUID}/authorities`, {
-    method: 'OPTIONS',
     headers: {
       accept: 'application/json',
       authorization,
@@ -43,16 +33,52 @@ const getAuthoritiesOptions = (_, args, { headers: { authorization }, userUUID }
   }).then(response => response.json());
 };
 
-const getAuthorities = (_, { uuid }, { headers: { authorization } }) => getAuthoritiesRequest(uuid, authorization);
-
-const getPermissions = async (_, __, { headers: { authorization } }) => {
-  const response = await getPermissionRequest(authorization);
-
-  return { data: [...response.data.map(item => `${item.serviceName};${item.httpMethod};${item.urlPattern}`)] };
+const removeCredentialsLock = (_, { playerUUID }, { headers: { authorization } }) => {
+  return fetch(`${getBaseUrl('auth2')}/lock/${playerUUID}`, {
+    method: 'DELETE',
+    headers: {
+      accept: 'application/json',
+      authorization,
+      'content-type': 'application/json',
+    },
+  }).then(response => ({ success: response.status === 200 }));
 };
 
-const logout = function(_, __, { headers: { authorization } }) {
-  return fetch(`${config.get('apiUrl')}/auth/logout`, {
+const getAuthoritiesOptions = async (_, __, { headers: { authorization }, brand: { id: brand } }) => {
+  const response = await getAllAuthoritiesRequest(brand, authorization);
+
+  const authorities = get(response, `data.authoritiesPerBrand.${brand}`) || [];
+  const authoritiesOptions = {};
+
+  authorities.map(({ department, role }) => {
+    if (department === 'ADMINISTRATION' || department === 'PLAYER') {
+      return;
+    }
+
+    if (Array.isArray(authoritiesOptions[department])) {
+      return authoritiesOptions[department].push(role);
+    }
+
+    return (authoritiesOptions[department] = [role]);
+  });
+
+  return { data: { authoritiesOptions } };
+};
+
+const getAuthorities = (_, { uuid }, { headers: { authorization } }) => {
+  return getAuthoritiesRequest(uuid, authorization);
+};
+
+const getPermissions = async (_, __, { headers: { authorization } }) => {
+  const {
+    data: { actions },
+  } = await getPermissionRequest(authorization);
+
+  return { data: actions };
+};
+
+const logout = (_, __, { headers: { authorization } }) => {
+  return fetch(`${getBaseUrl('auth2')}/logout`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -62,19 +88,21 @@ const logout = function(_, __, { headers: { authorization } }) {
   }).then(response => ({ success: response.status === 200 }));
 };
 
-const tokenRenew = function(_, __, { headers: { authorization } }) {
-  return fetch(`${config.get('apiUrl')}/auth/token/renew?token=${authorization.replace('Bearer ', '')}`, {
-    method: 'GET',
+const tokenRenew = (_, __, { headers: { authorization } }) => {
+  return fetch(`${getBaseUrl('auth2')}/token/renew`, {
+    method: 'POST',
     headers: {
       accept: 'application/json',
       authorization,
       'content-type': 'application/json',
     },
-  }).then(response => response.json().then(({ data: { jwtToken } }) => ({ token: jwtToken })));
+  })
+    .then(response => response.json())
+    .then(({ data: { token } }) => ({ token }));
 };
 
-const resetPassword = function(_, args, { headers: { authorization } }) {
-  return fetch(`${config.get('apiUrl')}/auth/password/reset`, {
+const resetPassword = (_, args, { headers: { authorization } }) => {
+  return fetch(`${getBaseUrl('auth2')}/password/token`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -86,6 +114,9 @@ const resetPassword = function(_, args, { headers: { authorization } }) {
 };
 
 module.exports = {
+  changeClientPassword,
+  changeOperatorPassword,
+  resetUserPassword,
   credentials: {
     getLoginLock: getCredentialsLock,
     removeLoginLock: removeCredentialsLock,

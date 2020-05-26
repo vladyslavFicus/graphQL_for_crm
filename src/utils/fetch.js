@@ -12,7 +12,7 @@ const logResponseError = (response, url, { headers, method }, messageTitle) => {
   const failedResponse = parseJson(response);
   const error = failedResponse.message || failedResponse.error || failedResponse.jwtError || 'Something went wrong';
   const errorDescription = typeof error === 'string' ? error : JSON.stringify(error);
-  const { sub, role, department, user_uuid, brandId } = jwtDecode(headers.authorization);
+  const { sub, role, department, uuid, brandId } = jwtDecode(headers.authorization);
 
   Logger.error({
     // * and _ this is markdown for better look in Slack
@@ -20,7 +20,7 @@ const logResponseError = (response, url, { headers, method }, messageTitle) => {
       `${messageTitle} - *${serviceName}*. Error: ${errorDescription} \n` +
       `*Brand*: ${brandId} \n` +
       `*URL*: ${url}, _method_: ${method} \n` +
-      `*Operator*: _id_ - ${user_uuid}, _role_ - ${role}, _department_ - ${department}, _email_: ${sub}`,
+      `*Operator*: _id_ - ${uuid}, _role_ - ${role}, _department_ - ${department}, _email_: ${sub}`,
     status: response.status,
     response: failedResponse,
     originService: serviceName,

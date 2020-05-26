@@ -1,5 +1,4 @@
 const { GraphQLInputObjectType, GraphQLObjectType, GraphQLBoolean, GraphQLNonNull, GraphQLString } = require('graphql');
-
 const ResponseType = require('../../common/types/ResponseType');
 const PlayerProfileType = require('../../query/PlayerProfileType');
 const NewPlayerProfileType = require('../../query/NewPlayerProfileType');
@@ -10,8 +9,6 @@ const {
     suspendProlong,
     resume,
     unblock,
-    updateBTAG,
-    updateAffiliate,
     suspend,
     changeProfileStatus,
     verifyPhone,
@@ -19,8 +16,6 @@ const {
     verifyProfile,
     updateEmail,
     updateProfile,
-    changePassword,
-    passwordResetRequest,
     markIsTest,
     clickToCall,
     updateRegulated,
@@ -31,6 +26,7 @@ const {
     updateContacts,
     updateAddress,
   },
+  auth: { resetUserPassword, changeClientPassword },
 } = require('../../common/resolvers');
 
 const SuspendDurationType = new GraphQLInputObjectType({
@@ -109,22 +105,6 @@ const PlayerMutation = new GraphQLObjectType({
       type: ResponseType(PlayerProfileType, 'PlayerUnblock'),
       resolve: unblock,
     },
-    updateBTAG: {
-      args: {
-        playerUUID: { type: new GraphQLNonNull(GraphQLString) },
-        btag: { type: new GraphQLNonNull(GraphQLString) },
-      },
-      type: ResponseType(PlayerProfileType, 'PlayerBTAG'),
-      resolve: updateBTAG,
-    },
-    updateAffiliate: {
-      args: {
-        playerUUID: { type: new GraphQLNonNull(GraphQLString) },
-        affiliateId: { type: new GraphQLNonNull(GraphQLString) },
-      },
-      type: ResponseType(PlayerProfileType, 'PlayerAffiliate'),
-      resolve: updateAffiliate,
-    },
     changeProfileStatus: {
       args: {
         playerUUID: { type: new GraphQLNonNull(GraphQLString) },
@@ -137,32 +117,18 @@ const PlayerMutation = new GraphQLObjectType({
     },
     passwordResetRequest: {
       args: {
-        playerUUID: { type: new GraphQLNonNull(GraphQLString) },
+        userUuid: { type: new GraphQLNonNull(GraphQLString) },
       },
-      type: new GraphQLObjectType({
-        name: 'passwordResetRequest',
-        fields: () => ({
-          success: {
-            type: new GraphQLNonNull(GraphQLBoolean),
-          },
-        }),
-      }),
-      resolve: passwordResetRequest,
+      type: SuccessType,
+      resolve: resetUserPassword,
     },
     changePassword: {
       args: {
-        playerUUID: { type: new GraphQLNonNull(GraphQLString) },
-        password: { type: new GraphQLNonNull(GraphQLString) },
+        clientUuid: { type: new GraphQLNonNull(GraphQLString) },
+        newPassword: { type: new GraphQLNonNull(GraphQLString) },
       },
-      type: new GraphQLObjectType({
-        name: 'changePassword',
-        fields: () => ({
-          success: {
-            type: new GraphQLNonNull(GraphQLBoolean),
-          },
-        }),
-      }),
-      resolve: changePassword,
+      type: SuccessType,
+      resolve: changeClientPassword,
     },
     update: {
       args: {
@@ -314,14 +280,7 @@ const PlayerMutation = new GraphQLObjectType({
       args: {
         number: { type: new GraphQLNonNull(GraphQLString) },
       },
-      type: new GraphQLObjectType({
-        name: 'ClickToCall',
-        fields: () => ({
-          success: {
-            type: new GraphQLNonNull(GraphQLBoolean),
-          },
-        }),
-      }),
+      type: SuccessType,
       resolve: clickToCall,
     },
     updateRegulated: {
@@ -330,14 +289,7 @@ const PlayerMutation = new GraphQLObjectType({
         fatca: { type: new GraphQLNonNull(GraphQLBoolean) },
         crs: { type: GraphQLBoolean },
       },
-      type: new GraphQLObjectType({
-        name: 'RegulatedResponseType',
-        fields: () => ({
-          success: {
-            type: new GraphQLNonNull(GraphQLBoolean),
-          },
-        }),
-      }),
+      type: SuccessType,
       resolve: updateRegulated,
     },
     updateKYCStatus: {
@@ -349,14 +301,7 @@ const PlayerMutation = new GraphQLObjectType({
           type: GraphQLString,
         },
       },
-      type: new GraphQLObjectType({
-        name: 'UpdateKYCStatusType',
-        fields: () => ({
-          success: {
-            type: new GraphQLNonNull(GraphQLBoolean),
-          },
-        }),
-      }),
+      type: SuccessType,
       resolve: updateKYCStatus,
     },
     updateConfiguration: {
@@ -374,14 +319,7 @@ const PlayerMutation = new GraphQLObjectType({
           type: GraphQLBoolean,
         },
       },
-      type: new GraphQLObjectType({
-        name: 'UpdateConfigurationType',
-        fields: () => ({
-          success: {
-            type: new GraphQLNonNull(GraphQLBoolean),
-          },
-        }),
-      }),
+      type: SuccessType,
       resolve: updateConfiguration,
     },
     updateContacts: {

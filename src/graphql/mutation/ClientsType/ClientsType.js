@@ -8,10 +8,9 @@ const {
   GraphQLBoolean,
 } = require('graphql');
 const {
-  clients: { bulkRepresentativeUpdate, bulkMigrationUpdate },
+  clients: { bulkRepresentativeUpdate },
 } = require('../../common/resolvers');
 const { ResponseType } = require('../../common/types');
-const SuccessType = require('../../query/SuccessType');
 const ClientSearchInputType = require('../../input/ClientSearchInputType');
 
 const ClientBulkUpdateType = new GraphQLInputObjectType({
@@ -20,13 +19,6 @@ const ClientBulkUpdateType = new GraphQLInputObjectType({
     uuid: { type: new GraphQLNonNull(GraphQLString) },
     salesRepresentative: { type: GraphQLString },
     retentionRepresentative: { type: GraphQLString },
-  }),
-});
-
-const ClientBulkMigrateType = new GraphQLInputObjectType({
-  name: 'ClientBulkMigrateType',
-  fields: () => ({
-    uuid: { type: new GraphQLNonNull(GraphQLString) },
   }),
 });
 
@@ -49,16 +41,6 @@ const ClientsMutation = new GraphQLObjectType({
       },
       type: ResponseType(GraphQLString, 'clientRepresentativeBulkUpdate'),
       resolve: bulkRepresentativeUpdate,
-    },
-    bulkMigrationUpdate: {
-      args: {
-        clients: { type: new GraphQLList(ClientBulkMigrateType) },
-        searchParams: { type: ClientSearchInputType },
-        allRowsSelected: { type: GraphQLBoolean },
-        totalElements: { type: GraphQLInt },
-      },
-      type: SuccessType,
-      resolve: bulkMigrationUpdate,
     },
   }),
 });

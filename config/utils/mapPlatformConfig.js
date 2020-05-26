@@ -1,7 +1,7 @@
 const { get } = require('lodash');
 
 module.exports = config => ({
-  apiUrl: __DEV__ ? get(config, 'hrzn.api_url') : 'http://kong',
+  apiUrl: config.hrzn.api_url,
   logstash: {
     host: config.logstash.url,
     port: 12201,

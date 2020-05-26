@@ -1,8 +1,8 @@
-const config = require('config');
 const fetch = require('./fetch');
+const getBaseUrl = require('./getBaseUrl');
 
 const updateNotificationCenterRequest = (args, authorization) => {
-  return fetch(`${config.get('apiUrl')}/notification/admin/notifications/bulk/read`, {
+  return fetch(`${getBaseUrl('notification')}/admin/notifications/bulk/read`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',
@@ -14,7 +14,7 @@ const updateNotificationCenterRequest = (args, authorization) => {
 };
 
 const getNotificationCenterRequest = ({ hierarchical, ...args }, authorization) => {
-  return fetch(`${config.get('apiUrl')}/notification/admin/notifications/search?hierarchical=${hierarchical}`, {
+  return fetch(`${getBaseUrl('notification')}/admin/notifications/search?hierarchical=${hierarchical}`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -26,7 +26,7 @@ const getNotificationCenterRequest = ({ hierarchical, ...args }, authorization) 
 };
 
 const getNotificationCenterTypesRequest = authorization => {
-  return fetch(`${config.get('apiUrl')}/notification/admin/notifications/types`, {
+  return fetch(`${getBaseUrl('notification')}/admin/notifications/types`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -37,7 +37,7 @@ const getNotificationCenterTypesRequest = authorization => {
 };
 
 const getNotificationCenterSubtypesRequest = authorization => {
-  return fetch(`${config.get('apiUrl')}/notification/admin/notifications/subtypes`, {
+  return fetch(`${getBaseUrl('notification')}/admin/notifications/subtypes`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -48,7 +48,7 @@ const getNotificationCenterSubtypesRequest = authorization => {
 };
 
 const getNotificationCenterUnreadRequest = authorization => {
-  return fetch(`${config.get('apiUrl')}/notification/admin/notifications/unread/amount`, {
+  return fetch(`${getBaseUrl('notification')}/admin/notifications/unread/amount`, {
     method: 'GET',
     headers: {
       accept: 'application/json',

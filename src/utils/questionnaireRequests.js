@@ -1,6 +1,5 @@
-const config = require('config');
 const fetch = require('./fetch');
-const buildQueryString = require('./buildQueryString');
+const getBaseUrl = require('./getBaseUrl');
 
 /**
  * Get last questionnaire data for profile
@@ -11,7 +10,7 @@ const buildQueryString = require('./buildQueryString');
  * @return {*}
  */
 const getLastProfileData = (profileUUID, authorization) => {
-  return fetch(`${config.get('apiUrl')}/questionnaire/profile/${profileUUID}`, {
+  return fetch(`${getBaseUrl('questionnaire')}/profile/${profileUUID}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -31,7 +30,7 @@ const getLastProfileData = (profileUUID, authorization) => {
  * @return {*}
  */
 const changeStatus = ({ questionnaireUUID, ...args }, authorization) => {
-  return fetch(`${config.get('apiUrl')}/questionnaire/${questionnaireUUID}`, {
+  return fetch(`${getBaseUrl('questionnaire')}/${questionnaireUUID}`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',

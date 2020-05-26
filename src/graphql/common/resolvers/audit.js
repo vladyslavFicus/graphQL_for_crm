@@ -1,9 +1,9 @@
-const config = require('config');
 const fetch = require('../../../utils/fetch');
+const getBaseUrl = require('../../../utils/getBaseUrl');
 const { getOperator } = require('../../common/resolvers/operators');
 
-const getFeeds = function(_, args, { headers: { authorization } }) {
-  return fetch(`${config.get('apiUrl')}/audit/logs/search`, {
+const getFeeds = (_, args, { headers: { authorization } }) => {
+  return fetch(`${getBaseUrl('audit')}/logs/search`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -14,7 +14,7 @@ const getFeeds = function(_, args, { headers: { authorization } }) {
   }).then(response => response.json());
 };
 
-const getAssignedToOperator = async function(...args) {
+const getAssignedToOperator = async (...args) => {
   const [source] = args;
   const { type, details } = source;
 
@@ -25,8 +25,8 @@ const getAssignedToOperator = async function(...args) {
   }
 };
 
-const getFeedTypes = function(_, { playerUUID }, { headers: { authorization } }) {
-  return fetch(`${config.get('apiUrl')}/audit/logs/${playerUUID}/types`, {
+const getFeedTypes = (_, { playerUUID }, { headers: { authorization } }) => {
+  return fetch(`${getBaseUrl('audit')}/logs/${playerUUID}/types`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -36,7 +36,7 @@ const getFeedTypes = function(_, { playerUUID }, { headers: { authorization } })
   }).then(response => response.json());
 };
 
-const getDetails = async function(...args) {
+const getDetails = async (...args) => {
   const [source] = args;
   const { type, details } = source;
 
