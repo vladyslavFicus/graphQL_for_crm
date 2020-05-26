@@ -43,12 +43,10 @@ const PartnerType = new GraphQLObjectType({
     statusReason: { type: GraphQLString },
     createdBy: { type: GraphQLString },
     createdAt: { type: GraphQLString },
-    cellexpert: { type: GraphQLBoolean },
     public: { type: GraphQLBoolean },
     tradingAccountAutocreation: { type: GraphQLString },
     tradingAccountType: { type: GraphQLString },
     tradingAccountCurrency: { type: GraphQLString },
-    satellite: { type: GraphQLString },
     permission: { type: PartnerPermissionType },
     authorities: {
       type: ResponseType(new GraphQLList(AuthorityType), 'PartnerAuthoritiesList'),
