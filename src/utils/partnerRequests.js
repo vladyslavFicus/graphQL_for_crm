@@ -1,8 +1,8 @@
-const config = require('config');
 const fetch = require('./fetch');
+const getBaseUrl = require('./getBaseUrl');
 
 const getPartners = (args, authorization) => {
-  return fetch(`${config.get('apiUrl')}/affiliate/affiliates/search`, {
+  return fetch(`${getBaseUrl('affiliate')}/affiliates/search`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -14,7 +14,7 @@ const getPartners = (args, authorization) => {
 };
 
 const getPartnerByUUID = (partnerId, authorization) => {
-  return fetch(`${config.get('apiUrl')}/affiliate/affiliates/${partnerId}`, {
+  return fetch(`${getBaseUrl('affiliate')}/affiliates/${partnerId}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -25,7 +25,7 @@ const getPartnerByUUID = (partnerId, authorization) => {
 };
 
 const updatePartner = ({ uuid, ...args }, authorization) => {
-  return fetch(`${config.get('apiUrl')}/affiliate/affiliates/${uuid}`, {
+  return fetch(`${getBaseUrl('affiliate')}/affiliates/${uuid}`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',
@@ -37,7 +37,7 @@ const updatePartner = ({ uuid, ...args }, authorization) => {
 };
 
 const createPartner = (args, authorization) => {
-  return fetch(`${config.get('apiUrl')}/affiliate/affiliates`, {
+  return fetch(`${getBaseUrl('affiliate')}/affiliates`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -49,7 +49,7 @@ const createPartner = (args, authorization) => {
 };
 
 const changeStatus = ({ uuid, ...args }, authorization) => {
-  return fetch(`${config.get('apiUrl')}/affiliate/affiliates/${uuid}/status`, {
+  return fetch(`${getBaseUrl('affiliate')}/affiliates/${uuid}/status`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',

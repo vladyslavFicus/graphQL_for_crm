@@ -1,12 +1,9 @@
-const config = require('config');
 const FormData = require('form-data');
 const fetch = require('../../../utils/fetch');
-const parseJson = require('../../../utils/parseJson');
-const buildQueryString = require('../../../utils/buildQueryString');
-// const Logger = require('../../../utils/logger');
+const getBaseUrl = require('../../../utils/getBaseUrl');
 
 const getFiles = (_, args, { headers: { authorization } }) => {
-  return fetch(`${config.get('apiUrl')}/attachments/search`, {
+  return fetch(`${getBaseUrl('attachments')}/search`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -18,7 +15,7 @@ const getFiles = (_, args, { headers: { authorization } }) => {
 };
 
 const getFilesByProfileUUID = (_, { clientUUID }, { headers: { authorization } }) => {
-  return fetch(`${config.get('apiUrl')}/attachments/verification/users/${clientUUID}`, {
+  return fetch(`${getBaseUrl('attachments')}/verification/users/${clientUUID}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -29,7 +26,7 @@ const getFilesByProfileUUID = (_, { clientUUID }, { headers: { authorization } }
 };
 
 const updateFileMeta = (_, { uuid, ...args }, { headers: { authorization } }) => {
-  return fetch(`${config.get('apiUrl')}/attachments/admin/files/${uuid}`, {
+  return fetch(`${getBaseUrl('attachments')}/admin/files/${uuid}`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',
@@ -41,7 +38,7 @@ const updateFileMeta = (_, { uuid, ...args }, { headers: { authorization } }) =>
 };
 
 const deleteFile = (_, { uuid }, { headers: { authorization } }) => {
-  return fetch(`${config.get('apiUrl')}/attachments/admin/files/${uuid}`, {
+  return fetch(`${getBaseUrl('attachments')}/admin/files/${uuid}`, {
     method: 'DELETE',
     headers: {
       accept: 'application/json',
@@ -52,7 +49,7 @@ const deleteFile = (_, { uuid }, { headers: { authorization } }) => {
 };
 
 const downloadFile = (_, { profileUUID, uuid }, { headers: { authorization } }) => {
-  return fetch(`${config.get('apiUrl')}/attachments/users/${profileUUID}/files/${uuid}`, {
+  return fetch(`${getBaseUrl('attachments')}/users/${profileUUID}/files/${uuid}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -63,7 +60,7 @@ const downloadFile = (_, { profileUUID, uuid }, { headers: { authorization } }) 
 };
 
 const getUserKYCStatus = ({ clientUuid }, _, { headers: { authorization } }) => {
-  return fetch(`${config.get('apiUrl')}/attachments/verification/users/${clientUuid}`, {
+  return fetch(`${getBaseUrl('attachments')}/verification/users/${clientUuid}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -85,7 +82,7 @@ const uploadFile = (_, { profileUUID, file }, { headers: { authorization } }) =>
       const formData = new FormData();
       formData.append('file', Buffer.concat(buffer), filename);
 
-      const response = await fetch(`${config.get('apiUrl')}/attachments/users/${profileUUID}/files`, {
+      const response = await fetch(`${getBaseUrl('attachments')}/users/${profileUUID}/files`, {
         method: 'POST',
         headers: {
           authorization,
@@ -100,7 +97,7 @@ const uploadFile = (_, { profileUUID, file }, { headers: { authorization } }) =>
 };
 
 const confirmFilesUpload = (_, { profileUuid, ...args }, { headers: { authorization } }) => {
-  return fetch(`${config.get('apiUrl')}/attachments/admin/users/${profileUuid}/files/confirm`, {
+  return fetch(`${getBaseUrl('attachments')}/admin/users/${profileUuid}/files/confirm`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -112,7 +109,7 @@ const confirmFilesUpload = (_, { profileUuid, ...args }, { headers: { authorizat
 };
 
 const getFileCategoriesList = async (_, __, { headers: { authorization } }) => {
-  const { data } = await fetch(`${config.get('apiUrl')}/attachments/verification/types/mapping`, {
+  const { data } = await fetch(`${getBaseUrl('attachments')}/verification/types/mapping`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -137,8 +134,8 @@ const getFileCategoriesList = async (_, __, { headers: { authorization } }) => {
   return {};
 };
 
-const updateFileStatus = async function(_, { clientUuid, ...args }, { headers: { authorization } }) {
-  return fetch(`${config.get('apiUrl')}/attachments/verification/users/${clientUuid}/status`, {
+const updateFileStatus = async (_, { clientUuid, ...args }, { headers: { authorization } }) => {
+  return fetch(`${getBaseUrl('attachments')}/verification/users/${clientUuid}/status`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',
@@ -149,47 +146,15 @@ const updateFileStatus = async function(_, { clientUuid, ...args }, { headers: {
   }).then(response => ({ success: response.status === 200 }));
 };
 
-// # Old
-// Maybe this function are used for updating file
-// const updateFileStatus = async function(_, { fileUUID, ...args }, { headers: { authorization } }) {
-//   return fetch(`${config.get('apiUrl')}/profile/files/${fileUUID}`, {
-//     method: 'PUT',
-//     headers: {
-//       accept: 'application/json',
-//       authorization,
-//       'content-type': 'application/json',
-//     },
-//     body: JSON.stringify(args),
-//   }).then(response => ({ success: response.status === 200 }));
-// };
-
-// # Old
-// Don't understand why we should use this one
-const verify = function(_, { uuid, ...args }, { headers: { authorization } }) {
-  return fetch(`${config.get('apiUrl')}/profile/files/${uuid}/status/verify?${buildQueryString(args)}`, {
-    method: 'PUT',
-    headers: {
-      accept: 'application/json',
-      authorization,
-      'content-type': 'application/json',
-    },
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => (response.uuid ? { data: response } : { error: response }));
-};
-
 module.exports = {
   getFiles,
   getFilesByProfileUUID,
   getFileCategoriesList,
   confirmFilesUpload,
-  getUserKYCStatus, // will needed on Profile page -> Profile Tab
+  getUserKYCStatus,
   updateFileMeta,
   downloadFile,
   uploadFile,
   deleteFile,
-
-  verify,
   updateFileStatus,
 };

@@ -1,8 +1,8 @@
-const config = require('config');
 const fetch = require('./fetch');
+const getBaseUrl = require('./getBaseUrl');
 
 const sendEmail = (args, authorization) => {
-  return fetch(`${config.get('apiUrl')}/email/templated-email`, {
+  return fetch(`${getBaseUrl('email')}/templated-email`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -14,7 +14,7 @@ const sendEmail = (args, authorization) => {
 };
 
 const getEmailTemplate = ({ id }, authorization) => {
-  return fetch(`${config.get('apiUrl')}/email/templates/${id}`, {
+  return fetch(`${getBaseUrl('email')}/templates/${id}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -25,7 +25,7 @@ const getEmailTemplate = ({ id }, authorization) => {
 };
 
 const getEmailTemplates = authorization => {
-  return fetch(`${config.get('apiUrl')}/email/templates`, {
+  return fetch(`${getBaseUrl('email')}/templates`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -36,7 +36,7 @@ const getEmailTemplates = authorization => {
 };
 
 const createEmailTemplate = (args, authorization) => {
-  return fetch(`${config.get('apiUrl')}/email/templates`, {
+  return fetch(`${getBaseUrl('email')}/templates`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -48,7 +48,7 @@ const createEmailTemplate = (args, authorization) => {
 };
 
 const updateEmailTemplate = (args, authorization) => {
-  return fetch(`${config.get('apiUrl')}/email/templates`, {
+  return fetch(`${getBaseUrl('email')}/templates`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',
@@ -59,9 +59,8 @@ const updateEmailTemplate = (args, authorization) => {
   }).then(response => response.json());
 };
 
-const deleteEmailTemplate = function({ id }, authorization) {
-  console.log('id: ', id);
-  return fetch(`${config.get('apiUrl')}/email/templates/${id}`, {
+const deleteEmailTemplate = ({ id }, authorization) => {
+  return fetch(`${getBaseUrl('email')}/templates/${id}`, {
     method: 'DELETE',
     headers: {
       accept: 'application/json',
