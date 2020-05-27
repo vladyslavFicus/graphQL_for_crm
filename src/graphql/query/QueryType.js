@@ -148,7 +148,6 @@ const QueryType = new GraphQLObjectType({
       args: {
         searchKeyword: { type: GraphQLString },
         accountType: { type: GraphQLString },
-        affiliateType: { type: GraphQLString },
         archived: { type: GraphQLBoolean },
         page: { type: GraphQLInt },
         size: { type: GraphQLInt },
@@ -383,7 +382,6 @@ const QueryType = new GraphQLObjectType({
         searchBy: { type: GraphQLString },
         country: { type: GraphQLString },
         status: { type: GraphQLString },
-        affiliateType: { type: GraphQLString },
         registrationDateFrom: { type: GraphQLString },
         registrationDateTo: { type: GraphQLString },
       },

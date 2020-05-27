@@ -34,7 +34,6 @@ const PartnerType = new GraphQLObjectType({
     },
     email: { type: GraphQLString },
     externalAffiliateId: { type: GraphQLString },
-    affiliateType: { type: GraphQLString },
     phone: { type: GraphQLString },
     country: { type: GraphQLString },
     status: { type: GraphQLString },
