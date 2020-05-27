@@ -163,21 +163,6 @@ const TradingProfileType = new GraphQLObjectType({
         }),
       }),
     },
-    bankDetails: {
-      type: new GraphQLObjectType({
-        name: 'bankDetails',
-        fields: () => ({
-          accountHolderName: { type: GraphQLString },
-          accountNumber: { type: GraphQLString },
-          branchName: { type: GraphQLString },
-          city: { type: GraphQLString },
-          name: { type: GraphQLString },
-          province: { type: GraphQLString },
-          swiftCode: { type: GraphQLString },
-          withdrawalArea: { type: GraphQLString },
-        }),
-      }),
-    },
     enableInternalTransfer: { type: GraphQLBoolean },
   }),
 });

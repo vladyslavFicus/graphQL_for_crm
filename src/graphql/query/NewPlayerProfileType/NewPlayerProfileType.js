@@ -66,22 +66,6 @@ const AffiliateType = new GraphQLObjectType({
   },
 });
 
-const BankDetailsType = new GraphQLObjectType({
-  name: 'BankDetailsType',
-  fields() {
-    return {
-      accountHolderName: { type: GraphQLString },
-      accountNumber: { type: GraphQLString },
-      branchName: { type: GraphQLString },
-      city: { type: GraphQLString },
-      name: { type: GraphQLString },
-      province: { type: GraphQLString },
-      swiftCode: { type: GraphQLString },
-      withdrawalArea: { type: GraphQLString },
-    };
-  },
-});
-
 const ConfigurationType = new GraphQLObjectType({
   name: 'ConfigurationType',
   fields() {
@@ -251,7 +235,6 @@ const NewPlayerProfileType = new GraphQLObjectType({
     acquisition: { type: AcquisitionType },
     address: { type: AddressType },
     affiliate: { type: AffiliateType },
-    bankDetails: { type: BankDetailsType },
     configuration: { type: ConfigurationType },
     contacts: { type: ContactsType },
     kycNote: {
