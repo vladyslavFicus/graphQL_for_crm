@@ -15,7 +15,6 @@ const ClientsType = require('./ClientsType');
 const TradingAccountType = require('./TradingAccountType');
 const TradingActivityType = require('./TradingActivityType');
 const CallbacksType = require('./CallbacksType');
-const QuestionnaireType = require('./QuestionnaireType');
 const FilterSetType = require('./FilterSetType');
 const BrandConfigType = require('./BrandConfigType');
 const EmailTemplatesType = require('./EmailTemplatesType');
@@ -117,12 +116,6 @@ const MutationType = new GraphQLObjectType({
     },
     callback: {
       type: CallbacksType,
-      resolve() {
-        return {};
-      },
-    },
-    questionnaire: {
-      type: QuestionnaireType,
       resolve() {
         return {};
       },

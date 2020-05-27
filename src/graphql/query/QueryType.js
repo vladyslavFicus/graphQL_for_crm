@@ -68,7 +68,6 @@ const LeadType = require('./LeadType');
 const { FeedType, FeedTypes } = require('./AuditType/FeedType');
 const { SalesStatusesEnum: TradingSalesStatuses } = require('./TradingProfileType/TradingProfileEnums');
 const HierarchyQueryType = require('./HierarchyQueryType');
-const QuestionnaireQueryType = require('./QuestionnaireQueryType');
 const RuleType = require('./RuleType');
 const { RuleTypeEnum } = require('./RuleType/RuleEnums');
 const { CallbackType, CallbackStatusEnum } = require('./CallbackType');
@@ -439,10 +438,6 @@ const QueryType = new GraphQLObjectType({
         agent_id: { type: GraphQLString },
       },
       resolve: getMetabaseToken,
-    },
-    questionnaire: {
-      type: QuestionnaireQueryType,
-      resolve: () => ({}),
     },
     filterSets: {
       type: ResponseType(FilterSetType, 'FilterSetQueryType'),
