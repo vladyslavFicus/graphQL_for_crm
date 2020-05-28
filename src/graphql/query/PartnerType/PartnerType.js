@@ -43,9 +43,6 @@ const PartnerType = new GraphQLObjectType({
     createdBy: { type: GraphQLString },
     createdAt: { type: GraphQLString },
     public: { type: GraphQLBoolean },
-    tradingAccountAutocreation: { type: GraphQLString },
-    tradingAccountType: { type: GraphQLString },
-    tradingAccountCurrency: { type: GraphQLString },
     permission: { type: PartnerPermissionType },
     authorities: {
       type: ResponseType(new GraphQLList(AuthorityType), 'PartnerAuthoritiesList'),
