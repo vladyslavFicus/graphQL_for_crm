@@ -134,14 +134,6 @@ const QueryType = new GraphQLObjectType({
       },
       resolve: getTradingAccounts,
     },
-    tradingAccount: {
-      type: new GraphQLList(TradingAccountType),
-      args: {
-        uuid: { type: new GraphQLNonNull(GraphQLString) },
-        accountType: { type: GraphQLString },
-      },
-      resolve: getTradingAccounts,
-    },
     tradingAccountsList: {
       type: ResponseType(PageableType(TradingAccountsListType)),
       args: {

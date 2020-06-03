@@ -10,6 +10,7 @@ const NoteType = new GraphQLObjectType({
     subject: { type: GraphQLString },
     content: { type: GraphQLString },
     targetUUID: { type: GraphQLString },
+    targetType: { type: GraphQLString },
     changedBy: { type: GraphQLString },
     changedAt: { type: GraphQLString },
     noteId: { type: GraphQLString },

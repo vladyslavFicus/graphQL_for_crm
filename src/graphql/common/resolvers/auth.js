@@ -22,8 +22,8 @@ const resetUserPassword = (_, { userUuid }, { headers: { authorization } }) => {
   return resetUserPasswordRequest(userUuid, authorization);
 };
 
-const getCredentialsLock = (_, { playerUUID }, { headers: { authorization } }) => {
-  return fetch(`${getBaseUrl('auth2')}/lock/${playerUUID}`, {
+const getCredentialsLock = async (_, { playerUUID }, { headers: { authorization } }) => {
+  const { data } = await fetch(`${getBaseUrl('auth2')}/lock/${playerUUID}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -31,6 +31,8 @@ const getCredentialsLock = (_, { playerUUID }, { headers: { authorization } }) =
       'content-type': 'application/json',
     },
   }).then(response => response.json());
+
+  return data;
 };
 
 const removeCredentialsLock = (_, { playerUUID }, { headers: { authorization } }) => {

@@ -1,16 +1,8 @@
-const { GraphQLObjectType, GraphQLNonNull, GraphQLString, GraphQLBoolean } = require('graphql');
-const ResponseType = require('../../common/types/ResponseType');
+const { GraphQLObjectType, GraphQLNonNull, GraphQLString } = require('graphql');
 const SuccessType = require('../../query/SuccessType');
 const {
   auth: { logout, credentials, resetPassword },
 } = require('../../common/resolvers');
-
-const AuthUnlockType = new GraphQLObjectType({
-  name: 'AuthUnlock',
-  fields: () => ({
-    success: { type: new GraphQLNonNull(GraphQLBoolean) },
-  }),
-});
 
 const AuthType = new GraphQLObjectType({
   name: 'AuthMutation',
@@ -19,7 +11,7 @@ const AuthType = new GraphQLObjectType({
       args: {
         playerUUID: { type: new GraphQLNonNull(GraphQLString) },
       },
-      type: ResponseType(AuthUnlockType, 'loginUnlock'),
+      type: SuccessType,
       resolve: credentials.removeLoginLock,
     },
     logout: {
