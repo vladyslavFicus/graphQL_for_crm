@@ -36,7 +36,13 @@ const {
   filterSet: { getFilterSets, getFilterSetById },
   tradingAccount: { getTradingAccounts, getTradingAccountsList },
   brandConfig: { getBrandConfig },
-  risks: { getRisksQuestionnaire },
+  // emailTemplates: { getEmailTemplates, getEmailTemplate },
+  // notificationCenter: {
+  //   getNotificationCenter,
+  //   getNotificationCenterTypes,
+  //   getNotificationCenterUnread,
+  //   getNotificationCenterSubtypes,
+  // },
 } = require('../common/resolvers');
 const PageableType = require('../common/types/PageableType');
 const ClientSearchInputType = require('../input/ClientSearchInputType');
@@ -61,9 +67,7 @@ const LeadType = require('./LeadType');
 const { FeedType, FeedTypes } = require('./AuditType/FeedType');
 const { SalesStatusesEnum: TradingSalesStatuses } = require('./TradingProfileType/TradingProfileEnums');
 const HierarchyQueryType = require('./HierarchyQueryType');
-const QuestionnaireQueryType = require('./QuestionnaireQueryType');
 const RuleType = require('./RuleType');
-const RisksType = require('./RisksType');
 const { RuleTypeEnum } = require('./RuleType/RuleEnums');
 const { CallbackType, CallbackStatusEnum } = require('./CallbackType');
 const OperatorType = require('./OperatorType');
@@ -73,6 +77,9 @@ const { FilterSetTypeEnum } = require('./FilterSetType');
 const { checkMigrationQuery } = require('../../utils/profile');
 const PaymentsInputType = require('../input/PaymentsInputType');
 const PaymentsByUuidInputType = require('../input/PaymentsByUuidInputType');
+// const EmailType = require('./EmailType');
+// const NotificationCenterType = require('./NotificationCenterType');
+// const NotificationCenterInputType = require('../input/NotificationCenterInputType');
 const PageInputType = require('../input/PageInputType');
 
 const QueryType = new GraphQLObjectType({
@@ -126,20 +133,11 @@ const QueryType = new GraphQLObjectType({
       },
       resolve: getTradingAccounts,
     },
-    tradingAccount: {
-      type: new GraphQLList(TradingAccountType),
-      args: {
-        uuid: { type: new GraphQLNonNull(GraphQLString) },
-        accountType: { type: GraphQLString },
-      },
-      resolve: getTradingAccounts,
-    },
     tradingAccountsList: {
       type: ResponseType(PageableType(TradingAccountsListType)),
       args: {
         searchKeyword: { type: GraphQLString },
         accountType: { type: GraphQLString },
-        affiliateType: { type: GraphQLString },
         archived: { type: GraphQLBoolean },
         page: { type: GraphQLInt },
         size: { type: GraphQLInt },
@@ -327,13 +325,6 @@ const QueryType = new GraphQLObjectType({
       },
       resolve: getRulesRetention,
     },
-    riskQuestionnaire: {
-      type: ResponseType(RisksType, 'RiskQuestionnaireDataType'),
-      args: {
-        clientUuid: { type: GraphQLString },
-      },
-      resolve: getRisksQuestionnaire,
-    },
     callbacks: {
       type: ResponseType(PageableType(CallbackType), 'PageableCallbackType'),
       args: {
@@ -381,7 +372,6 @@ const QueryType = new GraphQLObjectType({
         searchBy: { type: GraphQLString },
         country: { type: GraphQLString },
         status: { type: GraphQLString },
-        affiliateType: { type: GraphQLString },
         registrationDateFrom: { type: GraphQLString },
         registrationDateTo: { type: GraphQLString },
       },
@@ -440,10 +430,6 @@ const QueryType = new GraphQLObjectType({
       },
       resolve: getMetabaseToken,
     },
-    questionnaire: {
-      type: QuestionnaireQueryType,
-      resolve: () => ({}),
-    },
     filterSets: {
       type: ResponseType(FilterSetType, 'FilterSetQueryType'),
       args: {
@@ -465,6 +451,36 @@ const QueryType = new GraphQLObjectType({
       },
       resolve: getBrandConfig,
     },
+    // emailTemplate: {
+    //   type: ResponseType(EmailType, 'EmailTemplate'),
+    //   args: {
+    //     id: { type: GraphQLNonNull(GraphQLID) },
+    //   },
+    //   resolve: getEmailTemplate,
+    // },
+    // emailTemplates: {
+    //   type: ResponseType(GraphQLList(EmailType), 'EmailTemplates'),
+    //   resolve: getEmailTemplates,
+    // },
+    // notificationCenter: {
+    //   type: ResponseType(PageableType(NotificationCenterType)),
+    //   args: {
+    //     args: { type: NotificationCenterInputType },
+    //   },
+    //   resolve: getNotificationCenter,
+    // },
+    // notificationCenterTypes: {
+    //   type: ResponseType(new GraphQLList(GraphQLString), 'NotificationCenterTypes'),
+    //   resolve: getNotificationCenterTypes,
+    // },
+    // notificationCenterSubtypes: {
+    //   type: ResponseType(new GraphQLList(GraphQLString), 'NotificationCenterSubtypes'),
+    //   resolve: getNotificationCenterSubtypes,
+    // },
+    // notificationCenterUnread: {
+    //   type: ResponseType(GraphQLInt, 'NotificationCenterUnread'),
+    //   resolve: getNotificationCenterUnread,
+    // },
   }),
 });
 

@@ -31,7 +31,6 @@ const TradingAccountProfileType = new GraphQLObjectType({
 const TradingAccountAffiliateType = new GraphQLObjectType({
   name: 'TradingAccountAffiliateType',
   fields: () => ({
-    affiliateType: { type: GraphQLString },
     source: { type: GraphQLString },
   }),
 });

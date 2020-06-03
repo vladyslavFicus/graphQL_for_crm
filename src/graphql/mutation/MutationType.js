@@ -11,12 +11,10 @@ const UploadType = require('./UploadType');
 const LeadsType = require('./LeadsType');
 const HierarchyType = require('./HierarchyType');
 const RulesType = require('./RulesType');
-const RisksType = require('./RisksType');
 const ClientsType = require('./ClientsType');
 const TradingAccountType = require('./TradingAccountType');
 const TradingActivityType = require('./TradingActivityType');
 const CallbacksType = require('./CallbacksType');
-const QuestionnaireType = require('./QuestionnaireType');
 const FilterSetType = require('./FilterSetType');
 const BrandConfigType = require('./BrandConfigType');
 
@@ -95,12 +93,6 @@ const MutationType = new GraphQLObjectType({
         return {};
       },
     },
-    risks: {
-      type: RisksType,
-      resolve() {
-        return {};
-      },
-    },
     clients: {
       type: ClientsType,
       resolve() {
@@ -121,12 +113,6 @@ const MutationType = new GraphQLObjectType({
     },
     callback: {
       type: CallbacksType,
-      resolve() {
-        return {};
-      },
-    },
-    questionnaire: {
-      type: QuestionnaireType,
       resolve() {
         return {};
       },

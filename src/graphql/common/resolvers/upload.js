@@ -1,6 +1,6 @@
-const config = require('config');
 const FormData = require('form-data');
 const fetch = require('../../../utils/fetch');
+const getBaseUrl = require('../../../utils/getBaseUrl');
 const buildQueryString = require('../../../utils/buildQueryString');
 
 const leadCsvUpload = (_, { file }, { headers: { authorization }, brand: { id } }) => {
@@ -18,17 +18,14 @@ const leadCsvUpload = (_, { file }, { headers: { authorization }, brand: { id } 
       const formData = new FormData();
       formData.append('file', Buffer.concat(buffer), filename);
 
-      const response = await fetch(
-        `${config.get('apiUrl')}/lead-updater/lead/csv?${buildQueryString({ brandId: id })}`,
-        {
-          method: 'POST',
-          headers: {
-            authorization,
-            ...formData.getHeaders(),
-          },
-          body: formData,
-        }
-      );
+      const response = await fetch(`${getBaseUrl('lead-updater')}/lead/csv?${buildQueryString({ brandId: id })}`, {
+        method: 'POST',
+        headers: {
+          authorization,
+          ...formData.getHeaders(),
+        },
+        body: formData,
+      });
 
       resolve(response);
     });

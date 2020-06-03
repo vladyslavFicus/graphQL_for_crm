@@ -1,17 +1,20 @@
-const config = require('config');
-const { use } = require('@hrzn/apollo-datasource');
+const getBaseUrl = require('../../../utils/getBaseUrl');
 const {
+  AsteriskAPI,
+  AuthAPI,
+  HierarchyAPI,
+  EmailAPI,
   NotificationCenterAPI,
   OperatorAPI,
   ProfileAPI,
-  AsteriskAPI,
-  HierarchyAPI,
-  AuthAPI,
-  EmailAPI,
 } = require('../dataSources');
 
 module.exports = () => ({
-  ...use([NotificationCenterAPI, OperatorAPI, ProfileAPI, AsteriskAPI, HierarchyAPI, AuthAPI, EmailAPI], {
-    baseUrl: config.get('apiUrl'),
-  })(),
+  AsteriskAPI: new AsteriskAPI({ baseUrl: getBaseUrl('') }),
+  AuthAPI: new AuthAPI({ baseUrl: getBaseUrl('') }),
+  EmailAPI: new EmailAPI({ baseUrl: getBaseUrl('') }),
+  HierarchyAPI: new HierarchyAPI({ baseUrl: getBaseUrl('') }),
+  NotificationCenterAPI: new NotificationCenterAPI({ baseUrl: getBaseUrl('') }),
+  OperatorAPI: new OperatorAPI({ baseUrl: getBaseUrl('') }),
+  ProfileAPI: new ProfileAPI({ baseUrl: getBaseUrl('') }),
 });

@@ -25,7 +25,6 @@ const ClientSearchInputType = new GraphQLInputObjectType({
     },
     countries: { type: new GraphQLList(GraphQLString) },
     desks: { type: new GraphQLList(GraphQLString) },
-    fsaMigrationStatus: { type: GraphQLString },
     firstTimeDeposit: { type: GraphQLBoolean },
     kycStatuses: { type: new GraphQLList(GraphQLString) },
     lastLoginDateRange: {
@@ -104,9 +103,7 @@ const ClientSearchInputType = new GraphQLInputObjectType({
     searchLimit: { type: GraphQLInt },
     statuses: { type: new GraphQLList(GraphQLString) },
     teams: { type: new GraphQLList(GraphQLString) },
-    questionnaireStatus: { type: GraphQLString },
     warnings: { type: new GraphQLList(GraphQLString) },
-    affiliateType: { type: new GraphQLList(GraphQLString) },
   }),
 });
 

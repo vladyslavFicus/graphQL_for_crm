@@ -66,22 +66,6 @@ const AffiliateType = new GraphQLObjectType({
   },
 });
 
-const BankDetailsType = new GraphQLObjectType({
-  name: 'BankDetailsType',
-  fields() {
-    return {
-      accountHolderName: { type: GraphQLString },
-      accountNumber: { type: GraphQLString },
-      branchName: { type: GraphQLString },
-      city: { type: GraphQLString },
-      name: { type: GraphQLString },
-      province: { type: GraphQLString },
-      swiftCode: { type: GraphQLString },
-      withdrawalArea: { type: GraphQLString },
-    };
-  },
-});
-
 const ConfigurationType = new GraphQLObjectType({
   name: 'ConfigurationType',
   fields() {
@@ -209,16 +193,6 @@ const RegistrationDetailsType = new GraphQLObjectType({
   },
 });
 
-const FsaMigrationType = new GraphQLObjectType({
-  name: 'FsaMigrationType',
-  fields() {
-    return {
-      agreedToFsaMigrationDate: { type: GraphQLString },
-      fsaMigrationStatus: { type: GraphQLString },
-    };
-  },
-});
-
 const NewPlayerProfileType = new GraphQLObjectType({
   name: 'NewPlayerProfile',
   fields: () => ({
@@ -261,7 +235,6 @@ const NewPlayerProfileType = new GraphQLObjectType({
     acquisition: { type: AcquisitionType },
     address: { type: AddressType },
     affiliate: { type: AffiliateType },
-    bankDetails: { type: BankDetailsType },
     configuration: { type: ConfigurationType },
     contacts: { type: ContactsType },
     kycNote: {
@@ -296,7 +269,6 @@ const NewPlayerProfileType = new GraphQLObjectType({
     passport: { type: PassportType },
     registrationDetails: { type: RegistrationDetailsType },
     verifications: { type: new GraphQLList(GraphQLString) },
-    fsaMigrationInfo: { type: FsaMigrationType },
     timeZone: { type: GraphQLString },
     // waiting for sent emails history
     // sentEmails: {

@@ -1,5 +1,5 @@
-const config = require('config');
 const fetch = require('./fetch');
+const getBaseUrl = require('./getBaseUrl');
 const buildQueryString = require('./buildQueryString');
 
 /**
@@ -9,7 +9,7 @@ const buildQueryString = require('./buildQueryString');
  * @return {*}
  */
 const createTradingAccount = (args, authorization) => {
-  return fetch(`${config.get('apiUrl')}/trading-account/account`, {
+  return fetch(`${getBaseUrl('trading-account')}/account`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -27,7 +27,7 @@ const createTradingAccount = (args, authorization) => {
  * @return {*}
  */
 const updateTradingAccount = (args, authorization) => {
-  return fetch(`${config.get('apiUrl')}/trading-account/account`, {
+  return fetch(`${getBaseUrl('trading-account')}/account`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',
@@ -45,7 +45,7 @@ const updateTradingAccount = (args, authorization) => {
  * @return {*}
  */
 const tradingAccountChangePassword = (args, authorization) => {
-  return fetch(`${config.get('apiUrl')}/trading-account/account/${args.accountUUID}/password`, {
+  return fetch(`${getBaseUrl('trading-account')}/account/${args.accountUUID}/password`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',
@@ -64,7 +64,7 @@ const tradingAccountChangePassword = (args, authorization) => {
  */
 const tradingAccountQuery = ({ accountType, uuid }, authorization) => {
   return fetch(
-    `${config.get('apiUrl')}/trading-account/account/search?${buildQueryString({
+    `${getBaseUrl('trading-account')}/account/search?${buildQueryString({
       profileUUID: uuid,
       accountType: accountType ? accountType : '',
     })}`,
@@ -80,7 +80,7 @@ const tradingAccountQuery = ({ accountType, uuid }, authorization) => {
 };
 
 const tradingAccountsQuery = (args, authorization) => {
-  return fetch(`${global.appConfig.apiUrl}/accountview/accounts/search?${buildQueryString(args)}`, {
+  return fetch(`${getBaseUrl('accountview')}/accounts/search?${buildQueryString(args)}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -97,7 +97,7 @@ const tradingAccountsQuery = (args, authorization) => {
  * @return {*}
  */
 const changeLeverage = (args, authorization) => {
-  return fetch(`${config.get('apiUrl')}/trading-account/account/${args.accountUUID}/leverage`, {
+  return fetch(`${getBaseUrl('trading-account')}/account/${args.accountUUID}/leverage`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -115,7 +115,7 @@ const changeLeverage = (args, authorization) => {
  * @return {*}
  */
 const approveChangeLeverage = ({ accountUUID }, authorization) => {
-  return fetch(`${config.get('apiUrl')}/trading-account/account/${accountUUID}/leverage/approve`, {
+  return fetch(`${getBaseUrl('trading-account')}/account/${accountUUID}/leverage/approve`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',
@@ -132,7 +132,7 @@ const approveChangeLeverage = ({ accountUUID }, authorization) => {
  * @return {*}
  */
 const rejectChangeLeverage = ({ accountUUID }, authorization) => {
-  return fetch(`${config.get('apiUrl')}/trading-account/account/${accountUUID}/leverage/reject`, {
+  return fetch(`${getBaseUrl('trading-account')}/account/${accountUUID}/leverage/reject`, {
     method: 'PUT',
     headers: {
       accept: 'application/json',

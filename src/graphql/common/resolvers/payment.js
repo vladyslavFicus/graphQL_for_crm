@@ -1,5 +1,5 @@
-const config = require('config');
 const fetch = require('../../../utils/fetch');
+const getBaseUrl = require('../../../utils/getBaseUrl');
 const { PAYMENT_TYPES } = require('../../../constants/payment');
 const {
   getPaymentsQuery,
@@ -78,19 +78,7 @@ const createClientPayment = async (
 };
 
 const acceptPayment = (_, { typeAcc, ...args }, { headers: { authorization } }) => {
-  return fetch(`${config.get('apiUrl')}/payment/${typeAcc}`, {
-    method: 'PUT',
-    headers: {
-      Accept: 'application/json',
-      authorization,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(args),
-  }).then(response => ({ data: { success: response.status === 200 } }));
-};
-
-const acceptPaymentFinal = (_, { ...args }, { headers: { authorization } }) => {
-  return fetch(`${config.get('apiUrl')}/payment/approve/finance`, {
+  return fetch(`${getBaseUrl('payment')}/${typeAcc}`, {
     method: 'PUT',
     headers: {
       Accept: 'application/json',
@@ -102,7 +90,7 @@ const acceptPaymentFinal = (_, { ...args }, { headers: { authorization } }) => {
 };
 
 const changePaymentMethod = (_, args, { headers: { authorization } }) => {
-  return fetch(`${config.get('apiUrl')}/payment/${args.paymentId}/method`, {
+  return fetch(`${getBaseUrl('payment')}/${args.paymentId}/method`, {
     method: 'PUT',
     headers: {
       Accept: 'application/json',
@@ -114,7 +102,7 @@ const changePaymentMethod = (_, args, { headers: { authorization } }) => {
 };
 
 const changePaymentStatus = (_, args, { headers: { authorization } }) => {
-  return fetch(`${config.get('apiUrl')}/payment/${args.paymentId}/status`, {
+  return fetch(`${getBaseUrl('payment')}/${args.paymentId}/status`, {
     method: 'PUT',
     headers: {
       Accept: 'application/json',
@@ -126,7 +114,7 @@ const changePaymentStatus = (_, args, { headers: { authorization } }) => {
 };
 
 const changeOriginalAgent = (_, { paymentId, ...args }, { headers: { authorization } }) => {
-  return fetch(`${config.get('apiUrl')}/payment/${paymentId}/agent`, {
+  return fetch(`${getBaseUrl('payment')}/${paymentId}/agent`, {
     method: 'PUT',
     headers: {
       Accept: 'application/json',
@@ -164,7 +152,6 @@ module.exports = {
   getClientPayments,
   getClientPaymentsByUuid,
   acceptPayment,
-  acceptPaymentFinal,
   changePaymentMethod,
   changePaymentStatus,
   changeOriginalAgent,

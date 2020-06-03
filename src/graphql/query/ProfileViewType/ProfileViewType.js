@@ -113,16 +113,6 @@ const ProfileViewRegistrationDetails = new GraphQLObjectType({
   },
 });
 
-const ProfileViewFsaMigrationType = new GraphQLObjectType({
-  name: 'ProfileViewFsaMigrationType',
-  fields: () => {
-    return {
-      agreedToFsaMigrationDate: { type: GraphQLString },
-      fsaMigrationStatus: { type: GraphQLString },
-    };
-  },
-});
-
 const ProfileViewLastActivity = new GraphQLObjectType({
   name: 'ProfileViewLastActivity',
   fields: () => ({
@@ -151,7 +141,6 @@ const ProfileViewType = new GraphQLObjectType({
       lastSignInSessions: { type: new GraphQLList(ProfileViewSessions) },
       registrationDetails: { type: ProfileViewRegistrationDetails },
       uuid: { type: GraphQLNonNull(GraphQLString) },
-      fsaMigrationInfo: { type: ProfileViewFsaMigrationType },
       lastActivity: { type: ProfileViewLastActivity },
       warnings: { type: new GraphQLList(GraphQLString) },
     };

@@ -20,6 +20,7 @@ const CallbackType = new GraphQLObjectType({
     operatorId: { type: new GraphQLNonNull(GraphQLString) },
     status: { type: new GraphQLNonNull(CallbackStatusEnum) },
     userId: { type: new GraphQLNonNull(GraphQLString) },
+    reminder: { type: GraphQLString },
     operator: {
       type: OperatorType,
       resolve: getOperator('operatorId'),

@@ -21,5 +21,4 @@ module.exports = {
   metabase: require('./metabase'),
   filterSet: require('./filterSet'),
   brandConfig: require('./brandConfig'),
-  risks: require('./risks'),
 };

@@ -1,8 +1,8 @@
-const config = require('config');
 const fetch = require('./fetch');
+const getBaseUrl = require('./getBaseUrl');
 
-const signInRequest = function(args) {
-  return fetch(`${config.get('apiUrl')}/auth/signin/operator`, {
+const signInRequest = args => {
+  return fetch(`${getBaseUrl('auth2')}/operator/signin`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -12,14 +12,15 @@ const signInRequest = function(args) {
   }).then(response => response.json());
 };
 
-const chooseDepartmentRequest = function({ brandId, department }, authorization) {
-  return fetch(`${config.get('apiUrl')}/auth/signin/operator/${brandId}/${department}`, {
+const chooseDepartmentRequest = (args, authorization) => {
+  return fetch(`${getBaseUrl('auth2')}/operator/department`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
       'content-type': 'application/json',
       authorization,
     },
+    body: JSON.stringify(args),
   }).then(response => response.json());
 };
 

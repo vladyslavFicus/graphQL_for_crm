@@ -6,6 +6,7 @@ module.exports = gql`
     currency: String
     login: Int
     platformType: String
+    callbackTime: String
   }
 
   type NotificationCenter {

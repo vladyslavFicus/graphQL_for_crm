@@ -2,12 +2,7 @@ const { get } = require('lodash');
 const {
   requests: { bulkUpdateHierarchyUser, bulkMassAssignHierarchyUser },
 } = require('../../../utils/hierarchy');
-const {
-  getProfiles,
-  bulkUpdateSalesStasuses,
-  bulkUpdateRetentionStasuses,
-  bulkMigrateToFsa,
-} = require('../../../utils/profile');
+const { getProfiles, bulkUpdateSalesStasuses, bulkUpdateRetentionStasuses } = require('../../../utils/profile');
 
 const CLIENTS_SIZE_LIMIT = 10000;
 
@@ -114,14 +109,6 @@ const bulkRepresentativeUpdate = async (_, args, { headers: { authorization } })
   }
 };
 
-const bulkMigrationUpdate = async (_, args, { headers: { authorization } }) => {
-  const clients = await getClientsToBulkUpdate(args, authorization);
-  const uuids = clients.map(client => client.uuid);
-
-  return await bulkMigrateToFsa({ uuids }, authorization);
-};
-
 module.exports = {
   bulkRepresentativeUpdate,
-  bulkMigrationUpdate,
 };

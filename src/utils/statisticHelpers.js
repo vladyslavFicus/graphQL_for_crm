@@ -80,7 +80,7 @@ const prepareAdditionalStatsUsersRegistration = stats => {
 
 const prepareRegistrationsData = registrations => {
   return registrations.map(({ count, date }) => ({
-    entryDate: moment(date).format('DD.MM'),
+    entryDate: date,
     entries: count,
   }));
 };

@@ -21,7 +21,7 @@ module.exports = async ({ req: { headers, ip } }) => {
   };
 
   if (headers && headers.authorization && headers.authorization !== 'undefined') {
-    const { brandId, user_uuid: userUUID } = jwtDecode(headers.authorization);
+    const { brandId, uuid: userUUID } = jwtDecode(headers.authorization);
 
     // Return context if token without brandId field
     if (!brandId) {
