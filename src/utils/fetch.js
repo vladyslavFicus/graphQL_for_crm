@@ -94,13 +94,6 @@ module.exports = function(url, config) {
         }
       }
 
-      Logger.info({
-        message: res,
-        url,
-        status: response.status,
-        error,
-      });
-
       if (error) {
         error = error || new ApolloError(`${response.status}: ${response.statusText}`);
 

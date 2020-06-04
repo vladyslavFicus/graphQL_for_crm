@@ -2,8 +2,6 @@ const { ApolloServer } = require('apollo-server-express');
 const { v4 } = require('uuid');
 const jwtDecode = require('jwt-decode');
 const config = require('config');
-const { LoggerExtension } = require('@hrzn/apollo-extension');
-const Logger = require('./utils/logger');
 const schema = require('./graphql/schema');
 const { createDataloaders } = require('./graphql/dataloaders');
 const Hierarchy = require('./services/Hierarchy');
@@ -13,7 +11,6 @@ const { NODE_ENV, ENV_NAME } = process.env;
 module.exports = app => {
   const server = new ApolloServer({
     schema,
-    extensions: [() => new LoggerExtension(Logger)],
     introspection: NODE_ENV === 'development' || ENV_NAME === 'dev01',
     playground: NODE_ENV === 'development' || ENV_NAME === 'dev01',
     context: ({ req: { headers, ip, body } }) => {
