@@ -1,6 +1,5 @@
 const { GraphQLObjectType } = require('graphql');
 const AuthType = require('./AuthType');
-const AuthorizationType = require('./AuthorizationType');
 const ProfileType = require('./ProfileType');
 const OperatorType = require('./OperatorType');
 const NoteType = require('./NoteType');
@@ -20,12 +19,6 @@ const BrandConfigType = require('./BrandConfigType');
 const MutationType = new GraphQLObjectType({
   name: 'ApiMutation',
   fields: () => ({
-    authorization: {
-      type: AuthorizationType,
-      resolve() {
-        return {};
-      },
-    },
     auth: {
       type: AuthType,
       resolve() {

@@ -32,7 +32,7 @@ module.exports = {
    * @param args
    * @param dataSources
    *
-   * @return {Object<success: true || false>}
+   * @return {Object<{ success: boolean }>}
    */
   async changePartnerAccountStatus(_, args, { dataSources }) {
     const responseData = await dataSources.AffiliateAPI.changePartnerAccountStatus(args);

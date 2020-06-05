@@ -9,6 +9,7 @@ module.exports = gql`
   # ============= Scalars ============= #
   scalar Object
   scalar Upload
+  scalar JSONObject
 
   schema {
     query: Query
