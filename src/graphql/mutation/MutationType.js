@@ -3,7 +3,6 @@ const AuthType = require('./AuthType');
 const AuthorizationType = require('./AuthorizationType');
 const ProfileType = require('./ProfileType');
 const OperatorType = require('./OperatorType');
-const PartnerType = require('./PartnerType');
 const NoteType = require('./NoteType');
 const { PaymentType } = require('./PaymentType');
 const FileType = require('./FileType');
@@ -41,12 +40,6 @@ const MutationType = new GraphQLObjectType({
     },
     operator: {
       type: OperatorType,
-      resolve() {
-        return {};
-      },
-    },
-    partner: {
-      type: PartnerType,
       resolve() {
         return {};
       },

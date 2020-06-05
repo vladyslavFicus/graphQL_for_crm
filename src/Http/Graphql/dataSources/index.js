@@ -1,17 +1,19 @@
+const AffiliateAPI = require('./AffiliateAPI');
+const AsteriskAPI = require('./AsteriskAPI');
+const AuthAPI = require('./AuthAPI'); // will be removed
+const EmailAPI = require('./EmailAPI');
+const HierarchyAPI = require('./HierarchyAPI');
 const NotificationCenterAPI = require('./NotificationCenterAPI');
 const OperatorAPI = require('./OperatorAPI');
 const ProfileAPI = require('./ProfileAPI');
-const AsteriskAPI = require('./AsteriskAPI');
-const HierarchyAPI = require('./HierarchyAPI');
-const AuthAPI = require('./AuthAPI');
-const EmailAPI = require('./EmailAPI');
 
 module.exports = {
+  AffiliateAPI,
+  AsteriskAPI,
+  AuthAPI, // will be removed
+  EmailAPI,
+  HierarchyAPI,
   NotificationCenterAPI,
   OperatorAPI,
   ProfileAPI,
-  AsteriskAPI,
-  HierarchyAPI,
-  AuthAPI,
-  EmailAPI,
 };

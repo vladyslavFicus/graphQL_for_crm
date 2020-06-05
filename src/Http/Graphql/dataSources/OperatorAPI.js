@@ -10,7 +10,7 @@ class OperatorAPI extends RESTDataSource {
   }
 
   async _loader(uuids) {
-    const data = await this.post('/operator/operators/search', { uuids });
+    const data = await this.post('/operators/search', { uuids });
 
     return orderByArray(uuids, data.content, 'uuid');
   }

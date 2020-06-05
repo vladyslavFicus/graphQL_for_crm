@@ -22,10 +22,10 @@
     "prettier": "^1.14.2"
   },
   "dependencies": {
-    "@hrzn/apollo-autoload": "^1.0.6",
-    "@hrzn/apollo-datasource": "^1.0.118",
-    "@hrzn/apollo-directive": "^1.0.13",
-    "@hrzn/apollo-extension": "^1.0.12",
+    "@hrzn/apollo-autoload": "^1.0.7",
+    "@hrzn/apollo-datasource": "^1.0.122",
+    "@hrzn/apollo-directive": "^1.0.14",
+    "@hrzn/apollo-extension": "^1.0.13",
     "@hrzn/brands-config": "1.0.10",
     "@hrzn/k8s-configmap": "^1.0.1",
     "apollo-server-express": "^2.13.1",

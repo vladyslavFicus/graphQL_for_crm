@@ -61,14 +61,14 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@hrzn/apollo-autoload@^1.0.6":
+"@hrzn/apollo-autoload@^1.0.7":
   version "1.0.7"
   resolved "https://nexus.etep.io/repository/hrzn-npm/@hrzn/apollo-autoload/-/apollo-autoload-1.0.7.tgz#8f73dc46457762d8fc73aeaa121846ea00b69f86"
   integrity sha512-iGZw75ioC0RRAUDNhH4KUvej0pb3gCb4aewLJt408UoXgjIFsXyOT35hUuqWAgEieBLRDW/MzoF/VK/X9erTug==
   dependencies:
     recursive-readdir-synchronous "^0.0.4"
 
-"@hrzn/apollo-datasource@^1.0.118":
+"@hrzn/apollo-datasource@^1.0.122":
   version "1.0.122"
   resolved "https://nexus.etep.io/repository/hrzn-npm/@hrzn/apollo-datasource/-/apollo-datasource-1.0.122.tgz#bdf03f1b682983a5737f40ad4653961b7d3878b8"
   integrity sha512-88VbuWZhOwJ+6BNpftFtz31lkE3TzSqO/CuA8WE4ikx3tN/y3Whxzswc7uc5oFK/hoZmP0m8fnKO9gnKfr0oPQ==
@@ -79,7 +79,7 @@
     form-data "^2.3.3"
     graphql "^14.1.1"
 
-"@hrzn/apollo-directive@^1.0.13":
+"@hrzn/apollo-directive@^1.0.14":
   version "1.0.14"
   resolved "https://nexus.etep.io/repository/hrzn-npm/@hrzn/apollo-directive/-/apollo-directive-1.0.14.tgz#1fb418069597712726b5e091252c106b74ec0fa0"
   integrity sha512-pOTXU1UWKJL9DhXNyIcExDJD4X77phcHEC2v9WLmzC6d3hKNDVlbybd8moi7Gx3LnvWnWzu4kLMPB8DEe6Hbnw==
@@ -87,7 +87,7 @@
     graphql "^14.1.1"
     graphql-tools "^4.0.4"
 
-"@hrzn/apollo-extension@^1.0.12":
+"@hrzn/apollo-extension@^1.0.13":
   version "1.0.13"
   resolved "https://nexus.etep.io/repository/hrzn-npm/@hrzn/apollo-extension/-/apollo-extension-1.0.13.tgz#88dd07bd2cfe7e3ec8470769b98fc37c2efae323"
   integrity sha512-zXisJzyAcgKDGY+5tDln/GqJuGG9c1xvSYzct1fq1D2YnwRtlgsKSHRlxM9uGuhq02Y6RC1CgYBsBEcEtHOvDA==

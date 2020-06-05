@@ -21,4 +21,10 @@ module.exports = {
   notificationCenterUnread(_, __, { dataSources }) {
     return dataSources.NotificationCenterAPI.getUnreadCount();
   },
+  partners(_, args, { dataSources }) {
+    return dataSources.AffiliateAPI.getPartners(args);
+  },
+  partner(_, { uuid }, { dataSources }) {
+    return dataSources.AffiliateAPI.getPartner(uuid);
+  },
 };

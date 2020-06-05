@@ -9,7 +9,7 @@ class AuthAPI extends RESTDataSource {
    * @return {Promise}
    */
   getAuthorities(uuid) {
-    return this.get(`/auth/credentials/${uuid}/authorities`);
+    return this.get(`/credentials/${uuid}/authorities`);
   }
 }
 
