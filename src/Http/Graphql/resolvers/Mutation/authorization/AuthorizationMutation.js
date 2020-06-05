@@ -6,7 +6,7 @@ module.exports = {
    * @param args
    * @param dataSources
    *
-   * @return {Promise<AuthorizationMutation__SignInType|*>}
+   * @return {Promise<SignIn>}
    */
   signIn(_, args, { dataSources }) {
     return dataSources.Auth2API.signIn(args);
@@ -19,7 +19,7 @@ module.exports = {
    * @param args
    * @param dataSources
    *
-   * @return {Promise<success|*>}
+   * @return {Promise<ChooseDepartment>}
    */
   chooseDepartment(_, args, { dataSources }) {
     return dataSources.Auth2API.chooseDepartment(args);

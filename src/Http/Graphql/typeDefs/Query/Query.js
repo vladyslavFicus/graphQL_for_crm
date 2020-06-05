@@ -2,6 +2,8 @@ const { gql } = require('apollo-server-express');
 
 module.exports = gql`
   type Query {
+    brandConfig(brandId: String!): JSONObject @response
+
     emailTemplate(id: ID!): Email @response
     emailTemplates: [Email] @response
 

@@ -4,6 +4,7 @@ const {
   AsteriskAPI,
   AuthAPI, // will be removed soon
   Auth2API,
+  BrandConfigAPI,
   HierarchyAPI,
   EmailAPI,
   NotificationCenterAPI,
@@ -17,6 +18,7 @@ module.exports = () => ({
   AsteriskAPI: new AsteriskAPI({ baseUrl: getBaseUrl('') }),
   AuthAPI: new AuthAPI({ baseUrl: getBaseUrl('auth') }), // will be removed
   Auth2API: new Auth2API({ baseUrl: getBaseUrl('auth2') }),
+  BrandConfigAPI: new BrandConfigAPI({ baseUrl: getBaseUrl('brand-config-service') }),
 
   EmailAPI: new EmailAPI({ baseUrl: getBaseUrl('') }),
   HierarchyAPI: new HierarchyAPI({ baseUrl: getBaseUrl('') }),

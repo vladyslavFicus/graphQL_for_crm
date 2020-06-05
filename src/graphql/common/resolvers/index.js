@@ -19,5 +19,4 @@ module.exports = {
   partners: require('./partners'),
   metabase: require('./metabase'),
   filterSet: require('./filterSet'),
-  brandConfig: require('./brandConfig'),
 };

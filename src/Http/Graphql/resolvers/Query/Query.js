@@ -1,6 +1,9 @@
 const { AuthenticationError } = require('@hrzn/apollo-datasource');
 
 module.exports = {
+  brandConfig(_, { brandId }, { dataSources }) {
+    return dataSources.BrandConfigAPI.getBrandConfig(brandId);
+  },
   emailTemplate(_, { id }, { dataSources }) {
     return dataSources.EmailAPI.getTemplate(id);
   },
