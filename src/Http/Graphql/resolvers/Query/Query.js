@@ -4,11 +4,17 @@ module.exports = {
   brandConfig(_, { brandId }, { dataSources }) {
     return dataSources.BrandConfigAPI.getBrandConfig(brandId);
   },
+  emailTemplates(_, __, { dataSources }) {
+    return dataSources.EmailAPI.getTemplates();
+  },
   emailTemplate(_, { id }, { dataSources }) {
     return dataSources.EmailAPI.getTemplate(id);
   },
-  emailTemplates(_, __, { dataSources }) {
-    return dataSources.EmailAPI.getTemplates();
+  filterSets(_, { type }, { dataSources, userUUID }) {
+    return dataSources.FilterSetsAPI.getFilterSets(userUUID, type);
+  },
+  filterSet(_, { uuid }, { dataSources }) {
+    return dataSources.FilterSetsAPI.getFilterSet(uuid);
   },
   notificationCenter(_, { args }, { dataSources }) {
     const { hierarchical, ...argsBody } = args || {};

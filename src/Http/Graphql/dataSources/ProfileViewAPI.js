@@ -2,7 +2,7 @@ const DataLoader = require('dataloader');
 const RESTDataSource = require('@hrzn/apollo-datasource/RESTDataSource');
 const orderByArray = require('../../../utils/orderByArray');
 
-class ProfileAPI extends RESTDataSource {
+class ProfileViewAPI extends RESTDataSource {
   constructor(args) {
     super(args);
 
@@ -10,7 +10,7 @@ class ProfileAPI extends RESTDataSource {
   }
 
   async _loaderPersonalInfo(uuids) {
-    const data = await this.post('/profileview/admin/profiles/personal-information', { uuids });
+    const data = await this.post('/admin/profiles/personal-information', { uuids });
 
     return orderByArray(uuids, data, 'uuid');
   }
@@ -27,4 +27,4 @@ class ProfileAPI extends RESTDataSource {
   }
 }
 
-module.exports = ProfileAPI;
+module.exports = ProfileViewAPI;

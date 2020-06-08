@@ -28,11 +28,6 @@ module.exports = gql`
     currency: String
   }
 
-  type ProfileView__FsaMigration {
-    agreedToFsaMigrationDate: String
-    fsaMigrationStatus: String
-  }
-
   type ProfileView__LastActivity {
     date: String
   }
@@ -70,7 +65,6 @@ module.exports = gql`
     affiliate: ProfileView__Affiliate
     balance: ProfileView__Balance
     firstName: String
-    fsaMigrationInfo: ProfileView__FsaMigration
     fullName: String
     languageCode: String!
     lastActivity: ProfileView__LastActivity

@@ -7,6 +7,9 @@ module.exports = gql`
     emailTemplate(id: ID!): Email @response
     emailTemplates: [Email] @response
 
+    filterSet(uuid: String!): JSONObject @response
+    filterSets(type: FilterSet__Types): FilterSet @response
+
     notificationCenter(args: NotificationCenterInputType): NotificationCenter @pageable @response
     notificationCenterTypes: [String] @response
     notificationCenterSubtypes: [String] @response

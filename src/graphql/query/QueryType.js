@@ -7,7 +7,6 @@ const {
   GraphQLString,
   GraphQLList,
 } = require('graphql');
-const { GraphQLJSONObject } = require('graphql-type-json');
 const ResponseType = require('../common/types/ResponseType');
 const {
   profile,
@@ -32,7 +31,6 @@ const {
   operators: { getOperators, getOperatorByUUID },
   audit: { getFeeds, getFeedTypes },
   metabase: { getMetabaseToken },
-  filterSet: { getFilterSets, getFilterSetById },
   tradingAccount: { getTradingAccounts, getTradingAccountsList },
 } = require('../common/resolvers');
 const PageableType = require('../common/types/PageableType');
@@ -62,8 +60,6 @@ const RuleType = require('./RuleType');
 const { RuleTypeEnum } = require('./RuleType/RuleEnums');
 const { CallbackType, CallbackStatusEnum } = require('./CallbackType');
 const OperatorType = require('./OperatorType');
-const FilterSetType = require('./FilterSetType');
-const { FilterSetTypeEnum } = require('./FilterSetType');
 const { checkMigrationQuery } = require('../../utils/profile');
 const PaymentsInputType = require('../input/PaymentsInputType');
 const PaymentsByUuidInputType = require('../input/PaymentsByUuidInputType');
@@ -399,20 +395,6 @@ const QueryType = new GraphQLObjectType({
         agent_id: { type: GraphQLString },
       },
       resolve: getMetabaseToken,
-    },
-    filterSets: {
-      type: ResponseType(FilterSetType, 'FilterSetQueryType'),
-      args: {
-        type: { type: new GraphQLNonNull(FilterSetTypeEnum) },
-      },
-      resolve: getFilterSets,
-    },
-    filterSet: {
-      type: ResponseType(GraphQLJSONObject, 'FilterSetFieldsType'),
-      args: {
-        uuid: { type: new GraphQLNonNull(GraphQLString) },
-      },
-      resolve: getFilterSetById,
     },
   }),
 });

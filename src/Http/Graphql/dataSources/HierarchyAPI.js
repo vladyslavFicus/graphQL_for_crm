@@ -10,7 +10,7 @@ class HierarchyAPI extends RESTDataSource {
   }
 
   async _loader(userUuids) {
-    const data = await this.post('/hierarchy/user/search', { userUuids });
+    const data = await this.post('/user/search', { userUuids });
 
     return orderByArray(userUuids, data.content, 'uuid');
   }

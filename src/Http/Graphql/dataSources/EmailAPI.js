@@ -9,7 +9,7 @@ class EmailAPI extends RESTDataSource {
    * @return {Promise}
    */
   getTemplate(id) {
-    return this.get(`/email/templates/${id}`);
+    return this.get(`/templates/${id}`);
   }
 
   /**
@@ -18,7 +18,7 @@ class EmailAPI extends RESTDataSource {
    * @return {Promise}
    */
   getTemplates() {
-    return this.get('/email/templates');
+    return this.get('/templates');
   }
 
   /**
@@ -29,7 +29,7 @@ class EmailAPI extends RESTDataSource {
    * @return {Promise}
    */
   createTemplate(args) {
-    return this.post('/email/templates', args);
+    return this.post('/templates', args);
   }
 
   /**
@@ -40,7 +40,7 @@ class EmailAPI extends RESTDataSource {
    * @return {Promise}
    */
   updateTemplate(args) {
-    return this.put('/email/templates', args);
+    return this.put('/templates', args);
   }
 
   /**
@@ -51,7 +51,7 @@ class EmailAPI extends RESTDataSource {
    * @return {Promise}
    */
   deleteTemplate(id) {
-    return this.delete(`/email/templates/${id}`);
+    return this.delete(`/templates/${id}`);
   }
 
   /**
@@ -62,7 +62,7 @@ class EmailAPI extends RESTDataSource {
    * @return {Promise}
    */
   sendEmail(args) {
-    return this.post('/email/templated-email', args);
+    return this.post('/templated-email', args);
   }
 }
 

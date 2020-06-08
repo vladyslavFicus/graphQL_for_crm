@@ -10,7 +10,7 @@ class NotificationCenterAPI extends RESTDataSource {
    * @return {*}
    */
   getNotifications({ hierarchical, ...args }) {
-    return this.post(`/notification/admin/notifications/search?hierarchical=${hierarchical}`, args);
+    return this.post(`/admin/notifications/search?hierarchical=${hierarchical}`, args);
   }
 
   /**
@@ -19,7 +19,7 @@ class NotificationCenterAPI extends RESTDataSource {
    * @return {*}
    */
   getTypes() {
-    return this.get('/notification/admin/notifications/types');
+    return this.get('/admin/notifications/types');
   }
 
   /**
@@ -28,7 +28,7 @@ class NotificationCenterAPI extends RESTDataSource {
    * @return {*}
    */
   getSubtypes() {
-    return this.get('/notification/admin/notifications/subtypes');
+    return this.get('/admin/notifications/subtypes');
   }
 
   /**
@@ -37,7 +37,7 @@ class NotificationCenterAPI extends RESTDataSource {
    * @return {Promise}
    */
   getUnreadCount() {
-    return this.get('/notification/admin/notifications/unread/amount');
+    return this.get('/admin/notifications/unread/amount');
   }
 
   /**
@@ -48,7 +48,7 @@ class NotificationCenterAPI extends RESTDataSource {
    * @return {*}
    */
   update(args) {
-    return this.put('/notification/admin/notifications/bulk/read', args);
+    return this.put('/admin/notifications/bulk/read', args);
   }
 }
 

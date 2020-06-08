@@ -5,24 +5,24 @@ const {
   AuthAPI, // will be removed soon
   Auth2API,
   BrandConfigAPI,
-  HierarchyAPI,
   EmailAPI,
+  FilterSetsAPI,
+  HierarchyAPI,
   NotificationCenterAPI,
   OperatorAPI,
-  ProfileAPI,
+  ProfileViewAPI,
 } = require('../dataSources');
 
 module.exports = () => ({
-  // New one
   AffiliateAPI: new AffiliateAPI({ baseUrl: getBaseUrl('affiliate') }),
   AsteriskAPI: new AsteriskAPI({ baseUrl: getBaseUrl('') }),
   AuthAPI: new AuthAPI({ baseUrl: getBaseUrl('auth') }), // will be removed
   Auth2API: new Auth2API({ baseUrl: getBaseUrl('auth2') }),
   BrandConfigAPI: new BrandConfigAPI({ baseUrl: getBaseUrl('brand-config-service') }),
-
-  EmailAPI: new EmailAPI({ baseUrl: getBaseUrl('') }),
-  HierarchyAPI: new HierarchyAPI({ baseUrl: getBaseUrl('') }),
-  NotificationCenterAPI: new NotificationCenterAPI({ baseUrl: getBaseUrl('') }),
+  EmailAPI: new EmailAPI({ baseUrl: getBaseUrl('email') }),
+  FilterSetsAPI: new FilterSetsAPI({ baseUrl: getBaseUrl('filter-sets') }),
+  HierarchyAPI: new HierarchyAPI({ baseUrl: getBaseUrl('hierarchy') }),
+  NotificationCenterAPI: new NotificationCenterAPI({ baseUrl: getBaseUrl('notification') }),
   OperatorAPI: new OperatorAPI({ baseUrl: getBaseUrl('operator') }),
-  ProfileAPI: new ProfileAPI({ baseUrl: getBaseUrl('') }),
+  ProfileViewAPI: new ProfileViewAPI({ baseUrl: getBaseUrl('profileview') }),
 });

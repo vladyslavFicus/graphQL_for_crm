@@ -3,6 +3,6 @@ module.exports = {
     return dataSources.OperatorAPI.getByUUID(operatorUuid);
   },
   client({ profileUuid }, _, { dataSources }) {
-    return dataSources.ProfileAPI.getPersonalInfoByUUID(profileUuid);
+    return dataSources.ProfileViewAPI.getPersonalInfoByUUID(profileUuid);
   },
 };
