@@ -38,7 +38,6 @@ const ClientSearchInputType = require('../input/ClientSearchInputType');
 const { FileType, FileByUuidType } = require('./FileType/FileType');
 const { AuthorityType, AuthorityOptionsType } = require('./AuthType');
 const NewPlayerProfileType = require('./NewPlayerProfileType');
-const OptionsType = require('./OptionsType');
 const ProfileViewType = require('./ProfileViewType');
 const TradingAccountType = require('./TradingAccountType');
 const TradingAccountsListType = require('./TradingAccountsListType');
@@ -96,10 +95,6 @@ const QueryType = new GraphQLObjectType({
     permission: {
       type: ResponseType(new GraphQLList(GraphQLString), 'Permission'),
       resolve: getPermissions,
-    },
-    options: {
-      type: OptionsType,
-      resolve: () => ({}),
     },
     newProfile: {
       type: ResponseType(NewPlayerProfileType, 'NewProfile'),
