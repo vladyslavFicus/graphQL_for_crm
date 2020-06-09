@@ -68,6 +68,15 @@ const ProfileViewLastNote = new GraphQLObjectType({
       changedAt: { type: GraphQLString },
       content: { type: GraphQLString },
       uuid: { type: GraphQLNonNull(GraphQLString) },
+      changedBy: { type: GraphQLString },
+      authorFullName: {
+        type: GraphQLString,
+        resolve: async ({ changedBy: uuid }, _, { dataloaders }) => {
+          const { firstName, lastName } = await dataloaders.operators.load(uuid);
+
+          return `${firstName} ${lastName}`;
+        },
+      },
     };
   },
 });
