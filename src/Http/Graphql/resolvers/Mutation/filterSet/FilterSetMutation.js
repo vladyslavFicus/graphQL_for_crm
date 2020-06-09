@@ -23,8 +23,8 @@ module.exports = {
    * @return {Promise<success|*>}
    */
   async update(_, { uuid, ...args }, { dataSources }) {
-    const responseData = await dataSources.FilterSetsAPI.updateFilterSet(uuid, args);
-    return { success: !!responseData };
+    await dataSources.FilterSetsAPI.updateFilterSet(uuid, args);
+    return { success: true };
   },
 
   /**
@@ -37,8 +37,8 @@ module.exports = {
    * @return {Promise<success|*>}
    */
   async delete(_, { uuid }, { dataSources }) {
-    const responseData = dataSources.FilterSetsAPI.deleteFilterSet(uuid);
-    return { success: !!responseData };
+    await dataSources.FilterSetsAPI.deleteFilterSet(uuid);
+    return { success: true };
   },
 
   /**
@@ -51,7 +51,7 @@ module.exports = {
    * @return {Promise<success|*>}
    */
   async updateFavourite(_, { uuid, favourite }, { dataSources }) {
-    const responseData = await dataSources.FilterSetsAPI.updateFilterFavorite(uuid, favourite);
-    return { success: !!responseData };
+    await dataSources.FilterSetsAPI.updateFilterFavorite('dasdads', favourite);
+    return { success: true };
   },
 };

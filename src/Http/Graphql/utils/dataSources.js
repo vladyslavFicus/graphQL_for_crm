@@ -10,6 +10,7 @@ const {
   HierarchyAPI,
   NotificationCenterAPI,
   OperatorAPI,
+  PaymentAPI,
   ProfileViewAPI,
 } = require('../dataSources');
 
@@ -24,5 +25,6 @@ module.exports = () => ({
   HierarchyAPI: new HierarchyAPI({ baseUrl: getBaseUrl('hierarchy') }),
   NotificationCenterAPI: new NotificationCenterAPI({ baseUrl: getBaseUrl('notification') }),
   OperatorAPI: new OperatorAPI({ baseUrl: getBaseUrl('operator') }),
+  PaymentAPI: new PaymentAPI({ baseUrl: getBaseUrl('payment') }),
   ProfileViewAPI: new ProfileViewAPI({ baseUrl: getBaseUrl('profileview') }),
 });

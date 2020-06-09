@@ -3,7 +3,6 @@ const AuthType = require('./AuthType');
 const ProfileType = require('./ProfileType');
 const OperatorType = require('./OperatorType');
 const NoteType = require('./NoteType');
-const { PaymentType } = require('./PaymentType');
 const FileType = require('./FileType');
 const UploadType = require('./UploadType');
 const LeadsType = require('./LeadsType');
@@ -37,12 +36,6 @@ const MutationType = new GraphQLObjectType({
     },
     note: {
       type: NoteType,
-      resolve() {
-        return {};
-      },
-    },
-    payment: {
-      type: PaymentType,
       resolve() {
         return {};
       },

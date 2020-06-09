@@ -9,5 +9,6 @@ module.exports = gql`
     filterSet: FilterSetMutation @nested
     notificationCenter: NotificationCenterMutation @nested
     partner: PartnerMutation @nested
+    payment: PaymentMutation @nested
   }
 `;

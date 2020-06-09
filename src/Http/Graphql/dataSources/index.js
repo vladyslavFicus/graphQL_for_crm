@@ -8,6 +8,7 @@ const FilterSetsAPI = require('./FilterSetsAPI');
 const HierarchyAPI = require('./HierarchyAPI');
 const NotificationCenterAPI = require('./NotificationCenterAPI');
 const OperatorAPI = require('./OperatorAPI');
+const PaymentAPI = require('./PaymentAPI');
 const ProfileViewAPI = require('./ProfileViewAPI');
 
 module.exports = {
@@ -21,5 +22,6 @@ module.exports = {
   HierarchyAPI,
   NotificationCenterAPI,
   OperatorAPI,
+  PaymentAPI,
   ProfileViewAPI,
 };

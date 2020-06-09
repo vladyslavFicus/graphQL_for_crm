@@ -22,6 +22,8 @@ module.exports = {
       notificationUuids = data.content.map(({ uuid }) => uuid).filter(uuid => !excUuids.includes(uuid));
     }
 
-    return dataSources.NotificationCenterAPI.update({ read: true, notificationUuids });
+    await dataSources.NotificationCenterAPI.update({ read: true, notificationUuids });
+
+    return { success: true };
   },
 };

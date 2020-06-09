@@ -24,5 +24,10 @@ module.exports = gql`
       registrationDateFrom: String
       registrationDateTo: String
     ): Partner @pageable @response
+
+    payments(args: PaymentInputType): Payment @pageable @response
+    clientPayments(args: PaymentInputType): Payment @pageable @response
+    paymentMethods: [String] @response
+    manualPaymentMethods: [String] @response
   }
 `;

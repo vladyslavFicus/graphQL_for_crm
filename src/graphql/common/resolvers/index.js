@@ -1,7 +1,6 @@
 module.exports = {
   audit: require('./audit'),
   auth: require('./auth'),
-  payment: require('./payment'),
   profile: require('./profile'),
   notes: require('./notes'),
   tradingActivities: require('./tradingActivities'),

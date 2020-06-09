@@ -49,7 +49,6 @@ module.exports = {
    */
   async deleteEmailTemplate(_, { id }, { dataSources }) {
     await dataSources.EmailAPI.deleteTemplate(id);
-
     return { id };
   },
 };

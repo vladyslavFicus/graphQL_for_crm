@@ -15,14 +15,6 @@ const {
     credentials: { getAuthorities, getLoginLock, getPermissions, getAuthoritiesOptions },
   },
   notes: { getNotes },
-  payment: {
-    getPaymentMethods,
-    getManualPaymentMethods,
-    getOperatorPaymentMethods,
-    getClientPayments,
-    getClientPaymentsByUuid,
-    getPaymentStatuses,
-  },
   tradingActivities: { getTradingActivities },
   profiles: { getProfiles },
   leads: { getTradingLeads, getLeadProfile },
@@ -42,10 +34,6 @@ const ProfileViewType = require('./ProfileViewType');
 const TradingAccountType = require('./TradingAccountType');
 const TradingAccountsListType = require('./TradingAccountsListType');
 const {
-  PaymentType: { PaymentMethodType, PaymentType },
-  PaymentStatusType,
-} = require('./PaymentTypes');
-const {
   TradingActivityType,
   TradingActivityEnums: { operationTypesEnum, StatusesEnum },
 } = require('./TradingActivityType');
@@ -60,8 +48,6 @@ const { RuleTypeEnum } = require('./RuleType/RuleEnums');
 const { CallbackType, CallbackStatusEnum } = require('./CallbackType');
 const OperatorType = require('./OperatorType');
 const { checkMigrationQuery } = require('../../utils/profile');
-const PaymentsInputType = require('../input/PaymentsInputType');
-const PaymentsByUuidInputType = require('../input/PaymentsByUuidInputType');
 const PageInputType = require('../input/PageInputType');
 
 const QueryType = new GraphQLObjectType({
@@ -135,40 +121,6 @@ const QueryType = new GraphQLObjectType({
         changedAtTo: { type: GraphQLString },
         changedAtFrom: { type: GraphQLString },
       },
-    },
-    paymentMethods: {
-      type: ResponseType(new GraphQLList(GraphQLString), 'PaymentMethods'),
-      resolve: getPaymentMethods,
-    },
-    manualPaymentMethods: {
-      type: ResponseType(new GraphQLList(GraphQLString), 'ManualPaymentMethods'),
-      resolve: getManualPaymentMethods,
-    },
-    operatorPaymentMethods: {
-      type: ResponseType(new GraphQLList(PaymentMethodType), 'OperatorPaymentMethods'),
-      resolve: getOperatorPaymentMethods,
-    },
-    clientPayments: {
-      type: ResponseType(PageableType(PaymentType, {}, 'ClientPayments')),
-      args: {
-        args: { type: PaymentsInputType },
-      },
-      resolve: (_, { args }, ctx) => getClientPayments(_, args, ctx),
-    },
-    clientPaymentsByUuid: {
-      type: ResponseType(PageableType(PaymentType, {}, 'ClientPaymentByUuid')),
-      args: {
-        args: { type: PaymentsByUuidInputType },
-      },
-      resolve: (_, { args }, ctx) => getClientPaymentsByUuid(_, args, ctx),
-    },
-    paymentStatuses: {
-      args: {
-        paymentId: { type: new GraphQLNonNull(GraphQLString) },
-        playerUUID: { type: new GraphQLNonNull(GraphQLString) },
-      },
-      resolve: getPaymentStatuses,
-      type: new GraphQLList(PaymentStatusType),
     },
     clientTradingActivity: {
       type: ResponseType(PageableType(TradingActivityType)),

@@ -35,7 +35,7 @@ module.exports = {
    * @return {Object<{ success: boolean }>}
    */
   async changePartnerAccountStatus(_, args, { dataSources }) {
-    const responseData = await dataSources.AffiliateAPI.changePartnerAccountStatus(args);
-    return { success: !!responseData };
+    await dataSources.AffiliateAPI.changePartnerAccountStatus(args);
+    return { success: true };
   },
 };
