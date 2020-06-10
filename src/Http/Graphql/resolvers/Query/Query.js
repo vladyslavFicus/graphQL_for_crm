@@ -3,6 +3,18 @@ const { AuthenticationError } = require('@hrzn/apollo-datasource');
 module.exports = {
   /**
    *
+   * AfilliateAPI
+   *
+   * */
+  partners(_, args, { dataSources }) {
+    return dataSources.AffiliateAPI.getPartners(args);
+  },
+  partner(_, { uuid }, { dataSources }) {
+    return dataSources.AffiliateAPI.getPartner(uuid);
+  },
+
+  /**
+   *
    * BrandConfigAPI
    *
    * */
@@ -36,6 +48,15 @@ module.exports = {
 
   /**
    *
+   * NoteAPI
+   *
+   * */
+  notes(_, { targetUUID, ...args }, { dataSources }) {
+    return dataSources.NoteAPI.getNotes({ ...args, targetUUIDs: [targetUUID] });
+  },
+
+  /**
+   *
    * NotificationCenterAPI
    *
    * */
@@ -52,18 +73,6 @@ module.exports = {
   },
   notificationCenterUnread(_, __, { dataSources }) {
     return dataSources.NotificationCenterAPI.getUnreadCount();
-  },
-
-  /**
-   *
-   * AfilliateAPI
-   *
-   * */
-  partners(_, args, { dataSources }) {
-    return dataSources.AffiliateAPI.getPartners(args);
-  },
-  partner(_, { uuid }, { dataSources }) {
-    return dataSources.AffiliateAPI.getPartner(uuid);
   },
 
   /**

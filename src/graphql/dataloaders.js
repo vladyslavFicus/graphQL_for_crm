@@ -28,6 +28,7 @@ exports.createDataloaders = (authorization, brandId) => ({
     return orderByArray(ids, data.content, 'uuid');
   }),
 
+  // # Remove after CallbackType and FileType will be refactored
   notes: new DataLoader(async ids => {
     const { data } = await getNotes({ targetUUIDs: ids, size: ids.length }, authorization);
 

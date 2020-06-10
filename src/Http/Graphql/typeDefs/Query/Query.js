@@ -10,6 +10,17 @@ module.exports = gql`
     filterSet(uuid: String!): JSONObject @response
     filterSets(type: FilterSet__Types): FilterSet @response
 
+    notes(
+      changedAtFrom: String
+      changedAtTo: String
+      department: String
+      targetType: String
+      targetUUID: String!
+      size: Int
+      page: Int
+      pinned: Boolean
+    ): Note @pageable @response
+
     notificationCenter(args: NotificationCenterInputType): NotificationCenter @pageable @response
     notificationCenterTypes: [String] @response
     notificationCenterSubtypes: [String] @response

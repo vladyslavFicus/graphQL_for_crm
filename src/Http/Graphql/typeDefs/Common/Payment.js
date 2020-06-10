@@ -40,7 +40,7 @@ module.exports = gql`
     modifiedBy: String
     moto: Boolean
     normalizedAmount: String
-    note: String # Note
+    note: Note
     originalAgent: Operator
     paymentId: String!
     paymentAggregator: String

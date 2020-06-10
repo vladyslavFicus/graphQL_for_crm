@@ -14,7 +14,6 @@ const {
   auth: {
     credentials: { getAuthorities, getLoginLock, getPermissions, getAuthoritiesOptions },
   },
-  notes: { getNotes },
   tradingActivities: { getTradingActivities },
   profiles: { getProfiles },
   leads: { getTradingLeads, getLeadProfile },
@@ -37,7 +36,6 @@ const {
   TradingActivityType,
   TradingActivityEnums: { operationTypesEnum, StatusesEnum },
 } = require('./TradingActivityType');
-const { NoteType } = require('./NoteType');
 const StatisticsType = require('./StatisticsType');
 const LeadType = require('./LeadType');
 const { FeedType, FeedTypes } = require('./AuditType/FeedType');
@@ -107,20 +105,6 @@ const QueryType = new GraphQLObjectType({
         size: { type: GraphQLInt },
       },
       resolve: getTradingAccountsList,
-    },
-    notes: {
-      type: ResponseType(PageableType(NoteType, {}, 'NoteType')),
-      resolve: getNotes,
-      args: {
-        targetUUID: { type: new GraphQLNonNull(GraphQLString) },
-        pinned: { type: GraphQLBoolean },
-        size: { type: GraphQLInt },
-        page: { type: GraphQLInt },
-        department: { type: GraphQLString },
-        targetType: { type: GraphQLString },
-        changedAtTo: { type: GraphQLString },
-        changedAtFrom: { type: GraphQLString },
-      },
     },
     clientTradingActivity: {
       type: ResponseType(PageableType(TradingActivityType)),

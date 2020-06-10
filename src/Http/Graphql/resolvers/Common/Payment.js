@@ -6,7 +6,6 @@ module.exports = {
     return dataSources.OperatorAPI.getByUUID(agentId);
   },
   note({ paymentId }, _, { dataSources }) {
-    // return dataSources.NoteAPI.getNote(paymentId);
-    return null;
+    return dataSources.NoteAPI.getNote(paymentId);
   },
 };

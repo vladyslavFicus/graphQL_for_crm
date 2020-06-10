@@ -2,6 +2,7 @@ const { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLBoolean } = req
 const { getOperator } = require('../../common/resolvers/operators');
 const OperatorType = require('../OperatorType');
 
+// # TODO: Remove after 'note' dataloader will be removed
 const NoteType = new GraphQLObjectType({
   name: 'Note',
   fields: () => ({

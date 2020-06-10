@@ -2,7 +2,6 @@ const { GraphQLObjectType } = require('graphql');
 const AuthType = require('./AuthType');
 const ProfileType = require('./ProfileType');
 const OperatorType = require('./OperatorType');
-const NoteType = require('./NoteType');
 const FileType = require('./FileType');
 const UploadType = require('./UploadType');
 const LeadsType = require('./LeadsType');
@@ -30,12 +29,6 @@ const MutationType = new GraphQLObjectType({
     },
     operator: {
       type: OperatorType,
-      resolve() {
-        return {};
-      },
-    },
-    note: {
-      type: NoteType,
       resolve() {
         return {};
       },

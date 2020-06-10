@@ -16,9 +16,9 @@ module.exports = gql`
       target: String
     ): Payment @response
 
-    acceptPayment(declineReason: String, paymentId: String!, paymentMethod: String, typeAcc: String!): Boolean
-    changePaymentMethod(paymentId: String!, paymentMethod: String): Boolean
-    changePaymentStatus(paymentId: String!, paymentStatus: String): Boolean
-    changeOriginalAgent(paymentId: String!, agentId: String, agentName: String): Boolean
+    acceptPayment(declineReason: String, paymentId: String!, paymentMethod: String, typeAcc: String!): Success @response
+    changePaymentMethod(paymentId: String!, paymentMethod: String): Success @response
+    changePaymentStatus(paymentId: String!, paymentStatus: String): Success @response
+    changeOriginalAgent(paymentId: String!, agentId: String, agentName: String): Success
   }
 `;

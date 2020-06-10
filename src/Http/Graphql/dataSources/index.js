@@ -6,6 +6,7 @@ const BrandConfigAPI = require('./BrandConfigAPI');
 const EmailAPI = require('./EmailAPI');
 const FilterSetsAPI = require('./FilterSetsAPI');
 const HierarchyAPI = require('./HierarchyAPI');
+const NoteAPI = require('./NoteAPI');
 const NotificationCenterAPI = require('./NotificationCenterAPI');
 const OperatorAPI = require('./OperatorAPI');
 const PaymentAPI = require('./PaymentAPI');
@@ -20,6 +21,7 @@ module.exports = {
   EmailAPI,
   FilterSetsAPI,
   HierarchyAPI,
+  NoteAPI,
   NotificationCenterAPI,
   OperatorAPI,
   PaymentAPI,
