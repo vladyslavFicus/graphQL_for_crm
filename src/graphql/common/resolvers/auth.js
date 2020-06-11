@@ -1,3 +1,4 @@
+const { AuthenticationError } = require('apollo-server-express');
 const { get } = require('lodash');
 const fetch = require('../../../utils/fetch');
 const getBaseUrl = require('../../../utils/getBaseUrl');
@@ -100,7 +101,13 @@ const tokenRenew = (_, __, { headers: { authorization } }) => {
     },
   })
     .then(response => response.json())
-    .then(({ data: { token } }) => ({ token }));
+    .then(({ data, error }) => {
+      if (get(error, 'error') === 'error.entity.not.found') {
+        throw new AuthenticationError('Token is not valid for refreshing');
+      }
+
+      return { token: data.token };
+    });
 };
 
 const resetPassword = (_, args, { headers: { authorization } }) => {
