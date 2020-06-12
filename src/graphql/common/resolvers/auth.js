@@ -65,6 +65,10 @@ const getAuthoritiesOptions = async (_, __, { headers: { authorization }, brand:
     return (authoritiesOptions[department] = [role]);
   });
 
+  if (authoritiesOptions.E2E) {
+    delete authoritiesOptions.E2E;
+  }
+
   return { data: { authoritiesOptions } };
 };
 
