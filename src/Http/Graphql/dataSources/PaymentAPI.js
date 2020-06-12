@@ -43,28 +43,82 @@ class PaymentAPI extends RESTDataSource {
   }
 
   /**
-   * Create payment
+   * Create deposit payment
    *
    * @param args
-   * @param postfix ('', '/manual') - needed for Deposit by Operator (manual)
-   * @param paymentType (DEPOSIT, WITHDRAW, TRANSFER, CREDIT_IN, CREDIT_OUT)
    *
    * @return {Promise}
    */
-  createPayment(args, postfix, paymentType) {
-    return this.post(`/${paymentType.toLowerCase()}${postfix}`, args);
+  createDepositPayment(args) {
+    return this.post('/deposit/manual', args);
   }
 
   /**
-   * Approve or Reject payment
+   * Create withdraw payment
+   *
+   * @param args
+   *
+   * @return {Promise}
+   */
+  createWithdrawPayment(args) {
+    return this.post('/withdraw', args);
+  }
+
+  /**
+   * Create transfer payment
+   *
+   * @param args
+   *
+   * @return {Promise}
+   */
+  createTransferPayment(args) {
+    return this.post('/transfer', args);
+  }
+
+  /**
+   * Create credit_in payment
+   *
+   * @param args
+   *
+   * @return {Promise}
+   */
+  createCreditInPayment(args) {
+    return this.post('/credit_in', args);
+  }
+
+  /**
+   * Create credit_out payment
+   *
+   * @param args
+   *
+   * @return {Promise}
+   */
+  createCreditOutPayment(args) {
+    return this.post('/credit_out', args);
+  }
+
+  /**
+   * Approve payment
    *
    * @param args
    * @param typeAcc ('approve', 'reject')
    *
    * @return {Promise}
    */
-  acceptPayment({ typeAcc, ...args }) {
-    return this.put(`/${typeAcc}`, args);
+  approvePayment(args) {
+    return this.put(`/approve`, args);
+  }
+
+  /**
+   * Reject payment
+   *
+   * @param args
+   * @param typeAcc ('approve', 'reject')
+   *
+   * @return {Promise}
+   */
+  rejectPayment(args) {
+    return this.put(`/reject`, args);
   }
 
   /**

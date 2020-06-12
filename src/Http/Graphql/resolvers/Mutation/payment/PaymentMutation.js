@@ -10,8 +10,25 @@ module.exports = {
    * @return {Promise<{paymentId: string|*>}
    */
   createPayment(_, { paymentType, ...args }, { dataSources }) {
-    const postfix = paymentType === 'DEPOSIT' ? '/manual' : '';
-    return dataSources.PaymentAPI.createPayment(args, postfix, paymentType);
+    switch (paymentType.toUpperCase()) {
+      case 'DEPOSIT':
+        return dataSources.PaymentAPI.createDepositPayment(args);
+
+      case 'WITHDRAW':
+        return dataSources.PaymentAPI.createWithdrawPayment(args);
+
+      case 'TRANSFER':
+        return dataSources.PaymentAPI.createTransferPayment(args);
+
+      case 'CREDIT_IN':
+        return dataSources.PaymentAPI.createCreditInPayment(args);
+
+      case 'CREDIT_OUT':
+        return dataSources.PaymentAPI.createCreditOutPayment(args);
+
+      default:
+        return null;
+    }
   },
 
   /**
@@ -23,9 +40,21 @@ module.exports = {
    *
    * @return {Promise<{boolean}|*>}
    */
-  async acceptPayment(_, args, { dataSources }) {
-    await dataSources.PaymentAPI.acceptPayment(args);
-    return true;
+  async acceptPayment(_, { typeAcc, ...args }, { dataSources }) {
+    switch (typeAcc.toUpperCase()) {
+      case 'APPROVE':
+        await dataSources.PaymentAPI.approvePayment(args);
+        break;
+
+      case 'REJECT':
+        await dataSources.PaymentAPI.rejectPayment(args);
+        break;
+
+      default:
+        return { success: false };
+    }
+
+    return { success: true };
   },
 
   /**
@@ -39,7 +68,7 @@ module.exports = {
    */
   async changePaymentMethod(_, args, { dataSources }) {
     await dataSources.PaymentAPI.changePaymentMethod(args);
-    return true;
+    return { success: true };
   },
 
   /**
@@ -53,7 +82,7 @@ module.exports = {
    */
   async changePaymentStatus(_, args, { dataSources }) {
     await dataSources.PaymentAPI.changePaymentStatus(args);
-    return true;
+    return { success: true };
   },
 
   /**
@@ -67,6 +96,6 @@ module.exports = {
    */
   async changeOriginalAgent(_, args, { dataSources }) {
     await dataSources.PaymentAPI.changeOriginalAgent(args);
-    return true;
+    return { success: true };
   },
 };
