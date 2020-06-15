@@ -1,3 +1,6 @@
+const { get } = require('lodash');
+const { AuthenticationError } = require('@hrzn/apollo-datasource');
+
 module.exports = {
   /**
    * Logout
@@ -22,8 +25,14 @@ module.exports = {
    *
    * @return {Promise<TokenRenew>}
    */
-  tokenRenew(_, __, { dataSources }) {
-    return dataSources.Auth2API.tokenRenew();
+  async tokenRenew(_, __, { dataSources }) {
+    try {
+      await dataSources.Auth2API.tokenRenew();
+    } catch(error) {
+      if (get(error, 'extensions.code') === 'error.entity.not.found') {
+        throw new AuthenticationError('Token is not valid for refreshing');
+      }
+    }
   },
 
   /**
