@@ -1,6 +1,6 @@
 module.exports = {
   authorities({ uuid }, _, { dataSources }) {
-    return dataSources.AuthAPI.getAuthorities(uuid);
+    return dataSources.Auth2API.getAuthoritiesByUuid(uuid);
   },
   fullName({ firstName, lastName }) {
     return [firstName, lastName].filter(v => v).join(' ');

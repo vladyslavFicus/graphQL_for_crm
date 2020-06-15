@@ -43,29 +43,6 @@ const getOperatorByUUID = async (_, { uuid }, { headers: { authorization }, hier
   return getOperatorByUUIDRequest(uuid, authorization);
 };
 
-const authoritiesPolling = async (uuid, authorization, attempt = 0) => {
-  const response = await getAuthorities(uuid, authorization);
-  // Return error if polling attempting overflow
-  if (attempt > 5) {
-    Logger.error({ uuid }, 'authorities polling failed');
-
-    return { error: 'polling failed' };
-  }
-
-  // Polling if authorities return error
-  if (response.error) {
-    Logger.info({ uuid, attempt: attempt + 1 }, 'authorities polling again');
-
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve(authoritiesPolling(uuid, authorization, attempt + 1));
-      }, 1000);
-    });
-  }
-
-  return response;
-};
-
 const createOperator = async (
   _,
   { branchId, userType, ...args },

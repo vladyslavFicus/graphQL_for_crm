@@ -1,64 +1,8 @@
 const fetch = require('./fetch');
 const getBaseUrl = require('./getBaseUrl');
-const buildQueryString = require('./buildQueryString');
 
-const getPermission = authorization => {
-  return fetch(`${getBaseUrl('auth2')}/users/actions`, {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      authorization,
-      'content-type': 'application/json',
-    },
-  }).then(response => response.json());
-};
-
-const changeClientPassword = ({ clientUuid, ...args }, authorization) => {
-  return fetch(`${getBaseUrl('auth2')}/password/player/${clientUuid}`, {
-    method: 'PUT',
-    headers: {
-      Accept: 'application/json',
-      authorization,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(args),
-  }).then(response => ({ success: response.status === 200 }));
-};
-
-const changeOperatorPassword = ({ operatorUuid, ...args }, authorization) => {
-  return fetch(`${getBaseUrl('auth2')}/password/operator/${operatorUuid}`, {
-    method: 'PUT',
-    headers: {
-      Accept: 'application/json',
-      authorization,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(args),
-  }).then(response => ({ success: response.status === 200 }));
-};
-
-const resetUserPassword = (userUuid, authorization) => {
-  return fetch(`${getBaseUrl('auth2')}/password/user/${userUuid}/reset`, {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      authorization,
-      'Content-Type': 'application/json',
-    },
-  }).then(response => ({ success: response.status === 200 }));
-};
-
-const getAllAuthorities = (brand, authorization) => {
-  return fetch(`${getBaseUrl('auth2')}/authorities?${buildQueryString({ brand })}`, {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      authorization,
-      'content-type': 'application/json',
-    },
-  }).then(response => response.json());
-};
-
+// # It was implemented in Auth2API
+// # Can be removed after operator refactoring
 const getAuthorities = (uuid, authorization) => {
   return fetch(`${getBaseUrl('auth2')}/users/${uuid}/authorities`, {
     method: 'GET',
@@ -70,6 +14,8 @@ const getAuthorities = (uuid, authorization) => {
   }).then(response => response.json());
 };
 
+// # It was implemented in Auth2API
+// # Can be removed after operator refactoring
 const addAuthorities = ({ uuid, ...args }, authorization) => {
   return fetch(`${getBaseUrl('auth2')}/users/${uuid}/authorities`, {
     method: 'POST',
@@ -82,6 +28,8 @@ const addAuthorities = ({ uuid, ...args }, authorization) => {
   }).then(response => response.json());
 };
 
+// # It was implemented in Auth2API
+// # Can be removed after operator refactoring
 const removeAuthorities = ({ uuid, ...args }, authorization) => {
   return fetch(`${getBaseUrl('auth2')}/users/${uuid}/authorities`, {
     method: 'DELETE',
@@ -95,11 +43,6 @@ const removeAuthorities = ({ uuid, ...args }, authorization) => {
 };
 
 module.exports = {
-  getPermission,
-  changeClientPassword,
-  changeOperatorPassword,
-  resetUserPassword,
-  getAllAuthorities,
   getAuthorities,
   addAuthorities,
   removeAuthorities,

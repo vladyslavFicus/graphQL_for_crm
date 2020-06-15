@@ -1,6 +1,5 @@
 const AffiliateAPI = require('./AffiliateAPI');
 const AsteriskAPI = require('./AsteriskAPI');
-const AuthAPI = require('./AuthAPI'); // will be removed
 const Auth2API = require('./Auth2API');
 const BrandConfigAPI = require('./BrandConfigAPI');
 const EmailAPI = require('./EmailAPI');
@@ -15,7 +14,6 @@ const ProfileViewAPI = require('./ProfileViewAPI');
 module.exports = {
   AffiliateAPI,
   AsteriskAPI,
-  AuthAPI, // will be removed
   Auth2API,
   BrandConfigAPI,
   EmailAPI,

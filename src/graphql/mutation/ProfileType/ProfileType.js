@@ -26,7 +26,6 @@ const {
     updateContacts,
     updateAddress,
   },
-  auth: { resetUserPassword, changeClientPassword },
 } = require('../../common/resolvers');
 
 const SuspendDurationType = new GraphQLInputObjectType({
@@ -114,21 +113,6 @@ const PlayerMutation = new GraphQLObjectType({
       },
       type: ResponseType(NewPlayerProfileType, 'changeProfileStatus'),
       resolve: changeProfileStatus,
-    },
-    passwordResetRequest: {
-      args: {
-        userUuid: { type: new GraphQLNonNull(GraphQLString) },
-      },
-      type: SuccessType,
-      resolve: resetUserPassword,
-    },
-    changePassword: {
-      args: {
-        clientUuid: { type: new GraphQLNonNull(GraphQLString) },
-        newPassword: { type: new GraphQLNonNull(GraphQLString) },
-      },
-      type: SuccessType,
-      resolve: changeClientPassword,
     },
     update: {
       args: {

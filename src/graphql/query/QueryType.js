@@ -11,9 +11,6 @@ const ResponseType = require('../common/types/ResponseType');
 const {
   profile,
   files: { getFiles, getFilesByProfileUUID, getFileCategoriesList },
-  auth: {
-    credentials: { getAuthorities, getLoginLock, getPermissions, getAuthoritiesOptions },
-  },
   tradingActivities: { getTradingActivities },
   profiles: { getProfiles },
   leads: { getTradingLeads, getLeadProfile },
@@ -27,7 +24,6 @@ const {
 const PageableType = require('../common/types/PageableType');
 const ClientSearchInputType = require('../input/ClientSearchInputType');
 const { FileType, FileByUuidType } = require('./FileType/FileType');
-const { AuthorityType, AuthorityOptionsType } = require('./AuthType');
 const NewPlayerProfileType = require('./NewPlayerProfileType');
 const ProfileViewType = require('./ProfileViewType');
 const TradingAccountType = require('./TradingAccountType');
@@ -51,35 +47,6 @@ const PageInputType = require('../input/PageInputType');
 const QueryType = new GraphQLObjectType({
   name: 'Query',
   fields: () => ({
-    authorities: {
-      type: new GraphQLList(AuthorityType),
-      args: {
-        uuid: { type: new GraphQLNonNull(GraphQLString) },
-      },
-      resolve: getAuthorities,
-    },
-    authoritiesOptions: {
-      type: ResponseType(AuthorityOptionsType),
-      resolve: getAuthoritiesOptions,
-    },
-    loginLock: {
-      args: {
-        playerUUID: { type: new GraphQLNonNull(GraphQLString) },
-      },
-      type: new GraphQLObjectType({
-        name: 'getLoginLock',
-        fields: () => ({
-          lock: { type: GraphQLBoolean },
-          lockExpirationDate: { type: GraphQLString },
-          lockReason: { type: GraphQLString },
-        }),
-      }),
-      resolve: getLoginLock,
-    },
-    permission: {
-      type: ResponseType(new GraphQLList(GraphQLString), 'Permission'),
-      resolve: getPermissions,
-    },
     newProfile: {
       type: ResponseType(NewPlayerProfileType, 'NewProfile'),
       args: {

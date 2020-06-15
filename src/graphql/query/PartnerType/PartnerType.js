@@ -1,8 +1,5 @@
 const { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLID, GraphQLList, GraphQLBoolean } = require('graphql');
 const { AuthorityType } = require('../AuthType');
-const {
-  HierarchyUsersType: { UserType },
-} = require('../HierarchyQueryType/HierarchyType');
 const { getAuthorities: getAuthoritiesRequest } = require('../../../utils/auth');
 const ResponseType = require('../../common/types/ResponseType');
 

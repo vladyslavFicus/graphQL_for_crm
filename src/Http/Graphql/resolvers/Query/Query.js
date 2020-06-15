@@ -1,4 +1,5 @@
 const { AuthenticationError } = require('@hrzn/apollo-datasource');
+const { get } = require('lodash');
 
 module.exports = {
   /**
@@ -11,6 +12,40 @@ module.exports = {
   },
   partner(_, { uuid }, { dataSources }) {
     return dataSources.AffiliateAPI.getPartner(uuid);
+  },
+
+  /**
+   *
+   * Auth2API
+   *
+   * */
+  async authoritiesOptions(_, __, { dataSources, brand: { id: brand } }) {
+    const responseData = await dataSources.Auth2API.getAuthorities(brand);
+
+    const executeDepartments = ['ADMINISTRATION', 'PLAYER', 'E2E'];
+    const authorities = get(responseData, `authoritiesPerBrand.${brand}`) || [];
+    const authoritiesOptions = {};
+
+    authorities.map(({ department, role }) => {
+      if (executeDepartments.includes(department)) {
+        return;
+      }
+
+      if (Array.isArray(authoritiesOptions[department])) {
+        return authoritiesOptions[department].push(role);
+      }
+
+      return (authoritiesOptions[department] = [role]);
+    });
+
+    return { authoritiesOptions };
+  },
+  async permission(_, __, { dataSources }) {
+    const { actions } = await dataSources.Auth2API.getPermissions();
+    return actions;
+  },
+  loginLock(_, { uuid }, { dataSources }) {
+    return dataSources.Auth2API.getCredentialsLock(uuid);
   },
 
   /**

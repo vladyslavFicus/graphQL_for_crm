@@ -2,7 +2,6 @@ const getBaseUrl = require('../../../utils/getBaseUrl');
 const {
   AffiliateAPI,
   AsteriskAPI,
-  AuthAPI, // will be removed soon
   Auth2API,
   BrandConfigAPI,
   EmailAPI,
@@ -18,7 +17,6 @@ const {
 module.exports = () => ({
   AffiliateAPI: new AffiliateAPI({ baseUrl: getBaseUrl('affiliate') }),
   AsteriskAPI: new AsteriskAPI({ baseUrl: getBaseUrl('') }),
-  AuthAPI: new AuthAPI({ baseUrl: getBaseUrl('auth') }), // will be removed
   Auth2API: new Auth2API({ baseUrl: getBaseUrl('auth2') }),
   BrandConfigAPI: new BrandConfigAPI({ baseUrl: getBaseUrl('brand-config-service') }),
   EmailAPI: new EmailAPI({ baseUrl: getBaseUrl('email') }),
