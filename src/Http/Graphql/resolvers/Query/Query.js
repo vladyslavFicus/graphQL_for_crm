@@ -59,6 +59,23 @@ module.exports = {
 
   /**
    *
+   * CallbackAPI
+   *
+   * */
+  async callbacks(_, args, { dataSources, userUUID }) {
+    const operatorIdsData = await dataSources.HierarchyAPI.getOperatorsSubtree(userUUID);
+    const operatorIds = operatorIdsData.map(({ uuid }) => uuid);
+
+    return await dataSources.CallbackAPI.getCallbacks({ operatorIds, ...args });
+  },
+  async callback(_, { id }, { dataSources }) {
+    const callbacksData = await dataSources.CallbackAPI.getCallbacks({ id, page: 0, limit: 1 });
+
+    return callbacksData.content[0];
+  },
+
+  /**
+   *
    * EmailAPI
    *
    * */

@@ -9,7 +9,6 @@ const RulesType = require('./RulesType');
 const ClientsType = require('./ClientsType');
 const TradingAccountType = require('./TradingAccountType');
 const TradingActivityType = require('./TradingActivityType');
-const CallbacksType = require('./CallbacksType');
 
 const MutationType = new GraphQLObjectType({
   name: 'ApiMutation',
@@ -70,12 +69,6 @@ const MutationType = new GraphQLObjectType({
     },
     tradingActivity: {
       type: TradingActivityType,
-      resolve() {
-        return {};
-      },
-    },
-    callback: {
-      type: CallbacksType,
       resolve() {
         return {};
       },

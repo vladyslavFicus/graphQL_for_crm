@@ -6,6 +6,7 @@ module.exports = gql`
     authorization: AuthorizationMutation @nested
     asterisk: AsteriskMutation @nested
     brandConfig: BrandConfigMutation @nested
+    callback: CallbackMutation @nested
     emailTemplates: EmailTemplateMutation @nested
     filterSet: FilterSetMutation @nested
     note: NoteMutation @nested

@@ -10,6 +10,18 @@ module.exports = gql`
     # BrandConfigAPI
     brandConfig(brandId: String!): JSONObject @response
 
+    # CallbackAPI
+    callbacks(
+      id: String
+      statuses: [Callback__StatusEnum]
+      userId: String
+      page: Int
+      limit: Int
+      callbackTimeFrom: String
+      callbackTimeTo: String
+    ): Callback @pageable @response
+    callback(id: String!): Callback
+
     # EmailAPI
     emailTemplate(id: ID!): Email @response
     emailTemplates: [Email] @response

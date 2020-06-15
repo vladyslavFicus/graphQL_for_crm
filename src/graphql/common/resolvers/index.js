@@ -13,7 +13,6 @@ module.exports = {
   hierarchy: require('./hierarchy'),
   rules: require('./rules'),
   clients: require('./clients'),
-  callbacks: require('./callbacks'),
   operators: require('./operators'),
   partners: require('./partners'),
   metabase: require('./metabase'),

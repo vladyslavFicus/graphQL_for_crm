@@ -86,6 +86,8 @@ const getObserverForSubtree = (userId, authorization) => {
   }).then(response => response.json());
 };
 
+// # Implemented in HierarchyAPI
+// # Can be removed after getOperators request refactoring
 const getOperatorsSubtree = (userId, authorization) => {
   return fetch(`${getBaseUrl('hierarchy')}/user/${userId}/operators`, {
     method: 'GET',

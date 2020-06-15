@@ -15,7 +15,6 @@ const {
   profiles: { getProfiles },
   leads: { getTradingLeads, getLeadProfile },
   rules: { getRules, getRulesRetention },
-  callbacks: { getCallbacks, getCallback },
   operators: { getOperators, getOperatorByUUID },
   audit: { getFeeds, getFeedTypes },
   metabase: { getMetabaseToken },
@@ -39,7 +38,6 @@ const { SalesStatusesEnum: TradingSalesStatuses } = require('./TradingProfileTyp
 const HierarchyQueryType = require('./HierarchyQueryType');
 const RuleType = require('./RuleType');
 const { RuleTypeEnum } = require('./RuleType/RuleEnums');
-const { CallbackType, CallbackStatusEnum } = require('./CallbackType');
 const OperatorType = require('./OperatorType');
 const { checkMigrationQuery } = require('../../utils/profile');
 const PageInputType = require('../input/PageInputType');
@@ -207,26 +205,6 @@ const QueryType = new GraphQLObjectType({
         parentId: { type: GraphQLString },
       },
       resolve: getRulesRetention,
-    },
-    callbacks: {
-      type: ResponseType(PageableType(CallbackType), 'PageableCallbackType'),
-      args: {
-        id: { type: GraphQLString },
-        statuses: { type: new GraphQLList(CallbackStatusEnum) },
-        userId: { type: GraphQLString },
-        page: { type: GraphQLInt },
-        limit: { type: GraphQLInt },
-        callbackTimeFrom: { type: GraphQLString },
-        callbackTimeTo: { type: GraphQLString },
-      },
-      resolve: getCallbacks,
-    },
-    callback: {
-      type: ResponseType(CallbackType, 'CallbackType'),
-      args: {
-        id: { type: new GraphQLNonNull(GraphQLString) },
-      },
-      resolve: getCallback,
     },
     operators: {
       type: ResponseType(PageableType(OperatorType)),
