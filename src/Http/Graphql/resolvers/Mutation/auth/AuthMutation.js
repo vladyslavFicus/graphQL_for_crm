@@ -28,7 +28,7 @@ module.exports = {
   async tokenRenew(_, __, { dataSources }) {
     try {
       await dataSources.Auth2API.tokenRenew();
-    } catch(error) {
+    } catch (error) {
       if (get(error, 'extensions.code') === 'error.entity.not.found') {
         throw new AuthenticationError('Token is not valid for refreshing');
       }
