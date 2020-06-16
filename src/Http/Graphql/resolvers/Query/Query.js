@@ -158,4 +158,25 @@ module.exports = {
     const responseData = await dataSources.PaymentAPI.getManualPaymentMethods();
     return responseData.sort();
   },
+
+  /**
+   * Operator API
+   */
+  async operator(_, { uuid }, { dataSources }) {
+    // Check allowance to see operator profile by hierarchy
+    await dataSources.HierarchyAPI.checkAccess(uuid);
+
+    return dataSources.OperatorAPI.getByUUID(uuid);
+  },
+  async operators(_, args, { dataSources, userUUID }) {
+    const operatorsSubtree = await dataSources.HierarchyAPI.getOperatorsSubtree(userUUID);
+
+    const operatorsIds = operatorsSubtree.map(({ uuid }) => uuid);
+
+    return dataSources.OperatorAPI.search({
+      ...args,
+      uuids: operatorsIds,
+      limit: operatorsIds.length,
+    });
+  },
 };

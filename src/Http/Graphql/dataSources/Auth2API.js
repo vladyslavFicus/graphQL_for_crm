@@ -103,7 +103,7 @@ class Auth2API extends RESTDataSource {
    * This is an endpoint that returns user's lock status
    * The lock status becomes true after user typed wrong password 5 times on sign in
    *
-   * @param args
+   * @param uuid
    *
    * @return {Promise}
    */
@@ -148,6 +148,7 @@ class Auth2API extends RESTDataSource {
    * Add authority
    *
    * @param uuid
+   * @param args
    *
    * @return {Promise}
    */
@@ -159,6 +160,7 @@ class Auth2API extends RESTDataSource {
    * Remove authority
    *
    * @param uuid
+   * @param args
    *
    * @return {Promise}
    */

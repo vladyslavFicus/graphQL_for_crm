@@ -12,7 +12,7 @@ class HierarchyAPI extends RESTDataSource {
   async _loader(userUuids) {
     const data = await this.post('/user/search', { userUuids });
 
-    return orderByArray(userUuids, data.content, 'uuid');
+    return orderByArray(userUuids, data, 'uuid');
   }
 
   /**
@@ -27,15 +27,25 @@ class HierarchyAPI extends RESTDataSource {
   }
 
   /**
+   * Get operators subtree for current operator UUID
    *
-   * Get operators subtree by current operator uuid
+   * @param uuid
    *
-   * @param uuid | current operator uuid
-   *
-   * @return {Promise}
+   * @return {*}
    */
   getOperatorsSubtree(uuid) {
     return this.get(`/user/${uuid}/operators`);
+  }
+
+  /**
+   * Check access by hierarchy to operator profile by UUID
+   *
+   * @param uuid
+   *
+   * @return {*}
+   */
+  checkAccess(uuid) {
+    return this.get(`/user/${uuid}/check-access`);
   }
 }
 

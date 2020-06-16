@@ -1,0 +1,2510 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type AcquisitionType {
+  acquisitionStatus: String
+  retentionOperator: OperatorType
+  retentionRepresentative: String
+  retentionStatus: String
+  salesOperator: OperatorType
+  salesRepresentative: String
+  salesStatus: String
+}
+
+type AdditionalStatisticFieldValueType {
+  value: Int
+}
+
+type AddressType {
+  address: String
+  city: String
+  countryCode: String
+  postCode: String
+  state: String
+}
+
+type AffiliateDocumentType {
+  affiliate: OperatorType
+  affiliateUuid: String!
+  referral: String
+  sms: String
+  source: String
+}
+
+type AffiliateType {
+  campaignId: String
+  externalId: String
+  partner: PartnerType
+  referral: String
+  sms: String
+  source: String
+  uuid: String
+}
+
+type AsteriskMutation {
+  createCall(number: String!, prefix: Int!): Success
+}
+
+type AuthMutation {
+  logout: SuccessType
+  resetPassword(password: String!, token: String!): SuccessType
+  tokenRenew: TokenRenew
+  unlockLogin(playerUUID: String!): SuccessType
+}
+
+type AuthoritiesListType {
+  data: [Authority]
+  error: Error
+  errors: [Error]
+}
+
+type Authority {
+  id: Int!
+  brandId: String!
+  department: String!
+  role: String!
+}
+
+type AuthorityOptions {
+  authoritiesOptions: JSONObject
+}
+
+type AuthorizationMutation {
+  chooseDepartment(brand: String!, department: String!, role: String!): Response__ChooseDepartment
+  signIn(login: String!, password: String!): Response__SignIn
+}
+
+type BranchHierarchyTree {
+  data: HierarchyBranchTreeType
+  error: Error
+  errors: [Error]
+}
+
+type BrandConfigMutation {
+  create(brandId: String!, config: String!): Response__Object
+  delete(brandId: String!): Success
+  update(brandId: String!, config: String!): Response__Object
+}
+
+type Callback {
+  _id: ID!
+  callbackId: String!
+  callbackTime: String!
+  client: ProfileViewType
+  creationTime: String!
+  note: Note
+  operator: OperatorType
+  operatorId: String!
+  reminder: String
+  status: CallbackStatusEnum!
+  updateTime: String!
+  userId: String!
+}
+
+type CallbackType {
+  data: Callback
+  error: Error
+  errors: [Error]
+}
+
+type CallbacksMutation {
+  create(callbackTime: String!, operatorId: String!, reminder: String, userId: String!): CreateCallback
+  update(callbackId: String!, callbackTime: String, operatorId: String, reminder: String, status: CallbackStatusEnum): Response__Callback
+}
+
+type CheckMigrationType {
+  migrated: Boolean
+}
+
+type ChooseDepartment {
+  token: String
+  uuid: String
+}
+
+type ClientsMutation {
+  bulkRepresentativeUpdate(allRowsSelected: Boolean, clients: [ClientBulkUpdateType], isMoveAction: Boolean, retentionRepresentative: [String], retentionStatus: String, salesRepresentative: [String], salesStatus: String, searchParams: ClientSearchParams, teamId: String, totalElements: Int, type: String!): clientRepresentativeBulkUpdate
+}
+
+type ConfigurationType {
+  crs: Boolean
+  fatca: Boolean
+  gdpr: GDPR_NEW
+  internalTransfer: Boolean
+  subscription: SPAM_NEW
+  webCookies: webCookies_NEW
+}
+
+type ConfirmFileType {
+  data: SuccessType
+  error: Error
+  errors: [Error]
+}
+
+type ContactsType {
+  additionalEmail: String
+  additionalPhone: String
+  email: String
+  phone: String
+}
+
+type CreateCallback {
+  data: Callback
+  error: Error
+  errors: [Error]
+}
+
+type CreateRule {
+  data: RuleType
+  error: Error
+  errors: [Error]
+}
+
+type CreateRuleRetention {
+  data: RuleType
+  error: Error
+  errors: [Error]
+}
+
+type CreatedOperatorType {
+  data: OperatorType
+  error: Error
+  errors: [Error]
+}
+
+type DeleteFileType {
+  data: File
+  error: Error
+  errors: [Error]
+}
+
+type DeletedRuleUuid {
+  data: RuleUuidType
+  error: Error
+  errors: [Error]
+}
+
+type DeletedRuleUuidRetention {
+  data: RuleUuidType
+  error: Error
+  errors: [Error]
+}
+
+type Device {
+  hash: String!
+  lastSignInCountryCode: String
+  lastSignInDate: String!
+  lastSignInIP: String!
+  totalSignIn: String!
+}
+
+type DeviceDetailsType {
+  deviceType: String
+  operatingSystem: String
+}
+
+type DocumentType {
+  documentType: String
+  files: [File]
+  verificationStatus: String
+  verificationTime: String
+  verifiedBy: String
+}
+
+type Email {
+  id: ID!
+  name: String
+  subject: String
+  text: String
+}
+
+type EmailTemplateMutation {
+  createEmailTemplate(name: String!, subject: String!, text: String!): Response__Email
+  deleteEmailTemplate(id: ID!): Response__Email
+  sendEmail(subject: String!, templateName: String, text: String!, toEmail: String!): Response__Email
+  updateEmailTemplate(id: ID!, name: String!, subject: String!, text: String!): Response__Email
+}
+
+type Error {
+  error: String
+  errorParameters: Object
+  fields_errors: Object
+}
+
+type FatcaType {
+  provided: Boolean
+}
+
+type Feed {
+  authorFullName: String!
+  authorUuid: String!
+  brandId: String
+  creationDate: String!
+  details: String
+  id: Int!
+  ip: String
+  targetFullName: String
+  targetUuid: String!
+  type: String!
+  uuid: String
+}
+
+type FeedTypes {
+  CHANGE_LEVERAGE_REQUESTED: String
+  CHANGE_PASSWORD: String
+  FAILED_LOGIN_ATTEMPT: String
+  LOG_IN: String
+  LOG_OUT: String
+  PLAYER_PROFILE_CHANGED: String
+  PLAYER_PROFILE_REGISTERED: String
+  PROFILE_ASSIGN: String
+  RESET_PASSWORD: String
+}
+
+type File {
+  _id: ID!
+  brandId: String
+  category: String
+  client: ProfileViewType
+  clientUuid: String!
+  comment: String
+  contentLength: Int
+  documentType: String
+  expirationDate: String
+  fileName: String
+  hidden: Boolean
+  hiddenBy: String
+  mediaType: String
+  modificationDate: String
+  modifiedBy: String
+  name: String
+  note: Note
+  playerUUID: String!
+  rejectedReason: String
+  status: String
+  targetUUID: String
+  title: String
+  type: String
+  uploadBy: String!
+  uploadDate: String!
+  uuid: String!
+  verificationType: String
+}
+
+type FileByUuid {
+  attemptsLeft: Int
+  documents: [DocumentType]
+  verificationType: String
+}
+
+type FileType {
+  confirmFiles(documents: [InputFileType], profileUuid: String!): ConfirmFileType
+  delete(uuid: String!): DeleteFileType
+  updateFileMeta(documentType: String, status: String, uuid: String!, verificationType: String): SuccessType
+  updateFileStatus(clientUuid: String!, documentType: String, verificationStatus: String, verificationType: String): SuccessType
+  upload(file: Upload!, profileUUID: String!): UploadFileType
+  verify(uuid: String!): VerifyFileType
+}
+
+type FilesByUuid {
+  data: [FileByUuid]
+  error: Error
+  errors: [Error]
+}
+
+type FilterSet {
+  common: [FilterSet__Option]
+  favourite: [FilterSet__Option]
+}
+
+type FilterSetMutation {
+  create(favourite: Boolean!, fields: String!, name: String!, type: String!): Response__FilterSet__Option
+  delete(uuid: String!): Success
+  update(fields: String!, name: String!, uuid: String!): Success
+  updateFavourite(favourite: Boolean!, uuid: String!): Success
+}
+
+type FilterSet__Option {
+  favourite: Boolean
+  name: String!
+  uuid: String!
+}
+
+type GDPR {
+  email: Boolean
+  phone: Boolean
+  sms: Boolean
+  socialMedia: Boolean
+}
+
+type GDPR_NEW {
+  email: Boolean
+  phone: Boolean
+  sms: Boolean
+  socialMedia: Boolean
+}
+
+type HierarchyBranch {
+  branchType: String!
+  brandId: String
+  country: String
+  defaultBranch: String
+  defaultUser: String
+  deskType: Desk__Types
+  isDefault: Boolean
+  language: String
+  manager: String
+  name: String!
+  operator: Operator
+  parentBranch: HierarchyBranch
+  uuid: String!
+}
+
+type HierarchyBranchChildrenType {
+  data: [HierarchyBranchType]
+  error: Error
+  errors: [Error]
+}
+
+type HierarchyBranchTreeType {
+  branchType: String!
+  children: [HierarchyBranchTreeType]
+  country: String
+  deskType: DeskTypeEnum
+  language: String
+  name: String!
+  parentBranches: [HierarchyBranchType]
+  parentUsers: [HierarchyUserType]
+  users: [HierarchyUserType]
+  uuid: String!
+}
+
+type HierarchyBranchType {
+  branchType: String!
+  brandId: String
+  country: String
+  defaultBranch: String
+  defaultUser: String
+  deskType: DeskTypeEnum
+  isDefault: Boolean
+  language: String
+  manager: String
+  name: String!
+  operator: OperatorType
+  parentBranch: HierarchyBranchType
+  uuid: String!
+}
+
+type HierarchyMultiBranches {
+  data: [HierarchyMultiBranchesType]
+  error: Error
+  errors: [Error]
+}
+
+type HierarchyMultiBranchesType {
+  desk: HierarchyBranchType
+  office: HierarchyBranchType
+  team: HierarchyBranchType
+}
+
+type HierarchyMutation {
+  addBranchManager(branchUuid: String!, operatorUuid: String!): SuccessType
+  addOperatorToBranch(branchId: String!, operatorId: String!): SuccessAddedOperatorToBranch
+  createDesk(deskType: DeskTypeEnum!, language: String!, name: String!, officeId: String!): HierarchyResponseCreateDesk
+  createOffice(country: String!, name: String!): HierarchyResponseCreateOffice
+  createTeam(deskId: String!, name: String!): HierarchyResponseCreateTeam
+  createUser(branchId: String, userId: String!, userType: String!): createdHierarchyUserType
+  removeBranchManager(branchUuid: String!): SuccessType
+  removeOperatorFromBranch(branchId: String!, operatorId: String!): SuccessRemovedOperatorFromBranch
+  updateUser(operatorId: String!, userType: String): updateHierarchyOperatorType
+}
+
+type HierarchyQueryType {
+  branchChildren(uuid: String!): HierarchyBranchChildrenType
+  branchHierarchy(branchType: String!, country: String, defaultDeskFlag: DeskDefaultFlagEnum, deskType: DeskTypeEnum, deskUuid: String, keyword: String, officeUuid: String): HierarchyMultiBranches
+  branchHierarchyTree(branchUUID: String!): BranchHierarchyTree
+  branchInfo(branchId: String!): Response__HierarchyBranchType
+  hierarchyUsersByType(onlyActive: Boolean, userTypes: [String]!): Response__HierarchyUsersType
+  userBranchHierarchy(withoutBrandFilter: Boolean): Response__UserBranchHierarchyType
+  userHierarchy: UserHierarchy
+  userHierarchyById(userId: String!): UserHierarchyById
+  usersByBranch(onlyActive: Boolean, uuids: [String]!): UsersByBranchType
+}
+
+type HierarchyResponseCreateDesk {
+  data: [String]
+  error: [String]
+}
+
+type HierarchyResponseCreateOffice {
+  data: [String]
+  error: [String]
+}
+
+type HierarchyResponseCreateTeam {
+  data: [String]
+  error: [String]
+}
+
+type HierarchyUser {
+  fullName: String
+  operator: Operator
+  operatorStatus: String
+  parentBranches: [HierarchyBranch]
+  parentUsers: [HierarchyUser]
+  userType: String!
+  uuid: String!
+}
+
+type HierarchyUserType {
+  fullName: String
+  operator: OperatorType
+  operatorStatus: String
+  parentBranches: [HierarchyBranchType]
+  parentUsers: [HierarchyUserType]
+  userType: String!
+  uuid: String!
+}
+
+type HierarchyUsersType {
+  BO_MANAGER: [HierarchyUserType]
+  BRAND_ADMIN: [HierarchyUserType]
+  COMPANY_ADMIN: [HierarchyUserType]
+  COMPLIANCE_MANAGER: [HierarchyUserType]
+  CUSTOMER: [HierarchyUserType]
+  DEALING_MANAGER: [HierarchyUserType]
+  LEAD_CUSTOMER: [HierarchyUserType]
+  OPERATIONS_MANAGER: [HierarchyUserType]
+  PSP_HOD: [HierarchyUserType]
+  PSP_MANAGER: [HierarchyUserType]
+  RETENTION_AGENT: [HierarchyUserType]
+  RETENTION_HOD: [HierarchyUserType]
+  RETENTION_LEAD: [HierarchyUserType]
+  RETENTION_MANAGER: [HierarchyUserType]
+  SALES_AGENT: [HierarchyUserType]
+  SALES_HOD: [HierarchyUserType]
+  SALES_LEAD: [HierarchyUserType]
+  SALES_MANAGER: [HierarchyUserType]
+  SUPPORT_AGENT: [HierarchyUserType]
+  SUPPORT_HOD: [HierarchyUserType]
+  SUPPORT_LEAD: [HierarchyUserType]
+  SUPPORT_MANAGER: [HierarchyUserType]
+}
+
+type InetDetailsType {
+  host: String
+  ipAddress: String
+  referer: String
+}
+
+type ItemTotalType {
+  totalAmount: Float
+  totalCount: Int
+}
+
+type KYC_NEW {
+  status: String
+  uuid: ID
+}
+
+type LastLeverageChangeRequest {
+  changeLeverageFrom: String
+  changeLeverageTo: String
+  createDate: String
+  status: String
+}
+
+type Lead {
+  _id: String!
+  affiliate: String
+  birthDate: String
+  brandId: String!
+  city: String
+  convertedByOperatorUuid: String
+  convertedToClientUuid: String
+  country: String
+  email: String!
+  gender: String
+  language: String
+  lastNote: lastNote
+  migrationId: String
+  mobile: String
+  name: String!
+  phone: String!
+  registrationDate: String!
+  salesAgent: OperatorType
+  salesStatus: tradingProfileSalesStatus
+  source: String
+  status: String
+  statusChangedDate: String
+  surname: String!
+  uuid: String!
+}
+
+type LeadsMutation {
+  bulkLeadUpdate(allRowsSelected: Boolean, leads: [LeadBulkUpdateType], salesRep: [String], salesStatus: String, searchParams: LeadSearchParams, teamId: String, totalElements: Int, type: String!): leadRepresentativeBulkUpdate
+  bulkPromote(allRecords: Boolean, countries: [String], leadIds: [String], registrationDateEnd: String, registrationDateStart: String, salesStatus: tradingProfileSalesStatus, searchKeyword: String, totalRecords: Int): Response__undefined
+  promote(args: CreateProfileInputType): Response__PromotedLeadType
+  update(birthDate: String, city: String, country: String, email: String, gender: String, mobile: String, name: String, phone: String, surname: String, uuid: String!): UpdateLeadType
+}
+
+type LocationDetailsType {
+  city: String
+  countryCode: String
+  region: String
+}
+
+type MarkAsTest {
+  data: PlayerProfile
+  error: Error
+  errors: [Error]
+}
+
+type MetabaseTokenType {
+  token: String!
+}
+
+type Money {
+  amount: Float!
+  currency: String!
+}
+
+type Mt4Type {
+  currencies: [String]
+}
+
+type Mt4User {
+  accountType: String
+  archived: Boolean
+  balance: Float
+  closedTradeAmount: Float
+  closedTradeProfit: Float
+  createdBy: String
+  credit: Float
+  equity: Float
+  group: String
+  isReadOnly: Boolean
+  leverage: String
+  login: Int!
+  margin: Float
+  name: String
+  readOnlyUpdateTime: String
+  readOnlyUpdatedBy: OperatorType
+  symbol: String
+}
+
+type Mutation {
+  asterisk: AsteriskMutation
+  auth: AuthMutation
+  authorization: AuthorizationMutation
+  brandConfig: BrandConfigMutation
+  callback: CallbacksMutation
+  clients: ClientsMutation
+  emailTemplates: EmailTemplateMutation
+  file: FileType
+  filterSet: FilterSetMutation
+  hierarchy: HierarchyMutation
+  leads: LeadsMutation
+  note: NoteMutation
+  notificationCenter: NotificationCenterMutation
+  operator: OperatorMutation
+  partner: PartnerMutation
+  payment: PaymentMutation
+  profile: PlayerMutation
+  rules: RulesMutation
+  tradingAccount: TradingAccountMutation
+  tradingActivity: TradingActivityMutation
+  upload: UploadMutation
+}
+
+type NewPlayerProfile {
+  _id: ID!
+  acquisition: AcquisitionType
+  address: AddressType
+  affiliate: AffiliateType
+  age: String
+  birthDate: String
+  brandId: String
+  clientType: String
+  configuration: ConfigurationType
+  contacts: ContactsType
+  convertedFromLeadUuid: String
+  emailVerified: Boolean
+  firstName: String
+  gender: String
+  identificationNumber: String
+  kyc: KYC_NEW
+  kycNote: Note
+  languageCode: String
+  lastName: String
+  lastUpdatedBy: String
+  lastUpdatedDate: String
+  migrationId: String
+  passport: PassportType
+  phoneVerified: Boolean
+  profileVerified: Boolean
+  profileView: ProfileViewType
+  registrationDetails: RegistrationDetailsType
+  status: ProfileStatusType
+  timeZone: String
+  tradingAccount: [TradingAccountQuery]
+  uuid: String
+  verifications: [String]
+}
+
+type NewProfile {
+  data: NewPlayerProfile
+  error: Error
+  errors: [Error]
+}
+
+type Note {
+  _id: ID!
+  changedAt: String
+  changedBy: String
+  content: String
+  noteId: String
+  operator: Operator
+  pinned: Boolean
+  playerUUID: String
+  subject: String
+  targetType: String
+  targetUUID: String
+}
+
+type NoteMutation {
+  add(content: String!, pinned: Boolean, playerUUID: String!, subject: String, targetType: String!, targetUUID: String!): Response__Note
+  remove(noteId: String!): Response__Note
+  update(content: String!, noteId: String!, pinned: Boolean, subject: String, targetUUID: String): Response__Note
+}
+
+type NotificationCenter {
+  agent: Operator
+  client: ProfileView
+  createdAt: String
+  details: NotificationCenter__Details
+  priority: String
+  read: Boolean
+  subtype: String
+  type: String
+  uuid: String
+}
+
+type NotificationCenterMutation {
+  update(excUuids: [String], incUuids: [String], totalElements: Int!): Success
+}
+
+type NotificationCenter__Details {
+  amount: String
+  callbackTime: String
+  currency: String
+  login: Int
+  platformType: String
+}
+
+type Operator {
+  _id: ID!
+  authorities: Response__List_Authority
+  country: String
+  email: String
+  firstName: String
+  fullName: String
+  hierarchy: HierarchyUser
+  lastName: String
+  operatorStatus: String
+  phoneNumber: String
+  registeredBy: String
+  registrationDate: String
+  sip: String
+  statusChangeAuthor: String
+  statusChangeDate: String
+  statusReason: String
+  uuid: String
+}
+
+type OperatorMutation {
+  addDepartment(department: String!, role: String!, uuid: String!): OperatorTypeAddedDepartment
+  addExistingOperator(branchId: String, department: String!, email: String!, role: String!): OperatorTypeAddExisting
+  changeOperatorPassword(newPassword: String!, operatorUuid: String!): SuccessType
+  changeStatus(reason: String!, status: String!, uuid: String!): SuccessType
+  createOperator(branchId: String, department: String!, email: String!, firstName: String!, lastName: String!, password: String!, phone: String, role: String!, userType: String!): CreatedOperatorType
+  removeDepartment(department: String!, role: String!, uuid: String!): OperatorTypeRemovedDepartment
+  resetOperatorPassword(userUuid: String!): SuccessType
+  sendInvitation(uuid: String!): SuccessType
+  updateOperator(country: String, firstName: String!, lastName: String!, phoneNumber: String, sip: String, uuid: String!): UpdatedOperatorType
+}
+
+type OperatorSpreadType {
+  id: Int!
+  operator: OperatorType
+  parentUser: String
+  percentage: Int
+}
+
+type OperatorType {
+  _id: ID!
+  authorities: AuthoritiesListType
+  country: String
+  email: String
+  firstName: String
+  fullName: String
+  hierarchy: HierarchyUserType
+  lastName: String
+  operatorStatus: String
+  phoneNumber: String
+  registeredBy: String
+  registrationDate: String
+  sip: String
+  statusChangeAuthor: String
+  statusChangeDate: String
+  statusReason: String
+  uuid: String
+}
+
+type OperatorTypeAddExisting {
+  data: OperatorTypeExisting
+  error: Error
+  errors: [Error]
+}
+
+type OperatorTypeAddedDepartment {
+  data: OperatorTypeAuthorities
+  error: Error
+  errors: [Error]
+}
+
+type OperatorTypeAuthorities {
+  authorities: [Authority]
+}
+
+type OperatorTypeExisting {
+  uuid: String
+}
+
+type OperatorTypeRemovedDepartment {
+  data: OperatorTypeAuthorities
+  error: Error
+  errors: [Error]
+}
+
+type PageableCallbackType {
+  data: Pageable__Callback
+  error: Error
+  errors: [Error]
+}
+
+type Pageable__Callback {
+  content: [Callback]
+  last: Boolean!
+  number: Int
+  page: Int!
+  size: Int!
+  totalElements: Int
+  totalPages: Int
+}
+
+type Pageable__Feed {
+  content: [Feed]
+  last: Boolean!
+  number: Int
+  page: Int!
+  size: Int!
+  totalElements: Int
+  totalPages: Int
+}
+
+type Pageable__FileList {
+  content: [File]
+  last: Boolean!
+  number: Int
+  page: Int!
+  size: Int!
+  totalElements: Int
+  totalPages: Int
+}
+
+type Pageable__Lead {
+  content: [Lead]
+  last: Boolean!
+  number: Int
+  page: Int!
+  size: Int!
+  totalElements: Int
+  totalPages: Int
+}
+
+type Pageable__Note {
+  content: [Note]
+  last: Boolean!
+  number: Int
+  page: Int!
+  size: Int!
+  totalElements: Int
+  totalPages: Int
+}
+
+type Pageable__NotificationCenter {
+  content: [NotificationCenter]
+  last: Boolean!
+  number: Int
+  page: Int!
+  size: Int!
+  totalElements: Int
+  totalPages: Int
+}
+
+type Pageable__OperatorType {
+  content: [OperatorType]
+  last: Boolean!
+  number: Int
+  page: Int!
+  size: Int!
+  totalElements: Int
+  totalPages: Int
+}
+
+type Pageable__Partner {
+  content: [Partner]
+  last: Boolean!
+  number: Int
+  page: Int!
+  size: Int!
+  totalElements: Int
+  totalPages: Int
+}
+
+type Pageable__Payment {
+  content: [Payment]
+  last: Boolean!
+  number: Int
+  page: Int!
+  size: Int!
+  totalElements: Int
+  totalPages: Int
+}
+
+type Pageable__ProfileViewType {
+  content: [ProfileViewType]
+  last: Boolean!
+  number: Int
+  page: Int!
+  size: Int!
+  totalElements: Int
+  totalPages: Int
+}
+
+type Pageable__TradingAccountsListType {
+  content: [TradingAccountsListType]
+  last: Boolean!
+  number: Int
+  page: Int!
+  size: Int!
+  totalElements: Int
+  totalPages: Int
+}
+
+type Pageable__TradingActivity {
+  content: [TradingActivity]
+  last: Boolean!
+  number: Int
+  page: Int!
+  size: Int!
+  totalElements: Int
+  totalPages: Int
+}
+
+type Partner {
+  _id: ID!
+  authorities: Response__List_Authority
+  country: String
+  createdAt: String
+  createdBy: String
+  email: String
+  externalAffiliateId: String
+  firstName: String
+  fullName: String
+  lastName: String
+  permission: Partner__PermissionType
+  phone: String
+  public: Boolean
+  status: String
+  statusChangeAuthor: String
+  statusChangeDate: String
+  uuid: String
+}
+
+type PartnerAuthoritiesList {
+  data: [Authority]
+  error: Error
+  errors: [Error]
+}
+
+type PartnerMutation {
+  changePartnerAccountStatus(reason: String!, status: String!, uuid: String!): Success
+  createPartner(email: String!, externalAffiliateId: String, firstName: String!, lastName: String!, password: String!, phone: String, public: Boolean): Response__Success
+  updatePartner(country: String, email: String, externalAffiliateId: String, firstName: String!, lastName: String!, permission: PartnerMutation__PermissionType, phone: String, public: Boolean, uuid: String!): Response__Partner
+}
+
+type PartnerPermissionType {
+  allowedIpAddresses: [String]
+  forbiddenCountries: [String]
+  showFTDAmount: Boolean
+  showKycStatus: Boolean
+  showNotes: Boolean
+  showSalesStatus: Boolean
+}
+
+type PartnerType {
+  _id: ID!
+  authorities: PartnerAuthoritiesList
+  country: String
+  createdAt: String
+  createdBy: String
+  email: String
+  externalAffiliateId: String
+  firstName: String
+  fullName: String
+  lastName: String
+  permission: PartnerPermissionType
+  phone: String
+  public: Boolean
+  status: String
+  statusChangeAuthor: String
+  statusChangeDate: String
+  statusReason: String
+  uuid: String
+}
+
+type Partner__PermissionType {
+  allowedIpAddresses: [String]
+  forbiddenCountries: [String]
+  showFTDAmount: Boolean
+  showKycStatus: Boolean
+  showNotes: Boolean
+}
+
+type PassportType {
+  countryOfIssue: String
+  countrySpecificIdentifier: String
+  countrySpecificIdentifierType: String
+  expirationDate: String
+  issueDate: String
+  number: String
+}
+
+type Payment {
+  _id: ID!
+  accountType: String!
+  accountUUID: String
+  agentBranches: [String]
+  agentId: String
+  agentName: String
+  amount: String
+  brandId: String
+  country: String
+  createdBy: String
+  creationTime: String!
+  currency: String
+  declineReason: String
+  exchangeRate: String
+  expirationDate: String
+  externalReference: String
+  firstTimeDeposit: Boolean
+  language: String
+  linkedTransactionId: String
+  login: String!
+  modifiedBy: String
+  moto: Boolean
+  normalizedAmount: String
+  note: Note
+  originalAgent: Operator
+  paymentAggregator: String
+  paymentId: String!
+  paymentMetadata: Payment__Metadata
+  paymentMethod: String
+  paymentMigrationId: String
+  paymentType: String!
+  platformType: String!
+  playerProfile: Payment__ClientProfile
+  status: String!
+  statusChangedAt: String
+  updatedAt: String
+  userMigrationId: String
+  warnings: [String]
+  withdrawStatus: String
+}
+
+type PaymentEntry {
+  amount: Float
+  count: Int
+  entryDate: String
+}
+
+type PaymentMutation {
+  acceptPayment(declineReason: String, paymentId: String!, paymentMethod: String, typeAcc: String!): Response__Success
+  changeOriginalAgent(agentId: String, agentName: String, paymentId: String!): Success
+  changePaymentMethod(paymentId: String!, paymentMethod: String): Response__Success
+  changePaymentStatus(paymentId: String!, paymentStatus: String): Response__Success
+  createPayment(accountUUID: String, amount: Float!, country: String, expirationDate: String, externalReference: String, login: Int, paymentMethod: String, paymentType: String!, profileUUID: String, source: String, target: String): Response__Payment
+}
+
+type Payment__ClientProfile {
+  affiliateUuid: String
+  country: String
+  firstName: String
+  lastName: String
+  uuid: String
+}
+
+type Payment__Metadata {
+  clientIp: String
+  country: String
+  mobile: Boolean
+  userAgent: String
+}
+
+type PaymentsStatistic {
+  additionalTotal: TotalType
+  items: [PaymentEntry]
+  itemsTotal: ItemTotalType
+}
+
+type Permission {
+  data: [String]
+  error: Error
+  errors: [Error]
+}
+
+type PlayerMutation {
+  changePassword(clientUuid: String!, newPassword: String!): SuccessType
+  changeProfileStatus(comment: String, playerUUID: String!, reason: String!, status: String!): changeProfileStatus
+  clickToCall(number: String!): SuccessType
+  limitedUpdate(email2: String, phone2: String, profileId: String!): SuccessType
+  markIsTest(isTest: Boolean!, playerUUID: String!): MarkAsTest
+  passwordResetRequest(userUuid: String!): SuccessType
+  resume(comment: String, playerUUID: String!, reason: String!): PlayerResume
+  suspend(comment: String, duration: SuspendDuration, permanent: Boolean, playerUUID: String!, reason: String!): PlayerSuspend
+  suspendProlong(comment: String, duration: SuspendDuration, permanent: Boolean, playerUUID: String!, reason: String!): PlayerSuspendProlong
+  unblock(comment: String, playerUUID: String!, reason: String!): PlayerUnblock
+  update(address: String, birthDate: String, brandId: String, city: String, country: String, countryOfIssue: String, countrySpecificIdentifier: String, countrySpecificIdentifierType: String, currency: String, enableInternalTransfer: Boolean, expirationDate: String, firstName: String, gender: String, identifier: String, kycStatus: String, languageCode: String, lastName: String, login: String, passportIssueDate: String, passportNumber: String, phone1: String, phone2: String, playerUUID: String!, postCode: String, terms: Boolean): UpdatePlayer
+  updateAddress(address: String, city: String, countryCode: String, playerUUID: String!, postCode: String, state: String): UpdatePlayerProfileAddressType
+  updateConfiguration(crs: Boolean, fatca: Boolean, internalTransfer: Boolean, playerUUID: String!): SuccessType
+  updateContacts(additionalEmail: String, additionalPhone: String, email: String, phone: String, playerUUID: String!): updatedContactsNewPlayerProfile
+  updateEmail(email: String, playerUUID: String!): updateEmailType
+  updateKYCStatus(kycStatus: String, playerUUID: String!): SuccessType
+  updatePersonalInformation(birthDate: String, firstName: String, gender: String, identificationNumber: String, languageCode: String, lastName: String, passport: PassportInput, playerUUID: String!, timeZone: String): UpdatePlayerPersonalInformationType
+  updateRegulated(crs: Boolean, fatca: Boolean!, profileId: String!): SuccessType
+  updateSubscription(marketingMail: Boolean!, marketingSMS: Boolean!, playerUUID: String!, tailorMadeEmail: Boolean!, tailorMadeSMS: Boolean!): PlayerProfileSubscription
+  verifyEmail(playerUUID: String!): verifyEmailNewPlayerProfile
+  verifyPhone(phone: String, playerUUID: String!): verifyPhoneNewPlayerProfile
+  verifyProfile(playerUUID: String!): VerifyPlayerProfile
+}
+
+type PlayerProfile {
+  _id: ID!
+  acceptedTermsUUID: String!
+  accumulatedDeposits: Money
+  accumulatedWithdrawals: Money
+  address: String
+  affiliateId: String
+  age: Int
+  authorUuid: String!
+  birthDate: String
+  bonusBalance: Money
+  brandId: String!
+  btag: String
+  city: String
+  completed: Boolean!
+  country: String
+  creationDate: String!
+  currency: String!
+  device: [Device]
+  email: String!
+  firstName: String
+  fullName: String
+  gender: String
+  identifier: String
+  intendedAmountToSpend: String
+  ip: String!
+  isTest: Boolean
+  languageCode: String!
+  lastName: String
+  login: String!
+  marketingMail: Boolean!
+  marketingSMS: Boolean!
+  phoneNumber: String
+  phoneNumberVerified: Boolean!
+  playerUUID: String!
+  postCode: String
+  profileStatus: String!
+  profileStatusAuthor: String
+  profileStatusComment: String
+  profileStatusDate: String
+  profileStatusPermanent: Boolean
+  profileStatusReason: String
+  profileVerified: Boolean!
+  realMoneyBalance: Money
+  registrationDate: String!
+  registrationIP: String!
+  signInIps: [SignInIp]
+  suspendEndDate: String
+  tailorMadeEmail: Boolean!
+  tailorMadeSMS: Boolean!
+  temporaryUntil: String
+  totalBalance: Money
+  tradingProfile: TradingProfile
+  updatedDate: String!
+  username: String!
+  weight: Float
+  withdrawableAmount: Money
+}
+
+type PlayerProfileSubscription {
+  data: PlayerProfile
+  error: Error
+  errors: [Error]
+}
+
+type PlayerResume {
+  data: PlayerProfile
+  error: Error
+  errors: [Error]
+}
+
+type PlayerSuspend {
+  data: PlayerProfile
+  error: Error
+  errors: [Error]
+}
+
+type PlayerSuspendProlong {
+  data: PlayerProfile
+  error: Error
+  errors: [Error]
+}
+
+type PlayerUnblock {
+  data: PlayerProfile
+  error: Error
+  errors: [Error]
+}
+
+type ProfileStatusType {
+  changedAt: String
+  changedBy: String
+  comment: String
+  reason: String
+  type: String
+}
+
+type ProfileView {
+  acquisition: ProfileView__Acquisition
+  address: ProfileView__Address
+  affiliate: ProfileView__Affiliate
+  balance: ProfileView__Balance
+  firstName: String
+  fullName: String
+  languageCode: String!
+  lastActivity: ProfileView__LastActivity
+  lastName: String
+  lastNote: ProfileView__LastNote
+  lastSignInSessions: [ProfileView__Sessions]
+  paymentDetails: ProfileView__PaymentDetails
+  registrationDetails: ProfileView__RegistrationDetails
+  status: ProfileView__Status
+  uuid: String!
+  warnings: [String]
+}
+
+type ProfileViewAcquisition {
+  acquisitionStatus: String
+  retentionOperator: OperatorType
+  retentionRepresentative: String
+  retentionStatus: String
+  salesOperator: OperatorType
+  salesRepresentative: String
+  salesStatus: String
+}
+
+type ProfileViewAddressType {
+  countryCode: String
+}
+
+type ProfileViewAffiliate {
+  campaignId: String
+  partner: PartnerType
+  source: String
+  uuid: String!
+}
+
+type ProfileViewBalanceType {
+  amount: String
+  credit: String
+  currency: String
+}
+
+type ProfileViewLastActivity {
+  date: String
+}
+
+type ProfileViewLastNote {
+  changedAt: String
+  content: String
+  uuid: String!
+}
+
+type ProfileViewPaymentDetails {
+  depositsCount: Int
+  lastDepositTime: String
+}
+
+type ProfileViewRegistrationDetails {
+  registeredBy: String
+  registrationDate: String
+}
+
+type ProfileViewSessions {
+  countryCode: String
+  ip: String
+  startedAt: String
+}
+
+type ProfileViewStatus {
+  changedAt: String
+  type: String
+}
+
+type ProfileViewType {
+  acquisition: ProfileViewAcquisition
+  address: ProfileViewAddressType
+  affiliate: ProfileViewAffiliate
+  balance: ProfileViewBalanceType
+  firstName: String
+  fullName: String
+  languageCode: String!
+  lastActivity: ProfileViewLastActivity
+  lastName: String
+  lastNote: ProfileViewLastNote
+  lastSignInSessions: [ProfileViewSessions]
+  paymentDetails: ProfileViewPaymentDetails
+  registrationDetails: ProfileViewRegistrationDetails
+  status: ProfileViewStatus
+  uuid: String!
+  warnings: [String]
+}
+
+type ProfileView__Acquisition {
+  acquisitionStatus: String
+  retentionOperator: Operator
+  retentionRepresentative: String
+  retentionStatus: String
+  salesOperator: Operator
+  salesRepresentative: String
+  salesStatus: String
+}
+
+type ProfileView__Address {
+  countryCode: String
+}
+
+type ProfileView__Affiliate {
+  campaignId: String
+  partner: Partner
+  source: String
+  uuid: String!
+}
+
+type ProfileView__Balance {
+  amount: String
+  credit: String
+  currency: String
+}
+
+type ProfileView__LastActivity {
+  date: String
+}
+
+type ProfileView__LastNote {
+  changedAt: String
+  content: String
+  uuid: String!
+}
+
+type ProfileView__PaymentDetails {
+  depositsCount: Int
+  lastDepositTime: String
+}
+
+type ProfileView__RegistrationDetails {
+  registeredBy: String
+  registrationDate: String
+}
+
+type ProfileView__Sessions {
+  countryCode: String
+  ip: String
+  startedAt: String
+}
+
+type ProfileView__Status {
+  changedAt: String
+  type: String
+}
+
+type PromotedLeadType {
+  uuid: String!
+}
+
+type Query {
+  authorities(uuid: String!): [Authority]
+  authoritiesOptions: Response__AuthorityOptions
+  brandConfig(brandId: String!): Response__Object
+  callback(id: String!): CallbackType
+  callbacks(callbackTimeFrom: String, callbackTimeTo: String, id: String, limit: Int, page: Int, statuses: [CallbackStatusEnum], userId: String): PageableCallbackType
+  checkMigration(brandId: String!, email: String!): checkMigration
+  clientPayments(args: PaymentInputType): Response__Pageable__Payment
+  clientTradingActivity(agentIds: [String], closeTimeEnd: String, closeTimeStart: String, limit: Int, loginIds: [Int], openTimeEnd: String, openTimeStart: String, operationType: operationTypes, page: Int, profileUUID: String, sortColumn: String, sortDirection: String, status: tradingActivityStatus, symbol: String, tradeId: Int, tradeType: String, volumeFrom: Float, volumeTo: Float): Response__Pageable__TradingActivity
+  emailTemplate(id: ID!): Response__Email
+  emailTemplates: Response__List_Email
+  feedTypes(playerUUID: String!): feedTypes
+  feeds(auditLogType: String, creationDateFrom: String, creationDateTo: String, limit: Int, page: Int, searchBy: String, sortColumn: String, sortDirection: String, targetUUID: String): Response__Pageable__Feed
+  fileList(documentType: String, page: Int, searchBy: String, size: Int, targetUuid: String, uploadedDateFrom: String, uploadedDateTo: String, verificationType: String): Response__Pageable__FileList
+  filesByUuid(clientUUID: String!, fileCategory: String, page: Int, searchBy: String, size: Int, uploadDateFrom: String, uploadDateTo: String): FilesByUuid
+  filesCategoriesList: filesCategoriesListType
+  filterSet(uuid: String!): Response__Object
+  filterSets(type: FilterSet__Types): Response__FilterSet
+  getMetabaseToken(agent_id: String): MetabaseTokenType
+  hierarchy: HierarchyQueryType
+  leadProfile(leadId: String!): Response__Lead
+  leads(countries: [String], lastNoteDateFrom: String, lastNoteDateTo: String, limit: Int, migrationId: String, page: Int, registrationDateEnd: String, registrationDateStart: String, salesAgents: [String], salesStatuses: [tradingProfileSalesStatus], searchKeyword: String, status: String, uuids: [String]): Response__Pageable__Lead
+  loginLock(playerUUID: String!): getLoginLock
+  manualPaymentMethods: Response__List_String
+  newProfile(playerUUID: String!): NewProfile
+  notes(changedAtFrom: String, changedAtTo: String, department: String, page: Int, pinned: Boolean, size: Int, targetType: String, targetUUID: String!): Response__Pageable__Note
+  notificationCenter(args: NotificationCenterInputType): Response__Pageable__NotificationCenter
+  notificationCenterSubtypes: Response__List_String
+  notificationCenterTypes: Response__List_String
+  notificationCenterUnread: Response__Int
+  operator(uuid: String!): Response__OperatorType
+  operators(country: String, page: PageInputType, phone: String, registrationDateFrom: String, registrationDateTo: String, searchBy: String, status: String): Response__Pageable__OperatorType
+  partner(uuid: String!): Response__Partner
+  partners(country: String, page: PageInputType, registrationDateFrom: String, registrationDateTo: String, searchBy: String, status: String): Response__Pageable__Partner
+  paymentMethods: Response__List_String
+  payments(args: PaymentInputType): Response__Pageable__Payment
+  permission: Permission
+  profiles(args: ClientSearchParams): Response__Pageable__ProfileViewType
+  rules(affiliateId: String, branchUuid: String, country: String, createdByOrUuid: String, language: String, name: String, operatorUuids: [String], parentId: String, type: RuleTypeEnum, uuid: [String], uuids: [String]): RulesType
+  rulesRetention(country: String, createdByOrUuid: String, language: String, name: String, parentId: String, uuid: [String]): RulesTypeRetention
+  statistics: Statistics
+  tradingAccount(accountType: String, uuid: String!): [TradingAccountQuery]
+  tradingAccountsList(accountType: String, archived: Boolean, page: Int, searchKeyword: String, size: Int): Response__Pageable__TradingAccountsListType
+}
+
+type RegistrationAdditionalStatisticInput {
+  month: AdditionalStatisticFieldValueType
+  today: AdditionalStatisticFieldValueType
+  total: AdditionalStatisticFieldValueType
+}
+
+type RegistrationDetailsType {
+  deviceDetails: DeviceDetailsType
+  inetDetails: InetDetailsType
+  locationDetails: LocationDetailsType
+  registeredBy: String
+  registrationDate: String
+  userAgent: String
+}
+
+type RegistrationStatistic {
+  additionalStatistics: RegistrationAdditionalStatisticInput
+  registrations: [RegistrationType]
+}
+
+type RegistrationStatisticType {
+  data: RegistrationStatistic
+  error: Error
+  errors: [Error]
+}
+
+type RegistrationType {
+  entries: Int
+  entryDate: String
+}
+
+type Response__AuthorityOptions {
+  data: AuthorityOptions
+  error: Error
+  errors: [Error]
+}
+
+type Response__Callback {
+  data: Callback
+  error: Error
+  errors: [Error]
+}
+
+type Response__ChooseDepartment {
+  data: ChooseDepartment
+  error: Error
+  errors: [Error]
+}
+
+type Response__Email {
+  data: Email
+  error: Error
+  errors: [Error]
+}
+
+type Response__FilterSet {
+  data: FilterSet
+  error: Error
+  errors: [Error]
+}
+
+type Response__FilterSet__Option {
+  data: FilterSet__Option
+  error: Error
+  errors: [Error]
+}
+
+type Response__HierarchyBranchType {
+  data: HierarchyBranchType
+  error: Error
+  errors: [Error]
+}
+
+type Response__HierarchyUsersType {
+  data: HierarchyUsersType
+  error: Error
+  errors: [Error]
+}
+
+type Response__Int {
+  data: Int
+  error: Error
+  errors: [Error]
+}
+
+type Response__Lead {
+  data: Lead
+  error: Error
+  errors: [Error]
+}
+
+type Response__List_Authority {
+  data: [Authority]
+  error: Error
+  errors: [Error]
+}
+
+type Response__List_Email {
+  data: [Email]
+  error: Error
+  errors: [Error]
+}
+
+type Response__List_String {
+  data: [String]
+  error: Error
+  errors: [Error]
+}
+
+type Response__Note {
+  data: Note
+  error: Error
+  errors: [Error]
+}
+
+type Response__Object {
+  data: Object
+  error: Error
+  errors: [Error]
+}
+
+type Response__OperatorType {
+  data: OperatorType
+  error: Error
+  errors: [Error]
+}
+
+type Response__Pageable__Feed {
+  data: Pageable__Feed
+  error: Error
+  errors: [Error]
+}
+
+type Response__Pageable__FileList {
+  data: Pageable__FileList
+  error: Error
+  errors: [Error]
+}
+
+type Response__Pageable__Lead {
+  data: Pageable__Lead
+  error: Error
+  errors: [Error]
+}
+
+type Response__Pageable__Note {
+  data: Pageable__Note
+  error: Error
+  errors: [Error]
+}
+
+type Response__Pageable__NotificationCenter {
+  data: Pageable__NotificationCenter
+  error: Error
+  errors: [Error]
+}
+
+type Response__Pageable__OperatorType {
+  data: Pageable__OperatorType
+  error: Error
+  errors: [Error]
+}
+
+type Response__Pageable__Partner {
+  data: Pageable__Partner
+  error: Error
+  errors: [Error]
+}
+
+type Response__Pageable__Payment {
+  data: Pageable__Payment
+  error: Error
+  errors: [Error]
+}
+
+type Response__Pageable__ProfileViewType {
+  data: Pageable__ProfileViewType
+  error: Error
+  errors: [Error]
+}
+
+type Response__Pageable__TradingAccountsListType {
+  data: Pageable__TradingAccountsListType
+  error: Error
+  errors: [Error]
+}
+
+type Response__Pageable__TradingActivity {
+  data: Pageable__TradingActivity
+  error: Error
+  errors: [Error]
+}
+
+type Response__Partner {
+  data: Partner
+  error: Error
+  errors: [Error]
+}
+
+type Response__Payment {
+  data: Payment
+  error: Error
+  errors: [Error]
+}
+
+type Response__PromotedLeadType {
+  data: PromotedLeadType
+  error: Error
+  errors: [Error]
+}
+
+type Response__SignIn {
+  data: SignIn
+  error: Error
+  errors: [Error]
+}
+
+type Response__Success {
+  data: Success
+  error: Error
+  errors: [Error]
+}
+
+type Response__UserBranchHierarchyType {
+  data: UserBranchHierarchyType
+  error: Error
+  errors: [Error]
+}
+
+type Response__undefined {
+  data: [String]
+  error: Error
+  errors: [Error]
+}
+
+type RuleActionType {
+  id: Int!
+  operatorSpreads: [OperatorSpreadType]
+  parentBranch: String
+  parentUser: String
+  ruleType: RuleActionTypeEnum
+}
+
+type RuleType {
+  actions: [RuleActionType]
+  brandId: String
+  countries: [String]
+  createdAt: String
+  createdBy: String
+  deletedAt: String
+  languages: [String]
+  name: String
+  partners: [PartnerType]
+  priority: Int!
+  sources: [String]
+  type: RuleTypeEnum
+  updatedBy: String
+  uuid: String!
+}
+
+type RuleUuidType {
+  uuid: String!
+}
+
+type RulesMutation {
+  createRule(actions: [RuleActionsInputType]!, affiliateUUIDs: [String], countries: [String], languages: [String], name: String!, priority: Int!, sources: [String], type: RuleTypeEnum, uuid: String): CreateRule
+  createRuleRetention(actions: [RuleActionsInputType]!, countries: [String], depositAmountFrom: Int!, depositAmountTo: Int!, languages: [String], name: String!, priority: Int!, uuid: String): CreateRuleRetention
+  deleteRule(uuid: String!): DeletedRuleUuid
+  deleteRuleRetention(uuid: String!): DeletedRuleUuidRetention
+}
+
+type RulesType {
+  data: [RuleType]
+  error: Error
+  errors: [Error]
+}
+
+type RulesTypeRetention {
+  data: [RuleType]
+  error: Error
+  errors: [Error]
+}
+
+type SPAM {
+  educational: Boolean
+  information: Boolean
+  marketNews: Boolean
+  promosAndOffers: Boolean
+  statisticsAndSummary: Boolean
+}
+
+type SPAM_NEW {
+  educational: Boolean
+  information: Boolean
+  marketNews: Boolean
+  promosAndOffers: Boolean
+  statisticsAndSummary: Boolean
+}
+
+type SignIn {
+  brandToAuthorities: Object
+  token: String
+  uuid: String
+}
+
+type SignInIp {
+  browserAgent: String!
+  country: String
+  ip: String!
+  sessionId: String!
+  sessionStart: String!
+  uuid: String!
+}
+
+type Statistics {
+  payments(additionalStatistics: [AdditionalStatisticInput], dateFrom: String, dateTo: String, detalization: DetalizationEnum, paymentStatus: String, paymentType: String, profileId: String): paymentsStatistic
+  registrationStatistic(additionalStatistics: [AdditionalStatisticRegistrationInput], dateFrom: String, dateTo: String, detalization: DetalizationEnum): RegistrationStatisticType
+}
+
+type Success {
+  error: Error
+  success: Boolean!
+}
+
+type SuccessAddedOperatorToBranch {
+  data: Boolean
+  error: Error
+  errors: [Error]
+}
+
+type SuccessRemovedOperatorFromBranch {
+  data: Boolean
+  error: Error
+  errors: [Error]
+}
+
+type SuccessType {
+  error: Error
+  success: Boolean!
+}
+
+type TokenRenew {
+  token: String
+}
+
+type TotalType {
+  monthAmount: Float
+  monthCount: Int
+  todayAmount: Float
+  todayCount: Int
+  totalAmount: Float
+  totalCount: Int
+}
+
+type TradingAccountAffiliateType {
+  source: String
+}
+
+type TradingAccountMutation {
+  approveChangeLeverageRequest(accountUUID: String!): SuccessType
+  changeLeverageRequest(accountUUID: String!, leverage: Int!): SuccessType
+  changePassword(accountUUID: String!, password: String!, profileUUID: String!): SuccessType
+  create(accountType: String!, amount: Float, currency: String!, name: String!, password: String!, platformType: String!, profileId: String!): SuccessType
+  rejectChangeLeverageRequest(accountUUID: String!): SuccessType
+  update(accountUUID: String!, currency: String, mode: String, name: String, profileId: String!, readOnly: Boolean): SuccessType
+}
+
+type TradingAccountProfileType {
+  fullName: String
+  uuid: String
+}
+
+type TradingAccountQuery {
+  accountType: String
+  accountUUID: String
+  affiliate: TradingAccountAffiliateType
+  archived: Boolean
+  balance: Float
+  brandId: String
+  closedTradeAmount: Float
+  closedTradeProfit: Float
+  createdAt: String
+  createdBy: String
+  credit: Float
+  currency: String
+  equity: Float
+  group: String
+  lastLeverageChangeRequest: LastLeverageChangeRequest
+  leverage: String
+  login: Int!
+  margin: Float
+  mt4: Mt4Type
+  name: String
+  operator: OperatorType
+  platformType: String
+  profile: TradingAccountProfileType
+  profileUUID: String
+  readOnly: Boolean
+  readOnlyUpdateTime: String
+  readOnlyUpdatedBy: String
+  serverId: Int
+}
+
+type TradingAccountsListAffiliate {
+  source: String
+}
+
+type TradingAccountsListProfile {
+  fullName: String
+  uuid: String
+}
+
+type TradingAccountsListType {
+  accountType: String
+  affiliate: TradingAccountsListAffiliate
+  archived: Boolean
+  balance: Float
+  createdAt: String
+  currency: String
+  leverage: Int
+  platformType: String
+  profile: TradingAccountsListProfile
+  uuid: String
+}
+
+type TradingActivity {
+  closePrice: Float
+  closeRate: Float
+  closeTime: BigInt
+  comment: String
+  commission: Float
+  commissionAgent: Float
+  digits: Int
+  expiration: BigInt
+  id: Int!
+  login: Int!
+  magic: Int
+  openPrice: Float
+  openRate: Float
+  openTime: BigInt
+  operationType: operationTypes
+  originalAgent: OperatorType
+  platformType: String
+  profit: Float
+  reason: String
+  stopLoss: Float
+  swap: Float
+  symbol: String
+  takeProfit: Float
+  taxes: Float
+  timestamp: BigInt
+  tradeId: Int!
+  tradeStatus: String
+  tradeType: String
+  volume: Float
+}
+
+type TradingActivityMutation {
+  changeOriginalAgent(agentId: String!, platformType: String, tradeId: Int!): SuccessType
+}
+
+type TradingProfile {
+  affiliateProfileDocument: AffiliateDocumentType
+  aquisitionRep: OperatorType
+  aquisitionStatus: tradingProfileAquisitionStatus
+  balance: String
+  baseCurrencyBalance: String
+  baseCurrencyCredit: String
+  baseCurrencyEquity: String
+  baseCurrencyMargin: String
+  clientType: tradingProfileClientType
+  closedTradeAmount: Float
+  closedTradeProfit: Float
+  convertedFromLeadUuid: String
+  countrySpecificIdentifier: String
+  countrySpecificIdentifierType: String
+  credit: String
+  crs: Boolean
+  depositCount: Int
+  email2: String
+  enableInternalTransfer: Boolean
+  equity: String
+  fatca: FatcaType
+  firstDepositDate: String
+  firstWithdrawalDate: String
+  fnsStatus: String
+  gdpr: GDPR
+  isTestUser: Boolean
+  kycRep: OperatorType
+  kycStatus: tradingProfileKYCStatus
+  languageCode: String
+  lastDepositDate: String
+  lastWithdrawalDate: String
+  margin: Float
+  marginLevel: Float
+  migrationId: String
+  mt4Users: [Mt4User]
+  passport: passport
+  phone1: String
+  phone2: String
+  retentionRep: OperatorType
+  retentionStatus: tradingProfileRetentionStatus
+  salesRep: OperatorType
+  salesStatus: tradingProfileSalesStatus
+  spam: SPAM
+  webCookies: webCookies
+  withdrawalCount: Int
+}
+
+type UpdateLeadType {
+  data: Lead
+  error: Error
+  errors: [Error]
+}
+
+type UpdatePlayer {
+  data: PlayerProfile
+  error: Error
+  errors: [Error]
+}
+
+type UpdatePlayerPersonalInformationType {
+  data: NewPlayerProfile
+  error: Error
+  errors: [Error]
+}
+
+type UpdatePlayerProfileAddressType {
+  data: NewPlayerProfile
+  error: Error
+  errors: [Error]
+}
+
+type UpdatedOperatorType {
+  data: OperatorType
+  error: Error
+  errors: [Error]
+}
+
+type UploadFileType {
+  data: UploadFileUuidType
+  error: Error
+  errors: [Error]
+}
+
+type UploadFileUuidType {
+  fileUuid: String
+}
+
+type UploadMutation {
+  leadCsvUpload(file: Upload): SuccessType
+}
+
+type UserBranchHierarchyType {
+  BRAND: [HierarchyBranchType]
+  COMPANY: [HierarchyBranchType]
+  DESK: [HierarchyBranchType]
+  OFFICE: [HierarchyBranchType]
+  TEAM: [HierarchyBranchType]
+}
+
+type UserHierarchy {
+  data: HierarchyUserType
+  error: Error
+  errors: [Error]
+}
+
+type UserHierarchyById {
+  data: HierarchyUserType
+  error: Error
+  errors: [Error]
+}
+
+type UsersByBranchType {
+  data: [HierarchyUserType]
+  error: Error
+  errors: [Error]
+}
+
+type VerifyFileType {
+  data: File
+  error: Error
+  errors: [Error]
+}
+
+type VerifyPlayerProfile {
+  data: PlayerProfile
+  error: Error
+  errors: [Error]
+}
+
+type changeProfileStatus {
+  data: NewPlayerProfile
+  error: Error
+  errors: [Error]
+}
+
+type checkMigration {
+  data: CheckMigrationType
+  error: Error
+  errors: [Error]
+}
+
+type clientRepresentativeBulkUpdate {
+  data: String
+  error: Error
+  errors: [Error]
+}
+
+type createdHierarchyUserType {
+  error: Error
+  errors: [Error]
+}
+
+type feedTypes {
+  data: FeedTypes
+  error: Error
+  errors: [Error]
+}
+
+type filesCategoriesListType {
+  data: filesCategoriesType
+  error: Error
+  errors: [Error]
+}
+
+type filesCategoriesType {
+  ADDRESS_VERIFICATION: [String]
+  DOCUMENT_VERIFICATION: [String]
+  OTHER: [String]
+}
+
+type getLoginLock {
+  lock: Boolean
+  lockExpirationDate: String
+  lockReason: String
+}
+
+type lastNote {
+  changedAt: String!
+  content: String!
+  uuid: String!
+}
+
+type leadRepresentativeBulkUpdate {
+  data: String
+  error: Error
+  errors: [Error]
+}
+
+type passport {
+  countryOfIssue: String
+  expirationDate: String
+  passportIssueDate: String
+  passportNumber: String
+}
+
+type paymentsStatistic {
+  data: PaymentsStatistic
+  error: Error
+  errors: [Error]
+}
+
+type updateEmailType {
+  error: Error
+  errors: [Error]
+}
+
+type updateHierarchyOperatorType {
+  error: Error
+  errors: [Error]
+}
+
+type updatedContactsNewPlayerProfile {
+  data: NewPlayerProfile
+  error: Error
+  errors: [Error]
+}
+
+type verifyEmailNewPlayerProfile {
+  data: NewPlayerProfile
+  error: Error
+  errors: [Error]
+}
+
+type verifyPhoneNewPlayerProfile {
+  data: NewPlayerProfile
+  error: Error
+  errors: [Error]
+}
+
+type webCookies {
+  enabled: Boolean
+}
+
+type webCookies_NEW {
+  enabled: Boolean
+}
+
+enum CallbackStatusEnum {
+  PENDING
+  REJECTED
+  SUCCESS
+}
+
+enum DeskDefaultFlagEnum {
+  ANY
+  NO
+  YES
+}
+
+enum DeskTypeEnum {
+  NINJA
+  RETENTION
+  SALES
+}
+
+enum Desk__Types {
+  RETENTION
+  SALES
+}
+
+enum DetalizationEnum {
+  PER_DAYS
+  PER_HOURS
+  PER_MINUTES
+}
+
+enum FilterSet__Types {
+  CLIENT
+  LEAD
+  PAYMENT
+}
+
+enum RuleActionTypeEnum {
+  DEFAULT
+  ROUND_ROBIN
+}
+
+enum RuleTypeEnum {
+  LEAD
+  PROFILE
+}
+
+enum operationTypes {
+  OP_BALANCE
+  OP_BUY
+  OP_BUY_LIMIT
+  OP_BUY_MARKET
+  OP_BUY_STOP
+  OP_BUY_STOP_LIMIT
+  OP_CREDIT
+  OP_SELL
+  OP_SELL_LIMIT
+  OP_SELL_MARKET
+  OP_SELL_STOP
+  OP_SELL_STOP_LIMIT
+}
+
+enum tradingActivityStatus {
+  CLOSED
+  OPEN
+  PENDING
+}
+
+enum tradingProfileAquisitionStatus {
+  RETENTION
+  SALES
+}
+
+enum tradingProfileClientType {
+  CORPORATE_PROFESSIONAL
+  CORPORATE_RETAIL
+  INDIVIDUAL_PROFESSIONAL
+  INDIVIDUAL_RETAIL
+  NONE
+}
+
+enum tradingProfileKYCStatus {
+  APPROVED
+  APPROVED_AWAITING_REVIEW
+  AWAITING_REVIEW
+  FLAGGED_NON_COMPLIANT
+  NO_KYC
+  PARTIAL
+  PARTIAL_KYC_CAN_TRADE
+  PENDING
+  PRIOR_TO_REFUND
+  REFUNDED_NON_COMPLIANT
+  REJECTED
+  RISK
+}
+
+enum tradingProfileRetentionStatus {
+  ACTIVE
+  ACTIVE_VIP
+  CALLBACK
+  DEPOSITOR
+  DEPOSIT_WITH_ME
+  INVALID_LANGUAGE
+  NEED_DOCS
+  NEVER_ANSWER
+  NEW
+  NO_ANSWER
+  NO_INTEREST
+  NO_POTENTIAL
+  NO_TRADES
+  PAMM
+  POTENTIAL_HIGH
+  POTENTIAL_LOW
+  REASSIGN
+  RECEIVED_WITHDRAWAL
+  RECOVERY_DEPOSITOR
+  UNDER_18
+}
+
+enum tradingProfileSalesStatus {
+  CALLBACK
+  CONVERTED
+  DEPOSITOR
+  DO_NOT_CALL
+  DUPLICATE
+  FAILED_DEPOSIT
+  INITIAL_CALL
+  INVALID_COUNTRY
+  INVALID_LANGUAGE
+  NEVER_ANSWER
+  NEW
+  NO_ANSWER
+  NO_ANSWER_2
+  NO_ANSWER_3
+  NO_ANSWER_4
+  NO_ANSWER_5
+  NO_INTEREST
+  NO_MONEY
+  POTENTIAL_HIGH
+  POTENTIAL_LOW
+  REASSIGN
+  TEST
+  UNDER_18
+  VOICEMAIL
+  WRONG_INFO
+  WRONG_NUMBER
+}
+
+input AdditionalStatisticInput {
+  dateFrom: String
+  dateTo: String
+}
+
+input AdditionalStatisticRegistrationInput {
+  from: String
+  to: String
+}
+
+input ClientBulkUpdateType {
+  retentionRepresentative: String
+  salesRepresentative: String
+  uuid: String!
+}
+
+input ClientSearchBalance {
+  from: Float
+  to: Float
+}
+
+input ClientSearchFirstDepositDateRange {
+  from: String
+  to: String
+}
+
+input ClientSearchFirstNoteDateRange {
+  from: String
+  to: String
+}
+
+input ClientSearchLastLoginDateRange {
+  from: String
+  to: String
+}
+
+input ClientSearchLastModificationDateRange {
+  from: String
+  to: String
+}
+
+input ClientSearchLastNoteDateRange {
+  from: String
+  to: String
+}
+
+input ClientSearchLastTradeDateRange {
+  from: String
+  to: String
+}
+
+input ClientSearchParams {
+  acquisitionStatus: String
+  affiliateUuids: [String]
+  assignStatus: String
+  balanceRange: ClientSearchBalance
+  countries: [String]
+  desks: [String]
+  firstDepositDateRange: ClientSearchFirstDepositDateRange
+  firstNoteDateRange: ClientSearchFirstNoteDateRange
+  firstTimeDeposit: Boolean
+  kycStatuses: [String]
+  lastLoginDateRange: ClientSearchLastLoginDateRange
+  lastModificationDateRange: ClientSearchLastModificationDateRange
+  lastNoteDateRange: ClientSearchLastNoteDateRange
+  lastTradeDateRange: ClientSearchLastTradeDateRange
+  migrationId: String
+  operators: [String]
+  page: PageInputType
+  registrationDateRange: ClientSearchRegistrationDateRange
+  representativeUuids: [String]
+  requestId: String
+  retentionStatuses: [String]
+  salesStatuses: [String]
+  searchByAffiliateIdentifiers: String
+  searchByIdentifiers: String
+  searchLimit: Int
+  statuses: [String]
+  teams: [String]
+  warnings: [String]
+}
+
+input ClientSearchRegistrationDateRange {
+  from: String
+  to: String
+}
+
+input CreateProfileInputType {
+  address: CreateProfileInputTypeAddress
+  affiliate: CreateProfileInputTypeAffiliate
+  birthDate: String
+  brandId: String
+  configuration: CreateProfileInputTypeConfiguration
+  contacts: CreateProfileInputTypeContacts
+  firstName: String
+  gender: String
+  languageCode: String
+  lastName: String
+  password: String
+}
+
+input CreateProfileInputTypeAddress {
+  address: String
+  city: String
+  countryCode: String
+  postCode: String
+  state: String
+}
+
+input CreateProfileInputTypeAffiliate {
+  referral: String
+  sms: String
+  source: String
+}
+
+input CreateProfileInputTypeConfiguration {
+  crs: Boolean
+  fatca: Boolean
+  internalTransfer: Boolean
+}
+
+input CreateProfileInputTypeContacts {
+  additionalEmail: String
+  additionalPhone: String
+  email: String
+  phone: String
+}
+
+input InputFileType {
+  comment: String
+  documentType: String!
+  expirationDate: String
+  fileUuid: String!
+  title: String!
+  verificationType: String!
+}
+
+input LeadBulkUpdateType {
+  unassignFromOperator: String
+  uuid: String!
+}
+
+input LeadSearchParams {
+  countries: [String]
+  registrationDateEnd: String
+  registrationDateStart: String
+  requestId: String
+  salesAgents: [String]
+  salesStatuses: [String]
+  searchKeyword: String
+  status: String
+}
+
+input NotificationCenterDateRange {
+  from: String
+  to: String
+}
+
+input NotificationCenterInputType {
+  creationDateRange: NotificationCenterDateRange
+  hierarchical: Boolean
+  notificationSubtypes: [String]
+  notificationTypes: [String]
+  operatorDesks: [String]
+  operatorTeams: [String]
+  operators: [String]
+  page: PageInputType
+  priorities: [String]
+  searchKeyword: String
+}
+
+input OperatorSpreadMutationType {
+  parentUser: String
+  percentage: Int
+}
+
+input PageInputType {
+  from: Int
+  size: Int
+  sorts: [SortInputType]
+}
+
+input PartnerMutation__PermissionType {
+  allowedIpAddresses: [String]
+  forbiddenCountries: [String]
+  showFTDAmount: Boolean
+  showKycStatus: Boolean
+  showNotes: Boolean
+}
+
+input PassportInput {
+  countryOfIssue: String
+  countrySpecificIdentifier: String
+  countrySpecificIdentifierType: String
+  expirationDate: String
+  issueDate: String
+  number: String
+}
+
+input PaymentInputType {
+  accountType: String
+  affiliateUuids: [String]
+  agentIds: [String]
+  amountFrom: String
+  amountTo: String
+  countries: [String]
+  creationTimeFrom: String
+  creationTimeTo: String
+  currency: String
+  desks: [String]
+  firstTimeDeposit: Boolean
+  modificationTimeFrom: String
+  modificationTimeTo: String
+  page: PageInputType
+  paymentAggregator: String
+  paymentMethods: [String]
+  paymentTypes: [String]
+  profileId: String
+  requestId: String
+  searchParam: String
+  statusChangedTimeFrom: String
+  statusChangedTimeTo: String
+  statuses: [String]
+  teams: [String]
+  type: String
+  warnings: [String]
+  withdrawStatuses: [String]
+}
+
+input RuleActionsInputType {
+  operatorSpreads: [OperatorSpreadMutationType]
+  parentBranch: String
+  parentUser: String
+  ruleType: RuleActionTypeEnum
+}
+
+input SortInputType {
+  column: String
+  direction: String
+}
+
+input SuspendDuration {
+  amount: String!
+  unit: String!
+}
+
+
+scalar Object
+
+"The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf)."
+scalar JSONObject
+
+"The `BigInt` scalar type represents non-fractional signed whole numeric values. BigInt can represent values between -(2^53) + 1 and 2^53 - 1. "
+scalar BigInt
+
+scalar Upload
+
+scalar elements
+
+scalar errorParameters

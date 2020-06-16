@@ -13,6 +13,7 @@ module.exports = {
    */
   async logout(_, __, { dataSources }) {
     await dataSources.Auth2API.logout();
+
     return { success: true };
   },
 
@@ -46,6 +47,7 @@ module.exports = {
    */
   async changePassword(_, { clientUuid, ...args }, { dataSources }) {
     await dataSources.Auth2API.changeClientPassword(clientUuid, args);
+
     return { success: true };
   },
 
@@ -61,6 +63,7 @@ module.exports = {
    */
   async changeOperatorPassword(_, { operatorUuid, ...args }, { dataSources }) {
     await dataSources.Auth2API.changeOperatorPassword(operatorUuid, args);
+
     return { success: true };
   },
 
@@ -75,6 +78,7 @@ module.exports = {
    */
   async resetUserPassword(_, { userUuid }, { dataSources }) {
     await dataSources.Auth2API.resetUserPassword(userUuid);
+
     return { success: true };
   },
 
@@ -89,6 +93,7 @@ module.exports = {
    */
   async resetPassword(_, args, { dataSources }) {
     await dataSources.Auth2API.resetPassword(args);
+
     return { success: true };
   },
 
@@ -103,6 +108,41 @@ module.exports = {
    */
   async unlockLogin(_, { uuid }, { dataSources }) {
     await dataSources.Auth2API.unlockUser(uuid);
+
+    return { success: true };
+  },
+
+  /**
+   * Add authority
+   *
+   * @param _
+   * @param uuid
+   * @param args
+   * @param dataSources
+   * @param brand
+   *
+   * @return {Promise<{success: boolean}>}
+   */
+  async addAuthority(_, { uuid, ...args }, { dataSources, brand }) {
+    await dataSources.Auth2API.addAuthority(uuid, { brand: brand.id, ...args });
+
+    return { success: true };
+  },
+
+  /**
+   * Remove authority
+   *
+   * @param _
+   * @param uuid
+   * @param args
+   * @param dataSources
+   * @param brand
+   *
+   * @return {Promise<{success: boolean}>}
+   */
+  async removeAuthority(_, { uuid, ...args }, { dataSources, brand }) {
+    await dataSources.Auth2API.removeAuthority(uuid, { brand: brand.id, ...args });
+
     return { success: true };
   },
 };

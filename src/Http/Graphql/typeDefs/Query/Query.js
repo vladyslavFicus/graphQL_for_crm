@@ -2,7 +2,7 @@ const { gql } = require('apollo-server-express');
 
 module.exports = gql`
   type Query {
-    # AuditAPI
+    # Audit API
     feeds(
       searchBy: String
       auditLogType: String
@@ -16,15 +16,15 @@ module.exports = gql`
     ): Feed @pageable @response
     feedTypes(uuid: String!): Object @response
 
-    # Auth2API
+    # Auth2 API
     authoritiesOptions: AuthorityOptions @response
     permission: [String] @response
     loginLock(uuid: String!): LoginLock
 
-    # BrandConfigAPI
+    # BrandConfig API
     brandConfig(brandId: String!): Object @response
 
-    # CallbackAPI
+    # Callback API
     callbacks(
       id: String
       statuses: [Callback__StatusEnum]
@@ -36,15 +36,15 @@ module.exports = gql`
     ): Callback @pageable @response
     callback(id: String!): Callback
 
-    # EmailAPI
+    # Email API
     emailTemplate(id: ID!): Email @response
     emailTemplates: [Email] @response
 
-    # FilterSetAPI
+    # FilterSet API
     filterSet(uuid: String!): Object @response
     filterSets(type: FilterSet__Types): FilterSet @response
 
-    # NotesAPI
+    # Notes API
     notes(
       changedAtFrom: String
       changedAtTo: String
@@ -56,13 +56,13 @@ module.exports = gql`
       pinned: Boolean
     ): Note @pageable @response
 
-    # NotificationCenterAPI
+    # NotificationCenter API
     notificationCenter(args: NotificationCenterInputType): NotificationCenter @pageable @response
     notificationCenterTypes: [String] @response
     notificationCenterSubtypes: [String] @response
     notificationCenterUnread: Int @response
 
-    # AffiliateAPI
+    # Affiliate API
     partner(uuid: String!): Partner @response
     partners(
       page: PageInputType
@@ -73,10 +73,22 @@ module.exports = gql`
       registrationDateTo: String
     ): Partner @pageable @response
 
-    # PaymentAPI
+    # Payment API
     payments(args: PaymentInputType): Payment @pageable @response
     clientPayments(args: PaymentInputType): Payment @pageable @response
     paymentMethods: [String] @response
     manualPaymentMethods: [String] @response
+
+    # Operator API
+    operator(uuid: String!): Operator @response
+    operators(
+      country: String
+      page: PageInputType
+      phone: String
+      registrationDateFrom: String
+      registrationDateTo: String
+      searchBy: String
+      status: String
+    ): Operator @pageable @response
   }
 `;

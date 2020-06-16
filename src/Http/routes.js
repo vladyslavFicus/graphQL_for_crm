@@ -14,7 +14,7 @@ module.exports = app => {
     context,
     dataSources,
     formatError,
-    extensions: [() => new LoggerExtension(Logger)],
+    // extensions: [() => new LoggerExtension(Logger)],
     introspection: NODE_ENV === 'development' || ENV_NAME === 'dev01',
     playground: NODE_ENV === 'development' || ENV_NAME === 'dev01',
   });

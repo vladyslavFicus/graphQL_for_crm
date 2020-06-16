@@ -7,6 +7,7 @@ const CallbackAPI = require('./CallbackAPI');
 const EmailAPI = require('./EmailAPI');
 const FilterSetsAPI = require('./FilterSetsAPI');
 const HierarchyAPI = require('./HierarchyAPI');
+const HierarchyUpdaterAPI = require('./HierarchyUpdaterAPI');
 const NoteAPI = require('./NoteAPI');
 const NotificationCenterAPI = require('./NotificationCenterAPI');
 const OperatorAPI = require('./OperatorAPI');
@@ -23,6 +24,7 @@ module.exports = {
   EmailAPI,
   FilterSetsAPI,
   HierarchyAPI,
+  HierarchyUpdaterAPI,
   NoteAPI,
   NotificationCenterAPI,
   OperatorAPI,
