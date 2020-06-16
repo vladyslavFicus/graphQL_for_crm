@@ -15,7 +15,6 @@ const {
   profiles: { getProfiles },
   leads: { getTradingLeads, getLeadProfile },
   rules: { getRules, getRulesRetention },
-  operators: { getOperators, getOperatorByUUID },
   metabase: { getMetabaseToken },
   tradingAccount: { getTradingAccounts, getTradingAccountsList },
 } = require('../common/resolvers');
@@ -36,8 +35,6 @@ const { SalesStatusesEnum: TradingSalesStatuses } = require('./TradingProfileTyp
 const HierarchyQueryType = require('./HierarchyQueryType');
 const RuleType = require('./RuleType');
 const { RuleTypeEnum } = require('./RuleType/RuleEnums');
-const OperatorType = require('./OperatorType');
-const PageInputType = require('../input/PageInputType');
 
 const QueryType = new GraphQLObjectType({
   name: 'Query',
@@ -202,26 +199,6 @@ const QueryType = new GraphQLObjectType({
         parentId: { type: GraphQLString },
       },
       resolve: getRulesRetention,
-    },
-    operators: {
-      type: ResponseType(PageableType(OperatorType)),
-      args: {
-        searchBy: { type: GraphQLString },
-        country: { type: GraphQLString },
-        phone: { type: GraphQLString },
-        status: { type: GraphQLString },
-        registrationDateFrom: { type: GraphQLString },
-        registrationDateTo: { type: GraphQLString },
-        page: { type: PageInputType },
-      },
-      resolve: getOperators,
-    },
-    operator: {
-      type: ResponseType(OperatorType),
-      args: {
-        uuid: { type: new GraphQLNonNull(GraphQLString) },
-      },
-      resolve: getOperatorByUUID,
     },
     getMetabaseToken: {
       type: new GraphQLObjectType({
