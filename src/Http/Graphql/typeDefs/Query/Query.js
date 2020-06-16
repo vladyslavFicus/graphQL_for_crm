@@ -2,13 +2,27 @@ const { gql } = require('apollo-server-express');
 
 module.exports = gql`
   type Query {
+    # AuditAPI
+    feeds(
+      searchBy: String
+      auditLogType: String
+      creationDateFrom: String
+      creationDateTo: String
+      page: Int
+      limit: Int
+      sortColumn: String
+      sortDirection: String
+      targetUUID: String
+    ): Feed @pageable @response
+    feedTypes(uuid: String!): Object @response
+
     # Auth2API
     authoritiesOptions: AuthorityOptions @response
     permission: [String] @response
     loginLock(uuid: String!): LoginLock
 
     # BrandConfigAPI
-    brandConfig(brandId: String!): JSONObject @response
+    brandConfig(brandId: String!): Object @response
 
     # CallbackAPI
     callbacks(
@@ -27,7 +41,7 @@ module.exports = gql`
     emailTemplates: [Email] @response
 
     # FilterSetAPI
-    filterSet(uuid: String!): JSONObject @response
+    filterSet(uuid: String!): Object @response
     filterSets(type: FilterSet__Types): FilterSet @response
 
     # NotesAPI

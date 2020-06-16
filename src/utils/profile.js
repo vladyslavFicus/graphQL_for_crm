@@ -86,16 +86,6 @@ const updateQueryProfile = (args, playerUUID, authorization) => {
     .then(response => parseJson(response));
 };
 
-const checkMigrationQuery = (_, args) =>
-  fetch(`${getBaseUrl('trading-profile-updater')}/public/migration/check`, {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(args),
-  }).then(response => response.json());
-
 const changeProfileStatusQuery = ({ playerUUID, ...args }, authorization) => {
   return fetch(`${getBaseUrl('profile')}/admin/profiles/${playerUUID}/status`, {
     method: 'PUT',
@@ -126,7 +116,6 @@ module.exports = {
   updateQueryTradingProfile,
   updateQueryProfile,
   getProfiles,
-  checkMigrationQuery,
   getQueryNewProfiles,
   getQueryProfileView,
   changeProfileStatusQuery,

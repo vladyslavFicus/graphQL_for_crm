@@ -16,6 +16,18 @@ module.exports = {
 
   /**
    *
+   * AuditAPI
+   *
+   * */
+  feeds(_, args, { dataSources }) {
+    return dataSources.AuditAPI.getFeeds(args);
+  },
+  feedTypes(_, { uuid }, { dataSources }) {
+    return dataSources.AuditAPI.getFeedTypes(uuid);
+  },
+
+  /**
+   *
    * Auth2API
    *
    * */

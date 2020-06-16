@@ -1,5 +1,4 @@
 module.exports = {
-  audit: require('./audit'),
   auth: require('./auth'),
   profile: require('./profile'),
   notes: require('./notes'),

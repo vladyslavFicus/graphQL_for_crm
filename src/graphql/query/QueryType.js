@@ -16,7 +16,6 @@ const {
   leads: { getTradingLeads, getLeadProfile },
   rules: { getRules, getRulesRetention },
   operators: { getOperators, getOperatorByUUID },
-  audit: { getFeeds, getFeedTypes },
   metabase: { getMetabaseToken },
   tradingAccount: { getTradingAccounts, getTradingAccountsList },
 } = require('../common/resolvers');
@@ -33,13 +32,11 @@ const {
 } = require('./TradingActivityType');
 const StatisticsType = require('./StatisticsType');
 const LeadType = require('./LeadType');
-const { FeedType, FeedTypes } = require('./AuditType/FeedType');
 const { SalesStatusesEnum: TradingSalesStatuses } = require('./TradingProfileType/TradingProfileEnums');
 const HierarchyQueryType = require('./HierarchyQueryType');
 const RuleType = require('./RuleType');
 const { RuleTypeEnum } = require('./RuleType/RuleEnums');
 const OperatorType = require('./OperatorType');
-const { checkMigrationQuery } = require('../../utils/profile');
 const PageInputType = require('../input/PageInputType');
 
 const QueryType = new GraphQLObjectType({
@@ -225,42 +222,6 @@ const QueryType = new GraphQLObjectType({
         uuid: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve: getOperatorByUUID,
-    },
-    feeds: {
-      type: ResponseType(PageableType(FeedType)),
-      args: {
-        searchBy: { type: GraphQLString },
-        auditLogType: { type: GraphQLString },
-        creationDateFrom: { type: GraphQLString },
-        creationDateTo: { type: GraphQLString },
-        page: { type: GraphQLInt },
-        limit: { type: GraphQLInt },
-        sortColumn: { type: GraphQLString },
-        sortDirection: { type: GraphQLString },
-        targetUUID: { type: GraphQLString },
-      },
-      resolve: getFeeds,
-    },
-    feedTypes: {
-      type: ResponseType(FeedTypes, 'feedTypes'),
-      args: {
-        playerUUID: { type: new GraphQLNonNull(GraphQLString) },
-      },
-      resolve: getFeedTypes,
-    },
-    checkMigration: {
-      type: ResponseType(
-        new GraphQLObjectType({
-          name: 'CheckMigrationType',
-          fields: () => ({ migrated: { type: GraphQLBoolean } }),
-        }),
-        'checkMigration'
-      ),
-      args: {
-        email: { type: new GraphQLNonNull(GraphQLString) },
-        brandId: { type: new GraphQLNonNull(GraphQLString) },
-      },
-      resolve: checkMigrationQuery,
     },
     getMetabaseToken: {
       type: new GraphQLObjectType({
