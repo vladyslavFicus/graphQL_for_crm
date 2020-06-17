@@ -90,5 +90,9 @@ module.exports = gql`
       searchBy: String
       status: String
     ): Operator @pageable @response
+
+    # Profile API
+    profile(playerUUID: String!): Profile @response
+    profiles(args: ClientSearchParams): ProfileView @pageable @response
   }
 `;

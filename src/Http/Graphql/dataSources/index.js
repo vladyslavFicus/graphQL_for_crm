@@ -12,6 +12,7 @@ const NoteAPI = require('./NoteAPI');
 const NotificationCenterAPI = require('./NotificationCenterAPI');
 const OperatorAPI = require('./OperatorAPI');
 const PaymentAPI = require('./PaymentAPI');
+const ProfileAPI = require('./ProfileAPI');
 const ProfileViewAPI = require('./ProfileViewAPI');
 
 module.exports = {
@@ -29,5 +30,6 @@ module.exports = {
   NotificationCenterAPI,
   OperatorAPI,
   PaymentAPI,
+  ProfileAPI,
   ProfileViewAPI,
 };

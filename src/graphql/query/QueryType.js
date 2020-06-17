@@ -9,20 +9,15 @@ const {
 } = require('graphql');
 const ResponseType = require('../common/types/ResponseType');
 const {
-  profile,
   files: { getFiles, getFilesByProfileUUID, getFileCategoriesList },
   tradingActivities: { getTradingActivities },
-  profiles: { getProfiles },
   leads: { getTradingLeads, getLeadProfile },
   rules: { getRules, getRulesRetention },
   metabase: { getMetabaseToken },
   tradingAccount: { getTradingAccounts, getTradingAccountsList },
 } = require('../common/resolvers');
 const PageableType = require('../common/types/PageableType');
-const ClientSearchInputType = require('../input/ClientSearchInputType');
 const { FileType, FileByUuidType } = require('./FileType/FileType');
-const NewPlayerProfileType = require('./NewPlayerProfileType');
-const ProfileViewType = require('./ProfileViewType');
 const TradingAccountType = require('./TradingAccountType');
 const TradingAccountsListType = require('./TradingAccountsListType');
 const {
@@ -39,13 +34,6 @@ const { RuleTypeEnum } = require('./RuleType/RuleEnums');
 const QueryType = new GraphQLObjectType({
   name: 'Query',
   fields: () => ({
-    newProfile: {
-      type: ResponseType(NewPlayerProfileType, 'NewProfile'),
-      args: {
-        playerUUID: { type: new GraphQLNonNull(GraphQLString) },
-      },
-      resolve: profile.getProfileNew,
-    },
     tradingAccount: {
       type: new GraphQLList(TradingAccountType),
       args: {
@@ -88,13 +76,6 @@ const QueryType = new GraphQLObjectType({
         agentIds: { type: new GraphQLList(GraphQLString) },
       },
       resolve: getTradingActivities,
-    },
-    profiles: {
-      type: ResponseType(PageableType(ProfileViewType)),
-      args: {
-        args: { type: ClientSearchInputType },
-      },
-      resolve: getProfiles,
     },
     statistics: {
       type: StatisticsType,

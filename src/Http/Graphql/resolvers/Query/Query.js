@@ -179,4 +179,14 @@ module.exports = {
       limit: operatorsIds.length,
     });
   },
+
+  /**
+   * Profile API
+   */
+  profile(_, { playerUUID }, { dataSources }) {
+    return dataSources.ProfileAPI.getByUUID(playerUUID);
+  },
+  profiles(_, { args }, { dataSources }) {
+    return dataSources.ProfileViewAPI.search(args);
+  },
 };

@@ -23,7 +23,7 @@ class OperatorAPI extends RESTDataSource {
    * @return {Promise}
    */
   getByUUID(uuid) {
-    return this.loader.load(uuid);
+    return uuid && this.loader.load(uuid);
   }
 
   /**

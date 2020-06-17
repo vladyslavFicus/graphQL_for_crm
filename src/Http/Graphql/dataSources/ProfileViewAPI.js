@@ -16,6 +16,17 @@ class ProfileViewAPI extends RESTDataSource {
   }
 
   /**
+   * Get profile view by uuid
+   *
+   * @param uuid Client UUID
+   *
+   * @return {*}
+   */
+  getByUUID(uuid) {
+    return this.get(`/admin/profiles/${uuid}`);
+  }
+
+  /**
    * Get client personal info by uuid
    *
    * @param uuid Client UUID
@@ -23,7 +34,18 @@ class ProfileViewAPI extends RESTDataSource {
    * @return {Promise}
    */
   getPersonalInfoByUUID(uuid) {
-    return this.loaderPersonalInfo.load(uuid);
+    return uuid && this.loaderPersonalInfo.load(uuid);
+  }
+
+  /**
+   * Search clients
+   *
+   * @param args
+   *
+   * @return {*}
+   */
+  search(args) {
+    return this.post('/admin/profiles/pageable-search', args);
   }
 }
 

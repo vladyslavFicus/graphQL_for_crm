@@ -19,12 +19,12 @@ class NoteAPI extends RESTDataSource {
   /**
    * Get note
    *
-   * @param id TargetUUID
+   * @param targetUUID TargetUUID
    *
    * @return {Promise}
    */
   getNote(targetUUID) {
-    return this.loader.load(targetUUID);
+    return targetUUID && this.loader.load(targetUUID);
   }
 
   /**

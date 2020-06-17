@@ -14,6 +14,7 @@ const {
   NotificationCenterAPI,
   OperatorAPI,
   PaymentAPI,
+  ProfileAPI,
   ProfileViewAPI,
 } = require('../dataSources');
 
@@ -32,5 +33,6 @@ module.exports = () => ({
   NotificationCenterAPI: new NotificationCenterAPI({ baseUrl: getBaseUrl('notification') }),
   OperatorAPI: new OperatorAPI({ baseUrl: getBaseUrl('operator') }),
   PaymentAPI: new PaymentAPI({ baseUrl: getBaseUrl('payment') }),
+  ProfileAPI: new ProfileAPI({ baseUrl: getBaseUrl('profile') }),
   ProfileViewAPI: new ProfileViewAPI({ baseUrl: getBaseUrl('profileview') }),
 });
