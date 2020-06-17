@@ -12,7 +12,7 @@ class HierarchyAPI extends RESTDataSource {
   async _loader(userUuids) {
     const data = await this.post('/user/search', { userUuids });
 
-    return orderByArray(userUuids, data.content, 'uuid');
+    return orderByArray(userUuids, data, 'uuid');
   }
 
   /**
@@ -36,6 +36,29 @@ class HierarchyAPI extends RESTDataSource {
    */
   getOperatorsSubtree(uuid) {
     return this.get(`/user/${uuid}/operators`);
+  }
+
+  /**
+   *
+   * Get observer for ids from hierarchy tree
+   *
+   * @param uuid | current operator uuid
+   *
+   * @return {Promise}
+   */
+  getObserverForSubtree(uuid) {
+    return this.get(`/user/${uuid}/observer-for`);
+  }
+
+  /**
+   * Check operator permission to access the entity
+   * Note: Allow or disallow operator to see entity (leads, operators, clients, partners) regarding him hierarchy tree
+   *
+   * @param uuid
+   * @return {Promise}
+   */
+  checkAccess(uuid) {
+    return this.get(`/user/${uuid}/check-access`)
   }
 }
 

@@ -75,17 +75,6 @@ const getLeadsSubtree = (userId, authorization) => {
   }).then(response => response.json());
 };
 
-const getObserverForSubtree = (userId, authorization) => {
-  return fetch(`${getBaseUrl('hierarchy')}/user/${userId}/observer-for`, {
-    method: 'GET',
-    headers: {
-      authorization,
-      accept: 'application/json',
-      'content-type': 'application/json',
-    },
-  }).then(response => response.json());
-};
-
 // # Implemented in HierarchyAPI
 // # Can be removed after getOperators request refactoring
 const getOperatorsSubtree = (userId, authorization) => {
@@ -110,6 +99,8 @@ const getPartnersSubtree = (userId, authorization) => {
   }).then(response => response.json());
 };
 
+// # Implemented in HierarchyAPI
+// # Can be removed after getOperators request refactoring
 const checkAccess = (uuid, authorization) => {
   return fetch(`${getBaseUrl('hierarchy')}/user/${uuid}/check-access`, {
     method: 'GET',
@@ -241,6 +232,7 @@ const bulkUpdateHierarchyUser = (args, authorization) => {
   }).then(response => response.json());
 };
 
+// # Implemented in HierarchyUpdaterAPI
 const bulkMassAssignHierarchyUser = (args, authorization) => {
   return fetch(`${getBaseUrl('hierarchy-updater')}/bulk/user/multi-assignment`, {
     method: 'PUT',
@@ -299,7 +291,6 @@ module.exports = {
   getLeadsSubtree,
   getOperatorsSubtree,
   getPartnersSubtree,
-  getObserverForSubtree,
   checkAccess,
   getUserBranchHierarchy,
   getUsersByType,

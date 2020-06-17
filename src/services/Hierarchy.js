@@ -4,7 +4,6 @@ const {
     getLeadsSubtree,
     getOperatorsSubtree,
     getPartnersSubtree,
-    getObserverForSubtree,
     checkAccess,
   },
 } = require('../utils/hierarchy');
@@ -79,21 +78,6 @@ class Hierarchy {
     }
 
     return data.map(({ uuid }) => uuid);
-  }
-
-  /**
-   * Load observer for ids
-   * @return {Promise<void>}
-   * @private
-   */
-  async _loadObserverFor() {
-    const { error, data } = await getObserverForSubtree(this._userUUID, this._authorization);
-
-    if (error || !Array.isArray(data)) {
-      return [];
-    }
-
-    return data;
   }
 
   /**

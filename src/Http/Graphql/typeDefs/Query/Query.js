@@ -44,6 +44,24 @@ module.exports = gql`
     filterSet(uuid: String!): Object @response
     filterSets(type: FilterSet__Types): FilterSet @response
 
+    # LeadAPI
+    leads(
+      uuids: [String]
+      searchKeyword: String
+      page: Int
+      limit: Int
+      countries: [String]
+      registrationDateStart: String
+      registrationDateEnd: String
+      status: String
+      salesStatuses: [SalesStatus__Types]
+      salesAgents: [String]
+      migrationId: String
+      lastNoteDateFrom: String
+      lastNoteDateTo: String
+    ): Lead @pageable @response
+    leadProfile(leadId: String!): Lead @response
+
     # NotesAPI
     notes(
       changedAtFrom: String

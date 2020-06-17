@@ -13,7 +13,6 @@ const {
   files: { getFiles, getFilesByProfileUUID, getFileCategoriesList },
   tradingActivities: { getTradingActivities },
   profiles: { getProfiles },
-  leads: { getTradingLeads, getLeadProfile },
   rules: { getRules, getRulesRetention },
   operators: { getOperators, getOperatorByUUID },
   metabase: { getMetabaseToken },
@@ -31,8 +30,6 @@ const {
   TradingActivityEnums: { operationTypesEnum, StatusesEnum },
 } = require('./TradingActivityType');
 const StatisticsType = require('./StatisticsType');
-const LeadType = require('./LeadType');
-const { SalesStatusesEnum: TradingSalesStatuses } = require('./TradingProfileType/TradingProfileEnums');
 const HierarchyQueryType = require('./HierarchyQueryType');
 const RuleType = require('./RuleType');
 const { RuleTypeEnum } = require('./RuleType/RuleEnums');
@@ -103,25 +100,6 @@ const QueryType = new GraphQLObjectType({
       type: StatisticsType,
       resolve: () => ({}),
     },
-    leads: {
-      type: ResponseType(PageableType(LeadType)),
-      args: {
-        uuids: { type: new GraphQLList(GraphQLString) },
-        searchKeyword: { type: GraphQLString },
-        page: { type: GraphQLInt },
-        limit: { type: GraphQLInt },
-        countries: { type: new GraphQLList(GraphQLString) },
-        registrationDateStart: { type: GraphQLString },
-        registrationDateEnd: { type: GraphQLString },
-        status: { type: GraphQLString },
-        salesStatuses: { type: new GraphQLList(TradingSalesStatuses) },
-        salesAgents: { type: new GraphQLList(GraphQLString) },
-        migrationId: { type: GraphQLString },
-        lastNoteDateFrom: { type: GraphQLString },
-        lastNoteDateTo: { type: GraphQLString },
-      },
-      resolve: getTradingLeads,
-    },
     filesByUuid: {
       type: ResponseType(GraphQLList(FileByUuidType), 'FilesByUuid'),
       resolve: getFilesByProfileUUID,
@@ -162,13 +140,6 @@ const QueryType = new GraphQLObjectType({
         'filesCategoriesListType'
       ),
       resolve: getFileCategoriesList,
-    },
-    leadProfile: {
-      type: ResponseType(LeadType),
-      args: {
-        leadId: { type: new GraphQLNonNull(GraphQLString) },
-      },
-      resolve: getLeadProfile,
     },
     hierarchy: {
       type: HierarchyQueryType,
