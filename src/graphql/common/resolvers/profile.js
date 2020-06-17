@@ -85,18 +85,6 @@ const updateAddress = async (_, { playerUUID, ...args }, { headers: { authorizat
   return getQueryNewProfiles(playerUUID, authorization);
 };
 
-const createProfile = (_, { args }, { headers: { authorization } }) => {
-  return fetch(`${getBaseUrl('profile')}/admin/profiles`, {
-    method: 'POST',
-    headers: {
-      authorization,
-      accept: 'application/json',
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify(args),
-  }).then(response => response.json());
-};
-
 const changeProfileStatus = (_, args, { headers: { authorization } }) => {
   return changeProfileStatusQuery(args, authorization);
 };
@@ -252,7 +240,6 @@ const updateRegulated = (_, args, { headers: { authorization }, brand: { id: bra
 };
 
 module.exports = {
-  createProfile,
   updateProfile,
   verifyPhone,
   updateEmail,

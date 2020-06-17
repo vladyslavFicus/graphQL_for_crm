@@ -2,6 +2,15 @@ const { gql } = require('apollo-server-express');
 
 module.exports = gql`
   type LeadUpdaterMutation {
+    bulkLeadUpdate(
+      salesRep: [String]
+      salesStatus: String
+      leads: [LeadToUpdateInputType]
+      allRowsSelected: Boolean
+      totalElements: Int
+      searchParams: LeadsSearchParamsInputType
+    ): Boolean
+
     update(
       uuid: String!
       name: String
@@ -13,15 +22,6 @@ module.exports = gql`
       birthDate: String
       gender: String
       city: String
-    ): Boolean
-
-    bulkLeadUpdate(
-      salesRep: [String]
-      salesStatus: String
-      leads: [LeadToUpdateInputType]
-      allRowsSelected: Boolean
-      totalElements: Int
-      searchParams: LeadsSearchParamsInputType
     ): Boolean
   }
 `;

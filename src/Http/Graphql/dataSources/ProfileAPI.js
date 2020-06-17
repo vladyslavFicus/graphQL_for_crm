@@ -11,6 +11,17 @@ class ProfileAPI extends RESTDataSource {
   getByUUID(uuid) {
     return this.get(`/admin/profiles/${uuid}`);
   }
+
+  /**
+   * Create profile
+   *
+   * @param args
+   *
+   * @return {*}
+   */
+  createProfile(args) {
+    return this.post('/admin/profiles', args);
+  }
 }
 
 module.exports = ProfileAPI;

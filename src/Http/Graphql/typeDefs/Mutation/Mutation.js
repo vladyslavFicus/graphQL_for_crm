@@ -14,6 +14,7 @@ module.exports = gql`
     notificationCenter: NotificationCenterMutation @nested
     partner: PartnerMutation @nested
     payment: PaymentMutation @nested
+    profile: ProfileMutation @nested
     operator: OperatorMutation @nested
   }
 `;
