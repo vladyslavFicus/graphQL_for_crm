@@ -31,18 +31,8 @@ module.exports = {
    */
   async bulkLeadUpdate(
     _,
-    {
-      allRowsSelected,
-      leads,
-      salesRep,
-      salesStatus,
-      searchParams,
-      totalElements,
-    },
-    {
-      dataSources,
-      brand: { id: brandId },
-    },
+    { allRowsSelected, leads, salesRep, salesStatus, searchParams, totalElements },
+    { dataSources, brand: { id: brandId } }
   ) {
     const leadsUuids = leads.length ? leads.map(({ uuid }) => uuid) : [];
 
@@ -80,5 +70,5 @@ module.exports = {
     }
 
     return true;
-  }
+  },
 };

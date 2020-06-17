@@ -58,7 +58,7 @@ class HierarchyAPI extends RESTDataSource {
    * @return {Promise}
    */
   checkAccess(uuid) {
-    return this.get(`/user/${uuid}/check-access`)
+    return this.get(`/user/${uuid}/check-access`);
   }
 }
 

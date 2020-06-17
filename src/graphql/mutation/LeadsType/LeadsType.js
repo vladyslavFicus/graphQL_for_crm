@@ -1,5 +1,7 @@
 const { GraphQLObjectType, GraphQLString, GraphQLNonNull } = require('graphql');
-const { profile: { createProfile } } = require('../../common/resolvers');
+const {
+  profile: { createProfile },
+} = require('../../common/resolvers');
 const CreateProfileInputType = require('../../input/CreateProfileInputType');
 const { ResponseType } = require('../../common/types');
 

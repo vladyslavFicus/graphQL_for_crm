@@ -116,11 +116,13 @@ module.exports = {
    *
    * */
   async leads(_, args, { dataSources, userUUID, brand: { id: brandId } }) {
-    const observedFrom = await dataSources.HierarchyAPI.getObserverForSubtree(userUUID)
+    const observedFrom = await dataSources.HierarchyAPI.getObserverForSubtree(userUUID);
+
     return dataSources.LeadAPI.getLeads({ brandId, observedFrom, ...args });
   },
   async leadProfile(_, { leadId }, { dataSources }) {
     const hasAccess = await dataSources.HierarchyAPI.checkAccess(leadId);
+
     return !hasAccess ? dataSources.LeadAPI.getLead(leadId) : null;
   },
 
