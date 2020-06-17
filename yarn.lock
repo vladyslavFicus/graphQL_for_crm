@@ -87,15 +87,6 @@
     graphql "^14.1.1"
     graphql-tools "^4.0.4"
 
-"@hrzn/apollo-extension@^1.0.13":
-  version "1.0.13"
-  resolved "https://nexus.etep.io/repository/hrzn-npm/@hrzn/apollo-extension/-/apollo-extension-1.0.13.tgz#88dd07bd2cfe7e3ec8470769b98fc37c2efae323"
-  integrity sha512-zXisJzyAcgKDGY+5tDln/GqJuGG9c1xvSYzct1fq1D2YnwRtlgsKSHRlxM9uGuhq02Y6RC1CgYBsBEcEtHOvDA==
-  dependencies:
-    graphql "^14.1.1"
-    jwt-decode "^2.2.0"
-    lodash "^4.17.11"
-
 "@hrzn/brands-config@1.0.10":
   version "1.0.10"
   resolved "https://nexus.etep.io/repository/hrzn-npm/@hrzn/brands-config/-/brands-config-1.0.10.tgz#11e2f43d4c5eb65aac45600b518b08372f2ed85f"
