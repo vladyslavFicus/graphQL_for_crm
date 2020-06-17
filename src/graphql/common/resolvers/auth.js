@@ -86,7 +86,7 @@ const getPermissions = async (_, __, { headers: { authorization } }) => {
 
 const logout = (_, __, { headers: { authorization } }) => {
   return fetch(`${getBaseUrl('auth2')}/logout`, {
-    method: 'GET',
+    method: 'POST',
     headers: {
       accept: 'application/json',
       authorization,
