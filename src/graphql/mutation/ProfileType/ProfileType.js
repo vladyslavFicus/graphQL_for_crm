@@ -1,15 +1,9 @@
 const { GraphQLInputObjectType, GraphQLObjectType, GraphQLBoolean, GraphQLNonNull, GraphQLString } = require('graphql');
 const ResponseType = require('../../common/types/ResponseType');
-const PlayerProfileType = require('../../query/PlayerProfileType');
 const NewPlayerProfileType = require('../../query/NewPlayerProfileType');
 const SuccessType = require('../../query/SuccessType');
 const {
   profile: {
-    updateSubscription,
-    suspendProlong,
-    resume,
-    unblock,
-    suspend,
     changeProfileStatus,
     verifyPhone,
     verifyEmail,
@@ -28,16 +22,6 @@ const {
   },
 } = require('../../common/resolvers');
 
-const SuspendDurationType = new GraphQLInputObjectType({
-  name: 'SuspendDuration',
-  fields() {
-    return {
-      amount: { type: new GraphQLNonNull(GraphQLString) },
-      unit: { type: new GraphQLNonNull(GraphQLString) },
-    };
-  },
-});
-
 const passportInput = new GraphQLInputObjectType({
   name: 'PassportInput',
   fields: () => ({
@@ -53,57 +37,6 @@ const passportInput = new GraphQLInputObjectType({
 const PlayerMutation = new GraphQLObjectType({
   name: 'PlayerMutation',
   fields: () => ({
-    updateSubscription: {
-      args: {
-        playerUUID: { type: new GraphQLNonNull(GraphQLString) },
-        marketingMail: { type: new GraphQLNonNull(GraphQLBoolean) },
-        marketingSMS: { type: new GraphQLNonNull(GraphQLBoolean) },
-        tailorMadeEmail: { type: new GraphQLNonNull(GraphQLBoolean) },
-        tailorMadeSMS: { type: new GraphQLNonNull(GraphQLBoolean) },
-      },
-      type: ResponseType(PlayerProfileType, 'PlayerProfileSubscription'),
-      resolve: updateSubscription,
-    },
-    suspendProlong: {
-      args: {
-        playerUUID: { type: new GraphQLNonNull(GraphQLString) },
-        comment: { type: GraphQLString },
-        duration: { type: SuspendDurationType },
-        permanent: { type: GraphQLBoolean },
-        reason: { type: new GraphQLNonNull(GraphQLString) },
-      },
-      type: ResponseType(PlayerProfileType, 'PlayerSuspendProlong'),
-      resolve: suspendProlong,
-    },
-    suspend: {
-      args: {
-        playerUUID: { type: new GraphQLNonNull(GraphQLString) },
-        comment: { type: GraphQLString },
-        duration: { type: SuspendDurationType },
-        permanent: { type: GraphQLBoolean },
-        reason: { type: new GraphQLNonNull(GraphQLString) },
-      },
-      type: ResponseType(PlayerProfileType, 'PlayerSuspend'),
-      resolve: suspend,
-    },
-    resume: {
-      args: {
-        playerUUID: { type: new GraphQLNonNull(GraphQLString) },
-        comment: { type: GraphQLString },
-        reason: { type: new GraphQLNonNull(GraphQLString) },
-      },
-      type: ResponseType(PlayerProfileType, 'PlayerResume'),
-      resolve: resume,
-    },
-    unblock: {
-      args: {
-        playerUUID: { type: new GraphQLNonNull(GraphQLString) },
-        comment: { type: GraphQLString },
-        reason: { type: new GraphQLNonNull(GraphQLString) },
-      },
-      type: ResponseType(PlayerProfileType, 'PlayerUnblock'),
-      resolve: unblock,
-    },
     changeProfileStatus: {
       args: {
         playerUUID: { type: new GraphQLNonNull(GraphQLString) },
@@ -192,7 +125,7 @@ const PlayerMutation = new GraphQLObjectType({
           type: GraphQLBoolean,
         },
       },
-      type: ResponseType(PlayerProfileType, 'UpdatePlayer'),
+      type: ResponseType(NewPlayerProfileType, 'UpdatePlayer'),
       resolve: updateProfile,
     },
     limitedUpdate: {
@@ -249,7 +182,7 @@ const PlayerMutation = new GraphQLObjectType({
           type: new GraphQLNonNull(GraphQLString),
         },
       },
-      type: ResponseType(PlayerProfileType, 'VerifyPlayerProfile'),
+      type: ResponseType(NewPlayerProfileType, 'VerifyPlayerProfile'),
       resolve: verifyProfile,
     },
     markIsTest: {
@@ -257,7 +190,7 @@ const PlayerMutation = new GraphQLObjectType({
         playerUUID: { type: new GraphQLNonNull(GraphQLString) },
         isTest: { type: new GraphQLNonNull(GraphQLBoolean) },
       },
-      type: ResponseType(PlayerProfileType, 'MarkAsTest'),
+      type: ResponseType(NewPlayerProfileType, 'MarkAsTest'),
       resolve: markIsTest,
     },
     clickToCall: {

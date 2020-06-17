@@ -11,28 +11,6 @@ const {
 const { getOperatorByUUID } = require('./operators');
 const { statuses } = require('../../../constants/player');
 
-const updateSubscription = async (_, { playerUUID, ...args }, context) => {
-  const {
-    headers: { authorization },
-  } = context;
-
-  const response = await fetch(`${getBaseUrl('profile')}/profiles/${playerUUID}/subscription`, {
-    method: 'PUT',
-    headers: {
-      Accept: 'application/json',
-      authorization,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(args),
-  });
-
-  if (response.status !== 200) {
-    return { error: 'error.update.subscription' };
-  }
-
-  return { data: { playerUUID, ...args } };
-};
-
 const getProfileNew = async (_, { playerUUID }, { headers: { authorization } }) => {
   return await getQueryNewProfiles(playerUUID, authorization);
 };
@@ -119,106 +97,8 @@ const createProfile = (_, { args }, { headers: { authorization } }) => {
   }).then(response => response.json());
 };
 
-const resume = (_, { playerUUID, ...args }, { headers: { authorization } }) => {
-  return fetch(`${getBaseUrl('profile')}/profiles/${playerUUID}/resume`, {
-    method: 'PUT',
-    headers: {
-      Accept: 'application/json',
-      authorization,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(args),
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => ({
-      data: !response.error ? { playerUUID, ...response } : null,
-      error: response.error || null,
-    }));
-};
-
 const changeProfileStatus = (_, args, { headers: { authorization } }) => {
   return changeProfileStatusQuery(args, authorization);
-};
-
-const unblock = (_, { playerUUID, ...args }, { headers: { authorization } }) => {
-  return fetch(`${getBaseUrl('profile')}/profiles/${playerUUID}/unblock`, {
-    method: 'PUT',
-    headers: {
-      Accept: 'application/json',
-      authorization,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(args),
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => ({
-      data: !response.error ? { playerUUID, ...response } : null,
-      error: response.error || null,
-    }));
-};
-
-const suspend = (_, { playerUUID, duration, ...args }, { headers: { authorization } }) => {
-  const requestBody = { ...args };
-
-  if (duration) {
-    requestBody.durationAmount = duration.amount;
-    requestBody.durationUnit = duration.unit;
-  }
-
-  return fetch(`${getBaseUrl('profile')}/profiles/${playerUUID}/suspend`, {
-    method: 'PUT',
-    headers: {
-      Accept: 'application/json',
-      authorization,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(requestBody),
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => ({
-      data: !response.error
-        ? {
-            playerUUID,
-            ...response,
-            profileStatusDate: moment().toISOString(),
-          }
-        : null,
-      error: response.error || null,
-    }));
-};
-
-const suspendProlong = (_, { playerUUID, duration, ...args }, { headers: { authorization } }) => {
-  const requestBody = { ...args };
-
-  if (duration) {
-    requestBody.durationAmount = duration.amount;
-    requestBody.durationUnit = duration.unit;
-  }
-
-  return fetch(`${getBaseUrl('profile')}/profiles/${playerUUID}/suspend/prolong`, {
-    method: 'PUT',
-    headers: {
-      Accept: 'application/json',
-      authorization,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(requestBody),
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => ({
-      data: !response.error
-        ? {
-            playerUUID,
-            ...response,
-            profileStatusDate: moment().toISOString(),
-          }
-        : null,
-      error: response.error || null,
-    }));
 };
 
 const verifyPhone = (_, { playerUUID, ...args }, { headers: { authorization } }) => {
@@ -373,11 +253,6 @@ const updateRegulated = (_, args, { headers: { authorization }, brand: { id: bra
 
 module.exports = {
   createProfile,
-  updateSubscription,
-  resume,
-  unblock,
-  suspendProlong,
-  suspend,
   updateProfile,
   verifyPhone,
   updateEmail,

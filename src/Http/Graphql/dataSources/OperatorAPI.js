@@ -23,7 +23,81 @@ class OperatorAPI extends RESTDataSource {
    * @return {Promise}
    */
   getByUUID(uuid) {
-    return this.loader.load(uuid);
+    return uuid && this.loader.load(uuid);
+  }
+
+  /**
+   * Search operators
+   *
+   * @param args
+   * @param args.uuids
+   * @param args.limit
+   * @param args.page
+   * @param args.country
+   * @param args.phone
+   * @param args.registrationDateFrom
+   * @param args.registrationDateTo
+   * @param args.searchBy
+   * @param args.status
+   *
+   * @return {*}
+   */
+  search(args) {
+    return this.post('/operators/search', args);
+  }
+
+  /**
+   * Create operator
+   *
+   * @param args
+   * @param args.firstName
+   * @param args.lastName
+   * @param args.email
+   * @param args.country
+   * @param args.phone
+   * @param args.sip
+   * @param args.brandId
+   * @param args.operatorRole
+   * @param args.type
+   * @param args.password
+   * @param args.department
+   * @param args.role
+   *
+   * @return {*}
+   */
+  create(args) {
+    return this.post('/operators', args);
+  }
+
+  /**
+   * Update operator
+   *
+   * @param uuid
+   * @param args
+   * @param args.firstName
+   * @param args.lastName
+   * @param args.country
+   * @param args.phoneNumber
+   * @param args.sip
+   *
+   * @return {*}
+   */
+  update(uuid, args) {
+    return this.put(`/operators/${uuid}`, args);
+  }
+
+  /**
+   * Change operator status
+   *
+   * @param args
+   * @param args.uuid
+   * @param args.reason
+   * @param args.status
+   *
+   * @return {*}
+   */
+  changeStatus(args) {
+    return this.put('/operators/status', args);
   }
 }
 

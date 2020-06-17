@@ -9,5 +9,7 @@ module.exports = gql`
     unlockLogin(uuid: String!): Success
     logout: Success
     tokenRenew: TokenRenew
+    addAuthority(uuid: String!, department: String!, role: String!): Success
+    removeAuthority(uuid: String!, department: String!, role: String!): Success
   }
 `;

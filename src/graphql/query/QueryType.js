@@ -9,20 +9,14 @@ const {
 } = require('graphql');
 const ResponseType = require('../common/types/ResponseType');
 const {
-  profile,
   files: { getFiles, getFilesByProfileUUID, getFileCategoriesList },
   tradingActivities: { getTradingActivities },
-  profiles: { getProfiles },
   rules: { getRules, getRulesRetention },
-  operators: { getOperators, getOperatorByUUID },
   metabase: { getMetabaseToken },
   tradingAccount: { getTradingAccounts, getTradingAccountsList },
 } = require('../common/resolvers');
 const PageableType = require('../common/types/PageableType');
-const ClientSearchInputType = require('../input/ClientSearchInputType');
 const { FileType, FileByUuidType } = require('./FileType/FileType');
-const NewPlayerProfileType = require('./NewPlayerProfileType');
-const ProfileViewType = require('./ProfileViewType');
 const TradingAccountType = require('./TradingAccountType');
 const TradingAccountsListType = require('./TradingAccountsListType');
 const {
@@ -33,19 +27,10 @@ const StatisticsType = require('./StatisticsType');
 const HierarchyQueryType = require('./HierarchyQueryType');
 const RuleType = require('./RuleType');
 const { RuleTypeEnum } = require('./RuleType/RuleEnums');
-const OperatorType = require('./OperatorType');
-const PageInputType = require('../input/PageInputType');
 
 const QueryType = new GraphQLObjectType({
   name: 'Query',
   fields: () => ({
-    newProfile: {
-      type: ResponseType(NewPlayerProfileType, 'NewProfile'),
-      args: {
-        playerUUID: { type: new GraphQLNonNull(GraphQLString) },
-      },
-      resolve: profile.getProfileNew,
-    },
     tradingAccount: {
       type: new GraphQLList(TradingAccountType),
       args: {
@@ -88,13 +73,6 @@ const QueryType = new GraphQLObjectType({
         agentIds: { type: new GraphQLList(GraphQLString) },
       },
       resolve: getTradingActivities,
-    },
-    profiles: {
-      type: ResponseType(PageableType(ProfileViewType)),
-      args: {
-        args: { type: ClientSearchInputType },
-      },
-      resolve: getProfiles,
     },
     statistics: {
       type: StatisticsType,
@@ -173,26 +151,6 @@ const QueryType = new GraphQLObjectType({
         parentId: { type: GraphQLString },
       },
       resolve: getRulesRetention,
-    },
-    operators: {
-      type: ResponseType(PageableType(OperatorType)),
-      args: {
-        searchBy: { type: GraphQLString },
-        country: { type: GraphQLString },
-        phone: { type: GraphQLString },
-        status: { type: GraphQLString },
-        registrationDateFrom: { type: GraphQLString },
-        registrationDateTo: { type: GraphQLString },
-        page: { type: PageInputType },
-      },
-      resolve: getOperators,
-    },
-    operator: {
-      type: ResponseType(OperatorType),
-      args: {
-        uuid: { type: new GraphQLNonNull(GraphQLString) },
-      },
-      resolve: getOperatorByUUID,
     },
     getMetabaseToken: {
       type: new GraphQLObjectType({

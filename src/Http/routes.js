@@ -1,6 +1,4 @@
 const { ApolloServer } = require('apollo-server-express');
-const { LoggerExtension } = require('@hrzn/apollo-extension');
-const Logger = require('../lib/Logger');
 const context = require('./Graphql/utils/context');
 const dataSources = require('./Graphql/utils/dataSources');
 const formatError = require('./Graphql/utils/formatError');
@@ -14,7 +12,6 @@ module.exports = app => {
     context,
     dataSources,
     formatError,
-    // extensions: [() => new LoggerExtension(Logger)],
     introspection: NODE_ENV === 'development' || ENV_NAME === 'dev01',
     playground: NODE_ENV === 'development' || ENV_NAME === 'dev01',
   });

@@ -23,16 +23,15 @@ class HierarchyAPI extends RESTDataSource {
    * @return {Promise}
    */
   getUser(uuid) {
-    return this.loader.load(uuid);
+    return uuid && this.loader.load(uuid);
   }
 
   /**
+   * Get operators subtree for current operator UUID
    *
-   * Get operators subtree by current operator uuid
+   * @param uuid
    *
-   * @param uuid | current operator uuid
-   *
-   * @return {Promise}
+   * @return {*}
    */
   getOperatorsSubtree(uuid) {
     return this.get(`/user/${uuid}/operators`);

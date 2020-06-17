@@ -1,6 +1,20 @@
+const DataLoader = require('dataloader');
 const RESTDataSource = require('@hrzn/apollo-datasource/RESTDataSource');
+const orderByArray = require('../../../utils/orderByArray');
 
 class AffiliateAPI extends RESTDataSource {
+  constructor(args) {
+    super(args);
+
+    this.loader = new DataLoader(this._loader.bind(this));
+  }
+
+  async _loader(uuids) {
+    const data = await this.post('/affiliates/search', { uuids });
+
+    return orderByArray(uuids, data.content, 'uuid');
+  }
+
   /**
    * Get partners
    *
@@ -19,9 +33,8 @@ class AffiliateAPI extends RESTDataSource {
    *
    * @return {Promise}
    */
-  // TODO: fixed authorities from AUTH
   getPartner(uuid) {
-    return this.get(`/affiliates/${uuid}`);
+    return uuid && this.loader.load(uuid);
   }
 
   /**
