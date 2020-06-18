@@ -2,7 +2,6 @@ module.exports = {
   auth: require('./auth'),
   profile: require('./profile'),
   notes: require('./notes'),
-  tradingActivities: require('./tradingActivities'),
   tradingAccount: require('./tradingAccount'),
   statistics: require('./statistics'),
   profiles: require('./profiles'),

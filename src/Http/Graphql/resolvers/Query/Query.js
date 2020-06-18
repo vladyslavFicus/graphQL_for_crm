@@ -205,4 +205,11 @@ module.exports = {
   profiles(_, { args }, { dataSources }) {
     return dataSources.ProfileViewAPI.search(args);
   },
+
+  /**
+   * TradingActivity API
+   */
+  tradingActivity(_, args, { dataSources }) {
+    return dataSources.TradingActivityAPI.getTradingActivity(args);
+  },
 };

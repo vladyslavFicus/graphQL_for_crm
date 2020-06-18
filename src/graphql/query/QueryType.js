@@ -3,14 +3,12 @@ const {
   GraphQLNonNull,
   GraphQLBoolean,
   GraphQLInt,
-  GraphQLFloat,
   GraphQLString,
   GraphQLList,
 } = require('graphql');
 const ResponseType = require('../common/types/ResponseType');
 const {
   files: { getFiles, getFilesByProfileUUID, getFileCategoriesList },
-  tradingActivities: { getTradingActivities },
   rules: { getRules, getRulesRetention },
   metabase: { getMetabaseToken },
   tradingAccount: { getTradingAccounts, getTradingAccountsList },
@@ -19,10 +17,6 @@ const PageableType = require('../common/types/PageableType');
 const { FileType, FileByUuidType } = require('./FileType/FileType');
 const TradingAccountType = require('./TradingAccountType');
 const TradingAccountsListType = require('./TradingAccountsListType');
-const {
-  TradingActivityType,
-  TradingActivityEnums: { operationTypesEnum, StatusesEnum },
-} = require('./TradingActivityType');
 const StatisticsType = require('./StatisticsType');
 const HierarchyQueryType = require('./HierarchyQueryType');
 const RuleType = require('./RuleType');
@@ -49,30 +43,6 @@ const QueryType = new GraphQLObjectType({
         size: { type: GraphQLInt },
       },
       resolve: getTradingAccountsList,
-    },
-    clientTradingActivity: {
-      type: ResponseType(PageableType(TradingActivityType)),
-      args: {
-        profileUUID: { type: GraphQLString },
-        tradeId: { type: GraphQLInt },
-        tradeType: { type: GraphQLString },
-        openTimeStart: { type: GraphQLString },
-        openTimeEnd: { type: GraphQLString },
-        closeTimeStart: { type: GraphQLString },
-        closeTimeEnd: { type: GraphQLString },
-        operationType: { type: operationTypesEnum },
-        symbol: { type: GraphQLString },
-        volumeFrom: { type: GraphQLFloat },
-        volumeTo: { type: GraphQLFloat },
-        status: { type: StatusesEnum },
-        sortColumn: { type: GraphQLString },
-        sortDirection: { type: GraphQLString },
-        page: { type: GraphQLInt },
-        limit: { type: GraphQLInt },
-        loginIds: { type: new GraphQLList(GraphQLInt) },
-        agentIds: { type: new GraphQLList(GraphQLString) },
-      },
-      resolve: getTradingActivities,
     },
     statistics: {
       type: StatisticsType,

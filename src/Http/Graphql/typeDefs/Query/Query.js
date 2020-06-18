@@ -112,5 +112,27 @@ module.exports = gql`
     # Profile API
     profile(playerUUID: String!): Profile @response
     profiles(args: ClientSearchParams): ProfileView @pageable @response
+
+    # TradingActivity API
+    tradingActivity(
+      agentIds: [String]
+      closeTimeEnd: String
+      closeTimeStart: String
+      limit: Int
+      loginIds: [Int]
+      openTimeEnd: String
+      openTimeStart: String
+      operationType: TradingActivity__OperationTypes
+      page: Int
+      profileUUID: String
+      sortDirection: String
+      sortColumn: String
+      status: TradingActivity__Statuses
+      symbol: String
+      tradeId: Int
+      tradeType: String
+      volumeFrom: Float
+      volumeTo: Float
+    ): TradingActivity @pageable @response
   }
 `;
