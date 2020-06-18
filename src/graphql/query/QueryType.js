@@ -11,12 +11,11 @@ const {
   files: { getFiles, getFilesByProfileUUID, getFileCategoriesList },
   rules: { getRules, getRulesRetention },
   metabase: { getMetabaseToken },
-  tradingAccount: { getTradingAccounts, getTradingAccountsList },
+  tradingAccount: { getTradingAccounts },
 } = require('../common/resolvers');
 const PageableType = require('../common/types/PageableType');
 const { FileType, FileByUuidType } = require('./FileType/FileType');
 const TradingAccountType = require('./TradingAccountType');
-const TradingAccountsListType = require('./TradingAccountsListType');
 const StatisticsType = require('./StatisticsType');
 const HierarchyQueryType = require('./HierarchyQueryType');
 const RuleType = require('./RuleType');
@@ -32,17 +31,6 @@ const QueryType = new GraphQLObjectType({
         accountType: { type: GraphQLString },
       },
       resolve: getTradingAccounts,
-    },
-    tradingAccountsList: {
-      type: ResponseType(PageableType(TradingAccountsListType)),
-      args: {
-        searchKeyword: { type: GraphQLString },
-        accountType: { type: GraphQLString },
-        archived: { type: GraphQLBoolean },
-        page: { type: GraphQLInt },
-        size: { type: GraphQLInt },
-      },
-      resolve: getTradingAccountsList,
     },
     statistics: {
       type: StatisticsType,

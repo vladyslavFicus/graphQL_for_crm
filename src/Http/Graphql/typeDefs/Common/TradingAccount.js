@@ -45,5 +45,6 @@ module.exports = gql`
     readOnlyUpdateTime: String
     readOnlyUpdatedBy: String
     serverId: Int
+    uuid: String
   }
 `;

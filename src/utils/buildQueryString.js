@@ -1,6 +1,6 @@
 module.exports = (params, joinArray = false) =>
   Object.keys(params)
-    .filter(value => params[value] !== undefined && params[value] !== '')
+    .filter(value => params[value] !== undefined && params[value] !== null && params[value] !== '')
     .map(key => {
       const value = params[key];
 

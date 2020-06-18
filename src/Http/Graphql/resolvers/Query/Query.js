@@ -4,7 +4,16 @@ const { get } = require('lodash');
 module.exports = {
   /**
    *
-   * AfilliateAPI
+   * AccountView API
+   *
+   */
+  tradingAccounts(_, args, { dataSources }) {
+    return dataSources.AccountViewAPI.getTradingAccounts(args);
+  },
+
+  /**
+   *
+   * Afilliate API
    *
    * */
   partners(_, args, { dataSources }) {
@@ -16,7 +25,7 @@ module.exports = {
 
   /**
    *
-   * AuditAPI
+   * Audit API
    *
    * */
   feeds(_, args, { dataSources }) {
@@ -28,7 +37,7 @@ module.exports = {
 
   /**
    *
-   * Auth2API
+   * Auth2 API
    *
    * */
   async authoritiesOptions(_, __, { dataSources, brand: { id: brand } }) {
@@ -62,7 +71,7 @@ module.exports = {
 
   /**
    *
-   * BrandConfigAPI
+   * BrandConfig API
    *
    * */
   brandConfig(_, { brandId }, { dataSources }) {
@@ -71,14 +80,14 @@ module.exports = {
 
   /**
    *
-   * CallbackAPI
+   * Callback API
    *
    * */
   async callbacks(_, args, { dataSources, userUUID }) {
     const operatorIdsData = await dataSources.HierarchyAPI.getOperatorsSubtree(userUUID);
     const operatorIds = operatorIdsData.map(({ uuid }) => uuid);
 
-    return await dataSources.CallbackAPI.getCallbacks({ operatorIds, ...args });
+    return dataSources.CallbackAPI.getCallbacks({ operatorIds, ...args });
   },
   async callback(_, { id }, { dataSources }) {
     const callbacksData = await dataSources.CallbackAPI.getCallbacks({ id, page: 0, limit: 1 });
@@ -88,7 +97,7 @@ module.exports = {
 
   /**
    *
-   * EmailAPI
+   * Email API
    *
    * */
   emailTemplates(_, __, { dataSources }) {
@@ -100,7 +109,7 @@ module.exports = {
 
   /**
    *
-   * FilterSetAPI
+   * FilterSet API
    *
    * */
   filterSets(_, { type }, { dataSources, userUUID }) {
@@ -112,7 +121,7 @@ module.exports = {
 
   /**
    *
-   * LeadAPI
+   * Lead API
    *
    * */
   async leads(_, args, { dataSources, userUUID, brand: { id: brandId } }) {
@@ -122,12 +131,13 @@ module.exports = {
   },
   async lead(_, { uuid }, { dataSources }) {
     await dataSources.HierarchyAPI.checkAccess(uuid);
+
     return dataSources.LeadAPI.getLead(uuid);
   },
 
   /**
    *
-   * NoteAPI
+   * Note API
    *
    * */
   notes(_, { targetUUID, ...args }, { dataSources }) {
@@ -136,7 +146,7 @@ module.exports = {
 
   /**
    *
-   * NotificationCenterAPI
+   * NotificationCenter API
    *
    * */
   notificationCenter(_, { args }, { dataSources }) {
@@ -156,7 +166,7 @@ module.exports = {
 
   /**
    *
-   * PaymentAPI
+   * Payment API
    *
    * */
   payments(_, args, { dataSources }) {
@@ -167,10 +177,12 @@ module.exports = {
   },
   async paymentMethods(_, __, { dataSources }) {
     const responseData = await dataSources.PaymentAPI.getPaymentMethods();
+
     return responseData.filter(method => method && method !== 'null').sort();
   },
   async manualPaymentMethods(_, __, { dataSources }) {
     const responseData = await dataSources.PaymentAPI.getManualPaymentMethods();
+
     return responseData.sort();
   },
 

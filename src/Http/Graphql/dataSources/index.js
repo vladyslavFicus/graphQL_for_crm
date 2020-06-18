@@ -1,3 +1,4 @@
+const AccountViewAPI = require('./AccountViewAPI');
 const AffiliateAPI = require('./AffiliateAPI');
 const AsteriskAPI = require('./AsteriskAPI');
 const AuditAPI = require('./AuditAPI');
@@ -19,6 +20,7 @@ const ProfileViewAPI = require('./ProfileViewAPI');
 const TradingActivityAPI = require('./TradingActivityAPI');
 
 module.exports = {
+  AccountViewAPI,
   AffiliateAPI,
   AsteriskAPI,
   AuditAPI,

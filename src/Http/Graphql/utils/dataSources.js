@@ -1,5 +1,6 @@
 const getBaseUrl = require('../../../utils/getBaseUrl');
 const {
+  AccountViewAPI,
   AffiliateAPI,
   AsteriskAPI,
   AuditAPI,
@@ -22,8 +23,9 @@ const {
 } = require('../dataSources');
 
 module.exports = () => ({
+  AccountViewAPI: new AccountViewAPI({ baseUrl: getBaseUrl('accountview') }),
   AffiliateAPI: new AffiliateAPI({ baseUrl: getBaseUrl('affiliate') }),
-  AsteriskAPI: new AsteriskAPI({ baseUrl: getBaseUrl('') }),
+  AsteriskAPI: new AsteriskAPI({ baseUrl: getBaseUrl('') }), // # Не понятно какой baseUrl использовать для AsteriskAPI
   AuditAPI: new AuditAPI({ baseUrl: getBaseUrl('audit') }),
   Auth2API: new Auth2API({ baseUrl: getBaseUrl('auth2') }),
   BrandConfigAPI: new BrandConfigAPI({ baseUrl: getBaseUrl('brand-config-service') }),

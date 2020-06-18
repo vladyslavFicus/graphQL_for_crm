@@ -2,6 +2,26 @@ const { gql } = require('apollo-server-express');
 
 module.exports = gql`
   type Query {
+    # AccountView API
+    tradingAccounts(
+      searchKeyword: String
+      accountType: String
+      archived: Boolean
+      page: Int
+      size: Int
+    ): TradingAccount @pageable @response
+
+    # Affiliate API
+    partner(uuid: String!): Partner @response
+    partners(
+      page: PageInputType
+      searchBy: String
+      country: String
+      status: String
+      registrationDateFrom: String
+      registrationDateTo: String
+    ): Partner @pageable @response
+
     # Audit API
     feeds(
       searchBy: String
@@ -79,17 +99,6 @@ module.exports = gql`
     notificationCenterTypes: [String] @response
     notificationCenterSubtypes: [String] @response
     notificationCenterUnread: Int @response
-
-    # Affiliate API
-    partner(uuid: String!): Partner @response
-    partners(
-      page: PageInputType
-      searchBy: String
-      country: String
-      status: String
-      registrationDateFrom: String
-      registrationDateTo: String
-    ): Partner @pageable @response
 
     # Payment API
     payments(args: PaymentInputType): Payment @pageable @response
