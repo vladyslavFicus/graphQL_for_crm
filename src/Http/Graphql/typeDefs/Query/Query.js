@@ -45,6 +45,7 @@ module.exports = gql`
     filterSets(type: FilterSet__Types): FilterSet @response
 
     # Lead API
+    lead(uuid: String!): Lead @response
     leads(
       uuids: [String]
       searchKeyword: String
@@ -60,7 +61,6 @@ module.exports = gql`
       lastNoteDateFrom: String
       lastNoteDateTo: String
     ): Lead @pageable @response
-    leadProfile(leadId: String!): Lead @response
 
     # Notes API
     notes(

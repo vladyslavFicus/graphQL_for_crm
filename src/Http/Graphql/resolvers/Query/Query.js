@@ -120,10 +120,9 @@ module.exports = {
 
     return dataSources.LeadAPI.getLeads({ brandId, observedFrom, ...args });
   },
-  async leadProfile(_, { leadId }, { dataSources }) {
-    const hasAccess = await dataSources.HierarchyAPI.checkAccess(leadId);
-
-    return !hasAccess ? dataSources.LeadAPI.getLead(leadId) : null;
+  async lead(_, { uuid }, { dataSources }) {
+    await dataSources.HierarchyAPI.checkAccess(uuid);
+    return dataSources.LeadAPI.getLead(uuid);
   },
 
   /**

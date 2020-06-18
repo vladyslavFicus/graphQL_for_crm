@@ -99,19 +99,6 @@ const getPartnersSubtree = (userId, authorization) => {
   }).then(response => response.json());
 };
 
-// # Implemented in HierarchyAPI
-// # Can be removed after getOperators request refactoring
-const checkAccess = (uuid, authorization) => {
-  return fetch(`${getBaseUrl('hierarchy')}/user/${uuid}/check-access`, {
-    method: 'GET',
-    headers: {
-      authorization,
-      accept: 'application/json',
-      'content-type': 'application/json',
-    },
-  }).then(response => response.status !== 403);
-};
-
 const getHierarchyBranch = (branchId, authorization) => {
   return fetch(`${getBaseUrl('hierarchy')}/branch/${branchId}`, {
     method: 'GET',
@@ -291,7 +278,6 @@ module.exports = {
   getLeadsSubtree,
   getOperatorsSubtree,
   getPartnersSubtree,
-  checkAccess,
   getUserBranchHierarchy,
   getUsersByType,
   getBranchHierarchy,

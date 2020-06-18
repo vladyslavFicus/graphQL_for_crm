@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`
-  type LeadUpdaterMutation {
+  type LeadMutation {
     bulkLeadUpdate(
       salesRep: [String]
       salesStatus: String

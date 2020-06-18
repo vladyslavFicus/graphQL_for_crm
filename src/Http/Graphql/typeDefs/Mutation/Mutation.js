@@ -9,7 +9,7 @@ module.exports = gql`
     callback: CallbackMutation @nested
     emailTemplates: EmailTemplateMutation @nested
     filterSet: FilterSetMutation @nested
-    leads: LeadUpdaterMutation @nested
+    leads: LeadMutation @nested
     note: NoteMutation @nested
     notificationCenter: NotificationCenterMutation @nested
     partner: PartnerMutation @nested
