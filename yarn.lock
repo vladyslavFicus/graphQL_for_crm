@@ -47,10 +47,10 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
-"@hrzn/apollo-extension@^1.0.12":
-  version "1.0.12"
-  resolved "https://nexus.flcn.pro/repository/hrzn-npm/@hrzn/apollo-extension/-/apollo-extension-1.0.12.tgz#b74f95ef5853313ee5937ba9784b79b207f0f620"
-  integrity sha512-cFbYO6+XKJ4Akq2qz6sUxPF8jA8+zuq8bqmHu76uYvQ8WRVYMIRdY1pYvFl0Gwj5cib/CvpMI33fYrW7+RhZMA==
+"@hrzn/apollo-extension@^1.0.13":
+  version "1.0.13"
+  resolved "https://nexus.etep.io/repository/hrzn-npm/@hrzn/apollo-extension/-/apollo-extension-1.0.13.tgz#88dd07bd2cfe7e3ec8470769b98fc37c2efae323"
+  integrity sha512-zXisJzyAcgKDGY+5tDln/GqJuGG9c1xvSYzct1fq1D2YnwRtlgsKSHRlxM9uGuhq02Y6RC1CgYBsBEcEtHOvDA==
   dependencies:
     graphql "^14.1.1"
     jwt-decode "^2.2.0"
