@@ -40,6 +40,15 @@ const leadFields = {
         uuid: { type: new GraphQLNonNull(GraphQLString) },
         changedAt: { type: new GraphQLNonNull(GraphQLString) },
         content: { type: new GraphQLNonNull(GraphQLString) },
+        changedBy: { type: new GraphQLNonNull(GraphQLString) },
+        authorFullName: {
+          type: new GraphQLNonNull(GraphQLString),
+          resolve: async ({ changedBy: uuid }, _, { dataloaders }) => {
+            const { firstName, lastName } = await dataloaders.operators.load(uuid);
+
+            return `${firstName} ${lastName}`;
+          },
+        },
       }),
     }),
   },
