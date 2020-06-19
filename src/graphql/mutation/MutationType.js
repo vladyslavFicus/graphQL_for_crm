@@ -5,7 +5,6 @@ const UploadType = require('./UploadType');
 const HierarchyType = require('./HierarchyType');
 const RulesType = require('./RulesType');
 const ClientsType = require('./ClientsType');
-const TradingAccountType = require('./TradingAccountType');
 
 const MutationType = new GraphQLObjectType({
   name: 'ApiMutation',
@@ -42,12 +41,6 @@ const MutationType = new GraphQLObjectType({
     },
     clients: {
       type: ClientsType,
-      resolve() {
-        return {};
-      },
-    },
-    tradingAccount: {
-      type: TradingAccountType,
       resolve() {
         return {};
       },

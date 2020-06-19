@@ -19,6 +19,7 @@ const {
   PaymentAPI,
   ProfileAPI,
   ProfileViewAPI,
+  TradingAccountAPI,
   TradingActivityAPI,
 } = require('../dataSources');
 
@@ -42,5 +43,6 @@ module.exports = () => ({
   PaymentAPI: new PaymentAPI({ baseUrl: getBaseUrl('payment') }),
   ProfileAPI: new ProfileAPI({ baseUrl: getBaseUrl('profile') }),
   ProfileViewAPI: new ProfileViewAPI({ baseUrl: getBaseUrl('profileview') }),
+  TradingAccountAPI: new TradingAccountAPI({ baseUrl: getBaseUrl('trading-account') }),
   TradingActivityAPI: new TradingActivityAPI({ baseUrl: getBaseUrl('trading-activity') }),
 });

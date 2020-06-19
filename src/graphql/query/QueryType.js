@@ -11,11 +11,9 @@ const {
   files: { getFiles, getFilesByProfileUUID, getFileCategoriesList },
   rules: { getRules, getRulesRetention },
   metabase: { getMetabaseToken },
-  tradingAccount: { getTradingAccounts },
 } = require('../common/resolvers');
 const PageableType = require('../common/types/PageableType');
 const { FileType, FileByUuidType } = require('./FileType/FileType');
-const TradingAccountType = require('./TradingAccountType');
 const StatisticsType = require('./StatisticsType');
 const HierarchyQueryType = require('./HierarchyQueryType');
 const RuleType = require('./RuleType');
@@ -24,14 +22,6 @@ const { RuleTypeEnum } = require('./RuleType/RuleEnums');
 const QueryType = new GraphQLObjectType({
   name: 'Query',
   fields: () => ({
-    tradingAccount: {
-      type: new GraphQLList(TradingAccountType),
-      args: {
-        uuid: { type: new GraphQLNonNull(GraphQLString) },
-        accountType: { type: GraphQLString },
-      },
-      resolve: getTradingAccounts,
-    },
     statistics: {
       type: StatisticsType,
       resolve: () => ({}),

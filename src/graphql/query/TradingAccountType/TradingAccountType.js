@@ -10,6 +10,8 @@ const { getOperator } = require('../../common/resolvers/operators');
 const Mt4Type = require('../Mt4Type');
 const OperatorType = require('../OperatorType');
 
+// # Can be removed after Profile will be refactored to new GQL SDL
+
 const LastLeverageChangeRequest = new GraphQLObjectType({
   name: 'LastLeverageChangeRequest',
   fields: () => ({

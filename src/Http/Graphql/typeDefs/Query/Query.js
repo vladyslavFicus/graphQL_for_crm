@@ -2,15 +2,6 @@ const { gql } = require('apollo-server-express');
 
 module.exports = gql`
   type Query {
-    # AccountView API
-    tradingAccounts(
-      searchKeyword: String
-      accountType: String
-      archived: Boolean
-      page: Int
-      size: Int
-    ): TradingAccount @pageable @response
-
     # Affiliate API
     partner(uuid: String!): Partner @response
     partners(
@@ -121,6 +112,16 @@ module.exports = gql`
     # Profile API
     profile(playerUUID: String!): Profile @response
     profiles(args: ClientSearchParams): ProfileView @pageable @response
+
+    # TradingAccount API && AccountView API
+    tradingAccounts(
+      searchKeyword: String
+      accountType: String
+      archived: Boolean
+      page: Int
+      size: Int
+    ): TradingAccount @pageable @response
+    clientTradingAccounts(profileUUID: String!, accountType: String): [TradingAccount]
 
     # TradingActivity API
     tradingActivity(

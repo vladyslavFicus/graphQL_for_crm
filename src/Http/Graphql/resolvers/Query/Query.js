@@ -4,15 +4,6 @@ const { get } = require('lodash');
 module.exports = {
   /**
    *
-   * AccountView API
-   *
-   */
-  tradingAccounts(_, args, { dataSources }) {
-    return dataSources.AccountViewAPI.getTradingAccounts(args);
-  },
-
-  /**
-   *
    * Afilliate API
    *
    * */
@@ -130,6 +121,7 @@ module.exports = {
     return dataSources.LeadAPI.getLeads({ brandId, observedFrom, ...args });
   },
   async lead(_, { uuid }, { dataSources }) {
+    // Check allowance to see lead profile by hierarchy
     await dataSources.HierarchyAPI.checkAccess(uuid);
 
     return dataSources.LeadAPI.getLead(uuid);
@@ -215,6 +207,18 @@ module.exports = {
   },
   profiles(_, { args }, { dataSources }) {
     return dataSources.ProfileViewAPI.search(args);
+  },
+
+  /**
+   *
+   * TradingAccount API && AccountView API
+   *
+   */
+  tradingAccounts(_, args, { dataSources }) {
+    return dataSources.AccountViewAPI.getTradingAccounts(args);
+  },
+  clientTradingAccounts(_, args, { dataSources }) {
+    return dataSources.TradingAccountAPI.getClientTradingAccounts(args);
   },
 
   /**

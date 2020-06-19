@@ -1,6 +1,5 @@
 const moment = require('moment');
 const fetch = require('../../../utils/fetch');
-const parseJson = require('../../../utils/parseJson');
 const getBaseUrl = require('../../../utils/getBaseUrl');
 const {
   updateQueryTradingProfile,
@@ -10,10 +9,6 @@ const {
 } = require('../../../utils/profile');
 const { getOperatorByUUID } = require('./operators');
 const { statuses } = require('../../../constants/player');
-
-const getProfileNew = async (_, { playerUUID }, { headers: { authorization } }) => {
-  return await getQueryNewProfiles(playerUUID, authorization);
-};
 
 const getProfileView = async (uuid, authorization) => {
   return await getQueryProfileView(uuid, authorization);
@@ -247,7 +242,6 @@ module.exports = {
   clickToCall,
   updateRegulated,
   limitedUpdateProfile,
-  getProfileNew,
   updatePersonalInformation,
   updateKYCStatus,
   updateConfiguration,

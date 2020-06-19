@@ -17,6 +17,7 @@ const OperatorAPI = require('./OperatorAPI');
 const PaymentAPI = require('./PaymentAPI');
 const ProfileAPI = require('./ProfileAPI');
 const ProfileViewAPI = require('./ProfileViewAPI');
+const TradingAccountAPI = require('./TradingAccountAPI');
 const TradingActivityAPI = require('./TradingActivityAPI');
 
 module.exports = {
@@ -39,5 +40,6 @@ module.exports = {
   PaymentAPI,
   ProfileAPI,
   ProfileViewAPI,
+  TradingAccountAPI,
   TradingActivityAPI,
 };
