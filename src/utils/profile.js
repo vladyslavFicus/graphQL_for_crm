@@ -60,18 +60,6 @@ const getQueryProfileView = (uuid, authorization) => {
   }).then(response => response.json().then(({ data }) => data));
 };
 
-const updateQueryTradingProfile = (args, authorization) => {
-  return fetch(`${getBaseUrl('trading-profile')}/v2/`, {
-    method: 'PUT',
-    headers: {
-      accept: 'application/json',
-      authorization,
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify(args),
-  }).then(response => response.json());
-};
-
 const updateQueryProfile = (args, playerUUID, authorization) => {
   return fetch(`${getBaseUrl('profile')}/profiles/${playerUUID}`, {
     method: 'PUT',
@@ -84,18 +72,6 @@ const updateQueryProfile = (args, playerUUID, authorization) => {
   })
     .then(response => response.text())
     .then(response => parseJson(response));
-};
-
-const changeProfileStatusQuery = ({ playerUUID, ...args }, authorization) => {
-  return fetch(`${getBaseUrl('profile')}/admin/profiles/${playerUUID}/status`, {
-    method: 'PUT',
-    headers: {
-      Accept: 'application/json',
-      authorization,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(args),
-  }).then(response => response.json());
 };
 
 const getClientsPersonalInfoQuery = (args, authorization) => {
@@ -113,11 +89,9 @@ const getClientsPersonalInfoQuery = (args, authorization) => {
 module.exports = {
   bulkUpdateRetentionStasuses,
   bulkUpdateSalesStasuses,
-  updateQueryTradingProfile,
   updateQueryProfile,
   getProfiles,
   getQueryNewProfiles,
   getQueryProfileView,
-  changeProfileStatusQuery,
   getClientsPersonalInfoQuery,
 };
