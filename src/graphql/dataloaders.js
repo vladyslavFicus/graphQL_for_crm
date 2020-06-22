@@ -7,7 +7,6 @@ const { getProfiles, getClientsPersonalInfoQuery } = require('../utils/profile')
 const {
   requests: { getHierarchyUsers },
 } = require('../utils/hierarchy');
-const { operatorTypes } = require('../constants/operator');
 
 exports.createDataloaders = (authorization, brandId) => ({
   operators: new DataLoader(async ids => {
@@ -17,7 +16,7 @@ exports.createDataloaders = (authorization, brandId) => ({
   }),
 
   activeOperators: new DataLoader(async ids => {
-    const { data } = await getOperatorsByUUIDs({ uuids: ids, status: operatorTypes.ACTIVE }, authorization);
+    const { data } = await getOperatorsByUUIDs({ uuids: ids, status: 'ACTIVE' }, authorization);
 
     return orderByArray(ids, data.content, 'uuid');
   }),
@@ -26,13 +25,6 @@ exports.createDataloaders = (authorization, brandId) => ({
     const { data } = await getPartners({ uuids: ids }, authorization);
 
     return orderByArray(ids, data.content, 'uuid');
-  }),
-
-  // # Remove after FileType will be refactored
-  notes: new DataLoader(async ids => {
-    const { data } = await getNotes({ targetUUIDs: ids, size: ids.length }, authorization);
-
-    return orderByArray(ids, data.content, 'targetUUID');
   }),
 
   clients: new DataLoader(async ids => {

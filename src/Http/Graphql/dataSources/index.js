@@ -1,6 +1,7 @@
 const AccountViewAPI = require('./AccountViewAPI');
 const AffiliateAPI = require('./AffiliateAPI');
 const AsteriskAPI = require('./AsteriskAPI');
+const AttachmentsAPI = require('./AttachmentsAPI');
 const AuditAPI = require('./AuditAPI');
 const Auth2API = require('./Auth2API');
 const BrandConfigAPI = require('./BrandConfigAPI');
@@ -24,6 +25,7 @@ module.exports = {
   AccountViewAPI,
   AffiliateAPI,
   AsteriskAPI,
+  AttachmentsAPI,
   AuditAPI,
   Auth2API,
   BrandConfigAPI,

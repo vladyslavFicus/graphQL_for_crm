@@ -8,6 +8,7 @@ module.exports = gql`
     brandConfig: BrandConfigMutation @nested
     callback: CallbackMutation @nested
     emailTemplates: EmailTemplateMutation @nested
+    file: FileMutation @nested
     filterSet: FilterSetMutation @nested
     leads: LeadMutation @nested
     note: NoteMutation @nested

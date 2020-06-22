@@ -1,6 +1,5 @@
 const { GraphQLObjectType } = require('graphql');
 const ProfileType = require('./ProfileType');
-const FileType = require('./FileType');
 const UploadType = require('./UploadType');
 const HierarchyType = require('./HierarchyType');
 const RulesType = require('./RulesType');
@@ -17,12 +16,6 @@ const MutationType = new GraphQLObjectType({
     },
     upload: {
       type: UploadType,
-      resolve() {
-        return {};
-      },
-    },
-    file: {
-      type: FileType,
       resolve() {
         return {};
       },

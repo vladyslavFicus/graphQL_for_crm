@@ -3,6 +3,7 @@ const {
   AccountViewAPI,
   AffiliateAPI,
   AsteriskAPI,
+  AttachmentsAPI,
   AuditAPI,
   Auth2API,
   BrandConfigAPI,
@@ -26,7 +27,8 @@ const {
 module.exports = () => ({
   AccountViewAPI: new AccountViewAPI({ baseUrl: getBaseUrl('accountview') }),
   AffiliateAPI: new AffiliateAPI({ baseUrl: getBaseUrl('affiliate') }),
-  AsteriskAPI: new AsteriskAPI({ baseUrl: getBaseUrl('') }), // # Не понятно какой baseUrl использовать для AsteriskAPI
+  AsteriskAPI: new AsteriskAPI({ baseUrl: '' }),
+  AttachmentsAPI: new AttachmentsAPI({ baseUrl: getBaseUrl('attachments') }),
   AuditAPI: new AuditAPI({ baseUrl: getBaseUrl('audit') }),
   Auth2API: new Auth2API({ baseUrl: getBaseUrl('auth2') }),
   BrandConfigAPI: new BrandConfigAPI({ baseUrl: getBaseUrl('brand-config-service') }),

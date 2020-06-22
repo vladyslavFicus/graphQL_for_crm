@@ -13,6 +13,28 @@ module.exports = gql`
       registrationDateTo: String
     ): Partner @pageable @response
 
+    # Attachments API
+    files(
+      page: Int
+      size: Int
+      searchBy: String
+      targetUuid: String
+      documentType: String
+      uploadedDateFrom: String
+      uploadedDateTo: String
+      verificationType: String
+    ): File @pageable @response
+    clientFiles(
+      size: Int
+      page: Int
+      searchBy: String
+      clientUuid: String!
+      fileCategory: String
+      uploadDateFrom: String
+      uploadDateTo: String
+    ): [ClientFile] @response
+    filesCategories: FilesCategories @response
+
     # Audit API
     feeds(
       searchBy: String

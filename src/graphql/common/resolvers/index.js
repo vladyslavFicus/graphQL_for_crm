@@ -6,7 +6,6 @@ module.exports = {
   statistics: require('./statistics'),
   profiles: require('./profiles'),
   upload: require('./upload'),
-  files: require('./files'),
   hierarchy: require('./hierarchy'),
   rules: require('./rules'),
   clients: require('./clients'),

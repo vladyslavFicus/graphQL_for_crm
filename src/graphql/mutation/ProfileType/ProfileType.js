@@ -7,13 +7,9 @@ const {
     changeProfileStatus,
     verifyPhone,
     verifyEmail,
-    verifyProfile,
     updateEmail,
     updateProfile,
-    markIsTest,
     clickToCall,
-    updateRegulated,
-    limitedUpdateProfile,
     updatePersonalInformation,
     updateKYCStatus,
     updateConfiguration,
@@ -128,21 +124,6 @@ const PlayerMutation = new GraphQLObjectType({
       type: ResponseType(NewPlayerProfileType, 'UpdatePlayer'),
       resolve: updateProfile,
     },
-    limitedUpdate: {
-      args: {
-        profileId: {
-          type: new GraphQLNonNull(GraphQLString),
-        },
-        phone2: {
-          type: GraphQLString,
-        },
-        email2: {
-          type: GraphQLString,
-        },
-      },
-      type: SuccessType,
-      resolve: limitedUpdateProfile,
-    },
     updateEmail: {
       args: {
         email: {
@@ -176,38 +157,12 @@ const PlayerMutation = new GraphQLObjectType({
       type: ResponseType(NewPlayerProfileType, 'verifyEmailNewPlayerProfile'),
       resolve: verifyEmail,
     },
-    verifyProfile: {
-      args: {
-        playerUUID: {
-          type: new GraphQLNonNull(GraphQLString),
-        },
-      },
-      type: ResponseType(NewPlayerProfileType, 'VerifyPlayerProfile'),
-      resolve: verifyProfile,
-    },
-    markIsTest: {
-      args: {
-        playerUUID: { type: new GraphQLNonNull(GraphQLString) },
-        isTest: { type: new GraphQLNonNull(GraphQLBoolean) },
-      },
-      type: ResponseType(NewPlayerProfileType, 'MarkAsTest'),
-      resolve: markIsTest,
-    },
     clickToCall: {
       args: {
         number: { type: new GraphQLNonNull(GraphQLString) },
       },
       type: SuccessType,
       resolve: clickToCall,
-    },
-    updateRegulated: {
-      args: {
-        profileId: { type: new GraphQLNonNull(GraphQLString) },
-        fatca: { type: new GraphQLNonNull(GraphQLBoolean) },
-        crs: { type: GraphQLBoolean },
-      },
-      type: SuccessType,
-      resolve: updateRegulated,
     },
     updateKYCStatus: {
       args: {

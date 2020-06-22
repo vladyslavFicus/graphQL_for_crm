@@ -16,6 +16,28 @@ module.exports = {
 
   /**
    *
+   * Attachments API
+   *
+   * */
+  files(_, args, { dataSources }) {
+    return dataSources.AttachmentsAPI.getFiles(args);
+  },
+  clientFiles(_, { clientUuid }, { dataSources }) {
+    return dataSources.AttachmentsAPI.getClientFiles(clientUuid);
+  },
+  async filesCategories(_, __, { dataSources }) {
+    const categories = await dataSources.AttachmentsAPI.getFilesCategories();
+
+    return {
+      ...categories,
+      ADDRESS_VERIFICATION: categories.ADDRESS_VERIFICATION.filter(
+        docType => docType !== 'PASSPORT' && docType !== 'EMPLOYER_LETTER'
+      ),
+    };
+  },
+
+  /**
+   *
    * Audit API
    *
    * */

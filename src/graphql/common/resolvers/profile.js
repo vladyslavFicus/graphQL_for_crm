@@ -8,8 +8,8 @@ const {
   changeProfileStatusQuery,
 } = require('../../../utils/profile');
 const { getOperatorByUUID } = require('./operators');
-const { statuses } = require('../../../constants/player');
 
+// # Can be removed after NewPlayerProfileType will be removed
 const getProfileView = async (uuid, authorization) => {
   return await getQueryProfileView(uuid, authorization);
 };
@@ -25,6 +25,7 @@ const updatePersonalInformation = async (_, { playerUUID, ...args }, { headers: 
     body: JSON.stringify(args),
   });
 
+  // Этот запрос не нужен так как в респонсе после апдейта приходит информация по юзеру
   return getQueryNewProfiles(playerUUID, authorization);
 };
 
@@ -63,6 +64,7 @@ const updateContacts = async (_, { playerUUID, ...args }, { headers: { authoriza
     body: JSON.stringify(args),
   });
 
+  // Прикол в том, что тут возникает проблема с отображением обновленных данных в personal-information. Лучше на фронте просто сделать refetch
   return getQueryNewProfiles(playerUUID, authorization);
 };
 
@@ -77,6 +79,7 @@ const updateAddress = async (_, { playerUUID, ...args }, { headers: { authorizat
     body: JSON.stringify(args),
   });
 
+  // Прикол в том, что тут возникает проблема с отображением обновленных данных в personal-information. Лучше на фронте просто сделать refetch
   return getQueryNewProfiles(playerUUID, authorization);
 };
 
@@ -120,54 +123,6 @@ const verifyEmail = (_, { playerUUID, ...args }, { headers: { authorization } })
   }).then(response => response.json());
 };
 
-const verifyProfile = async (_, { playerUUID, ...args }, context) => {
-  const {
-    headers: { authorization },
-  } = context;
-  const response = await fetch(`${getBaseUrl('profile')}/verification/${playerUUID}`, {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      authorization,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(args),
-  });
-
-  if (response.status !== 200) {
-    return { error: 'error.verify.profile' };
-  }
-
-  return {
-    data: {
-      playerUUID,
-      profileStatus: statuses.VERIFIED,
-    },
-  };
-};
-
-const markIsTest = async (_, { playerUUID, isTest }, { headers: { authorization } }) => {
-  const response = await fetch(`${getBaseUrl('profile')}/profiles/${playerUUID}/is-test`, {
-    method: isTest ? 'POST' : 'DELETE',
-    headers: {
-      Accept: 'application/json',
-      authorization,
-      'Content-Type': 'application/json',
-    },
-  });
-
-  if (response.status !== 200) {
-    return { error: 'error.mark.is-test' };
-  }
-
-  return {
-    data: {
-      playerUUID,
-      isTest,
-    },
-  };
-};
-
 const updateProfile = async (_, { playerUUID, ...args }, { headers: { authorization }, brand }) => {
   const { passportNumber, passportIssueDate, expirationDate, countryOfIssue, ...dataProfile } = args;
 
@@ -188,20 +143,9 @@ const updateProfile = async (_, { playerUUID, ...args }, { headers: { authorizat
 
   return {
     data: dataProfile,
+    // updateProfile.error какая то дичь
     error: updateProfile.error || updateTradingProfile.error || null,
   };
-};
-
-const limitedUpdateProfile = async (_, args, { headers: { authorization } }) => {
-  return fetch(`${getBaseUrl('trading-profile')}/v2/limited/update`, {
-    method: 'PUT',
-    headers: {
-      accept: 'application/json',
-      authorization,
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify(args),
-  }).then(response => (response.status === 200 ? { success: true } : { error: 'error' }));
 };
 
 const clickToCall = async (_, args, context) => {
@@ -222,33 +166,17 @@ const clickToCall = async (_, args, context) => {
   }).then(response => ({ success: response.status === 204 }));
 };
 
-const updateRegulated = (_, args, { headers: { authorization }, brand: { id: brandId } }) => {
-  return fetch(`${getBaseUrl('trading-profile')}/regulated`, {
-    method: 'PUT',
-    headers: {
-      Accept: 'application/json',
-      authorization,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ brandId, ...args }),
-  }).then(response => ({ success: response.status === 200 }));
-};
-
 module.exports = {
   updateProfile,
   verifyPhone,
   updateEmail,
-  markIsTest,
   clickToCall,
-  updateRegulated,
-  limitedUpdateProfile,
   updatePersonalInformation,
   updateKYCStatus,
   updateConfiguration,
   updateContacts,
   updateAddress,
   verifyEmail,
-  verifyProfile,
   changeProfileStatus,
   getProfileView,
 };

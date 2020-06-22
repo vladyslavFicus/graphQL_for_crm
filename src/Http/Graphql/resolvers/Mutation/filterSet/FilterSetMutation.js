@@ -51,7 +51,7 @@ module.exports = {
    * @return {Promise<success|*>}
    */
   async updateFavourite(_, { uuid, favourite }, { dataSources }) {
-    await dataSources.FilterSetsAPI.updateFilterFavorite('dasdads', favourite);
+    await dataSources.FilterSetsAPI.updateFilterFavorite(uuid, favourite);
     return { success: true };
   },
 };
