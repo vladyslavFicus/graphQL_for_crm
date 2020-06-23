@@ -3,9 +3,7 @@ const { get } = require('lodash');
 
 module.exports = {
   /**
-   *
    * Afilliate API
-   *
    * */
   partners(_, args, { dataSources }) {
     return dataSources.AffiliateAPI.getPartners(args);
@@ -15,9 +13,7 @@ module.exports = {
   },
 
   /**
-   *
    * Attachments API
-   *
    * */
   files(_, args, { dataSources }) {
     return dataSources.AttachmentsAPI.getFiles(args);
@@ -37,9 +33,7 @@ module.exports = {
   },
 
   /**
-   *
    * Audit API
-   *
    * */
   feeds(_, args, { dataSources }) {
     return dataSources.AuditAPI.getFeeds(args);
@@ -49,9 +43,7 @@ module.exports = {
   },
 
   /**
-   *
    * Auth2 API
-   *
    * */
   async authoritiesOptions(_, __, { dataSources, brand: { id: brand } }) {
     const responseData = await dataSources.Auth2API.getAuthorities(brand);
@@ -83,18 +75,14 @@ module.exports = {
   },
 
   /**
-   *
    * BrandConfig API
-   *
    * */
   brandConfig(_, { brandId }, { dataSources }) {
     return dataSources.BrandConfigAPI.getBrandConfig(brandId);
   },
 
   /**
-   *
    * Callback API
-   *
    * */
   async callbacks(_, args, { dataSources, userUUID }) {
     const operatorIdsData = await dataSources.HierarchyAPI.getOperatorsSubtree(userUUID);
@@ -109,9 +97,7 @@ module.exports = {
   },
 
   /**
-   *
    * Email API
-   *
    * */
   emailTemplates(_, __, { dataSources }) {
     return dataSources.EmailAPI.getTemplates();
@@ -121,9 +107,7 @@ module.exports = {
   },
 
   /**
-   *
    * FilterSet API
-   *
    * */
   filterSets(_, { type }, { dataSources, userUUID }) {
     return dataSources.FilterSetsAPI.getFilterSets(userUUID, type);
@@ -133,9 +117,7 @@ module.exports = {
   },
 
   /**
-   *
    * Lead API
-   *
    * */
   async leads(_, args, { dataSources, userUUID, brand: { id: brandId } }) {
     const observedFrom = await dataSources.HierarchyAPI.getObserverForSubtree(userUUID);
@@ -150,18 +132,14 @@ module.exports = {
   },
 
   /**
-   *
    * Note API
-   *
    * */
   notes(_, { targetUUID, ...args }, { dataSources }) {
     return dataSources.NoteAPI.getNotes({ ...args, targetUUIDs: [targetUUID] });
   },
 
   /**
-   *
    * NotificationCenter API
-   *
    * */
   notificationCenter(_, { args }, { dataSources }) {
     const { hierarchical, ...argsBody } = args || {};
@@ -179,9 +157,7 @@ module.exports = {
   },
 
   /**
-   *
    * Payment API
-   *
    * */
   payments(_, args, { dataSources }) {
     return dataSources.PaymentAPI.getPayments({ ...args.args, withOriginalAgent: true });
@@ -232,9 +208,7 @@ module.exports = {
   },
 
   /**
-   *
    * TradingAccount API && AccountView API
-   *
    */
   tradingAccounts(_, args, { dataSources }) {
     return dataSources.AccountViewAPI.getTradingAccounts(args);
