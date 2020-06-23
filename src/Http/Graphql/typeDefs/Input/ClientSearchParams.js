@@ -42,6 +42,7 @@ module.exports = gql`
   }
 
   input ClientSearchParams {
+    activityStatus: String
     acquisitionStatus: String
     affiliateUuids: [String]
     assignStatus: String

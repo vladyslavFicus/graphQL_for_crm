@@ -32,12 +32,6 @@ module.exports = gql`
     date: String
   }
 
-  type ProfileView__LastNote {
-    changedAt: String
-    content: String
-    uuid: String!
-  }
-
   type ProfileView__PaymentDetails {
     depositsCount: Int
     lastDepositTime: String
@@ -69,7 +63,7 @@ module.exports = gql`
     languageCode: String!
     lastActivity: ProfileView__LastActivity
     lastName: String
-    lastNote: ProfileView__LastNote
+    lastNote: Note
     lastSignInSessions: [ProfileView__Sessions]
     paymentDetails: ProfileView__PaymentDetails
     registrationDetails: ProfileView__RegistrationDetails
