@@ -1,19 +1,10 @@
 const {
-  getRules: getRulesQuery,
   getRulesRetention: getRulesRetentionQuery,
   createRule: createRuleQuery,
   createRuleRetention: createRuleRetentionQuery,
   deleteRule: deleteRuleQuery,
   deleteRuleRetention: deleteRuleRetentionQuery,
 } = require('../../../utils/rulesRequests');
-
-const getRules = async (_, args, { headers: { authorization }, brand: { id: brandId } }) => {
-  return await getRulesQuery({ brandId, ...args }, authorization);
-};
-
-const getRulesRetention = async (_, args, { headers: { authorization }, brand: { id: brandId } }) => {
-  return await getRulesRetentionQuery({ brandId, ...args }, authorization);
-};
 
 const createRule = async (_, args, { headers: { authorization }, brand: { id: brandId, userUUID } }) => {
   return await createRuleQuery({ ...args, brandId, createdBy: userUUID }, authorization);
@@ -44,8 +35,6 @@ const deleteRuleRetention = async (_, { uuid }, { headers: { authorization } }) 
 };
 
 module.exports = {
-  getRules,
-  getRulesRetention,
   createRule,
   createRuleRetention,
   deleteRule,

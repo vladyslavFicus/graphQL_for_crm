@@ -1,10 +1,10 @@
 const { AuthenticationError } = require('@hrzn/apollo-datasource');
-const { get } = require('lodash');
+const { get, pickBy, identity } = require('lodash');
 
 module.exports = {
   /**
-   * Afilliate API
-   * */
+   * Affiliate API
+   */
   partners(_, args, { dataSources }) {
     return dataSources.AffiliateAPI.getPartners(args);
   },
@@ -14,7 +14,7 @@ module.exports = {
 
   /**
    * Attachments API
-   * */
+   */
   files(_, args, { dataSources }) {
     return dataSources.AttachmentsAPI.getFiles(args);
   },
@@ -34,7 +34,7 @@ module.exports = {
 
   /**
    * Audit API
-   * */
+   */
   feeds(_, args, { dataSources }) {
     return dataSources.AuditAPI.getFeeds(args);
   },
@@ -44,7 +44,7 @@ module.exports = {
 
   /**
    * Auth2 API
-   * */
+   */
   async authoritiesOptions(_, __, { dataSources, brand: { id: brand } }) {
     const responseData = await dataSources.Auth2API.getAuthorities(brand);
 
@@ -76,14 +76,14 @@ module.exports = {
 
   /**
    * BrandConfig API
-   * */
+   */
   brandConfig(_, { brandId }, { dataSources }) {
     return dataSources.BrandConfigAPI.getBrandConfig(brandId);
   },
 
   /**
    * Callback API
-   * */
+   */
   async callbacks(_, args, { dataSources, userUUID }) {
     const operatorIdsData = await dataSources.HierarchyAPI.getOperatorsSubtree(userUUID);
     const operatorIds = operatorIdsData.map(({ uuid }) => uuid);
@@ -98,7 +98,7 @@ module.exports = {
 
   /**
    * Email API
-   * */
+   */
   emailTemplates(_, __, { dataSources }) {
     return dataSources.EmailAPI.getTemplates();
   },
@@ -108,7 +108,7 @@ module.exports = {
 
   /**
    * FilterSet API
-   * */
+   */
   filterSets(_, { type }, { dataSources, userUUID }) {
     return dataSources.FilterSetsAPI.getFilterSets(userUUID, type);
   },
@@ -118,7 +118,7 @@ module.exports = {
 
   /**
    * Lead API
-   * */
+   */
   async leads(_, args, { dataSources, userUUID, brand: { id: brandId } }) {
     const observedFrom = await dataSources.HierarchyAPI.getObserverForSubtree(userUUID);
 
@@ -133,14 +133,14 @@ module.exports = {
 
   /**
    * Note API
-   * */
+   */
   notes(_, { targetUUID, ...args }, { dataSources }) {
     return dataSources.NoteAPI.getNotes({ ...args, targetUUIDs: [targetUUID] });
   },
 
   /**
    * NotificationCenter API
-   * */
+   */
   notificationCenter(_, { args }, { dataSources }) {
     const { hierarchical, ...argsBody } = args || {};
 
@@ -158,7 +158,7 @@ module.exports = {
 
   /**
    * Payment API
-   * */
+   */
   payments(_, args, { dataSources }) {
     return dataSources.PaymentAPI.getPayments({ ...args.args, withOriginalAgent: true });
   },
@@ -222,5 +222,18 @@ module.exports = {
    */
   tradingActivity(_, args, { dataSources }) {
     return dataSources.TradingActivityAPI.getTradingActivity(args);
+  },
+
+  /**
+   * Rule API
+   */
+  rules(_, args, { dataSources, brand }) {
+    return dataSources.RuleProfileAPI.search({ ...args, brandId: brand.id });
+  },
+  rulesRetention(_, args, { dataSources, brand }) {
+    // Drop undefined and nullable values from object (because BE service throw Error if null will be sent)
+    const params = pickBy(args, identity);
+
+    return dataSources.RulePaymentAPI.search({ ...params, brandId: brand.id });
   },
 };

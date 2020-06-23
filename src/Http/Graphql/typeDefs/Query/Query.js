@@ -166,5 +166,28 @@ module.exports = gql`
       volumeFrom: Float
       volumeTo: Float
     ): TradingActivity @pageable @response
+
+    # Rules API
+    rules(
+      uuid: [String]
+      uuids: [String]
+      affiliateId: String
+      branchUuid: String
+      country: String
+      createdByOrUuid: String
+      language: String
+      name: String
+      operatorUuids: [String]
+      parentId: String
+      type: Rule__Type__Enum
+    ): [Rule] @response
+    rulesRetention(
+      uuid: [String]
+      createdByOrUuid: String
+      country: String
+      language: String
+      name: String
+      parentId: String
+    ): [Rule] @response
   }
 `;
