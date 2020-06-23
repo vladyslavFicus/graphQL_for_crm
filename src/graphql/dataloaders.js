@@ -2,7 +2,6 @@ const DataLoader = require('dataloader');
 const orderByArray = require('../utils/orderByArray');
 const { getOperatorsByUUIDs } = require('../utils/operatorRequests');
 const { getPartners } = require('../utils/partnerRequests');
-const { getNotes } = require('../utils/notesRequests');
 const { getProfiles, getClientsPersonalInfoQuery } = require('../utils/profile');
 const {
   requests: { getHierarchyUsers },

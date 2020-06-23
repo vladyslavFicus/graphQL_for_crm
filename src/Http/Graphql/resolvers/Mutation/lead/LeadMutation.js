@@ -71,4 +71,22 @@ module.exports = {
 
     return true;
   },
+
+  /**
+   *
+   * Upload leads (csv)
+   *
+   * @param _
+   * @param args.file
+   * @param dataSources
+   * @param brand
+   *
+   * @return {Promise<*>}
+   *
+   * */
+  async uploadLeads(_, { file }, { dataSources, brand: { id: brand } }) {
+    await dataSources.LeadUpdaterAPI.uploadLeads(file, brand);
+
+    return true;
+  },
 };

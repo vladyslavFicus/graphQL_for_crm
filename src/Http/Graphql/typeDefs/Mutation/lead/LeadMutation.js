@@ -23,5 +23,7 @@ module.exports = gql`
       gender: String
       city: String
     ): Boolean
+
+    uploadLeads(file: Upload): Boolean
   }
 `;

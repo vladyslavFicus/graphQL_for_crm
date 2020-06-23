@@ -7,12 +7,6 @@ const ClientsType = require('./ClientsType');
 const MutationType = new GraphQLObjectType({
   name: 'ApiMutation',
   fields: () => ({
-    upload: {
-      type: UploadType,
-      resolve() {
-        return {};
-      },
-    },
     hierarchy: {
       type: HierarchyType,
       resolve() {

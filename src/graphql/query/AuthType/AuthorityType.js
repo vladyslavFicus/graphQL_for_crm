@@ -1,5 +1,6 @@
 const { GraphQLString, GraphQLObjectType, GraphQLNonNull, GraphQLInt } = require('graphql');
 
+// # Can be removed after Operator and Partner types will be deleted
 const AuthorityType = new GraphQLObjectType({
   name: 'Authority',
   fields() {
