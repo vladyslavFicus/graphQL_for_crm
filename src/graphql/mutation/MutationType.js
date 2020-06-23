@@ -1,5 +1,4 @@
 const { GraphQLObjectType } = require('graphql');
-const UploadType = require('./UploadType');
 const HierarchyType = require('./HierarchyType');
 const RulesType = require('./RulesType');
 const ClientsType = require('./ClientsType');
