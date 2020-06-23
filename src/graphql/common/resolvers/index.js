@@ -7,5 +7,4 @@ module.exports = {
   clients: require('./clients'),
   operators: require('./operators'),
   partners: require('./partners'),
-  metabase: require('./metabase'),
 };

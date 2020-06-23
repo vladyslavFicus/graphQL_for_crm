@@ -21,6 +21,8 @@ const ProfileAPI = require('./ProfileAPI');
 const ProfileViewAPI = require('./ProfileViewAPI');
 const TradingAccountAPI = require('./TradingAccountAPI');
 const TradingActivityAPI = require('./TradingActivityAPI');
+const RuleProfileAPI = require('./RuleProfileAPI');
+const RulePaymentAPI = require('./RulePaymentAPI');
 
 module.exports = {
   AccountViewAPI,
@@ -46,4 +48,6 @@ module.exports = {
   ProfileViewAPI,
   TradingAccountAPI,
   TradingActivityAPI,
+  RuleProfileAPI,
+  RulePaymentAPI,
 };

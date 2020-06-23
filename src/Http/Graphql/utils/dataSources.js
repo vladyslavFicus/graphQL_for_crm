@@ -23,6 +23,8 @@ const {
   ProfileViewAPI,
   TradingAccountAPI,
   TradingActivityAPI,
+  RuleProfileAPI,
+  RulePaymentAPI,
 } = require('../dataSources');
 
 module.exports = () => ({
@@ -34,7 +36,7 @@ module.exports = () => ({
   Auth2API: new Auth2API({ baseUrl: getBaseUrl('auth2') }),
   BrandConfigAPI: new BrandConfigAPI({ baseUrl: getBaseUrl('brand-config-service') }),
   CallbackAPI: new CallbackAPI({ baseUrl: getBaseUrl('callback') }),
-  DidLogicAPI: new DidLogicAPI({ baseUrl: getBaseUrl('') }),
+  DidLogicAPI: new DidLogicAPI({ baseUrl: '' }),
   EmailAPI: new EmailAPI({ baseUrl: getBaseUrl('email') }),
   FilterSetsAPI: new FilterSetsAPI({ baseUrl: getBaseUrl('filter-sets') }),
   HierarchyAPI: new HierarchyAPI({ baseUrl: getBaseUrl('hierarchy') }),
@@ -49,4 +51,6 @@ module.exports = () => ({
   ProfileViewAPI: new ProfileViewAPI({ baseUrl: getBaseUrl('profileview') }),
   TradingAccountAPI: new TradingAccountAPI({ baseUrl: getBaseUrl('trading-account') }),
   TradingActivityAPI: new TradingActivityAPI({ baseUrl: getBaseUrl('trading-activity') }),
+  RuleProfileAPI: new RuleProfileAPI({ baseUrl: getBaseUrl('rules-profile') }),
+  RulePaymentAPI: new RulePaymentAPI({ baseUrl: getBaseUrl('rules-payment') }),
 });
