@@ -62,6 +62,7 @@ const RulesMutation = new GraphQLObjectType({
         countries: { type: new GraphQLList(GraphQLString) },
         languages: { type: new GraphQLList(GraphQLString) },
         priority: { type: new GraphQLNonNull(GraphQLInt) },
+        depositCount: { type: GraphQLInt },
         actions: { type: new GraphQLNonNull(new GraphQLList(RuleActionsInputType)) },
         depositAmountFrom: { type: new GraphQLNonNull(GraphQLInt) },
         depositAmountTo: { type: new GraphQLNonNull(GraphQLInt) },
