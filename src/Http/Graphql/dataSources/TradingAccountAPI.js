@@ -53,6 +53,7 @@ class TradingAccountAPI extends RESTDataSource {
    * Change leverage
    *
    * @param uuid | accountUuid
+   * @param args
    *
    * @return {Promise}
    */
