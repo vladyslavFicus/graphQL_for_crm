@@ -24,8 +24,14 @@ const getPaymentsStatistic = async function(_, { dateFrom, dateTo, ...args }, { 
   const { data, error } = await getPaymentsStatisticsQuery(
     {
       ...args,
-      dateFrom: moment(dateFrom).utc(),
-      dateTo: moment(dateTo).utc(),
+      dateFrom: moment(dateFrom)
+        .utc()
+        .format(),
+      dateTo: dateTo
+        ? moment(dateTo)
+            .utc()
+            .format()
+        : null,
     },
     authorization
   );

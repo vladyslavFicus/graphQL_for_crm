@@ -47,6 +47,7 @@ const RuleType = new GraphQLObjectType({
     },
     sources: { type: new GraphQLList(GraphQLString) },
     name: { type: GraphQLString },
+    depositCount: { type: GraphQLInt },
     priority: { type: new GraphQLNonNull(GraphQLInt) },
     type: { type: RuleTypeEnum },
     updatedBy: { type: GraphQLString },
