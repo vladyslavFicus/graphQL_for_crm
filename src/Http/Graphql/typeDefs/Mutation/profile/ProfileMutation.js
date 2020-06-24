@@ -17,7 +17,7 @@ module.exports = gql`
       retentionStatus: String
       type: String!
       isMoveAction: Boolean
-      clients: [ClientToUpdateInput]
+      clients: [ClientUpdate__Input]
       allRowsSelected: Boolean
       totalElements: Int
       searchParams: ClientSearchParams
