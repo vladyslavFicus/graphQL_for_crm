@@ -1,6 +1,5 @@
 const DataLoader = require('dataloader');
 const RESTDataSource = require('@hrzn/apollo-datasource/RESTDataSource');
-const buildQueryString = require('../../../utils/buildQueryString');
 const orderByArray = require('../../../utils/orderByArray');
 
 class NoteAPI extends RESTDataSource {
@@ -37,7 +36,7 @@ class NoteAPI extends RESTDataSource {
    * @return {Promise}
    */
   getNotes({ page, size, ...args }) {
-    return this.post(`/search?${buildQueryString({ size, page })}`, args);
+    return this.post(`/search?size=${size}&page=${page}`, args);
   }
 
   /**

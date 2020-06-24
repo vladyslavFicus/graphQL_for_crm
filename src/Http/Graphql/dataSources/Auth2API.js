@@ -1,5 +1,4 @@
 const RESTDataSource = require('@hrzn/apollo-datasource/RESTDataSource');
-const buildQueryString = require('../../../utils/buildQueryString');
 
 class Auth2API extends RESTDataSource {
   /**
@@ -130,7 +129,7 @@ class Auth2API extends RESTDataSource {
    * @return {Promise}
    */
   getAuthorities(brand) {
-    return this.get(`/authorities?${buildQueryString({ brand })}`);
+    return this.get('/authorities', { brand });
   }
 
   /**

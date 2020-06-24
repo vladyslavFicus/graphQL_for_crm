@@ -1,5 +1,4 @@
 const RESTDataSource = require('@hrzn/apollo-datasource/RESTDataSource');
-const buildQueryString = require('../../../utils/buildQueryString');
 
 class AccountViewAPI extends RESTDataSource {
   /**
@@ -10,7 +9,7 @@ class AccountViewAPI extends RESTDataSource {
    * @return {Promise}
    */
   getTradingAccounts(args) {
-    return this.get(`/accounts/search?${buildQueryString(args)}`);
+    return this.get('/accounts/search', args);
   }
 }
 

@@ -1,6 +1,5 @@
 const RESTDataSource = require('@hrzn/apollo-datasource/RESTDataSource');
 const FormData = require('form-data');
-const buildQueryString = require('../../../utils/buildQueryString');
 
 class LeadUpdaterAPI extends RESTDataSource {
   /**
@@ -51,7 +50,7 @@ class LeadUpdaterAPI extends RESTDataSource {
         formData.append('file', Buffer.concat(buffer), filename);
 
         try {
-          const response = await this.post(`/lead/csv?${buildQueryString({ brandId })}`, formData, {
+          const response = await this.post(`/lead/csv?brandId=${brandId}`, formData, {
             headers: {
               ...formData.getHeaders(),
             },

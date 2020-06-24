@@ -142,8 +142,13 @@ module.exports = {
   /**
    * Note API
    */
-  notes(_, { targetUUID, ...args }, { dataSources }) {
-    return dataSources.NoteAPI.getNotes({ ...args, targetUUIDs: [targetUUID] });
+  notes(_, { targetUUID, page, size, ...args }, { dataSources }) {
+    return dataSources.NoteAPI.getNotes({
+      ...args,
+      targetUUIDs: [targetUUID],
+      page: page || 0,
+      size: size || 20,
+    });
   },
 
   /**
@@ -292,10 +297,16 @@ module.exports = {
    * TradingAccount API && AccountView API
    */
   tradingAccounts(_, args, { dataSources }) {
-    return dataSources.AccountViewAPI.getTradingAccounts(args);
+    // Drop undefined and nullable values from object (because BE service throw Error if null will be sent)
+    const params = pickBy(args, identity);
+
+    return dataSources.AccountViewAPI.getTradingAccounts(params);
   },
   clientTradingAccounts(_, args, { dataSources }) {
-    return dataSources.TradingAccountAPI.getClientTradingAccounts(args);
+    // Drop undefined and nullable values from object (because BE service throw Error if null will be sent)
+    const params = pickBy(args, identity);
+
+    return dataSources.TradingAccountAPI.getClientTradingAccounts(params);
   },
 
   /**
