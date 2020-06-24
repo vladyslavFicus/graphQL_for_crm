@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`
-  input PaymentInputType {
+  input PaymentSearch__Input {
     accountType: String
     agentIds: [String]
     affiliateUuids: [String]
@@ -25,7 +25,7 @@ module.exports = gql`
     statusChangedTimeTo: String
     teams: [String]
     type: String
-    page: PageInputType
+    page: Page__Input
     paymentTypes: [String]
     warnings: [String]
     withdrawStatuses: [String]

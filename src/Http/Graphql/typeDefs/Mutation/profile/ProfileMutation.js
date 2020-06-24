@@ -2,7 +2,7 @@ const { gql } = require('apollo-server-express');
 
 module.exports = gql`
   type ProfileMutation {
-    createProfile(args: CreateProfileInputType): CreatedProfile
+    createProfile(args: CreateProfile__Input): CreatedProfile
     changeProfileStatus(playerUUID: String!, status: String!, reason: String!, comment: String): Profile @response
     updateConfiguration(playerUUID: String!, crs: Boolean, fatca: Boolean, internalTransfer: Boolean): Success
     updateKYCStatus(playerUUID: String!, kycStatus: String): Success
@@ -31,7 +31,7 @@ module.exports = gql`
       gender: String
       identificationNumber: String
       languageCode: String
-      passport: PassportInput
+      passport: Passport__Input
       timeZone: String
     ): Profile @response
 

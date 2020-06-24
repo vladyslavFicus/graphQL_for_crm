@@ -1,20 +1,20 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`
-  input NotificationCenterDateRange {
+  input NotificationCenterSearch__DateRange__Input {
     from: String
     to: String
   }
 
-  input NotificationCenterInputType {
-    creationDateRange: NotificationCenterDateRange
+  input NotificationCenterSearch__Input {
+    creationDateRange: NotificationCenterSearch__DateRange__Input
     hierarchical: Boolean
     notificationSubtypes: [String]
     notificationTypes: [String]
     operatorDesks: [String]
     operatorTeams: [String]
     operators: [String]
-    page: PageInputType
+    page: Page__Input
     priorities: [String]
     searchKeyword: String
   }

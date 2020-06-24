@@ -20,7 +20,7 @@ module.exports = gql`
     phone: String!
     registrationDate: String!
     salesAgent: Operator
-    salesStatus: SalesStatus__Types
+    salesStatus: SalesStatus__Enum
     status: String
     statusChangedDate: String
     source: String

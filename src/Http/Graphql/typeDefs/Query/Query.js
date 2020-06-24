@@ -5,7 +5,7 @@ module.exports = gql`
     # Affiliate API
     partner(uuid: String!): Partner @response
     partners(
-      page: PageInputType
+      page: Page__Input
       searchBy: String
       country: String
       status: String
@@ -60,7 +60,7 @@ module.exports = gql`
     # Callback API
     callbacks(
       id: String
-      statuses: [Callback__StatusEnum]
+      statuses: [Callback__Status__Enum]
       userId: String
       page: Int
       limit: Int
@@ -75,7 +75,7 @@ module.exports = gql`
 
     # FilterSet API
     filterSet(uuid: String!): Object @response
-    filterSets(type: FilterSet__Types): FilterSet @response
+    filterSets(type: FilterSet__Types__Enum): FilterSet @response
 
     # Lead API
     lead(uuid: String!): Lead @response
@@ -88,7 +88,7 @@ module.exports = gql`
       registrationDateStart: String
       registrationDateEnd: String
       status: String
-      salesStatuses: [SalesStatus__Types]
+      salesStatuses: [SalesStatus__Enum]
       salesAgents: [String]
       migrationId: String
       lastNoteDateFrom: String
@@ -108,7 +108,7 @@ module.exports = gql`
     ): Note @pageable @response
 
     # NotificationCenter API
-    notificationCenter(args: NotificationCenterInputType): NotificationCenter @pageable @response
+    notificationCenter(args: NotificationCenterSearch__Input): NotificationCenter @pageable @response
     notificationCenterTypes: [String] @response
     notificationCenterSubtypes: [String] @response
     notificationCenterUnread: Int @response
@@ -117,7 +117,7 @@ module.exports = gql`
     operator(uuid: String!): Operator @response
     operators(
       country: String
-      page: PageInputType
+      page: Page__Input
       phone: String
       registrationDateFrom: String
       registrationDateTo: String
@@ -126,28 +126,28 @@ module.exports = gql`
     ): Operator @pageable @response
 
     # Payment API
-    payments(args: PaymentInputType): Payment @pageable @response
-    clientPayments(args: PaymentInputType): Payment @pageable @response
+    payments(args: PaymentSearch__Input): Payment @pageable @response
+    clientPayments(args: PaymentSearch__Input): Payment @pageable @response
     paymentMethods: [String] @response
     manualPaymentMethods: [String] @response
     paymentsStatistic(
       dateFrom: String
       dateTo: String
       profileId: String
-      detalization: StatisticDetalization
+      detalization: StatisticDetalization__Enum
       paymentStatus: String
       paymentType: String
-      additionalStatistics: [PaymentStatisticDatesInput]
+      additionalStatistics: [PaymentStatisticDateRange__Input]
     ): PaymentStatistic @response
 
     # Profile API && ProfileView API
     profile(playerUUID: String!): Profile @response
-    profiles(args: ClientSearchParams): ProfileView @pageable @response
+    profiles(args: ClientSearch__Input): ProfileView @pageable @response
     registrationStatistic(
       dateTo: String
       dateFrom: String
-      detalization: StatisticDetalization
-      additionalStatistics: [RegistrationAdditionalStatisticInput]
+      detalization: StatisticDetalization__Enum
+      additionalStatistics: [RegistrationStatisticDateRange__Input]
     ): RegistrationStatistic @response
 
     # Rules API
@@ -192,12 +192,12 @@ module.exports = gql`
       loginIds: [Int]
       openTimeEnd: String
       openTimeStart: String
-      operationType: TradingActivity__OperationTypes
+      operationType: TradingActivity__OperationTypes__Enum
       page: Int
       profileUUID: String
       sortDirection: String
       sortColumn: String
-      status: TradingActivity__Statuses
+      status: TradingActivity__Statuses__Enum
       symbol: String
       tradeId: Int
       tradeType: String

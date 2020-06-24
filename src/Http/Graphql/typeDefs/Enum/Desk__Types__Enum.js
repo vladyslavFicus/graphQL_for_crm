@@ -1,8 +1,8 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`
-  input SortInputType {
-    column: String
-    direction: String
+  enum Desk__Types__Enum {
+    RETENTION
+    SALES
   }
 `;

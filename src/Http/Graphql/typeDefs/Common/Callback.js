@@ -1,12 +1,6 @@
 const { gql } = require('apollo-server-express');
 
-module.exports = gql`
-  enum Callback__StatusEnum {
-    SUCCESS
-    PENDING
-    REJECTED
-  }
-
+module.exports = gql`  
   type Callback {
     _id: ID!
     callbackId: String!
@@ -14,7 +8,7 @@ module.exports = gql`
     creationTime: String!
     updateTime: String!
     operatorId: String!
-    status: Callback__StatusEnum!
+    status: Callback__Status__Enum!
     userId: String!
     reminder: String
     operator: Operator

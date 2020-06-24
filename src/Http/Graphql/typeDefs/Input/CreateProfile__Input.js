@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`
-  input CreateProfileInputType__address {
+  input CreateProfile__Address__Input {
     address: String
     countryCode: String
     city: String
@@ -9,32 +9,32 @@ module.exports = gql`
     state: String
   }
 
-  input CreateProfileInputType__affiliate {
+  input CreateProfile__Affiliate__Input {
     source: String
     referral: String
     sms: String
   }
 
-  input CreateProfileInputType__configuration {
+  input CreateProfile__Configuration__Input {
     internalTransfer: Boolean
     crs: Boolean
     fatca: Boolean
   }
 
-  input CreateProfileInputType__contacts {
+  input CreateProfile__Contacts__Input {
     additionalEmail: String
     additionalPhone: String
     email: String
     phone: String
   }
 
-  input CreateProfileInputType {
-    address: CreateProfileInputType__address
-    affiliate: CreateProfileInputType__affiliate
+  input CreateProfile__Input {
+    address: CreateProfile__Address__Input
+    affiliate: CreateProfile__Affiliate__Input
     brandId: String
     birthDate: String
-    configuration: CreateProfileInputType__configuration
-    contacts: CreateProfileInputType__contacts
+    configuration: CreateProfile__Configuration__Input
+    contacts: CreateProfile__Contacts__Input
     firstName: String
     gender: String
     languageCode: String

@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`
-  enum SalesStatus__Types {
+  enum SalesStatus__Enum {
     CALLBACK
     CONVERTED
     DEPOSITOR

@@ -1,8 +1,9 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`
-  enum Desk__Types {
-    RETENTION
-    SALES
+  enum StatisticDetalization__Enum {
+    PER_DAYS
+    PER_HOURS
+    PER_MINUTES
   }
 `;
