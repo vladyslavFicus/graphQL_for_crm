@@ -1,16 +1,6 @@
 const { gql } = require('apollo-server-express');
 
-module.exports = gql`
-  enum Rule__Type__Enum {
-    LEAD
-    PROFILE
-  }
-
-  enum Rule__ActionType__Enum {
-    DEFAULT
-    ROUND_ROBIN
-  }
-
+module.exports = gql`  
   type Rule__OperatorSpread {
     id: Int!
     operator: Operator

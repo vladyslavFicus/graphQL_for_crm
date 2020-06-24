@@ -5,10 +5,10 @@ module.exports = gql`
     bulkLeadUpdate(
       salesRep: [String]
       salesStatus: String
-      leads: [LeadToUpdateInputType]
+      leads: [LeadUpdate__Input]
       allRowsSelected: Boolean
       totalElements: Int
-      searchParams: LeadsSearchParamsInputType
+      searchParams: LeadSearch__Input
     ): Boolean
 
     update(

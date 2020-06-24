@@ -1,8 +1,8 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`
-  input PaymentStatisticDatesInput {
-    dateFrom: String
-    dateTo: String
+  enum Rule__ActionType__Enum {
+    DEFAULT
+    ROUND_ROBIN
   }
 `;

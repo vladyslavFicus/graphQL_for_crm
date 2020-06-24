@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`
-  input LeadsSearchParamsInputType {
+  input LeadSearch__Input {
     searchKeyword: String
     countries: [String]
     registrationDateStart: String

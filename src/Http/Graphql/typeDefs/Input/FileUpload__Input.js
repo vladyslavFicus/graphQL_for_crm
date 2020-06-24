@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`
-  input FileToUpload {
+  input FileUpload__Input {
     comment: String
     documentType: String!
     expirationDate: String

@@ -7,7 +7,7 @@ module.exports = gql`
     country: String
     defaultBranch: String
     defaultUser: String
-    deskType: Desk__Types
+    deskType: Desk__Types__Enum
     isDefault: Boolean
     language: String
     manager: String

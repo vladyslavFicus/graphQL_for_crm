@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`
-  input PassportInput {
+  input Passport__Input {
     countryOfIssue: String
     countrySpecificIdentifier: String
     countrySpecificIdentifierType: String
