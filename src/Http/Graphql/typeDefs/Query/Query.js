@@ -113,12 +113,6 @@ module.exports = gql`
     notificationCenterSubtypes: [String] @response
     notificationCenterUnread: Int @response
 
-    # Payment API
-    payments(args: PaymentInputType): Payment @pageable @response
-    clientPayments(args: PaymentInputType): Payment @pageable @response
-    paymentMethods: [String] @response
-    manualPaymentMethods: [String] @response
-
     # Operator API
     operator(uuid: String!): Operator @response
     operators(
@@ -131,9 +125,53 @@ module.exports = gql`
       status: String
     ): Operator @pageable @response
 
-    # Profile API
+    # Payment API
+    payments(args: PaymentInputType): Payment @pageable @response
+    clientPayments(args: PaymentInputType): Payment @pageable @response
+    paymentMethods: [String] @response
+    manualPaymentMethods: [String] @response
+    paymentsStatistic(
+      dateFrom: String
+      dateTo: String
+      profileId: String
+      detalization: StatisticDetalization
+      paymentStatus: String
+      paymentType: String
+      additionalStatistics: [PaymentStatisticDatesInput]
+    ): PaymentStatistic @response
+
+    # Profile API && ProfileView API
     profile(playerUUID: String!): Profile @response
     profiles(args: ClientSearchParams): ProfileView @pageable @response
+    registrationStatistic(
+      dateTo: String
+      dateFrom: String
+      detalization: StatisticDetalization
+      additionalStatistics: [RegistrationAdditionalStatisticInput]
+    ): RegistrationStatistic @response
+
+    # Rules API
+    rules(
+      uuid: [String]
+      uuids: [String]
+      affiliateId: String
+      branchUuid: String
+      country: String
+      createdByOrUuid: String
+      language: String
+      name: String
+      operatorUuids: [String]
+      parentId: String
+      type: Rule__Type__Enum
+    ): [Rule] @response
+    rulesRetention(
+      uuid: [String]
+      createdByOrUuid: String
+      country: String
+      language: String
+      name: String
+      parentId: String
+    ): [Rule] @response
 
     # TradingAccount API && AccountView API
     tradingAccounts(
@@ -166,28 +204,5 @@ module.exports = gql`
       volumeFrom: Float
       volumeTo: Float
     ): TradingActivity @pageable @response
-
-    # Rules API
-    rules(
-      uuid: [String]
-      uuids: [String]
-      affiliateId: String
-      branchUuid: String
-      country: String
-      createdByOrUuid: String
-      language: String
-      name: String
-      operatorUuids: [String]
-      parentId: String
-      type: Rule__Type__Enum
-    ): [Rule] @response
-    rulesRetention(
-      uuid: [String]
-      createdByOrUuid: String
-      country: String
-      language: String
-      name: String
-      parentId: String
-    ): [Rule] @response
   }
 `;

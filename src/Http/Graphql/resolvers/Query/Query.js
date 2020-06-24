@@ -1,5 +1,12 @@
 const { AuthenticationError } = require('@hrzn/apollo-datasource');
 const { get, pickBy, identity } = require('lodash');
+const moment = require('moment');
+const {
+  prepareAdditionalStatsUsersRegistration,
+  getPaymentStatisticTotals,
+  prepareRegistrationsData,
+  getStatisticInitialArray,
+} = require('../../../../utils/statisticHelpers');
 
 module.exports = {
   /**
@@ -175,6 +182,55 @@ module.exports = {
 
     return responseData.sort();
   },
+  async paymentsStatistic(_, args, { dataSources }) {
+    const responseData = await dataSources.PaymentAPI.getPaymentsStatistic(args);
+
+    const { dateFrom, dateTo } = args;
+    const { payments, totalAmount, totalCount, additionalStatistics } = responseData;
+    let result = { items: [] };
+
+    if (Array.isArray(payments) && payments.length) {
+      const dateArray = getStatisticInitialArray(dateFrom, dateTo);
+
+      const items = dateArray.map(date => {
+        const entity = payments.find(({ date: paymentDate }) => moment(date).diff(moment(paymentDate), 'days') === 0);
+        return {
+          amount: entity ? Number(entity.amount).toFixed(2) : 0,
+          count: entity ? entity.count : 0,
+          entryDate: date,
+        };
+      });
+
+      result = {
+        ...result,
+        items,
+        itemsTotal: {
+          totalAmount,
+          totalCount,
+        },
+      };
+    }
+
+    let additionalStatisticData = [];
+
+    if (Array.isArray(additionalStatistics) && additionalStatistics.length) {
+      additionalStatisticData = additionalStatistics.reduce(
+        (acc, entry, index) => ({
+          ...acc,
+          additionalTotal: {
+            ...acc.additionalTotal,
+            ...getPaymentStatisticTotals(index, entry),
+          },
+        }),
+        { additionalTotal: {} }
+      );
+    }
+
+    return {
+      ...result,
+      ...additionalStatisticData,
+    };
+  },
 
   /**
    * Operator API
@@ -198,13 +254,34 @@ module.exports = {
   },
 
   /**
-   * Profile API
+   * Profile API && ProfileView API
    */
   profile(_, { playerUUID }, { dataSources }) {
     return dataSources.ProfileAPI.getByUUID(playerUUID);
   },
   profiles(_, { args }, { dataSources }) {
     return dataSources.ProfileViewAPI.search(args);
+  },
+  async registrationStatistic(_, args, { dataSources }) {
+    const { additionalStatistics, registrations } = await dataSources.ProfileViewAPI.getRegistrationsStatistic(args);
+
+    return {
+      additionalStatistics: prepareAdditionalStatsUsersRegistration(additionalStatistics),
+      registrations: prepareRegistrationsData(registrations),
+    };
+  },
+
+  /**
+   * Rule API
+   */
+  rules(_, args, { dataSources, brand }) {
+    return dataSources.RuleProfileAPI.search({ ...args, brandId: brand.id });
+  },
+  rulesRetention(_, args, { dataSources, brand }) {
+    // Drop undefined and nullable values from object (because BE service throw Error if null will be sent)
+    const params = pickBy(args, identity);
+
+    return dataSources.RulePaymentAPI.search({ ...params, brandId: brand.id });
   },
 
   /**
@@ -222,18 +299,5 @@ module.exports = {
    */
   tradingActivity(_, args, { dataSources }) {
     return dataSources.TradingActivityAPI.getTradingActivity(args);
-  },
-
-  /**
-   * Rule API
-   */
-  rules(_, args, { dataSources, brand }) {
-    return dataSources.RuleProfileAPI.search({ ...args, brandId: brand.id });
-  },
-  rulesRetention(_, args, { dataSources, brand }) {
-    // Drop undefined and nullable values from object (because BE service throw Error if null will be sent)
-    const params = pickBy(args, identity);
-
-    return dataSources.RulePaymentAPI.search({ ...params, brandId: brand.id });
   },
 };

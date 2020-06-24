@@ -47,6 +47,17 @@ class ProfileViewAPI extends RESTDataSource {
   search(args) {
     return this.post('/admin/profiles/pageable-search', args);
   }
+
+  /**
+   * Search clients
+   *
+   * @param args
+   *
+   * @return {*}
+   */
+  getRegistrationsStatistic(args) {
+    return this.post('/admin/profiles/statistics/registration', args);
+  }
 }
 
 module.exports = ProfileViewAPI;

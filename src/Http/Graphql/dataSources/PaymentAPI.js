@@ -31,14 +31,13 @@ class PaymentAPI extends RESTDataSource {
   }
 
   /**
-   * Get payments statistics
+   * Get payments statistic
    *
    * @param args
    *
    * @return {Promise}
    */
-  // # TODO
-  getPaymentsStatistics(args) {
+  getPaymentsStatistic(args) {
     return this.post('/statistics', args);
   }
 
