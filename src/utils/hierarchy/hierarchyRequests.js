@@ -207,32 +207,6 @@ const updateHierarchyUser = ({ operatorId, ...args }, authorization) => {
   }).then(response => response.json());
 };
 
-// # Implemented in HierarchyUpdaterAPI
-const bulkUpdateHierarchyUser = (args, authorization) => {
-  return fetch(`${getBaseUrl('hierarchy-updater')}/bulk/user/relationship/parent-user`, {
-    method: 'PUT',
-    headers: {
-      accept: 'application/json',
-      authorization,
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify(args),
-  }).then(response => response.json());
-};
-
-// # Implemented in HierarchyUpdaterAPI
-const bulkMassAssignHierarchyUser = (args, authorization) => {
-  return fetch(`${getBaseUrl('hierarchy-updater')}/bulk/user/multi-assignment`, {
-    method: 'PUT',
-    headers: {
-      accept: 'application/json',
-      authorization,
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify(args),
-  }).then(response => response.json());
-};
-
 const getBrand = (brandId, authorization) => {
   return fetch(`${getBaseUrl('hierarchy')}/branch/brand?${buildQueryString({ brandId })}`, {
     method: 'GET',
@@ -285,8 +259,6 @@ module.exports = {
   getBranchHierarchyTree,
   getUsersByBranch,
   getBranchChildren,
-  bulkUpdateHierarchyUser,
-  bulkMassAssignHierarchyUser,
   getBrand,
   updateUserBranches,
   updateHierarchyUser,

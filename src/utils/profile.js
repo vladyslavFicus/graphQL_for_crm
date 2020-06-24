@@ -2,30 +2,6 @@ const fetch = require('./fetch');
 const parseJson = require('./parseJson');
 const getBaseUrl = require('./getBaseUrl');
 
-const bulkUpdateRetentionStasuses = (args, authorization) => {
-  return fetch(`${getBaseUrl('profile')}/admin/profiles/bulk/acquisition/retention-status`, {
-    method: 'PUT',
-    headers: {
-      accept: 'application/json',
-      authorization,
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify(args),
-  }).then(response => response.json());
-};
-
-const bulkUpdateSalesStasuses = (args, authorization) => {
-  return fetch(`${getBaseUrl('profile')}/admin/profiles/bulk/acquisition/sales-status`, {
-    method: 'PUT',
-    headers: {
-      accept: 'application/json',
-      authorization,
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify(args),
-  }).then(response => response.json());
-};
-
 const getProfiles = (args, authorization) => {
   return fetch(`${getBaseUrl('profileview')}/admin/profiles/pageable-search`, {
     method: 'POST',
@@ -87,8 +63,6 @@ const getClientsPersonalInfoQuery = (args, authorization) => {
 };
 
 module.exports = {
-  bulkUpdateRetentionStasuses,
-  bulkUpdateSalesStasuses,
   updateQueryProfile,
   getProfiles,
   getQueryNewProfiles,

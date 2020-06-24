@@ -42,7 +42,7 @@ module.exports = {
     // Otherwize we need to get all leads list and filter it
     // # leadsUuids in this case are exclusion elements that need to be removed from the list before bulk update
     if (allRowsSelected && leads.length !== totalElements) {
-      const allLeadsData = dataSources.LeadAPI.getLeads({
+      const allLeadsData = await dataSources.LeadAPI.getLeads({
         limit: totalElements,
         ...(searchParams && searchParams),
       });

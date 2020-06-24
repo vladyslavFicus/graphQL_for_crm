@@ -1,7 +1,6 @@
 const { GraphQLObjectType } = require('graphql');
 const HierarchyType = require('./HierarchyType');
 const RulesType = require('./RulesType');
-const ClientsType = require('./ClientsType');
 
 const MutationType = new GraphQLObjectType({
   name: 'ApiMutation',
@@ -14,12 +13,6 @@ const MutationType = new GraphQLObjectType({
     },
     rules: {
       type: RulesType,
-      resolve() {
-        return {};
-      },
-    },
-    clients: {
-      type: ClientsType,
       resolve() {
         return {};
       },

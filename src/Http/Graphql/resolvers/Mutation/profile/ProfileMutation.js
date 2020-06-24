@@ -1,3 +1,5 @@
+const { get } = require('lodash');
+
 module.exports = {
   /**
    * Create new client
@@ -145,5 +147,99 @@ module.exports = {
    */
   verifyPhone(_, { playerUUID, phone }, { dataSources }) {
     return dataSources.ProfileAPI.verifyPhone(playerUUID, phone);
+  },
+
+  /**
+   * Verify client phone
+   *
+   * @param _
+   * @param args
+   * @param args.type
+   * @param args.clients
+   * @param args.isMoveAction
+   * @param args.searchParams
+   * @param args.totalElements
+   * @param args.allRowsSelected
+   * @param args.salesStatus
+   * @param args.salesRepresentative
+   * @param args.retentionStatus
+   * @param args.retentionRepresentative
+   * @param dataSources
+   *
+   * @return {*}
+   */
+  async bulkClientUpdate(
+    _,
+    {
+      type,
+      clients,
+      isMoveAction,
+      searchParams,
+      totalElements,
+      allRowsSelected,
+      salesStatus,
+      salesRepresentative,
+      retentionStatus,
+      retentionRepresentative,
+    },
+    { dataSources }
+  ) {
+    let clientsForBulkUpdate = clients.length ? clients : [];
+
+    // # Clients in this case are exclusion elements that need to be removed from the list before bulk update
+    if (allRowsSelected) {
+      const excludeClientsUuids = clients.map(({ uuid }) => uuid);
+
+      const MAX_LIMIT = 10000;
+      const searchLimit = get(searchParams, 'searchLimit') || Infinity;
+      const bulkUpdateClientsSize = Math.min(searchLimit, totalElements, MAX_LIMIT); // Must be x <= 10000
+
+      const allClientsData = await dataSources.ProfileViewAPI.search({
+        ...searchParams,
+        fields: ['uuid', 'acquisition'],
+        excludeByUuids: excludeClientsUuids,
+        page: {
+          from: 0,
+          size: bulkUpdateClientsSize - excludeClientsUuids.length,
+        },
+      });
+
+      clientsForBulkUpdate = get(allClientsData, 'content') || [];
+    }
+
+    if (salesStatus) {
+      await dataSources.ProfileAPI.bulkUpdateSalesStasuses({
+        salesStatus,
+        uuids: clientsForBulkUpdate.map(client => client.uuid),
+      });
+    }
+
+    if (retentionStatus) {
+      await dataSources.ProfileAPI.bulkUpdateRetentionStasuses({
+        retentionStatus,
+        uuids: clientsForBulkUpdate.map(client => client.uuid),
+      });
+    }
+
+    if (salesRepresentative || retentionRepresentative) {
+      await dataSources.HierarchyUpdaterAPI.bulkMassAssignHierarchyUser({
+        parentUsers: salesRepresentative || retentionRepresentative,
+        userUuids: clientsForBulkUpdate.map(client => client.uuid),
+      });
+    }
+
+    if (isMoveAction) {
+      await dataSources.HierarchyUpdaterAPI.bulkUpdateHierarchyUser({
+        assignments: clientsForBulkUpdate.map(client => ({
+          uuid: client.uuid,
+          assignToOperator:
+            type === 'SALES'
+              ? get(client, 'acquisition.salesRepresentative', client.salesRepresentative)
+              : get(client, 'acquisition.retentionRepresentative', client.retentionRepresentative),
+        })),
+      });
+    }
+
+    return true;
   },
 };
