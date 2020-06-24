@@ -20,7 +20,7 @@ module.exports = gql`
       clients: [ClientUpdate__Input]
       allRowsSelected: Boolean
       totalElements: Int
-      searchParams: ClientSearchParams
+      searchParams: ClientSearch__Input
     ): Boolean
 
     updatePersonalInformation(
