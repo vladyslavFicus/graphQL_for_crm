@@ -207,6 +207,7 @@ const updateHierarchyUser = ({ operatorId, ...args }, authorization) => {
   }).then(response => response.json());
 };
 
+// # Implemented in HierarchyUpdaterAPI
 const bulkUpdateHierarchyUser = (args, authorization) => {
   return fetch(`${getBaseUrl('hierarchy-updater')}/bulk/user/relationship/parent-user`, {
     method: 'PUT',

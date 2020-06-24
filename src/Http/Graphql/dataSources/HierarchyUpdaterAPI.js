@@ -40,6 +40,18 @@ class HierarchyUpdaterAPI extends RESTDataSource {
   bulkMassAssignHierarchyUser(args) {
     return this.put('/bulk/user/multi-assignment', args);
   }
+
+  /**
+   *
+   * Move client to another operator (Sales <-> Retention)
+   *
+   * @param args
+   *
+   * @return {Promise}
+   */
+  bulkUpdateHierarchyUser(args) {
+    return this.put('/bulk/user/relationship/parent-user', args);
+  }
 }
 
 module.exports = HierarchyUpdaterAPI;
