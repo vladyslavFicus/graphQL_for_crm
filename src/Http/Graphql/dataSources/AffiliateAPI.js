@@ -45,7 +45,7 @@ class AffiliateAPI extends RESTDataSource {
    * @return {Promise}
    */
   createPartner(args) {
-    return this.post(`/affiliates`, args);
+    return this.post('/affiliates', args);
   }
 
   /**

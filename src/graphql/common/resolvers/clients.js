@@ -27,7 +27,7 @@ const getClientsToBulkUpdate = async (args, authorization) => {
         fields: ['uuid', 'acquisition'],
         excludeByUuids: excludeUuids,
       },
-      authorization
+      authorization,
     );
 
     clients = get(data, 'content') || [];
@@ -41,7 +41,7 @@ const getClientsToBulkUpdate = async (args, authorization) => {
 const bulkRepresentativeUpdate = async (_, args, { headers: { authorization } }) => {
   const { salesRepresentative, salesStatus, retentionRepresentative, retentionStatus, isMoveAction, type } = args;
 
-  let clients = await getClientsToBulkUpdate(args, authorization);
+  const clients = await getClientsToBulkUpdate(args, authorization);
 
   if (salesStatus) {
     const { error } = await bulkUpdateSalesStasuses(
@@ -49,7 +49,7 @@ const bulkRepresentativeUpdate = async (_, args, { headers: { authorization } })
         salesStatus,
         uuids: clients.map(client => client.uuid),
       },
-      authorization
+      authorization,
     );
 
     if (error) {
@@ -63,7 +63,7 @@ const bulkRepresentativeUpdate = async (_, args, { headers: { authorization } })
         retentionStatus,
         uuids: clients.map(client => client.uuid),
       },
-      authorization
+      authorization,
     );
 
     if (error) {
@@ -77,7 +77,7 @@ const bulkRepresentativeUpdate = async (_, args, { headers: { authorization } })
         parentUsers: salesRepresentative || retentionRepresentative,
         userUuids: clients.map(client => client.uuid),
       },
-      authorization
+      authorization,
     );
 
     if (error) {
@@ -92,21 +92,19 @@ const bulkRepresentativeUpdate = async (_, args, { headers: { authorization } })
           uuid: client.uuid,
           assignToOperator:
             type === 'SALES'
-              ? client.acquisition
-                ? client.acquisition.salesRepresentative
-                : client.salesRepresentative
-              : client.acquisition
-              ? client.acquisition.retentionRepresentative
-              : client.retentionRepresentative,
+              ? get(client, 'acquisition.salesRepresentative', client.salesRepresentative)
+              : get(client, 'acquisition.retentionRepresentative', client.retentionRepresentative),
         })),
       },
-      authorization
+      authorization,
     );
 
     if (error) {
       return { error };
     }
   }
+
+  return null;
 };
 
 module.exports = {

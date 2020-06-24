@@ -6,15 +6,15 @@ const Logger = require('./lib/Logger');
 const initRoutes = require('./Http/routes');
 const bootstrap = require('./bootstrap');
 
-process.on('unhandledRejection', err => {
+process.on('unhandledRejection', (err) => {
   Logger.error({ err }, 'unhandled rejection');
 });
 
-process.on('uncaughtException', err => {
+process.on('uncaughtException', (err) => {
   Logger.error({ err }, 'uncaught exception');
 });
 
-process.on('warning', err => {
+process.on('warning', (err) => {
   Logger.warn({ err }, 'warning');
 });
 

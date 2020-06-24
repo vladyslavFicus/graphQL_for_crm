@@ -21,14 +21,13 @@ const UserType = new GraphQLObjectType({
 
 const HierarchyUsersType = new GraphQLObjectType({
   name: 'HierarchyUsersType',
-  fields: () =>
-    Object.keys(userTypes).reduce(
-      (acc, key) => ({
-        ...acc,
-        [key]: { type: new GraphQLList(UserType) },
-      }),
-      {}
-    ),
+  fields: () => Object.keys(userTypes).reduce(
+    (acc, key) => ({
+      ...acc,
+      [key]: { type: new GraphQLList(UserType) },
+    }),
+    {},
+  ),
 });
 
 module.exports = HierarchyUsersType;

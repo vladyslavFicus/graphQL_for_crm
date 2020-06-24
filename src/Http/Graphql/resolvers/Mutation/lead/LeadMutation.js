@@ -32,7 +32,7 @@ module.exports = {
   async bulkLeadUpdate(
     _,
     { allRowsSelected, leads, salesRep, salesStatus, searchParams, totalElements },
-    { dataSources, brand: { id: brandId } }
+    { dataSources, brand: { id: brandId } },
   ) {
     const leadsUuids = leads.length ? leads.map(({ uuid }) => uuid) : [];
 
@@ -77,7 +77,7 @@ module.exports = {
    * Upload leads (csv)
    *
    * @param _
-   * @param args.file
+   * @param file
    * @param dataSources
    * @param brand
    *

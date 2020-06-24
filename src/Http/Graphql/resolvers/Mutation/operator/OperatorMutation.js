@@ -1,5 +1,3 @@
-const { get } = require('lodash');
-
 module.exports = {
   /**
    * Create operator

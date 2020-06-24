@@ -41,7 +41,7 @@ class LeadUpdaterAPI extends RESTDataSource {
       const buffer = [];
       const stream = createReadStream();
 
-      stream.on('data', chunk => {
+      stream.on('data', (chunk) => {
         buffer.push(chunk);
       });
 

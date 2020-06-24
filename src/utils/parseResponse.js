@@ -9,18 +9,18 @@ function parseResponse(data, status, url) {
   if (response.parseError) {
     Logger.error({
       // * and _ this is markdown for better look in Slack
-      message: `*Error*: Cannot parse to JSON.\n` + `*URL*: ${url}\n` + `*Data*: ${data}\n`,
+      message: `*Error*: Cannot parse to JSON.\n *URL*: ${url}\n *Data*: ${data}\n`,
     });
   }
 
   if (status >= 400 || response.parseError) {
     let error = null;
-    let fields_errors = null;
+    let fieldsErrors = null;
     let errorParameters = null;
 
     if (!isEmpty(response)) {
       error = response.error || response.jwtError || response.message || response;
-      fields_errors = response.fields_errors;
+      fieldsErrors = response.fields_errors;
       errorParameters = response.errorParameters;
 
       if (typeof error !== 'string') {
@@ -33,7 +33,7 @@ function parseResponse(data, status, url) {
     return {
       error: {
         error,
-        fields_errors,
+        fields_errors: fieldsErrors,
         errorParameters,
       },
     };

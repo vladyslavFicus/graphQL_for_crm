@@ -5,7 +5,7 @@ const schema = require('./Graphql/schema');
 
 const { NODE_ENV, ENV_NAME } = process.env;
 
-module.exports = app => {
+module.exports = (app) => {
   const server = new ApolloServer({
     schema,
     context,

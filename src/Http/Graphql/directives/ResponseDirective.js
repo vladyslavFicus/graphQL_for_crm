@@ -10,22 +10,21 @@ const ErrorType = require('../../../graphql/common/types/ErrorType');
  * @return {GraphQLObjectType}
  * @constructor
  */
-const ResponseTypeFactory = (ContentType, typeName) =>
-  new GraphQLObjectType({
-    name: typeName,
-    fields: () => ({
-      error: { type: ErrorType },
-      errors: { type: new GraphQLList(ErrorType) },
-      ...(ContentType && {
-        data: {
-          type: ContentType,
-          resolve(_) {
-            return Array.isArray(_) ? _ : _.data;
-          },
+const ResponseTypeFactory = (ContentType, typeName) => new GraphQLObjectType({
+  name: typeName,
+  fields: () => ({
+    error: { type: ErrorType },
+    errors: { type: new GraphQLList(ErrorType) },
+    ...(ContentType && {
+      data: {
+        type: ContentType,
+        resolve(_) {
+          return Array.isArray(_) ? _ : _.data;
         },
-      }),
+      },
     }),
-  });
+  }),
+});
 
 /**
  * Directive for ResponseType
@@ -92,6 +91,8 @@ class ResponseDirective extends SchemaDirectiveVisitor {
 
         return { data };
       }
+
+      return null;
     };
   }
 }

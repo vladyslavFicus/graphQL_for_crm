@@ -16,14 +16,13 @@ const { DeskTypeEnum } = require('../../query/HierarchyQueryType/HierarchyType/H
 const SuccessType = require('../../query/SuccessType');
 const ResponseType = require('../../common/types/ResponseType');
 
-const HierarchyResponseType = customName =>
-  new GraphQLObjectType({
-    name: `HierarchyResponse${customName}`,
-    fields: () => ({
-      data: { type: new GraphQLList(GraphQLString) },
-      error: { type: new GraphQLList(GraphQLString) },
-    }),
-  });
+const HierarchyResponseType = customName => new GraphQLObjectType({
+  name: `HierarchyResponse${customName}`,
+  fields: () => ({
+    data: { type: new GraphQLList(GraphQLString) },
+    error: { type: new GraphQLList(GraphQLString) },
+  }),
+});
 
 const HierarchyMutation = new GraphQLObjectType({
   name: 'HierarchyMutation',

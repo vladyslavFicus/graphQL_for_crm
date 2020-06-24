@@ -11,7 +11,7 @@ module.exports = (ids, values, field) => {
   const sortedResult = new Map();
   ids.forEach(id => sortedResult.set(id.toString(), null));
 
-  values.forEach(item => {
+  values.forEach((item) => {
     sortedResult.set(item[field].toString(), item);
   });
 

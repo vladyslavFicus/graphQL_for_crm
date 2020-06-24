@@ -1,4 +1,4 @@
-const { groupBy, isEmpty } = require('lodash');
+const { groupBy } = require('lodash');
 const { branchTypes, userTypes } = require('../../../constants/hierarchy');
 const {
   requests: {
@@ -28,7 +28,7 @@ const createUser = (_, { userId, branchId, userType }, { headers: { authorizatio
       userType,
       parentBranch: branchId,
     },
-    authorization
+    authorization,
   );
 };
 
@@ -50,7 +50,7 @@ const createOffice = async (_, { officeManager, ...args }, { headers: { authoriz
       parentBranch: data.uuid,
       ...args,
     },
-    authorization
+    authorization,
   );
 
   if (office.error) {
@@ -73,7 +73,7 @@ const createDesk = async (_, { officeId, ...args }, { headers: { authorization }
       parentBranch: officeId,
       ...args,
     },
-    authorization
+    authorization,
   );
 
   if (desk.error) {
@@ -96,7 +96,7 @@ const createTeam = async (_, { deskId, ...args }, { headers: { authorization } }
       parentBranch: deskId,
       ...args,
     },
-    authorization
+    authorization,
   );
 
   if (team.error) {
@@ -158,7 +158,7 @@ const updateHierarchyUser = (_, args, { headers: { authorization } }) => {
 const getUserBranchHierarchy = async (
   _,
   { withoutBrandFilter },
-  { headers: { authorization }, brand: { id: brandId }, userUUID }
+  { headers: { authorization }, brand: { id: brandId }, userUUID },
 ) => {
   const _brandId = withoutBrandFilter ? '' : brandId;
   const hierarchy = await getUserBranchHierarchyQuery(userUUID, authorization, _brandId);
@@ -171,8 +171,8 @@ const getUserBranchHierarchy = async (
   return { data: hierarchyByBranch };
 };
 
-const getUsersByType = async (_, { userTypes, onlyActive }, { headers: { authorization }, hierarchy, dataloaders }) => {
-  const users = await getUsersByTypeQuery(userTypes, authorization);
+const getUsersByType = async (_, args, { headers: { authorization }, hierarchy, dataloaders }) => {
+  const users = await getUsersByTypeQuery(args.userTypes, authorization);
 
   if (users.error) {
     return users;
@@ -180,7 +180,7 @@ const getUsersByType = async (_, { userTypes, onlyActive }, { headers: { authori
 
   const visibleUsers = await hierarchy.getOperatorsIds();
   const hierarchyUsers = users.data.filter(({ uuid }) => visibleUsers.includes(uuid));
-  const mappedUsers = await getHierarchyMappedOperators(hierarchyUsers, dataloaders, onlyActive);
+  const mappedUsers = await getHierarchyMappedOperators(hierarchyUsers, dataloaders, args.onlyActive);
 
   return { data: groupBy(mappedUsers, 'userType') };
 };
