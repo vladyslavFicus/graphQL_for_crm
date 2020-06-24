@@ -11,6 +11,28 @@ class RulePaymentAPI extends RESTDataSource {
   search(args) {
     return this.get('/', args);
   }
+
+  /**
+   * Create retention rule
+   *
+   * @param args
+   *
+   * @return {*}
+   */
+  createRule(args) {
+    return this.post('/', args);
+  }
+
+  /**
+   * Delete retention rule
+   *
+   * @param uuid
+   *
+   * @return {*}
+   */
+  deleteRule(uuid) {
+    return this.delete(`/${uuid}`);
+  }
 }
 
 module.exports = RulePaymentAPI;

@@ -242,12 +242,15 @@ module.exports = {
     return dataSources.OperatorAPI.getByUUID(uuid);
   },
   async operators(_, args, { dataSources, userUUID }) {
+    // Drop undefined and nullable values from object (because BE service throw Error if null will be sent)
+    const params = pickBy(args, identity);
+
     const operatorsSubtree = await dataSources.HierarchyAPI.getOperatorsSubtree(userUUID);
 
     const operatorsIds = operatorsSubtree.map(({ uuid }) => uuid);
 
     return dataSources.OperatorAPI.search({
-      ...args,
+      ...params,
       uuids: operatorsIds,
       limit: operatorsIds.length,
     });
