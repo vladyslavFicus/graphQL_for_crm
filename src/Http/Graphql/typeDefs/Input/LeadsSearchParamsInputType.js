@@ -6,6 +6,8 @@ module.exports = gql`
     countries: [String]
     registrationDateStart: String
     registrationDateEnd: String
+    lastNoteDateFrom: String
+    lastNoteDateTo: String
     salesStatuses: [String]
     salesAgents: [String]
     status: String
