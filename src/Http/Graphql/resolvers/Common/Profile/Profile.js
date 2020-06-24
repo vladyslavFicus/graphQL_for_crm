@@ -8,4 +8,7 @@ module.exports = {
   kycNote({ kyc: { uuid } }, _, { dataSources }) {
     return dataSources.NoteAPI.getNote(uuid);
   },
+  tradingAccounts({ uuid }, _, { dataSources }) {
+    return dataSources.TradingAccountAPI.getClientTradingAccounts({ profileUUID: uuid });
+  },
 };
