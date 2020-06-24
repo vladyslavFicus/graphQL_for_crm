@@ -105,7 +105,7 @@ class PaymentAPI extends RESTDataSource {
    * @return {Promise}
    */
   approvePayment(args) {
-    return this.put(`/approve`, args);
+    return this.put('/approve', args);
   }
 
   /**
@@ -117,7 +117,7 @@ class PaymentAPI extends RESTDataSource {
    * @return {Promise}
    */
   rejectPayment(args) {
-    return this.put(`/reject`, args);
+    return this.put('/reject', args);
   }
 
   /**

@@ -8,37 +8,37 @@ const {
 } = require('../utils/hierarchy');
 
 exports.createDataloaders = (authorization, brandId) => ({
-  operators: new DataLoader(async ids => {
+  operators: new DataLoader(async (ids) => {
     const { data } = await getOperatorsByUUIDs({ uuids: ids }, authorization);
 
     return orderByArray(ids, data.content, 'uuid');
   }),
 
-  activeOperators: new DataLoader(async ids => {
+  activeOperators: new DataLoader(async (ids) => {
     const { data } = await getOperatorsByUUIDs({ uuids: ids, status: 'ACTIVE' }, authorization);
 
     return orderByArray(ids, data.content, 'uuid');
   }),
 
-  partners: new DataLoader(async ids => {
+  partners: new DataLoader(async (ids) => {
     const { data } = await getPartners({ uuids: ids }, authorization);
 
     return orderByArray(ids, data.content, 'uuid');
   }),
 
-  clients: new DataLoader(async ids => {
+  clients: new DataLoader(async (ids) => {
     const { data } = await getProfiles(brandId, { ids, size: ids.length });
 
     return orderByArray(ids, data.content, 'playerUUID');
   }),
 
-  clientsPersonalInfo: new DataLoader(async uuids => {
+  clientsPersonalInfo: new DataLoader(async (uuids) => {
     const { data } = await getClientsPersonalInfoQuery({ uuids }, authorization);
 
     return orderByArray(uuids, data, 'uuid');
   }),
 
-  usersHierarchy: new DataLoader(async ids => {
+  usersHierarchy: new DataLoader(async (ids) => {
     const { data } = await getHierarchyUsers(ids, authorization);
 
     return orderByArray(ids, data, 'uuid');

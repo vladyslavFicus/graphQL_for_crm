@@ -6,40 +6,35 @@ const getStatisticInitialArray = (from, to) => {
   const diffDays = moment(to).diff(moment(from), 'days');
   const diffMonth = moment(to).diff(moment(from), 'month');
 
-  let resultArray = [];
+  const resultArray = [];
 
   if (diffMonth === 0) {
-    let date = moment.parseZone(from);
+    const date = moment.parseZone(from);
 
     if (diffDays === 0) {
       resultArray.push(date.format(compareDateFormat));
     } else {
-      for (let i = 0; i < diffDays; i++) {
+      for (let i = 0; i < diffDays; i += 1) {
         resultArray.push(date.format(compareDateFormat));
         date.add(1, 'days');
       }
     }
   } else {
-    const endOfPrevMonthDayNumber = Number(
-      moment(from)
-        .endOf('month')
-        .format('D')
-    );
+    const endOfPrevMonthDayNumber = Number(moment(from).endOf('month').format('D'));
     const fromDateDayNumber = Number(moment(from).format('D'));
     const toDateDayNumber = Number(moment(to).format('D'));
 
-    for (let i = fromDateDayNumber; i <= endOfPrevMonthDayNumber; i++) {
-      const entryDate =
-        i === fromDateDayNumber
-          ? moment(from).format(compareDateFormat)
-          : moment(from)
-              .add(i - fromDateDayNumber, 'days')
-              .format(compareDateFormat);
+    for (let i = fromDateDayNumber; i <= endOfPrevMonthDayNumber; i += 1) {
+      const entryDate = i === fromDateDayNumber
+        ? moment(from).format(compareDateFormat)
+        : moment(from)
+          .add(i - fromDateDayNumber, 'days')
+          .format(compareDateFormat);
 
       resultArray.push(entryDate);
     }
 
-    for (let i = 1; i < toDateDayNumber; i++) {
+    for (let i = 1; i < toDateDayNumber; i += 1) {
       const entryDate = moment(to)
         .subtract(toDateDayNumber - i, 'days')
         .format(compareDateFormat);
@@ -51,39 +46,35 @@ const getStatisticInitialArray = (from, to) => {
   return resultArray;
 };
 
-const prepareAdditionalStatsUsersRegistration = stats => {
-  return stats.reduce(
-    (acc, { count }, idx) => {
-      switch (idx) {
-        case 0:
-          acc.total.value = count;
-          break;
-        case 1:
-          acc.month.value = count;
-          break;
-        case 2:
-          acc.today.value = count;
-          break;
-        default:
-          return null;
-      }
-
-      return acc;
-    },
-    {
-      total: { value: null },
-      month: { value: null },
-      today: { value: null },
+const prepareAdditionalStatsUsersRegistration = stats => stats.reduce(
+  (acc, { count }, idx) => {
+    switch (idx) {
+      case 0:
+        acc.total.value = count;
+        break;
+      case 1:
+        acc.month.value = count;
+        break;
+      case 2:
+        acc.today.value = count;
+        break;
+      default:
+        return null;
     }
-  );
-};
 
-const prepareRegistrationsData = registrations => {
-  return registrations.map(({ count, date }) => ({
-    entryDate: date,
-    entries: count,
-  }));
-};
+    return acc;
+  },
+  {
+    total: { value: null },
+    month: { value: null },
+    today: { value: null },
+  },
+);
+
+const prepareRegistrationsData = registrations => registrations.map(({ count, date }) => ({
+  entryDate: date,
+  entries: count,
+}));
 
 const getPaymentStatisticTotals = (index, { paymentsCount, totalAmount }) => {
   let propName = '';
@@ -101,6 +92,8 @@ const getPaymentStatisticTotals = (index, { paymentsCount, totalAmount }) => {
       propName = 'today';
       break;
     }
+    default:
+      break;
   }
 
   return {

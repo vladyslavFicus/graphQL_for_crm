@@ -1,4 +1,4 @@
-module.exports = function(data) {
+module.exports = function (data) {
   try {
     return JSON.parse(data);
   } catch (e) {

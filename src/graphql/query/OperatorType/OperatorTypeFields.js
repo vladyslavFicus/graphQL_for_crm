@@ -27,9 +27,7 @@ module.exports = {
   uuid: { type: GraphQLString },
   hierarchy: {
     type: UserType,
-    resolve: ({ uuid }, _, { dataloaders }) => {
-      return uuid ? dataloaders.usersHierarchy.load(uuid) : null;
-    },
+    resolve: ({ uuid }, _, { dataloaders }) => (uuid ? dataloaders.usersHierarchy.load(uuid) : null),
   },
   authorities: {
     type: ResponseType(new GraphQLList(AuthorityType), 'AuthoritiesListType'),

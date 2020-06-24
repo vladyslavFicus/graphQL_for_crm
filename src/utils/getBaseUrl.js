@@ -7,7 +7,7 @@ const config = require('config');
  *
  * @return {string}
  */
-module.exports = service => {
+module.exports = (service) => {
   // Base service url for local development
   if (__DEV__) {
     return `${config.get('apiUrl')}/${service}`;

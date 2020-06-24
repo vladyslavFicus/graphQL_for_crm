@@ -47,6 +47,8 @@ module.exports = {
         throw new AuthenticationError('Token is not valid for refreshing');
       }
     }
+    
+    return null;
   },
 
   /**

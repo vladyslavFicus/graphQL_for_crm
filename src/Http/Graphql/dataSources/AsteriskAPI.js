@@ -16,7 +16,8 @@ class AsteriskAPI extends RESTDataSource {
   createCall(url, token, sip, number, prefix) {
     const formData = new FormData();
 
-    formData.append('sip', sip || ''); // Because SIP can be null, but formData append throw error if provided null value
+    // Because SIP can be null, but formData append throw error if provided null value
+    formData.append('sip', sip || '');
     formData.append('number', number);
     formData.append('prefix', prefix);
 

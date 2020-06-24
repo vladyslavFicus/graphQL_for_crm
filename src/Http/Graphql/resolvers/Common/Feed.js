@@ -21,7 +21,7 @@ module.exports = {
       const parsedDetails = JSON.parse(details);
 
       const { firstName, lastName } = await dataSources.OperatorAPI.getByUUID(
-        parsedDetails.acquisitionRepresentativeUuid
+        parsedDetails.acquisitionRepresentativeUuid,
       );
 
       return JSON.stringify({

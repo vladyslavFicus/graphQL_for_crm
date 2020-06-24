@@ -17,6 +17,8 @@ module.exports = {
 
     try {
       await dataSources.DidLogicAPI.createCall(url, number, phoneNumber);
+
+      return { success: true };
     } catch (e) {
       return { success: false };
     }

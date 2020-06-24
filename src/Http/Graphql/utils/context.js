@@ -2,7 +2,6 @@ const { v4 } = require('uuid');
 const config = require('config');
 const jwtDecode = require('jwt-decode');
 const { createDataloaders } = require('../../../graphql/dataloaders');
-const Hierarchy = require('../../../services/Hierarchy');
 
 /**
  * Provide context for apollo server
@@ -38,7 +37,6 @@ module.exports = async ({ req: { headers, ip } }) => {
     Object.assign(context, {
       userUUID,
       brand,
-      hierarchy: new Hierarchy(userUUID, headers.authorization),
       dataloaders: createDataloaders(headers.authorization, brandId),
     });
   }

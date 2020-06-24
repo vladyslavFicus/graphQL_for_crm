@@ -133,7 +133,7 @@ const getUserBranchHierarchy = (userUUID, authorization, brandId) => {
         accept: 'application/json',
         'content-type': 'application/json',
       },
-    }
+    },
   ).then(response => response.json());
 };
 

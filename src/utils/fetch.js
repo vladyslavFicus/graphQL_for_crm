@@ -1,4 +1,5 @@
 const config = require('config');
+const fetch = require('isomorphic-fetch');
 const contextService = require('request-context');
 const { ApolloError, AuthenticationError } = require('apollo-server-express');
 const { isEmpty } = require('lodash');
@@ -17,10 +18,10 @@ const logResponseError = (response, url, { headers, method }, messageTitle) => {
   Logger.error({
     // * and _ this is markdown for better look in Slack
     message:
-      `${messageTitle} - *${serviceName}*. Error: ${errorDescription} \n` +
-      `*Brand*: ${brandId} \n` +
-      `*URL*: ${url}, _method_: ${method} \n` +
-      `*Operator*: _id_ - ${uuid}, _role_ - ${role}, _department_ - ${department}, _email_: ${sub}`,
+      `${messageTitle} - *${serviceName}*. Error: ${errorDescription} \n`
+      + `*Brand*: ${brandId} \n`
+      + `*URL*: ${url}, _method_: ${method} \n`
+      + `*Operator*: _id_ - ${uuid}, _role_ - ${role}, _department_ - ${department}, _email_: ${sub}`,
     status: response.status,
     response: failedResponse,
     originService: serviceName,
@@ -28,44 +29,38 @@ const logResponseError = (response, url, { headers, method }, messageTitle) => {
   });
 
   return {
-    json: () =>
-      new Promise(resolve => {
-        resolve({
-          error: {
-            error: errorDescription,
-            fields_errors: !isEmpty(response) ? response.fields_errors : null,
-          },
-        });
-      }),
-    text: () =>
-      new Promise(resolve => {
-        resolve(response);
-      }),
+    json: () => Promise.resolve({
+      error: {
+        error: errorDescription,
+        fields_errors: !isEmpty(response) ? response.fields_errors : null,
+      },
+    }),
+    text: () => Promise.resolve(response),
   };
 };
 
-module.exports = function(url, config) {
+module.exports = function (url, _config) {
   const expressRequest = contextService.get('request:req');
   const options = {
-    ...config,
+    ..._config,
     headers: {
-      ...(config && config.headers ? config.headers : {}),
+      ...(_config && _config.headers ? _config.headers : {}),
       'X-Forwarded-For': expressRequest.header('x-forwarded-for') || expressRequest.connection.remoteAddress,
       'User-Agent': expressRequest.header('user-agent'),
     },
   };
 
-  return fetch(url, options).then(response => {
+  return fetch(url, options).then((response) => {
     let error;
 
     if (
-      response.status &&
-      (response.status === 401 || (response.status === 400 && response.headers.get('HRZN-JwtError')))
+      response.status
+      && (response.status === 401 || (response.status === 400 && response.headers.get('HRZN-JwtError')))
     ) {
       error = new AuthenticationError('You must be authenticated');
     }
 
-    return response.text().then(res => {
+    return response.text().then((res) => {
       switch (response.status) {
         case 400: {
           const { jwtError } = parseJson(res);
@@ -92,6 +87,8 @@ module.exports = function(url, config) {
         case 503: {
           return logResponseError(res, url, options, 'Service unavailable');
         }
+        default:
+          break;
       }
 
       if (error) {
@@ -109,18 +106,10 @@ module.exports = function(url, config) {
         throw error;
       }
 
-      return new Promise(resolve => {
-        resolve({
-          ...response,
-          json: () =>
-            new Promise(resolve => {
-              resolve(parseResponse(res, response.status, url));
-            }),
-          text: () =>
-            new Promise(resolve => {
-              resolve(res);
-            }),
-        });
+      return Promise.resolve({
+        ...response,
+        json: () => Promise.resolve(parseResponse(res, response.status, url)),
+        text: () => Promise.resolve(res),
       });
     });
   });

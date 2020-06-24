@@ -182,7 +182,7 @@ module.exports = {
       retentionStatus,
       retentionRepresentative,
     },
-    { dataSources }
+    { dataSources },
   ) {
     let clientsForBulkUpdate = clients.length ? clients : [];
 

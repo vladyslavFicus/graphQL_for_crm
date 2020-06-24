@@ -1,4 +1,3 @@
-const { AuthenticationError } = require('@hrzn/apollo-datasource');
 const { get, pickBy, identity } = require('lodash');
 const moment = require('moment');
 const {
@@ -34,7 +33,7 @@ module.exports = {
     return {
       ...categories,
       ADDRESS_VERIFICATION: categories.ADDRESS_VERIFICATION.filter(
-        docType => docType !== 'PASSPORT' && docType !== 'EMPLOYER_LETTER'
+        docType => docType !== 'PASSPORT' && docType !== 'EMPLOYER_LETTER',
       ),
     };
   },
@@ -55,26 +54,28 @@ module.exports = {
   async authoritiesOptions(_, __, { dataSources, brand: { id: brand } }) {
     const responseData = await dataSources.Auth2API.getAuthorities(brand);
 
-    const executeDepartments = ['ADMINISTRATION', 'PLAYER', 'E2E'];
+    const exceptDepartments = ['ADMINISTRATION', 'PLAYER', 'E2E'];
     const authorities = get(responseData, `authoritiesPerBrand.${brand}`) || [];
-    const authoritiesOptions = {};
 
-    authorities.map(({ department, role }) => {
-      if (executeDepartments.includes(department)) {
-        return;
+    const authoritiesOptions = authorities.reduce((acc, curr) => {
+      if (exceptDepartments.includes(curr.department)) {
+        return acc;
       }
 
-      if (Array.isArray(authoritiesOptions[department])) {
-        return authoritiesOptions[department].push(role);
+      if (!Array.isArray(acc[curr.department])) {
+        acc[curr.department] = [];
       }
 
-      return (authoritiesOptions[department] = [role]);
-    });
+      acc[curr.department].push(curr.role);
+
+      return acc;
+    }, {});
 
     return { authoritiesOptions };
   },
   async permission(_, __, { dataSources }) {
     const { actions } = await dataSources.Auth2API.getPermissions();
+
     return actions;
   },
   loginLock(_, { uuid }, { dataSources }) {
@@ -192,7 +193,7 @@ module.exports = {
     if (Array.isArray(payments) && payments.length) {
       const dateArray = getStatisticInitialArray(dateFrom, dateTo);
 
-      const items = dateArray.map(date => {
+      const items = dateArray.map((date) => {
         const entity = payments.find(({ date: paymentDate }) => moment(date).diff(moment(paymentDate), 'days') === 0);
         return {
           amount: entity ? Number(entity.amount).toFixed(2) : 0,
@@ -222,7 +223,7 @@ module.exports = {
             ...getPaymentStatisticTotals(index, entry),
           },
         }),
-        { additionalTotal: {} }
+        { additionalTotal: {} },
       );
     }
 
@@ -242,12 +243,15 @@ module.exports = {
     return dataSources.OperatorAPI.getByUUID(uuid);
   },
   async operators(_, args, { dataSources, userUUID }) {
+    // Drop undefined and nullable values from object (because BE service throw Error if null will be sent)
+    const params = pickBy(args, identity);
+
     const operatorsSubtree = await dataSources.HierarchyAPI.getOperatorsSubtree(userUUID);
 
     const operatorsIds = operatorsSubtree.map(({ uuid }) => uuid);
 
     return dataSources.OperatorAPI.search({
-      ...args,
+      ...params,
       uuids: operatorsIds,
       limit: operatorsIds.length,
     });
