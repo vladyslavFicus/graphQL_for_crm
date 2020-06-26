@@ -1,5 +1,4 @@
 const {
-  createUser,
   createBranch,
   addBranchManager,
   removeBranchManager,
@@ -27,7 +26,6 @@ module.exports = {
     getHierarchyMappedOperators,
   },
   requests: {
-    createUser,
     createBranch,
     addBranchManager,
     removeBranchManager,

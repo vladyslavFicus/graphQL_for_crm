@@ -1,7 +1,6 @@
 const { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLList, GraphQLBoolean } = require('graphql');
 const {
   hierarchy: {
-    createUser,
     createOffice,
     createDesk,
     createTeam,
@@ -27,15 +26,6 @@ const HierarchyResponseType = customName => new GraphQLObjectType({
 const HierarchyMutation = new GraphQLObjectType({
   name: 'HierarchyMutation',
   fields: () => ({
-    createUser: {
-      args: {
-        userId: { type: new GraphQLNonNull(GraphQLString) },
-        userType: { type: new GraphQLNonNull(GraphQLString) },
-        branchId: { type: GraphQLString },
-      },
-      type: ResponseType(null, 'createdHierarchyUserType'),
-      resolve: createUser,
-    },
     createOffice: {
       args: {
         name: { type: new GraphQLNonNull(GraphQLString) },

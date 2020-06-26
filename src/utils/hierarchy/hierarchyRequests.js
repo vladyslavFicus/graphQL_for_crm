@@ -3,18 +3,6 @@ const parseJson = require('../parseJson');
 const getBaseUrl = require('../getBaseUrl');
 const buildQueryString = require('../buildQueryString');
 
-const createUser = (args, authorization) => {
-  return fetch(`${getBaseUrl('hierarchy-updater')}/user`, {
-    method: 'POST',
-    headers: {
-      accept: 'application/json',
-      authorization,
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify(args),
-  }).then(response => response.json());
-};
-
 const createBranch = (args, authorization) => {
   return fetch(`${getBaseUrl('hierarchy-updater')}/branch`, {
     method: 'POST',
@@ -226,7 +214,6 @@ const removeBranchManager = (branchUuid, authorization) => {
 };
 
 module.exports = {
-  createUser,
   createBranch,
   addBranchManager,
   removeBranchManager,

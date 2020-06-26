@@ -2,7 +2,6 @@ const { groupBy } = require('lodash');
 const { branchTypes, userTypes } = require('../../../constants/hierarchy');
 const {
   requests: {
-    createUser: createUserMutation,
     createBranch,
     getHierarchyUser,
     getHierarchyBranch,
@@ -19,17 +18,6 @@ const {
   },
   helpers: { getHierarchyMappedOperators },
 } = require('../../../utils/hierarchy');
-
-const createUser = (_, { userId, branchId, userType }, { headers: { authorization } }) => {
-  return createUserMutation(
-    {
-      uuid: userId,
-      userType,
-      parentBranch: branchId,
-    },
-    authorization,
-  );
-};
 
 const createOffice = async (_, { officeManager, ...args }, { headers: { authorization }, brand: { id: brandId } }) => {
   const successMessages = [];
@@ -209,7 +197,6 @@ const getBranchChildren = (_, { uuid }, { headers: { authorization } }) => {
 };
 
 module.exports = {
-  createUser,
   createOffice,
   createDesk,
   createTeam,

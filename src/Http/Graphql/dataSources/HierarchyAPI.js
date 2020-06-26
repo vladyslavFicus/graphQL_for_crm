@@ -74,6 +74,8 @@ class HierarchyAPI extends RESTDataSource {
   getUserBranches(uuid, brandId) {
     return this.get(`/branch/hierarchy/user/${uuid}`, { brandId });
   }
+
+
 }
 
 module.exports = HierarchyAPI;
