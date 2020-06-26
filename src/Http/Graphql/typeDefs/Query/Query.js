@@ -77,6 +77,9 @@ module.exports = gql`
     filterSet(uuid: String!): Object @response
     filterSets(type: FilterSet__Types__Enum): FilterSet @response
 
+    # Hierarchy API
+    userBranches(withoutBrandFilter: Boolean): HierarchyUserBranches
+
     # Lead API
     lead(uuid: String!): Lead @response
     leads(

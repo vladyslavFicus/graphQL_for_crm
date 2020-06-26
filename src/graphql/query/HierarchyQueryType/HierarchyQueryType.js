@@ -1,6 +1,5 @@
 const { GraphQLObjectType, GraphQLNonNull, GraphQLList, GraphQLString, GraphQLBoolean } = require('graphql');
 const {
-  UserBranchHierarchyType,
   HierarchyUsersType,
   HierarchyUsersType: { UserType },
   HierarchyBranchType,
@@ -8,7 +7,6 @@ const {
 } = require('./HierarchyType');
 const ResponseType = require('../../common/types/ResponseType');
 const {
-  getUserBranchHierarchy,
   getUsersByType,
   getBranchInfo,
   getBranchHierarchy,
@@ -23,13 +21,6 @@ const { DeskTypeEnum, DeskDefaultFlagEnum } = require('./HierarchyType/Hierarchy
 const HierarchyQueryType = new GraphQLObjectType({
   name: 'HierarchyQueryType',
   fields: () => ({
-    userBranchHierarchy: {
-      type: ResponseType(UserBranchHierarchyType),
-      args: {
-        withoutBrandFilter: { type: GraphQLBoolean },
-      },
-      resolve: getUserBranchHierarchy,
-    },
     hierarchyUsersByType: {
       args: {
         userTypes: { type: new GraphQLNonNull(new GraphQLList(GraphQLString)) },

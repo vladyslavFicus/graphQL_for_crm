@@ -1,4 +1,4 @@
-const { get, pickBy, identity } = require('lodash');
+const { get, pickBy, identity, groupBy } = require('lodash');
 const moment = require('moment');
 const {
   prepareAdditionalStatsUsersRegistration,
@@ -123,6 +123,17 @@ module.exports = {
   filterSet(_, { uuid }, { dataSources }) {
     return dataSources.FilterSetsAPI.getFilterSet(uuid);
   },
+
+  /**
+   * Hierarchy API
+   */
+  async userBranches(_, { withoutBrandFilter }, { dataSources, userUUID, brand }) {
+    const brandId = withoutBrandFilter ? '' : brand.id;
+    const branches = await dataSources.HierarchyAPI.getUserBranches(userUUID, brandId);
+
+    return groupBy(branches, 'branchType');
+  },
+
 
   /**
    * Lead API

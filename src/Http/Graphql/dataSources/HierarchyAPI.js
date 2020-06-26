@@ -54,10 +54,25 @@ class HierarchyAPI extends RESTDataSource {
    * Note: Allow or disallow operator to see entity (leads, operators, clients, partners) regarding him hierarchy tree
    *
    * @param uuid
+   *
    * @return {Promise}
    */
   checkAccess(uuid) {
     return this.get(`/user/${uuid}/check-access`);
+  }
+
+  /**
+   *
+   * Get user branhces
+   *
+   * @param uuid
+   * @param args.brandId
+   *
+   * @return {Promise}
+   *
+  */
+  getUserBranches(uuid, brandId) {
+    return this.get(`/branch/hierarchy/user/${uuid}`, { brandId });
   }
 }
 

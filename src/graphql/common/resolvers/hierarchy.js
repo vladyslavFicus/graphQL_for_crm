@@ -7,7 +7,6 @@ const {
     getHierarchyUser,
     getHierarchyBranch,
     getBranchHierarchyTree: getBranchHierarchyTreeQuery,
-    getUserBranchHierarchy: getUserBranchHierarchyQuery,
     getUsersByType: getUsersByTypeQuery,
     getBranchHierarchy: getBranchHierarchyQuery,
     getUsersByBranch: getUsersByBranchQuery,
@@ -155,22 +154,6 @@ const updateHierarchyUser = (_, args, { headers: { authorization } }) => {
   return updateHierarchyUserRequest(args, authorization);
 };
 
-const getUserBranchHierarchy = async (
-  _,
-  { withoutBrandFilter },
-  { headers: { authorization }, brand: { id: brandId }, userUUID },
-) => {
-  const _brandId = withoutBrandFilter ? '' : brandId;
-  const hierarchy = await getUserBranchHierarchyQuery(userUUID, authorization, _brandId);
-
-  if (hierarchy.error) {
-    return hierarchy;
-  }
-
-  const hierarchyByBranch = groupBy(hierarchy.data, 'branchType');
-  return { data: hierarchyByBranch };
-};
-
 const getUsersByType = async (_, args, { headers: { authorization }, hierarchy, dataloaders }) => {
   const users = await getUsersByTypeQuery(args.userTypes, authorization);
 
@@ -237,7 +220,6 @@ module.exports = {
   updateHierarchyUser,
   getUserHierarchy,
   getUserHierarchyById,
-  getUserBranchHierarchy,
   getUsersByType,
   getBranchInfo,
   getBranchHierarchy,
