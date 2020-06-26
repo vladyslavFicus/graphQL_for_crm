@@ -1,22 +1,6 @@
 const fetch = require('../fetch');
-const parseJson = require('../parseJson');
 const getBaseUrl = require('../getBaseUrl');
 const buildQueryString = require('../buildQueryString');
-
-const createBranch = (args, authorization) => {
-  return fetch(`${getBaseUrl('hierarchy-updater')}/branch`, {
-    method: 'POST',
-    headers: {
-      accept: 'application/json',
-      authorization,
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify(args),
-  })
-    .then(response => response.text())
-    .then(response => parseJson(response))
-    .then(response => response);
-};
 
 const getHierarchyUser = (userId, authorization) => {
   return fetch(`${getBaseUrl('hierarchy')}/user/${userId}`, {
@@ -179,17 +163,6 @@ const updateHierarchyUser = ({ operatorId, ...args }, authorization) => {
   }).then(response => response.json());
 };
 
-const getBrand = (brandId, authorization) => {
-  return fetch(`${getBaseUrl('hierarchy')}/branch/brand?${buildQueryString({ brandId })}`, {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      authorization,
-      'content-type': 'application/json',
-    },
-  }).then(response => response.json());
-};
-
 const addBranchManager = ({ branchUuid, ...args }, authorization) => {
   return fetch(`${getBaseUrl('hierarchy-updater')}/branch/${branchUuid}/manager`, {
     method: 'POST',
@@ -214,7 +187,6 @@ const removeBranchManager = (branchUuid, authorization) => {
 };
 
 module.exports = {
-  createBranch,
   addBranchManager,
   removeBranchManager,
   getHierarchyUser,
@@ -229,7 +201,6 @@ module.exports = {
   getBranchHierarchyTree,
   getUsersByBranch,
   getBranchChildren,
-  getBrand,
   updateUserBranches,
   updateHierarchyUser,
 };

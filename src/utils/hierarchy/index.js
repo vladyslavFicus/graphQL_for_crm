@@ -1,5 +1,4 @@
 const {
-  createBranch,
   addBranchManager,
   removeBranchManager,
   getHierarchyUser,
@@ -14,7 +13,6 @@ const {
   getBranchHierarchyTree,
   getUsersByBranch,
   getBranchChildren,
-  getBrand,
   updateUserBranches,
   updateHierarchyUser,
 } = require('./hierarchyRequests');
@@ -26,7 +24,6 @@ module.exports = {
     getHierarchyMappedOperators,
   },
   requests: {
-    createBranch,
     addBranchManager,
     removeBranchManager,
     getHierarchyUser,
@@ -41,7 +38,6 @@ module.exports = {
     getBranchHierarchyTree,
     getUsersByBranch,
     getBranchChildren,
-    getBrand,
     updateUserBranches,
     updateHierarchyUser,
   },

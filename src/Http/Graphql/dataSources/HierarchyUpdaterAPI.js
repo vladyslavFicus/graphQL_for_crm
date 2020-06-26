@@ -16,6 +16,24 @@ class HierarchyUpdaterAPI extends RESTDataSource {
   }
 
   /**
+   * Create branch in hierarchy
+   * [office, desk, team]
+   *
+   * @param args
+   * @param args.branchType
+   * @param args.country
+   * @param args.deskType
+   * @param args.language
+   * @param args.name
+   * @param args.parentBranch
+   *
+   * @return {Promise}
+   */
+  createBranch(args) {
+    return this.post('/branch', args);
+  }
+
+  /**
    * Update user branches
    *
    * @param uuid

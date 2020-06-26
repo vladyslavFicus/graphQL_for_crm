@@ -1,8 +1,7 @@
 const { groupBy } = require('lodash');
-const { branchTypes, userTypes } = require('../../../constants/hierarchy');
+const { userTypes } = require('../../../constants/hierarchy');
 const {
   requests: {
-    createBranch,
     getHierarchyUser,
     getHierarchyBranch,
     getBranchHierarchyTree: getBranchHierarchyTreeQuery,
@@ -11,91 +10,12 @@ const {
     getUsersByBranch: getUsersByBranchQuery,
     getBranchChildren: getBranchChildrenQuery,
     updateUserBranches,
-    getBrand,
     updateHierarchyUser: updateHierarchyUserRequest,
     addBranchManager: addBranchManagerRequest,
     removeBranchManager: removeBranchManagerRequest,
   },
   helpers: { getHierarchyMappedOperators },
 } = require('../../../utils/hierarchy');
-
-const createOffice = async (_, { officeManager, ...args }, { headers: { authorization }, brand: { id: brandId } }) => {
-  const successMessages = [];
-  const errorMessages = [];
-
-  const { data, error } = await getBrand(brandId, authorization);
-
-  if (!data || error) {
-    errorMessages.push('hierarchy.offices.fail.createOffice');
-
-    return { error: errorMessages, data: [] };
-  }
-
-  const office = await createBranch(
-    {
-      branchType: branchTypes.OFFICE,
-      parentBranch: data.uuid,
-      ...args,
-    },
-    authorization,
-  );
-
-  if (office.error) {
-    errorMessages.push('hierarchy.offices.fail.createOffice');
-
-    return { error: errorMessages, data: [] };
-  }
-
-  successMessages.push('hierarchy.offices.success.createOffice');
-
-  return { data: successMessages, error: errorMessages };
-};
-
-const createDesk = async (_, { officeId, ...args }, { headers: { authorization } }) => {
-  const successMessages = [];
-  const errorMessages = [];
-  const desk = await createBranch(
-    {
-      branchType: branchTypes.DESK,
-      parentBranch: officeId,
-      ...args,
-    },
-    authorization,
-  );
-
-  if (desk.error) {
-    errorMessages.push('hierarchy.desks.fail.createDesk');
-
-    return { error: errorMessages };
-  }
-
-  successMessages.push('hierarchy.desks.success.createDesk');
-
-  return { data: successMessages, error: errorMessages };
-};
-
-const createTeam = async (_, { deskId, ...args }, { headers: { authorization } }) => {
-  const successMessages = [];
-  const errorMessages = [];
-  const team = await createBranch(
-    {
-      branchType: branchTypes.TEAM,
-      parentBranch: deskId,
-      ...args,
-    },
-    authorization,
-  );
-
-  if (team.error) {
-    errorMessages.push('hierarchy.teams.fail.createTeam');
-
-    return { error: errorMessages };
-  }
-
-  successMessages.push('hierarchy.teams.success.createTeam');
-
-  return { data: successMessages, error: errorMessages };
-};
 
 const addOperatorToBranch = async (_, { operatorId, branchId }, { headers: { authorization } }) => {
   const requestParams = {
@@ -197,9 +117,6 @@ const getBranchChildren = (_, { uuid }, { headers: { authorization } }) => {
 };
 
 module.exports = {
-  createOffice,
-  createDesk,
-  createTeam,
   addBranchManager,
   removeBranchManager,
   addOperatorToBranch,

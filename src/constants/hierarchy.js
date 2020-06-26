@@ -5,14 +5,6 @@ const deskTypes = keyMirror({
   SALES: null,
 });
 
-const branchTypes = keyMirror({
-  OFFICE: null,
-  DESK: null,
-  TEAM: null,
-  COMPANY: null,
-  BRAND: null,
-});
-
 const userTypes = keyMirror({
   COMPANY_ADMIN: null,
   BRAND_ADMIN: null,
@@ -39,7 +31,6 @@ const userTypes = keyMirror({
 });
 
 module.exports = {
-  branchTypes,
   userTypes,
   deskTypes,
 };

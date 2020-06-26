@@ -26,6 +26,24 @@ class HierarchyAPI extends RESTDataSource {
     return uuid && this.loader.load(uuid);
   }
 
+  getBrand(brandId) {
+    return this.get('/branch/brand', { brandId });
+  }
+
+  /**
+   *
+   * Get user branhces
+   *
+   * @param uuid
+   * @param args.brandId
+   *
+   * @return {Promise}
+   *
+   */
+  getUserBranches(uuid, brandId) {
+    return this.get(`/branch/hierarchy/user/${uuid}`, { brandId });
+  }
+
   /**
    * Get operators subtree for current operator UUID
    *
@@ -59,20 +77,6 @@ class HierarchyAPI extends RESTDataSource {
    */
   checkAccess(uuid) {
     return this.get(`/user/${uuid}/check-access`);
-  }
-
-  /**
-   *
-   * Get user branhces
-   *
-   * @param uuid
-   * @param args.brandId
-   *
-   * @return {Promise}
-   *
-  */
-  getUserBranches(uuid, brandId) {
-    return this.get(`/branch/hierarchy/user/${uuid}`, { brandId });
   }
 
 
