@@ -78,6 +78,7 @@ module.exports = gql`
     filterSets(type: FilterSet__Types__Enum): FilterSet @response
 
     # Hierarchy API
+    branchTree(branchUuid: String!): HierarchyBranchTree
     userBranches(withoutBrandFilter: Boolean): HierarchyUserBranches
     userHierarchy: HierarchyUser
     userHierarchyById(uuid: String!): HierarchyUser

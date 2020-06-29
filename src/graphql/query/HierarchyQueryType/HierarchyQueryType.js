@@ -3,14 +3,12 @@ const {
   HierarchyUsersType,
   HierarchyUsersType: { UserType },
   HierarchyBranchType,
-  HierarchyBranchType: { HierarchyBranchTreeType },
 } = require('./HierarchyType');
 const ResponseType = require('../../common/types/ResponseType');
 const {
   getUsersByType,
   getBranchInfo,
   getBranchHierarchy,
-  getBranchHierarchyTree,
   getUsersByBranch,
   getBranchChildren,
 } = require('../../../graphql/common/resolvers/hierarchy');
@@ -19,6 +17,7 @@ const { DeskTypeEnum } = require('./HierarchyType/HierarchyEnums');
 const HierarchyQueryType = new GraphQLObjectType({
   name: 'HierarchyQueryType',
   fields: () => ({
+    // # 5
     hierarchyUsersByType: {
       args: {
         userTypes: { type: new GraphQLNonNull(new GraphQLList(GraphQLString)) },
@@ -27,6 +26,7 @@ const HierarchyQueryType = new GraphQLObjectType({
       type: ResponseType(HierarchyUsersType),
       resolve: getUsersByType,
     },
+    // # 6
     branchInfo: {
       args: {
         branchId: { type: new GraphQLNonNull(GraphQLString) },
@@ -34,6 +34,7 @@ const HierarchyQueryType = new GraphQLObjectType({
       type: ResponseType(HierarchyBranchType),
       resolve: getBranchInfo,
     },
+    // # 2
     branchHierarchy: {
       args: {
         branchType: { type: new GraphQLNonNull(GraphQLString) },
@@ -46,13 +47,7 @@ const HierarchyQueryType = new GraphQLObjectType({
       type: ResponseType(new GraphQLList(HierarchyBranchType), 'HierarchyMultiBranches'),
       resolve: getBranchHierarchy,
     },
-    branchHierarchyTree: {
-      args: {
-        branchUUID: { type: new GraphQLNonNull(GraphQLString) },
-      },
-      type: ResponseType(HierarchyBranchTreeType, 'BranchHierarchyTree'),
-      resolve: getBranchHierarchyTree,
-    },
+    // # 3
     usersByBranch: {
       args: {
         uuids: { type: new GraphQLNonNull(new GraphQLList(GraphQLString)) },
@@ -61,6 +56,7 @@ const HierarchyQueryType = new GraphQLObjectType({
       type: ResponseType(new GraphQLList(UserType), 'UsersByBranchType'),
       resolve: getUsersByBranch,
     },
+    // # 4
     branchChildren: {
       args: {
         uuid: { type: new GraphQLNonNull(GraphQLString) },

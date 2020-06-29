@@ -7,7 +7,6 @@ const {
   getPartnersSubtree,
   getUsersByType,
   getBranchHierarchy,
-  getBranchHierarchyTree,
   getUsersByBranch,
   getBranchChildren,
 } = require('./hierarchyRequests');
@@ -27,7 +26,6 @@ module.exports = {
     getPartnersSubtree,
     getUsersByType,
     getBranchHierarchy,
-    getBranchHierarchyTree,
     getUsersByBranch,
     getBranchChildren,
   },

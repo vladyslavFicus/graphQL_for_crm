@@ -96,6 +96,18 @@ class HierarchyAPI extends RESTDataSource {
   checkAccess(uuid) {
     return this.get(`/user/${uuid}/check-access`);
   }
+
+  /**
+   * Get branch hierarchy tree
+   * Note: Get tree of branches. Branch with the given uuid will be in root.
+   *
+   * @param uuid
+   *
+   * @return {Promise}
+   */
+  getBranchHierarchyTree(uuid) {
+    return this.get(`/branch/hierarchy/${uuid}`);
+  }
 }
 
 module.exports = HierarchyAPI;

@@ -3,7 +3,6 @@ const { userTypes } = require('../../../constants/hierarchy');
 const {
   requests: {
     getHierarchyBranch,
-    getBranchHierarchyTree: getBranchHierarchyTreeQuery,
     getUsersByType: getUsersByTypeQuery,
     getBranchHierarchy: getBranchHierarchyQuery,
     getUsersByBranch: getUsersByBranchQuery,
@@ -34,10 +33,6 @@ const getBranchHierarchy = (_, args, { headers: { authorization }, userUUID }) =
   return getBranchHierarchyQuery(args, userUUID, authorization);
 };
 
-const getBranchHierarchyTree = (_, { branchUUID }, { headers: { authorization } }) => {
-  return getBranchHierarchyTreeQuery(branchUUID, authorization);
-};
-
 const getUsersByBranch = async (_, { uuids, onlyActive }, { headers: { authorization }, dataloaders }) => {
   const operators = await getUsersByBranchQuery({ uuids }, authorization);
 
@@ -60,7 +55,6 @@ module.exports = {
   getUsersByType,
   getBranchInfo,
   getBranchHierarchy,
-  getBranchHierarchyTree,
   getUsersByBranch,
   getBranchChildren,
 };
