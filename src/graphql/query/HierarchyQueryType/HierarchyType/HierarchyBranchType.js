@@ -24,15 +24,6 @@ const HierarchyBranchType = new GraphQLObjectType({
   }),
 });
 
-const HierarchyMultiBranchesType = new GraphQLObjectType({
-  name: 'HierarchyMultiBranchesType',
-  fields: () => ({
-    office: { type: HierarchyBranchType },
-    desk: { type: HierarchyBranchType },
-    team: { type: HierarchyBranchType },
-  }),
-});
-
 const HierarchyBranchTreeType = new GraphQLObjectType({
   name: 'HierarchyBranchTreeType',
   fields: () => ({
@@ -50,5 +41,4 @@ const HierarchyBranchTreeType = new GraphQLObjectType({
 });
 
 module.exports = HierarchyBranchType;
-module.exports.HierarchyMultiBranchesType = HierarchyMultiBranchesType;
 module.exports.HierarchyBranchTreeType = HierarchyBranchTreeType;

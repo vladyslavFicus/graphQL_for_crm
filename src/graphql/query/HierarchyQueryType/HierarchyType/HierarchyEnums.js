@@ -20,17 +20,7 @@ const DeskTypeEnum = new GraphQLEnumType({
   },
 });
 
-const DeskDefaultFlagEnum = new GraphQLEnumType({
-  name: 'DeskDefaultFlagEnum',
-  values: {
-    ANY: { value: 'ANY' },
-    NO: { value: 'NO' },
-    YES: { value: 'YES' },
-  },
-});
-
 module.exports = {
   BranchTypeEnum,
   DeskTypeEnum,
-  DeskDefaultFlagEnum,
 };
