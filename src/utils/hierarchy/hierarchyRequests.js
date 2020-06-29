@@ -2,17 +2,6 @@ const fetch = require('../fetch');
 const getBaseUrl = require('../getBaseUrl');
 const buildQueryString = require('../buildQueryString');
 
-const getHierarchyUser = (userId, authorization) => {
-  return fetch(`${getBaseUrl('hierarchy')}/user/${userId}`, {
-    method: 'GET',
-    headers: {
-      authorization,
-      accept: 'application/json',
-      'content-type': 'application/json',
-    },
-  }).then(response => response.json());
-};
-
 const getHierarchyUsers = (userUuids, authorization) => {
   return fetch(`${getBaseUrl('hierarchy')}/user/search`, {
     method: 'POST',
@@ -140,7 +129,6 @@ const getBranchChildren = (uuid, authorization) => {
 };
 
 module.exports = {
-  getHierarchyUser,
   getHierarchyUsers,
   getHierarchyBranch,
   getCustomersSubtree,

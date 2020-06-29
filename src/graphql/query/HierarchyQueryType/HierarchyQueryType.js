@@ -11,8 +11,6 @@ const {
   getBranchInfo,
   getBranchHierarchy,
   getBranchHierarchyTree,
-  getUserHierarchy,
-  getUserHierarchyById,
   getUsersByBranch,
   getBranchChildren,
 } = require('../../../graphql/common/resolvers/hierarchy');
@@ -35,17 +33,6 @@ const HierarchyQueryType = new GraphQLObjectType({
       },
       type: ResponseType(HierarchyBranchType),
       resolve: getBranchInfo,
-    },
-    userHierarchy: {
-      type: ResponseType(UserType, 'UserHierarchy'),
-      resolve: getUserHierarchy,
-    },
-    userHierarchyById: {
-      args: {
-        userId: { type: new GraphQLNonNull(GraphQLString) },
-      },
-      type: ResponseType(UserType, 'UserHierarchyById'),
-      resolve: getUserHierarchyById,
     },
     branchHierarchy: {
       args: {

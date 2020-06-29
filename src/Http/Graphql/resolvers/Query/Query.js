@@ -133,6 +133,12 @@ module.exports = {
 
     return groupBy(branches, 'branchType');
   },
+  userHierarchy(_, __, { dataSources, userUUID }) {
+    return dataSources.HierarchyAPI.getUserHierarchy(userUUID);
+  },
+  userHierarchyById(_, { uuid }, { dataSources }) {
+    return dataSources.HierarchyAPI.getUserHierarchy(uuid);
+  },
 
   /**
    * Lead API

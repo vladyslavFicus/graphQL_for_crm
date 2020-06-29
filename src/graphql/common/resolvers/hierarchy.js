@@ -2,7 +2,6 @@ const { groupBy } = require('lodash');
 const { userTypes } = require('../../../constants/hierarchy');
 const {
   requests: {
-    getHierarchyUser,
     getHierarchyBranch,
     getBranchHierarchyTree: getBranchHierarchyTreeQuery,
     getUsersByType: getUsersByTypeQuery,
@@ -39,14 +38,6 @@ const getBranchHierarchyTree = (_, { branchUUID }, { headers: { authorization } 
   return getBranchHierarchyTreeQuery(branchUUID, authorization);
 };
 
-const getUserHierarchy = (_, __, { headers: { authorization }, userUUID }) => {
-  return getHierarchyUser(userUUID, authorization);
-};
-
-const getUserHierarchyById = (_, { userId }, { headers: { authorization } }) => {
-  return getHierarchyUser(userId, authorization);
-};
-
 const getUsersByBranch = async (_, { uuids, onlyActive }, { headers: { authorization }, dataloaders }) => {
   const operators = await getUsersByBranchQuery({ uuids }, authorization);
 
@@ -66,8 +57,6 @@ const getBranchChildren = (_, { uuid }, { headers: { authorization } }) => {
 };
 
 module.exports = {
-  getUserHierarchy,
-  getUserHierarchyById,
   getUsersByType,
   getBranchInfo,
   getBranchHierarchy,

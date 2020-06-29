@@ -1,5 +1,4 @@
 const {
-  getHierarchyUser,
   getHierarchyUsers,
   getHierarchyBranch,
   getCustomersSubtree,
@@ -20,7 +19,6 @@ module.exports = {
     getHierarchyMappedOperators,
   },
   requests: {
-    getHierarchyUser,
     getHierarchyUsers,
     getHierarchyBranch,
     getCustomersSubtree,
