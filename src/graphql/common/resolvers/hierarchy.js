@@ -4,7 +4,6 @@ const {
   requests: {
     getHierarchyBranch,
     getUsersByType: getUsersByTypeQuery,
-    getBranchHierarchy: getBranchHierarchyQuery,
     getUsersByBranch: getUsersByBranchQuery,
     getBranchChildren: getBranchChildrenQuery,
   },
@@ -29,10 +28,6 @@ const getBranchInfo = (_, { branchId }, { headers: { authorization } }) => {
   return getHierarchyBranch(branchId, authorization);
 };
 
-const getBranchHierarchy = (_, args, { headers: { authorization }, userUUID }) => {
-  return getBranchHierarchyQuery(args, userUUID, authorization);
-};
-
 const getUsersByBranch = async (_, { uuids, onlyActive }, { headers: { authorization }, dataloaders }) => {
   const operators = await getUsersByBranchQuery({ uuids }, authorization);
 
@@ -54,7 +49,6 @@ const getBranchChildren = (_, { uuid }, { headers: { authorization } }) => {
 module.exports = {
   getUsersByType,
   getBranchInfo,
-  getBranchHierarchy,
   getUsersByBranch,
   getBranchChildren,
 };

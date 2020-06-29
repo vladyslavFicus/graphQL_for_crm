@@ -82,18 +82,6 @@ const getUsersByType = (types, authorization) => {
   }).then(response => response.json());
 };
 
-const getBranchHierarchy = ({ branchType, ...args }, userUUID, authorization) => {
-  return fetch(`${getBaseUrl('hierarchy')}/branch/hierarchy/user/${userUUID}/${branchType}`, {
-    method: 'POST',
-    headers: {
-      accept: 'application/json',
-      authorization,
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify(args),
-  }).then(response => response.json());
-};
-
 const getUsersByBranch = (args, authorization) => {
   return fetch(`${getBaseUrl('hierarchy')}/user/search/hierarchy`, {
     method: 'POST',
@@ -125,7 +113,6 @@ module.exports = {
   getOperatorsSubtree,
   getPartnersSubtree,
   getUsersByType,
-  getBranchHierarchy,
   getUsersByBranch,
   getBranchChildren,
 };

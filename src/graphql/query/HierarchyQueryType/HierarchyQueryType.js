@@ -8,11 +8,9 @@ const ResponseType = require('../../common/types/ResponseType');
 const {
   getUsersByType,
   getBranchInfo,
-  getBranchHierarchy,
   getUsersByBranch,
   getBranchChildren,
 } = require('../../../graphql/common/resolvers/hierarchy');
-const { DeskTypeEnum } = require('./HierarchyType/HierarchyEnums');
 
 const HierarchyQueryType = new GraphQLObjectType({
   name: 'HierarchyQueryType',
@@ -33,19 +31,6 @@ const HierarchyQueryType = new GraphQLObjectType({
       },
       type: ResponseType(HierarchyBranchType),
       resolve: getBranchInfo,
-    },
-    // # 2
-    branchHierarchy: {
-      args: {
-        branchType: { type: new GraphQLNonNull(GraphQLString) },
-        keyword: { type: GraphQLString },
-        officeUuid: { type: GraphQLString },
-        deskUuid: { type: GraphQLString },
-        deskType: { type: DeskTypeEnum },
-        country: { type: GraphQLString },
-      },
-      type: ResponseType(new GraphQLList(HierarchyBranchType), 'HierarchyMultiBranches'),
-      resolve: getBranchHierarchy,
     },
     // # 3
     usersByBranch: {

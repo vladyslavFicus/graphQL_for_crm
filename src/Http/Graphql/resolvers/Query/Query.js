@@ -127,8 +127,23 @@ module.exports = {
   /**
    * Hierarchy API
    */
+  branch(_, { branchType, ...args }, { dataSources, userUUID }) {
+    switch (branchType) {
+      case 'office':
+        return dataSources.HierarchyAPI.getOffice(userUUID, args);
+
+      case 'team':
+        return dataSources.HierarchyAPI.getTeam(userUUID, args);
+
+      case 'desk':
+        return dataSources.HierarchyAPI.getDesk(userUUID, args);
+
+      default:
+        return null;
+    }
+  },
   branchTree(_, { branchUuid }, { dataSources }) {
-    return dataSources.HierarchyAPI.getBranchHierarchyTree(branchUuid);
+    return dataSources.HierarchyAPI.getBranchTree(branchUuid);
   },
   async userBranches(_, { withoutBrandFilter }, { dataSources, userUUID, brand }) {
     const args = withoutBrandFilter ? {} : { brandId: brand.id };

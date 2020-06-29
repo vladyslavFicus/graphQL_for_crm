@@ -98,6 +98,42 @@ class HierarchyAPI extends RESTDataSource {
   }
 
   /**
+   * Get office
+   *
+   * @param uuid | userUuid
+   * @param args
+   *
+   * @return {Promise}
+   */
+  getOffice(uuid, args) {
+    return this.post(`/branch/hierarchy/user/${uuid}/office`, args);
+  }
+
+  /**
+   * Get team
+   *
+   * @param uuid | userUuid
+   * @param args
+   *
+   * @return {Promise}
+   */
+  getTeam(uuid, args) {
+    return this.post(`/branch/hierarchy/user/${uuid}/team`, args);
+  }
+
+  /**
+   * Get desk
+   *
+   * @param uuid | userUuid
+   * @param args
+   *
+   * @return {Promise}
+   */
+  getDesk(uuid, args) {
+    return this.post(`/branch/hierarchy/user/${uuid}/desk`, args);
+  }
+
+  /**
    * Get branch hierarchy tree
    * Note: Get tree of branches. Branch with the given uuid will be in root.
    *
@@ -105,7 +141,7 @@ class HierarchyAPI extends RESTDataSource {
    *
    * @return {Promise}
    */
-  getBranchHierarchyTree(uuid) {
+  getBranchTree(uuid) {
     return this.get(`/branch/hierarchy/${uuid}`);
   }
 }
