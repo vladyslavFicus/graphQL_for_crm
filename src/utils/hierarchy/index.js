@@ -11,7 +11,6 @@ const {
   getBranchHierarchyTree,
   getUsersByBranch,
   getBranchChildren,
-  updateUserBranches,
   updateHierarchyUser,
 } = require('./hierarchyRequests');
 
@@ -34,7 +33,6 @@ module.exports = {
     getBranchHierarchyTree,
     getUsersByBranch,
     getBranchChildren,
-    updateUserBranches,
     updateHierarchyUser,
   },
 };

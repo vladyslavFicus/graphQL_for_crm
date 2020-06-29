@@ -40,8 +40,8 @@ class HierarchyAPI extends RESTDataSource {
    * @return {Promise}
    *
    */
-  getUserBranches(uuid, brandId) {
-    return this.get(`/branch/hierarchy/user/${uuid}`, { brandId });
+  getUserBranches(uuid, args) {
+    return this.get(`/branch/hierarchy/user/${uuid}`, args);
   }
 
   /**

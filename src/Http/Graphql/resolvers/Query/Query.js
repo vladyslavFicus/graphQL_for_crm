@@ -128,12 +128,11 @@ module.exports = {
    * Hierarchy API
    */
   async userBranches(_, { withoutBrandFilter }, { dataSources, userUUID, brand }) {
-    const brandId = withoutBrandFilter ? '' : brand.id;
-    const branches = await dataSources.HierarchyAPI.getUserBranches(userUUID, brandId);
+    const args = withoutBrandFilter ? {} : { brandId: brand.id };
+    const branches = await dataSources.HierarchyAPI.getUserBranches(userUUID, args);
 
-    return groupBy(branches, 'branchType');
+    return groupBy(branches, 'branchType');;
   },
-
 
   /**
    * Lead API

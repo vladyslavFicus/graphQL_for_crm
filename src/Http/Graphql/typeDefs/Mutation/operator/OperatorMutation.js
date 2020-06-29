@@ -23,7 +23,27 @@ module.exports = gql`
       sip: String
     ): Operator @response
 
-    addExistingOperator(branchId: String, department: String!, email: String!, role: String!): Operator @response
-    changeStatus(reason: String!, status: String!, uuid: String!): Success
+    addExistingOperator(
+      branchId: String
+      department: String!
+      email: String!
+      role: String!
+    ): Operator @response
+
+    changeStatus(
+      reason: String!
+      status: String!
+      uuid: String!
+    ): Success
+
+    addOperatorToBranch(
+      branchId: String!
+      operatorId: String!
+    ): Boolean
+
+    removeOperatorFromBranch(
+      branchId: String!
+      operatorId: String!
+    ): Boolean
   }
 `;

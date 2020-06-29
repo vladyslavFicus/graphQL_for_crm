@@ -82,4 +82,36 @@ module.exports = {
 
     return { success: true };
   },
+
+  /**
+   * Add operator to branch
+   *
+   * @param _
+   * @param operatorId
+   * @param branchId
+   * @param dataSources
+   *
+   * @return {Promise<{*}>}
+   */
+  async addOperatorToBranch(_, { operatorId, branchId }, { dataSources }) {
+    await dataSources.HierarchyUpdaterAPI.updateUserBranches(operatorId, { assignToBranch: branchId });
+
+    return true;
+  },
+
+  /**
+   * Remove operator from branch
+   *
+   * @param _
+   * @param operatorId
+   * @param branchId
+   * @param dataSources
+   *
+   * @return {Promise<{*}>}
+   */
+  async removeOperatorFromBranch(_, { operatorId, branchId }, { dataSources }) {
+    await dataSources.HierarchyUpdaterAPI.updateUserBranches(operatorId, { unassignFromBranch: branchId });
+
+    return true;
+  },
 };
