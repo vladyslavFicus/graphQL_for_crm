@@ -48,6 +48,19 @@ class HierarchyUpdaterAPI extends RESTDataSource {
   }
 
   /**
+   * Update user type
+   *
+   * @param uuid
+   * @param args
+   * @param args.userType
+   *
+   * @return {*}
+   */
+  updateUserType(uuid, args) {
+    return this.put(`/user/${uuid}`, args);
+  }
+
+  /**
    *
    * Mass assign lead or client to another operator
    *

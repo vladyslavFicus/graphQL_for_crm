@@ -11,7 +11,6 @@ const {
   getBranchHierarchyTree,
   getUsersByBranch,
   getBranchChildren,
-  updateHierarchyUser,
 } = require('./hierarchyRequests');
 
 const { getHierarchyMappedOperators } = require('./hierarchyHelpers');
@@ -33,6 +32,5 @@ module.exports = {
     getBranchHierarchyTree,
     getUsersByBranch,
     getBranchChildren,
-    updateHierarchyUser,
   },
 };

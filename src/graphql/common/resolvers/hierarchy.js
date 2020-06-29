@@ -9,14 +9,9 @@ const {
     getBranchHierarchy: getBranchHierarchyQuery,
     getUsersByBranch: getUsersByBranchQuery,
     getBranchChildren: getBranchChildrenQuery,
-    updateHierarchyUser: updateHierarchyUserRequest,
   },
   helpers: { getHierarchyMappedOperators },
 } = require('../../../utils/hierarchy');
-
-const updateHierarchyUser = (_, args, { headers: { authorization } }) => {
-  return updateHierarchyUserRequest(args, authorization);
-};
 
 const getUsersByType = async (_, args, { headers: { authorization }, hierarchy, dataloaders }) => {
   const users = await getUsersByTypeQuery(args.userTypes, authorization);
@@ -71,7 +66,6 @@ const getBranchChildren = (_, { uuid }, { headers: { authorization } }) => {
 };
 
 module.exports = {
-  updateHierarchyUser,
   getUserHierarchy,
   getUserHierarchyById,
   getUsersByType,

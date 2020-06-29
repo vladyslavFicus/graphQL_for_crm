@@ -139,18 +139,6 @@ const getBranchChildren = (uuid, authorization) => {
   }).then(response => response.json());
 };
 
-const updateHierarchyUser = ({ operatorId, ...args }, authorization) => {
-  return fetch(`${getBaseUrl('hierarchy-updater')}/user/${operatorId}`, {
-    method: 'PUT',
-    headers: {
-      accept: 'application/json',
-      authorization,
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify(args),
-  }).then(response => response.json());
-};
-
 module.exports = {
   getHierarchyUser,
   getHierarchyUsers,
@@ -164,5 +152,4 @@ module.exports = {
   getBranchHierarchyTree,
   getUsersByBranch,
   getBranchChildren,
-  updateHierarchyUser,
 };

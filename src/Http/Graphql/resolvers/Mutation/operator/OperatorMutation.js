@@ -114,4 +114,20 @@ module.exports = {
 
     return true;
   },
+
+  /**
+   * Update operator user type
+   *
+   * @param _
+   * @param operatorId
+   * @param branchId
+   * @param dataSources
+   *
+   * @return {Promise<{*}>}
+   */
+  async updateOperatorUserType(_, { operatorId, ...args }, { dataSources }) {
+    await dataSources.HierarchyUpdaterAPI.updateUserType(operatorId, args);
+
+    return true;
+  },
 };

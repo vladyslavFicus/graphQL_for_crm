@@ -131,7 +131,7 @@ module.exports = {
     const args = withoutBrandFilter ? {} : { brandId: brand.id };
     const branches = await dataSources.HierarchyAPI.getUserBranches(userUUID, args);
 
-    return groupBy(branches, 'branchType');;
+    return groupBy(branches, 'branchType');
   },
 
   /**

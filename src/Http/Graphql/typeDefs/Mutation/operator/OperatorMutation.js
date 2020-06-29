@@ -45,5 +45,10 @@ module.exports = gql`
       branchId: String!
       operatorId: String!
     ): Boolean
+
+    updateOperatorUserType(
+      operatorId: String!
+      userType: String
+    ): Boolean
   }
 `;
