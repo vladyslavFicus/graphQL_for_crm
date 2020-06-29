@@ -163,32 +163,7 @@ const updateHierarchyUser = ({ operatorId, ...args }, authorization) => {
   }).then(response => response.json());
 };
 
-const addBranchManager = ({ branchUuid, ...args }, authorization) => {
-  return fetch(`${getBaseUrl('hierarchy-updater')}/branch/${branchUuid}/manager`, {
-    method: 'POST',
-    headers: {
-      accept: 'application/json',
-      authorization,
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify(args),
-  }).then(response => response.json());
-};
-
-const removeBranchManager = (branchUuid, authorization) => {
-  return fetch(`${getBaseUrl('hierarchy-updater')}/branch/${branchUuid}/manager`, {
-    method: 'DELETE',
-    headers: {
-      accept: 'application/json',
-      authorization,
-      'content-type': 'application/json',
-    },
-  }).then(response => ({ success: response.status === 200 }));
-};
-
 module.exports = {
-  addBranchManager,
-  removeBranchManager,
   getHierarchyUser,
   getHierarchyUsers,
   getHierarchyBranch,

@@ -70,6 +70,31 @@ class HierarchyUpdaterAPI extends RESTDataSource {
   bulkUpdateHierarchyUser(args) {
     return this.put('/bulk/user/relationship/parent-user', args);
   }
+
+  /**
+   *
+   * Add branch manager
+   *
+   * @param branchUuid
+   * @param args
+   *
+   * @return {Promise}
+   */
+  addBranchManager(branchUuid, args) {
+    return this.post(`/branch/${branchUuid}/manager`, args);
+  }
+
+  /**
+   *
+   * Remove branch manager
+   *
+   * @param branchUuid
+   *
+   * @return {Promise}
+   */
+  removeBranchManager(branchUuid) {
+    return this.delete(`/branch/${branchUuid}/manager`);
+  }
 }
 
 module.exports = HierarchyUpdaterAPI;

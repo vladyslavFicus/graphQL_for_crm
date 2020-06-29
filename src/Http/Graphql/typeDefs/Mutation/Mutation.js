@@ -9,6 +9,7 @@ module.exports = gql`
     emailTemplates: EmailTemplateMutation @nested
     file: FileMutation @nested
     filterSet: FilterSetMutation @nested
+    hierarchy: HierarchyMutation @nested
     leads: LeadMutation @nested
     note: NoteMutation @nested
     notificationCenter: NotificationCenterMutation @nested

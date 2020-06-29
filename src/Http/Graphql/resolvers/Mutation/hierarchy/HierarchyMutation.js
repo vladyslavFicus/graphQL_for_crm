@@ -60,4 +60,37 @@ module.exports = {
 
     return true;
   },
+
+  /**
+   * Add branch manager
+   *
+   * @param _
+   * @param branchUuid
+   * @param operatorUuid
+   * @param dataSources
+   *
+   * @return {Promise<*>}
+   */
+  async addBranchManager(_, { branchUuid, operatorUuid }, { dataSources }) {
+    await dataSources.HierarchyUpdaterAPI.addBranchManager(branchUuid, {
+      manager: operatorUuid,
+    });
+
+    return true;
+  },
+
+  /**
+   * Remove branch manager
+   *
+   * @param _
+   * @param branchUuid
+   * @param dataSources
+   *
+   * @return {Promise<*>}
+   */
+  async removeBranchManager(_, { branchUuid }, { dataSources }) {
+    await dataSources.HierarchyUpdaterAPI.removeBranchManager(branchUuid);
+
+    return true;
+  },
 };

@@ -18,5 +18,14 @@ module.exports = gql`
       name: String!
       deskId: String!
     ): Boolean
+
+    addBranchManager(
+      branchUuid: String
+      operatorUuid: String
+    ): Boolean
+
+    removeBranchManager(
+      branchUuid: String
+    ): Boolean
   }
 `;
