@@ -6,7 +6,6 @@ const {
 const ResponseType = require('../../common/types/ResponseType');
 const {
   getUsersByType,
-  getBranchInfo,
   getBranchChildren,
 } = require('../../../graphql/common/resolvers/hierarchy');
 
@@ -21,14 +20,6 @@ const HierarchyQueryType = new GraphQLObjectType({
       },
       type: ResponseType(HierarchyUsersType),
       resolve: getUsersByType,
-    },
-    // # 6
-    branchInfo: {
-      args: {
-        branchId: { type: new GraphQLNonNull(GraphQLString) },
-      },
-      type: ResponseType(HierarchyBranchType),
-      resolve: getBranchInfo,
     },
     // # 4
     branchChildren: {

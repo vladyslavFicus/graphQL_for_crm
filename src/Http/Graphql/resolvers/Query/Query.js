@@ -145,6 +145,9 @@ module.exports = {
   branchTree(_, { branchUuid }, { dataSources }) {
     return dataSources.HierarchyAPI.getBranchTree(branchUuid);
   },
+  branchInfo(_, { branchId }, { dataSources }) {
+    return dataSources.HierarchyAPI.getBranchInfo(branchId);
+  },
   async userBranches(_, { withoutBrandFilter }, { dataSources, userUUID, brand }) {
     const args = withoutBrandFilter ? {} : { brandId: brand.id };
     const branches = await dataSources.HierarchyAPI.getUserBranches(userUUID, args);

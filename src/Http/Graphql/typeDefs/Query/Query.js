@@ -87,6 +87,7 @@ module.exports = gql`
       country: String
     ): [HierarchyBranch]
     branchTree(branchUuid: String!): HierarchyBranchTree
+    branchInfo(branchId: String!): HierarchyBranch
     userBranches(withoutBrandFilter: Boolean): HierarchyUserBranches
     userHierarchy: HierarchyUser
     userHierarchyById(uuid: String!): HierarchyUser

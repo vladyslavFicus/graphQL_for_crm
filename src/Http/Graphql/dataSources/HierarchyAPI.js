@@ -98,6 +98,17 @@ class HierarchyAPI extends RESTDataSource {
   }
 
   /**
+   * Get branch info
+   *
+   * @param uuid | branchId
+   *
+   * @return {Promise}
+   */
+  getBranchInfo(uuid) {
+    return this.get(`/branch/${uuid}`);
+  }
+
+  /**
    * Get office
    *
    * @param uuid | userUuid
