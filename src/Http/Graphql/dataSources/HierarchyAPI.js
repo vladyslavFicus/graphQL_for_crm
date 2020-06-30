@@ -144,6 +144,17 @@ class HierarchyAPI extends RESTDataSource {
   getBranchTree(uuid) {
     return this.get(`/branch/hierarchy/${uuid}`);
   }
+
+  /**
+   * Get users by branch
+   *
+   * @param args
+   *
+   * @return {Promise}
+   */
+  getUsersByBranch(args) {
+    return this.post('/user/search/hierarchy', args);
+  }
 }
 
 module.exports = HierarchyAPI;

@@ -157,6 +157,32 @@ module.exports = {
   userHierarchyById(_, { uuid }, { dataSources }) {
     return dataSources.HierarchyAPI.getUserHierarchy(uuid);
   },
+  async usersByBranch(_, { uuids, onlyActive }, { dataSources }) {
+    const operatorsByBranch = await dataSources.HierarchyAPI.getUsersByBranch({ uuids });
+
+    const { content } = await dataSources.OperatorAPI.search({
+      ...onlyActive && { status: 'ACTIVE' },
+      uuids: operatorsByBranch.map(({ uuid }) => uuid),
+      page: {
+        from: 0,
+        size: operatorsByBranch.length,
+      },
+    });
+
+    const operators = operatorsByBranch.map(({ uuid, ...rest }) => {
+      const { firstName, lastName } = content.find(item => item.uuid === uuid) || {};
+
+      if (!firstName || !lastName) return null;
+
+      return {
+        uuid,
+        fullName: [firstName, lastName].filter(v => v).join(' '),
+        ...rest,
+      };
+    });
+
+    return operators.filter(operator => operator && ['CUSTOMER', 'LEAD_CUSTOMER'].indexOf(operator.userType) === -1);
+  },
 
   /**
    * Lead API
