@@ -2,7 +2,6 @@ const { groupBy } = require('lodash');
 const {
   requests: {
     getUsersByType: getUsersByTypeQuery,
-    getBranchChildren: getBranchChildrenQuery,
   },
   helpers: { getHierarchyMappedOperators },
 } = require('../../../utils/hierarchy');
@@ -21,11 +20,6 @@ const getUsersByType = async (_, args, { headers: { authorization }, hierarchy, 
   return { data: groupBy(mappedUsers, 'userType') };
 };
 
-const getBranchChildren = (_, { uuid }, { headers: { authorization } }) => {
-  return getBranchChildrenQuery(uuid, authorization);
-};
-
 module.exports = {
   getUsersByType,
-  getBranchChildren,
 };

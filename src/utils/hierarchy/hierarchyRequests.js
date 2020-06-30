@@ -71,17 +71,6 @@ const getUsersByType = (types, authorization) => {
   }).then(response => response.json());
 };
 
-const getBranchChildren = (uuid, authorization) => {
-  return fetch(`${getBaseUrl('hierarchy')}/branch/${uuid}/children`, {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      authorization,
-      'content-type': 'application/json',
-    },
-  }).then(response => response.json());
-};
-
 module.exports = {
   getHierarchyUsers,
   getCustomersSubtree,
@@ -89,5 +78,4 @@ module.exports = {
   getOperatorsSubtree,
   getPartnersSubtree,
   getUsersByType,
-  getBranchChildren,
 };

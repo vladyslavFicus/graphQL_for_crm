@@ -5,7 +5,6 @@ const {
   getOperatorsSubtree,
   getPartnersSubtree,
   getUsersByType,
-  getBranchChildren,
 } = require('./hierarchyRequests');
 
 const { getHierarchyMappedOperators } = require('./hierarchyHelpers');
@@ -21,6 +20,5 @@ module.exports = {
     getOperatorsSubtree,
     getPartnersSubtree,
     getUsersByType,
-    getBranchChildren,
   },
 };

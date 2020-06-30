@@ -1,12 +1,10 @@
 const { GraphQLObjectType, GraphQLNonNull, GraphQLList, GraphQLString, GraphQLBoolean } = require('graphql');
 const {
   HierarchyUsersType,
-  HierarchyBranchType,
 } = require('./HierarchyType');
 const ResponseType = require('../../common/types/ResponseType');
 const {
   getUsersByType,
-  getBranchChildren,
 } = require('../../../graphql/common/resolvers/hierarchy');
 
 const HierarchyQueryType = new GraphQLObjectType({
@@ -20,14 +18,6 @@ const HierarchyQueryType = new GraphQLObjectType({
       },
       type: ResponseType(HierarchyUsersType),
       resolve: getUsersByType,
-    },
-    // # 4
-    branchChildren: {
-      args: {
-        uuid: { type: new GraphQLNonNull(GraphQLString) },
-      },
-      type: ResponseType(new GraphQLList(HierarchyBranchType), 'HierarchyBranchChildrenType'),
-      resolve: getBranchChildren,
     },
   }),
 });
