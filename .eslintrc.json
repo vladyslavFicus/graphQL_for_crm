@@ -10,7 +10,6 @@
     "import/no-extraneous-dependencies": 0,
     "max-len": [2, 120],
     "func-names": 0,
-    "no-console": 0,
     "no-underscore-dangle": 0,
     "no-prototype-builtins": 0,
     "class-methods-use-this": 0,

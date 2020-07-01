@@ -218,8 +218,6 @@ module.exports = {
       };
     });
 
-    console.log('Test', groupBy(operators, 'userType'));
-
     return groupBy(operators, 'userType');
   },
 
