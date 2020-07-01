@@ -7,6 +7,7 @@ module.exports = gql`
     showFTDAmount: Boolean
     showKycStatus: Boolean
     showNotes: Boolean
+    showSalesStatus: Boolean
   }
 
   type PartnerMutation {
@@ -30,8 +31,12 @@ module.exports = gql`
       phone: String
       public: Boolean
       uuid: String!
-    ): Partner @response
+    ): Boolean
 
-    changePartnerAccountStatus(uuid: String!, reason: String!, status: String!): Success
+    changePartnerAccountStatus(
+      uuid: String!
+      reason: String!
+      status: String!
+    ): Boolean
   }
 `;

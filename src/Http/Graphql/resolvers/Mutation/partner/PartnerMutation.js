@@ -21,8 +21,10 @@ module.exports = {
    *
    * @return {Promise<Partner|*>}
    */
-  updatePartner(_, args, { dataSources }) {
-    return dataSources.AffiliateAPI.updatePartner(args);
+  async updatePartner(_, args, { dataSources }) {
+    await dataSources.AffiliateAPI.updatePartner(args);
+
+    return true;
   },
 
   /**
@@ -36,6 +38,7 @@ module.exports = {
    */
   async changePartnerAccountStatus(_, args, { dataSources }) {
     await dataSources.AffiliateAPI.changePartnerAccountStatus(args);
-    return { success: true };
+
+    return true;
   },
 };

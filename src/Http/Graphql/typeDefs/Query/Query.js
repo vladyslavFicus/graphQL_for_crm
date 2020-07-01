@@ -3,7 +3,7 @@ const { gql } = require('apollo-server-express');
 module.exports = gql`
   type Query {
     # Affiliate API
-    partner(uuid: String!): Partner @response
+    partner(uuid: String!): Partner
     partners(
       page: Page__Input
       searchBy: String
@@ -11,7 +11,7 @@ module.exports = gql`
       status: String
       registrationDateFrom: String
       registrationDateTo: String
-    ): Partner @pageable @response
+    ): Partner @pageable
 
     # Attachments API
     files(

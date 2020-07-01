@@ -6,12 +6,13 @@ module.exports = gql`
     forbiddenCountries: [String]
     showFTDAmount: Boolean
     showKycStatus: Boolean
+    showSalesStatus: Boolean
     showNotes: Boolean
   }
 
   type Partner {
     _id: ID!
-    authorities: [Authority] @response
+    authorities: [Authority]
     country: String
     createdAt: String
     createdBy: String
