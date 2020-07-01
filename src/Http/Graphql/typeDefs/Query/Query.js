@@ -198,7 +198,7 @@ module.exports = gql`
       archived: Boolean
       page: Int
       size: Int
-    ): TradingAccount @pageable @response
+    ): TradingAccount @pageable
     clientTradingAccounts(profileUUID: String!, accountType: String): [TradingAccount]
 
     # TradingActivity API
