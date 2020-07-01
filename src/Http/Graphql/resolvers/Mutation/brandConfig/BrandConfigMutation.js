@@ -8,8 +8,10 @@ module.exports = {
    *
    * @return {Promise}
    */
-  create(_, args, { dataSources }) {
-    return dataSources.BrandConfigAPI.createBrandConfig(args);
+  async create(_, args, { dataSources }) {
+    await dataSources.BrandConfigAPI.createBrandConfig(args);
+
+    return true;
   },
 
   /**
@@ -21,20 +23,9 @@ module.exports = {
    *
    * @return {Promise}
    */
-  update(_, args, { dataSources }) {
-    return dataSources.BrandConfigAPI.updateBrandConfig(args);
-  },
+  async update(_, args, { dataSources }) {
+    await dataSources.BrandConfigAPI.updateBrandConfig(args);
 
-  /**
-   * Delete brand config
-   *
-   * @param _
-   * @param brandId
-   * @param dataSources
-   *
-   * @return {Promise}
-   */
-  delete(_, { brandId }, { dataSources }) {
-    return dataSources.BrandConfigAPI.deleteBrandConfig(brandId);
+    return true;
   },
 };

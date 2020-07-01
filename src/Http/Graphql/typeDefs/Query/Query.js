@@ -55,7 +55,7 @@ module.exports = gql`
     loginLock(uuid: String!): LoginLock
 
     # BrandConfig API
-    brandConfig(brandId: String!): Object @response
+    brandConfig(brandId: String!): BrandConfig
 
     # Callback API
     callbacks(

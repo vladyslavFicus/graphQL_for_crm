@@ -33,17 +33,6 @@ class BrandConfigAPI extends RESTDataSource {
   updateBrandConfig(args) {
     return this.put('/brand', args);
   }
-
-  /**
-   * Delete brand config
-   *
-   * @param brandId
-   *
-   * @return {Promise}
-   */
-  deleteBrandConfig(brandId) {
-    return this.delete(`/brand/${brandId}`);
-  }
 }
 
 module.exports = BrandConfigAPI;
