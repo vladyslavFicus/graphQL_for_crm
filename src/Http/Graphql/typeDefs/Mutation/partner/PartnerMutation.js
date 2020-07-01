@@ -19,7 +19,7 @@ module.exports = gql`
       password: String!
       phone: String
       public: Boolean
-    ): Success @response
+    ): Partner
 
     updatePartner(
       country: String
