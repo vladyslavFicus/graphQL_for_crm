@@ -177,6 +177,17 @@ class HierarchyAPI extends RESTDataSource {
   getUsersByBranch(args) {
     return this.post('/user/search/hierarchy', args);
   }
+
+  /**
+   * Get users by userType
+   *
+   * @param args
+   *
+   * @return {Promise}
+   */
+  getUsersByType(types) {
+    return this.get('user/bytype', { t: types });
+  }
 }
 
 module.exports = HierarchyAPI;

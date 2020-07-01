@@ -189,6 +189,39 @@ module.exports = {
 
     return operators.filter(operator => operator && ['CUSTOMER', 'LEAD_CUSTOMER'].indexOf(operator.userType) === -1);
   },
+  async usersByType(_, { userTypes, onlyActive }, { dataSources, userUUID }) {
+    const allOperatorsByType = await dataSources.HierarchyAPI.getUsersByType(userTypes);
+
+    const visibleUsersResponse = await dataSources.HierarchyAPI.getOperatorsSubtree(userUUID);
+    const visibleUsers = visibleUsersResponse.map(({ uuid }) => uuid);
+
+    const visibleOperatorsByType = allOperatorsByType.filter(({ uuid }) => visibleUsers.includes(uuid));
+
+    const { content } = await dataSources.OperatorAPI.search({
+      ...onlyActive && { status: 'ACTIVE' },
+      uuids: visibleOperatorsByType.map(({ uuid }) => uuid),
+      page: {
+        from: 0,
+        size: visibleOperatorsByType.length,
+      },
+    });
+
+    const operators = visibleOperatorsByType.map(({ uuid, ...rest }) => {
+      const { firstName, lastName } = content.find(item => item.uuid === uuid) || {};
+
+      if (!firstName || !lastName) return null;
+
+      return {
+        uuid,
+        fullName: [firstName, lastName].filter(v => v).join(' '),
+        ...rest,
+      };
+    });
+
+    console.log('Test', groupBy(operators, 'userType'));
+
+    return groupBy(operators, 'userType');
+  },
 
   /**
    * Lead API

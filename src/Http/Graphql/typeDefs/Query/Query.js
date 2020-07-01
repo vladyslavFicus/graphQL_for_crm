@@ -93,6 +93,7 @@ module.exports = gql`
     userHierarchy: HierarchyUser
     userHierarchyById(uuid: String!): HierarchyUser
     usersByBranch(uuids: [String]!, onlyActive: Boolean): [HierarchyUser]
+    usersByType(userTypes: [String]!, onlyActive: Boolean): HierarchyUserByType
 
     # Lead API
     lead(uuid: String!): Lead @response
