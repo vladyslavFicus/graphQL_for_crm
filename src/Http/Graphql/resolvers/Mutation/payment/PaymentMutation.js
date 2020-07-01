@@ -35,26 +35,22 @@ module.exports = {
    * Approve or Reject payment
    *
    * @param _
+   * @param typeAcc
    * @param args
    * @param dataSources
    *
-   * @return {Promise<{boolean}|*>}
+   * @return {Promise}
    */
   async acceptPayment(_, { typeAcc, ...args }, { dataSources }) {
-    switch (typeAcc.toUpperCase()) {
-      case 'APPROVE':
-        await dataSources.PaymentAPI.approvePayment(args);
-        break;
+    const action = typeAcc.toUpperCase();
 
-      case 'REJECT':
-        await dataSources.PaymentAPI.rejectPayment(args);
-        break;
-
-      default:
-        return { success: false };
+    if (action === 'APPROVE') {
+      await dataSources.PaymentAPI.approvePayment(args);
     }
 
-    return { success: true };
+    if (action === 'REJECT') {
+      await dataSources.PaymentAPI.rejectPayment(args);
+    }
   },
 
   /**
@@ -64,11 +60,10 @@ module.exports = {
    * @param args
    * @param dataSources
    *
-   * @return {Promise<{boolean}|*>}
+   * @return {Promise}
    */
   async changePaymentMethod(_, args, { dataSources }) {
     await dataSources.PaymentAPI.changePaymentMethod(args);
-    return { success: true };
   },
 
   /**
@@ -78,11 +73,10 @@ module.exports = {
    * @param args
    * @param dataSources
    *
-   * @return {Promise<{boolean}|*>}
+   * @return {Promise}
    */
   async changePaymentStatus(_, args, { dataSources }) {
     await dataSources.PaymentAPI.changePaymentStatus(args);
-    return { success: true };
   },
 
   /**
@@ -92,10 +86,9 @@ module.exports = {
    * @param args
    * @param dataSources
    *
-   * @return {Promise<{boolean}|*>}
+   * @return {Promise}
    */
   async changeOriginalAgent(_, args, { dataSources }) {
     await dataSources.PaymentAPI.changeOriginalAgent(args);
-    return { success: true };
   },
 };

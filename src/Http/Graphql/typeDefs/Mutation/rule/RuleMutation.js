@@ -24,7 +24,7 @@ module.exports = gql`
       priority: Int!
       uuid: String
     ): Rule @response
-    deleteRule(uuid: String!): Success
-    deleteRuleRetention(uuid: String!): Success
+    deleteRule(uuid: String!): Boolean
+    deleteRuleRetention(uuid: String!): Boolean
   }
 `;

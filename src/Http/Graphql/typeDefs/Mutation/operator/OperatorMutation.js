@@ -34,7 +34,7 @@ module.exports = gql`
       reason: String!
       status: String!
       uuid: String!
-    ): Success
+    ): Boolean
 
     addOperatorToBranch(
       branchId: String!
