@@ -5,8 +5,9 @@ module.exports = {
    * @param _
    * @param args
    * @param dataSources
+   * @param userUUID
    *
-   * @return {Promise<FilterSet__Option|*>}
+   * @return {Promise}
    */
   create(_, args, { dataSources, userUUID }) {
     return dataSources.FilterSetsAPI.createFilterSet({ ...args, userId: userUUID });
@@ -20,11 +21,10 @@ module.exports = {
    * @param args
    * @param dataSources
    *
-   * @return {Promise<success|*>}
+   * @return {Promise}
    */
   async update(_, { uuid, ...args }, { dataSources }) {
     await dataSources.FilterSetsAPI.updateFilterSet(uuid, args);
-    return { success: true };
   },
 
   /**
@@ -34,24 +34,23 @@ module.exports = {
    * @param uuid
    * @param dataSources
    *
-   * @return {Promise<success|*>}
+   * @return {Promise}
    */
   async delete(_, { uuid }, { dataSources }) {
     await dataSources.FilterSetsAPI.deleteFilterSet(uuid);
-    return { success: true };
   },
 
   /**
    * Update filter set favorite mark
    *
+   * @param _
    * @param uuid
    * @param favourite
    * @param dataSources
    *
-   * @return {Promise<success|*>}
+   * @return {Promise}
    */
   async updateFavourite(_, { uuid, favourite }, { dataSources }) {
     await dataSources.FilterSetsAPI.updateFilterFavorite(uuid, favourite);
-    return { success: true };
   },
 };

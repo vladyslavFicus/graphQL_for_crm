@@ -9,7 +9,7 @@ module.exports = {
    * @param args
    * @param dataSources
    *
-   * @return {Promise<SignIn>}
+   * @return {Promise}
    */
   signIn(_, args, { dataSources }) {
     return dataSources.Auth2API.signIn(args);
@@ -22,12 +22,10 @@ module.exports = {
    * @param __
    * @param dataSources
    *
-   * @return {Promise<{success: boolean}>}
+   * @return {Promise<{boolean}>}
    */
   async logout(_, __, { dataSources }) {
     await dataSources.Auth2API.logout();
-
-    return { success: true };
   },
 
   /**
@@ -37,7 +35,7 @@ module.exports = {
    * @param __
    * @param dataSources
    *
-   * @return {Promise<TokenRenew>}
+   * @return {Promise}
    */
   async tokenRenew(_, __, { dataSources }) {
     try {
@@ -47,7 +45,7 @@ module.exports = {
         throw new AuthenticationError('Token is not valid for refreshing');
       }
     }
-    
+
     return null;
   },
 
@@ -58,7 +56,7 @@ module.exports = {
    * @param args
    * @param dataSources
    *
-   * @return {Promise<ChooseDepartment>}
+   * @return {Promise}
    */
   chooseDepartment(_, args, { dataSources }) {
     return dataSources.Auth2API.chooseDepartment(args);
@@ -71,12 +69,10 @@ module.exports = {
    * @param __
    * @param dataSources
    *
-   * @return {Promise<{success: boolean}>}
+   * @return {Promise<{boolean}>}
    */
   async changePassword(_, { clientUuid, ...args }, { dataSources }) {
     await dataSources.Auth2API.changeClientPassword(clientUuid, args);
-
-    return { success: true };
   },
 
   /**
@@ -87,12 +83,10 @@ module.exports = {
    * @param args
    * @param dataSources
    *
-   * @return {Promise<{success: boolean}>}
+   * @return {Promise<{boolean}>}
    */
   async changeOperatorPassword(_, { operatorUuid, ...args }, { dataSources }) {
     await dataSources.Auth2API.changeOperatorPassword(operatorUuid, args);
-
-    return { success: true };
   },
 
   /**
@@ -102,12 +96,10 @@ module.exports = {
    * @param uuid
    * @param dataSources
    *
-   * @return {Promise<{success: boolean}>}
+   * @return {Promise<{boolean}>}
    */
   async resetUserPassword(_, { userUuid }, { dataSources }) {
     await dataSources.Auth2API.resetUserPassword(userUuid);
-
-    return { success: true };
   },
 
   /**
@@ -117,12 +109,10 @@ module.exports = {
    * @param args
    * @param dataSources
    *
-   * @return {Promise<{success: boolean}>}
+   * @return {Promise<{boolean}>}
    */
   async resetPassword(_, args, { dataSources }) {
     await dataSources.Auth2API.resetPassword(args);
-
-    return { success: true };
   },
 
   /**
@@ -132,12 +122,10 @@ module.exports = {
    * @param uuid
    * @param dataSources
    *
-   * @return {Promise<{success: boolean}>}
+   * @return {Promise<{boolean}>}
    */
   async unlockLogin(_, { uuid }, { dataSources }) {
     await dataSources.Auth2API.unlockUser(uuid);
-
-    return { success: true };
   },
 
   /**
@@ -149,12 +137,10 @@ module.exports = {
    * @param dataSources
    * @param brand
    *
-   * @return {Promise<{success: boolean}>}
+   * @return {Promise<{boolean}>}
    */
   async addAuthority(_, { uuid, ...args }, { dataSources, brand }) {
     await dataSources.Auth2API.addAuthority(uuid, { brand: brand.id, ...args });
-
-    return { success: true };
   },
 
   /**
@@ -166,11 +152,9 @@ module.exports = {
    * @param dataSources
    * @param brand
    *
-   * @return {Promise<{success: boolean}>}
+   * @return {Promise<{boolean}>}
    */
   async removeAuthority(_, { uuid, ...args }, { dataSources, brand }) {
     await dataSources.Auth2API.removeAuthority(uuid, { brand: brand.id, ...args });
-
-    return { success: true };
   },
 };

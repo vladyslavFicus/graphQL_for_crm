@@ -16,12 +16,13 @@ module.exports = {
    * Update callback
    *
    * @param _
+   * @param callbackId
    * @param args
    * @param dataSources
    *
    * @return {Promise}
    */
-  update(_, args, { dataSources }) {
-    return dataSources.CallbackAPI.updateCallback(args);
+  update(_, { callbackId, ...args }, { dataSources }) {
+    return dataSources.CallbackAPI.updateCallback(callbackId, args);
   },
 };

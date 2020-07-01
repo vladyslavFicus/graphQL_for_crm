@@ -15,6 +15,6 @@ module.exports = gql`
       operatorId: String
       status: Callback__Status__Enum
       reminder: String
-    ): Success
+    ): Callback
   }
 `;

@@ -2,8 +2,8 @@ module.exports = {
   _id({ callbackId }) {
     return callbackId;
   },
-  operator({ callbackId }, _, { dataSources }) {
-    return dataSources.OperatorAPI.getByUUID(callbackId);
+  operator({ operatorId }, _, { dataSources }) {
+    return dataSources.OperatorAPI.getByUUID(operatorId);
   },
   client({ userId }, _, { dataSources }) {
     return dataSources.ProfileViewAPI.getPersonalInfoByUUID(userId);

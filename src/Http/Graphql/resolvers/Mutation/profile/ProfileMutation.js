@@ -86,8 +86,6 @@ module.exports = {
    */
   async updateConfiguration(_, { playerUUID, ...args }, { dataSources }) {
     await dataSources.ProfileAPI.updateConfiguration(playerUUID, args);
-
-    return { success: true };
   },
 
   /**
@@ -102,8 +100,6 @@ module.exports = {
    */
   async updateKYCStatus(_, { playerUUID, ...args }, { dataSources }) {
     await dataSources.ProfileAPI.updateKYCStatus(playerUUID, args);
-
-    return { success: true };
   },
 
   /**

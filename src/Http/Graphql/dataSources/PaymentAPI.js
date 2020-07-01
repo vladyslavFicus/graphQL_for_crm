@@ -131,6 +131,18 @@ class PaymentAPI extends RESTDataSource {
   }
 
   /**
+   * Change payment method
+   *
+   * @param paymentId
+   * @param args
+   *
+   * @return {Promise}
+   */
+  changePaymentStatus({ paymentId, ...args }) {
+    return this.put(`/${paymentId}/status`, args);
+  }
+
+  /**
    * Change original agent
    *
    * @param paymentId
