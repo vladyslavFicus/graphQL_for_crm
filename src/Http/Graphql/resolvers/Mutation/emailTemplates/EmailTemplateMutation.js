@@ -8,8 +8,8 @@ module.exports = {
    *
    * @return {Promise}
    */
-  sendEmail(_, args, { dataSources }) {
-    return dataSources.EmailAPI.sendEmail(args);
+  async sendEmail(_, args, { dataSources }) {
+    await dataSources.EmailAPI.sendEmail(args);
   },
 
   /**
@@ -21,8 +21,8 @@ module.exports = {
    *
    * @return {Promise}
    */
-  createEmailTemplate(_, args, { dataSources }) {
-    return dataSources.EmailAPI.createTemplate(args);
+  async createEmailTemplate(_, args, { dataSources }) {
+    await dataSources.EmailAPI.createTemplate(args);
   },
 
   /**
@@ -34,8 +34,8 @@ module.exports = {
    *
    * @return {Promise}
    */
-  updateEmailTemplate(_, args, { dataSources }) {
-    return dataSources.EmailAPI.updateTemplate(args);
+  async updateEmailTemplate(_, args, { dataSources }) {
+    await dataSources.EmailAPI.updateTemplate(args);
   },
 
   /**
@@ -49,6 +49,5 @@ module.exports = {
    */
   async deleteEmailTemplate(_, { id }, { dataSources }) {
     await dataSources.EmailAPI.deleteTemplate(id);
-    return { id };
   },
 };

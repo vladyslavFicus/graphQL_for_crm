@@ -70,8 +70,8 @@ module.exports = gql`
     callback(id: String!): Callback
 
     # Email API
-    emailTemplate(id: ID!): Email @response
-    emailTemplates: [Email] @response
+    emailTemplate(id: ID!): Email
+    emailTemplates: [Email]
 
     # FilterSet API
     filterSet(uuid: String!): Object @response
