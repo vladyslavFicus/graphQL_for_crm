@@ -96,7 +96,7 @@ module.exports = gql`
     usersByType(userTypes: [String]!, onlyActive: Boolean): HierarchyUserByType
 
     # Lead API
-    lead(uuid: String!): Lead @response
+    lead(uuid: String!): Lead
     leads(
       uuids: [String]
       searchKeyword: String
@@ -111,7 +111,7 @@ module.exports = gql`
       migrationId: String
       lastNoteDateFrom: String
       lastNoteDateTo: String
-    ): Lead @pageable @response
+    ): Lead @pageable
 
     # Notes API
     notes(
