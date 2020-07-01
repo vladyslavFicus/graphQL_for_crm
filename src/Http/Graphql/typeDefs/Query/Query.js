@@ -46,8 +46,8 @@ module.exports = gql`
       sortColumn: String
       sortDirection: String
       targetUUID: String
-    ): Feed @pageable @response
-    feedTypes(uuid: String!): Object @response
+    ): Feed @pageable
+    feedTypes(uuid: String!): Object
 
     # Auth2 API
     authoritiesOptions: AuthorityOptions @response
