@@ -3,7 +3,7 @@ const { gql } = require('apollo-server-express');
 module.exports = gql`
   type Operator {
     _id: ID!
-    authorities: [Authority] @response
+    authorities: [Authority]
     country: String
     email: String
     firstName: String

@@ -2,7 +2,12 @@ const { gql } = require('apollo-server-express');
 
 module.exports = gql`
   type CallbackMutation {
-    create(userId: String!, reminder: String, operatorId: String!, callbackTime: String): Callback @response
+    create(
+      userId: String!
+      reminder: String
+      operatorId: String!
+      callbackTime: String
+    ): Callback
 
     update(
       callbackId: String!

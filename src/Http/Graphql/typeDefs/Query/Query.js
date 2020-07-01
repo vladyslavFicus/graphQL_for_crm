@@ -66,7 +66,7 @@ module.exports = gql`
       limit: Int
       callbackTimeFrom: String
       callbackTimeTo: String
-    ): Callback @pageable @response
+    ): Callback @pageable
     callback(id: String!): Callback
 
     # Email API
