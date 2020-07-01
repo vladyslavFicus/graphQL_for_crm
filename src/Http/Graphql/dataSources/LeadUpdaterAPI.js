@@ -5,7 +5,7 @@ class LeadUpdaterAPI extends RESTDataSource {
   /**
    * Update lead
    *
-   * @param uuid | leadUuid
+   * @param uuid Lead UUID
    * @param args
    *
    * @return {Promise}

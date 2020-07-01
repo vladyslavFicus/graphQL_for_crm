@@ -100,7 +100,6 @@ class PaymentAPI extends RESTDataSource {
    * Approve payment
    *
    * @param args
-   * @param typeAcc ('approve', 'reject')
    *
    * @return {Promise}
    */
@@ -112,7 +111,6 @@ class PaymentAPI extends RESTDataSource {
    * Reject payment
    *
    * @param args
-   * @param typeAcc ('approve', 'reject')
    *
    * @return {Promise}
    */

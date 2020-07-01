@@ -1,7 +1,5 @@
-require('isomorphic-fetch');
 const express = require('express');
 const config = require('config');
-const contextService = require('request-context');
 const Logger = require('./lib/Logger');
 const initRoutes = require('./Http/routes');
 const bootstrap = require('./bootstrap');
@@ -25,15 +23,6 @@ process.on('warning', (err) => {
 
   // Bootstrap application
   await bootstrap(app);
-
-  // Init request context middleware
-  app.use(contextService.middleware('request'));
-  app.use((req, res, next) => {
-    contextService.set('request:req', req);
-    contextService.set('request:res', res);
-
-    next();
-  });
 
   // Init all routes
   initRoutes(app);

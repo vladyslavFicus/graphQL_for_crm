@@ -166,7 +166,7 @@ class ProfileAPI extends RESTDataSource {
    *
    * @return {*}
    */
-  bulkUpdateSalesStasuses(args) {
+  bulkUpdateSalesStatuses(args) {
     return this.put('/admin/profiles/bulk/acquisition/sales-status', args);
   }
 
@@ -177,7 +177,7 @@ class ProfileAPI extends RESTDataSource {
    *
    * @return {*}
    */
-  bulkUpdateRetentionStasuses(args) {
+  bulkUpdateRetentionStatuses(args) {
     return this.put('/admin/profiles/bulk/acquisition/retention-status', args);
   }
 }

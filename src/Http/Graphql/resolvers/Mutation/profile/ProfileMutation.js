@@ -208,14 +208,14 @@ module.exports = {
     }
 
     if (salesStatus) {
-      await dataSources.ProfileAPI.bulkUpdateSalesStasuses({
+      await dataSources.ProfileAPI.bulkUpdateSalesStatuses({
         salesStatus,
         uuids: clientsForBulkUpdate.map(client => client.uuid),
       });
     }
 
     if (retentionStatus) {
-      await dataSources.ProfileAPI.bulkUpdateRetentionStasuses({
+      await dataSources.ProfileAPI.bulkUpdateRetentionStatuses({
         retentionStatus,
         uuids: clientsForBulkUpdate.map(client => client.uuid),
       });

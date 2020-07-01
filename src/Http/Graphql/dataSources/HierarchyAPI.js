@@ -40,7 +40,7 @@ class HierarchyAPI extends RESTDataSource {
   /**
    * Get brand info
    *
-   * @param uuid OperatorUUID
+   * @param brandId Brand ID
    *
    * @return {Promise}
    */
@@ -50,10 +50,10 @@ class HierarchyAPI extends RESTDataSource {
 
   /**
    *
-   * Get user branhces
+   * Get user branches
    *
    * @param uuid
-   * @param args.brandId
+   * @param args
    *
    * @return {Promise}
    *
@@ -179,9 +179,9 @@ class HierarchyAPI extends RESTDataSource {
   }
 
   /**
-   * Get users by userType
+   * Get users by user types
    *
-   * @param args
+   * @param types
    *
    * @return {Promise}
    */

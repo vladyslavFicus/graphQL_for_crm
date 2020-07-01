@@ -27,8 +27,6 @@ class AttachmentsAPI extends RESTDataSource {
   /**
    * Get files categories
    *
-   * @param args
-   *
    * @return {Promise}
    */
   getFilesCategories() {
@@ -62,12 +60,12 @@ class AttachmentsAPI extends RESTDataSource {
   /**
    * Upload file
    *
-   * @param uuid | client uuid
-   * @param formData
+   * @param uuid Client uuid
+   * @param file
    *
    * @return {Promise}
    */
-  uploadFile(file, uuid) {
+  uploadFile(uuid, file) {
     return new Promise(async (resolve, reject) => {
       const { filename, createReadStream } = await file.file;
 

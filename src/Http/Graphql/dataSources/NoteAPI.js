@@ -18,7 +18,7 @@ class NoteAPI extends RESTDataSource {
   /**
    * Get note
    *
-   * @param targetUUID TargetUUID
+   * @param targetUUID Target UUID
    *
    * @return {Promise}
    */

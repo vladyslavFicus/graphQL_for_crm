@@ -40,7 +40,7 @@ module.exports = {
    * @return {Promise<Boolean|*>}
    */
   upload(_, { file, uuid }, { dataSources }) {
-    return dataSources.AttachmentsAPI.uploadFile(file, uuid);
+    return dataSources.AttachmentsAPI.uploadFile(uuid, file);
   },
 
   /**

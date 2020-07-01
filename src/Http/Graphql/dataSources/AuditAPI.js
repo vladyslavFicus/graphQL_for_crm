@@ -15,7 +15,7 @@ class AuditAPI extends RESTDataSource {
   /**
    * Get feed types
    *
-   * @param uuid | playerUuid
+   * @param uuid Client UUID or Operator UUID or Partner UUID
    *
    * @return {Promise}
    */
