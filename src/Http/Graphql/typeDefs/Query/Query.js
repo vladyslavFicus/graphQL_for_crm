@@ -23,7 +23,7 @@ module.exports = gql`
       uploadedDateFrom: String
       uploadedDateTo: String
       verificationType: String
-    ): File @pageable @response
+    ): File @pageable
     clientFiles(
       size: Int
       page: Int
@@ -32,8 +32,8 @@ module.exports = gql`
       fileCategory: String
       uploadDateFrom: String
       uploadDateTo: String
-    ): [ClientFile] @response
-    filesCategories: FilesCategories @response
+    ): [ClientFile]
+    filesCategories: FilesCategories
 
     # Audit API
     feeds(

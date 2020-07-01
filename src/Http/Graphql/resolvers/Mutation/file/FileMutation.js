@@ -11,8 +11,6 @@ module.exports = {
    */
   async updateFileMeta(_, { uuid, ...args }, { dataSources }) {
     await dataSources.AttachmentsAPI.updateFileMeta(uuid, args);
-
-    return true;
   },
 
   /**
@@ -55,8 +53,6 @@ module.exports = {
    */
   async confirmFilesUploading(_, { profileUuid, ...args }, { dataSources }) {
     await dataSources.AttachmentsAPI.confirmFilesUploading(profileUuid, args);
-
-    return true;
   },
 
   /**
