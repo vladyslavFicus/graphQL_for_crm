@@ -221,6 +221,6 @@ module.exports = gql`
       tradeType: String
       volumeFrom: Float
       volumeTo: Float
-    ): TradingActivity @pageable @response
+    ): TradingActivity @pageable
   }
 `;
