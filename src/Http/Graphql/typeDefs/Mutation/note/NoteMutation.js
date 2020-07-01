@@ -11,7 +11,16 @@ module.exports = gql`
       targetUUID: String!
     ): Note @response
 
-    update(content: String!, noteId: String!, pinned: Boolean, subject: String, targetUUID: String): Note @response
-    remove(noteId: String!): Note @response
+    update(
+      content: String!
+      noteId: String!
+      pinned: Boolean
+      subject: String
+      targetUUID: String
+    ): Note @response
+
+    remove(
+      noteId: String!
+    ): Note @response
   }
 `;
