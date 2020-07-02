@@ -181,7 +181,7 @@ module.exports = gql`
       operatorUuids: [String]
       parentId: String
       type: Rule__Type__Enum
-    ): [Rule] @response
+    ): [Rule]
     rulesRetention(
       uuid: [String]
       createdByOrUuid: String
@@ -189,7 +189,7 @@ module.exports = gql`
       language: String
       name: String
       parentId: String
-    ): [Rule] @response
+    ): [Rule]
 
     # TradingAccount API && AccountView API
     tradingAccounts(
