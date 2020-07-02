@@ -17,6 +17,7 @@ module.exports = {
       createdBy: userUUID,
     });
   },
+
   /**
    * Delete sales rule
    *
@@ -29,6 +30,7 @@ module.exports = {
   async deleteRule(_, { uuid }, { dataSources }) {
     await dataSources.RuleProfileAPI.deleteRule(uuid);
   },
+
   /**
    * Create retention rule
    *
@@ -47,6 +49,7 @@ module.exports = {
       createdBy: userUUID,
     });
   },
+
   /**
    * Delete retention rule
    *
