@@ -71,7 +71,7 @@ module.exports = {
       return acc;
     }, {});
 
-    return { authoritiesOptions };
+    return authoritiesOptions;
   },
   async permission(_, __, { dataSources }) {
     const { actions } = await dataSources.Auth2API.getPermissions();

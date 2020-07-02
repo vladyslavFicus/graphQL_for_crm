@@ -50,8 +50,8 @@ module.exports = gql`
     feedTypes(uuid: String!): Object
 
     # Auth2 API
-    authoritiesOptions: AuthorityOptions @response
-    permission: [String] @response
+    authoritiesOptions: Object
+    permission: [String]
     loginLock(uuid: String!): LoginLock
 
     # BrandConfig API
