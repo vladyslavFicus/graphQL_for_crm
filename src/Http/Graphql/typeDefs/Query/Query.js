@@ -74,8 +74,8 @@ module.exports = gql`
     emailTemplates: [Email]
 
     # FilterSet API
-    filterSet(uuid: String!): Object @response
-    filterSets(type: FilterSet__Types__Enum): FilterSet @response
+    filterSet(uuid: String!): Object
+    filterSets(type: FilterSet__Types__Enum): FilterSet
 
     # Hierarchy API
     branch(
