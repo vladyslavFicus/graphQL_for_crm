@@ -132,7 +132,7 @@ module.exports = gql`
     notificationCenterUnread: Int @response
 
     # Operator API
-    operator(uuid: String!): Operator @response
+    operator(uuid: String!): Operator
     operators(
       country: String
       page: Page__Input
@@ -141,7 +141,7 @@ module.exports = gql`
       registrationDateTo: String
       searchBy: String
       status: String
-    ): Operator @pageable @response
+    ): Operator @pageable
 
     # Payment API
     payments(args: PaymentSearch__Input): Payment @pageable @response
