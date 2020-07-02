@@ -552,6 +552,14 @@ apollo-link@^1.2.3:
   dependencies:
     zen-observable-ts "^0.8.15"
 
+apollo-metrics@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/apollo-metrics/-/apollo-metrics-1.0.1.tgz#07682dfb007a825ee3614a1d89dc71b78fe84637"
+  integrity sha512-fSrZqzIITkvVgseVmpB5s8jiQ3Vit5EzLY0BG+cv0rKw9GWOLeteJZlDAAwfv6dIvsVrCoH/W91FaaC1k3nbEQ==
+  dependencies:
+    apollo-server-plugin-base "^0.6.8"
+    apollo-tracing "^0.8.8"
+
 apollo-server-caching@^0.5.1:
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/apollo-server-caching/-/apollo-server-caching-0.5.1.tgz#5cd0536ad5473abb667cc82b59bc56b96fb35db6"
@@ -622,12 +630,28 @@ apollo-server-express@^2.12.0:
     subscriptions-transport-ws "^0.9.16"
     type-is "^1.6.16"
 
+apollo-server-plugin-base@^0.6.8:
+  version "0.6.10"
+  resolved "https://registry.yarnpkg.com/apollo-server-plugin-base/-/apollo-server-plugin-base-0.6.10.tgz#33d3e2bb82fca22a00b6648a2f1c6b2cc032a8a0"
+  integrity sha512-/xT7UT/tbCDIoTQ4lcEQsJ0ACh7h7QG0BDmeSlDXjwDuENRI50bQ2QoluCMPitZXGe+FCQfLhvzFgzbsZGT0IA==
+  dependencies:
+    apollo-server-types "^0.2.10"
+
 apollo-server-plugin-base@^0.7.1:
   version "0.7.1"
   resolved "https://registry.yarnpkg.com/apollo-server-plugin-base/-/apollo-server-plugin-base-0.7.1.tgz#998d035723c5993171fd5aff3dbe7d2661db1a96"
   integrity sha512-PRavvoWq7/Xufqc+qkDQg3Aqueq4QrPBFfoCFIjhkJ4n2d2YoqE3gTGccb8YoWusfa62ASMn6R47OdNuVtEbXw==
   dependencies:
     apollo-server-types "^0.3.1"
+
+apollo-server-types@^0.2.10:
+  version "0.2.10"
+  resolved "https://registry.yarnpkg.com/apollo-server-types/-/apollo-server-types-0.2.10.tgz#017ee0c812e70b0846826834eb2c9eda036c1c7a"
+  integrity sha512-ke9ViPEWfW+2XLe66CaKGVZdS7duSLbamSKSprmmeMBd8s6tmjf0FumUVxV7X4quxPZi0OPo8x0LoLU7GWsmaA==
+  dependencies:
+    apollo-engine-reporting-protobuf "^0.4.4"
+    apollo-server-caching "^0.5.1"
+    apollo-server-env "^2.4.3"
 
 apollo-server-types@^0.3.1:
   version "0.3.1"
@@ -637,6 +661,14 @@ apollo-server-types@^0.3.1:
     apollo-engine-reporting-protobuf "^0.4.4"
     apollo-server-caching "^0.5.1"
     apollo-server-env "^2.4.3"
+
+apollo-tracing@^0.8.8:
+  version "0.8.11"
+  resolved "https://registry.yarnpkg.com/apollo-tracing/-/apollo-tracing-0.8.11.tgz#55822aac7381da77c703b52d35c4dab9393ec33c"
+  integrity sha512-Z0wDZ5QOBmpGoajB74ZKGTM7GzG6rqZRzAph4kxud6axcyNqUDKiKZ3Eere+NSLwvvt8M3qnPW4UJSUy/wwOXg==
+  dependencies:
+    apollo-server-env "^2.4.3"
+    graphql-extensions "^0.10.10"
 
 apollo-tracing@^0.9.1:
   version "0.9.1"
@@ -776,6 +808,11 @@ bcrypt-pbkdf@^1.0.0:
 binary-extensions@^1.0.0:
   version "1.12.0"
   resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-1.12.0.tgz#c2d780f53d45bba8317a8902d4ceeaf3a6385b14"
+
+bintrees@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/bintrees/-/bintrees-1.0.1.tgz#0e655c9b9c2435eaab68bf4027226d2b55a34524"
+  integrity sha1-DmVcm5wkNeqraL9AJyJtK1WjRSQ=
 
 body-parser@1.19.0:
   version "1.19.0"
@@ -2000,6 +2037,15 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.2:
 graphql-bigint@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/graphql-bigint/-/graphql-bigint-1.0.0.tgz#b2909be9c9970a9a7697273c27d0ea47a146a19c"
+
+graphql-extensions@^0.10.10:
+  version "0.10.10"
+  resolved "https://registry.yarnpkg.com/graphql-extensions/-/graphql-extensions-0.10.10.tgz#6b89d6b171f02a83bd4252f1e71c8d69147e7e2d"
+  integrity sha512-pNb1DmUk6vsGtCjCRecpKoXadKNMyKxyLyE9IX65N9aKSmLL+AF7dJOOc4MWhdaAXlzxaDDhe54GpaOfoH7AOw==
+  dependencies:
+    "@apollographql/apollo-tools" "^0.4.3"
+    apollo-server-env "^2.4.3"
+    apollo-server-types "^0.2.10"
 
 graphql-extensions@^0.11.1:
   version "0.11.1"
@@ -3589,6 +3635,13 @@ progress@^2.0.0:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/progress/-/progress-2.0.2.tgz#db9476f916bcc9ebe8a04efb22b18b0740376c61"
 
+prom-client@^12.0.0:
+  version "12.0.0"
+  resolved "https://registry.yarnpkg.com/prom-client/-/prom-client-12.0.0.tgz#9689379b19bd3f6ab88a9866124db9da3d76c6ed"
+  integrity sha512-JbzzHnw0VDwCvoqf8y1WDtq4wSBAbthMB1pcVI/0lzdqHGJI3KBJDXle70XK+c7Iv93Gihqo0a5LlOn+g8+DrQ==
+  dependencies:
+    tdigest "^0.1.1"
+
 proxy-addr@~2.0.5:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/proxy-addr/-/proxy-addr-2.0.6.tgz#fdc2336505447d3f2f2c638ed272caf614bbb2bf"
@@ -4243,6 +4296,13 @@ tar@^4:
     mkdirp "^0.5.0"
     safe-buffer "^5.1.2"
     yallist "^3.0.2"
+
+tdigest@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/tdigest/-/tdigest-0.1.1.tgz#2e3cb2c39ea449e55d1e6cd91117accca4588021"
+  integrity sha1-Ljyyw56kSeVdHmzZEReszKRYgCE=
+  dependencies:
+    bintrees "1.0.1"
 
 term-size@^1.2.0:
   version "1.2.0"

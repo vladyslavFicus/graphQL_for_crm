@@ -27,6 +27,7 @@
     "@hrzn/apollo-extension": "^1.0.13",
     "@hrzn/brands-config": "1.0.10",
     "@hrzn/k8s-configmap": "^1.0.1",
+    "apollo-metrics": "^1.0.1",
     "apollo-server-express": "^2.12.0",
     "bunyan": "^1.8.12",
     "bunyan-format": "^0.2.1",
@@ -50,6 +51,7 @@
     "moment": "^2.24.0",
     "node-zookeeper-client": "^0.2.3",
     "nodemon": "^1.18.10",
+    "prom-client": "^12.0.0",
     "request-context": "^2.0.0",
     "uuid": "3.3.2",
     "yamljs": "^0.3.0"
