@@ -21,8 +21,17 @@ module.exports = gql`
       readOnly: Boolean
     ): Boolean
 
-    changePassword(accountUUID: String!, password: String!, profileUUID: String!): Boolean
-    changeLeverage(accountUUID: String!, leverage: Int!): Boolean
+    changePassword(
+      accountUUID: String!
+      password: String!
+      profileUUID: String!
+    ): Boolean
+
+    changeLeverage(
+      accountUUID: String!
+      leverage: Int!
+    ): Boolean
+
     approveChangingLeverage(accountUUID: String!): Boolean
     rejectChangingLeverage(accountUUID: String!): Boolean
   }
