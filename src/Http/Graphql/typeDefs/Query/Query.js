@@ -144,10 +144,10 @@ module.exports = gql`
     ): Operator @pageable
 
     # Payment API
-    payments(args: PaymentSearch__Input): Payment @pageable @response
-    clientPayments(args: PaymentSearch__Input): Payment @pageable @response
-    paymentMethods: [String] @response
-    manualPaymentMethods: [String] @response
+    payments(args: PaymentSearch__Input): Payment @pageable
+    clientPayments(args: PaymentSearch__Input): Payment @pageable
+    paymentMethods: [String]
+    manualPaymentMethods: [String]
     paymentsStatistic(
       dateFrom: String
       dateTo: String
@@ -156,7 +156,7 @@ module.exports = gql`
       paymentStatus: String
       paymentType: String
       additionalStatistics: [PaymentStatisticDateRange__Input]
-    ): PaymentStatistic @response
+    ): PaymentStatistic
 
     # Profile API && ProfileView API
     profile(playerUUID: String!): Profile @response
