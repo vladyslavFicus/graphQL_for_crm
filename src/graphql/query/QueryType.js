@@ -473,12 +473,8 @@ const QueryType = new GraphQLObjectType({
       resolve: getNotificationCenter,
     },
     notificationCenterTypes: {
-      type: ResponseType(new GraphQLList(GraphQLString), 'NotificationCenterTypes'),
+      type: ResponseType(GraphQLJSONObject, 'NotificationCenterTypes'),
       resolve: getNotificationCenterTypes,
-    },
-    notificationCenterSubtypes: {
-      type: ResponseType(new GraphQLList(GraphQLString), 'NotificationCenterSubtypes'),
-      resolve: getNotificationCenterSubtypes,
     },
     notificationCenterUnread: {
       type: ResponseType(GraphQLInt, 'NotificationCenterUnread'),
