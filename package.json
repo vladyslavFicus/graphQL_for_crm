@@ -28,7 +28,7 @@
     "@hrzn/brands-config": "1.0.10",
     "@hrzn/k8s-configmap": "^1.0.1",
     "apollo-metrics": "^1.0.1",
-    "apollo-server-express": "^2.12.0",
+    "apollo-server-express": "^2.15.1",
     "bunyan": "^1.8.12",
     "bunyan-format": "^0.2.1",
     "bunyan-gelf": "^1.1.0",

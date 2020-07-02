@@ -15,9 +15,15 @@ module.exports = app => {
 
   const server = new ApolloServer({
     schema,
+
+    // Apollo metrics to Prometheus (IMPORTANT: tracing needs to be enabled to get resolver and request timings)
     plugins: [apolloMetricsPlugin],
-    // IMPORTANT: tracing needs to be enabled to get resolver and request timings!
     tracing: true,
+
+    // Enable metrics to Apollo Studio
+    engine: {
+      reportSchema: true,
+    },
 
     introspection: NODE_ENV === 'development' || ENV_NAME === 'dev01',
     playground: NODE_ENV === 'development' || ENV_NAME === 'dev01',
