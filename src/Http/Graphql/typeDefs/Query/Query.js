@@ -159,14 +159,14 @@ module.exports = gql`
     ): PaymentStatistic
 
     # Profile API && ProfileView API
-    profile(playerUUID: String!): Profile @response
-    profiles(args: ClientSearch__Input): ProfileView @pageable @response
+    profile(playerUUID: String!): Profile
+    profiles(args: ClientSearch__Input): ProfileView @pageable
     registrationStatistic(
       dateTo: String
       dateFrom: String
       detalization: StatisticDetalization__Enum
       additionalStatistics: [RegistrationStatisticDateRange__Input]
-    ): RegistrationStatistic @response
+    ): RegistrationStatistic
 
     # Rules API
     rules(
