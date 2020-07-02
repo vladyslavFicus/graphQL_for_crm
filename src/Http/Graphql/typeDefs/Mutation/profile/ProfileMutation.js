@@ -42,7 +42,7 @@ module.exports = gql`
       city: String
       address: String
       postCode: String
-    ): Profile @response
+    ): Profile
 
     updateContacts(
       playerUUID: String!
@@ -50,6 +50,6 @@ module.exports = gql`
       email: String
       additionalPhone: String
       additionalEmail: String
-    ): Profile @response
+    ): Profile
   }
 `;
