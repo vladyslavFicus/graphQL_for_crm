@@ -126,6 +126,8 @@ const ProfileViewLastActivity = new GraphQLObjectType({
   name: 'ProfileViewLastActivity',
   fields: () => ({
     date: { type: GraphQLString },
+    location: { type: GraphQLString },
+    application: { type: GraphQLString },
   }),
 });
 
