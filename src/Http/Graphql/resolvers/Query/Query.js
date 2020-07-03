@@ -259,9 +259,6 @@ module.exports = {
   notificationCenterTypes(_, __, { dataSources }) {
     return dataSources.NotificationCenterAPI.getTypes();
   },
-  notificationCenterSubtypes(_, __, { dataSources }) {
-    return dataSources.NotificationCenterAPI.getSubtypes();
-  },
   notificationCenterUnread(_, __, { dataSources }) {
     return dataSources.NotificationCenterAPI.getUnreadCount();
   },

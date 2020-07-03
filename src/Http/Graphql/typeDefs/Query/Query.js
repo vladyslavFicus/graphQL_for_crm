@@ -126,10 +126,9 @@ module.exports = gql`
     ): Note @pageable
 
     # NotificationCenter API
-    notificationCenter(args: NotificationCenterSearch__Input): NotificationCenter @pageable @response
-    notificationCenterTypes: [String] @response
-    notificationCenterSubtypes: [String] @response
-    notificationCenterUnread: Int @response
+    notificationCenter(args: NotificationCenterSearch__Input): NotificationCenter @pageable
+    notificationCenterTypes: Object
+    notificationCenterUnread: Int
 
     # Operator API
     operator(uuid: String!): Operator
