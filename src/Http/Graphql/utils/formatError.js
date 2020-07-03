@@ -1,12 +1,19 @@
-const { AuthenticationError, UserInputError } = require('apollo-server-express');
+const { AuthenticationError, UserInputError } = require('@hrzn/apollo-datasource');
 const Logger = require('../../../lib/Logger');
 
+/**
+ * Logging all errors except AuthenticationError and UserInputError
+ *
+ * @param error
+ * @return {*}
+ */
 module.exports = (error) => {
-  const isAuthenticationError = error.originalError instanceof AuthenticationError;
-  const isUserInputError = error.originalError instanceof UserInputError;
+  const skip = [
+    error.originalError instanceof AuthenticationError,
+    error.originalError instanceof UserInputError,
+  ].some(v => v);
 
-  // Logging all errors except AuthenticationError and UserInputError
-  if (!isAuthenticationError && !isUserInputError) {
+  if (!skip) {
     Logger.error(error);
   }
 

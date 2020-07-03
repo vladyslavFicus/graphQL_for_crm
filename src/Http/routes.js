@@ -4,6 +4,7 @@ const createMetricsPlugin = require('apollo-metrics');
 const context = require('./Graphql/utils/context');
 const dataSources = require('./Graphql/utils/dataSources');
 const formatError = require('./Graphql/utils/formatError');
+const engine = require('./Graphql/utils/engine');
 const schema = require('./Graphql/schema');
 
 const { NODE_ENV, ENV_NAME } = process.env;
@@ -16,11 +17,12 @@ module.exports = (app) => {
     context,
     dataSources,
     formatError,
+    engine,
     introspection: NODE_ENV === 'development' || ENV_NAME === 'dev01',
     playground: NODE_ENV === 'development' || ENV_NAME === 'dev01',
 
+    // Apollo metrics to Prometheus (IMPORTANT: tracing needs to be enabled to get resolver and request timings)
     plugins: [apolloMetricsPlugin],
-    // IMPORTANT: tracing needs to be enabled to get resolver and request timings!
     tracing: true,
   });
 
