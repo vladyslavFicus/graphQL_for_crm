@@ -58,7 +58,7 @@ class NoteAPI extends RESTDataSource {
    *
    * @return {Promise}
    */
-  updateNote({ noteId, ...args }) {
+  updateNote(noteId, args) {
     return this.put(`/${noteId}`, args);
   }
 

@@ -9,7 +9,7 @@ module.exports = gql`
       subject: String
       targetType: String!
       targetUUID: String!
-    ): Note @response
+    ): Note
 
     update(
       content: String!
@@ -17,10 +17,10 @@ module.exports = gql`
       pinned: Boolean
       subject: String
       targetUUID: String
-    ): Note @response
+    ): Note
 
     remove(
       noteId: String!
-    ): Note @response
+    ): Note
   }
 `;

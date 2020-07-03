@@ -12,7 +12,7 @@ module.exports = gql`
       phone: String
       role: String!
       userType: String!
-    ): Operator @response
+    ): Operator
 
     updateOperator(
       uuid: String!
@@ -21,14 +21,14 @@ module.exports = gql`
       lastName: String!
       phoneNumber: String
       sip: String
-    ): Operator @response
+    ): Operator
 
     addExistingOperator(
       branchId: String
       department: String!
       email: String!
       role: String!
-    ): Operator @response
+    ): Operator
 
     changeStatus(
       reason: String!
