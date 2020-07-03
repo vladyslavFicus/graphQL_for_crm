@@ -35,10 +35,6 @@ const getNotificationCenterTypes = (_, __, { headers: { authorization } }) => {
   return getNotificationCenterTypesRequest(authorization);
 };
 
-const getNotificationCenterSubtypes = (_, __, { headers: { authorization } }) => {
-  return getNotificationCenterSubtypesRequest(authorization);
-};
-
 const getNotificationCenterUnread = (_, __, { headers: { authorization } }) => {
   return getNotificationCenterUnreadRequest(authorization);
 };
@@ -48,5 +44,4 @@ module.exports = {
   getNotificationCenter,
   getNotificationCenterTypes,
   getNotificationCenterUnread,
-  getNotificationCenterSubtypes,
 };

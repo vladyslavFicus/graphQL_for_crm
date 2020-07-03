@@ -36,17 +36,6 @@ const getNotificationCenterTypesRequest = authorization => {
   }).then(response => response.json());
 };
 
-const getNotificationCenterSubtypesRequest = authorization => {
-  return fetch(`${getBaseUrl('notification')}/admin/notifications/subtypes`, {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      authorization,
-      'content-type': 'application/json',
-    },
-  }).then(response => response.json());
-};
-
 const getNotificationCenterUnreadRequest = authorization => {
   return fetch(`${getBaseUrl('notification')}/admin/notifications/unread/amount`, {
     method: 'GET',
@@ -63,5 +52,4 @@ module.exports = {
   getNotificationCenterRequest,
   getNotificationCenterTypesRequest,
   getNotificationCenterUnreadRequest,
-  getNotificationCenterSubtypesRequest,
 };
