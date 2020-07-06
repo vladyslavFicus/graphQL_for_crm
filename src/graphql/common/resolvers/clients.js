@@ -102,7 +102,6 @@ const bulkRepresentativeUpdate = async (_, args, { headers: { authorization } })
       },
       authorization
     );
-    console.log('error: ', error);
 
     if (error) {
       return { error };
