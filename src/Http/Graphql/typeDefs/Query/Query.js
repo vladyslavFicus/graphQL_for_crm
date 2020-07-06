@@ -12,6 +12,7 @@ module.exports = gql`
       registrationDateFrom: String
       registrationDateTo: String
     ): Partner @pageable
+    schedule(affiliateUuid: String!): [Schedule]
 
     # Attachments API
     files(

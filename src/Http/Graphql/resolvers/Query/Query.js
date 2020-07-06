@@ -17,6 +17,9 @@ module.exports = {
   partner(_, { uuid }, { dataSources }) {
     return dataSources.AffiliateAPI.getPartner(uuid);
   },
+  schedule(_, { affiliateUuid }, { dataSources }) {
+    return dataSources.AffiliateAPI.getSchedule(affiliateUuid);
+  },
 
   /**
    * Attachments API
