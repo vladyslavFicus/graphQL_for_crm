@@ -4,7 +4,7 @@ const {
 } = require('../../../utils/hierarchy');
 const { getProfiles, bulkUpdateSalesStasuses, bulkUpdateRetentionStasuses } = require('../../../utils/profile');
 
-const CLIENTS_SIZE_LIMIT = 10000;
+const CLIENTS_SIZE_LIMIT = 2000;
 
 const getClientsToBulkUpdate = async (args, authorization) => {
   const { allRowsSelected, clients: clientsData, searchParams, totalElements } = args;
