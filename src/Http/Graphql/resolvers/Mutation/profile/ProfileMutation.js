@@ -186,9 +186,9 @@ module.exports = {
     if (allRowsSelected) {
       const excludeClientsUuids = clients.map(({ uuid }) => uuid);
 
-      const MAX_LIMIT = 10000;
+      const MAX_LIMIT = 2000;
       const searchLimit = get(searchParams, 'searchLimit') || Infinity;
-      const bulkUpdateClientsSize = Math.min(searchLimit, totalElements, MAX_LIMIT); // Must be x <= 10000
+      const bulkUpdateClientsSize = Math.min(searchLimit, totalElements, MAX_LIMIT); // Must be x <= 2000
 
       const allClientsData = await dataSources.ProfileViewAPI.search({
         ...searchParams,
