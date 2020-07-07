@@ -1,6 +1,20 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`
+  type Partner__Schedule__CountrySpreads {
+    country: String
+    limit: Int
+  }
+
+  type Partner__Schedule {
+    activated: Boolean
+    day: String
+    totalLimit: Int
+    countrySpreads: [Partner__Schedule__CountrySpreads]
+    workingHoursFrom: String
+    workingHoursTo: String
+  }
+  
   type Partner__PermissionType {
     allowedIpAddresses: [String]
     forbiddenCountries: [String]
@@ -28,5 +42,6 @@ module.exports = gql`
     statusChangeAuthor: String
     statusChangeDate: String
     uuid: String
+    schedule: [Partner__Schedule]
   }
 `;

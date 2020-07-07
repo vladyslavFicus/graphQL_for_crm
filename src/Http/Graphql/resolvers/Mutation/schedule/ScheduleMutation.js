@@ -8,8 +8,8 @@ module.exports = {
    *
    * @return {*}
    */
-  createSchedule(_, args, { dataSources }) {
-    return dataSources.AffiliateAPI.createSchedule(args);
+  async createSchedule(_, args, { dataSources }) {
+    await dataSources.AffiliateAPI.createSchedule(args);
   },
 
   /**
@@ -21,7 +21,7 @@ module.exports = {
    *
    * @return {Promise}
    */
-  changeScheduleStatus(_, args, { dataSources }) {
-    return dataSources.AffiliateAPI.changeScheduleStatus(args);
+  async changeScheduleStatus(_, args, { dataSources }) {
+    await dataSources.AffiliateAPI.changeScheduleStatus(args);
   },
 };

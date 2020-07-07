@@ -56,10 +56,8 @@ class AffiliateAPI extends RESTDataSource {
    *
    * @return {Promise<{success: boolean}>}
    */
-  async createSchedule({ affiliateUuid, ...args }) {
-    await this.post(`/affiliates/traffic/${affiliateUuid}/day`, args);
-
-    return { success: true };
+  createSchedule({ affiliateUuid, ...args }) {
+    return this.post(`/affiliates/traffic/${affiliateUuid}/day`, args);
   }
 
   /**
@@ -70,10 +68,8 @@ class AffiliateAPI extends RESTDataSource {
    *
    * @return {Promise<{success: boolean}>}
    */
-  async changeScheduleStatus({ affiliateUuid, data }) {
-    await this.put(`/affiliates/traffic/${affiliateUuid}/activity`, data);
-
-    return { success: true };
+  changeScheduleStatus({ affiliateUuid, data }) {
+    return this.put(`/affiliates/traffic/${affiliateUuid}/activity`, data);
   }
 
   /**

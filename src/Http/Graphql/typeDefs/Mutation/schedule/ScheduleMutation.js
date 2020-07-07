@@ -10,10 +10,10 @@ module.exports = gql`
       countrySpreads: [Schedule__Input]
       workingHoursFrom: String
       workingHoursTo: String
-    ): Success
+    ): Boolean
     changeScheduleStatus(
       affiliateUuid: String!
-      data: [ScheduleStatus__Input],
-    ): Success
+      data: [ScheduleStatus__Input]
+    ): Boolean
   }
 `;
