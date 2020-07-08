@@ -42,6 +42,7 @@ module.exports = gql`
       city: String
       address: String
       postCode: String
+      poBox: String
     ): Profile
 
     updateContacts(

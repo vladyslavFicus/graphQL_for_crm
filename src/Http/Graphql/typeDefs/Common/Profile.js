@@ -15,6 +15,7 @@ module.exports = gql`
     address: String
     city: String
     countryCode: String
+    poBox: String
     postCode: String
     state: String
   }
