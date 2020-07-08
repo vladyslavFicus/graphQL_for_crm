@@ -31,6 +31,8 @@ module.exports = gql`
   type ProfileView__LastActivity {
     location: String
     date: String
+    eventType: String
+    eventValue: String
   }
 
   type ProfileView__PaymentDetails {
