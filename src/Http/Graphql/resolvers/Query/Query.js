@@ -335,7 +335,7 @@ module.exports = {
   /**
    * Operator API
    */
-  async operator(_, { uuid }, { dataSources }) {
+  operator(_, { uuid }, { dataSources }) {
     return dataSources.OperatorAPI.getByUUID(uuid);
   },
   async operators(_, args, { dataSources, userUUID }) {
