@@ -1,8 +1,8 @@
 const platform = require('../config/platform');
 const zookeeper = require('../config/zookeeper');
-const Logger = require('../src/utils/logger');
+const Logger = require('../src/lib/Logger');
 
-module.exports = async app => {
+module.exports = async () => {
   // Load platform configuration
   await platform.load();
 
