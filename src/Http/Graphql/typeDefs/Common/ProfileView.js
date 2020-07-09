@@ -74,5 +74,6 @@ module.exports = gql`
     status: ProfileView__Status
     uuid: String!
     warnings: [String]
+    online: Boolean
   }
 `;
