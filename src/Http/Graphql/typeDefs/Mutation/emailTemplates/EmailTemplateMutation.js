@@ -7,7 +7,7 @@ module.exports = gql`
       templateName: String
       text: String!
       toEmail: String!
-    ): Email
+    ): Boolean
 
     createEmailTemplate(
       name: String!
