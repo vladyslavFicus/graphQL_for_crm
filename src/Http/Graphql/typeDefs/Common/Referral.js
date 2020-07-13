@@ -1,8 +1,21 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`
+  type Referral__Acquisition {
+    acquisitionStatus: String
+    retentionOperator: Operator
+    retentionRepresentative: String
+    retentionStatus: String
+    salesOperator: Operator
+    salesRepresentative: String
+    salesStatus: String
+  }
+
   type Referral__Info {
+    name: String
     profileUuid: String
+    languageCode: String
+    registrationDate: String
   }
 
   type Referral__FTD {
@@ -19,21 +32,9 @@ module.exports = gql`
     normalizedAmount: Float
   }
 
-  type Referral__Acquisition {
-
-  }
-
   type Referral {
-    # uuid
-    # firstName
-    # lastName
-    # languageCode
-    # address {
-    #   countryCode
-    # }
     referralInfo: Referral__Info
     bonusType: Referral__BonusType__Enum
-    registrationDate: String
     acquisition: Referral__Acquisition
     ftdInfo: Referral__FTD
     remuneration: Referral__Remuneration
