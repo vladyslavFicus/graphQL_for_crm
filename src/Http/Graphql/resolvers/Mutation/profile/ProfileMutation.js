@@ -10,8 +10,8 @@ module.exports = {
    *
    * @return {Promise<*>}
    */
-  createProfile(_, { args }, { dataSources }) {
-    return dataSources.ProfileAPI.createProfile(args);
+  async createProfile(_, { args }, { dataSources }) {
+    await dataSources.ProfileAPI.createProfile(args);
   },
 
   /**
