@@ -99,6 +99,8 @@ module.exports = gql`
     lead(uuid: String!): Lead
     leads(
       uuids: [String]
+      desks: [String]
+      teams: [String]
       searchKeyword: String
       page: Int
       limit: Int
