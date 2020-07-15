@@ -16,6 +16,10 @@ module.exports = {
 
     const { sip } = await dataSources.OperatorAPI.getByUUID(userUUID);
 
-    return dataSources.AsteriskAPI.createCall(url, token, sip, number, prefix);
+    const { success } = await dataSources.AsteriskAPI.createCall(url, token, sip, number, prefix);
+
+    if (!success) {
+      throw new Error('Call failed');
+    }
   },
 };

@@ -1,7 +1,6 @@
 const { makeExecutableSchema } = require('apollo-server-express');
 const { autoloadTypeDefs, autoloadResolvers } = require('@hrzn/apollo-autoload');
 const { NestedDirective, PageableDirective } = require('@hrzn/apollo-directive');
-const ResponseDirective = require('./directives/ResponseDirective');
 
 const schema = makeExecutableSchema({
   typeDefs: autoloadTypeDefs(`${__dirname}/typeDefs`),
@@ -9,7 +8,6 @@ const schema = makeExecutableSchema({
   schemaDirectives: {
     nested: NestedDirective,
     pageable: PageableDirective,
-    response: ResponseDirective,
   },
 });
 

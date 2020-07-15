@@ -6,7 +6,7 @@ module.exports = {
    * @param args
    * @param dataSources
    *
-   * @return {Promise<Note|*>}
+   * @return {Promise}
    */
   add(_, args, { dataSources }) {
     return dataSources.NoteAPI.addNote(args);
@@ -16,13 +16,14 @@ module.exports = {
    * Update note
    *
    * @param _
+   * @param noteId
    * @param args
    * @param dataSources
    *
-   * @return {Promise<Note|*>}
+   * @return {Promise}
    */
   update(_, { noteId, ...args }, { dataSources }) {
-    return dataSources.NoteAPI.updateNote(args);
+    return dataSources.NoteAPI.updateNote(noteId, args);
   },
 
   /**
@@ -36,6 +37,7 @@ module.exports = {
    */
   async remove(_, { noteId }, { dataSources }) {
     await dataSources.NoteAPI.removeNote(noteId);
+
     return { noteId };
   },
 };

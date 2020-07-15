@@ -10,7 +10,6 @@ module.exports = {
    */
   async update(_, { uuid, ...args }, { dataSources, brand: { id: brandId } }) {
     await dataSources.LeadUpdaterAPI.updateLead(uuid, { brandId, ...args });
-    return true;
   },
 
   /**
@@ -68,8 +67,6 @@ module.exports = {
         parentUsers: salesRep,
       });
     }
-
-    return true;
   },
 
   /**
@@ -86,7 +83,5 @@ module.exports = {
    * */
   async uploadLeads(_, { file }, { dataSources, brand: { id: brand } }) {
     await dataSources.LeadUpdaterAPI.uploadLeads(file, brand);
-
-    return true;
   },
 };

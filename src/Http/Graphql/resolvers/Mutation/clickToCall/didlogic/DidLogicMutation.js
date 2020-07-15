@@ -15,12 +15,6 @@ module.exports = {
 
     const { phoneNumber } = await dataSources.OperatorAPI.getByUUID(userUUID);
 
-    try {
-      await dataSources.DidLogicAPI.createCall(url, number, phoneNumber);
-
-      return { success: true };
-    } catch (e) {
-      return { success: false };
-    }
+    await dataSources.DidLogicAPI.createCall(url, number, phoneNumber);
   },
 };

@@ -23,15 +23,6 @@ class NotificationCenterAPI extends RESTDataSource {
   }
 
   /**
-   * Get notification subtypes
-   *
-   * @return {*}
-   */
-  getSubtypes() {
-    return this.get('/admin/notifications/subtypes');
-  }
-
-  /**
    * Get count of unread notifications
    *
    * @return {Promise}

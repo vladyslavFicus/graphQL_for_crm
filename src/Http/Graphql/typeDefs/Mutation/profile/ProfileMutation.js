@@ -3,12 +3,12 @@ const { gql } = require('apollo-server-express');
 module.exports = gql`
   type ProfileMutation {
     createProfile(args: CreateProfile__Input): CreatedProfile
-    changeProfileStatus(playerUUID: String!, status: String!, reason: String!, comment: String): Profile @response
-    updateConfiguration(playerUUID: String!, crs: Boolean, fatca: Boolean, internalTransfer: Boolean): Success
-    updateKYCStatus(playerUUID: String!, kycStatus: String): Success
+    changeProfileStatus(playerUUID: String!, status: String!, reason: String!, comment: String): Profile
+    updateConfiguration(playerUUID: String!, crs: Boolean, fatca: Boolean, internalTransfer: Boolean): Boolean
+    updateKYCStatus(playerUUID: String!, kycStatus: String): Boolean
     updateEmail(playerUUID: String!, email: String): Profile
-    verifyEmail(playerUUID: String!): Profile @response
-    verifyPhone(playerUUID: String!, phone: String): Profile @response
+    verifyEmail(playerUUID: String!): Profile
+    verifyPhone(playerUUID: String!, phone: String): Profile
 
     bulkClientUpdate(
       salesRepresentative: [String]
@@ -33,7 +33,7 @@ module.exports = gql`
       languageCode: String
       passport: Passport__Input
       timeZone: String
-    ): Profile @response
+    ): Profile
 
     updateAddress(
       playerUUID: String!
@@ -42,7 +42,8 @@ module.exports = gql`
       city: String
       address: String
       postCode: String
-    ): Profile @response
+      poBox: String
+    ): Profile
 
     updateContacts(
       playerUUID: String!
@@ -50,6 +51,6 @@ module.exports = gql`
       email: String
       additionalPhone: String
       additionalEmail: String
-    ): Profile @response
+    ): Profile
   }
 `;

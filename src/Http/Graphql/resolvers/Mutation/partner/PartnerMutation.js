@@ -6,7 +6,7 @@ module.exports = {
    * @param args
    * @param dataSources
    *
-   * @return {Promise<Partner|*>}
+   * @return {Promise}
    */
   createPartner(_, args, { dataSources }) {
     return dataSources.AffiliateAPI.createPartner(args);
@@ -19,12 +19,10 @@ module.exports = {
    * @param args
    * @param dataSources
    *
-   * @return {Promise<Partner|*>}
+   * @return {Promise}
    */
   async updatePartner(_, args, { dataSources }) {
     await dataSources.AffiliateAPI.updatePartner(args);
-
-    return true;
   },
 
   /**
@@ -34,11 +32,35 @@ module.exports = {
    * @param args
    * @param dataSources
    *
-   * @return {Object<{ success: boolean }>}
+   * @return {Promise}
    */
   async changePartnerAccountStatus(_, args, { dataSources }) {
     await dataSources.AffiliateAPI.changePartnerAccountStatus(args);
+  },
 
-    return true;
+  /**
+   * Create schedule
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {*}
+   */
+  async createSchedule(_, args, { dataSources }) {
+    await dataSources.AffiliateAPI.createSchedule(args);
+  },
+
+  /**
+   * Change schedule status
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async changeScheduleStatus(_, args, { dataSources }) {
+    await dataSources.AffiliateAPI.changeScheduleStatus(args);
   },
 };

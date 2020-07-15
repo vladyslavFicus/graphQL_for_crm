@@ -75,12 +75,10 @@ module.exports = {
    * @param args
    * @param dataSources
    *
-   * @return {Promise<{success: boolean}>}
+   * @return {Promise}
    */
   async changeStatus(_, args, { dataSources }) {
     await dataSources.OperatorAPI.changeStatus(args);
-
-    return { success: true };
   },
 
   /**
@@ -91,7 +89,7 @@ module.exports = {
    * @param branchId
    * @param dataSources
    *
-   * @return {Promise<{*}>}
+   * @return {Promise}
    */
   async addOperatorToBranch(_, { operatorId, branchId }, { dataSources }) {
     await dataSources.HierarchyUpdaterAPI.updateUserBranches(operatorId, { assignToBranch: branchId });
@@ -107,7 +105,7 @@ module.exports = {
    * @param branchId
    * @param dataSources
    *
-   * @return {Promise<{*}>}
+   * @return {Promise}
    */
   async removeOperatorFromBranch(_, { operatorId, branchId }, { dataSources }) {
     await dataSources.HierarchyUpdaterAPI.updateUserBranches(operatorId, { unassignFromBranch: branchId });
@@ -123,7 +121,7 @@ module.exports = {
    * @param branchId
    * @param dataSources
    *
-   * @return {Promise<{*}>}
+   * @return {Promise
    */
   async updateOperatorUserType(_, { operatorId, ...args }, { dataSources }) {
     await dataSources.HierarchyUpdaterAPI.updateUserType(operatorId, args);

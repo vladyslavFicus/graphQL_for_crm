@@ -1,15 +1,6 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`
-  input PartnerMutation__PermissionType {
-    allowedIpAddresses: [String]
-    forbiddenCountries: [String]
-    showFTDAmount: Boolean
-    showKycStatus: Boolean
-    showNotes: Boolean
-    showSalesStatus: Boolean
-  }
-
   type PartnerMutation {
     createPartner(
       email: String!
@@ -27,7 +18,7 @@ module.exports = gql`
       externalAffiliateId: String
       firstName: String!
       lastName: String!
-      permission: PartnerMutation__PermissionType
+      permission: PartnerPermission__Input
       phone: String
       public: Boolean
       uuid: String!
@@ -37,6 +28,21 @@ module.exports = gql`
       uuid: String!
       reason: String!
       status: String!
+    ): Boolean
+    
+    createSchedule(
+      affiliateUuid: String!
+      activated: Boolean
+      day: String
+      totalLimit: Int
+      countrySpreads: [PartnerSchedule__Input]
+      workingHoursFrom: String
+      workingHoursTo: String
+    ): Boolean
+    
+    changeScheduleStatus(
+      affiliateUuid: String!
+      data: [PartnerScheduleStatus__Input]
     ): Boolean
   }
 `;

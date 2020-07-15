@@ -30,6 +30,10 @@ module.exports = gql`
 
   type ProfileView__LastActivity {
     date: String
+    location: String
+    eventType: String
+    eventValue: String
+    application: String
   }
 
   type ProfileView__PaymentDetails {
@@ -70,5 +74,6 @@ module.exports = gql`
     status: ProfileView__Status
     uuid: String!
     warnings: [String]
+    online: Boolean
   }
 `;

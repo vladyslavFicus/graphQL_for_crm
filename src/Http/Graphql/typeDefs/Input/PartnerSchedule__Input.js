@@ -1,12 +1,12 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`
-  input Schedule__Input {
+  input PartnerSchedule__Input {
     country: String
     limit: Int
   }
   
-  input ScheduleStatus__Input {
+  input PartnerScheduleStatus__Input {
     activated: Boolean
     day: String
   }

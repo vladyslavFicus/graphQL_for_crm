@@ -23,7 +23,7 @@ module.exports = gql`
       uploadedDateFrom: String
       uploadedDateTo: String
       verificationType: String
-    ): File @pageable @response
+    ): File @pageable
     clientFiles(
       size: Int
       page: Int
@@ -32,8 +32,8 @@ module.exports = gql`
       fileCategory: String
       uploadDateFrom: String
       uploadDateTo: String
-    ): [ClientFile] @response
-    filesCategories: FilesCategories @response
+    ): [ClientFile]
+    filesCategories: FilesCategories
 
     # Audit API
     feeds(
@@ -46,12 +46,12 @@ module.exports = gql`
       sortColumn: String
       sortDirection: String
       targetUUID: String
-    ): Feed @pageable @response
-    feedTypes(uuid: String!): Object @response
+    ): Feed @pageable
+    feedTypes(uuid: String!): Object
 
     # Auth2 API
-    authoritiesOptions: AuthorityOptions @response
-    permission: [String] @response
+    authoritiesOptions: Object
+    permission: [String]
     loginLock(uuid: String!): LoginLock
 
     # BrandConfig API
@@ -74,8 +74,8 @@ module.exports = gql`
     emailTemplates: [Email]
 
     # FilterSet API
-    filterSet(uuid: String!): Object @response
-    filterSets(type: FilterSet__Types__Enum): FilterSet @response
+    filterSet(uuid: String!): Object
+    filterSets(type: FilterSet__Types__Enum): FilterSet
 
     # Hierarchy API
     branch(
@@ -96,7 +96,7 @@ module.exports = gql`
     usersByType(userTypes: [String]!, onlyActive: Boolean): HierarchyUserByType
 
     # Lead API
-    lead(uuid: String!): Lead @response
+    lead(uuid: String!): Lead
     leads(
       uuids: [String]
       searchKeyword: String
@@ -111,7 +111,7 @@ module.exports = gql`
       migrationId: String
       lastNoteDateFrom: String
       lastNoteDateTo: String
-    ): Lead @pageable @response
+    ): Lead @pageable
 
     # Notes API
     notes(
@@ -123,16 +123,15 @@ module.exports = gql`
       size: Int
       page: Int
       pinned: Boolean
-    ): Note @pageable @response
+    ): Note @pageable
 
     # NotificationCenter API
-    notificationCenter(args: NotificationCenterSearch__Input): NotificationCenter @pageable @response
-    notificationCenterTypes: [String] @response
-    notificationCenterSubtypes: [String] @response
-    notificationCenterUnread: Int @response
+    notificationCenter(args: NotificationCenterSearch__Input): NotificationCenter @pageable
+    notificationCenterTypes: Object
+    notificationCenterUnread: Int
 
     # Operator API
-    operator(uuid: String!): Operator @response
+    operator(uuid: String!): Operator
     operators(
       country: String
       page: Page__Input
@@ -141,13 +140,13 @@ module.exports = gql`
       registrationDateTo: String
       searchBy: String
       status: String
-    ): Operator @pageable @response
+    ): Operator @pageable
 
     # Payment API
-    payments(args: PaymentSearch__Input): Payment @pageable @response
-    clientPayments(args: PaymentSearch__Input): Payment @pageable @response
-    paymentMethods: [String] @response
-    manualPaymentMethods: [String] @response
+    payments(args: PaymentSearch__Input): Payment @pageable
+    clientPayments(args: PaymentSearch__Input): Payment @pageable
+    paymentMethods: [String]
+    manualPaymentMethods: [String]
     paymentsStatistic(
       dateFrom: String
       dateTo: String
@@ -156,17 +155,17 @@ module.exports = gql`
       paymentStatus: String
       paymentType: String
       additionalStatistics: [PaymentStatisticDateRange__Input]
-    ): PaymentStatistic @response
+    ): PaymentStatistic
 
     # Profile API && ProfileView API
-    profile(playerUUID: String!): Profile @response
-    profiles(args: ClientSearch__Input): ProfileView @pageable @response
+    profile(playerUUID: String!): Profile
+    profiles(args: ClientSearch__Input): ProfileView @pageable
     registrationStatistic(
       dateTo: String
       dateFrom: String
       detalization: StatisticDetalization__Enum
       additionalStatistics: [RegistrationStatisticDateRange__Input]
-    ): RegistrationStatistic @response
+    ): RegistrationStatistic
 
     # Rules API
     rules(
@@ -181,7 +180,7 @@ module.exports = gql`
       operatorUuids: [String]
       parentId: String
       type: Rule__Type__Enum
-    ): [Rule] @response
+    ): [Rule]
     rulesRetention(
       uuid: [String]
       createdByOrUuid: String
@@ -189,7 +188,7 @@ module.exports = gql`
       language: String
       name: String
       parentId: String
-    ): [Rule] @response
+    ): [Rule]
 
     # TradingAccount API && AccountView API
     tradingAccounts(
@@ -198,7 +197,7 @@ module.exports = gql`
       archived: Boolean
       page: Int
       size: Int
-    ): TradingAccount @pageable @response
+    ): TradingAccount @pageable
     clientTradingAccounts(profileUUID: String!, accountType: String): [TradingAccount]
 
     # TradingActivity API
@@ -221,6 +220,6 @@ module.exports = gql`
       tradeType: String
       volumeFrom: Float
       volumeTo: Float
-    ): TradingActivity @pageable @response
+    ): TradingActivity @pageable
   }
 `;

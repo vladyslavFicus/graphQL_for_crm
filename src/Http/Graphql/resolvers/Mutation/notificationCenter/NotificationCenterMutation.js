@@ -8,7 +8,7 @@ module.exports = {
    * @param totalElements
    * @param dataSources
    *
-   * @return {Promise<{success: boolean}|*>}
+   * @return {Promise}
    */
   async update(_, { incUuids, excUuids, totalElements }, { dataSources }) {
     let notificationUuids = incUuids;
@@ -23,7 +23,5 @@ module.exports = {
     }
 
     await dataSources.NotificationCenterAPI.update({ read: true, notificationUuids });
-
-    return { success: true };
   },
 };

@@ -27,7 +27,8 @@
     "@hrzn/apollo-directive": "^1.0.14",
     "@hrzn/brands-config": "1.0.10",
     "@hrzn/k8s-configmap": "^1.0.1",
-    "apollo-server-express": "^2.13.1",
+    "apollo-metrics": "^1.0.1",
+    "apollo-server-express": "^2.15.1",
     "bunyan": "^1.8.12",
     "bunyan-format": "^0.2.1",
     "bunyan-gelf": "^1.1.0",
@@ -41,11 +42,11 @@
     "lodash": "4.17.11",
     "moment": "^2.24.0",
     "nodemon": "^1.18.10",
+    "prom-client": "^12.0.0",
     "uuid": "3.3.2"
   },
   "resolutions": {
-    "**/graphql-upload": "^10.0.0",
-    "**/graphql-tools": "^5.0.0"
+    "**/graphql-upload": "^10.0.0"
   },
   "husky": {
     "hooks": {

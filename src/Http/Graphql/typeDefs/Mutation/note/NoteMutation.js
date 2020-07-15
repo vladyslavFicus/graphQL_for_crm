@@ -9,9 +9,18 @@ module.exports = gql`
       subject: String
       targetType: String!
       targetUUID: String!
-    ): Note @response
+    ): Note
 
-    update(content: String!, noteId: String!, pinned: Boolean, subject: String, targetUUID: String): Note @response
-    remove(noteId: String!): Note @response
+    update(
+      content: String!
+      noteId: String!
+      pinned: Boolean
+      subject: String
+      targetUUID: String
+    ): Note
+
+    remove(
+      noteId: String!
+    ): Note
   }
 `;

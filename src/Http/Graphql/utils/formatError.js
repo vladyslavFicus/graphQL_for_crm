@@ -1,12 +1,20 @@
-const { AuthenticationError, UserInputError } = require('apollo-server-express');
+const { get } = require('lodash');
 const Logger = require('../../../lib/Logger');
 
+/**
+ * Logging all errors except of skip list
+ *
+ * @param error
+ * @return {*}
+ */
 module.exports = (error) => {
-  const isAuthenticationError = error.originalError instanceof AuthenticationError;
-  const isUserInputError = error.originalError instanceof UserInputError;
+  const skip = [
+    'UNAUTHENTICATED',
+    'BAD_USER_INPUT',
+    'PERSISTED_QUERY_NOT_FOUND',
+  ].includes(get(error, 'extensions.code'));
 
-  // Logging all errors except AuthenticationError and UserInputError
-  if (!isAuthenticationError && !isUserInputError) {
+  if (!skip) {
     Logger.error(error);
   }
 

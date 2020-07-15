@@ -17,6 +17,7 @@ module.exports = {
       createdBy: userUUID,
     });
   },
+
   /**
    * Delete sales rule
    *
@@ -24,13 +25,12 @@ module.exports = {
    * @param uuid
    * @param dataSources
    *
-   * @return {Promise<{success: boolean}>}
+   * @return {Promise}
    */
   async deleteRule(_, { uuid }, { dataSources }) {
     await dataSources.RuleProfileAPI.deleteRule(uuid);
-
-    return { success: true };
   },
+
   /**
    * Create retention rule
    *
@@ -49,6 +49,7 @@ module.exports = {
       createdBy: userUUID,
     });
   },
+
   /**
    * Delete retention rule
    *
@@ -56,11 +57,9 @@ module.exports = {
    * @param uuid
    * @param dataSources
    *
-   * @return {Promise<{success: boolean}>}
+   * @return {Promise}
    */
   async deleteRuleRetention(_, { uuid }, { dataSources }) {
     await dataSources.RulePaymentAPI.deleteRule(uuid);
-
-    return { success: true };
   },
 };

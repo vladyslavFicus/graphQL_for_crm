@@ -12,7 +12,8 @@ module.exports = gql`
       sources: [String]
       type: Rule__Type__Enum
       uuid: String
-    ): Rule @response
+    ): Rule
+
     createRuleRetention(
       actions: [RuleActions__Input]!
       countries: [String]
@@ -23,8 +24,10 @@ module.exports = gql`
       name: String!
       priority: Int!
       uuid: String
-    ): Rule @response
-    deleteRule(uuid: String!): Success
-    deleteRuleRetention(uuid: String!): Success
+    ): Rule
+
+    deleteRule(uuid: String!): Boolean
+
+    deleteRuleRetention(uuid: String!): Boolean
   }
 `;

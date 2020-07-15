@@ -71,7 +71,7 @@ module.exports = {
       return acc;
     }, {});
 
-    return { authoritiesOptions };
+    return authoritiesOptions;
   },
   async permission(_, __, { dataSources }) {
     const { actions } = await dataSources.Auth2API.getPermissions();
@@ -258,9 +258,6 @@ module.exports = {
   },
   notificationCenterTypes(_, __, { dataSources }) {
     return dataSources.NotificationCenterAPI.getTypes();
-  },
-  notificationCenterSubtypes(_, __, { dataSources }) {
-    return dataSources.NotificationCenterAPI.getSubtypes();
   },
   notificationCenterUnread(_, __, { dataSources }) {
     return dataSources.NotificationCenterAPI.getUnreadCount();
