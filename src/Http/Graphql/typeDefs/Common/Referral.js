@@ -15,6 +15,7 @@ module.exports = gql`
     name: String
     profileUuid: String
     languageCode: String
+    countryCode: String
     registrationDate: String
   }
 
