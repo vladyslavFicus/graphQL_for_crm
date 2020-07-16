@@ -224,7 +224,7 @@ module.exports = {
   /**
    * Lead API
    */
-  async leads(_, args, { dataSources, userUUID, brand: { id: brandId } }) {
+  async leads(_, { args }, { dataSources, userUUID, brand: { id: brandId } }) {
     const observedFrom = await dataSources.HierarchyAPI.getObserverForSubtree(userUUID);
 
     return dataSources.LeadAPI.getLeads({ brandId, observedFrom, ...args });
