@@ -97,21 +97,7 @@ module.exports = gql`
 
     # Lead API
     lead(uuid: String!): Lead
-    leads(
-      uuids: [String]
-      searchKeyword: String
-      page: Int
-      limit: Int
-      countries: [String]
-      registrationDateStart: String
-      registrationDateEnd: String
-      status: String
-      salesStatuses: [SalesStatus__Enum]
-      salesAgents: [String]
-      migrationId: String
-      lastNoteDateFrom: String
-      lastNoteDateTo: String
-    ): Lead @pageable
+    leads(args: LeadSearch__Input): Lead @pageable
 
     # Notes API
     notes(

@@ -7,6 +7,7 @@ module.exports = gql`
   }
 
   type Partner__Schedule {
+    configId: String
     activated: Boolean
     day: String
     totalLimit: Int
