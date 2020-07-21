@@ -166,6 +166,10 @@ module.exports = {
   async usersByBranch(_, { uuids, onlyActive }, { dataSources }) {
     const operatorsByBranch = await dataSources.HierarchyAPI.getUsersByBranch({ uuids });
 
+    if (operatorsByBranch.length === 0) {
+      return [];
+    }
+
     const { content } = await dataSources.OperatorAPI.search({
       ...onlyActive && { status: 'ACTIVE' },
       uuids: operatorsByBranch.map(({ uuid }) => uuid),
