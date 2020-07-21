@@ -223,6 +223,6 @@ module.exports = gql`
     ): TradingActivity @pageable
 
     # Referral API
-    referrals(uuid: String!): Referral @pageable
+    referrals(uuid: String!): [Referral]
   }
 `;
