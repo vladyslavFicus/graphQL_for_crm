@@ -22,6 +22,11 @@ module.exports = gql`
     uuid: String!
   }
 
+  type ProfileView__Referrer {
+    uuid: String
+    fullName: String
+  }
+
   type ProfileView__Balance {
     amount: String
     credit: String
@@ -61,6 +66,7 @@ module.exports = gql`
     acquisition: ProfileView__Acquisition
     address: ProfileView__Address
     affiliate: ProfileView__Affiliate
+    referrer: ProfileView__Referrer
     balance: ProfileView__Balance
     firstName: String
     fullName: String
