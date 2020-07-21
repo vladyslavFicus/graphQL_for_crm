@@ -23,14 +23,14 @@ module.exports = gql`
     date: String
     amount: Float
     currency: String
-    normalizedAmount: String
+    normalizedAmount: Float
   }
 
   type Referral__Remuneration {
     date: String
     amount: Float
     currency: String
-    normalizedAmount: String
+    normalizedAmount: Float
   }
 
   type Referral {

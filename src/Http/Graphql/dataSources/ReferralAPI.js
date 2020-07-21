@@ -9,7 +9,7 @@ class ProfileAPI extends RESTDataSource {
    * @return {*}
    */
   getByUUID(uuid) {
-    return this.get(`/${uuid}/referral-history`);
+    return this.get(`/${uuid}/referrals-history`);
   }
 }
 
