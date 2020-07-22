@@ -375,6 +375,13 @@ module.exports = {
   },
 
   /**
+   * Referral API
+   */
+  referrals(_, { uuid }, { dataSources }) {
+    return dataSources.ReferralAPI.getReferralsByUUID(uuid);
+  },
+
+  /**
    * Rule API
    */
   rules(_, args, { dataSources, brand }) {
@@ -408,12 +415,5 @@ module.exports = {
    */
   tradingActivity(_, args, { dataSources }) {
     return dataSources.TradingActivityAPI.getTradingActivity(args);
-  },
-
-  /**
-   * REFERRAL API
-   */
-  referrals(_, { uuid }, { dataSources }) {
-    return dataSources.ReferralAPI.getByUUID(uuid);
   },
 };

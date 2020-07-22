@@ -1,6 +1,6 @@
 const RESTDataSource = require('@hrzn/apollo-datasource/RESTDataSource');
 
-class ProfileAPI extends RESTDataSource {
+class ReferralAPI extends RESTDataSource {
   /**
    * Get refferals by referrer UUID
    *
@@ -8,9 +8,9 @@ class ProfileAPI extends RESTDataSource {
    *
    * @return {*}
    */
-  getByUUID(uuid) {
+  getReferralsByUUID(uuid) {
     return this.get(`/${uuid}/referrals-history`);
   }
 }
 
-module.exports = ProfileAPI;
+module.exports = ReferralAPI;
