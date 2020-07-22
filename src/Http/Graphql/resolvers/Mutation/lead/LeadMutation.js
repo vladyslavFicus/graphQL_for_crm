@@ -31,7 +31,7 @@ module.exports = {
   async bulkLeadUpdate(
     _,
     { allRowsSelected, leads, salesRep, salesStatus, searchParams, totalElements },
-    { dataSources, brand: { id: brandId } },
+    { dataSources, brand: { id: brandId }, userUUID },
   ) {
     const leadsUuids = leads.length ? leads.map(({ uuid }) => uuid) : [];
 
@@ -41,7 +41,11 @@ module.exports = {
     // Otherwize we need to get all leads list and filter it
     // # leadsUuids in this case are exclusion elements that need to be removed from the list before bulk update
     if (allRowsSelected && leads.length !== totalElements) {
+      const observedFrom = await dataSources.HierarchyAPI.getObserverForSubtree(userUUID);
+
       const allLeadsData = await dataSources.LeadAPI.getLeads({
+        brandId,
+        observedFrom,
         page: {
           from: 0,
           size: totalElements,
@@ -49,9 +53,9 @@ module.exports = {
         ...(searchParams && searchParams),
       });
 
-      leadsUuidsForBulkUpdate = allLeadsData
+      leadsUuidsForBulkUpdate = allLeadsData.content
         .filter(({ uuid }) => leadsUuids.indexOf(uuid) === -1)
-        .map(({ uuid }) => ({ uuid }));
+        .map(({ uuid }) => uuid);
     }
 
     // Update leads sales status
