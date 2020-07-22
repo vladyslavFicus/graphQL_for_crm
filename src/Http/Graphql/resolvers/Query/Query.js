@@ -1,4 +1,4 @@
-const { get, pickBy, identity, groupBy } = require('lodash');
+const { get, omitBy, isNil, groupBy } = require('lodash');
 const moment = require('moment');
 const {
   prepareAdditionalStatsUsersRegistration,
@@ -347,7 +347,7 @@ module.exports = {
   },
   async operators(_, args, { dataSources, userUUID }) {
     // Drop undefined and nullable values from object (because BE service throw Error if null will be sent)
-    const params = pickBy(args, identity);
+    const params = omitBy(args, isNil);
 
     const operatorsSubtree = await dataSources.HierarchyAPI.getOperatorsSubtree(userUUID);
 
@@ -386,7 +386,7 @@ module.exports = {
   },
   rulesRetention(_, args, { dataSources, brand }) {
     // Drop undefined and nullable values from object (because BE service throw Error if null will be sent)
-    const params = pickBy(args, identity);
+    const params = omitBy(args, isNil);
 
     return dataSources.RulePaymentAPI.search({ ...params, brandId: brand.id });
   },
@@ -396,13 +396,13 @@ module.exports = {
    */
   tradingAccounts(_, args, { dataSources }) {
     // Drop undefined and nullable values from object (because BE service throw Error if null will be sent)
-    const params = pickBy(args, identity);
+    const params = omitBy(args, isNil);
 
     return dataSources.AccountViewAPI.getTradingAccounts(params);
   },
   clientTradingAccounts(_, args, { dataSources }) {
     // Drop undefined and nullable values from object (because BE service throw Error if null will be sent)
-    const params = pickBy(args, identity);
+    const params = omitBy(args, isNil);
 
     return dataSources.TradingAccountAPI.getClientTradingAccounts(params);
   },
