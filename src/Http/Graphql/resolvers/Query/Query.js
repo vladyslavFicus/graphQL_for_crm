@@ -406,4 +406,11 @@ module.exports = {
   tradingActivity(_, args, { dataSources }) {
     return dataSources.TradingActivityAPI.getTradingActivity(args);
   },
+
+  /**
+   * Referral API
+   */
+  referrerStatistics(_, { uuid }, { dataSources }) {
+    return dataSources.ReferralAPI.getReferrerStatistics(uuid);
+  },
 };

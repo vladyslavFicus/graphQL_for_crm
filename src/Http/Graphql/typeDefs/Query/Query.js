@@ -221,5 +221,8 @@ module.exports = gql`
       volumeFrom: Float
       volumeTo: Float
     ): TradingActivity @pageable
+
+    # Referral API
+    referrerStatistics(uuid: String!): ReferrerStatistics
   }
 `;

@@ -23,6 +23,7 @@ const TradingAccountAPI = require('./TradingAccountAPI');
 const TradingActivityAPI = require('./TradingActivityAPI');
 const RuleProfileAPI = require('./RuleProfileAPI');
 const RulePaymentAPI = require('./RulePaymentAPI');
+const ReferralAPI = require('./ReferralAPI');
 
 module.exports = {
   AccountViewAPI,
@@ -50,4 +51,5 @@ module.exports = {
   TradingActivityAPI,
   RuleProfileAPI,
   RulePaymentAPI,
+  ReferralAPI,
 };
