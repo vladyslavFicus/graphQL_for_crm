@@ -42,7 +42,10 @@ module.exports = {
     // # leadsUuids in this case are exclusion elements that need to be removed from the list before bulk update
     if (allRowsSelected && leads.length !== totalElements) {
       const allLeadsData = await dataSources.LeadAPI.getLeads({
-        limit: totalElements,
+        page: {
+          from: 0,
+          size: totalElements,
+        },
         ...(searchParams && searchParams),
       });
 

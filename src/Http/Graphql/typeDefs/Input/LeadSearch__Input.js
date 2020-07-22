@@ -17,5 +17,6 @@ module.exports = gql`
     page: Page__Input
     migrationId: String
     teams: [String]
+    searchLimit: Int
   }
 `;
