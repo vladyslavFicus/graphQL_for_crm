@@ -93,4 +93,20 @@ module.exports = {
 
     return true;
   },
+
+  /**
+   * Update acquisition of single lead/client
+   *
+   * @param _
+   * @param uuid
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise<*>}
+   */
+  async updateUserAcquisition(_, { uuid, ...args }, { dataSources }) {
+    await dataSources.HierarchyUpdaterAPI.updateUserAcquisition(uuid, args);
+
+    return true;
+  },
 };

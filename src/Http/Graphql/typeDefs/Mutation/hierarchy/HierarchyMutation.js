@@ -27,5 +27,15 @@ module.exports = gql`
     removeBranchManager(
       branchUuid: String
     ): Boolean
+
+    updateUserAcquisition(
+      salesRepresentative: String
+      retentionRepresentative: String
+      salesStatus: String
+      retentionStatus: String
+      type: String!
+      isMoveAction: Boolean
+      uuid: String!
+    ): Boolean
   }
 `;

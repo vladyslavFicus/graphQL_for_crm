@@ -61,6 +61,18 @@ class HierarchyUpdaterAPI extends RESTDataSource {
   }
 
   /**
+   * Update acquisition of single lead/client
+   * 
+   * @param uuid
+   * @param args
+   * 
+   * @return {Promise}
+   */
+  updateUserAcquisition(uuid, args) {
+    return this.put(`/users/${uuid}/acquisition`, args);
+  }
+
+  /**
    *
    * Mass assign lead or client to another operator
    *
@@ -69,7 +81,7 @@ class HierarchyUpdaterAPI extends RESTDataSource {
    * @return {Promise}
    */
   bulkMassAssignHierarchyUser(args) {
-    return this.put('/bulk/user/multi-assignment', args);
+    return this.put('/users/bulk/acquisition', args);
   }
 
   /**
@@ -81,7 +93,7 @@ class HierarchyUpdaterAPI extends RESTDataSource {
    * @return {Promise}
    */
   bulkUpdateHierarchyUser(args) {
-    return this.put('/bulk/user/relationship/parent-user', args);
+    return this.put('/users/bulk/acquisition/status', args);
   }
 
   /**
