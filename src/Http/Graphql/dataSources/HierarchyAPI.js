@@ -38,6 +38,17 @@ class HierarchyAPI extends RESTDataSource {
   }
 
   /**
+   * Get user acquisition
+   *
+   * @param uuid Current userUuid || OperatorUuid
+   *
+   * @return {Promise}
+   */
+  getUserAcquisition(uuid) {
+    return this.get(`/user/${uuid}/acquisition`);
+  }
+
+  /**
    * Get brand info
    *
    * @param brandId Brand ID

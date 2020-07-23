@@ -163,6 +163,9 @@ module.exports = {
   userHierarchyById(_, { uuid }, { dataSources }) {
     return dataSources.HierarchyAPI.getUserHierarchy(uuid);
   },
+  userHierarchyAcquisitionById(_, { uuid }, { dataSources }) {
+    return dataSources.HierarchyAPI.getUserAcquisition(uuid);
+  },
   async usersByBranch(_, { uuids, onlyActive }, { dataSources }) {
     const operatorsByBranch = await dataSources.HierarchyAPI.getUsersByBranch({ uuids });
 

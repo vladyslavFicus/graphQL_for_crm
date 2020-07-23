@@ -1,16 +1,6 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`
-  type Profile__Acquisition {
-    acquisitionStatus: String
-    retentionOperator: Operator
-    retentionRepresentative: String
-    retentionStatus: String
-    salesOperator: Operator
-    salesRepresentative: String
-    salesStatus: String
-  }
-
   type Profile__Address {
     address: String
     city: String
@@ -115,7 +105,6 @@ module.exports = gql`
 
   type Profile {
     _id: ID!
-    acquisition: Profile__Acquisition
     address: Profile__Address
     affiliate: Profile__Affiliate
     age: String

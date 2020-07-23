@@ -92,6 +92,7 @@ module.exports = gql`
     userBranches(withoutBrandFilter: Boolean): HierarchyUserBranches
     userHierarchy: HierarchyUser
     userHierarchyById(uuid: String!): HierarchyUser
+    userHierarchyAcquisitionById(uuid: String!): HierarchyUserAcquisition
     usersByBranch(uuids: [String]!, onlyActive: Boolean): [HierarchyUser]
     usersByType(userTypes: [String]!, onlyActive: Boolean): HierarchyUserByType
 
