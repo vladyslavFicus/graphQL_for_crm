@@ -217,7 +217,7 @@ module.exports = {
       });
     }
 
-    if (salesRepresentative || retentionRepresentative) {
+    if ((salesRepresentative || retentionRepresentative) && !isMoveAction) {
       await dataSources.HierarchyUpdaterAPI.bulkMassAssignHierarchyUser({
         parentUsers: salesRepresentative || retentionRepresentative,
         userUuids: clientsForBulkUpdate.map(client => client.uuid),
