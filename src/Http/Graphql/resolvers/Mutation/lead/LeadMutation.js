@@ -60,6 +60,7 @@ module.exports = {
 
     // Update leads sales status
     if (salesStatus) {
+      // NEED TO REMOVE LeadUpdaterAPI.bulkLeadUpdate
       await dataSources.LeadUpdaterAPI.bulkLeadUpdate({
         uuids: leadsUuidsForBulkUpdate,
         brandId,

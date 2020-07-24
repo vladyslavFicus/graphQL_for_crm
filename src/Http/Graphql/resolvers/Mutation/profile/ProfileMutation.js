@@ -204,6 +204,7 @@ module.exports = {
     }
 
     if (salesStatus) {
+      // NEED TO REMOVE
       await dataSources.ProfileAPI.bulkUpdateSalesStatuses({
         salesStatus,
         uuids: clientsForBulkUpdate.map(client => client.uuid),
@@ -211,6 +212,7 @@ module.exports = {
     }
 
     if (retentionStatus) {
+      // NEED TO REMOVE
       await dataSources.ProfileAPI.bulkUpdateRetentionStatuses({
         retentionStatus,
         uuids: clientsForBulkUpdate.map(client => client.uuid),

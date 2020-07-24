@@ -159,6 +159,7 @@ class ProfileAPI extends RESTDataSource {
     return this.post(`/admin/profiles/${uuid}/verification/phone`, { phone });
   }
 
+  // NEED TO REMOVE
   /**
    * Bulk update clients sales status
    *
@@ -170,6 +171,7 @@ class ProfileAPI extends RESTDataSource {
     return this.put('/admin/profiles/bulk/acquisition/sales-status', args);
   }
 
+  // NEED TO REMOVE
   /**
    * Bulk update clients retention status
    *
