@@ -230,12 +230,12 @@ module.exports = {
           uuid: client.uuid,
           assignToOperator:
             type === 'SALES'
-              ? get(client, 'acquisition.salesRepresentative', client.salesRepresentative)
-              : get(client, 'acquisition.retentionRepresentative', client.retentionRepresentative),
+              ? salesRepresentative[0]
+                || get(client, 'acquisition.salesRepresentative', client.salesRepresentative)
+              : retentionRepresentative[0]
+                || get(client, 'acquisition.retentionRepresentative', client.retentionRepresentative),
         })),
       });
     }
-
-    return true;
   },
 };
