@@ -225,6 +225,10 @@ module.exports = {
     return groupBy(operators, 'userType');
   },
 
+  userBranchesTreeUp(_, { userUUID }, { dataSources }) {
+    return dataSources.HierarchyAPI.getUserBranchesTreeUp(userUUID);
+  },
+
   /**
    * Lead API
    */
