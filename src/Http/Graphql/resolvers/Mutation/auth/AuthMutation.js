@@ -90,6 +90,21 @@ module.exports = {
   },
 
   /**
+   * Change operator password on password expire
+   * (change password without token)
+   *
+   * @param _
+   * @param uuid | OperatorUuid from errorParams
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise<{boolean}>}
+   */
+  async changeUnauthorizedPassword(_, { uuid, ...args }, { dataSources }) {
+    await dataSources.Auth2API.changeUnauthorizedPassword(uuid, args);
+  },
+
+  /**
    * Reset user (client or operator) password
    *
    * @param _
