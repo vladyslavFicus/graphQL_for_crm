@@ -59,7 +59,7 @@ module.exports = gql`
 
     # Callback API
     callbacks(
-      id: String
+      searchKeyword: String
       statuses: [Callback__Status__Enum]
       userId: String
       page: Int
