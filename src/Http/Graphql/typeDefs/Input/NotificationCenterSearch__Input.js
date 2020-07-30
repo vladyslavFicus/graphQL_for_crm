@@ -17,5 +17,6 @@ module.exports = gql`
     page: Page__Input
     priorities: [String]
     searchKeyword: String
+    read: Boolean
   }
 `;
