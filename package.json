@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@hrzn/apollo-autoload": "^1.0.7",
-    "@hrzn/apollo-datasource": "^1.0.122",
+    "@hrzn/apollo-datasource": "^1.0.126",
     "@hrzn/apollo-directive": "^1.0.14",
     "@hrzn/brands-config": "1.0.10",
     "@hrzn/k8s-configmap": "^1.0.1",
