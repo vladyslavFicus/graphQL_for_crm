@@ -232,15 +232,10 @@ module.exports = {
   /**
    * Lead API
    */
-  async leads(_, { args }, { dataSources, userUUID, brand: { id: brandId } }) {
-    const observedFrom = await dataSources.HierarchyAPI.getObserverForSubtree(userUUID);
-
-    return dataSources.LeadAPI.getLeads({ brandId, observedFrom, ...args });
+  async leads(_, { args }, { dataSources, brand: { id: brandId } }) {
+    return dataSources.LeadAPI.getLeads({ brandId, ...args });
   },
   async lead(_, { uuid }, { dataSources }) {
-    // Check allowance to see lead profile by hierarchy
-    await dataSources.HierarchyAPI.checkAccess(uuid);
-
     return dataSources.LeadAPI.getLead(uuid);
   },
 
