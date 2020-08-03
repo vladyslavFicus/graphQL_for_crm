@@ -59,7 +59,7 @@ module.exports = gql`
 
     # Callback API
     callbacks(
-      id: String
+      searchKeyword: String
       statuses: [Callback__Status__Enum]
       userId: String
       page: Int
@@ -95,7 +95,8 @@ module.exports = gql`
     userHierarchyAcquisitionById(uuid: String!): HierarchyUserAcquisition
     usersByBranch(uuids: [String]!, onlyActive: Boolean): [HierarchyUser]
     usersByType(userTypes: [String]!, onlyActive: Boolean): HierarchyUserByType
-
+    userBranchesTreeUp(userUUID: String!): [HierarchyUserBranchesTreeUp]  
+      
     # Lead API
     lead(uuid: String!): Lead
     leads(args: LeadSearch__Input): Lead @pageable

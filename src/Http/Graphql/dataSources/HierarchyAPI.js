@@ -199,6 +199,10 @@ class HierarchyAPI extends RESTDataSource {
   getUsersByType(types) {
     return this.get('user/bytype', { t: types });
   }
+
+  getUserBranchesTreeUp(userUUID) {
+    return this.get(`/user/${userUUID}/branches/hierarchy-up`);
+  }
 }
 
 module.exports = HierarchyAPI;

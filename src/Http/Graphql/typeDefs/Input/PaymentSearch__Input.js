@@ -28,6 +28,5 @@ module.exports = gql`
     page: Page__Input
     paymentTypes: [String]
     warnings: [String]
-    withdrawStatuses: [String]
   }
 `;
