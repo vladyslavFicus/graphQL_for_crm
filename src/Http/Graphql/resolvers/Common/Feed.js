@@ -20,13 +20,13 @@ module.exports = {
     if (details && type === 'PROFILE_ASSIGN') {
       const parsedDetails = JSON.parse(details);
 
-      const { firstName, lastName } = await dataSources.OperatorAPI.getByUUID(
+      const operator = await dataSources.OperatorAPI.getByUUID(
         parsedDetails.acquisitionRepresentativeUuid,
       );
 
       return JSON.stringify({
         ...parsedDetails,
-        assignedToName: `${firstName} ${lastName}`,
+        ...operator && { assignedToName: `${operator.firstName} ${operator.lastName}` },
       });
     }
 
