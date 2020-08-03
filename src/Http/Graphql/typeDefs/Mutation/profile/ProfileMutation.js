@@ -10,19 +10,6 @@ module.exports = gql`
     verifyEmail(playerUUID: String!): Profile
     verifyPhone(playerUUID: String!, phone: String): Profile
 
-    bulkClientUpdate(
-      salesRepresentative: [String]
-      retentionRepresentative: [String]
-      salesStatus: String
-      retentionStatus: String
-      type: String!
-      isMoveAction: Boolean
-      clients: [ClientUpdate__Input]
-      allRowsSelected: Boolean
-      totalElements: Int
-      searchParams: ClientSearch__Input
-    ): Boolean
-
     updatePersonalInformation(
       playerUUID: String!
       firstName: String

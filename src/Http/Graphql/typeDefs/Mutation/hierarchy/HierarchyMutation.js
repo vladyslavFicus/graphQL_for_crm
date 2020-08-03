@@ -28,14 +28,35 @@ module.exports = gql`
       branchUuid: String
     ): Boolean
 
-    updateUserAcquisition(
-      salesRepresentative: String
-      retentionRepresentative: String
+    updateAcquisition(
+      uuid: String!
+      parentOperator: String
       salesStatus: String
       retentionStatus: String
-      type: String!
-      isMoveAction: Boolean
-      uuid: String!
+    ): Boolean
+
+    bulkUpdateClientsAcquisition(
+      uuids: [String]!
+      parentOperators: [String]
+      salesStatus: String
+      retentionStatus: String
+      searchParams: ClientSearch__Input
+      bulkSize: Int
+    ): Boolean
+
+    bulkUpdateLeadsAcquisition(
+      uuids: [String]!
+      parentOperators: [String]
+      salesStatus: String
+      searchParams: LeadSearch__Input
+      bulkSize: Int
+    ): Boolean
+
+    bulkUpdateAcquisitionStatus(
+      uuids: [String]!
+      acquisitionStatus: Desk__Types__Enum!
+      searchParams: ClientSearch__Input
+      bulkSize: Int
     ): Boolean
   }
 `;

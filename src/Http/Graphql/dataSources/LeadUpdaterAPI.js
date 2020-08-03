@@ -14,18 +14,6 @@ class LeadUpdaterAPI extends RESTDataSource {
     return this.put(`/lead/${uuid}`, args);
   }
 
-  // NEED TO REMOVE
-  /**
-   * Update lead sales agent and sales status assign
-   *
-   * @param args
-   *
-   * @return {Promise}
-   */
-  bulkLeadUpdate(args) {
-    return this.put('/bulk/lead/sales-status', args);
-  }
-
   /**
    * Upload leads (csv)
    *

@@ -68,7 +68,7 @@ class HierarchyUpdaterAPI extends RESTDataSource {
    * 
    * @return {Promise}
    */
-  updateUserAcquisition(uuid, args) {
+  updateAcquisition(uuid, args) {
     return this.put(`/users/${uuid}/acquisition`, args);
   }
 
@@ -80,7 +80,7 @@ class HierarchyUpdaterAPI extends RESTDataSource {
    *
    * @return {Promise}
    */
-  bulkMassAssignHierarchyUser(args) {
+  bulkUpdateAcquisition(args) {
     return this.put('/users/bulk/acquisition', args);
   }
 
@@ -92,7 +92,7 @@ class HierarchyUpdaterAPI extends RESTDataSource {
    *
    * @return {Promise}
    */
-  bulkUpdateHierarchyUser(args) {
+  bulkUpdateAcquisitionStatus(args) {
     return this.put('/users/bulk/acquisition/status', args);
   }
 

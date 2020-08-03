@@ -1,3 +1,5 @@
+const { get } = require('lodash');
+
 module.exports = {
   /**
    * Create office
@@ -104,8 +106,171 @@ module.exports = {
    *
    * @return {Promise<*>}
    */
-  async updateUserAcquisition(_, { uuid, ...args }, { dataSources }) {
-    await dataSources.HierarchyUpdaterAPI.updateUserAcquisition(uuid, args);
+  async updateAcquisition(_, { uuid, ...args }, { dataSources }) {
+    await dataSources.HierarchyUpdaterAPI.updateAcquisition(uuid, args);
+
+    return true;
+  },
+
+  /**
+   * Bulk update clients acquisition
+   *
+   * @param _
+   * @param args
+   * @param args.uuids
+   * @param args.parentOperators
+   * @param args.salesStatus
+   * @param args.retentionStatus
+   * @param args.searchParams
+   * @param args.bulkSize
+   * @param dataSources
+   *
+   * @return {Promise<*>}
+   */
+  async bulkUpdateClientsAcquisition(
+    _,
+    {
+      uuids,
+      parentOperators,
+      salesStatus,
+      retentionStatus,
+      searchParams,
+      bulkSize,
+    },
+    { dataSources },
+  ) {
+    let userUuids = uuids;
+
+    if (bulkSize) {
+      const response = await dataSources.ProfileViewAPI.search({
+        fields: ['uuid', 'acquisition'],
+        excludeByUuids: userUuids,
+        page: {
+          from: 0,
+          size: bulkSize,
+        },
+        ...(searchParams && searchParams),
+      });
+
+      const content = get(response, 'content') || [];
+
+      userUuids = content.map(({ uuid }) => uuid);
+    }
+
+    await dataSources.HierarchyUpdaterAPI.bulkUpdateAcquisition({
+      userUuids,
+      ...(parentOperators && { parentOperators }),
+      ...(retentionStatus && { retentionStatus }),
+      ...(salesStatus && { salesStatus }),
+    });
+
+    return true;
+  },
+  
+
+  /**
+   * Bulk update leads acquisition
+   *
+   * @param _
+   * @param args
+   * @param args.uuids
+   * @param args.parentOperators
+   * @param args.salesStatus
+   * @param args.searchParams
+   * @param args.bulkSize
+   * @param dataSources
+   * @param id
+   * @param userUUID
+   *
+   * @return {Promise<*>}
+   */
+  async bulkUpdateLeadsAcquisition(
+    _,
+    {
+      uuids,
+      parentOperators,
+      salesStatus,
+      searchParams,
+      bulkSize,
+    },
+    { dataSources, brand: { id: brandId }, userUUID },
+  ) {
+    let userUuids = uuids;
+
+    if (bulkSize) {
+      const observedFrom = await dataSources.HierarchyAPI.getObserverForSubtree(userUUID);
+
+      const response = await dataSources.LeadAPI.getLeads({
+        brandId,
+        observedFrom,
+        page: {
+          from: 0,
+          size: bulkSize + uuids.length,
+        },
+        ...(searchParams && searchParams),
+      });
+
+      const content = get(response, 'content') || [];
+
+      userUuids = content
+        .map(({ uuid }) => !uuids.includes(uuid) && uuid)
+        .filter(Boolean);
+    }
+
+    await dataSources.HierarchyUpdaterAPI.bulkUpdateAcquisition({
+      userUuids,
+      ...(parentOperators && { parentOperators }),
+      ...(salesStatus && { salesStatus }),
+    });
+
+    return true;
+  },
+
+  /**
+   * Bulk update acquisition status
+   *
+   * @param _
+   * @param args
+   * @param args.uuids
+   * @param args.acquisitionStatus
+   * @param args.searchParams
+   * @param args.selectedSize
+   * @param dataSources
+   *
+   * @return {Promise<*>}
+   */
+  async bulkUpdateAcquisitionStatus(
+    _,
+    {
+      uuids,
+      acquisitionStatus,
+      searchParams,
+      bulkSize,
+    },
+    { dataSources },
+  ) {
+    let userUuids = uuids;
+
+    if (bulkSize) {
+      const response = await dataSources.ProfileViewAPI.search({
+        fields: ['uuid', 'acquisition'],
+        excludeByUuids: userUuids,
+        page: {
+          from: 0,
+          size: bulkSize,
+        },
+        ...(searchParams && searchParams),
+      });
+
+      const content = get(response, 'content') || [];
+
+      userUuids = content.map(({ uuid }) => uuid);
+    }
+
+    await dataSources.HierarchyUpdaterAPI.bulkUpdateAcquisitionStatus({
+      userUuids,
+      acquisitionStatus,
+    });
 
     return true;
   },
