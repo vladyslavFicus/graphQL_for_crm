@@ -239,7 +239,19 @@ module.exports = {
     return dataSources.LeadAPI.getLeads({ brandId, ...args });
   },
   async lead(_, { uuid }, { dataSources }) {
-    return dataSources.LeadAPI.getLead(uuid);
+    const [
+      { salesOperator: salesAgent, ...acquisition },
+      leadProfile,
+    ] = await Promise.all([
+      dataSources.HierarchyAPI.getUserAcquisition(uuid), 
+      dataSources.LeadAPI.getLead(uuid),
+    ]);
+
+    return {
+      ...leadProfile,
+      ...acquisition,
+      salesAgent,
+    };
   },
 
   /**

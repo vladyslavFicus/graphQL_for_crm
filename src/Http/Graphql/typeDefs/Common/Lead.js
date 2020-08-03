@@ -19,10 +19,8 @@ module.exports = gql`
     name: String!
     phone: String!
     registrationDate: String!
-    # NEED TO REMOVE
     salesAgent: Operator
     salesStatus: SalesStatus__Enum
-    # ----------------------------
     status: String
     statusChangedDate: String
     source: String
