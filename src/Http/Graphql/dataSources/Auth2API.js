@@ -83,7 +83,7 @@ class Auth2API extends RESTDataSource {
    * @return {Promise}
    */
   changeUnauthorizedPassword(uuid, args) {
-    return this.put(`/password/${uuid}/unauthorized`, args);
+    return this.post(`/password/${uuid}/unauthorized`, args);
   }
 
   /**
