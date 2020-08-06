@@ -25,6 +25,7 @@ const {
   TradingActivityAPI,
   RuleProfileAPI,
   RulePaymentAPI,
+  ReferralAPI,
 } = require('../dataSources');
 
 module.exports = () => ({
@@ -53,4 +54,5 @@ module.exports = () => ({
   TradingActivityAPI: new TradingActivityAPI({ baseUrl: getBaseUrl('trading-activity') }),
   RuleProfileAPI: new RuleProfileAPI({ baseUrl: getBaseUrl('rules-profile') }),
   RulePaymentAPI: new RulePaymentAPI({ baseUrl: getBaseUrl('rules-payment') }),
+  ReferralAPI: new ReferralAPI({ baseUrl: getBaseUrl('referral') }),
 });
