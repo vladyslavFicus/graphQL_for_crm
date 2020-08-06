@@ -11,6 +11,17 @@ class ReferralAPI extends RESTDataSource {
   getReferrerStatistics(uuid) {
     return this.get(`/${uuid}/statistics`);
   }
+
+  /**
+   * Get refferals by referrer UUID
+   *
+   * @param uuid Referrer UUID
+   *
+   * @return {*}
+   */
+  getReferralsByUUID(uuid) {
+    return this.get(`/${uuid}/referrals-history`);
+  }
 }
 
 module.exports = ReferralAPI;

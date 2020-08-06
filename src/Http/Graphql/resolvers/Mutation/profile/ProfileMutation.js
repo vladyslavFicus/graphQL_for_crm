@@ -217,7 +217,7 @@ module.exports = {
       });
     }
 
-    if (salesRepresentative || retentionRepresentative) {
+    if ((salesRepresentative || retentionRepresentative) && !isMoveAction) {
       await dataSources.HierarchyUpdaterAPI.bulkMassAssignHierarchyUser({
         parentUsers: salesRepresentative || retentionRepresentative,
         userUuids: clientsForBulkUpdate.map(client => client.uuid),
@@ -230,12 +230,12 @@ module.exports = {
           uuid: client.uuid,
           assignToOperator:
             type === 'SALES'
-              ? get(client, 'acquisition.salesRepresentative', client.salesRepresentative)
-              : get(client, 'acquisition.retentionRepresentative', client.retentionRepresentative),
+              ? salesRepresentative[0]
+                || get(client, 'acquisition.salesRepresentative', client.salesRepresentative)
+              : retentionRepresentative[0]
+                || get(client, 'acquisition.retentionRepresentative', client.retentionRepresentative),
         })),
       });
     }
-
-    return true;
   },
 };

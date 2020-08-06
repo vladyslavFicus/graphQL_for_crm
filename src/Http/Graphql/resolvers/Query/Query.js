@@ -1,4 +1,4 @@
-const { get, pickBy, identity, groupBy } = require('lodash');
+const { get, omitBy, isNil, groupBy } = require('lodash');
 const moment = require('moment');
 const {
   prepareAdditionalStatsUsersRegistration,
@@ -166,6 +166,10 @@ module.exports = {
   async usersByBranch(_, { uuids, onlyActive }, { dataSources }) {
     const operatorsByBranch = await dataSources.HierarchyAPI.getUsersByBranch({ uuids });
 
+    if (operatorsByBranch.length === 0) {
+      return [];
+    }
+
     const { content } = await dataSources.OperatorAPI.search({
       ...onlyActive && { status: 'ACTIVE' },
       uuids: operatorsByBranch.map(({ uuid }) => uuid),
@@ -221,18 +225,17 @@ module.exports = {
     return groupBy(operators, 'userType');
   },
 
+  userBranchesTreeUp(_, { userUUID }, { dataSources }) {
+    return dataSources.HierarchyAPI.getUserBranchesTreeUp(userUUID);
+  },
+
   /**
    * Lead API
    */
-  async leads(_, args, { dataSources, userUUID, brand: { id: brandId } }) {
-    const observedFrom = await dataSources.HierarchyAPI.getObserverForSubtree(userUUID);
-
-    return dataSources.LeadAPI.getLeads({ brandId, observedFrom, ...args });
+  async leads(_, { args }, { dataSources, brand: { id: brandId } }) {
+    return dataSources.LeadAPI.getLeads({ brandId, ...args });
   },
   async lead(_, { uuid }, { dataSources }) {
-    // Check allowance to see lead profile by hierarchy
-    await dataSources.HierarchyAPI.checkAccess(uuid);
-
     return dataSources.LeadAPI.getLead(uuid);
   },
 
@@ -335,12 +338,15 @@ module.exports = {
   /**
    * Operator API
    */
-  operator(_, { uuid }, { dataSources }) {
+  async operator(_, { uuid }, { dataSources }) {
+    // Check allowance to see operator profile by hierarchy
+    await dataSources.HierarchyAPI.checkAccess(uuid);
+
     return dataSources.OperatorAPI.getByUUID(uuid);
   },
   async operators(_, args, { dataSources, userUUID }) {
     // Drop undefined and nullable values from object (because BE service throw Error if null will be sent)
-    const params = pickBy(args, identity);
+    const params = omitBy(args, isNil);
 
     const operatorsSubtree = await dataSources.HierarchyAPI.getOperatorsSubtree(userUUID);
 
@@ -377,6 +383,9 @@ module.exports = {
   referrerStatistics(_, { uuid }, { dataSources }) {
     return dataSources.ReferralAPI.getReferrerStatistics(uuid);
   },
+  referrals(_, { uuid }, { dataSources }) {
+    return dataSources.ReferralAPI.getReferralsByUUID(uuid);
+  },
 
   /**
    * Rule API
@@ -386,7 +395,7 @@ module.exports = {
   },
   rulesRetention(_, args, { dataSources, brand }) {
     // Drop undefined and nullable values from object (because BE service throw Error if null will be sent)
-    const params = pickBy(args, identity);
+    const params = omitBy(args, isNil);
 
     return dataSources.RulePaymentAPI.search({ ...params, brandId: brand.id });
   },
@@ -396,13 +405,13 @@ module.exports = {
    */
   tradingAccounts(_, args, { dataSources }) {
     // Drop undefined and nullable values from object (because BE service throw Error if null will be sent)
-    const params = pickBy(args, identity);
+    const params = omitBy(args, isNil);
 
     return dataSources.AccountViewAPI.getTradingAccounts(params);
   },
   clientTradingAccounts(_, args, { dataSources }) {
     // Drop undefined and nullable values from object (because BE service throw Error if null will be sent)
-    const params = pickBy(args, identity);
+    const params = omitBy(args, isNil);
 
     return dataSources.TradingAccountAPI.getClientTradingAccounts(params);
   },

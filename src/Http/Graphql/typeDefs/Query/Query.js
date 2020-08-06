@@ -59,7 +59,7 @@ module.exports = gql`
 
     # Callback API
     callbacks(
-      id: String
+      searchKeyword: String
       statuses: [Callback__Status__Enum]
       userId: String
       page: Int
@@ -94,24 +94,11 @@ module.exports = gql`
     userHierarchyById(uuid: String!): HierarchyUser
     usersByBranch(uuids: [String]!, onlyActive: Boolean): [HierarchyUser]
     usersByType(userTypes: [String]!, onlyActive: Boolean): HierarchyUserByType
-
+    userBranchesTreeUp(userUUID: String!): [HierarchyUserBranchesTreeUp]  
+      
     # Lead API
     lead(uuid: String!): Lead
-    leads(
-      uuids: [String]
-      searchKeyword: String
-      page: Int
-      limit: Int
-      countries: [String]
-      registrationDateStart: String
-      registrationDateEnd: String
-      status: String
-      salesStatuses: [SalesStatus__Enum]
-      salesAgents: [String]
-      migrationId: String
-      lastNoteDateFrom: String
-      lastNoteDateTo: String
-    ): Lead @pageable
+    leads(args: LeadSearch__Input): Lead @pageable
 
     # Notes API
     notes(
@@ -224,5 +211,6 @@ module.exports = gql`
 
     # Referral API
     referrerStatistics(uuid: String!): ReferrerStatistics
+    referrals(uuid: String!): [Referral]
   }
 `;
