@@ -164,7 +164,7 @@ module.exports = {
     return dataSources.HierarchyAPI.getUserHierarchy(uuid);
   },
   userHierarchyAcquisitionById(_, { uuid }, { dataSources }) {
-    return dataSources.HierarchyAPI.getUserAcquisition(uuid);
+    return dataSources.HierarchyAPI.getUserAcquisitionById(uuid);
   },
   async usersByBranch(_, { uuids, onlyActive }, { dataSources }) {
     const operatorsByBranch = await dataSources.HierarchyAPI.getUsersByBranch({ uuids });
@@ -243,7 +243,7 @@ module.exports = {
       { salesOperator: salesAgent, ...acquisition },
       leadProfile,
     ] = await Promise.all([
-      dataSources.HierarchyAPI.getUserAcquisition(uuid), 
+      dataSources.HierarchyAPI.getUserAcquisitionById(uuid), 
       dataSources.LeadAPI.getLead(uuid),
     ]);
 

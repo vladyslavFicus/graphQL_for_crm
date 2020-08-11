@@ -7,10 +7,17 @@ class HierarchyAPI extends RESTDataSource {
     super(args);
 
     this.loader = new DataLoader(this._loader.bind(this));
+    this.acquisitionLoader = new DataLoader(this._acquisitionLoader.bind(this));
   }
 
   async _loader(userUuids) {
     const data = await this.post('/user/search', { userUuids });
+
+    return orderByArray(userUuids, data, 'uuid');
+  }
+
+  async _acquisitionLoader(userUuids) {
+    const data = await this.post('/user/acquisitions/search', { userUuids });
 
     return orderByArray(userUuids, data, 'uuid');
   }
@@ -27,6 +34,17 @@ class HierarchyAPI extends RESTDataSource {
   }
 
   /**
+   * Get user acquisition by UUID
+   *
+   * @param uuid OperatorUUID
+   *
+   * @return {Promise}
+   */
+  getUserAcquisition(uuid) {
+    return uuid && this.acquisitionLoader.load(uuid);
+  }
+
+  /**
    * Get user hierarchy
    *
    * @param uuid Current userUuid || OperatorUuid
@@ -38,13 +56,13 @@ class HierarchyAPI extends RESTDataSource {
   }
 
   /**
-   * Get user acquisition
+   * Get user acquisition by uuid
    *
    * @param uuid Current userUuid || OperatorUuid
    *
    * @return {Promise}
    */
-  getUserAcquisition(uuid) {
+  getUserAcquisitionById(uuid) {
     return this.get(`/user/${uuid}/acquisition`);
   }
 
