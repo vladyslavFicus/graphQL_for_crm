@@ -113,6 +113,58 @@ module.exports = {
   },
 
   /**
+   * Bulk update acquisition status
+   *
+   * @param _
+   * @param args
+   * @param args.uuids
+   * @param args.acquisitionStatus
+   * @param args.searchParams
+   * @param args.selectedSize
+   * @param dataSources
+   *
+   * @return {Promise<*>}
+   */
+  async bulkUpdateAcquisitionStatus(
+    _,
+    {
+      uuids,
+      acquisitionStatus,
+      searchParams,
+      bulkSize,
+    },
+    { dataSources },
+  ) {
+    let userUuids = uuids;
+
+    if (bulkSize) {
+      const sorts = get(searchParams, 'page.sorts');
+
+      const response = await dataSources.ProfileViewAPI.search({
+        ...(searchParams && searchParams),
+        fields: ['uuid', 'acquisition'],
+        excludeByUuids: userUuids,
+        page: {
+          from: 0,
+          size: bulkSize,
+          ...(sorts && { sorts }),
+        },
+      });
+
+      const content = get(response, 'content') || [];
+
+      userUuids = content.map(({ uuid }) => uuid);
+    }
+
+    await dataSources.HierarchyUpdaterAPI.bulkUpdateAcquisitionStatus({
+      userUuids,
+      acquisitionStatus,
+    });
+
+    return true;
+  },
+
+  /**
    * Bulk update clients acquisition
    *
    * @param _
@@ -142,14 +194,17 @@ module.exports = {
     let userUuids = uuids;
 
     if (bulkSize) {
+      const sorts = get(searchParams, 'page.sorts');
+
       const response = await dataSources.ProfileViewAPI.search({
+        ...(searchParams && searchParams),
         fields: ['uuid', 'acquisition'],
         excludeByUuids: userUuids,
         page: {
           from: 0,
           size: bulkSize,
+          ...(sorts && { sorts }),
         },
-        ...(searchParams && searchParams),
       });
 
       const content = get(response, 'content') || [];
@@ -199,15 +254,17 @@ module.exports = {
 
     if (bulkSize) {
       const observedFrom = await dataSources.HierarchyAPI.getObserverForSubtree(userUUID);
+      const sorts = get(searchParams, 'page.sorts');
 
       const response = await dataSources.LeadAPI.getLeads({
+        ...(searchParams && searchParams),
         brandId,
         observedFrom,
         page: {
           from: 0,
           size: bulkSize + uuids.length,
+          ...(sorts && { sorts }),
         },
-        ...(searchParams && searchParams),
       });
 
       const content = get(response, 'content') || [];
@@ -221,55 +278,6 @@ module.exports = {
       userUuids,
       ...(parentOperators && { parentOperators }),
       ...(salesStatus && { salesStatus }),
-    });
-
-    return true;
-  },
-
-  /**
-   * Bulk update acquisition status
-   *
-   * @param _
-   * @param args
-   * @param args.uuids
-   * @param args.acquisitionStatus
-   * @param args.searchParams
-   * @param args.selectedSize
-   * @param dataSources
-   *
-   * @return {Promise<*>}
-   */
-  async bulkUpdateAcquisitionStatus(
-    _,
-    {
-      uuids,
-      acquisitionStatus,
-      searchParams,
-      bulkSize,
-    },
-    { dataSources },
-  ) {
-    let userUuids = uuids;
-
-    if (bulkSize) {
-      const response = await dataSources.ProfileViewAPI.search({
-        fields: ['uuid', 'acquisition'],
-        excludeByUuids: userUuids,
-        page: {
-          from: 0,
-          size: bulkSize,
-        },
-        ...(searchParams && searchParams),
-      });
-
-      const content = get(response, 'content') || [];
-
-      userUuids = content.map(({ uuid }) => uuid);
-    }
-
-    await dataSources.HierarchyUpdaterAPI.bulkUpdateAcquisitionStatus({
-      userUuids,
-      acquisitionStatus,
     });
 
     return true;
