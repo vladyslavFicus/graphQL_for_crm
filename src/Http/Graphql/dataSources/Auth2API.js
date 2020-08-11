@@ -75,6 +75,18 @@ class Auth2API extends RESTDataSource {
   }
 
   /**
+   * Change operator password
+   *
+   * @param uuid
+   * @param args
+   *
+   * @return {Promise}
+   */
+  changeUnauthorizedPassword(uuid, args) {
+    return this.post(`/password/${uuid}/unauthorized`, args);
+  }
+
+  /**
    * Reset user (client or operator) password
    *
    * @param uuid

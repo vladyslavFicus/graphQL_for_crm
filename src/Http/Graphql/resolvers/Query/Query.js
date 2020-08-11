@@ -393,6 +393,16 @@ module.exports = {
   },
 
   /**
+   * Referral API
+   */
+  referrerStatistics(_, { uuid }, { dataSources }) {
+    return dataSources.ReferralAPI.getReferrerStatistics(uuid);
+  },
+  referrals(_, { uuid }, { dataSources }) {
+    return dataSources.ReferralAPI.getReferralsByUUID(uuid);
+  },
+
+  /**
    * Rule API
    */
   rules(_, args, { dataSources, brand }) {

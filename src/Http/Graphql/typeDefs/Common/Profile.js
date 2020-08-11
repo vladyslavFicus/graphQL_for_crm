@@ -103,6 +103,11 @@ module.exports = gql`
     type: String
   }
 
+  type Profile__Referrer {
+    fullName: String
+    uuid: String
+  }
+
   type Profile {
     _id: ID!
     address: Profile__Address
@@ -135,5 +140,6 @@ module.exports = gql`
     tradingAccounts: [TradingAccount]
     uuid: String
     verifications: [String]
+    referrer: Profile__Referrer
   }
 `;
