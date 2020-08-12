@@ -1,3 +1,5 @@
+const getFieldByType = require('../../../../utils/getFieldByType');
+
 module.exports = {
   /**
    * Create call to Asterisk
@@ -11,7 +13,9 @@ module.exports = {
    *
    * @return {Promise<any>}
    */
-  async createCall(_, { number, prefix }, { dataSources, userUUID, brand }) {
+  async createCall(_, { uuid, field, type, prefix }, { dataSources, userUUID, brand }) {
+    const number = await getFieldByType(uuid, field, type, dataSources);
+
     const { url, token } = brand.clickToCall.asterisk;
 
     const { sip } = await dataSources.OperatorAPI.getByUUID(userUUID);

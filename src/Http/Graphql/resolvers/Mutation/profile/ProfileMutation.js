@@ -141,8 +141,10 @@ module.exports = {
    *
    * @return {*}
    */
-  verifyPhone(_, { playerUUID, phone }, { dataSources }) {
-    return dataSources.ProfileAPI.verifyPhone(playerUUID, phone);
+  async verifyPhone(_, { playerUUID }, { dataSources }) {
+    const profile = await dataSources.ProfileAPI.getByUUID(playerUUID);
+
+    return dataSources.ProfileAPI.verifyPhone(playerUUID, profile.contacts.phone);
   },
 
   /**

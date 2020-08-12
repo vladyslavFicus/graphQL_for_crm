@@ -1,6 +1,7 @@
 const { v4 } = require('uuid');
 const config = require('config');
 const jwtDecode = require('jwt-decode');
+const Auth = require('../../../lib/Auth');
 
 /**
  * Provide context for apollo server
@@ -19,7 +20,7 @@ module.exports = async ({ req: { headers, ip } }) => {
   };
 
   if (headers && headers.authorization && headers.authorization !== 'undefined') {
-    const { brandId, uuid: userUUID } = jwtDecode(headers.authorization);
+    const { brandId, uuid: userUUID, department, role } = jwtDecode(headers.authorization);
 
     // Return context if token without brandId field
     if (!brandId) {
@@ -36,6 +37,7 @@ module.exports = async ({ req: { headers, ip } }) => {
     Object.assign(context, {
       userUUID,
       brand,
+      auth: new Auth(brandId, department, role),
     });
   }
 

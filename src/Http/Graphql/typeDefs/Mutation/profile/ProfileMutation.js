@@ -8,7 +8,7 @@ module.exports = gql`
     updateKYCStatus(playerUUID: String!, kycStatus: String): Boolean
     updateEmail(playerUUID: String!, email: String): Profile
     verifyEmail(playerUUID: String!): Profile
-    verifyPhone(playerUUID: String!, phone: String): Profile
+    verifyPhone(playerUUID: String!): Profile
 
     bulkClientUpdate(
       salesRepresentative: [String]
@@ -47,10 +47,10 @@ module.exports = gql`
 
     updateContacts(
       playerUUID: String!
-      phone: String
-      email: String
-      additionalPhone: String
-      additionalEmail: String
+      phone: String @auth_hide_argument(action: "profile.field.phone")
+      email: String @auth_hide_argument(action: "profile.field.email")
+      additionalPhone: String @auth_hide_argument(action: "profile.field.additionalPhone")
+      additionalEmail: String @auth_hide_argument(action: "profile.field.additionalEmail")
     ): Profile
   }
 `;

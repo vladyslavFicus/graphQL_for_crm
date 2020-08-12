@@ -3,9 +3,11 @@ module.exports = {
    * Update note
    *
    * @param _
+   * @param uuid
    * @param args
    * @param dataSources
-   *
+   * @param brandId
+   *s
    * @return {Promise<Lead|*>}
    */
   async update(_, { uuid, ...args }, { dataSources, brand: { id: brandId } }) {
@@ -25,6 +27,8 @@ module.exports = {
    * @param args.searchParams
    * @param args.totalElements
    * @param dataSources
+   * @param brandId
+   * @param userUUID
    *
    * @return {Promise<*>}
    */
@@ -90,5 +94,31 @@ module.exports = {
    * */
   async uploadLeads(_, { file }, { dataSources, brand: { id: brand } }) {
     await dataSources.LeadUpdaterAPI.uploadLeads(file, brand);
+  },
+
+  /**
+   * Promote lead to client
+   *
+   * @param _
+   * @param uuid
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise<*>}
+   */
+  async promote(_, { args: { uuid, ...args } }, { dataSources }) {
+    // Get real lead contacts from BE service
+    const lead = await dataSources.LeadAPI.getLead(uuid);
+
+    const _args = {
+      ...args,
+      contacts: {
+        phone: lead.phone,
+        additionalPhone: lead.mobile,
+        email: lead.email,
+      },
+    };
+
+    return dataSources.ProfileAPI.createProfile(_args);
   },
 };

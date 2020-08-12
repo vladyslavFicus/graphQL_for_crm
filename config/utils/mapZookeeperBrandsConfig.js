@@ -1,7 +1,7 @@
 const { get } = require('lodash');
 
-module.exports = configs =>
-  Object.entries(configs).reduce(
+module.exports = configs => ({
+  brands: Object.entries(configs).reduce(
     (acc, [id, config]) => ({
       ...acc,
       [id]: {
@@ -15,5 +15,6 @@ module.exports = configs =>
         },
       },
     }),
-    {}
-  );
+    {},
+  ),
+});
