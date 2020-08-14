@@ -172,4 +172,20 @@ module.exports = {
   async removeAuthority(_, { uuid, ...args }, { dataSources, brand }) {
     await dataSources.Auth2API.removeAuthority(uuid, { brand: brand.id, ...args });
   },
+
+  /**
+   * Update authority actions
+   *
+   * @param _
+   * @param department
+   * @param role
+   * @param actions
+   * @param dataSources
+   * @param brand
+   *
+   * @return {Promise<void>}
+   */
+  async updateAuthorityActions(_, { department, role, actions }, { dataSources, brand }) {
+    await dataSources.Auth2API.updateAuthorityActions(brand.id, department, role, actions);
+  },
 };

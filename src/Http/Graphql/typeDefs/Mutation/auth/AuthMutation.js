@@ -14,5 +14,6 @@ module.exports = gql`
     tokenRenew: TokenRenew
     addAuthority(uuid: String!, department: String!, role: String!): Boolean
     removeAuthority(uuid: String!, department: String!, role: String!): Boolean
+    updateAuthorityActions(department: String!, role: String!, actions: [String]!): Boolean
   }
 `;
