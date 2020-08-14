@@ -74,7 +74,7 @@ async function load() {
 
   // Add watcher to listen changes in /__last_updated_permissions node and assign updated permissions to config
   zookeeper.watch('/__last_updated_permissions', async () => {
-    assignToConfig(await zookeeper.get('/brands'));
+    assignToConfig(await zookeeper.get('/permissions'));
 
     Logger.info('✅ Permissions configuration updated successfully');
   });
