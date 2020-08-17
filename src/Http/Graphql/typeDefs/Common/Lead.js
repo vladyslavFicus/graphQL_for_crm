@@ -26,5 +26,6 @@ module.exports = gql`
     source: String
     surname: String!
     uuid: String!
+    acquisition: HierarchyUserAcquisition
   }
 `;
