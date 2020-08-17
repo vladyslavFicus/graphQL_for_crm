@@ -108,8 +108,6 @@ module.exports = {
    */
   async updateAcquisition(_, { uuid, ...args }, { dataSources }) {
     await dataSources.HierarchyUpdaterAPI.updateAcquisition(uuid, args);
-
-    return true;
   },
 
   /**
@@ -160,8 +158,6 @@ module.exports = {
       userUuids,
       acquisitionStatus,
     });
-
-    return true;
   },
 
   /**
@@ -218,8 +214,6 @@ module.exports = {
       ...(retentionStatus && { retentionStatus }),
       ...(salesStatus && { salesStatus }),
     });
-
-    return true;
   },
   
 
@@ -235,7 +229,6 @@ module.exports = {
    * @param args.bulkSize
    * @param dataSources
    * @param id
-   * @param userUUID
    *
    * @return {Promise<*>}
    */
@@ -248,18 +241,16 @@ module.exports = {
       searchParams,
       bulkSize,
     },
-    { dataSources, brand: { id: brandId }, userUUID },
+    { dataSources, brand: { id: brandId } },
   ) {
     let userUuids = uuids;
 
     if (bulkSize) {
-      const observedFrom = await dataSources.HierarchyAPI.getObserverForSubtree(userUUID);
       const sorts = get(searchParams, 'page.sorts');
 
       const response = await dataSources.LeadAPI.getLeads({
         ...(searchParams && searchParams),
         brandId,
-        observedFrom,
         page: {
           from: 0,
           size: bulkSize + uuids.length,
@@ -279,7 +270,5 @@ module.exports = {
       ...(parentOperators && { parentOperators }),
       ...(salesStatus && { salesStatus }),
     });
-
-    return true;
   },
 };

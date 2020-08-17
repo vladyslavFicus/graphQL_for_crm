@@ -103,18 +103,6 @@ class HierarchyAPI extends RESTDataSource {
   }
 
   /**
-   *
-   * Get observer for ids from hierarchy tree
-   *
-   * @param uuid | current operator uuid
-   *
-   * @return {Promise}
-   */
-  getObserverForSubtree(uuid) {
-    return this.get(`/user/${uuid}/observer-for`);
-  }
-
-  /**
    * Check operator permission to access the entity
    * Note: Allow or disallow operator to see entity (leads, operators, clients, partners) regarding him hierarchy tree
    *
