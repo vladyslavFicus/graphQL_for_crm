@@ -1,5 +1,5 @@
 module.exports = {
   acquisition({ referralInfo: { profileUuid } }, _, { dataSources }) {
-    return dataSources.HierarchyAPI.getUserAcquisition(profileUuid);
+    return profileUuid && dataSources.HierarchyAPI.getUserAcquisition(profileUuid);
   },
 };
