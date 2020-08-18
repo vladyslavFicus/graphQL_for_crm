@@ -141,5 +141,6 @@ module.exports = gql`
     uuid: String
     verifications: [String]
     referrer: Profile__Referrer
+    acquisition: HierarchyUserAcquisition
   }
 `;

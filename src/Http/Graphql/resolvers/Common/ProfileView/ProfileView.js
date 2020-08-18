@@ -3,6 +3,6 @@ module.exports = {
     return [firstName, lastName].filter(v => v).join(' ');
   },
   acquisition({ uuid }, _, { dataSources }) {
-    return uuid && dataSources.HierarchyAPI.getUserAcquisition(uuid);
+    return dataSources.HierarchyAPI.getUserAcquisition(uuid);
   },
 };

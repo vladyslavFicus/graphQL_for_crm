@@ -3,6 +3,6 @@ module.exports = {
     return uuid;
   },
   acquisition({ uuid }, _, { dataSources }) {
-    return uuid && dataSources.HierarchyAPI.getUserAcquisition(uuid);
+    return dataSources.HierarchyAPI.getUserAcquisition(uuid);
   },
 };
