@@ -140,7 +140,7 @@ module.exports = {
 
       const response = await dataSources.ProfileViewAPI.search({
         ...(searchParams && searchParams),
-        fields: ['uuid', 'acquisition'],
+        fields: ['uuid'],
         excludeByUuids: userUuids,
         page: {
           from: 0,
@@ -194,7 +194,7 @@ module.exports = {
 
       const response = await dataSources.ProfileViewAPI.search({
         ...(searchParams && searchParams),
-        fields: ['uuid', 'acquisition'],
+        fields: ['uuid'],
         excludeByUuids: userUuids,
         page: {
           from: 0,
