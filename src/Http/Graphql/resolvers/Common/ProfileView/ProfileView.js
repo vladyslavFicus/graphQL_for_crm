@@ -2,7 +2,13 @@ module.exports = {
   fullName({ firstName, lastName }) {
     return [firstName, lastName].filter(v => v).join(' ');
   },
-  acquisition({ uuid }, _, { dataSources }) {
-    return dataSources.HierarchyAPI.getUserAcquisition(uuid);
+  async acquisition({ uuid }, _, { dataSources }) {
+    const response = await dataSources.HierarchyAPI.getUserAcquisition(uuid);
+
+    if (response) {
+      return response.acquisition;
+    }
+
+    return response;
   },
 };
