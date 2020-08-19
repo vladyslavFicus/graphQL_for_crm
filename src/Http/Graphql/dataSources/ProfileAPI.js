@@ -158,28 +158,6 @@ class ProfileAPI extends RESTDataSource {
   verifyPhone(uuid, phone) {
     return this.post(`/admin/profiles/${uuid}/verification/phone`, { phone });
   }
-
-  /**
-   * Bulk update clients sales status
-   *
-   * @param args
-   *
-   * @return {*}
-   */
-  bulkUpdateSalesStatuses(args) {
-    return this.put('/admin/profiles/bulk/acquisition/sales-status', args);
-  }
-
-  /**
-   * Bulk update clients retention status
-   *
-   * @param args
-   *
-   * @return {*}
-   */
-  bulkUpdateRetentionStatuses(args) {
-    return this.put('/admin/profiles/bulk/acquisition/retention-status', args);
-  }
 }
 
 module.exports = ProfileAPI;

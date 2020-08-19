@@ -1,16 +1,6 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`
-  type ProfileView__Acquisition {
-    acquisitionStatus: String
-    retentionOperator: Operator
-    retentionRepresentative: String
-    retentionStatus: String
-    salesOperator: Operator
-    salesRepresentative: String
-    salesStatus: String
-  }
-
   type ProfileView__Address {
     countryCode: String
   }
@@ -63,7 +53,7 @@ module.exports = gql`
   }
 
   type ProfileView {
-    acquisition: ProfileView__Acquisition
+    acquisition: HierarchyUserAcquisition
     address: ProfileView__Address
     affiliate: ProfileView__Affiliate
     referrer: ProfileView__Referrer

@@ -11,4 +11,7 @@ module.exports = {
   tradingAccounts({ uuid }, _, { dataSources }) {
     return dataSources.TradingAccountAPI.getClientTradingAccounts({ profileUUID: uuid });
   },
+  acquisition({ uuid }, _, { dataSources }) {
+    return dataSources.HierarchyAPI.getUserAcquisition(uuid);
+  },
 };
