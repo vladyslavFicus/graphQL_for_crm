@@ -42,9 +42,9 @@ class HierarchyAPI extends RESTDataSource {
    */
   async getUserAcquisition(uuid) {
     if (uuid) {
-      const { acquisition } = await this.acquisitionLoader.load(uuid);
+      const response = await this.acquisitionLoader.load(uuid);
 
-      return acquisition;
+      return response && response.acquisition;
     }
 
     return null;
