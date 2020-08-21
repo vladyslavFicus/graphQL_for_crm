@@ -9,5 +9,6 @@ module.exports = gql`
     parentUsers: [HierarchyUser]
     userType: String!
     uuid: String!
+    acquisition: HierarchyUserAcquisition
   }
 `;

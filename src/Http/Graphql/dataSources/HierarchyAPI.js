@@ -7,12 +7,19 @@ class HierarchyAPI extends RESTDataSource {
     super(args);
 
     this.loader = new DataLoader(this._loader.bind(this));
+    this.acquisitionLoader = new DataLoader(this._acquisitionLoader.bind(this));
   }
 
   async _loader(userUuids) {
     const data = await this.post('/user/search', { userUuids });
 
     return orderByArray(userUuids, data, 'uuid');
+  }
+
+  async _acquisitionLoader(userUuids) {
+    const data = await this.post('/user/acquisitions/search', { userUuids });
+
+    return orderByArray(userUuids, data, 'userUuid');
   }
 
   /**
@@ -24,6 +31,17 @@ class HierarchyAPI extends RESTDataSource {
    */
   getUser(uuid) {
     return uuid && this.loader.load(uuid);
+  }
+
+  /**
+   * Get user acquisition by UUID
+   *
+   * @param uuid OperatorUUID
+   *
+   * @return {Promise}
+   */
+  getUserAcquisition(uuid) {
+    return uuid && this.acquisitionLoader.load(uuid);
   }
 
   /**
@@ -71,18 +89,6 @@ class HierarchyAPI extends RESTDataSource {
    */
   getOperatorsSubtree(uuid) {
     return this.get(`/user/${uuid}/operators`);
-  }
-
-  /**
-   *
-   * Get observer for ids from hierarchy tree
-   *
-   * @param uuid | current operator uuid
-   *
-   * @return {Promise}
-   */
-  getObserverForSubtree(uuid) {
-    return this.get(`/user/${uuid}/observer-for`);
   }
 
   /**

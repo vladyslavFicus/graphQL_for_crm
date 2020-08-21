@@ -232,10 +232,10 @@ module.exports = {
   /**
    * Lead API
    */
-  async leads(_, { args }, { dataSources, brand: { id: brandId } }) {
+  leads(_, { args }, { dataSources, brand: { id: brandId } }) {
     return dataSources.LeadAPI.getLeads({ brandId, ...args });
   },
-  async lead(_, { uuid }, { dataSources }) {
+  lead(_, { uuid }, { dataSources }) {
     return dataSources.LeadAPI.getLead(uuid);
   },
 

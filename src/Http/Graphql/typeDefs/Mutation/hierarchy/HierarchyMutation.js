@@ -27,5 +27,36 @@ module.exports = gql`
     removeBranchManager(
       branchUuid: String
     ): Boolean
+
+    updateAcquisition(
+      uuid: String!
+      parentOperator: String
+      salesStatus: String
+      retentionStatus: String
+    ): Boolean
+
+    bulkUpdateClientsAcquisition(
+      uuids: [String]!
+      parentOperators: [String]
+      salesStatus: String
+      retentionStatus: String
+      searchParams: ClientSearch__Input
+      bulkSize: Int
+    ): Boolean
+
+    bulkUpdateLeadsAcquisition(
+      uuids: [String]!
+      parentOperators: [String]
+      salesStatus: String
+      searchParams: LeadSearch__Input
+      bulkSize: Int
+    ): Boolean
+
+    bulkUpdateAcquisitionStatus(
+      uuids: [String]!
+      acquisitionStatus: Desk__Types__Enum!
+      searchParams: ClientSearch__Input
+      bulkSize: Int
+    ): Boolean
   }
 `;
