@@ -228,6 +228,12 @@ module.exports = {
   userBranchesTreeUp(_, { userUUID }, { dataSources }) {
     return dataSources.HierarchyAPI.getUserBranchesTreeUp(userUUID);
   },
+  treeTop(_, __, { dataSources }) {
+    return dataSources.HierarchyAPI.getTreeTop();
+  },
+  treeBranch(_, { uuid }, { dataSources }) {
+    return dataSources.HierarchyAPI.getTreeBranch(uuid);
+  },
 
   /**
    * Lead API

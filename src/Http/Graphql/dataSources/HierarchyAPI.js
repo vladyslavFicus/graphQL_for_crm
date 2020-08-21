@@ -198,6 +198,26 @@ class HierarchyAPI extends RESTDataSource {
   getUserBranchesTreeUp(userUUID) {
     return this.get(`/user/${userUUID}/branches/hierarchy-up`);
   }
+
+  /**
+   * Get hierarchy tree top level for authenticated user
+   *
+   * @return {*}
+   */
+  getTreeTop() {
+    return this.get('/tree/top');
+  }
+
+  /**
+   * Get single level of hierarchy by branch uuid
+   *
+   * @param uuid Branch UUID
+   *
+   * @return {*}
+   */
+  getTreeBranch(uuid) {
+    return this.get(`/tree/${uuid}`);
+  }
 }
 
 module.exports = HierarchyAPI;
