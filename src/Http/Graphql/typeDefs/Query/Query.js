@@ -86,9 +86,9 @@ module.exports = gql`
       deskType: Desk__Types__Enum
       country: String
     ): [HierarchyBranch]
-    branchTree(branchUuid: String!): HierarchyBranchTree
     branchInfo(branchId: String!): HierarchyBranch
     branchChildren(uuid: String!): [HierarchyBranch]
+    branchUsers(branchUuid: String!): [HierarchyBranchUser]
     userBranches(withoutBrandFilter: Boolean): HierarchyUserBranches
     userHierarchy: HierarchyUser
     userHierarchyById(uuid: String!): HierarchyUser

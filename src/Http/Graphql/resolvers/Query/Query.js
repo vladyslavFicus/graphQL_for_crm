@@ -142,14 +142,14 @@ module.exports = {
         return null;
     }
   },
-  branchTree(_, { branchUuid }, { dataSources }) {
-    return dataSources.HierarchyAPI.getBranchTree(branchUuid);
-  },
   branchInfo(_, { branchId }, { dataSources }) {
     return dataSources.HierarchyAPI.getBranchInfo(branchId);
   },
   branchChildren(_, { uuid }, { dataSources }) {
     return dataSources.HierarchyAPI.getBranchChildren(uuid);
+  },
+  branchUsers(_, { branchUuid }, { dataSources }) {
+    return dataSources.HierarchyAPI.getBranchUsers(branchUuid);
   },
   async userBranches(_, { withoutBrandFilter }, { dataSources, userUUID, brand }) {
     const args = withoutBrandFilter ? {} : { brandId: brand.id };
