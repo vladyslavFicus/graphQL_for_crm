@@ -3,12 +3,11 @@ module.exports = {
     return uuid;
   },
   async acquisition({ uuid }, _, { dataSources }) {
-    const response = await dataSources.HierarchyAPI.getUserAcquisition(uuid);
-
-    if (response) {
-      return response.acquisition;
+    try {
+      const { acquisition } = await dataSources.HierarchyAPI.getUserAcquisition(uuid);
+      return acquisition;
+    } catch (e) {
+      return null;
     }
-
-    return response;
   },
 };
