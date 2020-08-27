@@ -1,11 +1,10 @@
 module.exports = {
   async acquisition({ referralInfo: { profileUuid } }, _, { dataSources }) {
-    const response = await dataSources.HierarchyAPI.getUserAcquisition(profileUuid);
-
-    if (response) {
-      return response.acquisition;
+    try {
+      const { acquisition } = await dataSources.HierarchyAPI.getUserAcquisition(profileUuid);
+      return acquisition;
+    } catch (e) {
+      return null;
     }
-
-    return response;
   },
 };
