@@ -86,15 +86,17 @@ module.exports = gql`
       deskType: Desk__Types__Enum
       country: String
     ): [HierarchyBranch]
-    branchTree(branchUuid: String!): HierarchyBranchTree
     branchInfo(branchId: String!): HierarchyBranch
     branchChildren(uuid: String!): [HierarchyBranch]
+    branchUsers(branchUuid: String!): [HierarchyBranchUser]
     userBranches(withoutBrandFilter: Boolean): HierarchyUserBranches
     userHierarchy: HierarchyUser
     userHierarchyById(uuid: String!): HierarchyUser
     usersByBranch(uuids: [String]!, onlyActive: Boolean): [HierarchyUser]
     usersByType(userTypes: [String]!, onlyActive: Boolean): HierarchyUserByType
-    userBranchesTreeUp(userUUID: String!): [HierarchyUserBranchesTreeUp]  
+    userBranchesTreeUp(userUUID: String!): [HierarchyUserBranchesTreeUp]
+    treeTop: [HierarchyTreeBranch]
+    treeBranch(uuid: String!): HierarchyTreeBranchResponse
       
     # Lead API
     lead(uuid: String!): Lead

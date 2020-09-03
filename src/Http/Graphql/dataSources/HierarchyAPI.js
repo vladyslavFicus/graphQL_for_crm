@@ -40,8 +40,14 @@ class HierarchyAPI extends RESTDataSource {
    *
    * @return {Promise}
    */
-  getUserAcquisition(uuid) {
-    return uuid && this.acquisitionLoader.load(uuid);
+  async getUserAcquisition(uuid) {
+    if (uuid) {
+      const response = await this.acquisitionLoader.load(uuid);
+
+      return response && response.acquisition;
+    }
+
+    return null;
   }
 
   /**
@@ -126,6 +132,17 @@ class HierarchyAPI extends RESTDataSource {
   }
 
   /**
+   * Get branch users
+   *
+   * @param uuid | branchId
+   *
+   * @return {Promise}
+   */
+  getBranchUsers(uuid) {
+    return this.get(`/branch/${uuid}/users`);
+  }
+
+  /**
    * Get office
    *
    * @param uuid | userUuid
@@ -162,18 +179,6 @@ class HierarchyAPI extends RESTDataSource {
   }
 
   /**
-   * Get branch hierarchy tree
-   * Note: Get tree of branches. Branch with the given uuid will be in root.
-   *
-   * @param uuid
-   *
-   * @return {Promise}
-   */
-  getBranchTree(uuid) {
-    return this.get(`/branch/hierarchy/${uuid}`);
-  }
-
-  /**
    * Get users by branch
    *
    * @param args
@@ -197,6 +202,26 @@ class HierarchyAPI extends RESTDataSource {
 
   getUserBranchesTreeUp(userUUID) {
     return this.get(`/user/${userUUID}/branches/hierarchy-up`);
+  }
+
+  /**
+   * Get hierarchy tree top level for authenticated user
+   *
+   * @return {*}
+   */
+  getTreeTop() {
+    return this.get('/tree/top');
+  }
+
+  /**
+   * Get single level of hierarchy by branch uuid
+   *
+   * @param uuid Branch UUID
+   *
+   * @return {*}
+   */
+  getTreeBranch(uuid) {
+    return this.get(`/tree/${uuid}`);
   }
 }
 

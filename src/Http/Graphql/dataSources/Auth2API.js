@@ -1,6 +1,23 @@
+const DataLoader = require('dataloader');
 const RESTDataSource = require('@hrzn/apollo-datasource/RESTDataSource');
+const orderByArray = require('../../../utils/orderByArray');
 
 class Auth2API extends RESTDataSource {
+  constructor(args) {
+    super(args);
+
+    this.authoritiesLoader = new DataLoader(this._authoritiesLoader.bind(this));
+  }
+
+  async _authoritiesLoader(filters) {
+    const uuids = filters.map(({ uuid }) => uuid);
+    const { brand } = filters[0];
+
+    const data = await this.post('/users/authorities', { uuids, brand });
+
+    return orderByArray(uuids, data, 'uuid');
+  }
+
   /**
    * Sign in operator
    *
@@ -148,11 +165,18 @@ class Auth2API extends RESTDataSource {
    * Get user authorities
    *
    * @param uuid
+   * @param brand
    *
    * @return {Promise}
    */
-  getAuthoritiesByUuid(uuid) {
-    return this.get(`/users/${uuid}/authorities`);
+  async getAuthoritiesByUuid(uuid, brand) {
+    if (uuid) {
+      const response = await this.authoritiesLoader.load({ uuid, brand });
+
+      return (response && response.authorities) || [];
+    }
+
+    return [];
   }
 
   /**
