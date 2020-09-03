@@ -11,7 +11,12 @@ module.exports = {
   tradingAccounts({ uuid }, _, { dataSources }) {
     return dataSources.TradingAccountAPI.getClientTradingAccounts({ profileUUID: uuid });
   },
-  acquisition({ uuid }, _, { dataSources }) {
-    return dataSources.HierarchyAPI.getUserAcquisition(uuid);
+  async acquisition({ uuid }, _, { dataSources }) {
+    try {
+      const { acquisition } = await dataSources.HierarchyAPI.getUserAcquisition(uuid);
+      return acquisition;
+    } catch (e) {
+      return null;
+    }
   },
 };
