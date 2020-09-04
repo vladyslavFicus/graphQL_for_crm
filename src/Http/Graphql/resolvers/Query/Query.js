@@ -99,7 +99,7 @@ module.exports = {
     return dataSources.CallbackAPI.getCallbacks({ operatorIds, ...args });
   },
   async callback(_, { id }, { dataSources }) {
-    const callbacksData = await dataSources.CallbackAPI.getCallbacks({ id, page: 0, limit: 1 });
+    const callbacksData = await dataSources.CallbackAPI.getCallbacks({ searchKeyword: id, page: 0, limit: 1 });
 
     return callbacksData.content[0];
   },
