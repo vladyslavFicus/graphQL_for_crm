@@ -202,6 +202,42 @@ class Auth2API extends RESTDataSource {
   removeAuthority(uuid, args) {
     return this.delete(`/users/${uuid}/authorities`, args);
   }
+
+  /**
+   * Get actions for brand, department and role
+   *
+   * @param brand
+   * @param department
+   * @param role
+   *
+   * @return {*}
+   */
+  getActions(brand, department, role) {
+    return this.get(`/authorities/${brand}/${department}/${role}/actions`);
+  }
+
+  /**
+   * Update authority actions
+   *
+   * @param brand
+   * @param department
+   * @param role
+   * @param actions
+   *
+   * @return {*}
+   */
+  updateAuthorityActions(brand, department, role, actions) {
+    return this.post(`/authorities/${brand}/${department}/${role}/actions`, { actions });
+  }
+
+  /**
+   * Get all actions
+   *
+   * @return {*}
+   */
+  getAllActions() {
+    return this.get('/actions');
+  }
 }
 
 module.exports = Auth2API;

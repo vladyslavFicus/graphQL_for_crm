@@ -51,6 +51,11 @@ module.exports = {
   /**
    * Auth2 API
    */
+  async allActions(_, __, { dataSources }) {
+    const { actions } = await dataSources.Auth2API.getAllActions();
+
+    return actions.sort();
+  },
   async authoritiesOptions(_, __, { dataSources, brand: { id: brand } }) {
     const responseData = await dataSources.Auth2API.getAuthorities(brand);
 
@@ -72,6 +77,11 @@ module.exports = {
     }, {});
 
     return authoritiesOptions;
+  },
+  async authorityActions(_, { department, role }, { dataSources, brand }) {
+    const { actions } = await dataSources.Auth2API.getActions(brand.id, department, role);
+
+    return actions.sort();
   },
   async permission(_, __, { dataSources }) {
     const { actions } = await dataSources.Auth2API.getPermissions();
