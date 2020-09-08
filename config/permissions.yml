@@ -1,0 +1,36 @@
+all-roles: &all-roles
+  - EXECUTIVE
+  - TEAM_LEADER
+  - MANAGER
+  - HEAD_OF_DEPARTMENT
+
+operators: &all
+  - department: ADMINISTRATION
+    roles:
+      - ADMINISTRATION
+  - department: RFP
+    roles:
+      - HEAD_OF_DEPARTMENT
+  - department: CS
+    roles: *all-roles
+  - department: SALES
+    roles: *all-roles
+  - department: RETENTION
+    roles: *all-roles
+
+permissions:
+  actions:
+    - action: "profile.field.phone"
+      authorities: *all
+    - action: "profile.field.additionalPhone"
+      authorities: *all
+    - action: "profile.field.email"
+      authorities: *all
+    - action: "profile.field.additionalEmail"
+      authorities: *all
+    - action: "lead.field.phone"
+      authorities: *all
+    - action: "lead.field.mobile"
+      authorities: *all
+    - action: "lead.field.email"
+      authorities: *all

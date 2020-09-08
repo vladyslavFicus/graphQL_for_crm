@@ -10,14 +10,14 @@ module.exports = gql`
     convertedByOperatorUuid: String
     convertedToClientUuid: String
     country: String
-    email: String!
+    email: String! @auth_mask_field(action: "lead.field.email")
     gender: String
     language: String
     lastNote: Note
     migrationId: String
-    mobile: String
+    mobile: String @auth_mask_field(action: "lead.field.mobile")
     name: String!
-    phone: String!
+    phone: String! @auth_mask_field(action: "lead.field.phone")
     registrationDate: String!
     salesAgent: Operator
     salesStatus: SalesStatus__Enum

@@ -1,15 +1,22 @@
+const getFieldByType = require('../../../utils/getFieldByType');
+
 module.exports = {
   /**
    * Send email action
    *
    * @param _
+   * @param uuid
+   * @param field
+   * @param type
    * @param args
    * @param dataSources
    *
    * @return {Promise}
    */
-  async sendEmail(_, args, { dataSources }) {
-    await dataSources.EmailAPI.sendEmail(args);
+  async sendEmail(_, { uuid, field, type, ...args }, { dataSources }) {
+    const toEmail = await getFieldByType(uuid, field, type, dataSources);
+
+    await dataSources.EmailAPI.sendEmail({ ...args, toEmail });
   },
 
   /**
