@@ -6,6 +6,7 @@ module.exports = gql`
       excUuids: [String]
       incUuids: [String]
       totalElements: Int!
+      searchParams: NotificationCenterSearch__Input
     ): Boolean
   }
 `;

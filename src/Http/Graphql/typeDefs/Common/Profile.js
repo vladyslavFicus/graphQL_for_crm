@@ -1,16 +1,6 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`
-  type Profile__Acquisition {
-    acquisitionStatus: String
-    retentionOperator: Operator
-    retentionRepresentative: String
-    retentionStatus: String
-    salesOperator: Operator
-    salesRepresentative: String
-    salesStatus: String
-  }
-
   type Profile__Address {
     address: String
     city: String
@@ -59,10 +49,10 @@ module.exports = gql`
   }
 
   type Profile__Contacts {
-    additionalEmail: String
-    additionalPhone: String
-    email: String
-    phone: String
+    additionalEmail: String @auth_mask_field(action: "profile.field.additionalEmail")
+    additionalPhone: String @auth_mask_field(action: "profile.field.additionalPhone")
+    email: String @auth_mask_field(action: "profile.field.email")
+    phone: String @auth_mask_field(action: "profile.field.phone")
   }
 
   type Profile__KYC {
@@ -113,9 +103,13 @@ module.exports = gql`
     type: String
   }
 
+  type Profile__Referrer {
+    fullName: String
+    uuid: String
+  }
+
   type Profile {
     _id: ID!
-    acquisition: Profile__Acquisition
     address: Profile__Address
     affiliate: Profile__Affiliate
     age: String
@@ -146,5 +140,7 @@ module.exports = gql`
     tradingAccounts: [TradingAccount]
     uuid: String
     verifications: [String]
+    referrer: Profile__Referrer
+    acquisition: HierarchyUserAcquisition
   }
 `;

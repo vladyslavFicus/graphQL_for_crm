@@ -1,4 +1,4 @@
-const { get, pickBy, identity, groupBy } = require('lodash');
+const { get, omitBy, isNil, groupBy } = require('lodash');
 const moment = require('moment');
 const {
   prepareAdditionalStatsUsersRegistration,
@@ -51,6 +51,11 @@ module.exports = {
   /**
    * Auth2 API
    */
+  async allActions(_, __, { dataSources }) {
+    const { actions } = await dataSources.Auth2API.getAllActions();
+
+    return actions.sort();
+  },
   async authoritiesOptions(_, __, { dataSources, brand: { id: brand } }) {
     const responseData = await dataSources.Auth2API.getAuthorities(brand);
 
@@ -72,6 +77,11 @@ module.exports = {
     }, {});
 
     return authoritiesOptions;
+  },
+  async authorityActions(_, { department, role }, { dataSources, brand }) {
+    const { actions } = await dataSources.Auth2API.getActions(brand.id, department, role);
+
+    return actions.sort();
   },
   async permission(_, __, { dataSources }) {
     const { actions } = await dataSources.Auth2API.getPermissions();
@@ -99,7 +109,7 @@ module.exports = {
     return dataSources.CallbackAPI.getCallbacks({ operatorIds, ...args });
   },
   async callback(_, { id }, { dataSources }) {
-    const callbacksData = await dataSources.CallbackAPI.getCallbacks({ id, page: 0, limit: 1 });
+    const callbacksData = await dataSources.CallbackAPI.getCallbacks({ searchKeyword: id, page: 0, limit: 1 });
 
     return callbacksData.content[0];
   },
@@ -142,14 +152,14 @@ module.exports = {
         return null;
     }
   },
-  branchTree(_, { branchUuid }, { dataSources }) {
-    return dataSources.HierarchyAPI.getBranchTree(branchUuid);
-  },
   branchInfo(_, { branchId }, { dataSources }) {
     return dataSources.HierarchyAPI.getBranchInfo(branchId);
   },
   branchChildren(_, { uuid }, { dataSources }) {
     return dataSources.HierarchyAPI.getBranchChildren(uuid);
+  },
+  branchUsers(_, { branchUuid }, { dataSources }) {
+    return dataSources.HierarchyAPI.getBranchUsers(branchUuid);
   },
   async userBranches(_, { withoutBrandFilter }, { dataSources, userUUID, brand }) {
     const args = withoutBrandFilter ? {} : { brandId: brand.id };
@@ -165,6 +175,10 @@ module.exports = {
   },
   async usersByBranch(_, { uuids, onlyActive }, { dataSources }) {
     const operatorsByBranch = await dataSources.HierarchyAPI.getUsersByBranch({ uuids });
+
+    if (operatorsByBranch.length === 0) {
+      return [];
+    }
 
     const { content } = await dataSources.OperatorAPI.search({
       ...onlyActive && { status: 'ACTIVE' },
@@ -221,18 +235,23 @@ module.exports = {
     return groupBy(operators, 'userType');
   },
 
+  userBranchesTreeUp(_, { userUUID }, { dataSources }) {
+    return dataSources.HierarchyAPI.getUserBranchesTreeUp(userUUID);
+  },
+  treeTop(_, __, { dataSources }) {
+    return dataSources.HierarchyAPI.getTreeTop();
+  },
+  treeBranch(_, { uuid }, { dataSources }) {
+    return dataSources.HierarchyAPI.getTreeBranch(uuid);
+  },
+
   /**
    * Lead API
    */
-  async leads(_, args, { dataSources, userUUID, brand: { id: brandId } }) {
-    const observedFrom = await dataSources.HierarchyAPI.getObserverForSubtree(userUUID);
-
-    return dataSources.LeadAPI.getLeads({ brandId, observedFrom, ...args });
+  leads(_, { args }, { dataSources, brand: { id: brandId } }) {
+    return dataSources.LeadAPI.getLeads({ brandId, ...args });
   },
-  async lead(_, { uuid }, { dataSources }) {
-    // Check allowance to see lead profile by hierarchy
-    await dataSources.HierarchyAPI.checkAccess(uuid);
-
+  lead(_, { uuid }, { dataSources }) {
     return dataSources.LeadAPI.getLead(uuid);
   },
 
@@ -343,7 +362,7 @@ module.exports = {
   },
   async operators(_, args, { dataSources, userUUID }) {
     // Drop undefined and nullable values from object (because BE service throw Error if null will be sent)
-    const params = pickBy(args, identity);
+    const params = omitBy(args, isNil);
 
     const operatorsSubtree = await dataSources.HierarchyAPI.getOperatorsSubtree(userUUID);
 
@@ -375,6 +394,16 @@ module.exports = {
   },
 
   /**
+   * Referral API
+   */
+  referrerStatistics(_, { uuid }, { dataSources }) {
+    return dataSources.ReferralAPI.getReferrerStatistics(uuid);
+  },
+  referrals(_, { uuid }, { dataSources }) {
+    return dataSources.ReferralAPI.getReferralsByUUID(uuid);
+  },
+
+  /**
    * Rule API
    */
   rules(_, args, { dataSources, brand }) {
@@ -382,7 +411,7 @@ module.exports = {
   },
   rulesRetention(_, args, { dataSources, brand }) {
     // Drop undefined and nullable values from object (because BE service throw Error if null will be sent)
-    const params = pickBy(args, identity);
+    const params = omitBy(args, isNil);
 
     return dataSources.RulePaymentAPI.search({ ...params, brandId: brand.id });
   },
@@ -392,13 +421,13 @@ module.exports = {
    */
   tradingAccounts(_, args, { dataSources }) {
     // Drop undefined and nullable values from object (because BE service throw Error if null will be sent)
-    const params = pickBy(args, identity);
+    const params = omitBy(args, isNil);
 
     return dataSources.AccountViewAPI.getTradingAccounts(params);
   },
   clientTradingAccounts(_, args, { dataSources }) {
     // Drop undefined and nullable values from object (because BE service throw Error if null will be sent)
-    const params = pickBy(args, identity);
+    const params = omitBy(args, isNil);
 
     return dataSources.TradingAccountAPI.getClientTradingAccounts(params);
   },

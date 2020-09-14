@@ -12,7 +12,7 @@ module.exports = gql`
       sources: [String]
       type: Rule__Type__Enum
       uuid: String
-    ): Rule
+    ): Boolean
 
     createRuleRetention(
       actions: [RuleActions__Input]!
@@ -24,7 +24,7 @@ module.exports = gql`
       name: String!
       priority: Int!
       uuid: String
-    ): Rule
+    ): Boolean
 
     deleteRule(uuid: String!): Boolean
 

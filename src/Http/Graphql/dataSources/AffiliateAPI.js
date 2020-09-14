@@ -38,6 +38,41 @@ class AffiliateAPI extends RESTDataSource {
   }
 
   /**
+   * Get schedule by affiliateUuid
+   *
+   * @param affiliateUuid
+   *
+   * @return {Promise}
+   */
+  getSchedule(affiliateUuid) {
+    return this.get(`/affiliates/traffic/${affiliateUuid}/week`);
+  }
+
+  /**
+   * Create schedule
+   *
+   * @param args
+   * @param affiliateUuid
+   *
+   * @return {Promise<{success: boolean}>}
+   */
+  createSchedule({ affiliateUuid, ...args }) {
+    return this.post(`/affiliates/traffic/${affiliateUuid}/day`, args);
+  }
+
+  /**
+   * Change schedule status
+   *
+   * @param affiliateUuid
+   * @param data
+   *
+   * @return {Promise<{success: boolean}>}
+   */
+  changeScheduleStatus({ affiliateUuid, data }) {
+    return this.put(`/affiliates/traffic/${affiliateUuid}/activity`, data);
+  }
+
+  /**
    * Create partner
    *
    * @param args

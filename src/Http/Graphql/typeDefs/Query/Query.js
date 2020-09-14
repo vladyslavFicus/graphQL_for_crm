@@ -50,7 +50,9 @@ module.exports = gql`
     feedTypes(uuid: String!): Object
 
     # Auth2 API
+    allActions: [String]
     authoritiesOptions: Object
+    authorityActions(department: String!, role: String!): [String]
     permission: [String]
     loginLock(uuid: String!): LoginLock
 
@@ -59,7 +61,7 @@ module.exports = gql`
 
     # Callback API
     callbacks(
-      id: String
+      searchKeyword: String
       statuses: [Callback__Status__Enum]
       userId: String
       page: Int
@@ -86,32 +88,21 @@ module.exports = gql`
       deskType: Desk__Types__Enum
       country: String
     ): [HierarchyBranch]
-    branchTree(branchUuid: String!): HierarchyBranchTree
     branchInfo(branchId: String!): HierarchyBranch
     branchChildren(uuid: String!): [HierarchyBranch]
+    branchUsers(branchUuid: String!): [HierarchyBranchUser]
     userBranches(withoutBrandFilter: Boolean): HierarchyUserBranches
     userHierarchy: HierarchyUser
     userHierarchyById(uuid: String!): HierarchyUser
     usersByBranch(uuids: [String]!, onlyActive: Boolean): [HierarchyUser]
     usersByType(userTypes: [String]!, onlyActive: Boolean): HierarchyUserByType
-
+    userBranchesTreeUp(userUUID: String!): [HierarchyUserBranchesTreeUp]
+    treeTop: [HierarchyTreeBranch]
+    treeBranch(uuid: String!): HierarchyTreeBranchResponse
+      
     # Lead API
     lead(uuid: String!): Lead
-    leads(
-      uuids: [String]
-      searchKeyword: String
-      page: Int
-      limit: Int
-      countries: [String]
-      registrationDateStart: String
-      registrationDateEnd: String
-      status: String
-      salesStatuses: [SalesStatus__Enum]
-      salesAgents: [String]
-      migrationId: String
-      lastNoteDateFrom: String
-      lastNoteDateTo: String
-    ): Lead @pageable
+    leads(args: LeadSearch__Input): Lead @pageable
 
     # Notes API
     notes(
@@ -221,5 +212,9 @@ module.exports = gql`
       volumeFrom: Float
       volumeTo: Float
     ): TradingActivity @pageable
+
+    # Referral API
+    referrerStatistics(uuid: String!): ReferrerStatistics
+    referrals(uuid: String!): [Referral]
   }
 `;

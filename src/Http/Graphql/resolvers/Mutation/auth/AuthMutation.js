@@ -90,6 +90,21 @@ module.exports = {
   },
 
   /**
+   * Change operator password on password expire
+   * (change password without token)
+   *
+   * @param _
+   * @param uuid | OperatorUuid from errorParams
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise<{boolean}>}
+   */
+  async changeUnauthorizedPassword(_, { uuid, ...args }, { dataSources }) {
+    await dataSources.Auth2API.changeUnauthorizedPassword(uuid, args);
+  },
+
+  /**
    * Reset user (client or operator) password
    *
    * @param _
@@ -156,5 +171,21 @@ module.exports = {
    */
   async removeAuthority(_, { uuid, ...args }, { dataSources, brand }) {
     await dataSources.Auth2API.removeAuthority(uuid, { brand: brand.id, ...args });
+  },
+
+  /**
+   * Update authority actions
+   *
+   * @param _
+   * @param department
+   * @param role
+   * @param actions
+   * @param dataSources
+   * @param brand
+   *
+   * @return {Promise<void>}
+   */
+  async updateAuthorityActions(_, { department, role, actions }, { dataSources, brand }) {
+    await dataSources.Auth2API.updateAuthorityActions(brand.id, department, role, actions);
   },
 };

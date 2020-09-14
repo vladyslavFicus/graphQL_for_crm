@@ -7,12 +7,19 @@ class HierarchyAPI extends RESTDataSource {
     super(args);
 
     this.loader = new DataLoader(this._loader.bind(this));
+    this.acquisitionLoader = new DataLoader(this._acquisitionLoader.bind(this));
   }
 
   async _loader(userUuids) {
     const data = await this.post('/user/search', { userUuids });
 
     return orderByArray(userUuids, data, 'uuid');
+  }
+
+  async _acquisitionLoader(userUuids) {
+    const data = await this.post('/user/acquisitions/search', { userUuids });
+
+    return orderByArray(userUuids, data, 'userUuid');
   }
 
   /**
@@ -24,6 +31,23 @@ class HierarchyAPI extends RESTDataSource {
    */
   getUser(uuid) {
     return uuid && this.loader.load(uuid);
+  }
+
+  /**
+   * Get user acquisition by UUID
+   *
+   * @param uuid OperatorUUID
+   *
+   * @return {Promise}
+   */
+  async getUserAcquisition(uuid) {
+    if (uuid) {
+      const response = await this.acquisitionLoader.load(uuid);
+
+      return response && response.acquisition;
+    }
+
+    return null;
   }
 
   /**
@@ -74,18 +98,6 @@ class HierarchyAPI extends RESTDataSource {
   }
 
   /**
-   *
-   * Get observer for ids from hierarchy tree
-   *
-   * @param uuid | current operator uuid
-   *
-   * @return {Promise}
-   */
-  getObserverForSubtree(uuid) {
-    return this.get(`/user/${uuid}/observer-for`);
-  }
-
-  /**
    * Check operator permission to access the entity
    * Note: Allow or disallow operator to see entity (leads, operators, clients, partners) regarding him hierarchy tree
    *
@@ -117,6 +129,17 @@ class HierarchyAPI extends RESTDataSource {
    */
   getBranchChildren(uuid) {
     return this.get(`/branch/${uuid}/children`);
+  }
+
+  /**
+   * Get branch users
+   *
+   * @param uuid | branchId
+   *
+   * @return {Promise}
+   */
+  getBranchUsers(uuid) {
+    return this.get(`/branch/${uuid}/users`);
   }
 
   /**
@@ -156,18 +179,6 @@ class HierarchyAPI extends RESTDataSource {
   }
 
   /**
-   * Get branch hierarchy tree
-   * Note: Get tree of branches. Branch with the given uuid will be in root.
-   *
-   * @param uuid
-   *
-   * @return {Promise}
-   */
-  getBranchTree(uuid) {
-    return this.get(`/branch/hierarchy/${uuid}`);
-  }
-
-  /**
    * Get users by branch
    *
    * @param args
@@ -187,6 +198,30 @@ class HierarchyAPI extends RESTDataSource {
    */
   getUsersByType(types) {
     return this.get('user/bytype', { t: types });
+  }
+
+  getUserBranchesTreeUp(userUUID) {
+    return this.get(`/user/${userUUID}/branches/hierarchy-up`);
+  }
+
+  /**
+   * Get hierarchy tree top level for authenticated user
+   *
+   * @return {*}
+   */
+  getTreeTop() {
+    return this.get('/tree/top');
+  }
+
+  /**
+   * Get single level of hierarchy by branch uuid
+   *
+   * @param uuid Branch UUID
+   *
+   * @return {*}
+   */
+  getTreeBranch(uuid) {
+    return this.get(`/tree/${uuid}`);
   }
 }
 

@@ -1,8 +1,8 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`
-  input LeadUpdate__Input {
+  type HierarchyBranchUser {
     uuid: String!
-    unassignFromOperator: String
+    operator: Operator
   }
 `;

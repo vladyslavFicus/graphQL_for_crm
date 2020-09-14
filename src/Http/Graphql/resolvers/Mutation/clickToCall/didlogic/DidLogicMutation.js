@@ -1,3 +1,5 @@
+const getFieldByType = require('../../../../utils/getFieldByType');
+
 module.exports = {
   /**
    * Create call to DidLogic
@@ -10,7 +12,9 @@ module.exports = {
    *
    * @return {Promise<any>}
    */
-  async createCall(_, { number }, { dataSources, userUUID, brand }) {
+  async createCall(_, { uuid, field, type }, { dataSources, userUUID, brand }) {
+    const number = await getFieldByType(uuid, field, type, dataSources);
+
     const { url } = brand.clickToCall.didlogic;
 
     const { phoneNumber } = await dataSources.OperatorAPI.getByUUID(userUUID);

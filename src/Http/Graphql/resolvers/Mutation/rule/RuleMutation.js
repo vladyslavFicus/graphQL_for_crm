@@ -10,8 +10,8 @@ module.exports = {
    *
    * @return {*}
    */
-  createRule(_, args, { dataSources, brand, userUUID }) {
-    return dataSources.RuleProfileAPI.createRule({
+  async createRule(_, args, { dataSources, brand, userUUID }) {
+    await dataSources.RuleProfileAPI.createRule({
       ...args,
       brandId: brand.id,
       createdBy: userUUID,
@@ -42,8 +42,8 @@ module.exports = {
    *
    * @return {*}
    */
-  createRuleRetention(_, args, { dataSources, brand, userUUID }) {
-    return dataSources.RulePaymentAPI.createRule({
+  async createRuleRetention(_, args, { dataSources, brand, userUUID }) {
+    await dataSources.RulePaymentAPI.createRule({
       ...args,
       brandId: brand.id,
       createdBy: userUUID,

@@ -3,11 +3,13 @@ const { gql } = require('apollo-server-express');
 module.exports = gql`
   type EmailTemplateMutation {
     sendEmail(
+      uuid: String!
+      field: String!
+      type: String!
       subject: String!
       templateName: String
       text: String!
-      toEmail: String!
-    ): Email
+    ): Boolean
 
     createEmailTemplate(
       name: String!

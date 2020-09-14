@@ -29,5 +29,20 @@ module.exports = gql`
       reason: String!
       status: String!
     ): Boolean
+    
+    createSchedule(
+      affiliateUuid: String!
+      activated: Boolean
+      day: String
+      totalLimit: Int
+      countrySpreads: [PartnerSchedule__Input]
+      workingHoursFrom: String
+      workingHoursTo: String
+    ): Boolean
+    
+    changeScheduleStatus(
+      affiliateUuid: String!
+      data: [PartnerScheduleStatus__Input]
+    ): Boolean
   }
 `;

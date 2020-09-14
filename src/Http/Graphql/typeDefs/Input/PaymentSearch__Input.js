@@ -5,8 +5,8 @@ module.exports = gql`
     accountType: String
     agentIds: [String]
     affiliateUuids: [String]
-    amountFrom: String
-    amountTo: String
+    amountFrom: Float
+    amountTo: Float
     countries: [String]
     creationTimeFrom: String
     creationTimeTo: String
@@ -28,6 +28,5 @@ module.exports = gql`
     page: Page__Input
     paymentTypes: [String]
     warnings: [String]
-    withdrawStatuses: [String]
   }
 `;

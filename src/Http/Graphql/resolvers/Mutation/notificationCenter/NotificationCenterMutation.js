@@ -6,15 +6,17 @@ module.exports = {
    * @param incUuids
    * @param excUuids
    * @param totalElements
+   * @param searchParams
    * @param dataSources
    *
    * @return {Promise}
    */
-  async update(_, { incUuids, excUuids, totalElements }, { dataSources }) {
+  async update(_, { incUuids, excUuids, totalElements, searchParams }, { dataSources }) {
     let notificationUuids = incUuids;
 
     if (excUuids) {
       const data = await dataSources.NotificationCenterAPI.getNotifications({
+        ...(searchParams && searchParams),
         page: { size: totalElements },
         hierarchical: false,
       });
