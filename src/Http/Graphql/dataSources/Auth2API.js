@@ -122,7 +122,7 @@ class Auth2API extends RESTDataSource {
    * @return {Promise}
    */
   resetPassword(args) {
-    return this.post('/password/token', args);
+    return this.put('/password/token', args);
   }
 
   /**
