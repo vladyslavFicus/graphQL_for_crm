@@ -16,7 +16,7 @@ module.exports = gql`
     ): Boolean
 
     uploadLeads(file: Upload): Boolean
-    
-    promote(args: PromoteLead__Input): CreatedProfile
+
+    promote(args: PromoteLead__Input): Boolean
   }
 `;

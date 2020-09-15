@@ -2,7 +2,7 @@ const { gql } = require('apollo-server-express');
 
 module.exports = gql`
   type ProfileMutation {
-    createProfile(args: CreateProfile__Input): CreatedProfile
+    createProfile(args: CreateProfile__Input): Boolean
     changeProfileStatus(playerUUID: String!, status: String!, reason: String!, comment: String): Profile
     updateConfiguration(playerUUID: String!, crs: Boolean, fatca: Boolean, internalTransfer: Boolean): Boolean
     updateKYCStatus(playerUUID: String!, kycStatus: String): Boolean
