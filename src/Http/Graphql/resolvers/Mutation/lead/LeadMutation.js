@@ -53,6 +53,6 @@ module.exports = {
       },
     };
 
-    return dataSources.ProfileAPI.createProfile(_args);
+    await dataSources.ProfileAPI.createProfile(_args);
   },
 };
