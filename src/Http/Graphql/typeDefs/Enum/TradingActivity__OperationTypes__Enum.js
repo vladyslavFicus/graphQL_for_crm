@@ -2,7 +2,6 @@ const { gql } = require('apollo-server-express');
 
 module.exports = gql`
   enum TradingActivity__OperationTypes__Enum {
-    OP_BALANCE
     OP_BUY
     OP_BUY_LIMIT
     OP_BUY_MARKET
