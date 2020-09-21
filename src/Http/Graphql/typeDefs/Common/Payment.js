@@ -42,6 +42,7 @@ module.exports = gql`
     normalizedAmount: String
     note: Note
     originalAgent: Operator
+    partner: Partner
     paymentId: String!
     paymentAggregator: String
     paymentMetadata: Payment__Metadata

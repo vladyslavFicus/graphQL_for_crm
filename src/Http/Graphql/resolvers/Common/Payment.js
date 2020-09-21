@@ -8,4 +8,7 @@ module.exports = {
   note({ paymentId }, _, { dataSources }) {
     return dataSources.NoteAPI.getNote(paymentId);
   },
+  partner({ playerProfile: { affiliateUuid } }, _, { dataSources }) {
+    return dataSources.AffiliateAPI.getPartner(affiliateUuid);
+  },
 };
