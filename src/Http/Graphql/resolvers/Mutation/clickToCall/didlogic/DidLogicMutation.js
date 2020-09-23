@@ -19,6 +19,6 @@ module.exports = {
 
     const { phoneNumber } = await dataSources.OperatorAPI.getByUUID(userUUID);
 
-    await dataSources.DidLogicAPI.createCall(url, number, phoneNumber);
+    await dataSources.DidLogicAPI.createCall(url, number, phoneNumber, uuid, 'CRM');
   },
 };
