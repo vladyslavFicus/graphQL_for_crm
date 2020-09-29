@@ -190,7 +190,11 @@ module.exports = gql`
       page: Int
       size: Int
     ): TradingAccount @pageable
-    clientTradingAccounts(profileUUID: String!, accountType: String): [TradingAccount]
+    clientTradingAccounts(
+      profileUUID: String!
+      accountType: String
+      platformType: String
+    ): [TradingAccount]
 
     # TradingActivity API
     tradingActivity(
