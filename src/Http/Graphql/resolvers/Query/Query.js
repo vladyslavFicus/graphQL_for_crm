@@ -417,6 +417,13 @@ module.exports = {
   },
 
   /**
+   * Distribution Rule API
+   */
+  distributionRules(_, { args }, { dataSources }) {
+    return dataSources.DistributionRuleAPI.search({ ...args });
+  },
+
+  /**
    * TradingAccount API && AccountView API
    */
   tradingAccounts(_, args, { dataSources }) {

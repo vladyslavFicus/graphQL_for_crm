@@ -26,6 +26,7 @@ const {
   RuleProfileAPI,
   RulePaymentAPI,
   ReferralAPI,
+  DistributionRuleAPI,
 } = require('../dataSources');
 
 module.exports = () => ({
@@ -55,4 +56,5 @@ module.exports = () => ({
   RuleProfileAPI: new RuleProfileAPI({ baseUrl: getBaseUrl('rules-profile') }),
   RulePaymentAPI: new RulePaymentAPI({ baseUrl: getBaseUrl('rules-payment') }),
   ReferralAPI: new ReferralAPI({ baseUrl: getBaseUrl('referral') }),
+  DistributionRuleAPI: new DistributionRuleAPI({ baseUrl: getBaseUrl('clients-distributor') }),
 });
