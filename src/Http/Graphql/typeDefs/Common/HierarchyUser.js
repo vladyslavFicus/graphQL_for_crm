@@ -10,5 +10,6 @@ module.exports = gql`
     userType: String!
     uuid: String!
     acquisition: HierarchyUserAcquisition
+    subordinatesCount: Int
   }
 `;
