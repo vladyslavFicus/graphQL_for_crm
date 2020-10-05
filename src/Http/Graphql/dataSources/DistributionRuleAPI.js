@@ -19,8 +19,19 @@ class DistributionRuleAPI extends RESTDataSource {
    *
    * @return {*}
    */
-  distributionRuleMigration({ uuid }) {
+  distributionRuleMigration(uuid) {
     return this.post(`/rules/${uuid}/distribution`);
+  }
+
+  /**
+   * Get clients amount
+   *
+   * @param uuid
+   *
+   * @return {*}
+   */
+  getClientsAmount(uuid) {
+    return this.get(`/rules/${uuid}/clients`);
   }
 }
 
