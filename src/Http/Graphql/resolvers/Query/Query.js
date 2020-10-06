@@ -420,7 +420,7 @@ module.exports = {
    * Distribution Rule API
    */
   distributionRules(_, { args }, { dataSources }) {
-    return dataSources.DistributionRuleAPI.search({ ...args });
+    return dataSources.DistributionRuleAPI.search(args);
   },
 
   /**

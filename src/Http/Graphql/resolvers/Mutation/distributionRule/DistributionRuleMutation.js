@@ -8,8 +8,8 @@ module.exports = {
    *
    * @return {Promise}
    */
-  async distributionRuleMigration(_, { uuid }, { dataSources }) {
-    await dataSources.DistributionRuleAPI.distributionRuleMigration(uuid);
+  async migration(_, { uuid }, { dataSources }) {
+    await dataSources.DistributionRuleAPI.migration(uuid);
   },
 
   /**
@@ -21,7 +21,7 @@ module.exports = {
    *
    * @return {Promise}
    */
-  distributionRuleClientsAmount(_, { uuid }, { dataSources }) {
+  clientsAmount(_, { uuid }, { dataSources }) {
     return dataSources.DistributionRuleAPI.getClientsAmount(uuid);
   },
 };

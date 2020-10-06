@@ -2,7 +2,7 @@ const { gql } = require('apollo-server-express');
 
 module.exports = gql`
   type DistributionRuleMutation {
-    distributionRuleMigration(uuid: String!): Boolean
-    distributionRuleClientsAmount(uuid: String!): DistributionRuleClientsAmount
+    migration(uuid: String!): Boolean
+    clientsAmount(uuid: String!): DistributionRuleClientsAmount
   }
 `;
