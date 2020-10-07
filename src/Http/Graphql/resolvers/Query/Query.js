@@ -420,7 +420,10 @@ module.exports = {
    * Distribution Rule API
    */
   distributionRules(_, { args }, { dataSources }) {
-    return dataSources.DistributionRuleAPI.search({ ...args });
+    return dataSources.DistributionRuleAPI.search(args);
+  },
+  clientsAmount(_, { uuid }, { dataSources }) {
+    return dataSources.DistributionRuleAPI.getClientsAmount(uuid);
   },
   distributionRule(_, { uuid }, { dataSources }) {
     return dataSources.DistributionRuleAPI.getRule(uuid);

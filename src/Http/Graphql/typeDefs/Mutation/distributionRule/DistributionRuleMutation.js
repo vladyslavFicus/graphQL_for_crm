@@ -5,5 +5,6 @@ module.exports = gql`
     distributionRuleMigration(uuid: String!): Boolean
     distributionRuleClientsAmount(uuid: String!): DistributionRuleClientsAmount
     updateRule(args: DistributionRuleUpdate__Input): Boolean
+    migration(uuid: String!): Boolean
   }
 `;
