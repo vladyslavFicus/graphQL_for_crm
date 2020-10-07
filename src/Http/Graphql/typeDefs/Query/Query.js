@@ -183,6 +183,7 @@ module.exports = gql`
     
     # Distribution Rules API
     distributionRules(args: DistributionRuleSearch__Input): DistributionRule @pageable
+    distributionRule(uuid: String!): DistributionRule
 
     # TradingAccount API && AccountView API
     tradingAccounts(
