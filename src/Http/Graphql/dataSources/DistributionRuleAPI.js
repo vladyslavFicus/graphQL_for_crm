@@ -24,6 +24,29 @@ class DistributionRuleAPI extends RESTDataSource {
   }
 
   /**
+   * Create rule
+   *
+   * @param args
+   *
+   * @return {*}
+   */
+  create(args) {
+    return this.post('/rules', args);
+  }
+
+  /**
+   * Update rule
+   *
+   * @param uuid
+   * @param args
+   *
+   * @return {*}
+   */
+  update(uuid, args) {
+    return this.put(`/rules/${uuid}`, args);
+  }
+
+  /**
    * Get clients amount
    *
    * @param uuid
