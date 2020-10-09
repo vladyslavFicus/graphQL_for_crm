@@ -43,7 +43,7 @@ class DistributionRuleAPI extends RESTDataSource {
    * @return {*}
    */
   update(uuid, args) {
-    return this.put(`/rules/${uuid}`, args);
+    return this.patch(`/rules/${uuid}`, args);
   }
 
   /**
