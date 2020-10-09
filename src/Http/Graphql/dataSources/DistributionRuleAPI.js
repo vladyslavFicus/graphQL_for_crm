@@ -56,6 +56,17 @@ class DistributionRuleAPI extends RESTDataSource {
   updateRule(uuid, args) {
     return this.put(`/rules/${uuid}`, args);
   }
+
+  /**
+   * Get available number of clients
+   *
+   * @param args
+   *
+   * @return {*}
+   */
+  getRuleClientsAmount(args) {
+    return this.post('/clients/count', args);
+  }
 }
 
 module.exports = DistributionRuleAPI;
