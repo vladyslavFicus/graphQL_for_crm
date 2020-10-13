@@ -35,7 +35,7 @@ class DistributionRuleAPI extends RESTDataSource {
   }
 
   /**
-   * Update rule
+   * Update rule name and order
    *
    * @param uuid
    * @param args
@@ -55,6 +55,40 @@ class DistributionRuleAPI extends RESTDataSource {
    */
   getClientsAmount(uuid) {
     return this.get(`/rules/${uuid}/clients`);
+  }
+
+  /**
+   * Get rule by uuid
+   *
+   * @param uuid
+   *
+   * @return {*}
+   */
+  getRule(uuid) {
+    return this.get(`/rules/${uuid}`);
+  }
+
+  /**
+   * Update rule settings
+   *
+   * @param uuid
+   * @param args
+   *
+   * @return {*}
+   */
+  updateRule(uuid, args) {
+    return this.put(`/rules/${uuid}`, args);
+  }
+
+  /**
+   * Get available number of clients
+   *
+   * @param args
+   *
+   * @return {*}
+   */
+  getRuleClientsAmount(args) {
+    return this.post('/clients/count', args);
   }
 }
 

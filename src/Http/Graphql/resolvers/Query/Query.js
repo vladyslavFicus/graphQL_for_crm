@@ -425,6 +425,12 @@ module.exports = {
   clientsAmount(_, { uuid }, { dataSources }) {
     return dataSources.DistributionRuleAPI.getClientsAmount(uuid);
   },
+  distributionRule(_, { uuid }, { dataSources }) {
+    return dataSources.DistributionRuleAPI.getRule(uuid);
+  },
+  distributionRuleClientsAmount(_, args, { dataSources }) {
+    return dataSources.DistributionRuleAPI.getRuleClientsAmount(args);
+  },
 
   /**
    * TradingAccount API && AccountView API

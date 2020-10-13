@@ -24,6 +24,7 @@ module.exports = gql`
   }
 
   type DistributionRule {
+    _id: ID!
     uuid: String!
     name: String
     order: Int
