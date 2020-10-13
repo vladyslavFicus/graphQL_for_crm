@@ -16,7 +16,7 @@ module.exports = {
   async sendEmail(_, { uuid, field, type, ...args }, { dataSources }) {
     const toEmail = await getFieldByType(uuid, field, type, dataSources);
 
-    await dataSources.EmailAPI.sendEmail({ ...args, toEmail });
+    await dataSources.EmailAPI.sendEmail({ ...args, userUuid: uuid, toEmail });
   },
 
   /**

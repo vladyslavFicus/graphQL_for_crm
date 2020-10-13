@@ -99,7 +99,7 @@ module.exports = gql`
     userBranchesTreeUp(userUUID: String!): [HierarchyUserBranchesTreeUp]
     treeTop: [HierarchyTreeBranch]
     treeBranch(uuid: String!): HierarchyTreeBranchResponse
-      
+
     # Lead API
     lead(uuid: String!): Lead
     leads(args: LeadSearch__Input): Lead @pageable
@@ -198,11 +198,16 @@ module.exports = gql`
     tradingAccounts(
       searchKeyword: String
       accountType: String
+      platformType: String
       archived: Boolean
       page: Int
       size: Int
     ): TradingAccount @pageable
-    clientTradingAccounts(profileUUID: String!, accountType: String): [TradingAccount]
+    clientTradingAccounts(
+      profileUUID: String!
+      accountType: String
+      platformType: String
+    ): [TradingAccount]
 
     # TradingActivity API
     tradingActivity(
@@ -222,6 +227,7 @@ module.exports = gql`
       symbol: String
       tradeId: Int
       tradeType: String
+      platformType: String
       volumeFrom: Float
       volumeTo: Float
     ): TradingActivity @pageable

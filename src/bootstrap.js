@@ -1,15 +1,15 @@
-const platform = require('../config/platform');
+const infra = require('../config/infra');
 const brands = require('../config/brands');
 const permissions = require('../config/permissions');
 const Logger = require('../src/lib/Logger');
 
 module.exports = async () => {
   // ========================================================================== //
-  // ========== Load platform configuration and init logger at first ========== //
+  // ========== Load infrastructure configuration and init logger at first ========== //
   // ========================================================================== //
 
-  // Load platform configuration
-  await platform.load();
+  // Load infrastructure configuration
+  await infra.load();
 
   // Init logger to use remote stream
   Logger.init();

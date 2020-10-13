@@ -13,7 +13,34 @@ module.exports = {
   },
 
   /**
-   * Update rule
+   * Create rule
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async create(_, args, { dataSources }) {
+    await dataSources.DistributionRuleAPI.create(args);
+  },
+
+  /**
+   * Update rule name and order
+   *
+   * @param _
+   * @param uuid
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async update(_, { uuid, ...args }, { dataSources }) {
+    await dataSources.DistributionRuleAPI.update(uuid, args);
+  },
+
+  /**
+   * Update rule settings
    *
    * @param _
    * @param uuid
