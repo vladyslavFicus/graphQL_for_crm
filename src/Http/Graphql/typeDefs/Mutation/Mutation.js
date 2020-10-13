@@ -17,6 +17,7 @@ module.exports = gql`
     payment: PaymentMutation @nested
     profile: ProfileMutation @nested
     rule: RuleMutation @nested
+    distributionRule: DistributionRuleMutation @nested
     operator: OperatorMutation @nested
     tradingAccount: TradingAccountMutation @nested
     tradingActivity: TradingActivityMutation @nested

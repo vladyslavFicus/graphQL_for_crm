@@ -417,6 +417,16 @@ module.exports = {
   },
 
   /**
+   * Distribution Rule API
+   */
+  distributionRules(_, { args }, { dataSources }) {
+    return dataSources.DistributionRuleAPI.search(args);
+  },
+  clientsAmount(_, { uuid }, { dataSources }) {
+    return dataSources.DistributionRuleAPI.getClientsAmount(uuid);
+  },
+
+  /**
    * TradingAccount API && AccountView API
    */
   tradingAccounts(_, args, { dataSources }) {

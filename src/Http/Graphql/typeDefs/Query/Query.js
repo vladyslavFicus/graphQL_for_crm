@@ -180,6 +180,10 @@ module.exports = gql`
       name: String
       parentId: String
     ): [Rule]
+    
+    # Distribution Rules API
+    distributionRules(args: DistributionRuleSearch__Input): DistributionRule @pageable
+    clientsAmount(uuid: String): DistributionRuleClientsAmount
 
     # TradingAccount API && AccountView API
     tradingAccounts(
