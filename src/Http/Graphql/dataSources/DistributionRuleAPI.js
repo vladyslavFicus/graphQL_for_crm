@@ -54,7 +54,7 @@ class DistributionRuleAPI extends RESTDataSource {
    * @return {*}
    */
   getClientsAmount(uuid) {
-    return this.get(`/rules/${uuid}/clients`);
+    return this.get(`/rules/${uuid}/matched-clients/count`);
   }
 
   /**

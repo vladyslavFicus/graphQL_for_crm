@@ -42,8 +42,4 @@ module.exports = gql`
     sourceBrandConfigs: [DistributionRule__BrandConfigs]
     targetBrandConfigs: [DistributionRule__BrandConfigs]
   }
-  
-  type DistributionRuleClientsAmount {
-     clientsAmount: Int
-  }
 `;

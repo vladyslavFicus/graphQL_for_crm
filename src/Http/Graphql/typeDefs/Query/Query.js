@@ -192,7 +192,7 @@ module.exports = gql`
       registrationPeriodInHours: Int!
       executionPeriodInHours: Int!
     ): Int
-    clientsAmount(uuid: String): DistributionRuleClientsAmount
+    clientsAmount(uuid: String): Int
 
     # TradingAccount API && AccountView API
     tradingAccounts(
