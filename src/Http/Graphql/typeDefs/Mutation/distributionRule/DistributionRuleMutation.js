@@ -8,5 +8,6 @@ module.exports = gql`
     migration(uuid: String!): Boolean
     create(ruleName: String!, ruleOrder: Int!): Boolean
     update(ruleName: String, ruleOrder: Int, uuid: String!): Boolean
+    updateRuleStatus(uuid: String!, ruleStatus: String!): Boolean
   }
 `;
