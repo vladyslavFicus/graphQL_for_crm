@@ -425,7 +425,7 @@ module.exports = {
 
     return dataSources.DistributionRuleAPI.search(params);
   },
-  clientsAmount(_, { uuid }, { dataSources }) {
+  distributionClientsAmount(_, { uuid }, { dataSources }) {
     return dataSources.DistributionRuleAPI.getClientsAmount(uuid);
   },
   distributionRule(_, { uuid }, { dataSources }) {
