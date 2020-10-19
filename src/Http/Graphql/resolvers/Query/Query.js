@@ -420,7 +420,10 @@ module.exports = {
    * Distribution Rule API
    */
   distributionRules(_, { args }, { dataSources }) {
-    return dataSources.DistributionRuleAPI.search(args);
+    // Drop undefined and nullable values from object (because BE service throw Error if null will be sent)
+    const params = omitBy(args, isNil);
+
+    return dataSources.DistributionRuleAPI.search(params);
   },
   clientsAmount(_, { uuid }, { dataSources }) {
     return dataSources.DistributionRuleAPI.getClientsAmount(uuid);
