@@ -54,6 +54,7 @@ module.exports = gql`
     firstTimeDeposit: Boolean
     isReferrered: Boolean
     kycStatuses: [String]
+    languages: [String]
     lastLoginDateRange: ClientSearch__Input__LastLoginDateRange
     lastModificationDateRange: ClientSearch__Input__LastModificationDateRange
     lastNoteDateRange: ClientSearch__Input__LastNoteDateRange
