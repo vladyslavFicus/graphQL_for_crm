@@ -8,16 +8,17 @@ module.exports = gql`
     status: String
     ruleUuid: String
   }
-  
-  type DistributionRule__BrandConfigs {
+
+  type DistributionRule__BrandConfig {
     uuid: String
     brand: String
     sortType: String
     operator: String
+    operatorEntity: Operator
     country: String
     distributionUnit: DistributionRule__DistributionUnit
   }
-  
+
   type DistributionRule__DistributionUnit {
     quantity: Int
     baseUnit: String
@@ -39,8 +40,8 @@ module.exports = gql`
     executionType: String
     executionPeriodInHours: Int
     latestMigration: DistributionRule__LatestMigration
-    sourceBrandConfigs: [DistributionRule__BrandConfigs]
-    targetBrandConfigs: [DistributionRule__BrandConfigs]
+    sourceBrandConfigs: [DistributionRule__BrandConfig]
+    targetBrandConfigs: [DistributionRule__BrandConfig]
   }
   
   type DistributionRuleClientsAmount {
