@@ -374,6 +374,9 @@ module.exports = {
       limit: operatorsIds.length,
     });
   },
+  operatorsByBrand(_, args, { dataSources, userUUID }) {
+    return dataSources.OperatorAPI.searchByBrand(userUUID, args);
+  },
 
   /**
    * Profile API && ProfileView API

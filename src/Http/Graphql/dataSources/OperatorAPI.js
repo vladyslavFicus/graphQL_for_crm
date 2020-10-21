@@ -47,6 +47,20 @@ class OperatorAPI extends RESTDataSource {
   }
 
   /**
+   * Get hierarchically subordinate operators by brand and hierarchy type group (SALES, RETENTION)
+   *
+   * @param uuid
+   * @param args
+   * @param args.brandId
+   * @param args.hierarchyTypeGroup
+   *
+   * @return {*}
+   */
+  searchByBrand(uuid, args) {
+    return this.post(`/operators/${uuid}/subordinates`, args);
+  }
+
+  /**
    * Create operator
    *
    * @param args
