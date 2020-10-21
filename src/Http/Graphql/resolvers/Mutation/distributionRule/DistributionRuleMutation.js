@@ -21,8 +21,8 @@ module.exports = {
    *
    * @return {Promise}
    */
-  async create(_, args, { dataSources }) {
-    await dataSources.DistributionRuleAPI.create(args);
+  create(_, args, { dataSources }) {
+    return dataSources.DistributionRuleAPI.create(args);
   },
 
   /**
