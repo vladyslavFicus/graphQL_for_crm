@@ -33,6 +33,7 @@ module.exports = gql`
     createdBy: String
     statusChangedAt: String
     createdAt: String
+    updatedAt: String
     countries: [String]
     salesStatuses: [String]
     targetSalesStatus: String
