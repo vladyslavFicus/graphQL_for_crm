@@ -412,12 +412,6 @@ module.exports = {
   rules(_, args, { dataSources, brand }) {
     return dataSources.RuleProfileAPI.search({ ...args, brandId: brand.id });
   },
-  rulesRetention(_, args, { dataSources, brand }) {
-    // Drop undefined and nullable values from object (because BE service throw Error if null will be sent)
-    const params = omitBy(args, isNil);
-
-    return dataSources.RulePaymentAPI.search({ ...params, brandId: brand.id });
-  },
 
   /**
    * Distribution Rule API

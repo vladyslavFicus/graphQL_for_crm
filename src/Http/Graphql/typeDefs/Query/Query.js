@@ -173,14 +173,6 @@ module.exports = gql`
       parentId: String
       type: Rule__Type__Enum
     ): [Rule]
-    rulesRetention(
-      uuid: [String]
-      createdByOrUuid: String
-      country: String
-      language: String
-      name: String
-      parentId: String
-    ): [Rule]
     
     # Distribution Rules API
     distributionRules(args: DistributionRuleSearch__Input): DistributionRule @pageable
