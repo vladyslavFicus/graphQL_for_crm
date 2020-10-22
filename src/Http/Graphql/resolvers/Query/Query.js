@@ -1,5 +1,6 @@
 const { get, omitBy, isNil, groupBy } = require('lodash');
 const moment = require('moment');
+const config = require('config');
 const {
   prepareAdditionalStatsUsersRegistration,
   getPaymentStatisticTotals,
@@ -456,5 +457,57 @@ module.exports = {
    */
   tradingActivity(_, args, { dataSources }) {
     return dataSources.TradingActivityAPI.getTradingActivity(args);
+  },
+
+  /**
+   * Brand config resolver
+   *
+   * @param _
+   * @param __
+   * @param brandConfig
+   *
+   * @return {*}
+   */
+  config(_, __, { brandConfig }) {
+    return {
+      env: config.get('env'),
+      currencies: get(brandConfig, 'nas.brand.currencies'),
+      locales: get(brandConfig, 'nas.brand.locale'),
+      password: get(brandConfig, 'nas.brand.password'),
+      payment: {
+        reasons: get(brandConfig, 'nas.brand.payment.reasons'),
+      },
+      mt4: {
+        leveragesChangingRequest: get(brandConfig, 'nas.brand.mt4.leverages_changing_request', []),
+        live: {
+          enabled: !!get(brandConfig, 'nas.brand.mt4.groups'),
+        },
+        demo: {
+          enabled: !!get(brandConfig, 'nas.brand.mt4.demo_groups'),
+        },
+      },
+      mt5: {
+        leveragesChangingRequest: get(brandConfig, 'nas.brand.mt5.leverages_changing_request', []),
+        live: {
+          enabled: !!get(brandConfig, 'nas.brand.mt5.groups'),
+        },
+        demo: {
+          enabled: !!get(brandConfig, 'nas.brand.mt5.demo_groups'),
+        },
+      },
+      clickToCall: {
+        isActive: get(brandConfig, 'nas.brand.clickToCall.isActive', false),
+        asterisk: {
+          isActive: get(brandConfig, 'nas.brand.clickToCall.asterisk.isActive', false),
+          prefixes: get(brandConfig, 'nas.brand.clickToCall.asterisk.prefixes', {}),
+        },
+      },
+      email: {
+        templatedEmails: !!get(brandConfig, 'nas.brand.email.sendgrid.crm_templated_emails'),
+      },
+      clientPortal: {
+        url: get(brandConfig, 'nas.brand.client_portal.url'),
+      },
+    };
   },
 };

@@ -235,5 +235,6 @@ module.exports = gql`
     # Referral API
     referrerStatistics(uuid: String!): ReferrerStatistics
     referrals(uuid: String!): [Referral]
+    config(brandId: String!): BrandConfigProvider
   }
 `;
