@@ -14,6 +14,6 @@ module.exports = gql`
     createdDateTo: String
     lastTimeExecutedFrom: String
     lastTimeExecutedTo: String
-    executionPeriodInHours: Int
+    executionPeriodsInHours: [Int]
   }
 `;
