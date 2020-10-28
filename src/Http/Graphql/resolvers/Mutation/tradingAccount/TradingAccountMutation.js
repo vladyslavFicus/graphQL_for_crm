@@ -20,8 +20,6 @@ module.exports = {
       email: contacts.email,
       phone: contacts.phone,
     });
-
-    return true;
   },
 
   /**
@@ -34,8 +32,6 @@ module.exports = {
    */
   async update(_, args, { dataSources }) {
     await dataSources.TradingAccountAPI.updateTradingAccount(args);
-
-    return true;
   },
 
   /**
@@ -48,8 +44,6 @@ module.exports = {
    */
   async changePassword(_, args, { dataSources }) {
     await dataSources.TradingAccountAPI.changeTradingAccountPassword(args.accountUUID, args);
-
-    return true;
   },
 
   /**
@@ -62,8 +56,6 @@ module.exports = {
    */
   async changeLeverage(_, args, { dataSources }) {
     await dataSources.TradingAccountAPI.changeLeverage(args.accountUUID, args);
-
-    return true;
   },
 
   /**
@@ -76,8 +68,6 @@ module.exports = {
    */
   async approveChangingLeverage(_, { accountUUID }, { dataSources }) {
     await dataSources.TradingAccountAPI.approveChangingLeverage(accountUUID);
-
-    return true;
   },
 
   /**
@@ -90,7 +80,5 @@ module.exports = {
    */
   async rejectChangingLeverage(_, { accountUUID }, { dataSources }) {
     await dataSources.TradingAccountAPI.rejectChangingLeverage(accountUUID);
-
-    return true;
   },
 };
