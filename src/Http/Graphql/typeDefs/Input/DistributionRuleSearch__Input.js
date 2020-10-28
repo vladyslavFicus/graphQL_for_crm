@@ -9,7 +9,7 @@ module.exports = gql`
     ruleStatus: String
     fromBrand: String
     toBrand: String
-    salesStatus: String
+    salesStatuses: [String]
     createdDateFrom: String
     createdDateTo: String
     lastTimeExecutedFrom: String
