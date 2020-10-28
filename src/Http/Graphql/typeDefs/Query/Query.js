@@ -58,6 +58,7 @@ module.exports = gql`
 
     # BrandConfig API
     brandConfig(brandId: String!): BrandConfig
+    brands: [BrandConfig]
 
     # Callback API
     callbacks(

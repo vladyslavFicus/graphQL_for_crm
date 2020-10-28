@@ -13,6 +13,15 @@ class BrandConfigAPI extends RESTDataSource {
   }
 
   /**
+   * Get all brand configs
+   *
+   * @return {Promise}
+   */
+  getAllBrandConfigs() {
+    return this.get('/brand/all');
+  }
+
+  /**
    * Create brand config
    *
    * @param args
