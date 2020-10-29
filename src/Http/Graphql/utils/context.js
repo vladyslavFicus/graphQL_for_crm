@@ -27,7 +27,8 @@ module.exports = async ({ req: { headers, ip } }) => {
       return context;
     }
 
-    const brand = config.get('brands')[brandId];
+    const brand = config.get('brands').find(({ id }) => brandId === id);
+    const brandConfig = config.get('brandsConfig')[brandId];
 
     // Throw an error if brand wasn't found
     if (!brand) {
@@ -37,6 +38,7 @@ module.exports = async ({ req: { headers, ip } }) => {
     Object.assign(context, {
       userUUID,
       brand,
+      brandConfig,
       auth: new Auth(brandId, department, role),
     });
   }

@@ -1,25 +1,41 @@
+const { createProxyMiddleware } = require('http-proxy-middleware');
 const { ApolloServer } = require('apollo-server-express');
 const { register } = require('prom-client');
 const createMetricsPlugin = require('apollo-metrics');
+const config = require('config');
 const context = require('./Graphql/utils/context');
 const dataSources = require('./Graphql/utils/dataSources');
 const formatError = require('./Graphql/utils/formatError');
 const engine = require('./Graphql/utils/engine');
 const schema = require('./Graphql/schema');
+const getBaseUrl = require('../utils/getBaseUrl');
 
-const { NODE_ENV, ENV_NAME } = process.env;
+const { NODE_ENV } = process.env;
 
 module.exports = (app) => {
+  // Enable Playground for all dev and qa environments
+  const isPlayground = NODE_ENV === 'development' || !!config.env.match(/dev|qa/);
+
   const apolloMetricsPlugin = createMetricsPlugin(register);
 
+  // Backoffice version control middleware. Send 426 error if version doesn't match.
+  app.use('/gql', ({ headers, method }, res, next) => {
+    if (method !== 'GET' && !headers.playground && headers['x-client-version'] !== config.versions.backoffice) {
+      return res.status(426).send();
+    }
+
+    return next();
+  });
+
+  // Apollo Server
   const server = new ApolloServer({
     schema,
     context,
     dataSources,
     formatError,
     engine,
-    introspection: NODE_ENV === 'development' || ENV_NAME === 'dev01',
-    playground: NODE_ENV === 'development' || ENV_NAME === 'dev01',
+    introspection: isPlayground,
+    playground: isPlayground,
 
     // Apollo metrics to Prometheus (IMPORTANT: tracing needs to be enabled to get resolver and request timings)
     plugins: [apolloMetricsPlugin],
@@ -36,4 +52,15 @@ module.exports = (app) => {
 
   // Prometheus metrics endpoint
   app.get('/prometheus', (_, res) => res.send(register.metrics()));
+
+  // Proxy-pass to attachment service to download file
+  app.use('/attachment/:clientUUID/:fileUUID', createProxyMiddleware({
+    target: getBaseUrl('attachments'),
+    pathRewrite: (path, req) => {
+      const { clientUUID, fileUUID } = req.params;
+
+      return `/users/${clientUUID}/files/${fileUUID}`;
+    },
+    changeOrigin: true,
+  }));
 };
