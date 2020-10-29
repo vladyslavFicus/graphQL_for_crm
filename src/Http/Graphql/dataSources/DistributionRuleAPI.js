@@ -9,7 +9,7 @@ class DistributionRuleAPI extends RESTDataSource {
    * @return {*}
    */
   search(args) {
-    return this.get('/rules', args);
+    return this.post('/rules/search', args);
   }
 
   /**
