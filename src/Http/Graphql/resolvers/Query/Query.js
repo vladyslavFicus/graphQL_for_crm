@@ -99,6 +99,9 @@ module.exports = {
   brandConfig(_, { brandId }, { dataSources }) {
     return dataSources.BrandConfigAPI.getBrandConfig(brandId);
   },
+  brands(_, __, { dataSources }) {
+    return dataSources.BrandConfigAPI.getAllBrandConfigs();
+  },
 
   /**
    * Callback API
