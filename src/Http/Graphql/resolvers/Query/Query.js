@@ -92,6 +92,13 @@ module.exports = {
   loginLock(_, { uuid }, { dataSources }) {
     return dataSources.Auth2API.getCredentialsLock(uuid);
   },
+  async brandToAuthorities(_, __, { dataSources }) {
+    // Using token renew endpoint to get brandsToAuthorities because BE haven't endpoint to get relation
+    // "brand to authority" for clipped token (on operator sign in without choose department) and full token
+    const { brandToAuthorities } = await dataSources.Auth2API.tokenRenew();
+
+    return brandToAuthorities;
+  },
 
   /**
    * BrandConfig API
@@ -99,8 +106,12 @@ module.exports = {
   brandConfig(_, { brandId }, { dataSources }) {
     return dataSources.BrandConfigAPI.getBrandConfig(brandId);
   },
-  brands(_, __, { dataSources }) {
-    return dataSources.BrandConfigAPI.getAllBrandConfigs();
+  // TODO: Temporary solution until brand-config-service will be released
+  brands() {
+    return Object.keys(config.brandsConfig).map(brandId => ({
+      brandId,
+      config: JSON.stringify(config.brandsConfig[brandId]),
+    }));
   },
 
   /**

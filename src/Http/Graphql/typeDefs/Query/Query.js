@@ -55,6 +55,7 @@ module.exports = gql`
     authorityActions(department: String!, role: String!): [String]
     permission: [String]
     loginLock(uuid: String!): LoginLock
+    brandToAuthorities: Object
 
     # BrandConfig API
     brandConfig(brandId: String!): BrandConfig
