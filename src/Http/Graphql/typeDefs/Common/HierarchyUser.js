@@ -1,6 +1,10 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`
+  type HierarchyUser__statistics {
+    totalSubordinatesCount: Int
+  }
+
   type HierarchyUser {
     fullName: String
     operator: Operator
@@ -10,6 +14,6 @@ module.exports = gql`
     userType: String!
     uuid: String!
     acquisition: HierarchyUserAcquisition
-    subordinatesCount: Int
+    statistics: HierarchyUser__statistics
   }
 `;
