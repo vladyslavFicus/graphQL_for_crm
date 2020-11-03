@@ -113,6 +113,17 @@ class OperatorAPI extends RESTDataSource {
   changeStatus(args) {
     return this.put('/operators/status', args);
   }
+
+  /**
+   * Get operator management
+   *
+   * @param uuid
+   *
+   * @return {*}
+   */
+  operatorManagement(uuid) {
+    return this.get(`/operators/${uuid}/management`);
+  }
 }
 
 module.exports = OperatorAPI;
