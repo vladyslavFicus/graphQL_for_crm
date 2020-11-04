@@ -20,8 +20,19 @@ module.exports = (app) => {
 
   // Backoffice version control middleware. Send 426 error if version doesn't match.
   app.use('/gql', ({ headers, method }, res, next) => {
-    if (method !== 'GET' && !headers.playground && headers['x-client-version'] !== config.versions.backoffice) {
-      return res.status(426).send();
+    if (method !== 'GET' && !headers.playground) {
+      const application = headers['x-client-application'];
+      const version = headers['x-client-version'];
+
+      // Check if requests from QA application and skip version checking
+      if (application === 'qa') {
+        return next();
+      }
+
+      // Check backoffice version
+      if (version !== config.versions.backoffice) {
+        return res.status(426).send();
+      }
     }
 
     return next();
