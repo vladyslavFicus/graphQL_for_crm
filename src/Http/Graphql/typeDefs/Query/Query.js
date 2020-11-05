@@ -135,7 +135,7 @@ module.exports = gql`
       status: String
     ): Operator @pageable
     operatorsByBrand(brandId: String!, hierarchyTypeGroup: Desk__Types__Enum!): [Operator]
-    operatorManagement(uuid: String!): OperatorManagement
+    operatorRelationsCount(uuid: String!): OperatorRelationsCount
 
     # Payment API
     payments(args: PaymentSearch__Input): Payment @pageable

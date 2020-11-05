@@ -115,14 +115,14 @@ class OperatorAPI extends RESTDataSource {
   }
 
   /**
-   * Get operator management
+   * Get operator external relations count
    *
    * @param uuid
    *
    * @return {*}
    */
-  operatorManagement(uuid) {
-    return this.get(`/operators/${uuid}/management`);
+  getRelationsCount(uuid) {
+    return this.get(`/operators/${uuid}/external-relations-count`);
   }
 }
 

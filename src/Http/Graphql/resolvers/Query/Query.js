@@ -392,8 +392,8 @@ module.exports = {
   operatorsByBrand(_, args, { dataSources, userUUID }) {
     return dataSources.OperatorAPI.searchByBrand(userUUID, args);
   },
-  operatorManagement(_, { uuid }, { dataSources }) {
-    return dataSources.OperatorAPI.getManagement(uuid);
+  operatorRelationsCount(_, { uuid }, { dataSources }) {
+    return dataSources.OperatorAPI.getRelationsCount(uuid);
   },
 
   /**
