@@ -4,6 +4,7 @@ module.exports = gql`
   type FileMutation {
     updateFileMeta(
       uuid: String!
+      title: String
       verificationType: String
       documentType: String
       status: String
