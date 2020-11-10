@@ -1,6 +1,6 @@
 const { gql } = require('apollo-server-express');
 
-module.exports = gql`  
+module.exports = gql`
   type DistributionRule__LatestMigration {
     uuid: String
     startDate: String
