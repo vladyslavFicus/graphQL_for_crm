@@ -25,6 +25,7 @@ module.exports = gql`
     salesStatuses: [String]
     targetSalesStatus: String
     countries: [String]
+    languages: [String]
     registrationPeriodInHours: Int
     executionPeriodInHours: Int
     executionType: String

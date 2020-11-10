@@ -175,13 +175,14 @@ module.exports = gql`
       parentId: String
       type: Rule__Type__Enum
     ): [Rule]
-    
+
     # Distribution Rules API
     distributionRules(args: DistributionRuleSearch__Input): DistributionRule @pageable
     distributionRule(uuid: String!): DistributionRule
     distributionRuleClientsAmount(
       salesStatuses: [String]!
       countries: [String]!
+      languages: [String]!
       sourceBrand: String!
       targetBrand: String
       registrationPeriodInHours: Int!
