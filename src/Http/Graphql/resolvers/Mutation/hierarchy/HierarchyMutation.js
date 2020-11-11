@@ -118,7 +118,8 @@ module.exports = {
    * @param args.uuids
    * @param args.acquisitionStatus
    * @param args.searchParams
-   * @param args.selectedSize
+   * @param args.sorts
+   * @param args.bulkSize
    * @param dataSources
    *
    * @return {Promise<*>}
@@ -129,6 +130,7 @@ module.exports = {
       uuids,
       acquisitionStatus,
       searchParams,
+      sorts,
       bulkSize,
     },
     { dataSources },
@@ -136,8 +138,6 @@ module.exports = {
     let userUuids = uuids;
 
     if (bulkSize) {
-      const sorts = get(searchParams, 'page.sorts');
-
       const response = await dataSources.ProfileViewAPI.search({
         ...(searchParams && searchParams),
         fields: ['uuid'],
@@ -170,6 +170,7 @@ module.exports = {
    * @param args.salesStatus
    * @param args.retentionStatus
    * @param args.searchParams
+   * @param args.sorts
    * @param args.bulkSize
    * @param dataSources
    *
@@ -183,6 +184,7 @@ module.exports = {
       salesStatus,
       retentionStatus,
       searchParams,
+      sorts,
       bulkSize,
     },
     { dataSources },
@@ -190,8 +192,6 @@ module.exports = {
     let userUuids = uuids;
 
     if (bulkSize) {
-      const sorts = get(searchParams, 'page.sorts');
-
       const response = await dataSources.ProfileViewAPI.search({
         ...(searchParams && searchParams),
         fields: ['uuid'],
@@ -215,7 +215,7 @@ module.exports = {
       ...(salesStatus && { salesStatus }),
     });
   },
-  
+
 
   /**
    * Bulk update leads acquisition
@@ -226,6 +226,7 @@ module.exports = {
    * @param args.parentOperators
    * @param args.salesStatus
    * @param args.searchParams
+   * @param args.sorts
    * @param args.bulkSize
    * @param dataSources
    * @param id
@@ -239,6 +240,7 @@ module.exports = {
       parentOperators,
       salesStatus,
       searchParams,
+      sorts,
       bulkSize,
     },
     { dataSources, brand: { id: brandId } },
@@ -246,8 +248,6 @@ module.exports = {
     let userUuids = uuids;
 
     if (bulkSize) {
-      const sorts = get(searchParams, 'page.sorts');
-
       const response = await dataSources.LeadAPI.getLeads({
         ...(searchParams && searchParams),
         brandId,

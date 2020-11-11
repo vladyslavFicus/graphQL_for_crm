@@ -41,6 +41,7 @@ module.exports = gql`
       salesStatus: String
       retentionStatus: String
       searchParams: ClientSearch__Input
+      sorts: [Sort__Input]
       bulkSize: Int
     ): Boolean
 
@@ -49,6 +50,7 @@ module.exports = gql`
       parentOperators: [String]
       salesStatus: String
       searchParams: LeadSearch__Input
+      sorts: [Sort__Input]
       bulkSize: Int
     ): Boolean
 
@@ -56,6 +58,7 @@ module.exports = gql`
       uuids: [String]!
       acquisitionStatus: Desk__Types__Enum!
       searchParams: ClientSearch__Input
+      sorts: [Sort__Input]
       bulkSize: Int
     ): Boolean
   }
