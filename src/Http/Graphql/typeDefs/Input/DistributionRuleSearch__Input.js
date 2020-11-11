@@ -6,7 +6,7 @@ module.exports = gql`
     size: Int
     searchParam: String
     languages: [String]
-    country: String
+    countries: [String]
     ruleStatus: String
     fromBrand: String
     toBrand: String
