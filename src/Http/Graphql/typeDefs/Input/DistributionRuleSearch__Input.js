@@ -16,5 +16,6 @@ module.exports = gql`
     lastTimeExecutedFrom: String
     lastTimeExecutedTo: String
     executionPeriodsInHours: [Int]
+    affiliateUuid: String
   }
 `;
