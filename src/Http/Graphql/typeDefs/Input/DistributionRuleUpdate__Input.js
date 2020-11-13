@@ -31,7 +31,7 @@ module.exports = gql`
     executionType: String
     sourceBrandConfig: DistributionRuleUpdate__SourceBrand__Input
     targetBrandConfig: DistributionRuleUpdate__TargetBrand__Input
-    affiliateUuid: String
+    affiliateUuids: [String]
     firstTimeDeposit: Boolean
   }
 `;

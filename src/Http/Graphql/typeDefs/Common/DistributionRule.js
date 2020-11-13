@@ -44,7 +44,7 @@ module.exports = gql`
     latestMigration: DistributionRule__LatestMigration
     sourceBrandConfigs: [DistributionRule__BrandConfig]
     targetBrandConfigs: [DistributionRule__BrandConfig]
-    affiliateUuid: String
+    affiliateUuids: [String]
     firstTimeDeposit: Boolean
   }
 `;

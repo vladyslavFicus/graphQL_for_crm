@@ -16,7 +16,7 @@ module.exports = gql`
     lastTimeExecutedFrom: String
     lastTimeExecutedTo: String
     executionPeriodsInHours: [Int]
-    affiliateUuid: String
+    affiliateUuids: [String]
     firstTimeDeposit: Boolean
   }
 `;
