@@ -185,7 +185,22 @@ module.exports = {
    *
    * @return {Promise<void>}
    */
-  async updateAuthorityActions(_, { department, role, actions }, { dataSources, brand }) {
-    await dataSources.Auth2API.updateAuthorityActions(brand.id, department, role, actions);
+  async updateAuthorityActions(_, { department, role, actions, isPermitted }, { dataSources, brand }) {
+    await dataSources.Auth2API.updateAuthorityActions(brand.id, department, role, actions, isPermitted);
+  },
+
+  /**
+   * Reset permission to default
+   *
+   * @param _
+   * @param department
+   * @param role
+   * @param dataSources
+   * @param brand
+   *
+   * @return {Promise<void>}
+   */
+  async resetPermission(_, { department, role }, { dataSources, brand }) {
+    await dataSources.Auth2API.resetPermission(brand.id, department, role);
   },
 };

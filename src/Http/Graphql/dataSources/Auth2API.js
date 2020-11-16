@@ -223,11 +223,25 @@ class Auth2API extends RESTDataSource {
    * @param department
    * @param role
    * @param actions
+   * @param isPermitted
    *
    * @return {*}
    */
-  updateAuthorityActions(brand, department, role, actions) {
-    return this.post(`/authorities/${brand}/${department}/${role}/actions`, { actions });
+  updateAuthorityActions(brand, department, role, actions, isPermitted) {
+    return this.patch(`/authorities/${brand}/${department}/${role}/actions`, { actions, isPermitted });
+  }
+
+  /**
+   * Reset permission to default
+   *
+   * @param brand
+   * @param department
+   * @param role
+   *
+   * @return {Promise}
+   */
+  resetPermission(brand, department, role,) {
+    return this.post(`/authorities/brands/${brand}/${department}/${role}/reset-permissions`);
   }
 
   /**
