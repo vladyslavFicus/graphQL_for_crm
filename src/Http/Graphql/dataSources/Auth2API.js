@@ -240,7 +240,7 @@ class Auth2API extends RESTDataSource {
    *
    * @return {Promise}
    */
-  resetPermission(brand, department, role,) {
+  resetPermission(brand, department, role) {
     return this.post(`/authorities/brands/${brand}/${department}/${role}/reset-permissions`);
   }
 
