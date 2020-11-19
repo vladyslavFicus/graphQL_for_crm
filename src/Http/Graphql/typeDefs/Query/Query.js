@@ -185,6 +185,7 @@ module.exports = gql`
       languages: [String]!
       sourceBrand: String!
       targetBrand: String
+      affiliateUuids: [String]
       firstTimeDeposit: Boolean
       registrationPeriodInHours: Int!
       executionPeriodInHours: Int!
