@@ -392,6 +392,9 @@ module.exports = {
   operatorsByBrand(_, args, { dataSources, userUUID }) {
     return dataSources.OperatorAPI.searchByBrand(userUUID, args);
   },
+  operatorRelationsCount(_, { uuid }, { dataSources }) {
+    return dataSources.OperatorAPI.getRelationsCount(uuid);
+  },
 
   /**
    * Profile API && ProfileView API

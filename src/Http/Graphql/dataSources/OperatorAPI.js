@@ -113,6 +113,17 @@ class OperatorAPI extends RESTDataSource {
   changeStatus(args) {
     return this.put('/operators/status', args);
   }
+
+  /**
+   * Get operator external relations count
+   *
+   * @param uuid
+   *
+   * @return {*}
+   */
+  getRelationsCount(uuid) {
+    return this.get(`/operators/${uuid}/external-relations-count`);
+  }
 }
 
 module.exports = OperatorAPI;
