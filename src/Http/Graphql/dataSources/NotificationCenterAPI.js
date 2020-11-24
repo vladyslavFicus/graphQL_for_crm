@@ -32,6 +32,15 @@ class NotificationCenterAPI extends RESTDataSource {
   }
 
   /**
+   * Get notifications configuration
+   *
+   * @return {Promise}
+   */
+  getConfiguration() {
+    return this.get('/admin/notifications/configuration');
+  }
+
+  /**
    * Update notification center
    *
    * @param args
@@ -40,6 +49,17 @@ class NotificationCenterAPI extends RESTDataSource {
    */
   update(args) {
     return this.put('/admin/notifications/bulk/read', args);
+  }
+
+  /**
+   * Update notifications configuration
+   *
+   * @param args
+   *
+   * @return {*}
+   */
+  updateConfiguration(args) {
+    return this.put('/admin/notifications/configuration', args);
   }
 }
 

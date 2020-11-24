@@ -8,5 +8,9 @@ module.exports = gql`
       totalElements: Int!
       searchParams: NotificationCenterSearch__Input
     ): Boolean
+
+    updateConfiguration(
+      showNotificationsPopUp: Boolean
+    ): Boolean
   }
 `;

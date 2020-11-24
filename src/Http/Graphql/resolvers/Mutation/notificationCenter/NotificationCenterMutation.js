@@ -26,4 +26,17 @@ module.exports = {
 
     await dataSources.NotificationCenterAPI.update({ read: true, notificationUuids });
   },
+
+  /**
+   * Update notification configuration
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise<void>}
+   */
+  async updateConfiguration(_, args, { dataSources }) {
+    await dataSources.NotificationCenterAPI.updateConfiguration(args);
+  },
 };
