@@ -296,6 +296,9 @@ module.exports = {
   notificationCenterUnread(_, __, { dataSources }) {
     return dataSources.NotificationCenterAPI.getUnreadCount();
   },
+  notificationCenterConfiguration(_, __, { dataSources }) {
+    return dataSources.NotificationCenterAPI.getConfiguration();
+  },
 
   /**
    * Payment API
