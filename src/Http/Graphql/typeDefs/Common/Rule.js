@@ -16,6 +16,17 @@ module.exports = gql`
     ruleType: Rule__ActionType__Enum
   }
 
+  type RuleTimeInterval {
+    operatorSpreads: [Rule__OperatorSpread]
+    timeFrom: String
+    timeTo: String
+  }
+
+  type RuleSchedule {
+    days: [String]
+    timeIntervals: [RuleTimeInterval]
+  }
+
   type Rule {
     actions: [Rule__Action]
     brandId: String
@@ -31,5 +42,7 @@ module.exports = gql`
     type: Rule__Type__Enum
     updatedBy: String
     uuid: String!
+    enableScheduling: Boolean
+    schedules: [RuleSchedule]
   }
 `;
