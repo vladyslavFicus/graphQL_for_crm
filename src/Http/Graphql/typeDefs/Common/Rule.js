@@ -2,18 +2,9 @@ const { gql } = require('apollo-server-express');
 
 module.exports = gql`  
   type Rule__OperatorSpread {
-    id: Int!
     operator: Operator
     parentUser: String
     percentage: Int
-  }
-
-  type Rule__Action {
-    id: Int!
-    operatorSpreads: [Rule__OperatorSpread]
-    parentBranch: String
-    parentUser: String
-    ruleType: Rule__ActionType__Enum
   }
 
   type RuleTimeInterval {
@@ -28,7 +19,9 @@ module.exports = gql`
   }
 
   type Rule {
-    actions: [Rule__Action]
+    ruleType: Rule__ActionType__Enum
+    parentBranch: String
+    operatorSpreads: [Rule__OperatorSpread]
     brandId: String
     countries: [String]
     createdAt: String
