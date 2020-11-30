@@ -35,7 +35,7 @@ module.exports = gql`
     type: Rule__Type__Enum
     updatedBy: String
     uuid: String!
-    enableScheduling: Boolean
+    enableSchedule: Boolean
     schedules: [RuleSchedule]
   }
 `;

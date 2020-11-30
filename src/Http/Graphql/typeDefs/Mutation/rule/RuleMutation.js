@@ -14,6 +14,8 @@ module.exports = gql`
       sources: [String]
       type: Rule__Type__Enum
       uuid: String
+      enableSchedule: Boolean
+      schedules: [RuleSchedule__Input]
     ): Boolean
 
     deleteRule(uuid: String!): Boolean
