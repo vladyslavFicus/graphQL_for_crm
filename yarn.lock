@@ -63,10 +63,10 @@
   dependencies:
     recursive-readdir-synchronous "^0.0.4"
 
-"@hrzn/apollo-datasource@^1.0.126":
-  version "1.0.126"
-  resolved "https://nexus.etep.io/repository/hrzn-npm/@hrzn/apollo-datasource/-/apollo-datasource-1.0.126.tgz#b01c6d580656e173c54ea09f3c48c16ba6493111"
-  integrity sha512-HV+3S/YQniQIdHhSDkm1R4zfTXD3uhkp1ordQ7lZDmcYqkWj3CMe+L3b4qJ/BlkSvy/aoNTIb8BdvcogJJwa0A==
+"@hrzn/apollo-datasource@^1.0.132":
+  version "1.0.132"
+  resolved "https://nexus.etep.io/repository/hrzn-npm/@hrzn/apollo-datasource/-/apollo-datasource-1.0.132.tgz#b1dddad125802f61b2a21a020dbe1cdeaeef8441"
+  integrity sha512-hNvIrRXo7U9l1MZyJvUlPEP0vV7JD/+uTbePTrOamlrsRHsu7o2h7bOulHmAFxydyZckk32P3Zms+M5c6dHhNg==
   dependencies:
     apollo-datasource-rest "^0.9.3"
     apollo-server-errors "^2.4.2"

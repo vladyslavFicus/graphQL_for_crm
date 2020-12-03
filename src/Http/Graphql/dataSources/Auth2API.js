@@ -245,6 +245,18 @@ class Auth2API extends RESTDataSource {
   }
 
   /**
+   * Check if default authority exists for provided department and role
+   *
+   * @param department
+   * @param role
+   *
+   * @return {Promise}
+   */
+  getDefaultPermission(department, role) {
+    return this.head(`/authorities/default/${department}/${role}`);
+  }
+
+  /**
    * Get all actions
    *
    * @return {*}
