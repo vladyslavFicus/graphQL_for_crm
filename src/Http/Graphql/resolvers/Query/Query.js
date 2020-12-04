@@ -99,6 +99,15 @@ module.exports = {
 
     return brandToAuthorities;
   },
+  async isDefaultAuthority(_, { department, role }, { dataSources }) {
+    try {
+      await dataSources.Auth2API.checkDefaultAuthority(department, role);
+
+      return true;
+    } catch (e) {
+      return false;
+    }
+  },
 
   /**
    * BrandConfig API
