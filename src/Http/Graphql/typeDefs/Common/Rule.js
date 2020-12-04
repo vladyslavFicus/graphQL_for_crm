@@ -2,22 +2,26 @@ const { gql } = require('apollo-server-express');
 
 module.exports = gql`  
   type Rule__OperatorSpread {
-    id: Int!
     operator: Operator
     parentUser: String
     percentage: Int
   }
 
-  type Rule__Action {
-    id: Int!
+  type RuleTimeInterval {
     operatorSpreads: [Rule__OperatorSpread]
-    parentBranch: String
-    parentUser: String
-    ruleType: Rule__ActionType__Enum
+    timeFrom: String
+    timeTo: String
+  }
+
+  type RuleSchedule {
+    days: [String]
+    timeIntervals: [RuleTimeInterval]
   }
 
   type Rule {
-    actions: [Rule__Action]
+    ruleType: Rule__ActionType__Enum
+    parentBranch: String
+    operatorSpreads: [Rule__OperatorSpread]
     brandId: String
     countries: [String]
     createdAt: String
@@ -31,5 +35,7 @@ module.exports = gql`
     type: Rule__Type__Enum
     updatedBy: String
     uuid: String!
+    enableSchedule: Boolean
+    schedules: [RuleSchedule]
   }
 `;
