@@ -99,9 +99,9 @@ module.exports = {
 
     return brandToAuthorities;
   },
-  async defaultPermission(_, { department, role }, { dataSources }) {
+  async isDefaultAuthority(_, { department, role }, { dataSources }) {
     try {
-      await dataSources.Auth2API.getDefaultPermission(department, role);
+      await dataSources.Auth2API.checkDefaultAuthority(department, role);
 
       return true;
     } catch (e) {
