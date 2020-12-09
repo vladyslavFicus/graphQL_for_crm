@@ -110,20 +110,6 @@ module.exports = {
   },
 
   /**
-   * BrandConfig API
-   */
-  brandConfig(_, { brandId }, { dataSources }) {
-    return dataSources.BrandConfigAPI.getBrandConfig(brandId);
-  },
-  // TODO: Temporary solution until brand-config-service will be released
-  brands() {
-    return Object.keys(config.brandsConfig).map(brandId => ({
-      brandId,
-      config: JSON.stringify(config.brandsConfig[brandId]),
-    }));
-  },
-
-  /**
    * Callback API
    */
   async callbacks(_, args, { dataSources, userUUID }) {
@@ -535,5 +521,18 @@ module.exports = {
         url: get(brandConfig, 'nas.brand.client_portal.url'),
       },
     };
+  },
+
+  /**
+   *
+   * Brands resolver
+   *
+   */
+  // TODO: Temporary solution until brand-config-service will be released
+  brands() {
+    return Object.keys(config.brandsConfig).map(brandId => ({
+      brandId,
+      config: JSON.stringify(config.brandsConfig[brandId]),
+    }));
   },
 };

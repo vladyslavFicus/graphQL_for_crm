@@ -4,7 +4,6 @@ const AsteriskAPI = require('./AsteriskAPI');
 const AttachmentsAPI = require('./AttachmentsAPI');
 const AuditAPI = require('./AuditAPI');
 const Auth2API = require('./Auth2API');
-const BrandConfigAPI = require('./BrandConfigAPI');
 const CallbackAPI = require('./CallbackAPI');
 const DidLogicAPI = require('./DidLogicAPI');
 const EmailAPI = require('./EmailAPI');
@@ -32,7 +31,6 @@ module.exports = {
   AttachmentsAPI,
   AuditAPI,
   Auth2API,
-  BrandConfigAPI,
   CallbackAPI,
   DidLogicAPI,
   EmailAPI,
