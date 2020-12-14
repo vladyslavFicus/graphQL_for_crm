@@ -19,6 +19,11 @@ module.exports = gql`
     country: String
   }
 
+  input DistributionRule__RegistrationDateRange__Input {
+    from: String
+    to: String
+  }
+
   input DistributionRuleUpdate__Input {
     uuid: String!
     ruleName: String
@@ -27,6 +32,7 @@ module.exports = gql`
     countries: [String]
     languages: [String]
     registrationPeriodInHours: Int
+    registrationDateRange: DistributionRule__RegistrationDateRange__Input
     executionPeriodInHours: Int
     executionType: String
     sourceBrandConfig: DistributionRuleUpdate__SourceBrand__Input
