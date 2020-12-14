@@ -5,7 +5,6 @@ module.exports = gql`
     createRule(
       operatorSpreads: [RuleOperatorSpread__Input]
       parentBranch: String
-      ruleType: Rule__ActionType__Enum
       affiliateUUIDs: [String]
       countries: [String]
       languages: [String]
