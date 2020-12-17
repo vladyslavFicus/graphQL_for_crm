@@ -80,7 +80,7 @@ module.exports = {
   },
 
   /**
-   * Change original agent
+   * Change creation time
    *
    * @param _
    * @param args
@@ -88,7 +88,7 @@ module.exports = {
    *
    * @return {Promise}
    */
-  async changeOriginalAgent(_, args, { dataSources }) {
-    await dataSources.PaymentAPI.changeOriginalAgent(args);
+  async changeCreationTime(_, args, { dataSources }) {
+    await dataSources.PaymentAPI.changeCreationTime(args);
   },
 };
