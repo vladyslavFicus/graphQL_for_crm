@@ -48,8 +48,6 @@ module.exports = gql`
     paymentMetadata: Payment__Metadata
     paymentMethod: String
     paymentMigrationId: String
-    bankName: String
-    maskedPan: String
     paymentType: String!
     platformType: String!
     playerProfile: Payment__ClientProfile
