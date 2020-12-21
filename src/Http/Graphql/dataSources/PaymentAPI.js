@@ -153,6 +153,18 @@ class PaymentAPI extends RESTDataSource {
   changeOriginalAgent({ paymentId, ...args }) {
     return this.put(`/${paymentId}/agent`, args);
   }
+
+  /**
+   * Change creation time
+   *
+   * @param paymentId
+   * @param args
+   *
+   * @return {Promise}
+   */
+  changeCreationTime({ paymentId, ...args }) {
+    return this.put(`/utils/payment/datetime/${paymentId}`, args);
+  }
 }
 
 module.exports = PaymentAPI;
