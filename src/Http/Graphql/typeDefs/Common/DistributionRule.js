@@ -13,7 +13,7 @@ module.exports = gql`
     uuid: String
     brand: String
     sortType: String
-    source: String
+    migrationSource: String
     operator: String
     operatorEntity: Operator
     country: String

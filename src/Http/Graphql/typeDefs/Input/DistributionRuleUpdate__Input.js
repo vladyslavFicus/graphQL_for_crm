@@ -15,7 +15,7 @@ module.exports = gql`
   input DistributionRuleUpdate__TargetBrand__Input {
     brand: String
     distributionUnit: DistributionRuleUpdate__Unit__Input
-    source: String
+    migrationSource: String
     operator: String
     country: String
   }
