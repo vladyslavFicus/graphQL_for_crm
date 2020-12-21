@@ -19,7 +19,6 @@ module.exports = gql`
   }
 
   type Rule {
-    ruleType: Rule__ActionType__Enum
     parentBranch: String
     operatorSpreads: [Rule__OperatorSpread]
     brandId: String

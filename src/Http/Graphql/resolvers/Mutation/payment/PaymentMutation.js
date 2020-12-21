@@ -91,4 +91,17 @@ module.exports = {
   async changeOriginalAgent(_, args, { dataSources }) {
     await dataSources.PaymentAPI.changeOriginalAgent(args);
   },
+
+  /**
+   * Change creation time
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async changeCreationTime(_, args, { dataSources }) {
+    await dataSources.PaymentAPI.changeCreationTime(args);
+  },
 };

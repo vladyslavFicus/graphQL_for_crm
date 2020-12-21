@@ -25,6 +25,11 @@ module.exports = gql`
     baseUnit: String
   }
 
+  type DistributionRule__RegistrationDateRange {
+    from: String
+    to: String
+  }
+
   type DistributionRule {
     _id: ID!
     uuid: String!
@@ -40,6 +45,7 @@ module.exports = gql`
     salesStatuses: [String]
     targetSalesStatus: String
     registrationPeriodInHours: Int
+    registrationDateRange: DistributionRule__RegistrationDateRange
     executionType: String
     executionPeriodInHours: Int
     latestMigration: DistributionRule__LatestMigration

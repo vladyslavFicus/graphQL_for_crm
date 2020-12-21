@@ -190,7 +190,8 @@ module.exports = gql`
       targetBrand: String
       affiliateUuids: [String]
       firstTimeDeposit: Boolean
-      registrationPeriodInHours: Int!
+      registrationPeriodInHours: Int
+      registrationDateRange: DistributionRule__RegistrationDateRange__Input
       executionPeriodInHours: Int!
     ): Int
     distributionClientsAmount(uuid: String): Int

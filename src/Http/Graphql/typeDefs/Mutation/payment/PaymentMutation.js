@@ -38,5 +38,10 @@ module.exports = gql`
       agentName: String
       agentId: String
     ): Boolean
+    
+    changeCreationTime(
+      paymentId: String!
+      creationTime: String!
+    ): Boolean
   }
 `;
