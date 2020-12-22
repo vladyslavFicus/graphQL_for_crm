@@ -19,7 +19,7 @@ module.exports = gql`
     country: String
   }
 
-  input DistributionRule__RegistrationDateRange__Input {
+  input DistributionRule__DateRange__Input {
     from: String
     to: String
   }
@@ -32,7 +32,9 @@ module.exports = gql`
     countries: [String]
     languages: [String]
     registrationPeriodInHours: Int
-    registrationDateRange: DistributionRule__RegistrationDateRange__Input
+    registrationDateRange: DistributionRule__DateRange__Input
+    lastNotePeriodInHours: Int
+    lastNoteDateRange: DistributionRule__DateRange__Input
     executionPeriodInHours: Int
     executionType: String
     sourceBrandConfig: DistributionRuleUpdate__SourceBrand__Input
