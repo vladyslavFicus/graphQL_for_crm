@@ -18,11 +18,10 @@ class LeadUpdaterAPI extends RESTDataSource {
    * Upload leads (csv)
    *
    * @param file
-   * @param brandId
    *
    * @return {Promise}
    */
-  uploadLeads(file, brandId) {
+  uploadLeads(file) {
     return new Promise(async (resolve, reject) => {
       const { filename, createReadStream } = await file.file;
 
@@ -39,7 +38,7 @@ class LeadUpdaterAPI extends RESTDataSource {
         formData.append('file', Buffer.concat(buffer), filename);
 
         try {
-          const response = await this.post(`/lead/csv?brandId=${brandId}`, formData, {
+          const response = await this.post('/lead/file', formData, {
             headers: {
               ...formData.getHeaders(),
             },
