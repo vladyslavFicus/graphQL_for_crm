@@ -192,7 +192,9 @@ module.exports = gql`
       affiliateUuids: [String]
       firstTimeDeposit: Boolean
       registrationPeriodInHours: Int
-      registrationDateRange: DistributionRule__RegistrationDateRange__Input
+      registrationDateRange: DistributionRule__DateRange__Input
+      lastNotePeriodInHours: Int
+      lastNoteDateRange: DistributionRule__DateRange__Input
       executionPeriodInHours: Int!
     ): Int
     distributionClientsAmount(uuid: String): Int

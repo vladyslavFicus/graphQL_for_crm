@@ -25,7 +25,7 @@ module.exports = gql`
     baseUnit: String
   }
 
-  type DistributionRule__RegistrationDateRange {
+  type DistributionRule__DateRange {
     from: String
     to: String
   }
@@ -45,7 +45,9 @@ module.exports = gql`
     salesStatuses: [String]
     targetSalesStatus: String
     registrationPeriodInHours: Int
-    registrationDateRange: DistributionRule__RegistrationDateRange
+    registrationDateRange: DistributionRule__DateRange
+    lastNotePeriodInHours: Int
+    lastNoteDateRange: DistributionRule__DateRange
     executionType: String
     executionPeriodInHours: Int
     latestMigration: DistributionRule__LatestMigration
