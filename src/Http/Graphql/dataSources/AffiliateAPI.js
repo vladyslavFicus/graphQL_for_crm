@@ -27,6 +27,15 @@ class AffiliateAPI extends RESTDataSource {
   }
 
   /**
+   * Get all CDE partners
+   *
+   * @return {Promise}
+   */
+  getCdePartners() {
+    return this.get('/affiliates/all/cde');
+  }
+
+  /**
    * Get partner by uuid
    *
    * @param uuid
