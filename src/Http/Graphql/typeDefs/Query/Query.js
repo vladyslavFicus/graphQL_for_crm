@@ -11,7 +11,7 @@ module.exports = gql`
       status: String
       registrationDateFrom: String
       registrationDateTo: String
-      isCdeAffiliate: Boolean
+      cdeAffiliate: Boolean
     ): Partner @pageable
 
     # Attachments API
