@@ -15,6 +15,9 @@ module.exports = {
   partners(_, args, { dataSources }) {
     return dataSources.AffiliateAPI.getPartners(args);
   },
+  cdePartners(_, __, { dataSources }) {
+    return dataSources.AffiliateAPI.getCdePartners();
+  },
   partner(_, { uuid }, { dataSources }) {
     return dataSources.AffiliateAPI.getPartner(uuid);
   },

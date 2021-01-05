@@ -27,6 +27,7 @@ module.exports = gql`
 
   type Partner {
     _id: ID!
+    brand: String
     authorities: [Authority]
     country: String
     createdAt: String
