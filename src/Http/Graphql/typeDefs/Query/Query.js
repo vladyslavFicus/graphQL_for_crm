@@ -196,6 +196,8 @@ module.exports = gql`
       lastNotePeriodInHours: Int
       lastNoteDateRange: DistributionRule__DateRange__Input
       executionPeriodInHours: Int!
+      desks: [String]
+      teams: [String]
     ): Int
     distributionClientsAmount(uuid: String): Int
 
