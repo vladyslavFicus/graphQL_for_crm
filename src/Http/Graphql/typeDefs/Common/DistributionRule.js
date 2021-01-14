@@ -18,6 +18,8 @@ module.exports = gql`
     operatorEntity: Operator
     country: String
     distributionUnit: DistributionRule__DistributionUnit
+    desks: [String]
+    teams: [String]
   }
 
   type DistributionRule__DistributionUnit {

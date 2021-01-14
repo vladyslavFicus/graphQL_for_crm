@@ -10,6 +10,8 @@ module.exports = gql`
     brand: String
     distributionUnit: DistributionRuleUpdate__Unit__Input
     sortType: String
+    desks: [String]
+    teams: [String]
   }
 
   input DistributionRuleUpdate__TargetBrand__Input {
