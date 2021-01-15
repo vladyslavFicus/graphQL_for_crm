@@ -195,7 +195,7 @@ module.exports = gql`
       registrationDateRange: DistributionRule__DateRange__Input
       lastNotePeriodInHours: Int
       lastNoteDateRange: DistributionRule__DateRange__Input
-      executionPeriodInHours: Int!
+      executionPeriodInHours: Int
       desks: [String]
       teams: [String]
     ): Int
