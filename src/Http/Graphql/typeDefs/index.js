@@ -6,6 +6,7 @@ module.exports = gql`
   directive @pageable on FIELD_DEFINITION
   directive @auth_mask_field(action: String) on FIELD_DEFINITION
   directive @auth_hide_argument(action: String) on ARGUMENT_DEFINITION
+  directive @auth_hide_field(action: String) on FIELD_DEFINITION
 
   # ============= Scalars ============= #
   scalar Object
