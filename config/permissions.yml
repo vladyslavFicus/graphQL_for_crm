@@ -28,6 +28,20 @@ permissions:
       authorities: *all
     - action: "profile.field.additionalEmail"
       authorities: *all
+    - action: "profile.affiliate.field.uuid"
+      authorities: *all
+    - action: "profile.affiliate.field.campaignId"
+      authorities: *all
+    - action: "profile.affiliate.field.referral"
+      authorities: *all
+    - action: "profile.affiliate.field.source"
+      authorities: *all
+    - action: "profile.affiliate.field.sms"
+      authorities: *all
+    - action: "profile.referrer.field.uuid"
+      authorities: *all
+    - action: "profile.referrer.field.fullName"
+      authorities: *all
     - action: "lead.field.phone"
       authorities: *all
     - action: "lead.field.mobile"

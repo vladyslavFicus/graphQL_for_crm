@@ -6,15 +6,15 @@ module.exports = gql`
   }
 
   type ProfileView__Affiliate {
-    campaignId: String
-    partner: Partner
-    source: String
-    uuid: String!
+    uuid: String @auth_hide_field(action: "profile.affiliate.field.uuid")
+    campaignId: String @auth_hide_field(action: "profile.affiliate.field.campaignId")
+    partner: Partner @auth_hide_field(action: "profile.affiliate.field.uuid")
+    source: String @auth_hide_field(action: "profile.affiliate.field.source")
   }
 
   type ProfileView__Referrer {
-    uuid: String
-    fullName: String
+    uuid: String @auth_hide_field(action: "profile.referrer.field.uuid")
+    fullName: String @auth_hide_field(action: "profile.referrer.field.fullName")
   }
 
   type ProfileView__Balance {

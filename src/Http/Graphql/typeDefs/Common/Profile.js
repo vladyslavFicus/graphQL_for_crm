@@ -11,13 +11,13 @@ module.exports = gql`
   }
 
   type Profile__Affiliate {
-    uuid: String
-    campaignId: String
+    uuid: String @auth_hide_field(action: "profile.affiliate.field.uuid")
+    campaignId: String @auth_hide_field(action: "profile.affiliate.field.campaignId")
     externalId: String
-    partner: Partner
-    referral: String
-    source: String
-    sms: String
+    partner: Partner @auth_hide_field(action: "profile.affiliate.field.uuid")
+    referral: String @auth_hide_field(action: "profile.affiliate.field.referral")
+    source: String @auth_hide_field(action: "profile.affiliate.field.source")
+    sms: String @auth_hide_field(action: "profile.affiliate.field.sms")
   }
 
   type Profile__Configuration__GDPR {
@@ -104,8 +104,8 @@ module.exports = gql`
   }
 
   type Profile__Referrer {
-    fullName: String
-    uuid: String
+    uuid: String @auth_hide_field(action: "profile.referrer.field.uuid")
+    fullName: String @auth_hide_field(action: "profile.referrer.field.fullName")
   }
 
   type Profile {
