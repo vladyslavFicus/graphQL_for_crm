@@ -15,7 +15,10 @@ async function send() {
   Logger.info('✈️  Send permission configuration...');
 
   // Parse default permissions from .yml file
-  const permissionConfig = yaml.parse(fs.readFileSync(`${__dirname}/permissions.yml`, 'utf-8'));
+  const permissionConfig = yaml.parse(
+    fs.readFileSync(`${__dirname}/permissions.yml`, 'utf-8'),
+    { maxAliasCount: -1 },
+  );
 
   // Adding "backoffice-graphql" prefix for each action
   permissionConfig.permissions.actions.forEach((action) => {
