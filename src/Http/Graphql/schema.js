@@ -4,6 +4,7 @@ const { NestedDirective, PageableDirective } = require('@hrzn/apollo-directive')
 const AuthMaskFieldDirective = require('./directives/auth/AuthMaskFieldDirective');
 const AuthHideArgumentDirective = require('./directives/auth/AuthHideArgumentDirective');
 const AuthHideFieldDirective = require('./directives/auth/AuthHideFieldDirective');
+const AuthFilterValuesDirective = require('./directives/auth/AuthFilterValuesDirective');
 
 const schema = makeExecutableSchema({
   typeDefs: autoloadTypeDefs(`${__dirname}/typeDefs`),
@@ -14,6 +15,7 @@ const schema = makeExecutableSchema({
     auth_mask_field: AuthMaskFieldDirective,
     auth_hide_argument: AuthHideArgumentDirective,
     auth_hide_field: AuthHideFieldDirective,
+    auth_filter_values: AuthFilterValuesDirective,
   },
 });
 

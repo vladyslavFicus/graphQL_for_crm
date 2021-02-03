@@ -48,3 +48,25 @@ permissions:
       authorities: *all
     - action: "lead.field.email"
       authorities: *all
+    - action: "payment.field.manual-methods.values.BONUS"
+      authorities: *all
+    - action: "payment.field.manual-methods.values.CHARGEBACK"
+      authorities: *all
+    - action: "payment.field.manual-methods.values.CREDIT_CARD"
+      authorities: *all
+    - action: "payment.field.manual-methods.values.ELECTRONIC"
+      authorities: *all
+    - action: "payment.field.manual-methods.values.EXTERNAL"
+      authorities: *all
+    - action: "payment.field.manual-methods.values.INTERNAL_TRANSFER"
+      authorities: *all
+    - action: "payment.field.manual-methods.values.MIGRATION"
+      authorities: *all
+    - action: "payment.field.manual-methods.values.PAYRETAILERS"
+      authorities: *all
+    - action: "payment.field.manual-methods.values.RECALL"
+      authorities: *all
+    - action: "payment.field.manual-methods.values.SYSTEM"
+      authorities: *all
+    - action: "payment.field.manual-methods.values.WIRE"
+      authorities: *all
