@@ -34,6 +34,37 @@ class HierarchyUpdaterAPI extends RESTDataSource {
   }
 
   /**
+   * Update branch in hierarchy
+   * [office, desk, team]
+   *
+   * @param branchUuid
+   * @param args
+   * @param args.name
+   * @param args.deskType
+   * @param args.country
+   * @param args.language
+   * @param args.defaultUser
+   * @param args.defaultBranch
+   *
+   * @return {Promise}
+   */
+  updateBranch(branchUuid, args) {
+    return this.put(`/branch/${branchUuid}`, args);
+  }
+
+  /**
+   * Delete branch in hierarchy
+   * [office, desk, team]
+   *
+   * @param branchUuid
+   *
+   * @return {Promise}
+   */
+  deleteBranch(branchUuid) {
+    return this.delete(`/branch/${branchUuid}`);
+  }
+
+  /**
    * Update user branches
    *
    * @param uuid
@@ -62,10 +93,10 @@ class HierarchyUpdaterAPI extends RESTDataSource {
 
   /**
    * Update acquisition of single lead/client
-   * 
+   *
    * @param uuid
    * @param args
-   * 
+   *
    * @return {Promise}
    */
   updateAcquisition(uuid, args) {

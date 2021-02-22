@@ -64,6 +64,37 @@ module.exports = {
   },
 
   /**
+   * Update branch
+   *
+   * @param _
+   * @param uuid
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise<*>}
+   */
+  async updateBranch(_, { uuid, ...args }, { dataSources }) {
+    await dataSources.HierarchyUpdaterAPI.updateBranch(uuid, args);
+
+    return true;
+  },
+
+  /**
+   * Delete branch
+   *
+   * @param _
+   * @param uuid
+   * @param dataSources
+   *
+   * @return {Promise<*>}
+   */
+  async deleteBranch(_, { uuid }, { dataSources }) {
+    await dataSources.HierarchyUpdaterAPI.deleteBranch(uuid);
+
+    return true;
+  },
+
+  /**
    * Add branch manager
    *
    * @param _

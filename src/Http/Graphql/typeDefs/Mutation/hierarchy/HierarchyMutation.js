@@ -19,6 +19,16 @@ module.exports = gql`
       deskId: String!
     ): Boolean
 
+    updateBranch(
+      uuid: String!
+      name: String!
+      deskType: Desk__Types__Enum
+      country: String
+      language: String
+    ): Boolean
+
+    deleteBranch(uuid: String!): Boolean
+
     addBranchManager(
       branchUuid: String
       operatorUuid: String
