@@ -5,6 +5,11 @@ module.exports = gql`
     from: Float
     to: Float
   }
+  
+  input ClientSearch__Input__Deposit {
+    from: Int
+    to: Int
+  }
 
   input ClientSearch__Input__FirstDepositDateRange {
     from: String
@@ -47,6 +52,7 @@ module.exports = gql`
     affiliateUuids: [String]
     assignStatus: String
     balanceRange: ClientSearch__Input__Balance
+    depositsCountRange: ClientSearch__Input__Deposit
     countries: [String]
     desks: [String]
     firstDepositDateRange: ClientSearch__Input__FirstDepositDateRange
