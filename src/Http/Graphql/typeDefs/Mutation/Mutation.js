@@ -3,6 +3,7 @@ const { gql } = require('apollo-server-express');
 module.exports = gql`
   type Mutation {
     auth: AuthMutation @nested
+    analytics: AnalyticsMutation @nested
     brandConfig: BrandConfigMutation @nested
     callback: CallbackMutation @nested
     clickToCall: ClickToCallMutation @nested
