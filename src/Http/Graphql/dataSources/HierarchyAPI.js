@@ -11,7 +11,14 @@ class HierarchyAPI extends RESTDataSource {
   }
 
   async _loader(userUuids) {
-    const data = await this.post('/user/search', { userUuids });
+    const brandId = this.context.brand.id;
+
+    const data = await this.post('/user/search', {
+      userUuids,
+      branchFilter: {
+        brandId,
+      },
+    });
 
     return orderByArray(userUuids, data, 'uuid');
   }
