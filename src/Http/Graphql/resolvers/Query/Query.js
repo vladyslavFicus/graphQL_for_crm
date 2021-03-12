@@ -516,6 +516,10 @@ module.exports = {
           isActive: get(brandConfig, 'nas.brand.clickToCall.asterisk.isActive', false),
           prefixes: get(brandConfig, 'nas.brand.clickToCall.asterisk.prefixes', {}),
         },
+        commpeak: {
+          isActive: get(brandConfig, 'nas.brand.clickToCall.commpeak.isActive', false),
+          prefixes: get(brandConfig, 'nas.brand.clickToCall.commpeak.prefixes', {}),
+        },
       },
       email: {
         templatedEmails: !!get(brandConfig, 'nas.brand.email.sendgrid.crm_templated_emails'),

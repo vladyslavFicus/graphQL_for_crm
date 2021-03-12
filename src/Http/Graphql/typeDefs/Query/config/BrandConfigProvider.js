@@ -27,9 +27,15 @@ module.exports = gql`
     prefixes: Object
   }
 
+  type BrandConfigProvider__Commpeak {
+    isActive: Boolean
+    prefixes: Object
+  }
+
   type BrandConfigProvider__ClickToCall {
     isActive: Boolean
     asterisk: BrandConfigProvider__Asterisk
+    commpeak: BrandConfigProvider__Commpeak
   }
 
   type BrandConfigProvider__MTx__Settings {
