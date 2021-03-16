@@ -1,3 +1,4 @@
+const { get } = require('lodash');
 const getFieldByType = require('../../../../utils/getFieldByType');
 
 module.exports = {
@@ -17,8 +18,10 @@ module.exports = {
 
     const { url } = brand.clickToCall.didlogic;
 
-    const { didlogicPhone } = await dataSources.OperatorAPI.getByUUID(userUUID);
+    const operator = await dataSources.OperatorAPI.getByUUID(userUUID);
 
-    await dataSources.DidLogicAPI.createCall(url, number, didlogicPhone, uuid, 'CRM');
+    const sip = get(operator, 'clickToCall.didlogicPhone');
+
+    await dataSources.DidLogicAPI.createCall(url, number, sip, uuid, 'CRM');
   },
 };
