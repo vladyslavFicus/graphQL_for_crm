@@ -18,9 +18,9 @@ module.exports = {
 
     const { url, token } = brand.clickToCall.asterisk;
 
-    const { sip } = await dataSources.OperatorAPI.getByUUID(userUUID);
+    const { asteriskPhone } = await dataSources.OperatorAPI.getByUUID(userUUID);
 
-    const { success } = await dataSources.AsteriskAPI.createCall(url, token, sip, number, prefix);
+    const { success } = await dataSources.AsteriskAPI.createCall(url, token, asteriskPhone, number, prefix);
 
     if (!success) {
       throw new Error('Call failed');

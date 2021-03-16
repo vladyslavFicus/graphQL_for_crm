@@ -18,9 +18,9 @@ module.exports = {
 
     const { url } = brand.clickToCall.commpeak;
 
-    const { sip } = await dataSources.OperatorAPI.getByUUID(userUUID);
+    const { commpeakPhone } = await dataSources.OperatorAPI.getByUUID(userUUID);
 
-    const response = await dataSources.CommpeakAPI.createCall(url, sip, number, prefix);
+    const response = await dataSources.CommpeakAPI.createCall(url, commpeakPhone, number, prefix);
 
     const { success } = JSON.parse(response);
 
