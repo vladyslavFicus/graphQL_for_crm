@@ -1,6 +1,12 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`
+  type Operator__ClickToCall {
+    didlogicPhone: String
+    asteriskPhone: String
+    commpeakPhone: String
+  }
+
   type Operator {
     _id: ID!
     authorities(brand: String): [Authority]
@@ -14,7 +20,7 @@ module.exports = gql`
     phoneNumber: String
     registeredBy: String
     registrationDate: String
-    sip: String
+    clickToCall: Operator__ClickToCall
     statusChangeAuthor: String
     statusChangeDate: String
     statusReason: String

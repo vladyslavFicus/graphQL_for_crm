@@ -3,7 +3,7 @@ const getFieldByType = require('../../../../utils/getFieldByType');
 
 module.exports = {
   /**
-   * Create call to Asterisk
+   * Create call to Commpeak
    *
    * @param _
    * @param number
@@ -17,13 +17,15 @@ module.exports = {
   async createCall(_, { uuid, field, type, prefix }, { dataSources, userUUID, brand }) {
     const number = await getFieldByType(uuid, field, type, dataSources);
 
-    const { url, token } = brand.clickToCall.asterisk;
+    const { url } = brand.clickToCall.commpeak;
 
     const operator = await dataSources.OperatorAPI.getByUUID(userUUID);
 
-    const sip = get(operator, 'clickToCall.asteriskPhone');
+    const sip = get(operator, 'clickToCall.commpeakPhone');
 
-    const { success } = await dataSources.AsteriskAPI.createCall(url, token, sip, number, prefix);
+    const response = await dataSources.CommpeakAPI.createCall(url, sip, number, prefix);
+
+    const { success } = JSON.parse(response);
 
     if (!success) {
       throw new Error('Call failed');

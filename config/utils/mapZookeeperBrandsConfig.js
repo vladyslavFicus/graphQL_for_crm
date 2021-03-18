@@ -8,5 +8,6 @@ module.exports = configs => Object.entries(configs).map(([id, config]) => ({
       url: get(config, 'nas.brand.clickToCall.url'),
     },
     asterisk: get(config, 'nas.brand.clickToCall.asterisk', {}),
+    commpeak: get(config, 'nas.brand.clickToCall.commpeak', {}),
   },
 }));
