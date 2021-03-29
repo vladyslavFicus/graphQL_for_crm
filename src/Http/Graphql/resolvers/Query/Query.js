@@ -174,8 +174,8 @@ module.exports = {
   branchUsers(_, { branchUuid }, { dataSources }) {
     return dataSources.HierarchyAPI.getBranchUsers(branchUuid);
   },
-  async userBranches(_, { withoutBrandFilter, sourceBrand }, { dataSources, userUUID, brand }) {
-    const args = withoutBrandFilter ? {} : { brandId: sourceBrand || brand.id };
+  async userBranches(_, { withoutBrandFilter, brandId }, { dataSources, userUUID, brand }) {
+    const args = withoutBrandFilter ? {} : { brandId: brandId || brand.id };
     const branches = await dataSources.HierarchyAPI.getUserBranches(userUUID, args);
 
     return groupBy(branches, 'branchType');
