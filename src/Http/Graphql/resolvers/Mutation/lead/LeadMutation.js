@@ -26,8 +26,8 @@ module.exports = {
    * @return {Promise<*>}
    *
    * */
-  async uploadLeads(_, { file }, { dataSources }) {
-    await dataSources.LeadUpdaterAPI.uploadLeads(file);
+  uploadLeads(_, { file }, { dataSources }) {
+    return dataSources.LeadUpdaterAPI.uploadLeads(file);
   },
 
   /**
