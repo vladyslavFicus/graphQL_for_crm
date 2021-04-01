@@ -50,9 +50,9 @@ module.exports = gql`
 
   type Profile__Contacts {
     additionalEmail: String @auth_mask_field(action: "profile.field.additionalEmail")
-    additionalPhone: String @auth_mask_field(action: "profile.field.additionalPhone")
+    additionalPhone: String @auth_mask_field(action: "profile.field.additionalPhone", maskAll : true)
     email: String @auth_mask_field(action: "profile.field.email")
-    phone: String @auth_mask_field(action: "profile.field.phone")
+    phone: String @auth_mask_field(action: "profile.field.phone", maskAll: true)
   }
 
   type Profile__KYC {

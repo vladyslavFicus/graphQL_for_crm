@@ -6,12 +6,12 @@
  *   Output; +38*******50
  *
  * @param value Text to masking
- * @param fieldName
+ * @param maskAll
  *
  * @return {string}
  */
-module.exports = (value, fieldName) => {
-  if (fieldName === ('phone' || 'additionalPhone')) {
+module.exports = (value, maskAll) => {
+  if (maskAll) {
     return '*'.repeat(value.length);
   }
 
