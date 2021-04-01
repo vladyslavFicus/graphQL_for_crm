@@ -32,7 +32,7 @@ class AuthMaskFieldDirective extends SchemaDirectiveVisitor {
 
       // Check if result is string type and user hasn't access to field
       if (typeof result === 'string' && context.auth.denies(this.args.action)) {
-        return maskText(result);
+        return maskText(result, field.name);
       }
 
       return result;
