@@ -14,6 +14,7 @@ class AuthMaskFieldDirective extends SchemaDirectiveVisitor {
    * Directive definition for field resolver
    *
    * Directive mask field value if it's string and length more than 5 symbols
+   * If need to mask value fully, it is possible to set argument maskAll: true
    *
    * @param field
    */
@@ -32,7 +33,7 @@ class AuthMaskFieldDirective extends SchemaDirectiveVisitor {
 
       // Check if result is string type and user hasn't access to field
       if (typeof result === 'string' && context.auth.denies(this.args.action)) {
-        return maskText(result);
+        return maskText(result, this.args.maskAll);
       }
 
       return result;

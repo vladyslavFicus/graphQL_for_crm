@@ -6,10 +6,15 @@
  *   Output; +38*******50
  *
  * @param value Text to masking
+ * @param maskAll
  *
  * @return {string}
  */
-module.exports = (value) => {
+module.exports = (value, maskAll) => {
+  if (maskAll) {
+    return '*'.repeat(value.length);
+  }
+
   if (!value || value.length <= 5) {
     return value;
   }
