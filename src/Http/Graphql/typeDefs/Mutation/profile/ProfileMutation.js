@@ -6,6 +6,7 @@ module.exports = gql`
     changeProfileStatus(playerUUID: String!, status: String!, reason: String!, comment: String): Profile
     updateConfiguration(playerUUID: String!, crs: Boolean, fatca: Boolean, internalTransfer: Boolean): Boolean
     updateKYCStatus(playerUUID: String!, kycStatus: String): Boolean
+    updateShowFTD(playerUUID: String, allowFirstTimeDeposit: Boolean): Boolean
     updateEmail(
       playerUUID: String!
       email: String @auth_hide_argument(action: "profile.field.email")

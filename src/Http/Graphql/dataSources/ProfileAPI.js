@@ -124,6 +124,11 @@ class ProfileAPI extends RESTDataSource {
     return this.put(`/admin/profiles/${uuid}/kyc/status`, args);
   }
 
+  updateShowFTD(uuid, args) {
+    console.log('----tttt-----', args);
+    // return this.put(`/admin/profiles/${uuid}/kyc/status`, args);
+  }
+
   /**
    * Update client email
    *
