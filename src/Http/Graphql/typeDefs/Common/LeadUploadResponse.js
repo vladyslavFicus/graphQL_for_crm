@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`
-  type LeadUploadResponse {
+  type LeadUploadResponse__FailedLeads {
     affiliate: String
     birthDate: String
     country: String
@@ -16,5 +16,11 @@ module.exports = gql`
     source: String
     surname: String
     failureReason: String
+  }
+
+  type LeadUploadResponse {
+    failedLeads: [LeadUploadResponse__FailedLeads]
+    failedLeadsCount: Int
+    createdLeadsCount: Int
   }
 `;
