@@ -15,7 +15,7 @@ module.exports = gql`
       city: String
     ): Boolean
 
-    uploadLeads(file: Upload): [LeadUploadResponse]
+    uploadLeads(file: Upload): LeadUploadResponse
 
     promote(args: PromoteLead__Input): Boolean
   }
