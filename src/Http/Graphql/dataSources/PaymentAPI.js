@@ -165,6 +165,18 @@ class PaymentAPI extends RESTDataSource {
   changeCreationTime({ paymentId, ...args }) {
     return this.put(`/utils/payment/datetime/${paymentId}`, args);
   }
+
+  /**
+   * Change show ftd to affiliate
+   *
+   * @param profileUuid
+   * @param args
+   *
+   * @return {Promise}
+   */
+  changeShowFtdToAffiliate({ profileUuid, ...args }) {
+    return this.put(`/${profileUuid}/show-ftd-to-affiliate`, args);
+  }
 }
 
 module.exports = PaymentAPI;

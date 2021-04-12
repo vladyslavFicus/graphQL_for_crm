@@ -43,5 +43,11 @@ module.exports = gql`
       paymentId: String!
       creationTime: String!
     ): Boolean
+    
+    changeShowFtdToAffiliate(
+      profileUuid: String!
+      showFtdToAffiliate: Boolean!
+    ): Boolean
+
   }
 `;

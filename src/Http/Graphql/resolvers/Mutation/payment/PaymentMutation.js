@@ -104,4 +104,17 @@ module.exports = {
   async changeCreationTime(_, args, { dataSources }) {
     await dataSources.PaymentAPI.changeCreationTime(args);
   },
+
+  /**
+   * Change show ftd to affiliate
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async changeShowFtdToAffiliate(_, args, { dataSources }) {
+    await dataSources.PaymentAPI.changeShowFtdToAffiliate(args);
+  },
 };

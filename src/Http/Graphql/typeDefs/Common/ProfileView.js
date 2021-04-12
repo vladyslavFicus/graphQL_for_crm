@@ -34,7 +34,7 @@ module.exports = gql`
   type ProfileView__PaymentDetails {
     depositsCount: Int
     lastDepositTime: String
-    firstDepositTime: String
+    showFtdToAffiliate: Boolean
   }
 
   type ProfileView__RegistrationDetails {

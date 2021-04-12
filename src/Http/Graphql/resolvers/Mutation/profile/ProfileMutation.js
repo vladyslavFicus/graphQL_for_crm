@@ -100,10 +100,6 @@ module.exports = {
     await dataSources.ProfileAPI.updateKYCStatus(playerUUID, args);
   },
 
-  async updateShowFTD(_, { playerUUID, ...args }, { dataSources }) {
-    await dataSources.ProfileAPI.updateShowFTD(playerUUID, args);
-  },
-
   /**
    * Update client email
    *
