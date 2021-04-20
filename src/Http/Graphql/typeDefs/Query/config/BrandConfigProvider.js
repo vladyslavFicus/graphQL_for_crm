@@ -56,12 +56,12 @@ module.exports = gql`
     url: String
   }
   
-  type BrandConfigProvider__Restriction {
+  type BrandConfigProvider__Affiliate__Restriction {
     minFtdDeposit: Int
   }
   
   type BrandConfigProvider__Affiliate {
-    restriction: BrandConfigProvider__Restriction
+    restriction: BrandConfigProvider__Affiliate__Restriction
   }
 
   type BrandConfigProvider {
