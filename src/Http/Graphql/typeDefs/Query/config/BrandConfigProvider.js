@@ -55,6 +55,14 @@ module.exports = gql`
   type BrandConfigProvider__ClientPortal {
     url: String
   }
+  
+  type BrandConfigProvider__Affiliate__Restriction {
+    minFtdDeposit: Int
+  }
+  
+  type BrandConfigProvider__Affiliate {
+    restriction: BrandConfigProvider__Affiliate__Restriction
+  }
 
   type BrandConfigProvider {
     env: String
@@ -67,5 +75,6 @@ module.exports = gql`
     mt5: BrandConfigProvider__MTx
     email: BrandConfigProvider__Email
     clientPortal: BrandConfigProvider__ClientPortal
+    affiliate: BrandConfigProvider__Affiliate
   }
 `;

@@ -527,6 +527,11 @@ module.exports = {
       clientPortal: {
         url: get(brandConfig, 'nas.brand.client_portal.url'),
       },
+      affiliate: {
+        restriction: {
+          minFtdDeposit: get(brandConfig, 'nas.brand.affiliate.restriction.minFtdDeposit'),
+        },
+      },
     };
   },
 
