@@ -468,6 +468,16 @@ module.exports = {
   },
 
   /**
+   * Trading Engine API
+   */
+  tradingEngineAccounts(_, args, { dataSources }) {
+    // Drop undefined and nullable values from object (because BE service throw Error if null will be sent)
+    const params = omitBy(args, isNil);
+
+    return dataSources.TradingEngineAPI.getAccounts(params);
+  },
+
+  /**
    * TradingActivity API
    */
   tradingActivity(_, args, { dataSources }) {
