@@ -221,6 +221,27 @@ module.exports = gql`
       page: Int
       size: Int
     ): TradingAccount @pageable
+    tradingEngineOrders(
+      agentIds: [String]
+      closeTimeEnd: String
+      closeTimeStart: String
+      limit: Int
+      loginIds: [Int]
+      openTimeEnd: String
+      openTimeStart: String
+      operationType: TradingActivity__OperationTypes__Enum
+      page: Int
+      profileUUID: String
+      sortDirection: String
+      sortColumn: String
+      status: TradingActivity__Statuses__Enum
+      symbol: String
+      tradeId: Int
+      tradeType: String
+      platformType: String
+      volumeFrom: Float
+      volumeTo: Float
+    ): TradingActivity @pageable
     clientTradingAccounts(
       profileUUID: String!
       accountType: String
