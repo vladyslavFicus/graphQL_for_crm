@@ -213,6 +213,8 @@ module.exports = gql`
       page: Int
       size: Int
     ): TradingAccount @pageable
+    
+    # TradingEngine API
     tradingEngineAccounts(
       searchKeyword: String
       accountType: String
@@ -221,6 +223,7 @@ module.exports = gql`
       page: Int
       size: Int
     ): TradingAccount @pageable
+    tradingEngineSymbols: TradingEngineSymbols @pageable
     clientTradingAccounts(
       profileUUID: String!
       accountType: String

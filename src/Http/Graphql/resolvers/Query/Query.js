@@ -476,6 +476,9 @@ module.exports = {
 
     return dataSources.TradingEngineAPI.getAccounts(params);
   },
+  tradingEngineSymbols(_, __, { dataSources }) {
+    return dataSources.TradingEngineAPI.getSymbols();
+  },
 
   /**
    * TradingActivity API
