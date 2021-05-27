@@ -34,6 +34,7 @@ class TradingEngineAPI extends RESTDataSource {
           ask: 1.444444,
         },
       ],
+      totalElements: 2,
     };
   }
 }
