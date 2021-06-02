@@ -227,7 +227,7 @@ module.exports = gql`
       archived: Boolean
       page: Int
       size: Int
-    ): TradingAccount @pageable
+    ): TradingEngineAccount @pageable
     tradingEngineSymbols: TradingEngineSymbols @pageable
     tradingEngineOrders(
       agentIds: [String]
