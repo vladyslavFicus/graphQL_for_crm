@@ -523,7 +523,7 @@ module.exports = {
     // return dataSources.TradingEngineAPI.getAccounts(params);
   },
   tradingEngineOrders(_, args, { dataSources }) {
-    return dataSources.TradingActivityAPI.getTradingActivity(args);
+    return dataSources.TradingEngineAPI.getOrders(args);
   },
   tradingEngineSymbols(_, __, { dataSources }) {
     return dataSources.TradingEngineAPI.getSymbols();

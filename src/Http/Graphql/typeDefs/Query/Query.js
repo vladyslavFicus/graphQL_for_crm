@@ -237,7 +237,7 @@ module.exports = gql`
       loginIds: [Int]
       openTimeEnd: String
       openTimeStart: String
-      operationType: TradingActivity__OperationTypes__Enum
+      operationType: TradingEngine__OperationTypes__Enum
       page: Int
       profileUUID: String
       sortDirection: String
@@ -249,7 +249,7 @@ module.exports = gql`
       platformType: String
       volumeFrom: Float
       volumeTo: Float
-    ): TradingActivity @pageable
+    ): TradingEngineOrder @pageable
 
     # TradingActivity API
     tradingActivity(

@@ -37,6 +37,71 @@ class TradingEngineAPI extends RESTDataSource {
       totalElements: 2,
     };
   }
+
+  /**
+   * Get trading engine orders
+   *
+   *
+   * @return {Promise}
+   */
+  getOrders() {
+    // TODO: mock data
+    return {
+      content: [
+        {
+          id: '4577fef4',
+          login: 2121449256,
+          symbol: 'EURSD',
+          symbolAlias: 'symbolAlias',
+          direction: 'direction',
+          operationType: 'OP_BUY',
+          digits: 23,
+          takeProfit: 45,
+          stopLoss: 67,
+          openPrice: 12,
+          closePrice: 98,
+          marginRate: 55,
+          volumeUnits: 78,
+          volumeLots: 33,
+          lotSize: 78,
+          commission: 444,
+          swaps: 787,
+          pnl: 343,
+          time: 32423432,
+          comment: 'comment',
+          tradeType: 'LIVE',
+          tradeStatus: 'OPEN',
+        },
+        {
+          id: '4577fef4',
+          login: 2121449282,
+          symbol: 'EURSD',
+          symbolAlias: 'symbolAlias',
+          direction: 'direction',
+          operationType: 'OP_BUY',
+          digits: 23,
+          takeProfit: 45,
+          stopLoss: 67,
+          openPrice: 12,
+          closePrice: 98,
+          marginRate: 55,
+          volumeUnits: 78,
+          volumeLots: 33,
+          lotSize: 78,
+          commission: 444,
+          swaps: 787,
+          pnl: 343,
+          time: 32423432,
+          comment: 'comment',
+          tradeType: 'LIVE',
+          tradeStatus: 'OPEN',
+        },
+      ],
+      totalElements: 2,
+      size: 0,
+      last: true,
+    };
+  }
 }
 
 module.exports = TradingEngineAPI;
