@@ -20,7 +20,7 @@ module.exports = gql`
     commission: Float
     swaps: Float
     pnl: Float
-    time: Int
+    time: Float
     tradeType: String
     comment: String
     tradeStatus: String
