@@ -59,5 +59,7 @@ module.exports = gql`
     updatedAt: String
     warnings: [String]
     withdrawStatus: String
+    cryptoAmount: String
+    cryptoCurrency: String
   }
 `;
