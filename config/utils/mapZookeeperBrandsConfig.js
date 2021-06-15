@@ -9,5 +9,6 @@ module.exports = configs => Object.entries(configs).map(([id, config]) => ({
     },
     asterisk: get(config, 'nas.brand.clickToCall.asterisk', {}),
     commpeak: get(config, 'nas.brand.clickToCall.commpeak', {}),
+    coperato: get(config, 'nas.brand.clickToCall.coperato', {}),
   },
 }));
