@@ -6,6 +6,7 @@ const AuditAPI = require('./AuditAPI');
 const Auth2API = require('./Auth2API');
 const CallbackAPI = require('./CallbackAPI');
 const CommpeakAPI = require('./CommpeakAPI');
+const CoperatoAPI = require('./CoperatoAPI');
 const DidLogicAPI = require('./DidLogicAPI');
 const EmailAPI = require('./EmailAPI');
 const FilterSetsAPI = require('./FilterSetsAPI');
@@ -35,6 +36,7 @@ module.exports = {
   Auth2API,
   CallbackAPI,
   CommpeakAPI,
+  CoperatoAPI,
   DidLogicAPI,
   EmailAPI,
   FilterSetsAPI,

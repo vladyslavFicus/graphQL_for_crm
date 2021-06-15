@@ -520,6 +520,10 @@ module.exports = {
           isActive: get(brandConfig, 'nas.brand.clickToCall.commpeak.isActive', false),
           prefixes: get(brandConfig, 'nas.brand.clickToCall.commpeak.prefixes', {}),
         },
+        coperato: {
+          isActive: get(brandConfig, 'nas.brand.clickToCall.coperato.isActive', false),
+          prefixes: get(brandConfig, 'nas.brand.clickToCall.coperato.prefixes', {}),
+        },
       },
       email: {
         templatedEmails: !!get(brandConfig, 'nas.brand.email.sendgrid.crm_templated_emails'),
