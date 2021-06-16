@@ -102,6 +102,32 @@ class TradingEngineAPI extends RESTDataSource {
       last: true,
     };
   }
+
+  /**
+   * Create creditIn
+   *
+   * @param args
+   * @param accountUuid
+   *
+   * @return {Promise}
+   */
+  createCreditIn(accountUuid, args) {
+    console.log('----createCreditIn-----', accountUuid, args);
+    // return this.put(`accounts/${accountUuid}/balance/credit-in`, args);
+  }
+
+  /**
+   * Create creditOut
+   *
+   * @param args
+   * @param accountUuid
+   *
+   * @return {Promise}
+   */
+  createCreditOut(accountUuid, args) {
+    console.log('----createCreditOut-----', args);
+    // return this.put(`accounts/${accountUuid}/balance/credit-out`, args);
+  }
 }
 
 module.exports = TradingEngineAPI;
