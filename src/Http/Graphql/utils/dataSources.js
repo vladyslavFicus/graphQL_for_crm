@@ -58,6 +58,5 @@ module.exports = () => ({
   ReferralAPI: new ReferralAPI({ baseUrl: getBaseUrl('referral') }),
   DistributionRuleAPI: new DistributionRuleAPI({ baseUrl: getBaseUrl('clients-distributor') }),
   AnalyticsAPI: new AnalyticsAPI({ baseUrl: getBaseUrl('analytics-api') }),
-  // TODO: need to replace the getBaseUrl by Trading Engine service
-  TradingEngineAPI: new TradingEngineAPI({ baseUrl: getBaseUrl('accountview') }),
+  TradingEngineAPI: new TradingEngineAPI({ baseUrl: getBaseUrl('we-trading') }),
 });

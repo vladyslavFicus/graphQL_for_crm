@@ -470,57 +470,11 @@ module.exports = {
   /**
    * Trading Engine API
    */
-  tradingEngineAccounts(_, args, { dataSources }) { // eslint-disable-line
+  tradingEngineAccounts(_, { args }, { dataSources }) { // eslint-disable-line
     // Drop undefined and nullable values from object (because BE service throw Error if null will be sent)
     const params = omitBy(args, isNil); // eslint-disable-line
 
-    return {
-      totalElements: 14,
-      size: 20,
-      last: true,
-      number: 0,
-      content: [{
-        uuid: 'TE-0c78243d-fcd6-4d23-ae34-e992134de6d6',
-        name: 'Testtt',
-        login: 2121449282,
-        group: '0-EUR',
-        credit: 300.50,
-        profileUuid: 'PLAYER-25ee896c-64b3-4816-ab96-344e91dda211',
-        profileFullName: 'test test',
-        createdAt: '2020-01-20T12:55:25.628',
-        leverage: 33,
-        balance: 0,
-        readOnly: false,
-        accountType: 'LIVE',
-        serverId: 1,
-        enable: true,
-        margin: 10,
-        freeMargin: 50.50,
-        equity: 200,
-        comment: 'TEST comment 1',
-      }, {
-        uuid: 'TE-4577fef4-a52c-4dfe-97f1-dc9d28f3ad06',
-        name: 'EUR_acc',
-        login: 2121448172,
-        group: '0-EUR',
-        credit: null,
-        profileUuid: 'PLAYER-a25b58e1-63cc-46ec-a9df-7ef2c899f31d',
-        profileFullName: 'name surname',
-        createdAt: '2020-01-13T14:39:35.831',
-        leverage: 33,
-        balance: 2014.8,
-        readOnly: false,
-        accountType: 'LIVE',
-        serverId: 1,
-        enable: true,
-        margin: 20.05,
-        freeMargin: 100,
-        equity: 300,
-        comment: 'TEST comment 2',
-      }],
-    };
-
-    // return dataSources.TradingEngineAPI.getAccounts(params);
+    return dataSources.TradingEngineAPI.getAccounts(params);
   },
   tradingEngineOrders(_, args, { dataSources }) {
     return dataSources.TradingEngineAPI.getOrders(args);

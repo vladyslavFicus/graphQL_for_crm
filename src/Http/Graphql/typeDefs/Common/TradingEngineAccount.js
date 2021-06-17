@@ -19,6 +19,6 @@ module.exports = gql`
     freeMargin: Float
     equity: Float
     comment: String
-    createdAt: String
+    registrationDate: String
   }
 `;

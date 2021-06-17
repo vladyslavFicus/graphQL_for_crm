@@ -9,8 +9,7 @@ class TradingEngineAPI extends RESTDataSource {
    * @return {Promise}
    */
   getAccounts(args) {
-    // TODO: need to replace the path by Trading Engine service
-    return this.get('/accounts/search', args);
+    return this.post('/accounts/search', args);
   }
 
   /**
@@ -112,8 +111,7 @@ class TradingEngineAPI extends RESTDataSource {
    * @return {Promise}
    */
   createCreditIn(accountUuid, args) {
-    console.log('----createCreditIn-----', accountUuid, args);
-    // return this.put(`accounts/${accountUuid}/balance/credit-in`, args);
+    return this.put(`/accounts/${accountUuid}/balance/credit-in`, args);
   }
 
   /**
@@ -125,8 +123,7 @@ class TradingEngineAPI extends RESTDataSource {
    * @return {Promise}
    */
   createCreditOut(accountUuid, args) {
-    console.log('----createCreditOut-----', args);
-    // return this.put(`accounts/${accountUuid}/balance/credit-out`, args);
+    return this.put(`/accounts/${accountUuid}/balance/credit-out`, args);
   }
 }
 
