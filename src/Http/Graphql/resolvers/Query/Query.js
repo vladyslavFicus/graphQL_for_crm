@@ -510,6 +510,15 @@ module.exports = {
           enabled: !!get(brandConfig, 'nas.brand.mt5.demo_groups'),
         },
       },
+      wet: {
+        leveragesChangingRequest: get(brandConfig, 'nas.brand.wet.leverages_changing_request', []),
+        live: {
+          enabled: !!get(brandConfig, 'nas.brand.wet.groups'),
+        },
+        demo: {
+          enabled: !!get(brandConfig, 'nas.brand.wet.demo_groups'),
+        },
+      },
       clickToCall: {
         isActive: get(brandConfig, 'nas.brand.clickToCall.isActive', false),
         asterisk: {

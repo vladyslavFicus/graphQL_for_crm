@@ -44,13 +44,13 @@ module.exports = gql`
     coperato: BrandConfigProvider__Coperato
   }
 
-  type BrandConfigProvider__MTx__Settings {
+  type BrandConfigProvider__TradingProvider__Settings {
     enabled: Boolean
   }
 
-  type BrandConfigProvider__MTx {
-    live: BrandConfigProvider__MTx__Settings
-    demo: BrandConfigProvider__MTx__Settings
+  type BrandConfigProvider__TradingProvider {
+    live: BrandConfigProvider__TradingProvider__Settings
+    demo: BrandConfigProvider__TradingProvider__Settings
     leveragesChangingRequest: [Int]
   }
 
@@ -77,8 +77,9 @@ module.exports = gql`
     password: BrandConfigProvider__Password
     payment: BrandConfigProvider__Payment
     clickToCall: BrandConfigProvider__ClickToCall
-    mt4: BrandConfigProvider__MTx
-    mt5: BrandConfigProvider__MTx
+    mt4: BrandConfigProvider__TradingProvider
+    mt5: BrandConfigProvider__TradingProvider
+    wet: BrandConfigProvider__TradingProvider
     email: BrandConfigProvider__Email
     clientPortal: BrandConfigProvider__ClientPortal
     affiliate: BrandConfigProvider__Affiliate
