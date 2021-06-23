@@ -5,5 +5,6 @@ module.exports = gql`
     didlogicPhone: String
     asteriskPhone: String
     commpeakPhone: String
+    coperatoPhone: String
   }
 `;

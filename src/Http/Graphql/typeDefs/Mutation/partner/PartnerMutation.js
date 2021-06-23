@@ -22,6 +22,7 @@ module.exports = gql`
       phone: String
       public: Boolean
       uuid: String!
+      cdeAffiliate: Boolean
     ): Boolean
 
     changePartnerAccountStatus(

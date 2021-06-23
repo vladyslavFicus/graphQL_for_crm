@@ -32,10 +32,16 @@ module.exports = gql`
     prefixes: Object
   }
 
+  type BrandConfigProvider__Coperato {
+    isActive: Boolean
+    prefixes: Object
+  }
+
   type BrandConfigProvider__ClickToCall {
     isActive: Boolean
     asterisk: BrandConfigProvider__Asterisk
     commpeak: BrandConfigProvider__Commpeak
+    coperato: BrandConfigProvider__Coperato
   }
 
   type BrandConfigProvider__TradingProvider__Settings {

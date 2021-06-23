@@ -5,5 +5,6 @@ module.exports = gql`
     asterisk: AsteriskMutation @nested
     didlogic: DidLogicMutation @nested
     commpeak: CommpeakMutation @nested
+    coperato: CoperatoMutation @nested
   }
 `;
