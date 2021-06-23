@@ -13,6 +13,17 @@ class TradingEngineAPI extends RESTDataSource {
   }
 
   /**
+   * Get trading engine account
+   *
+   * @param accountUuid
+   *
+   * @return {Promise}
+   */
+  getAccount(accountUuid) {
+    return this.get(`/accounts/${accountUuid}`);
+  }
+
+  /**
    * Get trading engine symbols
    *
    *

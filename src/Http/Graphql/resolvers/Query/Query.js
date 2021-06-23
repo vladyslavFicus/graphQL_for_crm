@@ -476,6 +476,9 @@ module.exports = {
 
     return dataSources.TradingEngineAPI.getAccounts(params);
   },
+  tradingEngineAccount(_, { accountUuid }, { dataSources }) {
+    return dataSources.TradingEngineAPI.getAccount(accountUuid);
+  },
   tradingEngineOrders(_, args, { dataSources }) {
     return dataSources.TradingEngineAPI.getOrders(args);
   },
