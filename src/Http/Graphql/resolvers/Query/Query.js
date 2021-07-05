@@ -479,7 +479,7 @@ module.exports = {
   tradingEngineAccount(_, { accountUuid }, { dataSources }) {
     return dataSources.TradingEngineAPI.getAccount(accountUuid);
   },
-  tradingEngineOrders(_, args, { dataSources }) {
+  tradingEngineOrders(_, { args }, { dataSources }) {
     return dataSources.TradingEngineAPI.getOrders(args);
   },
   tradingEngineSymbols(_, __, { dataSources }) {

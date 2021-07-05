@@ -1,6 +1,18 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`  
+  type TradingEngineOrder__Pnl {
+    gross: Float,
+    net: Float
+  }
+  
+  type TradingEngineOrder__Time {
+    creation: String,
+    modification: String,
+    expiration: String,
+    closing: String
+  }
+
   type TradingEngineOrder {
     id: ID,
     login: Int,
@@ -8,7 +20,7 @@ module.exports = gql`
     symbol: String,
     symbolAlias: String
     direction: String
-    digits: Int
+    digits: Float
     takeProfit: Float
     stopLoss: Float
     openPrice: Float
@@ -19,12 +31,13 @@ module.exports = gql`
     lotSize: Float
     commission: Float
     swaps: Float
-    pnl: Float
-    time: Float
+    status: String
+    pnl: TradingEngineOrder__Pnl
+    time: TradingEngineOrder__Time
     tradeType: String
     comment: String
     tradeStatus: String
     originalAgent: Operator
-    operationType: TradingEngine__OperationTypes__Enum
+    type: TradingEngine__OperationTypes__Enum
   }
 `;

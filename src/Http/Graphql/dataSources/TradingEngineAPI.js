@@ -54,63 +54,8 @@ class TradingEngineAPI extends RESTDataSource {
    *
    * @return {Promise}
    */
-  getOrders() {
-    // TODO: mock data
-    return {
-      content: [
-        {
-          id: '4577fef4',
-          login: 2121449256,
-          symbol: 'EURUSD',
-          symbolAlias: 'symbolAlias',
-          direction: 'direction',
-          operationType: 'OP_BUY',
-          digits: 23,
-          takeProfit: 1.21709,
-          stopLoss: 1.21509,
-          openPrice: 1.21609,
-          closePrice: 98,
-          marginRate: 55,
-          volumeUnits: 0.1,
-          volumeLots: 33,
-          lotSize: 0.1,
-          commission: 444,
-          swaps: -3.44,
-          pnl: 35.63,
-          time: 1623068513004,
-          comment: 'comment',
-          tradeType: 'LIVE',
-          tradeStatus: 'OPEN',
-        },
-        {
-          id: '4577fef4',
-          login: 2121449282,
-          symbol: 'EURUSD',
-          symbolAlias: 'symbolAlias',
-          direction: 'direction',
-          operationType: 'OP_BUY',
-          digits: 23,
-          takeProfit: 1.21709,
-          stopLoss: 1.21509,
-          openPrice: 1.21609,
-          closePrice: 98,
-          marginRate: 55,
-          volumeUnits: 0.1,
-          volumeLots: 33,
-          lotSize: 0.1,
-          commission: 444,
-          swaps: -3.44,
-          pnl: 35.63,
-          time: 1623068513004,
-          comment: 'comment',
-          tradeType: 'LIVE',
-          tradeStatus: 'OPEN',
-        },
-      ],
-      totalElements: 2,
-      size: 0,
-      last: true,
-    };
+  getOrders(args) {
+    return this.post('/orders/search', args);
   }
 
   /**
