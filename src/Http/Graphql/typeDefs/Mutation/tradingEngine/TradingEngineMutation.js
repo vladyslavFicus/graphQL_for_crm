@@ -13,5 +13,19 @@ module.exports = gql`
       comment: String
       accountUuid: String!
     ): TradingEngineCredit
+    
+    createOrder(
+      accountUuid: String!
+      symbol: String!
+      volumeLots: Float!
+      type: String!
+      direction: String!
+      autoOpenPrice: Boolean!
+      submittedPrice: Float
+      stopLoss: Float
+      takeProfit: Float
+      comment: String
+      pendingOrder: Boolean!
+    ): Boolean
   }
 `;

@@ -59,6 +59,18 @@ class TradingEngineAPI extends RESTDataSource {
   }
 
   /**
+   * Create Order
+   *
+   * @param args
+   * @param accountUuid
+   *
+   * @return {Promise}
+   */
+  createOrder(accountUuid, args) {
+    return this.post(`/accounts/${accountUuid}/orders`, args);
+  }
+
+  /**
    * Create creditIn
    *
    * @param args

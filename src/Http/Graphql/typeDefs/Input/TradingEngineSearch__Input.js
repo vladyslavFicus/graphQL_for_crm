@@ -9,7 +9,7 @@ module.exports = gql`
   input TradingEngineSearch__Input {
     keyword: String
     orderType: String
-    accountLogin: Int
+    accountUuid: String
     symbol: String
     openingDateRange: TradingEngineSearch__Time__Input
     orderId: String
