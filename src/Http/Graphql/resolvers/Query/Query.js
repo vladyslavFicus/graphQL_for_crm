@@ -534,6 +534,11 @@ module.exports = {
           prefixes: get(brandConfig, 'nas.brand.clickToCall.coperato.prefixes', {}),
         },
       },
+      sms: {
+        coperato: {
+          isActive: get(brandConfig, 'nas.brand.sms.coperato.isActive', false),
+        },
+      },
       email: {
         templatedEmails: !!get(brandConfig, 'nas.brand.email.sendgrid.crm_templated_emails'),
       },

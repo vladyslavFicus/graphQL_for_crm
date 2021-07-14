@@ -246,5 +246,8 @@ module.exports = gql`
     referrerStatistics(uuid: String!): ReferrerStatistics
     referrals(uuid: String!): [Referral]
     config(brandId: String!): BrandConfigProvider
+    
+    # SMS Api
+    sms: SmsQuery @nested
   }
 `;
