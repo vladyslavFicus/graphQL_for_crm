@@ -42,6 +42,8 @@ permissions:
       authorities: *all
     - action: "profile.referrer.field.fullName"
       authorities: *all
+    - action: "profileview.balance"
+      authorities: *all
     - action: "lead.field.phone"
       authorities: *all
     - action: "lead.field.mobile"
