@@ -58,7 +58,7 @@ module.exports = gql`
     address: ProfileView__Address
     affiliate: ProfileView__Affiliate
     referrer: ProfileView__Referrer
-    balance: ProfileView__Balance @auth_hide_field(action: "profileview.balance")
+    balance: ProfileView__Balance @auth_hide_field(action: "profile.field.balance")
     firstName: String
     fullName: String
     languageCode: String!
