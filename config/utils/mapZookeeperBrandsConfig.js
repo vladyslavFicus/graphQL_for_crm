@@ -11,4 +11,7 @@ module.exports = configs => Object.entries(configs).map(([id, config]) => ({
     commpeak: get(config, 'nas.brand.clickToCall.commpeak', {}),
     coperato: get(config, 'nas.brand.clickToCall.coperato', {}),
   },
+  sms: {
+    coperato: get(config, 'nas.brand.sms.coperato', {}),
+  },
 }));
