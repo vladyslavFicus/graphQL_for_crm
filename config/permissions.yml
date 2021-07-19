@@ -28,6 +28,8 @@ permissions:
       authorities: *all
     - action: "profile.field.additionalEmail"
       authorities: *all
+    - action: "profile.field.balance"
+      authorities: *all
     - action: "profile.affiliate.field.uuid"
       authorities: *all
     - action: "profile.affiliate.field.campaignId"
