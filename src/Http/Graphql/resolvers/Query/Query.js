@@ -482,6 +482,9 @@ module.exports = {
   tradingEngineOrders(_, { args }, { dataSources }) {
     return dataSources.TradingEngineAPI.getOrders(args);
   },
+  tradingEngineOrder(_, { orderId }, { dataSources }) {
+    return dataSources.TradingEngineAPI.getOrder(orderId);
+  },
   tradingEngineSymbols(_, __, { dataSources }) {
     return dataSources.TradingEngineAPI.getSymbols();
   },

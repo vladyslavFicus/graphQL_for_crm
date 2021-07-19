@@ -59,6 +59,16 @@ class TradingEngineAPI extends RESTDataSource {
   }
 
   /**
+   * Get trading engine order
+   *
+   *
+   * @return {Promise}
+   */
+  getOrder(orderId) {
+    return this.get(`/orders/${orderId}`);
+  }
+
+  /**
    * Create Order
    *
    * @param args
@@ -68,6 +78,30 @@ class TradingEngineAPI extends RESTDataSource {
    */
   createOrder(accountUuid, args) {
     return this.post(`/accounts/${accountUuid}/orders`, args);
+  }
+
+  /**
+   * Edit Order
+   *
+   * @param args
+   * @param orderId
+   *
+   * @return {Promise}
+   */
+  editOrder(orderId, args) {
+    return this.put(`/orders/${orderId}`, args);
+  }
+
+  /**
+   * Close Order
+   *
+   * @param args
+   * @param orderId
+   *
+   * @return {Promise}
+   */
+  closeOrder(orderId, args) {
+    return this.post(`/orders/${orderId}/_close`, args);
   }
 
   /**

@@ -27,5 +27,19 @@ module.exports = gql`
       comment: String
       pendingOrder: Boolean!
     ): Boolean
+    
+    editOrder(
+      orderId: String!
+      openPrice: Float
+      stopLoss: Float
+      takeProfit: Float
+      comment: String
+    ): Boolean
+    
+    closeOrder(
+      orderId: String!
+      volume: Float
+      closePrice: Float
+    ): Boolean
   }
 `;

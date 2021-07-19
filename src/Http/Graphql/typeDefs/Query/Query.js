@@ -224,6 +224,7 @@ module.exports = gql`
     tradingEngineAccount(accountUuid: String): TradingEngineAccount
     tradingEngineSymbols: TradingEngineSymbols @pageable
     tradingEngineOrders(args: TradingEngineSearch__Input): TradingEngineOrder @pageable
+    tradingEngineOrder(orderId: String): TradingEngineOrder
 
     # TradingActivity API
     tradingActivity(

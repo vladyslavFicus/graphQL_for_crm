@@ -37,4 +37,30 @@ module.exports = {
   async createOrder(_, args, { dataSources }) {
     await dataSources.TradingEngineAPI.createOrder(args.accountUuid, args);
   },
+
+  /**
+   * Edit Order
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async editOrder(_, args, { dataSources }) {
+    await dataSources.TradingEngineAPI.editOrder(args.orderId, args);
+  },
+
+  /**
+   * Close Order
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async closeOrder(_, args, { dataSources }) {
+    await dataSources.TradingEngineAPI.closeOrder(args.orderId, args);
+  },
 };
