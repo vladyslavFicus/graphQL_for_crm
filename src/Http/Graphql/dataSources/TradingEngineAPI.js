@@ -105,6 +105,17 @@ class TradingEngineAPI extends RESTDataSource {
   }
 
   /**
+   * Delete Order
+   *
+   * @param orderId
+   *
+   * @return {Promise}
+   */
+  deleteOrder(orderId) {
+    return this.delete(`/orders/${orderId}`);
+  }
+
+  /**
    * Create creditIn
    *
    * @param args

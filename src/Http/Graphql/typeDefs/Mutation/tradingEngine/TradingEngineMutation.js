@@ -41,5 +41,9 @@ module.exports = gql`
       volume: Float
       closePrice: Float
     ): Boolean
+    
+    deleteOrder(
+      orderId: String!
+    ): Boolean
   }
 `;

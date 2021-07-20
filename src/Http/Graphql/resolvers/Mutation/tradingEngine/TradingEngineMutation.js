@@ -63,4 +63,17 @@ module.exports = {
   async closeOrder(_, args, { dataSources }) {
     await dataSources.TradingEngineAPI.closeOrder(args.orderId, args);
   },
+
+  /**
+   * Delete Order
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async deleteOrder(_, args, { dataSources }) {
+    await dataSources.TradingEngineAPI.deleteOrder(args.orderId);
+  },
 };
