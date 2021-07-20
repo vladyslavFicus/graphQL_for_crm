@@ -21,7 +21,7 @@ module.exports = gql`
       type: String!
       direction: String!
       autoOpenPrice: Boolean!
-      submittedPrice: Float
+      openPrice: Float
       stopLoss: Float
       takeProfit: Float
       comment: String
