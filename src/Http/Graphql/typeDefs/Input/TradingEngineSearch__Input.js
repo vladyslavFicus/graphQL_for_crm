@@ -15,5 +15,6 @@ module.exports = gql`
     orderId: String
     enabled: Boolean
     page: Page__Input
+    orderStatuses: [String]
   }
 `;
