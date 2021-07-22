@@ -15,7 +15,7 @@ module.exports = gql`
 
   type TradingEngineOrder {
     id: ID,
-    login: Int,
+    accountLogin: Int,
     tradeId: String,
     symbol: String,
     symbolAlias: String
