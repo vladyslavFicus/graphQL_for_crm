@@ -5,9 +5,8 @@ const maskPhoneField = require('../../../../utils/maskFeedsPhoneField');
  * Directive for masking text depends on auth action
  *
  * Example:
- * type Feed {
- *   details: String @mask_feeds_details_field(),
- * }
+ * type Feed @mask_feeds_phone,
+ *
  */
 class MaskFeedsPhoneField extends SchemaDirectiveVisitor {
   /**

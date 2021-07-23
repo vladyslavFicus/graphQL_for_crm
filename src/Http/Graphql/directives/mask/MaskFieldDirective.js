@@ -6,7 +6,7 @@ const maskText = require('../../../../utils/maskText');
  *
  * Example:
  * type Profile {
- *   phone: String @auth_mask_all_fields(),
+ *   phone: String @auth_mask_all_field,
  * }
  */
 class MaskFieldDirective extends SchemaDirectiveVisitor {
