@@ -47,7 +47,7 @@ module.exports = gql`
       sortColumn: String
       sortDirection: String
       targetUUID: String
-    ): Feed @pageable
+    ): Feed @pageable @mask_feeds_phone
     feedTypes(uuid: String!): Object
 
     # Auth2 API
@@ -159,6 +159,7 @@ module.exports = gql`
 
     # Profile API && ProfileView API
     profile(playerUUID: String!): Profile
+    profileContacts(playerUUID: String!): Profile__Phone__Contacts
     profiles(args: ClientSearch__Input): ProfileView @pageable
     registrationStatistic(
       dateTo: String
