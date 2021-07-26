@@ -44,6 +44,14 @@ module.exports = gql`
     coperato: BrandConfigProvider__Coperato
   }
 
+  type BrandConfigProvider__Sms__Coperato {
+    isActive: Boolean
+  }
+
+  type BrandConfigProvider__Sms {
+    coperato: BrandConfigProvider__Sms__Coperato
+  }
+
   type BrandConfigProvider__TradingProvider__Settings {
     enabled: Boolean
   }
@@ -77,6 +85,7 @@ module.exports = gql`
     password: BrandConfigProvider__Password
     payment: BrandConfigProvider__Payment
     clickToCall: BrandConfigProvider__ClickToCall
+    sms: BrandConfigProvider__Sms
     mt4: BrandConfigProvider__TradingProvider
     mt5: BrandConfigProvider__TradingProvider
     wet: BrandConfigProvider__TradingProvider

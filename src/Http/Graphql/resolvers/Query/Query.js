@@ -186,68 +186,6 @@ module.exports = {
   userHierarchyById(_, { uuid }, { dataSources }) {
     return dataSources.HierarchyAPI.getUserHierarchy(uuid);
   },
-  async usersByBranch(_, { uuids, onlyActive }, { dataSources }) {
-    const operatorsByBranch = await dataSources.HierarchyAPI.getUsersByBranch({ uuids });
-
-    if (operatorsByBranch.length === 0) {
-      return [];
-    }
-
-    const { content } = await dataSources.OperatorAPI.search({
-      ...onlyActive && { status: 'ACTIVE' },
-      uuids: operatorsByBranch.map(({ uuid }) => uuid),
-      page: {
-        from: 0,
-        size: operatorsByBranch.length,
-      },
-    });
-
-    const operators = operatorsByBranch.map(({ uuid, ...rest }) => {
-      const { firstName, lastName } = content.find(item => item.uuid === uuid) || {};
-
-      if (!firstName || !lastName) return null;
-
-      return {
-        uuid,
-        fullName: [firstName, lastName].filter(v => v).join(' '),
-        ...rest,
-      };
-    });
-
-    return operators.filter(operator => operator && ['CUSTOMER', 'LEAD_CUSTOMER'].indexOf(operator.userType) === -1);
-  },
-  async usersByType(_, { userTypes, onlyActive }, { dataSources, userUUID }) {
-    const allOperatorsByType = await dataSources.HierarchyAPI.getUsersByType(userTypes);
-
-    const visibleUsersResponse = await dataSources.HierarchyAPI.getOperatorsSubtree(userUUID);
-    const visibleUsers = visibleUsersResponse.map(({ uuid }) => uuid);
-
-    const visibleOperatorsByType = allOperatorsByType.filter(({ uuid }) => visibleUsers.includes(uuid));
-
-    const { content } = await dataSources.OperatorAPI.search({
-      ...onlyActive && { status: 'ACTIVE' },
-      uuids: visibleOperatorsByType.map(({ uuid }) => uuid),
-      page: {
-        from: 0,
-        size: visibleOperatorsByType.length,
-      },
-    });
-
-    const operators = visibleOperatorsByType.map(({ uuid, ...rest }) => {
-      const { firstName, lastName } = content.find(item => item.uuid === uuid) || {};
-
-      if (!firstName || !lastName) return null;
-
-      return {
-        uuid,
-        fullName: [firstName, lastName].filter(v => v).join(' '),
-        ...rest,
-      };
-    });
-
-    return groupBy(operators, 'userType');
-  },
-
   userBranchesTreeUp(_, { userUUID }, { dataSources }) {
     return dataSources.HierarchyAPI.getUserBranchesTreeUp(userUUID);
   },
@@ -392,6 +330,13 @@ module.exports = {
   },
   operatorsByBrand(_, args, { dataSources, userUUID }) {
     return dataSources.OperatorAPI.searchByBrand(userUUID, args);
+  },
+  operatorsSubordinates(_, args, { dataSources, userUUID, brand }) {
+    return dataSources.OperatorAPI.getSubordinateOperators({
+      userUUID,
+      brandId: brand.id,
+      ...args,
+    });
   },
   operatorRelationsCount(_, { uuid }, { dataSources }) {
     return dataSources.OperatorAPI.getRelationsCount(uuid);
@@ -554,6 +499,11 @@ module.exports = {
         coperato: {
           isActive: get(brandConfig, 'nas.brand.clickToCall.coperato.isActive', false),
           prefixes: get(brandConfig, 'nas.brand.clickToCall.coperato.prefixes', {}),
+        },
+      },
+      sms: {
+        coperato: {
+          isActive: get(brandConfig, 'nas.brand.sms.coperato.isActive', false),
         },
       },
       email: {
