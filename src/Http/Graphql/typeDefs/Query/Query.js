@@ -47,7 +47,7 @@ module.exports = gql`
       sortColumn: String
       sortDirection: String
       targetUUID: String
-    ): Feed @pageable @mask_feeds_phone
+    ): Feed @pageable
     feedTypes(uuid: String!): Object
 
     # Auth2 API

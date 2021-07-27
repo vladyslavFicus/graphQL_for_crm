@@ -6,7 +6,6 @@ module.exports = gql`
   directive @pageable on FIELD_DEFINITION
   directive @auth_mask_field(action: String, maskAll: Boolean) on FIELD_DEFINITION
   directive @mask_field on FIELD_DEFINITION
-  directive @mask_feeds_phone on FIELD_DEFINITION
   directive @auth_hide_argument(action: String) on ARGUMENT_DEFINITION
   directive @auth_hide_field(action: String) on FIELD_DEFINITION
   directive @auth_filter_values(action: String) on FIELD_DEFINITION

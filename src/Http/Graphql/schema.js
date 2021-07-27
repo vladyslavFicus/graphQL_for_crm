@@ -6,7 +6,6 @@ const AuthHideArgumentDirective = require('./directives/auth/AuthHideArgumentDir
 const AuthHideFieldDirective = require('./directives/auth/AuthHideFieldDirective');
 const AuthFilterValuesDirective = require('./directives/auth/AuthFilterValuesDirective');
 const MaskFieldDirective = require('./directives/mask/MaskFieldDirective');
-const MaskFeedsPhoneFieldDirective = require('./directives/mask/MaskFeedsPhoneField');
 
 const schema = makeExecutableSchema({
   typeDefs: autoloadTypeDefs(`${__dirname}/typeDefs`),
@@ -16,7 +15,6 @@ const schema = makeExecutableSchema({
     pageable: PageableDirective,
     auth_mask_field: AuthMaskFieldDirective,
     mask_field: MaskFieldDirective,
-    mask_feeds_phone: MaskFeedsPhoneFieldDirective,
     auth_hide_argument: AuthHideArgumentDirective,
     auth_hide_field: AuthHideFieldDirective,
     auth_filter_values: AuthFilterValuesDirective,
