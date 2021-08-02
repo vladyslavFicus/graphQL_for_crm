@@ -1,13 +1,6 @@
 const { set } = require('lodash');
 const maskText = require('../../../../utils/maskText');
 
-const parseDetailsWithContacts = (details) => {
-  const parsedDetails = JSON.parse(details);
-  const { contacts } = parsedDetails;
-
-  return { parsedDetails, contacts };
-};
-
 module.exports = {
   async authorFullName({ authorUuid, authorFullName }, _, { dataSources }) {
     const prefix = authorUuid.split('-')[0];
@@ -40,7 +33,8 @@ module.exports = {
       });
     }
     if (details && type === 'PLAYER_PROFILE_REGISTERED') {
-      const { parsedDetails, contacts } = parseDetailsWithContacts(details);
+      const parsedDetails = JSON.parse(details);
+      const { contacts } = parsedDetails;
 
       if (!contacts) {
         return details;
@@ -57,7 +51,8 @@ module.exports = {
       return JSON.stringify(parsedDetails);
     }
     if (details && type === 'PLAYER_PROFILE_CHANGED') {
-      const { parsedDetails, contacts } = parseDetailsWithContacts(details);
+      const parsedDetails = JSON.parse(details);
+      const { contacts } = parsedDetails;
 
       if (!contacts) {
         return details;

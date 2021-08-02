@@ -2,11 +2,11 @@ const { SchemaDirectiveVisitor } = require('graphql-tools');
 const maskText = require('../../../../utils/maskText');
 
 /**
- * Directive for masking text depends on auth action
+ * Directive for masking field
  *
  * Example:
  * type Profile {
- *   phone: String @auth_mask_all_field,
+ *   phone: String @mask_field,
  * }
  */
 class MaskFieldDirective extends SchemaDirectiveVisitor {
