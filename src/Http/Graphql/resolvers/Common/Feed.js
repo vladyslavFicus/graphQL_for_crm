@@ -1,3 +1,6 @@
+const { set } = require('lodash');
+const maskText = require('../../../../utils/maskText');
+
 module.exports = {
   async authorFullName({ authorUuid, authorFullName }, _, { dataSources }) {
     const prefix = authorUuid.split('-')[0];
@@ -28,6 +31,44 @@ module.exports = {
         ...parsedDetails,
         ...operator && { assignedToName: `${operator.firstName} ${operator.lastName}` },
       });
+    }
+    if (details && type === 'PLAYER_PROFILE_REGISTERED') {
+      const parsedDetails = JSON.parse(details);
+      const { contacts } = parsedDetails;
+
+      if (!contacts) {
+        return details;
+      }
+
+      if (contacts.phone) {
+        set(parsedDetails, 'contacts.phone', maskText(contacts.phone, true));
+      }
+
+      if (contacts.additionalPhone) {
+        set(parsedDetails, 'contacts.additionalPhone', maskText(contacts.additionalPhone, true));
+      }
+
+      return JSON.stringify(parsedDetails);
+    }
+    if (details && type === 'PLAYER_PROFILE_CHANGED') {
+      const parsedDetails = JSON.parse(details);
+      const { contacts } = parsedDetails;
+
+      if (!contacts) {
+        return details;
+      }
+
+      if (contacts.phone) {
+        set(parsedDetails, 'contacts.phone.from', maskText(contacts.phone.from, true));
+        set(parsedDetails, 'contacts.phone.to', maskText(contacts.phone.to, true));
+      }
+
+      if (contacts.additionalPhone) {
+        set(parsedDetails, 'contacts.additionalPhone.from', maskText(contacts.additionalPhone.from, true));
+        set(parsedDetails, 'contacts.additionalPhone.to', maskText(contacts.additionalPhone.to, true));
+      }
+
+      return JSON.stringify(parsedDetails);
     }
 
     return details;

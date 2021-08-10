@@ -13,6 +13,17 @@ class ProfileAPI extends RESTDataSource {
   }
 
   /**
+   * Get profile contacts by uuid
+   *
+   * @param uuid Client UUID
+   *
+   * @return {*}
+   */
+  getProfileContacts(uuid) {
+    return this.get(`/admin/profiles/${uuid}/contacts`);
+  }
+
+  /**
    * Create profile
    *
    * @param args

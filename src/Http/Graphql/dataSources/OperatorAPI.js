@@ -118,6 +118,18 @@ class OperatorAPI extends RESTDataSource {
    * Get operator external relations count
    *
    * @param uuid
+   * @param args
+   *
+   * @return {*}
+   */
+  getSubordinateOperators({ userUUID, ...args }) {
+    return this.post(`/operators/${userUUID}/subordinates`, args);
+  }
+
+  /**
+   * Get operator external relations count
+   *
+   * @param uuid
    *
    * @return {*}
    */

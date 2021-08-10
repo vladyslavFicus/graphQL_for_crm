@@ -101,8 +101,6 @@ module.exports = gql`
     ): HierarchyUserBranches
     userHierarchy: HierarchyUser
     userHierarchyById(uuid: String!): HierarchyUser
-    usersByBranch(uuids: [String]!, onlyActive: Boolean): [HierarchyUser]
-    usersByType(userTypes: [String]!, onlyActive: Boolean): HierarchyUserByType
     userBranchesTreeUp(userUUID: String!): [HierarchyUserBranchesTreeUp]
     treeTop: [HierarchyTreeBranch]
     treeBranch(uuid: String!): HierarchyTreeBranchResponse
@@ -141,6 +139,7 @@ module.exports = gql`
       status: String
     ): Operator @pageable
     operatorsByBrand(brandId: String!, hierarchyTypeGroup: Desk__Types__Enum!): [Operator]
+    operatorsSubordinates(hierarchyTypeGroup: String, onlyActive: Boolean): [Operator]
     operatorRelationsCount(uuid: String!): OperatorRelationsCount
 
     # Payment API
@@ -160,6 +159,7 @@ module.exports = gql`
 
     # Profile API && ProfileView API
     profile(playerUUID: String!): Profile
+    profileContacts(playerUUID: String!): Profile__Phone__Contacts
     profiles(args: ClientSearch__Input): ProfileView @pageable
     registrationStatistic(
       dateTo: String
@@ -253,5 +253,8 @@ module.exports = gql`
     referrerStatistics(uuid: String!): ReferrerStatistics
     referrals(uuid: String!): [Referral]
     config(brandId: String!): BrandConfigProvider
+    
+    # SMS Api
+    sms: SmsQuery @nested
   }
 `;
