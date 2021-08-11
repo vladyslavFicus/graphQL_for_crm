@@ -54,8 +54,8 @@ permissions:
           roles: *all-roles
         - department: RETENTION
           roles: *all-roles
-        - department: COMPLIANCE_MANAGER
-          roles: *all-roles
+        - department: COMPLIANCE
+          roles: COMPLIANCE_MANAGER
     - action: "profile.referrer.field.fullName"
       authorities: *all
     - action: "lead.field.phone"
