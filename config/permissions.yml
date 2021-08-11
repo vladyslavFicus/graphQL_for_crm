@@ -41,7 +41,21 @@ permissions:
     - action: "profile.affiliate.field.sms"
       authorities: *all
     - action: "profile.referrer.field.uuid"
-      authorities: *all
+      authorities:
+        - department: ADMINISTRATION
+          roles:
+            - ADMINISTRATION
+        - department: RFP
+          roles:
+            - HEAD_OF_DEPARTMENT
+        - department: CS
+          roles: *all-roles
+        - department: SALES
+          roles: *all-roles
+        - department: RETENTION
+          roles: *all-roles
+        - department: COMPLIANCE_MANAGER
+          roles: *all-roles
     - action: "profile.referrer.field.fullName"
       authorities: *all
     - action: "lead.field.phone"
