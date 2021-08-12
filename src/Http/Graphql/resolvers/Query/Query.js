@@ -413,6 +413,28 @@ module.exports = {
   },
 
   /**
+   * Trading Engine API
+   */
+  tradingEngineAccounts(_, { args }, { dataSources }) { // eslint-disable-line
+    // Drop undefined and nullable values from object (because BE service throw Error if null will be sent)
+    const params = omitBy(args, isNil); // eslint-disable-line
+
+    return dataSources.TradingEngineAPI.getAccounts(params);
+  },
+  tradingEngineAccount(_, { accountUuid }, { dataSources }) {
+    return dataSources.TradingEngineAPI.getAccount(accountUuid);
+  },
+  tradingEngineOrders(_, { args }, { dataSources }) {
+    return dataSources.TradingEngineAPI.getOrders(args);
+  },
+  tradingEngineOrder(_, { orderId }, { dataSources }) {
+    return dataSources.TradingEngineAPI.getOrder(orderId);
+  },
+  tradingEngineSymbols(_, __, { dataSources }) {
+    return dataSources.TradingEngineAPI.getSymbols();
+  },
+
+  /**
    * TradingActivity API
    */
   tradingActivity(_, args, { dataSources }) {
