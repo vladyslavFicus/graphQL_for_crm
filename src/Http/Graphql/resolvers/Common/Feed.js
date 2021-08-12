@@ -63,7 +63,9 @@ module.exports = {
         set(parsedDetails, 'contacts.phone.to', maskText(contacts.phone.to, true));
       }
 
-      if (contacts.additionalPhone) {
+      if (contacts.additionalPhone && contacts.additionalPhone.value) {
+        set(parsedDetails, 'contacts.additionalPhone.value', maskText(contacts.additionalPhone.value, true));
+      } else if (contacts.additionalPhone && contacts.additionalPhone.from) {
         set(parsedDetails, 'contacts.additionalPhone.from', maskText(contacts.additionalPhone.from, true));
         set(parsedDetails, 'contacts.additionalPhone.to', maskText(contacts.additionalPhone.to, true));
       }
