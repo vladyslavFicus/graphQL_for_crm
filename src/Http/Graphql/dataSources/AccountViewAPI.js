@@ -9,7 +9,7 @@ class AccountViewAPI extends RESTDataSource {
    * @return {Promise}
    */
   getTradingAccounts(args) {
-    return this.get('/accounts/search', args);
+    return this.post('/accounts/search', args);
   }
 }
 
