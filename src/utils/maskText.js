@@ -11,7 +11,7 @@
  * @return {string}
  */
 module.exports = (value, maskAll) => {
-  if (maskAll) {
+  if (value && maskAll) {
     return '*'.repeat(value.length);
   }
 

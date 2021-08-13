@@ -159,6 +159,7 @@ module.exports = gql`
 
     # Profile API && ProfileView API
     profile(playerUUID: String!): Profile
+    profileContacts(playerUUID: String!): Profile__Phone__Contacts
     profiles(args: ClientSearch__Input): ProfileView @pageable
     registrationStatistic(
       dateTo: String

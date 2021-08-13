@@ -348,6 +348,9 @@ module.exports = {
   profile(_, { playerUUID }, { dataSources }) {
     return dataSources.ProfileAPI.getByUUID(playerUUID);
   },
+  profileContacts(_, { playerUUID }, { dataSources }) {
+    return dataSources.ProfileAPI.getProfileContacts(playerUUID);
+  },
   profiles(_, { args }, { dataSources }) {
     return dataSources.ProfileViewAPI.search(args);
   },
