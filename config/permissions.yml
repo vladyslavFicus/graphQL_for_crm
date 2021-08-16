@@ -31,16 +31,6 @@ permissions:
     - action: "profile.field.balance"
       authorities: *all
     - action: "profile.affiliate.field.uuid"
-      authorities: *all
-    - action: "profile.affiliate.field.campaignId"
-      authorities: *all
-    - action: "profile.affiliate.field.referral"
-      authorities: *all
-    - action: "profile.affiliate.field.source"
-      authorities: *all
-    - action: "profile.affiliate.field.sms"
-      authorities: *all
-    - action: "profile.referrer.field.uuid"
       authorities:
         - department: ADMINISTRATION
           roles:
@@ -55,7 +45,18 @@ permissions:
         - department: RETENTION
           roles: *all-roles
         - department: COMPLIANCE
-          roles: COMPLIANCE_MANAGER
+          roles:
+            - COMPLIANCE_MANAGER
+    - action: "profile.affiliate.field.campaignId"
+      authorities: *all
+    - action: "profile.affiliate.field.referral"
+      authorities: *all
+    - action: "profile.affiliate.field.source"
+      authorities: *all
+    - action: "profile.affiliate.field.sms"
+      authorities: *all
+    - action: "profile.referrer.field.uuid"
+      authorities: *all
     - action: "profile.referrer.field.fullName"
       authorities: *all
     - action: "lead.field.phone"
