@@ -26,14 +26,27 @@ class TradingAccountAPI extends RESTDataSource {
   }
 
   /**
-   * Update trading account
+   * Update name of trading account
    *
+   * @param uuid | accountUuid
    * @param args
    *
    * @return {Promise}
    */
-  updateTradingAccount(args) {
-    return this.put('/account', args);
+  renameTradingAccount(uuid, args) {
+    return this.put(`/account/${uuid}/name`, args);
+  }
+
+  /**
+   * Disabling or enabling trading account
+   *
+   * @param uuid | accountUuid
+   * @param args
+   *
+   * @return {Promise}
+   */
+  toggleDisabledTradingAccount(uuid, args) {
+    return this.put(`/account/${uuid}/readonly`, args);
   }
 
   /**
