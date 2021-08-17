@@ -23,15 +23,27 @@ module.exports = {
   },
 
   /**
-   * Update trading account
+   * Update name of trading account
    *
    * @param _
    * @param args
    *
    * @return {Promise<Boolean|*>}
    */
-  async update(_, args, { dataSources }) {
-    await dataSources.TradingAccountAPI.updateTradingAccount(args);
+  async rename(_, args, { dataSources }) {
+    await dataSources.TradingAccountAPI.renameTradingAccount(args.accountUUID, args);
+  },
+
+  /**
+   * Disabling or enabling trading account
+   *
+   * @param _
+   * @param args
+   *
+   * @return {Promise<Boolean|*>}
+   */
+  async toggleDisabled(_, args, { dataSources }) {
+    await dataSources.TradingAccountAPI.toggleDisabledTradingAccount(args.accountUUID, args);
   },
 
   /**

@@ -12,13 +12,9 @@ module.exports = gql`
       profileId: String!
     ): Boolean
 
-    update(
+    rename(
       accountUUID: String!
-      currency: String
-      mode: String
-      name: String
-      profileId: String!
-      readOnly: Boolean
+      name: String!
     ): Boolean
 
     changePassword(
@@ -30,6 +26,11 @@ module.exports = gql`
     changeLeverage(
       accountUUID: String!
       leverage: Int!
+    ): Boolean
+
+    toggleDisabled(
+      accountUUID: String!
+      readOnly: Boolean!
     ): Boolean
 
     approveChangingLeverage(accountUUID: String!): Boolean
