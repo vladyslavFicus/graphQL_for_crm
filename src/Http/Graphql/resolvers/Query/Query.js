@@ -424,8 +424,8 @@ module.exports = {
 
     return dataSources.TradingEngineAPI.getAccounts(params);
   },
-  tradingEngineAccount(_, { accountUuid }, { dataSources }) {
-    return dataSources.TradingEngineAPI.getAccount(accountUuid);
+  tradingEngineAccount(_, { identifier }, { dataSources }) {
+    return dataSources.TradingEngineAPI.getAccount(identifier);
   },
   tradingEngineOrders(_, { args }, { dataSources }) {
     return dataSources.TradingEngineAPI.getOrders(args);

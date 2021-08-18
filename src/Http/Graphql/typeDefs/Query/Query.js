@@ -220,7 +220,7 @@ module.exports = gql`
     
     # TradingEngine API
     tradingEngineAccounts(args: TradingEngineSearch__Input): TradingEngineAccount @pageable
-    tradingEngineAccount(accountUuid: String): TradingEngineAccount
+    tradingEngineAccount(identifier: String): TradingEngineAccount
     tradingEngineSymbols: TradingEngineSymbols @pageable
     tradingEngineOrders(args: TradingEngineSearch__Input): TradingEngineOrder @pageable
     tradingEngineOrder(orderId: String): TradingEngineOrder
