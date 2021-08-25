@@ -348,6 +348,9 @@ module.exports = {
   profile(_, { playerUUID }, { dataSources }) {
     return dataSources.ProfileAPI.getByUUID(playerUUID);
   },
+  profileContacts(_, { playerUUID }, { dataSources }) {
+    return dataSources.ProfileAPI.getProfileContacts(playerUUID);
+  },
   profiles(_, { args }, { dataSources }) {
     return dataSources.ProfileViewAPI.search(args);
   },
@@ -421,8 +424,8 @@ module.exports = {
 
     return dataSources.TradingEngineAPI.getAccounts(params);
   },
-  tradingEngineAccount(_, { accountUuid }, { dataSources }) {
-    return dataSources.TradingEngineAPI.getAccount(accountUuid);
+  tradingEngineAccount(_, { identifier }, { dataSources }) {
+    return dataSources.TradingEngineAPI.getAccount(identifier);
   },
   tradingEngineOrders(_, { args }, { dataSources }) {
     return dataSources.TradingEngineAPI.getOrders(args);

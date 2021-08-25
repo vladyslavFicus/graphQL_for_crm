@@ -159,6 +159,7 @@ module.exports = gql`
 
     # Profile API && ProfileView API
     profile(playerUUID: String!): Profile
+    profileContacts(playerUUID: String!): Profile__Phone__Contacts
     profiles(args: ClientSearch__Input): ProfileView @pageable
     registrationStatistic(
       dateTo: String
@@ -209,8 +210,7 @@ module.exports = gql`
       accountType: String
       platformType: String
       archived: Boolean
-      page: Int
-      size: Int
+      page: Page__Input
     ): TradingAccount @pageable
     clientTradingAccounts(
       profileUUID: String!
@@ -220,7 +220,7 @@ module.exports = gql`
     
     # TradingEngine API
     tradingEngineAccounts(args: TradingEngineSearch__Input): TradingEngineAccount @pageable
-    tradingEngineAccount(accountUuid: String): TradingEngineAccount
+    tradingEngineAccount(identifier: String): TradingEngineAccount
     tradingEngineSymbols: TradingEngineSymbols @pageable
     tradingEngineOrders(args: TradingEngineSearch__Input): TradingEngineOrder @pageable
     tradingEngineOrder(orderId: String): TradingEngineOrder

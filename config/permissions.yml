@@ -31,7 +31,22 @@ permissions:
     - action: "profile.field.balance"
       authorities: *all
     - action: "profile.affiliate.field.uuid"
-      authorities: *all
+      authorities:
+        - department: ADMINISTRATION
+          roles:
+            - ADMINISTRATION
+        - department: RFP
+          roles:
+            - HEAD_OF_DEPARTMENT
+        - department: CS
+          roles: *all-roles
+        - department: SALES
+          roles: *all-roles
+        - department: RETENTION
+          roles: *all-roles
+        - department: COMPLIANCE
+          roles:
+            - COMPLIANCE_MANAGER
     - action: "profile.affiliate.field.campaignId"
       authorities: *all
     - action: "profile.affiliate.field.referral"

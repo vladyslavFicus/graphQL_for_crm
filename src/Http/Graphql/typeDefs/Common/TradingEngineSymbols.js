@@ -5,5 +5,11 @@ module.exports = gql`
     symbol: String
     bid: Float
     ask: Float
+    securities: String
+    spread: String
+    stop: Float
+    long: Float
+    short: Float
+    digits: Float
   }
 `;
