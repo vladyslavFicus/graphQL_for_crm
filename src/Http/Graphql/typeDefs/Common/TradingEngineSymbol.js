@@ -1,10 +1,12 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`  
-  type TradingEngineSymbols {
-    symbol: String
+  type TradingEngineSymbol {
+    name: String
     bid: Float
     ask: Float
+    
+    # Next fields not implemented yet    
     securities: String
     spread: String
     stop: Float
