@@ -30,34 +30,7 @@ class TradingEngineAPI extends RESTDataSource {
    * @return {Promise}
    */
   getSymbols() {
-    // TODO: mock data
-    return {
-      content: [
-        {
-          symbol: 'EURUSD',
-          bid: 1.21627,
-          ask: 1.21630,
-          securities: 'Forex',
-          spread: 'No',
-          stop: 0,
-          long: -5.745,
-          short: 1.2323,
-          digits: 5,
-        },
-        {
-          symbol: 'USDJPY',
-          bid: 109.306,
-          ask: 109.309,
-          securities: 'Forex',
-          spread: 'No',
-          stop: 0,
-          long: -5.745,
-          short: 1.2323,
-          digits: 5,
-        },
-      ],
-      totalElements: 2,
-    };
+    return this.get('/symbols/price');
   }
 
   /**
