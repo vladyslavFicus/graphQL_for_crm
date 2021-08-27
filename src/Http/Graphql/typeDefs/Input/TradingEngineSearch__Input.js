@@ -17,4 +17,20 @@ module.exports = gql`
     page: Page__Input
     orderStatuses: [String]
   }
+  
+  input TradingEngineTransactionSearch__Input {
+    keyword: String
+    accountUuid: String
+    accountLogin: Int
+    transactionType: [String]
+    creationDateRange: TradingEngineSearch__Time__Input
+    page: Page__Input
+  }
+  
+  input TradingEngineHistorySearch__Input {
+    keyword: String
+    accountUuid: String
+    accountLogin: Int
+    page: Page__Input
+  }
 `;

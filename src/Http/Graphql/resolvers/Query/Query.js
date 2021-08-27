@@ -436,6 +436,12 @@ module.exports = {
   tradingEngineSymbols(_, __, { dataSources }) {
     return dataSources.TradingEngineAPI.getSymbols();
   },
+  tradingEngineTransactions(_, { args }, { dataSources }) {
+    return dataSources.TradingEngineAPI.getTransactions(args);
+  },
+  tradingEngineHistory(_, { args }, { dataSources }) {
+    return dataSources.TradingEngineAPI.getHistory(args);
+  },
 
   /**
    * TradingActivity API

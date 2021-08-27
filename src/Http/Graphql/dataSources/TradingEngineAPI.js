@@ -34,6 +34,26 @@ class TradingEngineAPI extends RESTDataSource {
   }
 
   /**
+   * Get trading engine history
+   *
+   *
+   * @return {Promise}
+   */
+  getHistory(args) {
+    return this.post('/history/search', args);
+  }
+
+  /**
+   * Get trading engine transactions
+   *
+   *
+   * @return {Promise}
+   */
+  getTransactions(args) {
+    return this.post('/transactions/search', args);
+  }
+
+  /**
    * Get trading engine orders
    *
    *
