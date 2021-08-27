@@ -22,7 +22,7 @@ module.exports = gql`
     keyword: String
     accountUuid: String
     accountLogin: Int
-    transactionType: [String]
+    transactionType: String
     creationDateRange: TradingEngineSearch__Time__Input
     page: Page__Input
   }
