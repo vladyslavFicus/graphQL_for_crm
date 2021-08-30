@@ -143,6 +143,29 @@ class TradingEngineAPI extends RESTDataSource {
   createCreditOut(accountUuid, args) {
     return this.put(`/accounts/${accountUuid}/balance/credit-out`, args);
   }
+
+  /**
+   * Get symbol prices
+   *
+   * @param args
+   * @param symbol
+   *
+   * @return {Promise}
+   */
+  getSymbolPrices(symbol, args) {
+    return this.get(`/symbols/${symbol}/price`, args);
+  }
+
+  /**
+   * Get allowed account symbols
+   *
+   * @param accountUuid
+   *
+   * @return {Promise}
+   */
+  getAllowedAccountSymbols(accountUuid) {
+    return this.get(`/symbols/${accountUuid}/allowed`);
+  }
 }
 
 module.exports = TradingEngineAPI;
