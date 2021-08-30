@@ -442,6 +442,12 @@ module.exports = {
   tradingEngineHistory(_, { args }, { dataSources }) {
     return dataSources.TradingEngineAPI.getHistory(args);
   },
+  tradingEngineSymbolPrices(_, { symbol, ...args }, { dataSources }) {
+    return dataSources.TradingEngineAPI.getSymbolPrices(symbol, args);
+  },
+  tradingEngineAccountSymbols(_, { accountUuid }, { dataSources }) {
+    return dataSources.TradingEngineAPI.getAllowedAccountSymbols(accountUuid);
+  },
 
   /**
    * TradingActivity API
