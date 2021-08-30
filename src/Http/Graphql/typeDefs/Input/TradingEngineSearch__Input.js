@@ -30,6 +30,7 @@ module.exports = gql`
   input TradingEngineHistorySearch__Input {
     keyword: String
     accountUuid: String
+    type: String
     accountLogin: Int
     page: Page__Input
   }
