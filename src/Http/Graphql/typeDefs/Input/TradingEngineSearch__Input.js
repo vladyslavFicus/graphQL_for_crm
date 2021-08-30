@@ -33,5 +33,7 @@ module.exports = gql`
     type: String
     accountLogin: Int
     page: Page__Input
+    openingDateRange: TradingEngineSearch__Time__Input
+    closingDateRange: TradingEngineSearch__Time__Input
   }
 `;

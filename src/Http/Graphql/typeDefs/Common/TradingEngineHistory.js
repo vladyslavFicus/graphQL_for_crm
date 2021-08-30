@@ -6,6 +6,7 @@ module.exports = gql`
     accountLogin: Int
     type: String
     closingTime: String
+    openingTime: String
     symbol: String
     volume: Float
     closePrice: Float
