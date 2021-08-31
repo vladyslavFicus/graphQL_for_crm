@@ -228,6 +228,7 @@ module.exports = gql`
     tradingEngineHistory(args: TradingEngineHistorySearch__Input): TradingEngineHistory @pageable
     tradingEngineSymbolPrices(symbol: String! size: Int): [TradingEngineSymbolPrice]
     tradingEngineAccountSymbols(accountUuid: String!): [TradingEngineAccountSymbol]
+    tradingEngineAccountStatistic(accountUuid: String!): TradingEngineAccountStatistic
 
     # TradingActivity API
     tradingActivity(

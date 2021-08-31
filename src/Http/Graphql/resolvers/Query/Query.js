@@ -448,6 +448,9 @@ module.exports = {
   tradingEngineAccountSymbols(_, { accountUuid }, { dataSources }) {
     return dataSources.TradingEngineAPI.getAllowedAccountSymbols(accountUuid);
   },
+  tradingEngineAccountStatistic(_, { accountUuid }, { dataSources }) {
+    return dataSources.TradingEngineAPI.getAccountStatistic(accountUuid);
+  },
 
   /**
    * TradingActivity API
