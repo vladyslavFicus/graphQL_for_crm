@@ -166,6 +166,17 @@ class TradingEngineAPI extends RESTDataSource {
   getAllowedAccountSymbols(accountUuid) {
     return this.get(`/symbols/${accountUuid}/allowed`);
   }
+
+  /**
+   * Get account finance statistic
+   *
+   * @param accountUuid
+   *
+   * @return {*}
+   */
+  getAccountStatistic(accountUuid) {
+    return this.get(`/accounts/${accountUuid}/finances`);
+  }
 }
 
 module.exports = TradingEngineAPI;
