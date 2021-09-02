@@ -167,15 +167,27 @@ class PaymentAPI extends RESTDataSource {
   }
 
   /**
-   * Change show ftd to affiliate
+   * Enable show ftd to affiliate
    *
    * @param profileUuid
    * @param args
    *
    * @return {Promise}
    */
-  changeShowFtdToAffiliate({ profileUuid, ...args }) {
-    return this.put(`/${profileUuid}/show-ftd-to-affiliate`, args);
+  enableShowFtdToAffiliate({ profileUuid }) {
+    return this.put(`/${profileUuid}/show-ftd-to-affiliate/enabling`);
+  }
+
+  /**
+   * Disable show ftd to affiliate
+   *
+   * @param profileUuid
+   * @param args
+   *
+   * @return {Promise}
+   */
+  disableShowFtdToAffiliate({ profileUuid }) {
+    return this.put(`/${profileUuid}/show-ftd-to-affiliate/disabling`);
   }
 }
 

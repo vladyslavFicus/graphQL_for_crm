@@ -106,7 +106,7 @@ module.exports = {
   },
 
   /**
-   * Change show ftd to affiliate
+   * Enable show ftd to affiliate
    *
    * @param _
    * @param args
@@ -114,7 +114,20 @@ module.exports = {
    *
    * @return {Promise}
    */
-  async changeShowFtdToAffiliate(_, args, { dataSources }) {
-    await dataSources.PaymentAPI.changeShowFtdToAffiliate(args);
+  async enableShowFtdToAffiliate(_, args, { dataSources }) {
+    await dataSources.PaymentAPI.enableShowFtdToAffiliate(args);
+  },
+
+  /**
+   * Disable show ftd to affiliate
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async disableShowFtdToAffiliate(_, args, { dataSources }) {
+    await dataSources.PaymentAPI.disableShowFtdToAffiliate(args);
   },
 };
