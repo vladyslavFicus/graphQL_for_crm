@@ -14,10 +14,11 @@ module.exports = gql`
   }
 
   type TradingEngineOrder {
-    id: ID,
-    accountLogin: Int,
-    tradeId: String,
-    symbol: String,
+    id: ID
+    accountLogin: Int
+    accountUuid: String
+    tradeId: String
+    symbol: String
     symbolAlias: String
     direction: String
     digits: Float
