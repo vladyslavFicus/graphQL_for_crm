@@ -26,7 +26,7 @@ module.exports = gql`
       takeProfit: Float
       comment: String
       pendingOrder: Boolean!
-    ): Boolean
+    ): TradingEngineOrder
     
     editOrder(
       orderId: String!
