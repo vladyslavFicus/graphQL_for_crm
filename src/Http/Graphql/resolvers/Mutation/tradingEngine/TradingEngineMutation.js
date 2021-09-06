@@ -34,8 +34,8 @@ module.exports = {
    *
    * @return {Promise}
    */
-  async createOrder(_, args, { dataSources }) {
-    await dataSources.TradingEngineAPI.createOrder(args.accountUuid, args);
+  createOrder(_, args, { dataSources }) {
+    return dataSources.TradingEngineAPI.createOrder(args.accountUuid, args);
   },
 
   /**
