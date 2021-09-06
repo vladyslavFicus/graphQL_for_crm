@@ -23,7 +23,7 @@ module.exports = gql`
     showKycStatus: Boolean
     showSalesStatus: Boolean
     showNotes: Boolean
-    minFtdLimit: Float
+    minFtdDeposit: Float
   }
 
   type Partner {
