@@ -8,5 +8,6 @@ module.exports = gql`
     showKycStatus: Boolean
     showNotes: Boolean
     showSalesStatus: Boolean
+    minFtdLimit: Float
   }
 `;
