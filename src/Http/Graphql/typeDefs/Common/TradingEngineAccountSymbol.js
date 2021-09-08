@@ -4,5 +4,6 @@ module.exports = gql`
   type TradingEngineAccountSymbol {
     name: String!
     description: String!
+    digits: Int
   }
 `;
