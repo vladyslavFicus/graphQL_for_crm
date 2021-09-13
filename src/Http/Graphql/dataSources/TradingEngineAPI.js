@@ -34,6 +34,16 @@ class TradingEngineAPI extends RESTDataSource {
   }
 
   /**
+   * Get trading engine groups
+   *
+   *
+   * @return {Promise}
+   */
+  getGroups() {
+    return this.get('/groups');
+  }
+
+  /**
    * Get trading engine history
    *
    *

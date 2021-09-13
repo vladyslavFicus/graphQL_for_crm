@@ -436,6 +436,9 @@ module.exports = {
   tradingEngineSymbols(_, __, { dataSources }) {
     return dataSources.TradingEngineAPI.getSymbols();
   },
+  tradingEngineGroups(_, __, { dataSources }) {
+    return dataSources.TradingEngineAPI.getGroups();
+  },
   tradingEngineTransactions(_, { args }, { dataSources }) {
     return dataSources.TradingEngineAPI.getTransactions(args);
   },
