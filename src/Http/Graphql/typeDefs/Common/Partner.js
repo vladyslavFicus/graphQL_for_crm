@@ -23,6 +23,7 @@ module.exports = gql`
     showKycStatus: Boolean
     showSalesStatus: Boolean
     showNotes: Boolean
+    cumulativeDeposit: Boolean
     minFtdDeposit: Float
   }
 
