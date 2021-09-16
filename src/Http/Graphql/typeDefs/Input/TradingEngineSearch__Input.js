@@ -12,10 +12,12 @@ module.exports = gql`
     accountUuid: String
     symbol: String
     openingDateRange: TradingEngineSearch__Time__Input
+    closingDateRange: TradingEngineSearch__Time__Input
     orderId: String
     enabled: Boolean
     page: Page__Input
     orderStatuses: [String]
+    groups: [String]
   }
   
   input TradingEngineTransactionSearch__Input {

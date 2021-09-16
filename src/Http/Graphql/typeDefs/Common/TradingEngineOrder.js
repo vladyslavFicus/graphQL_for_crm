@@ -40,5 +40,6 @@ module.exports = gql`
     tradeStatus: String
     originalAgent: Operator
     type: TradingEngine__OperationTypes__Enum
+    group: String
   }
 `;
