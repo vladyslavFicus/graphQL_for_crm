@@ -17,5 +17,9 @@ module.exports = gql`
     takeProfit: Float
     swaps: Float
     status: String
+    group: String
+    commission: Float
+    comment: String
+    leverage: Int
   }
 `;
