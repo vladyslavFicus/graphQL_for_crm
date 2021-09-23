@@ -26,6 +26,7 @@ module.exports = gql`
     accountLogin: Int
     transactionType: String
     creationDateRange: TradingEngineSearch__Time__Input
+    openingDateRange: TradingEngineSearch__Time__Input
     page: Page__Input
   }
   
