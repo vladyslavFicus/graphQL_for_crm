@@ -5,6 +5,7 @@ module.exports = gql`
     name: String
     bid: Float
     ask: Float
+    lotSize: Float
     
     # Next fields not implemented yet    
     securities: String
