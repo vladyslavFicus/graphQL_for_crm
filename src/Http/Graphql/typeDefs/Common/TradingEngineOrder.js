@@ -41,10 +41,7 @@ module.exports = gql`
     comment: String
     tradeStatus: String
     type: TradingEngine__OperationTypes__Enum
-<<<<<<< Updated upstream
     group: String
-=======
     groupSpread: TradingEngineGroupSpread
->>>>>>> Stashed changes
   }
 `;
