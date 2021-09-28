@@ -17,9 +17,11 @@ module.exports = gql`
     id: ID
     accountLogin: Int
     accountUuid: String
+    account: TradingEngineAccount
     tradeId: String
     symbol: String
     symbolAlias: String
+    symbolEntity: TradingEngineSymbol
     direction: String
     digits: Float
     takeProfit: Float
@@ -38,8 +40,8 @@ module.exports = gql`
     tradeType: String
     comment: String
     tradeStatus: String
-    originalAgent: Operator
     type: TradingEngine__OperationTypes__Enum
     group: String
+    groupSpread: TradingEngineGroupSpread
   }
 `;

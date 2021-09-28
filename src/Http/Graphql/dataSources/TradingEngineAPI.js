@@ -1,6 +1,39 @@
+const DataLoader = require('dataloader');
+const { isEqual, uniqWith } = require('lodash');
 const RESTDataSource = require('@hrzn/apollo-datasource/RESTDataSource');
+const orderByArray = require('../../../utils/orderByArray');
 
 class TradingEngineAPI extends RESTDataSource {
+  constructor(args) {
+    super(args);
+
+    this.accountsLoader = new DataLoader(this._accountsLoader.bind(this));
+    this.symbolsLoader = new DataLoader(this._symbolsLoader.bind(this));
+    this.groupsSpreadLoader = new DataLoader(this._groupsSpreadLoader.bind(this));
+  }
+
+  async _accountsLoader(uuids) {
+    const data = await this.post('/accounts/search', { uuids });
+
+    return orderByArray(uuids, data.content, 'uuid');
+  }
+
+  async _symbolsLoader(symbolNames) {
+    const data = await this.post('/symbols/search', { symbolNames });
+
+    return orderByArray(symbolNames, data.content, 'name');
+  }
+
+  async _groupsSpreadLoader(args) {
+    // Get uniqueness arguments to make a request
+    const uniqArgs = uniqWith(args, isEqual);
+
+    const data = await this.post('/groups/spread', uniqArgs);
+
+    // Return right ordered responses for each arg
+    return args.map(arg => data.find(({ groupName, symbol }) => (arg.group === groupName && arg.symbol === symbol)));
+  }
+
   /**
    * Get trading engine accounts
    *
@@ -20,12 +53,11 @@ class TradingEngineAPI extends RESTDataSource {
    * @return {Promise}
    */
   getAccount(accountUuid) {
-    return this.get(`/accounts/${accountUuid}`);
+    return accountUuid && this.accountsLoader.load(accountUuid);
   }
 
   /**
    * Get trading engine symbols
-   *
    *
    * @return {Promise}
    */
@@ -36,7 +68,6 @@ class TradingEngineAPI extends RESTDataSource {
   /**
    * Get trading engine groups
    *
-   *
    * @return {Promise}
    */
   getGroups() {
@@ -44,8 +75,18 @@ class TradingEngineAPI extends RESTDataSource {
   }
 
   /**
-   * Get trading engine history
+   * Get trading engine symbol by name
    *
+   * @param symbolName
+   *
+   * @return {Promise}
+   */
+  getSymbol(symbolName) {
+    return symbolName && this.symbolsLoader.load(symbolName);
+  }
+
+  /**
+   * Get trading engine history
    *
    * @return {Promise}
    */
@@ -56,7 +97,6 @@ class TradingEngineAPI extends RESTDataSource {
   /**
    * Get trading engine transactions
    *
-   *
    * @return {Promise}
    */
   getTransactions(args) {
@@ -66,7 +106,6 @@ class TradingEngineAPI extends RESTDataSource {
   /**
    * Get trading engine orders
    *
-   *
    * @return {Promise}
    */
   getOrders(args) {
@@ -75,7 +114,6 @@ class TradingEngineAPI extends RESTDataSource {
 
   /**
    * Get trading engine order
-   *
    *
    * @return {Promise}
    */
@@ -186,6 +224,18 @@ class TradingEngineAPI extends RESTDataSource {
    */
   getAccountStatistic(accountUuid) {
     return this.get(`/accounts/${accountUuid}/finances`);
+  }
+
+  /**
+   * Get spread for symbol for concrete group
+   *
+   * @param group
+   * @param symbol
+   *
+   * @return {*}
+   */
+  getGroupSpread(group, symbol) {
+    return this.groupsSpreadLoader.load({ group, symbol });
   }
 }
 
