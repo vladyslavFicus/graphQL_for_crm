@@ -57,6 +57,17 @@ class TradingEngineAPI extends RESTDataSource {
   }
 
   /**
+   * Get trading engine account by identifier
+   *
+   * @param identifier
+   *
+   * @return {Promise}
+   */
+  getAccountByIdentifier(identifier) {
+    return this.get(`/accounts/${identifier}`);
+  }
+
+  /**
    * Get trading engine symbols
    *
    * @return {Promise}
