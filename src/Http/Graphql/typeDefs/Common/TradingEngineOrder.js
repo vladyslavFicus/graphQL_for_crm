@@ -14,7 +14,7 @@ module.exports = gql`
   }
 
   type TradingEngineOrder {
-    id: ID
+    id: Int
     accountLogin: Int
     accountUuid: String
     account: TradingEngineAccount
@@ -43,5 +43,9 @@ module.exports = gql`
     type: TradingEngine__OperationTypes__Enum
     group: String
     groupSpread: TradingEngineGroupSpread
+    reason: String
+    openRate: Float
+    closeRate: Float
+    margin: Float
   }
 `;

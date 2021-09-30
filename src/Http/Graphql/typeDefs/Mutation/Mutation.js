@@ -24,5 +24,6 @@ module.exports = gql`
     tradingActivity: TradingActivityMutation @nested
     sms: SmsMutation @nested
     tradingEngine: TradingEngineMutation @nested
+    tradingEngineAdmin: TradingEngineAdminMutation @nested
   }
 `;

@@ -29,7 +29,7 @@ module.exports = gql`
     ): TradingEngineOrder
     
     editOrder(
-      orderId: String!
+      orderId: Int!
       openPrice: Float
       stopLoss: Float
       takeProfit: Float
@@ -37,13 +37,13 @@ module.exports = gql`
     ): Boolean
     
     closeOrder(
-      orderId: String!
+      orderId: Int!
       volume: Float
       closePrice: Float
     ): Boolean
     
     deleteOrder(
-      orderId: String!
+      orderId: Int!
     ): Boolean
   }
 `;

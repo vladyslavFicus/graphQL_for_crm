@@ -13,7 +13,7 @@ module.exports = gql`
     symbol: String
     openingDateRange: TradingEngineSearch__Time__Input
     closingDateRange: TradingEngineSearch__Time__Input
-    orderId: String
+    orderId: Int
     enabled: Boolean
     page: Page__Input
     orderStatuses: [String]
@@ -39,5 +39,22 @@ module.exports = gql`
     page: Page__Input
     openingDateRange: TradingEngineSearch__Time__Input
     closingDateRange: TradingEngineSearch__Time__Input
+  }
+  
+  input TradingEngineEditOrderAdmin__Input {
+    orderId: Int!
+    openPrice: Float
+    stopLoss: Float
+    takeProfit: Float
+    comment: String
+    type: String
+    symbol: String
+    reason: String
+    commission: Float
+    swaps: Float
+    volume: Float
+    closePrice: Float
+    openTime: String
+    closeTime: String
   }
 `;
