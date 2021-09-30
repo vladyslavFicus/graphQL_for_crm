@@ -9,6 +9,7 @@ module.exports = gql`
     showNotes: Boolean
     showSalesStatus: Boolean
     cumulativeDeposit: Boolean
+    showAutologinUrl: Boolean
     minFtdDeposit: Float
   }
 `;

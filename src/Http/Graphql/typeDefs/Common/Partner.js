@@ -24,6 +24,7 @@ module.exports = gql`
     showSalesStatus: Boolean
     showNotes: Boolean
     cumulativeDeposit: Boolean
+    showAutologinUrl: Boolean  
     minFtdDeposit: Float
   }
 
