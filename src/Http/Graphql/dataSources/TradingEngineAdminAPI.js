@@ -10,7 +10,7 @@ class TradingEngineAdminAPI extends RESTDataSource {
    * @return {Promise}
    */
   editOrder(orderId, args) {
-    return this.put(`/orders/${orderId}`, args);
+    return this.put(`/admin/orders/${orderId}`, args);
   }
 
   /**
@@ -21,7 +21,7 @@ class TradingEngineAdminAPI extends RESTDataSource {
    * @return {Promise}
    */
   reopenOrder(orderId) {
-    return this.put(`/orders/${orderId}/reopen`);
+    return this.put(`/admin/orders/${orderId}/reopen`);
   }
 }
 

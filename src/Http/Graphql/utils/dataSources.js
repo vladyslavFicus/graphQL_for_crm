@@ -64,5 +64,5 @@ module.exports = () => ({
   DistributionRuleAPI: new DistributionRuleAPI({ baseUrl: getBaseUrl('clients-distributor') }),
   AnalyticsAPI: new AnalyticsAPI({ baseUrl: getBaseUrl('analytics-api') }),
   TradingEngineAPI: new TradingEngineAPI({ baseUrl: getBaseUrl('we-trading') }),
-  TradingEngineAdminAPI: new TradingEngineAdminAPI({ baseUrl: getBaseUrl('we-trading/admin') }),
+  TradingEngineAdminAPI: new TradingEngineAdminAPI({ baseUrl: getBaseUrl('we-trading') }),
 });
