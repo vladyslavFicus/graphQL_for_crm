@@ -47,5 +47,6 @@ module.exports = gql`
     openRate: Float
     closeRate: Float
     margin: Float
+    leverage: Int
   }
 `;
