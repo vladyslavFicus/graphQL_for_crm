@@ -45,5 +45,12 @@ module.exports = gql`
     deleteOrder(
       orderId: Int!
     ): Boolean
+    
+    changeAccountSettings(
+      accountUuid: String!
+      group: String
+      readOnly: Boolean
+      leverage: Int
+    ): TradingEngineAccount
   }
 `;
