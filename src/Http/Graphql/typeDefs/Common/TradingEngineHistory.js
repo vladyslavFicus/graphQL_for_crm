@@ -2,7 +2,7 @@ const { gql } = require('apollo-server-express');
 
 module.exports = gql`  
   type TradingEngineHistory {
-    id: ID
+    id: Int
     accountLogin: Int
     type: String
     closingTime: String
