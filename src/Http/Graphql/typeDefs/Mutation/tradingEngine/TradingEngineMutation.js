@@ -46,7 +46,7 @@ module.exports = gql`
       orderId: Int!
     ): Boolean
     
-    changeAccountSettings(
+    updateAccount(
       accountUuid: String!
       group: String
       readOnly: Boolean

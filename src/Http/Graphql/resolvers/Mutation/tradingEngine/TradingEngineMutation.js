@@ -78,7 +78,7 @@ module.exports = {
   },
 
   /**
-   * Change account settings
+   * Update account
    *
    * @param _
    * @param accountUuid
@@ -87,7 +87,7 @@ module.exports = {
    *
    * @return {Promise}
    */
-  changeAccountSettings(_, { accountUuid, ...rest }, { dataSources }) {
-    return dataSources.TradingEngineAPI.changeAccountSettings(accountUuid, rest);
+  updateAccount(_, { accountUuid, ...rest }, { dataSources }) {
+    return dataSources.TradingEngineAPI.updateAccount(accountUuid, rest);
   },
 };

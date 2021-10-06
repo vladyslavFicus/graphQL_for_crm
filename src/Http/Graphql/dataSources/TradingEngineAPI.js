@@ -250,14 +250,14 @@ class TradingEngineAPI extends RESTDataSource {
   }
 
   /**
-   * Change account settings
+   * Update account
    *
    * @param args
    * @param accountUuid
    *
    * @return {Promise}
    */
-  changeAccountSettings(accountUuid, args) {
+  updateAccount(accountUuid, args) {
     return this.put(`/accounts/${accountUuid}`, args);
   }
 }
