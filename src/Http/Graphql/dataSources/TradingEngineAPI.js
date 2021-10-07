@@ -248,6 +248,18 @@ class TradingEngineAPI extends RESTDataSource {
   getGroupSpread(group, symbol) {
     return this.groupsSpreadLoader.load({ group, symbol });
   }
+
+  /**
+   * Update account
+   *
+   * @param args
+   * @param accountUuid
+   *
+   * @return {Promise}
+   */
+  updateAccount(accountUuid, args) {
+    return this.put(`/accounts/${accountUuid}`, args);
+  }
 }
 
 module.exports = TradingEngineAPI;

@@ -76,4 +76,18 @@ module.exports = {
   async deleteOrder(_, args, { dataSources }) {
     await dataSources.TradingEngineAPI.deleteOrder(args.orderId);
   },
+
+  /**
+   * Update account
+   *
+   * @param _
+   * @param accountUuid
+   * @param rest
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  updateAccount(_, { accountUuid, ...rest }, { dataSources }) {
+    return dataSources.TradingEngineAPI.updateAccount(accountUuid, rest);
+  },
 };

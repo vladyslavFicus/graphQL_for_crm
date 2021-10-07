@@ -2,6 +2,7 @@ const { gql } = require('apollo-server-express');
 
 module.exports = gql`  
   type TradingEngineAccount {
+    _id: ID!
     uuid: String!
     profileUuid: String
     profileFullName: String
