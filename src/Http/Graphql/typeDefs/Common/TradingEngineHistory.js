@@ -2,7 +2,7 @@ const { gql } = require('apollo-server-express');
 
 module.exports = gql`  
   type TradingEngineHistory {
-    id: ID
+    id: Int
     accountLogin: Int
     type: String
     closingTime: String
@@ -17,9 +17,5 @@ module.exports = gql`
     takeProfit: Float
     swaps: Float
     status: String
-    group: String
-    commission: Float
-    comment: String
-    leverage: Int
   }
 `;
