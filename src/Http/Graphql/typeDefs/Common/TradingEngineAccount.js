@@ -21,5 +21,6 @@ module.exports = gql`
     comment: String
     currency: String
     registrationDate: String
+    allowedSymbols: [TradingEngineAccountSymbol]
   }
 `;
