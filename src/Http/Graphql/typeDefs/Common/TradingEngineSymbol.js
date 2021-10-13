@@ -6,6 +6,7 @@ module.exports = gql`
     bid: Float
     ask: Float
     lotSize: Float
+    groupSpread(group: String, identifier: String): TradingEngineGroupSpread
     
     # Next fields not implemented yet    
     securities: String
