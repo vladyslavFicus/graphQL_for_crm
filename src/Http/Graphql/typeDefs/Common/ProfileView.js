@@ -4,12 +4,20 @@ module.exports = gql`
   type ProfileView__Address {
     countryCode: String
   }
+  
+  type ProfileView__Affiliate__FTD {
+    time: String
+    amount: Float
+    currency: String
+    isVisible: Boolean
+  }
 
   type ProfileView__Affiliate {
     uuid: String @auth_hide_field(action: "profile.affiliate.field.uuid")
     campaignId: String @auth_hide_field(action: "profile.affiliate.field.campaignId")
     partner: Partner @auth_hide_field(action: "profile.affiliate.field.uuid")
     source: String @auth_hide_field(action: "profile.affiliate.field.source")
+    ftd: ProfileView__Affiliate__FTD
   }
 
   type ProfileView__Referrer {
@@ -34,7 +42,6 @@ module.exports = gql`
   type ProfileView__PaymentDetails {
     depositsCount: Int
     lastDepositTime: String
-    showFtdToAffiliate: Boolean
   }
 
   type ProfileView__RegistrationDetails {
