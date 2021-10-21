@@ -12,6 +12,7 @@ module.exports = gql`
   type DistributionRule__BrandConfig {
     uuid: String
     brand: String
+    affiliateUuids: [String]
     sortType: String
     migrationSource: String
     operator: String
@@ -55,7 +56,6 @@ module.exports = gql`
     latestMigration: DistributionRule__LatestMigration
     sourceBrandConfigs: [DistributionRule__BrandConfig]
     targetBrandConfigs: [DistributionRule__BrandConfig]
-    affiliateUuids: [String]
     firstTimeDeposit: Boolean
   }
 `;

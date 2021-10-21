@@ -8,6 +8,7 @@ module.exports = gql`
 
   input DistributionRuleUpdate__SourceBrand__Input {
     brand: String
+    affiliateUuids: [String]
     distributionUnit: DistributionRuleUpdate__Unit__Input
     sortType: String
     desks: [String]
@@ -42,7 +43,6 @@ module.exports = gql`
     executionType: String
     sourceBrandConfig: DistributionRuleUpdate__SourceBrand__Input
     targetBrandConfig: DistributionRuleUpdate__TargetBrand__Input
-    affiliateUuids: [String]
     firstTimeDeposit: Boolean
   }
 `;
