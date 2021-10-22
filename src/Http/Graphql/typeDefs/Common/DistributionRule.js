@@ -9,9 +9,10 @@ module.exports = gql`
     ruleUuid: String
   }
 
-  type DistributionRule__BrandConfig {
+  type DistributionRule__SourceBrandConfig {
     uuid: String
     brand: String
+    affiliateUuids: [String]
     sortType: String
     migrationSource: String
     operator: String
@@ -20,6 +21,19 @@ module.exports = gql`
     distributionUnit: DistributionRule__DistributionUnit
     desks: [String]
     teams: [String]
+  }
+
+  type DistributionRule__TargetBrandConfig {
+      uuid: String
+      brand: String
+      sortType: String
+      migrationSource: String
+      operator: String
+      operatorEntity: Operator
+      country: String
+      distributionUnit: DistributionRule__DistributionUnit
+      desks: [String]
+      teams: [String]
   }
 
   type DistributionRule__DistributionUnit {
@@ -53,9 +67,8 @@ module.exports = gql`
     executionType: String
     executionPeriodInHours: Int
     latestMigration: DistributionRule__LatestMigration
-    sourceBrandConfigs: [DistributionRule__BrandConfig]
-    targetBrandConfigs: [DistributionRule__BrandConfig]
-    affiliateUuids: [String]
+    sourceBrandConfigs: [DistributionRule__SourceBrandConfig]
+    targetBrandConfigs: [DistributionRule__TargetBrandConfig]
     firstTimeDeposit: Boolean
   }
 `;
