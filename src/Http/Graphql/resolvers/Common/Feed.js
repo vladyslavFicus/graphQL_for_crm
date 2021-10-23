@@ -1,4 +1,4 @@
-const { set } = require('lodash');
+const { get, set } = require('lodash');
 const maskText = require('../../../../utils/maskText');
 
 module.exports = {
@@ -63,9 +63,9 @@ module.exports = {
         set(parsedDetails, 'contacts.phone.to', maskText(contacts.phone.to, true));
       }
 
-      if (contacts.additionalPhone && contacts.additionalPhone.value) {
+      if (get(contacts, 'additionalPhone.value', null) !== null) {
         set(parsedDetails, 'contacts.additionalPhone.value', maskText(contacts.additionalPhone.value, true));
-      } else if (contacts.additionalPhone && contacts.additionalPhone.from) {
+      } else if (get(contacts, 'additionalPhone.from', null) !== null) {
         set(parsedDetails, 'contacts.additionalPhone.from', maskText(contacts.additionalPhone.from, true));
         set(parsedDetails, 'contacts.additionalPhone.to', maskText(contacts.additionalPhone.to, true));
       }
