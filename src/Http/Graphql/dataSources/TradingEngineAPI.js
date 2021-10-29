@@ -97,6 +97,17 @@ class TradingEngineAPI extends RESTDataSource {
   }
 
   /**
+   * Search symbols
+   *
+   * @param args
+   *
+   * @return {Promise}
+   */
+  symbolsSearch(args) {
+    return this.post('/symbols/search', args);
+  }
+
+  /**
    * Get trading engine history
    *
    * @return {Promise}
