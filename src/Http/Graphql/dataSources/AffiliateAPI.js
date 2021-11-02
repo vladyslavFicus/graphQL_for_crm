@@ -22,7 +22,7 @@ class AffiliateAPI extends RESTDataSource {
    *
    * @return {Promise}
    */
-  async getPartners(args) {
+  getPartners(args) {
     return this.post('/affiliates/search', args);
   }
 
