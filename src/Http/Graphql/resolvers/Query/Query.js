@@ -416,6 +416,49 @@ module.exports = {
   },
 
   /**
+   * Trading Engine API
+   */
+  tradingEngineAccounts(_, { args }, { dataSources }) { // eslint-disable-line
+    // Drop undefined and nullable values from object (because BE service throw Error if null will be sent)
+    const params = omitBy(args, isNil); // eslint-disable-line
+
+    return dataSources.TradingEngineAPI.getAccounts(params);
+  },
+  tradingEngineAccount(_, { identifier }, { dataSources }) {
+    return dataSources.TradingEngineAPI.getAccountByIdentifier(identifier);
+  },
+  tradingEngineOrders(_, { args }, { dataSources }) {
+    return dataSources.TradingEngineAPI.getOrders(args);
+  },
+  tradingEngineOrder(_, { orderId }, { dataSources }) {
+    return dataSources.TradingEngineAPI.getOrder(orderId);
+  },
+  tradingEngineSymbols(_, __, { dataSources }) {
+    return dataSources.TradingEngineAPI.getSymbols();
+  },
+  tradingEngineSymbol(_, { symbol }, { dataSources }) {
+    return dataSources.TradingEngineAPI.getSymbol(symbol);
+  },
+  tradingEngineGroups(_, __, { dataSources }) {
+    return dataSources.TradingEngineAPI.getGroups();
+  },
+  tradingEngineTransactions(_, { args }, { dataSources }) {
+    return dataSources.TradingEngineAPI.getTransactions(args);
+  },
+  tradingEngineHistory(_, { args }, { dataSources }) {
+    return dataSources.TradingEngineAPI.getHistory(args);
+  },
+  tradingEngineSymbolPrices(_, { symbol, ...args }, { dataSources }) {
+    return dataSources.TradingEngineAPI.getSymbolPrices(symbol, args);
+  },
+  tradingEngineAccountSymbols(_, { accountUuid }, { dataSources }) {
+    return dataSources.TradingEngineAPI.getAllowedAccountSymbols(accountUuid);
+  },
+  tradingEngineAccountStatistic(_, { accountUuid }, { dataSources }) {
+    return dataSources.TradingEngineAPI.getAccountStatistic(accountUuid);
+  },
+
+  /**
    * TradingActivity API
    */
   tradingActivity(_, args, { dataSources }) {

@@ -29,6 +29,8 @@ const {
   ReferralAPI,
   DistributionRuleAPI,
   AnalyticsAPI,
+  TradingEngineAPI,
+  TradingEngineAdminAPI,
 } = require('../dataSources');
 
 module.exports = () => ({
@@ -61,4 +63,6 @@ module.exports = () => ({
   ReferralAPI: new ReferralAPI({ baseUrl: getBaseUrl('referral') }),
   DistributionRuleAPI: new DistributionRuleAPI({ baseUrl: getBaseUrl('clients-distributor') }),
   AnalyticsAPI: new AnalyticsAPI({ baseUrl: getBaseUrl('analytics-api') }),
+  TradingEngineAPI: new TradingEngineAPI({ baseUrl: getBaseUrl('we-trading') }),
+  TradingEngineAdminAPI: new TradingEngineAdminAPI({ baseUrl: getBaseUrl('we-trading') }),
 });

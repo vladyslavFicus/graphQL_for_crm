@@ -217,6 +217,20 @@ module.exports = gql`
       accountType: String
       platformType: String
     ): [TradingAccount]
+    
+    # TradingEngine API
+    tradingEngineAccounts(args: TradingEngineSearch__Input): TradingEngineAccount @pageable
+    tradingEngineAccount(identifier: String): TradingEngineAccount
+    tradingEngineSymbols: [TradingEngineSymbol]
+    tradingEngineSymbol(symbol: String!): TradingEngineSymbol
+    tradingEngineGroups: [TradingEngineGroup]
+    tradingEngineOrders(args: TradingEngineSearch__Input): TradingEngineOrder @pageable
+    tradingEngineOrder(orderId: Int!): TradingEngineOrder
+    tradingEngineTransactions(args: TradingEngineTransactionSearch__Input): TradingEngineTransaction @pageable
+    tradingEngineHistory(args: TradingEngineHistorySearch__Input): TradingEngineHistory @pageable
+    tradingEngineSymbolPrices(symbol: String! size: Int): [TradingEngineSymbolPrice]
+    tradingEngineAccountSymbols(accountUuid: String!): [TradingEngineAccountSymbol]
+    tradingEngineAccountStatistic(accountUuid: String!): TradingEngineAccountStatistic
 
     # TradingActivity API
     tradingActivity(
