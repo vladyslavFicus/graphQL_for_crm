@@ -14,7 +14,6 @@ module.exports = gql`
     brand: String
     affiliateUuids: [String]
     sortType: String
-    migrationSource: String
     operator: String
     operatorEntity: Operator
     country: String
@@ -27,7 +26,8 @@ module.exports = gql`
       uuid: String
       brand: String
       sortType: String
-      migrationSource: String
+      copyAffiliateSource: Boolean
+      affiliateUuid: String
       operator: String
       operatorEntity: Operator
       country: String
