@@ -5,6 +5,7 @@ module.exports = gql`
     # Affiliate API
     partner(uuid: String!): Partner
     partners(
+      brandId: String
       page: Page__Input
       searchBy: String
       country: String
