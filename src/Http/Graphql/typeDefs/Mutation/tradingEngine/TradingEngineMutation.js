@@ -25,7 +25,6 @@ module.exports = gql`
       stopLoss: Float
       takeProfit: Float
       comment: String
-      pendingOrder: Boolean!
     ): TradingEngineOrder
     
     editOrder(
