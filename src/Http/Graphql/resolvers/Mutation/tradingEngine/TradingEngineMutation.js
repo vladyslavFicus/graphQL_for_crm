@@ -78,6 +78,19 @@ module.exports = {
   },
 
   /**
+   * Activate Pending Order
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async activatePendingOrder(_, args, { dataSources }) {
+    await dataSources.TradingEngineAPI.activatePendingOrder(args.orderId, args);
+  },
+
+  /**
    * Update account
    *
    * @param _
