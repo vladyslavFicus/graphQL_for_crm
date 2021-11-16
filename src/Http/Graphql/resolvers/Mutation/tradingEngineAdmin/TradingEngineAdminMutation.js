@@ -35,7 +35,7 @@ module.exports = {
    *
    * @return {Promise}
    */
-  async createSecurities(_, args, { dataSources }) {
-    await dataSources.TradingEngineAdminAPI.createSecurities(args);
+  async createSecurity(_, args, { dataSources }) {
+    await dataSources.TradingEngineAdminAPI.createSecurity(args);
   },
 };

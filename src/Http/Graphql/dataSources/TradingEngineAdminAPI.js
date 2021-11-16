@@ -38,7 +38,7 @@ class TradingEngineAdminAPI extends RESTDataSource {
    *
    * @return {Promise}
    */
-  createSecurities(args) {
+  createSecurity(args) {
     return this.post('/admin/securities', args);
   }
 }
