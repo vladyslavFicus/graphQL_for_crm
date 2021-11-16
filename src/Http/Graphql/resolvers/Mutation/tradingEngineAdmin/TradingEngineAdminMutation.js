@@ -25,4 +25,17 @@ module.exports = {
   async reopenOrder(_, args, { dataSources }) {
     await dataSources.TradingEngineAdminAPI.reopenOrder(args.orderId);
   },
+
+  /**
+   * Create Securities
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async createSecurities(_, args, { dataSources }) {
+    await dataSources.TradingEngineAdminAPI.createSecurities(args);
+  },
 };
