@@ -180,6 +180,18 @@ class TradingEngineAPI extends RESTDataSource {
   }
 
   /**
+   * Activate Pending Order
+   *
+   * @param args
+   * @param orderId
+   *
+   * @return {Promise}
+   */
+  activatePendingOrder(orderId, args) {
+    return this.post(`/orders/${orderId}/activate`, args);
+  }
+
+  /**
    * Create creditIn
    *
    * @param args

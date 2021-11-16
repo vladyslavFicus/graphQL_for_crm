@@ -44,6 +44,11 @@ module.exports = gql`
     deleteOrder(
       orderId: Int!
     ): Boolean
+
+    activatePendingOrder(
+      orderId: Int!
+      activationPrice: Float!
+    ): Boolean
     
     updateAccount(
       accountUuid: String!
