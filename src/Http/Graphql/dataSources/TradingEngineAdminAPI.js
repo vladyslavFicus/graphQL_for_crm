@@ -34,7 +34,7 @@ class TradingEngineAdminAPI extends RESTDataSource {
   }
 
   /**
-   * Create Securities
+   * Create Security
    *
    * @return {Promise}
    */

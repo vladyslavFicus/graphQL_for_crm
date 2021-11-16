@@ -27,7 +27,7 @@ module.exports = {
   },
 
   /**
-   * Create Securities
+   * Create Security
    *
    * @param _
    * @param args
