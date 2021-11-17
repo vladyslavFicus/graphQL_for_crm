@@ -41,6 +41,29 @@ class TradingEngineAdminAPI extends RESTDataSource {
   createSecurity(args) {
     return this.post('/admin/securities', args);
   }
+
+  /**
+   * Create Security
+   *
+   * @param securityName
+   * @param args
+   *
+   * @return {Promise}
+   */
+  editSecurity(securityName, args) {
+    return this.put(`/admin/securities/${securityName}`, args);
+  }
+
+  /**
+   * Get trading engine security by name
+   *
+   * @param securityName
+   *
+   * @return {Promise}
+   */
+  getSecurity(securityName) {
+    return this.get(`/admin/securities/${securityName}`);
+  }
 }
 
 module.exports = TradingEngineAdminAPI;

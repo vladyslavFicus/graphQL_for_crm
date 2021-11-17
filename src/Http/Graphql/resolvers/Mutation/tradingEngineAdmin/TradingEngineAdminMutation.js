@@ -38,4 +38,17 @@ module.exports = {
   async createSecurity(_, args, { dataSources }) {
     await dataSources.TradingEngineAdminAPI.createSecurity(args);
   },
+
+  /**
+   * Edit Security
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async editSecurity(_, { securityName, ...rest }, { dataSources }) {
+    await dataSources.TradingEngineAdminAPI.editSecurity(securityName, rest);
+  },
 };
