@@ -32,6 +32,10 @@ module.exports = gql`
       accountUUID: String!
       readOnly: Boolean!
     ): Boolean
+      
+    unarchive(
+      uuid: String!
+    ): Boolean
 
     approveChangingLeverage(accountUUID: String!): Boolean
     rejectChangingLeverage(accountUUID: String!): Boolean

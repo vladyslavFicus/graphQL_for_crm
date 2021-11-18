@@ -47,6 +47,18 @@ module.exports = {
   },
 
   /**
+   * Unarchive trading account
+   *
+   * @param _
+   * @param args
+   *
+   * @return {Promise<Boolean|*>}
+   */
+  async unarchive(_, { uuid }, { dataSources }) {
+    await dataSources.TradingAccountAPI.unarchiveTradingAccount(uuid);
+  },
+
+  /**
    * Change trading account's password
    *
    * @param _

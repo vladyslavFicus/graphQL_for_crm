@@ -50,6 +50,17 @@ class TradingAccountAPI extends RESTDataSource {
   }
 
   /**
+   * Unarchive trading account
+   *
+   * @param uuid | accountUuid
+   *
+   * @return {Promise}
+   */
+  unarchiveTradingAccount(uuid) {
+    return this.put(`/account/${uuid}/unarchive`);
+  }
+
+  /**
    * Change trading account's password
    *
    * @param uuid | accountUuid
