@@ -91,7 +91,7 @@ module.exports = {
   },
 
   /**
-   * Update account
+   * Update account group
    *
    * @param _
    * @param accountUuid
@@ -100,7 +100,35 @@ module.exports = {
    *
    * @return {Promise}
    */
-  updateAccount(_, { accountUuid, ...rest }, { dataSources }) {
-    return dataSources.TradingEngineAPI.updateAccount(accountUuid, rest);
+  updateAccountGroup(_, { accountUuid, ...rest }, { dataSources }) {
+    return dataSources.TradingEngineAPI.updateAccountGroup(accountUuid, rest);
+  },
+
+  /**
+   * Update account leverage
+   *
+   * @param _
+   * @param accountUuid
+   * @param rest
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  updateAccountLeverage(_, { accountUuid, ...rest }, { dataSources }) {
+    return dataSources.TradingEngineAPI.updateAccountLeverage(accountUuid, rest);
+  },
+
+  /**
+   * Update account readonly
+   *
+   * @param _
+   * @param accountUuid
+   * @param rest
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  updateAccountReadonly(_, { accountUuid, ...rest }, { dataSources }) {
+    return dataSources.TradingEngineAPI.updateAccountReadonly(accountUuid, rest);
   },
 };

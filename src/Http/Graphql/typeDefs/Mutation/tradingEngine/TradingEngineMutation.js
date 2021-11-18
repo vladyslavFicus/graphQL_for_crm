@@ -20,7 +20,6 @@ module.exports = gql`
       volumeLots: Float!
       type: String!
       direction: String!
-      autoOpenPrice: Boolean!
       openPrice: Float
       stopLoss: Float
       takeProfit: Float
@@ -50,11 +49,19 @@ module.exports = gql`
       activationPrice: Float!
     ): Boolean
     
-    updateAccount(
+    updateAccountGroup(
       accountUuid: String!
       group: String
-      readOnly: Boolean
+    ): TradingEngineAccount
+
+    updateAccountLeverage(
+      accountUuid: String!
       leverage: Int
+    ): TradingEngineAccount
+
+    updateAccountReadonly(
+      accountUuid: String!
+      readOnly: Boolean
     ): TradingEngineAccount
   }
 `;
