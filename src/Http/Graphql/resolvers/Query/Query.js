@@ -433,14 +433,11 @@ module.exports = {
   tradingEngineOrder(_, { orderId }, { dataSources }) {
     return dataSources.TradingEngineAPI.getOrder(orderId);
   },
-  tradingEngineSymbols(_, __, { dataSources }) {
-    return dataSources.TradingEngineAPI.getSymbols();
+  tradingEngineSymbols(_, { args }, { dataSources }) {
+    return dataSources.TradingEngineAPI.getSymbols(args || {});
   },
   tradingEngineSymbol(_, { symbol }, { dataSources }) {
     return dataSources.TradingEngineAPI.getSymbol(symbol);
-  },
-  tradingEngineSymbolsSearch(_, { args }, { dataSources }) {
-    return dataSources.TradingEngineAPI.symbolsSearch(args);
   },
   tradingEngineGroups(_, __, { dataSources }) {
     return dataSources.TradingEngineAPI.getGroups();

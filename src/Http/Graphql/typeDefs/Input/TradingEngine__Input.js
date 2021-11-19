@@ -58,7 +58,7 @@ module.exports = gql`
     closeTime: String
   }
   
-  input TradingEngineSymbolsSearch__Input {
+  input TradingEngineSymbols__Input {
     symbolNames: [String]
     page: Page__Input
   }

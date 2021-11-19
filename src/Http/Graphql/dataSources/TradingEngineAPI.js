@@ -70,10 +70,12 @@ class TradingEngineAPI extends RESTDataSource {
   /**
    * Get trading engine symbols
    *
+   * @param args
+   *
    * @return {Promise}
    */
-  getSymbols() {
-    return this.get('/symbols/price');
+  getSymbols(args) {
+    return this.post('/symbols/search', args);
   }
 
   /**
@@ -94,17 +96,6 @@ class TradingEngineAPI extends RESTDataSource {
    */
   getSymbol(symbolName) {
     return symbolName && this.symbolsLoader.load(symbolName);
-  }
-
-  /**
-   * Search symbols
-   *
-   * @param args
-   *
-   * @return {Promise}
-   */
-  symbolsSearch(args) {
-    return this.post('/symbols/search', args);
   }
 
   /**
