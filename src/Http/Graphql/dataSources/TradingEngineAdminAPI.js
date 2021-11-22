@@ -23,6 +23,24 @@ class TradingEngineAdminAPI extends RESTDataSource {
   reopenOrder(orderId) {
     return this.put(`/admin/orders/${orderId}/reopen`);
   }
+
+  /**
+   * Get trading engine securities
+   *
+   * @return {Promise}
+   */
+  getSecurities() {
+    return this.get('/admin/securities');
+  }
+
+  /**
+   * Create Security
+   *
+   * @return {Promise}
+   */
+  createSecurity(args) {
+    return this.post('/admin/securities', args);
+  }
 }
 
 module.exports = TradingEngineAdminAPI;

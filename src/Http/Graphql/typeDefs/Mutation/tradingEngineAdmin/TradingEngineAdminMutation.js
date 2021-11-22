@@ -7,5 +7,9 @@ module.exports = gql`
     ): Boolean
     
     editOrder(args: TradingEngineEditOrderAdmin__Input): Boolean
+    createSecurity(
+      name: String!
+      description: String
+    ): Boolean
   }
 `;
