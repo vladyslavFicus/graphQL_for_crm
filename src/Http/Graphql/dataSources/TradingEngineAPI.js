@@ -262,15 +262,39 @@ class TradingEngineAPI extends RESTDataSource {
   }
 
   /**
-   * Update account
+   * Update account group
    *
    * @param args
    * @param accountUuid
    *
    * @return {Promise}
    */
-  updateAccount(accountUuid, args) {
-    return this.put(`/accounts/${accountUuid}`, args);
+  updateAccountGroup(accountUuid, args) {
+    return this.put(`/accounts/${accountUuid}/group`, args);
+  }
+
+  /**
+   * Update account leverage
+   *
+   * @param args
+   * @param accountUuid
+   *
+   * @return {Promise}
+   */
+  updateAccountLeverage(accountUuid, args) {
+    return this.put(`/accounts/${accountUuid}/leverage`, args);
+  }
+
+  /**
+   * Update account readonly
+   *
+   * @param args
+   * @param accountUuid
+   *
+   * @return {Promise}
+   */
+  updateAccountReadonly(accountUuid, args) {
+    return this.put(`/accounts/${accountUuid}/readonly`, args);
   }
 }
 
