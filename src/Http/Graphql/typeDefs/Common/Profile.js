@@ -49,16 +49,16 @@ module.exports = gql`
   }
 
   type Profile__Contacts {
-      additionalEmail: String @auth_mask_field(action: "profile.field.additionalEmail")
+      additionalEmail: String @mask_field
       additionalPhone: String @mask_field
-      email: String @auth_mask_field(action: "profile.field.email")
+      email: String @mask_field
       phone: String @mask_field
   }
 
   type Profile__Phone__Contacts {
-    additionalEmail: String @auth_mask_field(action: "profile.field.additionalEmail")
+    additionalEmail: String @auth_mask_field(action: "profile.field.additionalEmail", maskAll: true)
     additionalPhone: String @auth_mask_field(action: "profile.field.additionalPhone", maskAll : true)
-    email: String @auth_mask_field(action: "profile.field.email")
+    email: String @auth_mask_field(action: "profile.field.email", maskAll: true)
     phone: String @auth_mask_field(action: "profile.field.phone", maskAll: true)
   }
 

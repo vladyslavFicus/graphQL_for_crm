@@ -25,7 +25,6 @@ module.exports = gql`
       stopLoss: Float
       takeProfit: Float
       comment: String
-      pendingOrder: Boolean!
     ): TradingEngineOrder
     
     editOrder(
@@ -44,6 +43,11 @@ module.exports = gql`
     
     deleteOrder(
       orderId: Int!
+    ): Boolean
+
+    activatePendingOrder(
+      orderId: Int!
+      activationPrice: Float!
     ): Boolean
     
     updateAccount(

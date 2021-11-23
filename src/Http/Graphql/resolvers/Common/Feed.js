@@ -48,6 +48,14 @@ module.exports = {
         set(parsedDetails, 'contacts.additionalPhone', maskText(contacts.additionalPhone, true));
       }
 
+      if (contacts.additionalEmail) {
+        set(parsedDetails, 'contacts.additionalEmail', maskText(contacts.additionalEmail, true));
+      }
+
+      if (contacts.email) {
+        set(parsedDetails, 'contacts.email', maskText(contacts.email, true));
+      }
+
       return JSON.stringify(parsedDetails);
     }
     if (details && type === 'PLAYER_PROFILE_CHANGED') {
@@ -63,11 +71,23 @@ module.exports = {
         set(parsedDetails, 'contacts.phone.to', maskText(contacts.phone.to, true));
       }
 
+      if (contacts.email) {
+        set(parsedDetails, 'contacts.email.from', maskText(contacts.email.from, true));
+        set(parsedDetails, 'contacts.email.to', maskText(contacts.email.to, true));
+      }
+
       if (get(contacts, 'additionalPhone.value', null) !== null) {
         set(parsedDetails, 'contacts.additionalPhone.value', maskText(contacts.additionalPhone.value, true));
       } else if (get(contacts, 'additionalPhone.from', null) !== null) {
         set(parsedDetails, 'contacts.additionalPhone.from', maskText(contacts.additionalPhone.from, true));
         set(parsedDetails, 'contacts.additionalPhone.to', maskText(contacts.additionalPhone.to, true));
+      }
+
+      if (get(contacts, 'additionalEmail.value', null) !== null) {
+        set(parsedDetails, 'contacts.additionalEmail.value', maskText(contacts.additionalEmail.value, true));
+      } else if (get(contacts, 'additionalEmail.from', null) !== null) {
+        set(parsedDetails, 'contacts.additionalEmail.from', maskText(contacts.additionalEmail.from, true));
+        set(parsedDetails, 'contacts.additionalEmail.to', maskText(contacts.additionalEmail.to, true));
       }
 
       return JSON.stringify(parsedDetails);
