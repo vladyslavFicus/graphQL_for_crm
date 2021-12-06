@@ -57,4 +57,54 @@ module.exports = gql`
     openTime: String
     closeTime: String
   }
+  
+  input TradingEngineCreateSymbolAdmin__Filtration__Input {
+    filterSmoothing: Int!
+    discardFiltrationLevel: Int!
+    softFilter: Int!
+    softFiltrationLevel: Int!
+    hardFilter: Int!
+    hardFiltrationLevel: Int!
+  }
+  
+  input TradingEngineCreateSymbolAdmin__SwapsConfigs__Input {
+    enable: Boolean!
+    type: TradingEngine__SwapTypes__Enum
+    long: Int!
+    short: Int!
+    rollover: String!
+  }
+  
+  input TradingEngineCreateSymbolAdmin__SymbolSessionsTime__Input {
+    openTime: String
+    closeTime: String
+  }
+  
+  input TradingEngineCreateSymbolAdmin__SymbolSessions__Input {
+    dayOfWeek: String
+    quote: TradingEngineCreateSymbolAdmin__SymbolSessionsTime__Input
+    trade: TradingEngineCreateSymbolAdmin__SymbolSessionsTime__Input
+  }
+  
+  input TradingEngineCreateSymbolAdmin__Input {
+    symbol: String!
+    source: String!
+    digits: Int!
+    description: String!
+    securityName: String!
+    bidSpread: Int!
+    askSpread: Int!
+    stopsLevel: Int!
+    lotSize: Int!
+    percentage: Int!
+    baseCurrency: String
+    quoteCurrency: String!
+    isTest: Boolean
+    marginMode: String!
+    symbolType: TradingEngine__SymbolTypes__Enum!
+    filtration: TradingEngineCreateSymbolAdmin__Filtration__Input!
+    swapConfigs: TradingEngineCreateSymbolAdmin__SwapsConfigs__Input!
+    background_color: String!
+    symbolSessions: [TradingEngineCreateSymbolAdmin__SymbolSessions__Input]!
+  }
 `;

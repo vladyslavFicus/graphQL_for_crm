@@ -43,7 +43,7 @@ class TradingEngineAdminAPI extends RESTDataSource {
   }
 
   /**
-   * Create Security
+   * Edit Security
    *
    * @param securityName
    * @param args
@@ -63,6 +63,18 @@ class TradingEngineAdminAPI extends RESTDataSource {
    */
   getSecurity(securityName) {
     return this.get(`/admin/securities/${securityName}`);
+  }
+
+  /**
+   * Create Symbol
+   *
+   * @param args
+   *
+   * @return {Promise}
+   */
+  createSymbol(args) {
+    console.log('---GOOOODDDD-----', args);
+    return this.post('/admin/symbols', args);
   }
 }
 

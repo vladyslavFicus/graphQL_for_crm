@@ -51,4 +51,18 @@ module.exports = {
   async editSecurity(_, { securityName, ...rest }, { dataSources }) {
     await dataSources.TradingEngineAdminAPI.editSecurity(securityName, rest);
   },
+
+  /**
+   * Create Symbol
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async createSymbol(_, args, { dataSources }) {
+    console.log('rr-r-r-r-r-r-', args);
+    await dataSources.TradingEngineAdminAPI.createSymbol(args);
+  },
 };
