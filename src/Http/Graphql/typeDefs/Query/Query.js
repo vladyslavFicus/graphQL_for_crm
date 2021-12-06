@@ -234,6 +234,7 @@ module.exports = gql`
     tradingEngineSymbolPrices(symbol: String! size: Int): [TradingEngineSymbolPrice]
     tradingEngineAccountSymbols(accountUuid: String!): [TradingEngineAccountSymbol]
     tradingEngineAccountStatistic(accountUuid: String!): TradingEngineAccountStatistic
+    tradingEngineGroupsList(args: TradingEngineSearch__Input): TradingEngineGroupsList @pageable
 
     # TradingActivity API
     tradingActivity(

@@ -463,6 +463,9 @@ module.exports = {
   tradingEngineAccountStatistic(_, { accountUuid }, { dataSources }) {
     return dataSources.TradingEngineAPI.getAccountStatistic(accountUuid);
   },
+  tradingEngineGroupsList(_, { args }, { dataSources }) {
+    return dataSources.TradingEngineAdminAPI.getGroupsList(args);
+  },
 
   /**
    * TradingActivity API
