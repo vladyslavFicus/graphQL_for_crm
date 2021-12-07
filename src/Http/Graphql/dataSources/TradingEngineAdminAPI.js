@@ -73,7 +73,6 @@ class TradingEngineAdminAPI extends RESTDataSource {
    * @return {Promise}
    */
   createSymbol(args) {
-    console.log('---GOOOODDDD-----', args);
     return this.post('/admin/symbols', args);
   }
 }

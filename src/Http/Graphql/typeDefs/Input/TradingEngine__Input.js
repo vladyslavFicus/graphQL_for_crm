@@ -99,12 +99,10 @@ module.exports = gql`
     percentage: Int!
     baseCurrency: String
     quoteCurrency: String!
-    isTest: Boolean
-    marginMode: String!
     symbolType: TradingEngine__SymbolTypes__Enum!
     filtration: TradingEngineCreateSymbolAdmin__Filtration__Input!
     swapConfigs: TradingEngineCreateSymbolAdmin__SwapsConfigs__Input!
-    background_color: String!
+    backgroundColor: String!
     symbolSessions: [TradingEngineCreateSymbolAdmin__SymbolSessions__Input]!
   }
 `;

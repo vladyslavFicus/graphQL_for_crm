@@ -61,8 +61,7 @@ module.exports = {
    *
    * @return {Promise}
    */
-  async createSymbol(_, args, { dataSources }) {
-    console.log('rr-r-r-r-r-r-', args);
+  async createSymbol(_, { args }, { dataSources }) {
     await dataSources.TradingEngineAdminAPI.createSymbol(args);
   },
 };
