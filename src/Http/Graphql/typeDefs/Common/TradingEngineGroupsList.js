@@ -1,12 +1,8 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`  
-  type TradingEngineGroupsList__groupSecurity {
-    name: String
-  }
-
-  type TradingEngineGroupsList__groupSecurities {
-    security: TradingEngineGroupsList__groupSecurity
+  type TradingEngineGroupsList__GroupSecurities {
+    security: TradingEngineSecurity
     show: Boolean
   }
 
@@ -15,6 +11,6 @@ module.exports = gql`
     brand: String
     marginCallLevel: Int
     stopoutLevel: Int
-    groupSecurities: [TradingEngineGroupsList__groupSecurities]
+    groupSecurities: [TradingEngineGroupsList__GroupSecurities]
   }
 `;
