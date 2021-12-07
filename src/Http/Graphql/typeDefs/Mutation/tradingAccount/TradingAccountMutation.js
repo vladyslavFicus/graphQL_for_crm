@@ -7,7 +7,7 @@ module.exports = gql`
       amount: Float
       currency: String!
       name: String!
-      password: String!
+      password: String
       platformType: String!
       profileId: String!
     ): Boolean

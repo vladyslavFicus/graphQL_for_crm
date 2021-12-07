@@ -70,10 +70,12 @@ class TradingEngineAPI extends RESTDataSource {
   /**
    * Get trading engine symbols
    *
+   * @param args
+   *
    * @return {Promise}
    */
-  getSymbols() {
-    return this.get('/symbols/price');
+  getSymbols(args) {
+    return this.post('/symbols/search', args);
   }
 
   /**

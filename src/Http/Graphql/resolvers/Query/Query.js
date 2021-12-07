@@ -433,8 +433,8 @@ module.exports = {
   tradingEngineOrder(_, { orderId }, { dataSources }) {
     return dataSources.TradingEngineAPI.getOrder(orderId);
   },
-  tradingEngineSymbols(_, __, { dataSources }) {
-    return dataSources.TradingEngineAPI.getSymbols();
+  tradingEngineSymbols(_, { args }, { dataSources }) {
+    return dataSources.TradingEngineAPI.getSymbols(args);
   },
   tradingEngineSecurities(_, __, { dataSources }) {
     return dataSources.TradingEngineAdminAPI.getSecurities();

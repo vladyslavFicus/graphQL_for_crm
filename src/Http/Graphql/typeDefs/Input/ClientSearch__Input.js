@@ -46,10 +46,17 @@ module.exports = gql`
     to: String
   }
 
+  input ClientSearch__Input__AffiliateFTDDateRange {
+    from: String
+    to: String
+  }
+
   input ClientSearch__Input {
     activityStatus: String
     acquisitionStatus: String
     affiliateUuids: [String]
+    affiliateFtd: Boolean
+    affiliateFtdDateRange: ClientSearch__Input__AffiliateFTDDateRange
     assignStatus: String
     balanceRange: ClientSearch__Input__Balance
     depositsCountRange: ClientSearch__Input__Deposit

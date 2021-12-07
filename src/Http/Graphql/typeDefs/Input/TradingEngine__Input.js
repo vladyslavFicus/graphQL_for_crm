@@ -105,4 +105,9 @@ module.exports = gql`
     backgroundColor: String!
     symbolSessions: [TradingEngineCreateSymbolAdmin__SymbolSessions__Input]!
   }
+  
+  input TradingEngineSymbols__Input {
+    symbolNames: [String]
+    page: Page__Input
+  }
 `;
