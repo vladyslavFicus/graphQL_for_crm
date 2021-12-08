@@ -66,11 +66,11 @@ class TradingEngineAdminAPI extends RESTDataSource {
   }
 
   /**
-    * Get groups list
+    * Get groups
     *
     * @return {Promise}
     */
-  getGroupsList(args) {
+  getGroups(args) {
     return this.post('/admin/groups/search', args);
   }
 }
