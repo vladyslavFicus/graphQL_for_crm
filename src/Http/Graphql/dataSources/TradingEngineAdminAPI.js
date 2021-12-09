@@ -66,6 +66,15 @@ class TradingEngineAdminAPI extends RESTDataSource {
   }
 
   /**
+   * Get trading engine symbols sources
+   *
+   * @return {Promise}
+   */
+  getSymbolsSources() {
+    return this.get('/admin/symbols/sources');
+  }
+
+  /**
    * Create Symbol
    *
    * @param args

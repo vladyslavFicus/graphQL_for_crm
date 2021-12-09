@@ -439,6 +439,9 @@ module.exports = {
   tradingEngineSecurities(_, __, { dataSources }) {
     return dataSources.TradingEngineAdminAPI.getSecurities();
   },
+  tradingEngineAdminSymbolsSources(_, __, { dataSources }) {
+    return dataSources.TradingEngineAdminAPI.getSymbolsSources();
+  },
   tradingEngineSymbol(_, { symbol }, { dataSources }) {
     return dataSources.TradingEngineAPI.getSymbol(symbol);
   },

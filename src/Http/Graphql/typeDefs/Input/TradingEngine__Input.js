@@ -72,7 +72,7 @@ module.exports = gql`
     type: TradingEngine__SwapTypes__Enum
     long: Int!
     short: Int!
-    rollover: String!
+    rollover: TradingEngine__DaysOfWeek__Enum!
   }
   
   input TradingEngineCreateSymbolAdmin__SymbolSessionsTime__Input {
@@ -81,7 +81,7 @@ module.exports = gql`
   }
   
   input TradingEngineCreateSymbolAdmin__SymbolSessions__Input {
-    dayOfWeek: String
+    dayOfWeek: TradingEngine__DaysOfWeek__Enum!
     quote: TradingEngineCreateSymbolAdmin__SymbolSessionsTime__Input
     trade: TradingEngineCreateSymbolAdmin__SymbolSessionsTime__Input
   }
@@ -97,7 +97,7 @@ module.exports = gql`
     stopsLevel: Int!
     lotSize: Int!
     percentage: Int!
-    baseCurrency: String
+    baseCurrency: String!
     quoteCurrency: String!
     symbolType: TradingEngine__SymbolTypes__Enum!
     filtration: TradingEngineCreateSymbolAdmin__Filtration__Input!
