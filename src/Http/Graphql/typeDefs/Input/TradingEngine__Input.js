@@ -62,4 +62,9 @@ module.exports = gql`
     symbolNames: [String]
     page: Page__Input
   }
+
+  input TradingEngineGroupsSearch__Input {
+    keyword: String
+    page: Page__Input
+  }
 `;
