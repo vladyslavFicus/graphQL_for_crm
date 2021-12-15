@@ -64,6 +64,15 @@ class TradingEngineAdminAPI extends RESTDataSource {
   getSecurity(securityName) {
     return this.get(`/admin/securities/${securityName}`);
   }
+
+  /**
+    * Get groups
+    *
+    * @return {Promise}
+    */
+  getGroups(args) {
+    return this.post('/admin/groups/search', args);
+  }
 }
 
 module.exports = TradingEngineAdminAPI;
