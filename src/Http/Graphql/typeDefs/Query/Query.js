@@ -225,6 +225,7 @@ module.exports = gql`
     tradingEngineSymbols(args: TradingEngineSymbols__Input): TradingEngineSymbol @pageable
     tradingEngineAdminSymbols(args: TradingEngineSymbols__Input): TradingEngineAdminSymbol @pageable
     tradingEngineSecurities: [TradingEngineSecurity]
+    tradingEngineAdminSymbolsSources: [TradingEngineSource]
     tradingEngineSecurity(securityName: String!): TradingEngineSecurity
     tradingEngineSymbol(symbol: String!): TradingEngineSymbol
     tradingEngineGroups: [TradingEngineGroup]
