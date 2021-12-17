@@ -34,6 +34,17 @@ class TradingEngineAdminAPI extends RESTDataSource {
   }
 
   /**
+   * Get trading engine symbols
+   *
+   * @param args
+   *
+   * @return {Promise}
+   */
+  getSymbols(args) {
+    return this.post('admin/symbols/search', args);
+  }
+
+  /**
    * Create Security
    *
    * @return {Promise}
@@ -83,6 +94,15 @@ class TradingEngineAdminAPI extends RESTDataSource {
    */
   createSymbol(args) {
     return this.post('/admin/symbols', args);
+  }
+
+  /**
+   * Get groups
+   *
+   * @return {Promise}
+   */
+  getGroups(args) {
+    return this.post('/admin/groups/search', args);
   }
 }
 
