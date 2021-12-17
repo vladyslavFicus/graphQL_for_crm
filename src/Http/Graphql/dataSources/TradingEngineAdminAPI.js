@@ -84,6 +84,27 @@ class TradingEngineAdminAPI extends RESTDataSource {
   createSymbol(args) {
     return this.post('/admin/symbols', args);
   }
+
+  /**
+   * Edit Symbol
+   *
+   * @param args
+   * @param symbol
+   *
+   * @return {Promise}
+   */
+  editSymbol(symbol, args) {
+    return this.put(`/admin/symbols/${symbol}`, args);
+  }
+
+  /**
+   * Get symbol by name
+   *
+   * @return {Promise}
+   */
+  getSymbol(symbolName) {
+    return this.get(`/admin/symbols/${symbolName}`);
+  }
 }
 
 module.exports = TradingEngineAdminAPI;

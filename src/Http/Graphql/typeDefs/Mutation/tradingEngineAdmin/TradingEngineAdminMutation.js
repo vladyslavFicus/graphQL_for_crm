@@ -20,5 +20,7 @@ module.exports = gql`
     ): Boolean
     
     createSymbol(args: TradingEngineCreateSymbolAdmin__Input): Boolean
+    
+    editSymbol(args: TradingEngineEditSymbolAdmin__Input): Boolean
   }
 `;

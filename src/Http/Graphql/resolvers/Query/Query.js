@@ -442,6 +442,9 @@ module.exports = {
   tradingEngineAdminSymbolsSources(_, __, { dataSources }) {
     return dataSources.TradingEngineAdminAPI.getSymbolsSources();
   },
+  tradingEngineAdminSymbol(_, { symbolName }, { dataSources }) {
+    return dataSources.TradingEngineAdminAPI.getSymbol(symbolName);
+  },
   tradingEngineSymbol(_, { symbol }, { dataSources }) {
     return dataSources.TradingEngineAPI.getSymbol(symbol);
   },

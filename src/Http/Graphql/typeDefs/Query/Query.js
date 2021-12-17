@@ -224,9 +224,10 @@ module.exports = gql`
     tradingEngineAccount(identifier: String): TradingEngineAccount
     tradingEngineSymbols(args: TradingEngineSymbols__Input): TradingEngineSymbol @pageable
     tradingEngineSecurities: [TradingEngineSecurity]
-    tradingEngineAdminSymbolsSources: [String]
+    tradingEngineAdminSymbolsSources: [TradingEngineSource]
     tradingEngineSecurity(securityName: String!): TradingEngineSecurity
     tradingEngineSymbol(symbol: String!): TradingEngineSymbol
+    tradingEngineAdminSymbol(symbolName: String!): TradingEngineAdminSymbol
     tradingEngineGroups: [TradingEngineGroup]
     tradingEngineOrders(args: TradingEngineSearch__Input): TradingEngineOrder @pageable
     tradingEngineOrder(orderId: Int!): TradingEngineOrder
