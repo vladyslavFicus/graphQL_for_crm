@@ -70,8 +70,8 @@ module.exports = gql`
   input TradingEngineCreateSymbolAdmin__SwapsConfigs__Input {
     enable: Boolean!
     type: TradingEngine__SwapTypes__Enum
-    long: Int!
-    short: Int!
+    long: Float!
+    short: Float!
     rollover: TradingEngine__DaysOfWeek__Enum!
   }
   
