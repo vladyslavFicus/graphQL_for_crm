@@ -57,4 +57,9 @@ module.exports = gql`
     openTime: String
     closeTime: String
   }
+  
+  input TradingEngineGroupsSearch__Input {
+    keyword: String
+    page: Page__Input
+  }
 `;
