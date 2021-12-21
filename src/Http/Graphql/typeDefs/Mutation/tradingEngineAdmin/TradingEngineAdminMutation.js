@@ -18,5 +18,7 @@ module.exports = gql`
       description: String
       securityName: String!
     ): Boolean
+    
+    createSymbol(args: TradingEngineCreateSymbolAdmin__Input): Boolean
   }
 `;
