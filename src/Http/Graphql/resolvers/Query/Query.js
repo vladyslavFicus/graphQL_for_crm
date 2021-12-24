@@ -472,6 +472,9 @@ module.exports = {
   tradingEngineAdminGroups(_, { args }, { dataSources }) {
     return dataSources.TradingEngineAdminAPI.getGroups(args);
   },
+  tradingEngineAdminGroup(_, { groupName }, { dataSources }) {
+    return dataSources.TradingEngineAdminAPI.getGroup(groupName);
+  },
 
   /**
    * TradingActivity API

@@ -64,4 +64,44 @@ module.exports = {
   async createSymbol(_, { args }, { dataSources }) {
     await dataSources.TradingEngineAdminAPI.createSymbol(args);
   },
+
+  /**
+   * Create Group
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async createGroup(_, { args }, { dataSources }) {
+    await dataSources.TradingEngineAdminAPI.createGroup(args);
+  },
+
+  /**
+   * Edit Group
+   *
+   * @param _
+   * @param groupName
+   * @param rest
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async editGroup(_, { args: { groupName, ...rest } }, { dataSources }) {
+    await dataSources.TradingEngineAdminAPI.editGroup(groupName, rest);
+  },
+
+  /**
+   * Delete Group
+   *
+   * @param _
+   * @param groupName
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async deleteGroup(_, { groupName }, { dataSources }) {
+    await dataSources.TradingEngineAdminAPI.deleteGroup(groupName);
+  },
 };

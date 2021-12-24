@@ -115,4 +115,54 @@ module.exports = gql`
     keyword: String
     page: Page__Input
   }
+
+  input TradingEngineGroup__GroupSecurity__Input {
+    securityId: Int
+    show: Boolean
+    spreadDiff: Int
+    lotMin: Float
+    lotMax: Float
+    lotStep: Float
+    commissionBase: Float
+    commissionType: Commission_Type_Enum
+    commissionLots: Commission_Lots_Enum
+  }
+
+  input TradingEngineGroup__GroupMargins__Input {
+    symbol: String
+    swapShort: Float
+    swapLong: Float
+    percentage: Int
+  }
+  
+  input TradingEngineCreateGroupAdmin__Input {
+    groupName: String!
+    currency: String!
+    description: String
+    enable: Boolean
+    defaultLeverage: Int
+    useSwap: Boolean
+    hedgeProhibited: Boolean
+    archivePeriodDays: Int
+    archiveMaxBalance: Int
+    marginCallLevel: Int
+    stopoutLevel: Int
+    groupSecurities: [TradingEngineGroup__GroupSecurity__Input]
+    groupMargins: [TradingEngineGroup__GroupMargins__Input]
+  }
+
+  input TradingEngineEditGroupAdmin__Input {
+    groupName: String!
+    description: String
+    enable: Boolean
+    defaultLeverage: Int
+    useSwap: Boolean
+    hedgeProhibited: Boolean
+    archivePeriodDays: Int
+    archiveMaxBalance: Int
+    marginCallLevel: Int
+    stopoutLevel: Int
+    groupSecurities: [TradingEngineGroup__GroupSecurity__Input]
+    groupMargins: [TradingEngineGroup__GroupMargins__Input]
+  }
 `;

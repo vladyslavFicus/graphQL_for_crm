@@ -24,6 +24,7 @@ module.exports = gql`
   
   type TradingEngineAdminSymbol {
     symbol: String
+    percentage: Float
     securityName: String
     askSpread: Float
     bidSpread: Float
