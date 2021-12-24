@@ -143,7 +143,6 @@ class TradingEngineAdminAPI extends RESTDataSource {
    * Delete group
    *
    * @param groupName
-   * @param args
    *
    * @return {Promise}
    */
