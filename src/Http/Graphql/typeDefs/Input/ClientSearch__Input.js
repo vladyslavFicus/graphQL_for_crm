@@ -51,6 +51,11 @@ module.exports = gql`
     to: String
   }
 
+  input ClientSearch__Input__LastCallDateRange {
+    from: String
+    to: String
+  }
+
   input ClientSearch__Input {
     activityStatus: String
     acquisitionStatus: String
@@ -70,6 +75,7 @@ module.exports = gql`
     languages: [String]
     lastLoginDateRange: ClientSearch__Input__LastLoginDateRange
     lastModificationDateRange: ClientSearch__Input__LastModificationDateRange
+    lastCallDateRange: ClientSearch__Input__LastCallDateRange
     lastNoteDateRange: ClientSearch__Input__LastNoteDateRange
     lastTradeDateRange: ClientSearch__Input__LastTradeDateRange
     migrationId: String
