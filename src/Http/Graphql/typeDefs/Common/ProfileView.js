@@ -61,10 +61,9 @@ module.exports = gql`
   }
 
   type ProfileView__LastCall {
-    profileUuid: String
     operatorUuid: String
     callSystem: String
-    createdAt: String
+    date: String
   }
 
   type ProfileView {
