@@ -60,6 +60,12 @@ module.exports = gql`
     type: String
   }
 
+  type ProfileView__LastCall {
+    operatorUuid: String
+    callSystem: String
+    date: String
+  }
+
   type ProfileView {
     acquisition: HierarchyUserAcquisition
     address: ProfileView__Address
@@ -79,5 +85,6 @@ module.exports = gql`
     uuid: String!
     warnings: [String]
     online: Boolean
+    lastCall: ProfileView__LastCall
   }
 `;
