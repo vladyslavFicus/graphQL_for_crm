@@ -9,8 +9,8 @@ module.exports = gql`
     lotMax: Float
     lotStep: Float
     commissionBase: Float
-    commissionType: Commission_Type_Enum
-    commissionLots: Commission_Lots_Enum
+    commissionType: Commission__Type__Enum
+    commissionLots: Commission__Lots__Enum
   }
 
   type TradingEngineGroup__GroupMargins {
