@@ -17,19 +17,33 @@ operators: &all
     roles: *all-roles
   - department: RETENTION
     roles: *all-roles
+    
+operators-with-payment-department: &all-with-payment-department
+  - department: ADMINISTRATION
+    roles:
+      - ADMINISTRATION
+  - department: RFP
+    roles:
+      - HEAD_OF_DEPARTMENT
+  - department: CS
+    roles: *all-roles
+  - department: SALES
+    roles: *all-roles
+  - department: RETENTION
+    roles: *all-roles
 
 permissions:
   actions:
     - action: "profile.field.phone"
-      authorities: *all
+      authorities: *all-with-payment-department
     - action: "profile.field.additionalPhone"
-      authorities: *all
+      authorities: *all-with-payment-department
     - action: "profile.field.email"
-      authorities: *all
+      authorities: *all-with-payment-department
     - action: "profile.field.additionalEmail"
-      authorities: *all
+      authorities: *all-with-payment-department
     - action: "profile.field.balance"
-      authorities: *all
+      authorities: *all-with-payment-department
     - action: "profile.affiliate.field.uuid"
       authorities:
         - department: ADMINISTRATION
@@ -52,7 +66,7 @@ permissions:
     - action: "profile.affiliate.field.referral"
       authorities: *all
     - action: "profile.affiliate.field.source"
-      authorities: *all
+      authorities: *all-with-payment-department
     - action: "profile.affiliate.field.sms"
       authorities: *all
     - action: "profile.referrer.field.uuid"
@@ -66,24 +80,24 @@ permissions:
     - action: "lead.field.email"
       authorities: *all
     - action: "payment.field.manual-methods.values.BONUS"
-      authorities: *all
+      authorities: *all-with-payment-department
     - action: "payment.field.manual-methods.values.CHARGEBACK"
-      authorities: *all
+      authorities: *all-with-payment-department
     - action: "payment.field.manual-methods.values.CREDIT_CARD"
-      authorities: *all
+      authorities: *all-with-payment-department
     - action: "payment.field.manual-methods.values.ELECTRONIC"
-      authorities: *all
+      authorities: *all-with-payment-department
     - action: "payment.field.manual-methods.values.EXTERNAL"
-      authorities: *all
+      authorities: *all-with-payment-department
     - action: "payment.field.manual-methods.values.INTERNAL_TRANSFER"
-      authorities: *all
+      authorities: *all-with-payment-department
     - action: "payment.field.manual-methods.values.MIGRATION"
-      authorities: *all
+      authorities: *all-with-payment-department
     - action: "payment.field.manual-methods.values.PAYRETAILERS"
-      authorities: *all
+      authorities: *all-with-payment-department
     - action: "payment.field.manual-methods.values.RECALL"
-      authorities: *all
+      authorities: *all-with-payment-department
     - action: "payment.field.manual-methods.values.SYSTEM"
-      authorities: *all
+      authorities: *all-with-payment-department
     - action: "payment.field.manual-methods.values.WIRE"
-      authorities: *all
+      authorities: *all-with-payment-department
