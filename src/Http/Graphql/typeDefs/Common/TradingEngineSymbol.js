@@ -16,19 +16,4 @@ module.exports = gql`
     short: Float
     digits: Float
   }
-  
-  type TradingEngineAdminSymbol__SwapConfigs {
-    long: Float
-    short: Float
-  }
-  
-  type TradingEngineAdminSymbol {
-    symbol: String
-    securityName: String
-    askSpread: Float
-    bidSpread: Float
-    stopsLevel: Float
-    digits: Int
-    swapConfigs: TradingEngineAdminSymbol__SwapConfigs
-  }
 `;
