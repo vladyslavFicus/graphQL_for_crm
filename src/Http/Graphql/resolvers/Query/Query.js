@@ -474,6 +474,13 @@ module.exports = {
   },
 
   /**
+   * IP Whitelist
+   */
+  ipWhitelistSearch(_, { args }, { dataSources }) {
+    return dataSources.BrandConfigAPI.ipWhitelistSearch(args);
+  },
+
+  /**
    * TradingActivity API
    */
   tradingActivity(_, args, { dataSources }) {
