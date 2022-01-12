@@ -58,59 +58,6 @@ module.exports = gql`
     closeTime: String
   }
   
-  input TradingEngineCreateSymbolAdmin__Filtration__Input {
-    filterSmoothing: Int!
-    discardFiltrationLevel: Int!
-    softFilter: Int!
-    softFiltrationLevel: Int!
-    hardFilter: Int!
-    hardFiltrationLevel: Int!
-  }
-  
-  input TradingEngineCreateSymbolAdmin__SwapsConfigs__Input {
-    enable: Boolean!
-    type: TradingEngine__SwapTypes__Enum
-    long: Float!
-    short: Float!
-    rollover: TradingEngine__DaysOfWeek__Enum!
-  }
-  
-  input TradingEngineCreateSymbolAdmin__SymbolSessionsTime__Input {
-    openTime: String
-    closeTime: String
-  }
-  
-  input TradingEngineCreateSymbolAdmin__SymbolSessions__Input {
-    dayOfWeek: TradingEngine__DaysOfWeek__Enum!
-    quote: TradingEngineCreateSymbolAdmin__SymbolSessionsTime__Input
-    trade: TradingEngineCreateSymbolAdmin__SymbolSessionsTime__Input
-  }
-  
-  input TradingEngineCreateSymbolAdmin__Input {
-    symbol: String!
-    source: String!
-    digits: Int!
-    description: String!
-    securityName: String!
-    bidSpread: Int!
-    askSpread: Int!
-    stopsLevel: Int!
-    lotSize: Int!
-    percentage: Int!
-    baseCurrency: String!
-    quoteCurrency: String!
-    symbolType: TradingEngine__SymbolTypes__Enum!
-    filtration: TradingEngineCreateSymbolAdmin__Filtration__Input!
-    swapConfigs: TradingEngineCreateSymbolAdmin__SwapsConfigs__Input!
-    backgroundColor: String!
-    symbolSessions: [TradingEngineCreateSymbolAdmin__SymbolSessions__Input]!
-  }
-  
-  input TradingEngineSymbols__Input {
-    symbolNames: [String]
-    page: Page__Input
-  }
-
   input TradingEngineGroupsSearch__Input {
     keyword: String
     page: Page__Input
@@ -132,7 +79,7 @@ module.exports = gql`
     symbol: String
     swapShort: Float
     swapLong: Float
-    percentage: Int
+    percentage: Float
   }
   
   input TradingEngineCreateGroupAdmin__Input {

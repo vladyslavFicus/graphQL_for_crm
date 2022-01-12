@@ -29,6 +29,7 @@ const DistributionRuleAPI = require('./DistributionRuleAPI');
 const AnalyticsAPI = require('./AnalyticsAPI');
 const TradingEngineAPI = require('./TradingEngineAPI');
 const TradingEngineAdminAPI = require('./TradingEngineAdminAPI');
+const BrandConfigAPI = require('./BrandConfigAPI');
 
 module.exports = {
   AccountViewAPI,
@@ -62,4 +63,5 @@ module.exports = {
   AnalyticsAPI,
   TradingEngineAPI,
   TradingEngineAdminAPI,
+  BrandConfigAPI,
 };

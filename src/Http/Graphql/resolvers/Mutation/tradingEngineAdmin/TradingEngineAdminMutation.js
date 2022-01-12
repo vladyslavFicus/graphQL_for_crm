@@ -66,6 +66,19 @@ module.exports = {
   },
 
   /**
+   * Edit Symbol
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async editSymbol(_, { args: { symbol, ...rest } }, { dataSources }) {
+    await dataSources.TradingEngineAdminAPI.editSymbol(symbol, rest);
+  },
+
+  /**
    * Create Group
    *
    * @param _

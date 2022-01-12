@@ -445,6 +445,9 @@ module.exports = {
   tradingEngineAdminSymbolsSources(_, __, { dataSources }) {
     return dataSources.TradingEngineAdminAPI.getSymbolsSources();
   },
+  tradingEngineAdminSymbol(_, { symbolName }, { dataSources }) {
+    return dataSources.TradingEngineAdminAPI.getSymbol(symbolName);
+  },
   tradingEngineSymbol(_, { symbol }, { dataSources }) {
     return dataSources.TradingEngineAPI.getSymbol(symbol);
   },
@@ -474,6 +477,13 @@ module.exports = {
   },
   tradingEngineAdminGroup(_, { groupName }, { dataSources }) {
     return dataSources.TradingEngineAdminAPI.getGroup(groupName);
+  },
+
+  /**
+   * IP Whitelist
+   */
+  ipWhitelistSearch(_, { args }, { dataSources }) {
+    return dataSources.BrandConfigAPI.ipWhitelistSearch(args);
   },
 
   /**

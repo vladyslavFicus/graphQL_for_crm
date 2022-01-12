@@ -31,6 +31,7 @@ const {
   AnalyticsAPI,
   TradingEngineAPI,
   TradingEngineAdminAPI,
+  BrandConfigAPI,
 } = require('../dataSources');
 
 module.exports = () => ({
@@ -65,4 +66,5 @@ module.exports = () => ({
   AnalyticsAPI: new AnalyticsAPI({ baseUrl: getBaseUrl('analytics-api') }),
   TradingEngineAPI: new TradingEngineAPI({ baseUrl: getBaseUrl('we-trading') }),
   TradingEngineAdminAPI: new TradingEngineAdminAPI({ baseUrl: getBaseUrl('we-trading') }),
+  BrandConfigAPI: new BrandConfigAPI({ baseUrl: getBaseUrl('brand-config-service') }),
 });

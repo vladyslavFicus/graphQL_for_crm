@@ -15,7 +15,7 @@ module.exports = gql`
 
   type TradingEngineGroup__GroupMargins {
     symbol: String
-    percentage: Int
+    percentage: Float
     swapShort: Float
     swapLong: Float
   }
