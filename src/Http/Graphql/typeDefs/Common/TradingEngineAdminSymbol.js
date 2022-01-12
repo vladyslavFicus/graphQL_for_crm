@@ -39,7 +39,7 @@ module.exports = gql`
     askSpread: Float!
     stopsLevel: Int!
     lotSize: Int!
-    percentage: Int!
+    percentage: Float!
     baseCurrency: String
     quoteCurrency: String!
     symbolType: TradingEngine__SymbolTypes__Enum!

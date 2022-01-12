@@ -20,7 +20,13 @@ module.exports = gql`
     ): Boolean
     
     createSymbol(args: TradingEngineCreateSymbolAdmin__Input): Boolean
-    
+
     editSymbol(args: TradingEngineEditSymbolAdmin__Input): Boolean
+
+    createGroup(args: TradingEngineCreateGroupAdmin__Input): Boolean
+    
+    editGroup(args: TradingEngineEditGroupAdmin__Input): Boolean
+   
+    deleteGroup(groupName: String!): Boolean
   }
 `;

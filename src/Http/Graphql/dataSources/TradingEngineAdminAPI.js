@@ -125,6 +125,51 @@ class TradingEngineAdminAPI extends RESTDataSource {
   getGroups(args) {
     return this.post('/admin/groups/search', args);
   }
+
+  /**
+   * Get group by name
+   *
+   * @param groupName
+   *
+   * @return {Promise}
+   */
+  getGroup(groupName) {
+    return this.get(`/admin/groups/${groupName}`);
+  }
+
+  /**
+   * Create group
+   *
+   * @param args
+   *
+   * @return {Promise}
+   */
+  createGroup(args) {
+    return this.post('/admin/groups', args);
+  }
+
+  /**
+   * Edit group
+   *
+   * @param groupName
+   * @param args
+   *
+   * @return {Promise}
+   */
+  editGroup(groupName, args) {
+    return this.put(`/admin/groups/${groupName}`, args);
+  }
+
+  /**
+   * Delete group
+   *
+   * @param groupName
+   *
+   * @return {Promise}
+   */
+  deleteGroup(groupName) {
+    return this.delete(`/admin/groups/${groupName}`);
+  }
 }
 
 module.exports = TradingEngineAdminAPI;

@@ -13,6 +13,7 @@ module.exports = gql`
     bidSpread: Float
     stopsLevel: Float
     digits: Int
+    percentage: Float
     swapConfigs: TradingEngineAdminSymbolSearch__SwapConfigs
   }
 `;
