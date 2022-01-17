@@ -16,6 +16,10 @@ module.exports = {
    * @return {Promise<any>}
    */
   async createCall(_, { uuid, field, type }, { dataSources, userUUID, brand, requestId }) {
+    const { isTest = false } = brand.clickToCall;
+    if (isTest) {
+      return Promise.resolve(true);
+    }
     const number = await getFieldByType(uuid, field, type, dataSources);
 
     const { url } = brand.clickToCall.didlogic;
@@ -30,6 +34,8 @@ module.exports = {
       await dataSources.DidLogicAPI.createCall(url, number, sip, uuid, 'CRM');
 
       Logger.info({ requestId, uuid, number, sip }, 'Success after Didlogic click2call request');
+
+      return Promise.resolve(true);
     } catch (e) {
       Logger.warn({
         requestId,

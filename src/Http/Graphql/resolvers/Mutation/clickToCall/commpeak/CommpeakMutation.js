@@ -15,6 +15,10 @@ module.exports = {
    * @return {Promise<any>}
    */
   async createCall(_, { uuid, field, type, prefix }, { dataSources, userUUID, brand }) {
+    const { isTest = false } = brand.clickToCall;
+    if (isTest) {
+      return Promise.resolve(true);
+    }
     const number = await getFieldByType(uuid, field, type, dataSources);
 
     const { url } = brand.clickToCall.commpeak;
@@ -30,5 +34,7 @@ module.exports = {
     if (!success) {
       throw new Error('Call failed');
     }
+
+    return Promise.resolve(true);
   },
 };
