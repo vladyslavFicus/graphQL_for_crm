@@ -1,5 +1,6 @@
 const { get } = require('lodash');
 const getFieldByType = require('../../../../utils/getFieldByType');
+const Logger = require('../../../../../../lib/Logger');
 
 module.exports = {
   /**
@@ -10,10 +11,11 @@ module.exports = {
    * @param dataSources
    * @param userUUID
    * @param brand
+   * @param requestId
    *
    * @return {Promise<any>}
    */
-  async createCall(_, { uuid, field, type }, { dataSources, userUUID, brand }) {
+  async createCall(_, { uuid, field, type }, { dataSources, userUUID, brand, requestId }) {
     const number = await getFieldByType(uuid, field, type, dataSources);
 
     const { url } = brand.clickToCall.didlogic;
@@ -22,6 +24,22 @@ module.exports = {
 
     const sip = get(operator, 'clickToCall.didlogicPhone');
 
-    await dataSources.DidLogicAPI.createCall(url, number, sip, uuid, 'CRM');
+    Logger.info({ requestId, uuid, number, sip }, 'Before Didlogic click2call request');
+
+    try {
+      await dataSources.DidLogicAPI.createCall(url, number, sip, uuid, 'CRM');
+
+      Logger.info({ requestId, uuid, number, sip }, 'Success after Didlogic click2call request');
+    } catch (e) {
+      Logger.warn({
+        requestId,
+        uuid,
+        number,
+        sip,
+        response: e.extensions.response,
+      }, 'Error after Didlogic click2call request');
+
+      throw e;
+    }
   },
 };
