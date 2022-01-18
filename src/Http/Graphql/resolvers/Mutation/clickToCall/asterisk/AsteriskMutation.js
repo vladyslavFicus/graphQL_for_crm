@@ -16,7 +16,7 @@ module.exports = {
    */
   async createCall(_, { uuid, field, type, prefix }, { dataSources, userUUID, brand }) {
     const { isTest = false } = brand.clickToCall;
-    if (!isTest) {
+    if (isTest) {
       return Promise.resolve(true);
     }
 
