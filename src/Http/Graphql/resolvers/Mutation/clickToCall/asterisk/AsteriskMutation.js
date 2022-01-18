@@ -15,6 +15,10 @@ module.exports = {
    * @return {Promise<any>}
    */
   async createCall(_, { uuid, field, type, prefix }, { dataSources, userUUID, brand }) {
+    if (brand.clickToCall.isTest) {
+      return;
+    }
+
     const number = await getFieldByType(uuid, field, type, dataSources);
 
     const { url, token } = brand.clickToCall.asterisk;
