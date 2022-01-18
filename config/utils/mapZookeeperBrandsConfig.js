@@ -4,7 +4,7 @@ module.exports = configs => Object.entries(configs).map(([id, config]) => ({
   id,
   currency: get(config, 'nas.brand.currencies.base'),
   clickToCall: {
-    isTest: get(config, 'nas.brand.clickToCall.isTest'),
+    isTest: get(config, 'nas.brand.clickToCall.isTest', false),
     didlogic: {
       url: get(config, 'nas.brand.clickToCall.url'),
     },

@@ -15,9 +15,8 @@ module.exports = {
    * @return {Promise<any>}
    */
   async createCall(_, { uuid, field, type, prefix }, { dataSources, userUUID, brand }) {
-    const { isTest = false } = brand.clickToCall;
-    if (isTest) {
-      return true;
+    if (brand.clickToCall.isTest) {
+      return;
     }
 
     const number = await getFieldByType(uuid, field, type, dataSources);
@@ -33,7 +32,5 @@ module.exports = {
     if (!success) {
       throw new Error('Call failed');
     }
-
-    return true;
   },
 };
