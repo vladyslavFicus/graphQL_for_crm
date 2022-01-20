@@ -31,6 +31,8 @@ operators-with-payment-department: &all-with-payment-department
     roles: *all-roles
   - department: RETENTION
     roles: *all-roles
+  - department: PAYMENT
+    roles: *all-roles
 
 permissions:
   actions:
