@@ -80,6 +80,19 @@ module.exports = {
   },
 
   /**
+   * Change payment system
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async changePaymentSystem(_, args, { dataSources }) {
+    await dataSources.PaymentAPI.changePaymentSystem(args);
+  },
+
+  /**
    * Change original agent
    *
    * @param _

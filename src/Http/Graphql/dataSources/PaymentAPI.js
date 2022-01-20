@@ -31,6 +31,15 @@ class PaymentAPI extends RESTDataSource {
   }
 
   /**
+   * Get payment systems
+   *
+   * @return {Promise}
+   */
+  getPaymentSystems() {
+    return this.get('/metadata/payment-systems');
+  }
+
+  /**
    * Get payments statistic
    *
    * @param args
@@ -140,6 +149,18 @@ class PaymentAPI extends RESTDataSource {
    */
   changePaymentStatus({ paymentId, ...args }) {
     return this.put(`/${paymentId}/status`, args);
+  }
+
+  /**
+   * Change payment system
+   *
+   * @param paymentId
+   * @param args
+   *
+   * @return {Promise}
+   */
+  changePaymentSystem({ paymentId, ...args }) {
+    return this.put(`/${paymentId}/system`, args);
   }
 
   /**

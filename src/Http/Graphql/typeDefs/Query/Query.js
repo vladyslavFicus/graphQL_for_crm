@@ -147,6 +147,7 @@ module.exports = gql`
     payments(args: PaymentSearch__Input): Payment @pageable
     clientPayments(args: PaymentSearch__Input): Payment @pageable
     paymentMethods: [String]
+    paymentSystems: [PaymentSystem]
     manualPaymentMethods: [String] @auth_filter_values(action: "payment.field.manual-methods.values.*")
     paymentsStatistic(
       dateFrom: String

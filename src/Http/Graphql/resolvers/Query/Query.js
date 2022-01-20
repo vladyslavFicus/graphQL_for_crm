@@ -250,6 +250,9 @@ module.exports = {
 
     return responseData.filter(method => method && method !== 'null').sort();
   },
+  paymentSystems(_, __, { dataSources }) {
+    return dataSources.PaymentAPI.getPaymentSystems();
+  },
   async manualPaymentMethods(_, __, { dataSources }) {
     const responseData = await dataSources.PaymentAPI.getManualPaymentMethods();
 

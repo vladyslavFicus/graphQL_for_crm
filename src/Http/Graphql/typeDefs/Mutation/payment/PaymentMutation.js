@@ -14,6 +14,7 @@ module.exports = gql`
       profileUUID: String
       source: String
       target: String
+      paymentSystem: String
     ): Payment
 
     acceptPayment(
@@ -31,6 +32,11 @@ module.exports = gql`
     changePaymentStatus(
       paymentId: String!
       paymentStatus: String
+    ): Boolean
+    
+    changePaymentSystem(
+      paymentId: String!
+      paymentSystem: String!
     ): Boolean
 
     changeOriginalAgent(
