@@ -84,6 +84,9 @@ module.exports = gql`
     filterSet(uuid: String!): Object
     filterSets(type: FilterSet__Types__Enum): FilterSet
 
+    # GridConfig API
+    gridConfig(type: GridConfig__Types__Enum): GridConfig
+
     # Hierarchy API
     branch(
       branchType: String!

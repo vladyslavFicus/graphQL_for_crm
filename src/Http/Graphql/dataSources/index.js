@@ -10,7 +10,7 @@ const CoperatoAPI = require('./CoperatoAPI');
 const CoperatoSmsAPI = require('./CoperatoSmsAPI');
 const DidLogicAPI = require('./DidLogicAPI');
 const EmailAPI = require('./EmailAPI');
-const FilterSetsAPI = require('./FilterSetsAPI');
+const OperatorConfigAPI = require('./OperatorConfigAPI');
 const HierarchyAPI = require('./HierarchyAPI');
 const HierarchyUpdaterAPI = require('./HierarchyUpdaterAPI');
 const LeadAPI = require('./LeadAPI');
@@ -44,7 +44,7 @@ module.exports = {
   CoperatoSmsAPI,
   DidLogicAPI,
   EmailAPI,
-  FilterSetsAPI,
+  OperatorConfigAPI,
   HierarchyAPI,
   HierarchyUpdaterAPI,
   LeadAPI,

@@ -141,10 +141,17 @@ module.exports = {
    * FilterSet API
    */
   filterSets(_, { type }, { dataSources, userUUID }) {
-    return dataSources.FilterSetsAPI.getFilterSets(userUUID, type);
+    return dataSources.OperatorConfigAPI.getFilterSets(userUUID, type);
   },
   filterSet(_, { uuid }, { dataSources }) {
-    return dataSources.FilterSetsAPI.getFilterSet(uuid);
+    return dataSources.OperatorConfigAPI.getFilterSet(uuid);
+  },
+
+  /**
+   * GridConfig API
+   */
+  gridConfig(_, { type }, { dataSources, userUUID }) {
+    return dataSources.OperatorConfigAPI.getGridConfig(userUUID, type);
   },
 
   /**
