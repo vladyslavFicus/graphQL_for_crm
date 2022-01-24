@@ -6,25 +6,21 @@ all-roles: &all-roles
 
 operators: &all
   - department: ADMINISTRATION
-    roles:
-      - ADMINISTRATION
+    roles: ADMINISTRATION
   - department: RFP
-    roles:
-      - HEAD_OF_DEPARTMENT
+    roles: HEAD_OF_DEPARTMENT
   - department: CS
     roles: *all-roles
   - department: SALES
     roles: *all-roles
   - department: RETENTION
     roles: *all-roles
-    
+
 operators-with-payment-department: &all-with-payment-department
   - department: ADMINISTRATION
-    roles:
-      - ADMINISTRATION
+    roles: ADMINISTRATION
   - department: RFP
-    roles:
-      - HEAD_OF_DEPARTMENT
+    roles: HEAD_OF_DEPARTMENT
   - department: CS
     roles: *all-roles
   - department: SALES
@@ -37,9 +33,33 @@ operators-with-payment-department: &all-with-payment-department
 permissions:
   actions:
     - action: "profile.field.phone"
-      authorities: *all-with-payment-department
+      authorities:
+        - department: ADMINISTRATION
+          roles: ADMINISTRATION
+        - department: RFP
+          roles: HEAD_OF_DEPARTMENT
+        - department: CS
+          roles: *all-roles
+        - department: SALES
+          roles: *all-roles
+        - department: RETENTION
+          roles: *all-roles
+        - department: PAYMENT
+          roles: TEAM_LEADER, HEAD_OF_DEPARTMENT
     - action: "profile.field.additionalPhone"
-      authorities: *all-with-payment-department
+      authorities:
+        - department: ADMINISTRATION
+          roles: ADMINISTRATION
+        - department: RFP
+          roles: HEAD_OF_DEPARTMENT
+        - department: CS
+          roles: *all-roles
+        - department: SALES
+          roles: *all-roles
+        - department: RETENTION
+          roles: *all-roles
+        - department: PAYMENT
+          roles: TEAM_LEADER, HEAD_OF_DEPARTMENT
     - action: "profile.field.email"
       authorities: *all-with-payment-department
     - action: "profile.field.additionalEmail"
@@ -49,11 +69,9 @@ permissions:
     - action: "profile.affiliate.field.uuid"
       authorities:
         - department: ADMINISTRATION
-          roles:
-            - ADMINISTRATION
+          roles: ADMINISTRATION
         - department: RFP
-          roles:
-            - HEAD_OF_DEPARTMENT
+          roles: HEAD_OF_DEPARTMENT
         - department: CS
           roles: *all-roles
         - department: SALES
@@ -61,8 +79,7 @@ permissions:
         - department: RETENTION
           roles: *all-roles
         - department: COMPLIANCE
-          roles:
-            - COMPLIANCE_MANAGER
+          roles: COMPLIANCE_MANAGER
     - action: "profile.affiliate.field.campaignId"
       authorities: *all
     - action: "profile.affiliate.field.referral"
