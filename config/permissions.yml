@@ -6,9 +6,11 @@ all-roles: &all-roles
 
 operators: &all
   - department: ADMINISTRATION
-    roles: ADMINISTRATION
+    roles:
+      - ADMINISTRATION
   - department: RFP
-    roles: HEAD_OF_DEPARTMENT
+    roles:
+      - HEAD_OF_DEPARTMENT
   - department: CS
     roles: *all-roles
   - department: SALES
@@ -18,9 +20,11 @@ operators: &all
 
 operators-with-payment-department: &all-with-payment-department
   - department: ADMINISTRATION
-    roles: ADMINISTRATION
+    roles:
+      - ADMINISTRATION
   - department: RFP
-    roles: HEAD_OF_DEPARTMENT
+    roles:
+      - HEAD_OF_DEPARTMENT
   - department: CS
     roles: *all-roles
   - department: SALES
@@ -35,9 +39,11 @@ permissions:
     - action: "profile.field.phone"
       authorities:
         - department: ADMINISTRATION
-          roles: ADMINISTRATION
+          roles:
+            - ADMINISTRATION
         - department: RFP
-          roles: HEAD_OF_DEPARTMENT
+          roles:
+            - HEAD_OF_DEPARTMENT
         - department: CS
           roles: *all-roles
         - department: SALES
@@ -51,9 +57,11 @@ permissions:
     - action: "profile.field.additionalPhone"
       authorities:
         - department: ADMINISTRATION
-          roles: ADMINISTRATION
+          roles:
+            - ADMINISTRATION
         - department: RFP
-          roles: HEAD_OF_DEPARTMENT
+          roles:
+            - HEAD_OF_DEPARTMENT
         - department: CS
           roles: *all-roles
         - department: SALES
@@ -73,9 +81,11 @@ permissions:
     - action: "profile.affiliate.field.uuid"
       authorities:
         - department: ADMINISTRATION
-          roles: ADMINISTRATION
+          roles:
+            - ADMINISTRATION
         - department: RFP
-          roles: HEAD_OF_DEPARTMENT
+          roles:
+            - HEAD_OF_DEPARTMENT
         - department: CS
           roles: *all-roles
         - department: SALES
@@ -83,7 +93,8 @@ permissions:
         - department: RETENTION
           roles: *all-roles
         - department: COMPLIANCE
-          roles: COMPLIANCE_MANAGER
+          roles:
+            - COMPLIANCE_MANAGER
     - action: "profile.affiliate.field.campaignId"
       authorities: *all
     - action: "profile.affiliate.field.referral"
