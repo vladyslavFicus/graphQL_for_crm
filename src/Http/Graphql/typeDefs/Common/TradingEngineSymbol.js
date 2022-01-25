@@ -5,8 +5,7 @@ module.exports = gql`
     name: String
     bid: Float
     ask: Float
-    lotSize: Float
-    groupSpread(group: String, identifier: String): TradingEngineGroupSpread
+    config(accountUuid: String): TradingEngineAccountSymbolConfig
     
     # Next fields not implemented yet    
     securities: String

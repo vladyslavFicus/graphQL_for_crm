@@ -21,7 +21,7 @@ module.exports = gql`
     tradeId: String
     symbol: String
     symbolAlias: String
-    symbolEntity: TradingEngineSymbol
+    symbolConfig: TradingEngineAccountSymbolConfig
     direction: String
     digits: Float
     takeProfit: Float
@@ -42,7 +42,6 @@ module.exports = gql`
     tradeStatus: String
     type: TradingEngine__OperationTypes__Enum
     group: String
-    groupSpread: TradingEngineGroupSpread
     reason: String
     openRate: Float
     closeRate: Float

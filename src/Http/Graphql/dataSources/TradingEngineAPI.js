@@ -9,7 +9,7 @@ class TradingEngineAPI extends RESTDataSource {
 
     this.accountsLoader = new DataLoader(this._accountsLoader.bind(this));
     this.symbolsLoader = new DataLoader(this._symbolsLoader.bind(this));
-    this.groupsSpreadLoader = new DataLoader(this._groupsSpreadLoader.bind(this));
+    this.accountSymbolConfigsLoader = new DataLoader(this._accountSymbolConfigsLoader.bind(this));
   }
 
   async _accountsLoader(uuids) {
@@ -24,14 +24,16 @@ class TradingEngineAPI extends RESTDataSource {
     return orderByArray(symbolNames, data.content, 'name');
   }
 
-  async _groupsSpreadLoader(args) {
+  async _accountSymbolConfigsLoader(args) {
     // Get uniqueness arguments to make a request
     const uniqArgs = uniqWith(args, isEqual);
 
-    const data = await this.post('/groups/spread', uniqArgs);
+    const data = await this.post('/accounts/symbols/configs', uniqArgs);
 
     // Return right ordered responses for each arg
-    return args.map(arg => data.find(({ groupName, symbol }) => (arg.group === groupName && arg.symbol === symbol)));
+    return args.map(arg => data.find(({ accountUuid, symbol }) => (
+      arg.accountUuid === accountUuid && arg.symbol === symbol
+    )));
   }
 
   /**
@@ -252,15 +254,15 @@ class TradingEngineAPI extends RESTDataSource {
   }
 
   /**
-   * Get spread for symbol for concrete group
+   * Get symbol config for concrete account
    *
-   * @param group
+   * @param accountUuid
    * @param symbol
    *
    * @return {*}
    */
-  getGroupSpread(group, symbol) {
-    return this.groupsSpreadLoader.load({ group, symbol });
+  getSymbolConfig(accountUuid, symbol) {
+    return this.accountSymbolConfigsLoader.load({ accountUuid, symbol });
   }
 
   /**

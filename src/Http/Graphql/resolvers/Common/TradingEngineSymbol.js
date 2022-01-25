@@ -1,13 +1,14 @@
 module.exports = {
-  async groupSpread({ name }, { group, identifier }, { dataSources }) {
-    let _group = group;
-
-    // Find group by account identifier
-    if (identifier) {
-      const account = await dataSources.TradingEngineAPI.getAccountByIdentifier(identifier);
-      _group = account.group;
-    }
-
-    return dataSources.TradingEngineAPI.getGroupSpread(_group, name);
+  /**
+   * Get symbol config depends on account (group -> group-security -> symbol)
+   *
+   * @param name
+   * @param accountUuid
+   * @param dataSources
+   *
+   * @return {Promise<*>}
+   */
+  config({ name }, { accountUuid }, { dataSources }) {
+    return dataSources.TradingEngineAPI.getSymbolConfig(accountUuid, name);
   },
 };
