@@ -1,7 +1,6 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`
-
   type Lead__LastCall {
     operatorUuid: String
     callSystem: String
