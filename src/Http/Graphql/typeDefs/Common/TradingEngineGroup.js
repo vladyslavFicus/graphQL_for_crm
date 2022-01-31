@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`
-  type TradingEngineGroup__GroupSecurities {
+  type TradingEngineGroup__GroupSecurity {
     security: TradingEngineSecurity
     show: Boolean
     spreadDiff: Int
@@ -13,8 +13,9 @@ module.exports = gql`
     commissionLots: Commission__Lots__Enum
   }
 
-  type TradingEngineGroup__GroupMargins {
+  type TradingEngineGroup__GroupMargin {
     symbol: String
+    securityId: Int
     percentage: Float
     swapShort: Float
     swapLong: Float
@@ -32,7 +33,7 @@ module.exports = gql`
     archiveMaxBalance: Int
     marginCallLevel: Int
     stopoutLevel: Int
-    groupSecurities: [TradingEngineGroup__GroupSecurities]
-    groupMargins: [TradingEngineGroup__GroupMargins]
+    groupSecurities: [TradingEngineGroup__GroupSecurity]
+    groupMargins: [TradingEngineGroup__GroupMargin]
   }
 `;

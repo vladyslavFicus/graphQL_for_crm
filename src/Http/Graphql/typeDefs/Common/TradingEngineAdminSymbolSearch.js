@@ -8,6 +8,7 @@ module.exports = gql`
 
   type TradingEngineAdminSymbolSearch {
     symbol: String
+    securityId: Int
     securityName: String
     askSpread: Float
     bidSpread: Float
