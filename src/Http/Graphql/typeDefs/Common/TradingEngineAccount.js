@@ -5,7 +5,6 @@ module.exports = gql`
     _id: ID!
     uuid: String!
     profileUuid: String
-    profileFullName: String
     serverId: Int
     login: Int
     accountType: String
