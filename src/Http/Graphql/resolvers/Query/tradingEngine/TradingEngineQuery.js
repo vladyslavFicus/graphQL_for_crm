@@ -1,5 +1,5 @@
 module.exports = {
   symbols(_, { args }, { dataSources }) {
-    return dataSources.TradingEngineAPI.getSymbols(args);
+    return dataSources.TradingEngineAdminAPI.getSymbols(args);
   },
 };
