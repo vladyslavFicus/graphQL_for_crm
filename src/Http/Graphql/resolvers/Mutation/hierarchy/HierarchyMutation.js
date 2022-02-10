@@ -121,8 +121,8 @@ module.exports = {
    *
    * @return {Promise<*>}
    */
-  async removeBranchManager(_, { branchUuid }, { dataSources }) {
-    await dataSources.HierarchyUpdaterAPI.removeBranchManager(branchUuid);
+  async removeBranchManager(_, { branchUuid, managerUuid }, { dataSources }) {
+    await dataSources.HierarchyUpdaterAPI.removeBranchManager(branchUuid, managerUuid);
 
     return true;
   },

@@ -4,7 +4,7 @@ module.exports = gql`
   type TradingEngineSecurity {
     id: Int!
     name: String!
-    symbols: [String]!
+    symbols: [String!]!
     description: String!
   }
 `;
