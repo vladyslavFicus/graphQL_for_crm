@@ -148,8 +148,8 @@ class HierarchyUpdaterAPI extends RESTDataSource {
    *
    * @return {Promise}
    */
-  removeBranchManager(branchUuid) {
-    return this.delete(`/branch/${branchUuid}/manager`);
+  removeBranchManager(branchUuid, managerUuid) {
+    return this.delete(`/branch/${branchUuid}/manager/${managerUuid}`);
   }
 }
 

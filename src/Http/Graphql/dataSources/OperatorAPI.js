@@ -27,6 +27,17 @@ class OperatorAPI extends RESTDataSource {
   }
 
   /**
+   * Get operators by UUIDs
+   *
+   * @param uuids array of operator UUIDs
+   *
+   * @return {Promise}
+   */
+  getByUUIDs(uuids) {
+    return uuids && this.loader.loadMany(uuids);
+  }
+
+  /**
    * Search operators
    *
    * @param args
