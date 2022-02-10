@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`
-  input TradingEngineEditSymbolAdmin__Filtration__Input {
+  input TradingEngineEditSymbol__Filtration__Input {
     filterSmoothing: Int!
     discardFiltrationLevel: Int!
     softFilter: Int!
@@ -10,7 +10,7 @@ module.exports = gql`
     hardFiltrationLevel: Int!
   }
   
-  input TradingEngineEditSymbolAdmin__SwapsConfigs__Input {
+  input TradingEngineEditSymbol__SwapsConfigs__Input {
     enable: Boolean!
     type: TradingEngine__SwapTypes__Enum
     long: Float!
@@ -18,13 +18,13 @@ module.exports = gql`
     rollover: TradingEngine__DaysOfWeek__Enum!
   }
   
-  input TradingEngineEditSymbolAdmin__SymbolSessions__Input {
+  input TradingEngineEditSymbol__SymbolSessions__Input {
     dayOfWeek: TradingEngine__DaysOfWeek__Enum!
-    quote: TradingEngineCreateSymbolAdmin__SymbolSessionsTime__Input
-    trade: TradingEngineCreateSymbolAdmin__SymbolSessionsTime__Input
+    quote: TradingEngineCreateSymbol__SymbolSessionsTime__Input
+    trade: TradingEngineCreateSymbol__SymbolSessionsTime__Input
   }
 
-  input TradingEngineEditSymbolAdmin__Input {
+  input TradingEngineEditSymbol__Input {
     symbol: String!
     source: String
     digits: Int!
@@ -38,13 +38,13 @@ module.exports = gql`
     baseCurrency: String
     quoteCurrency: String!
     symbolType: TradingEngine__SymbolTypes__Enum!
-    filtration: TradingEngineEditSymbolAdmin__Filtration__Input!
-    swapConfigs: TradingEngineEditSymbolAdmin__SwapsConfigs__Input!
+    filtration: TradingEngineEditSymbol__Filtration__Input!
+    swapConfigs: TradingEngineEditSymbol__SwapsConfigs__Input!
     backgroundColor: String!
-    symbolSessions: [TradingEngineEditSymbolAdmin__SymbolSessions__Input]!
+    symbolSessions: [TradingEngineEditSymbol__SymbolSessions__Input]!
   }
   
-  input TradingEngineCreateSymbolAdmin__Filtration__Input {
+  input TradingEngineCreateSymbol__Filtration__Input {
     filterSmoothing: Int!
     discardFiltrationLevel: Int!
     softFilter: Int!
@@ -53,7 +53,7 @@ module.exports = gql`
     hardFiltrationLevel: Int!
   }
   
-  input TradingEngineCreateSymbolAdmin__SwapsConfigs__Input {
+  input TradingEngineCreateSymbol__SwapsConfigs__Input {
     enable: Boolean!
     type: TradingEngine__SwapTypes__Enum
     long: Float!
@@ -61,18 +61,18 @@ module.exports = gql`
     rollover: TradingEngine__DaysOfWeek__Enum!
   }
   
-  input TradingEngineCreateSymbolAdmin__SymbolSessionsTime__Input {
+  input TradingEngineCreateSymbol__SymbolSessionsTime__Input {
     openTime: String
     closeTime: String
   }
   
-  input TradingEngineCreateSymbolAdmin__SymbolSessions__Input {
+  input TradingEngineCreateSymbol__SymbolSessions__Input {
     dayOfWeek: TradingEngine__DaysOfWeek__Enum!
-    quote: TradingEngineCreateSymbolAdmin__SymbolSessionsTime__Input
-    trade: TradingEngineCreateSymbolAdmin__SymbolSessionsTime__Input
+    quote: TradingEngineCreateSymbol__SymbolSessionsTime__Input
+    trade: TradingEngineCreateSymbol__SymbolSessionsTime__Input
   }
   
-  input TradingEngineCreateSymbolAdmin__Input {
+  input TradingEngineCreateSymbol__Input {
     symbol: String!
     source: String
     digits: Int!
@@ -86,10 +86,10 @@ module.exports = gql`
     baseCurrency: String
     quoteCurrency: String!
     symbolType: TradingEngine__SymbolTypes__Enum!
-    filtration: TradingEngineCreateSymbolAdmin__Filtration__Input!
-    swapConfigs: TradingEngineCreateSymbolAdmin__SwapsConfigs__Input!
+    filtration: TradingEngineCreateSymbol__Filtration__Input!
+    swapConfigs: TradingEngineCreateSymbol__SwapsConfigs__Input!
     backgroundColor: String!
-    symbolSessions: [TradingEngineCreateSymbolAdmin__SymbolSessions__Input]!
+    symbolSessions: [TradingEngineCreateSymbol__SymbolSessions__Input]!
   }
   
   input TradingEngineSymbols__Input {
