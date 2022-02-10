@@ -10,9 +10,9 @@ module.exports = gql`
     deskType: Desk__Types__Enum
     isDefault: Boolean
     language: String
-    manager: String
+    managers: [String]
     name: String!
-    operator: Operator
+    operators: [Operator]
     parentBranch: HierarchyBranch
     uuid: String!
   }

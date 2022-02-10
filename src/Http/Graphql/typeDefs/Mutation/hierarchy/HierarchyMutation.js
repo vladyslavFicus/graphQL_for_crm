@@ -35,7 +35,8 @@ module.exports = gql`
     ): Boolean
 
     removeBranchManager(
-      branchUuid: String
+      branchUuid: String!
+      managerUuid: String!
     ): Boolean
 
     updateAcquisition(

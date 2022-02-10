@@ -1,5 +1,5 @@
 module.exports = {
-  manager({ managerUuid }, _, { dataSources }) {
-    return dataSources.OperatorAPI.getByUUID(managerUuid);
+  managers({ managerUuids }, _, { dataSources }) {
+    return dataSources.OperatorAPI.getByUUIDs(managerUuids);
   },
 };

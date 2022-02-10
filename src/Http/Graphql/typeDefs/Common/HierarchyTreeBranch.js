@@ -6,8 +6,8 @@ module.exports = gql`
     name: String
     brandId: String
     branchType: String
-    managerUuid: String
-    manager: Operator
+    managerUuids: [String]
+    managers: [Operator]
     usersCount: Int
     childrenCount: Int
   }
