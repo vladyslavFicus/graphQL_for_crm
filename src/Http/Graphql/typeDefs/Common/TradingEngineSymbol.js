@@ -19,8 +19,8 @@ module.exports = gql`
   }
   
   type TradingEngineSymbol__SymbolSessionsTime {
-    openTime: String
-    closeTime: String
+    openTime: String!
+    closeTime: String!
   }
   
   type TradingEngineSymbol__SymbolSessions {
@@ -46,6 +46,6 @@ module.exports = gql`
     filtration: TradingEngineSymbol__Filtration!
     swapConfigs: TradingEngineSymbol__SwapsConfigs!
     backgroundColor: String!
-    symbolSessions: [TradingEngineSymbol__SymbolSessions]
+    symbolSessions: [TradingEngineSymbol__SymbolSessions!]!
   }
 `;

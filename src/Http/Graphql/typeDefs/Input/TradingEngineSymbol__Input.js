@@ -41,7 +41,7 @@ module.exports = gql`
     filtration: TradingEngineEditSymbol__Filtration__Input!
     swapConfigs: TradingEngineEditSymbol__SwapsConfigs__Input!
     backgroundColor: String!
-    symbolSessions: [TradingEngineEditSymbol__SymbolSessions__Input]!
+    symbolSessions: [TradingEngineEditSymbol__SymbolSessions__Input!]!
   }
   
   input TradingEngineCreateSymbol__Filtration__Input {
@@ -62,8 +62,8 @@ module.exports = gql`
   }
   
   input TradingEngineCreateSymbol__SymbolSessionsTime__Input {
-    openTime: String
-    closeTime: String
+    openTime: String!
+    closeTime: String!
   }
   
   input TradingEngineCreateSymbol__SymbolSessions__Input {
