@@ -65,5 +65,7 @@ module.exports = gql`
     ): TradingEngineAccount
 
     createSymbol(args: TradingEngineCreateSymbol__Input): Boolean
+
+    editSymbol(args: TradingEngineEditSymbol__Input): Boolean
   }
 `;
