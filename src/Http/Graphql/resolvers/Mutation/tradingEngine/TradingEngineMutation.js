@@ -131,4 +131,17 @@ module.exports = {
   updateAccountReadonly(_, { accountUuid, ...rest }, { dataSources }) {
     return dataSources.TradingEngineAPI.updateAccountReadonly(accountUuid, rest);
   },
+
+  /**
+   * Create Symbol
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async createSymbol(_, { args }, { dataSources }) {
+    await dataSources.TradingEngineAdminAPI.createSymbol(args);
+  },
 };

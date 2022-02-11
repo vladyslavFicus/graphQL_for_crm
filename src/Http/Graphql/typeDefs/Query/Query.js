@@ -227,13 +227,13 @@ module.exports = gql`
     tradingEngine: TradingEngineQuery! @nested
     tradingEngineAccounts(args: TradingEngineSearch__Input): TradingEngineAccount @pageable
     tradingEngineAccount(identifier: String): TradingEngineAccount
-    tradingEngineSymbols(args: TradingEngineSymbols__Input): TradingEngineSymbol @pageable
+    tradingEngineSymbols(args: TradingEngineSymbols__Input): OLD__TradingEngineSymbol @pageable
     tradingEngineAdminSymbols(args: TradingEngineSymbols__Input): TradingEngineAdminSymbolSearch @pageable
-    tradingEngineAdminSymbol(symbolName: String!): TradingEngineAdminSymbol
+    tradingEngineAdminSymbol(symbolName: String!): TradingEngineSymbol
     tradingEngineSecurities: [TradingEngineSecurity]
-    tradingEngineAdminSymbolsSources: [TradingEngineSource]
+    tradingEngineAdminSymbolsSources: [TradingEngineSymbolSource]
     tradingEngineSecurity(securityName: String!): TradingEngineSecurity
-    tradingEngineSymbol(symbol: String!): TradingEngineSymbol
+    tradingEngineSymbol(symbol: String!): OLD__TradingEngineSymbol
     tradingEngineGroups: [TradingEngineGroup]
     tradingEngineOrders(args: TradingEngineSearch__Input): TradingEngineOrder @pageable
     tradingEngineOrder(orderId: Int!): TradingEngineOrder
