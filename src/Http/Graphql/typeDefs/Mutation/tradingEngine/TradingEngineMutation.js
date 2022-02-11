@@ -63,5 +63,7 @@ module.exports = gql`
       accountUuid: String!
       readOnly: Boolean
     ): TradingEngineAccount
+
+    createSymbol(args: TradingEngineCreateSymbol__Input): Boolean
   }
 `;

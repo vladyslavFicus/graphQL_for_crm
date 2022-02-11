@@ -19,9 +19,9 @@ module.exports = gql`
       securityName: String!
     ): Boolean
     
-    createSymbol(args: TradingEngineCreateSymbolAdmin__Input): Boolean
+    createSymbol(args: TradingEngineCreateSymbol__Input): Boolean
 
-    editSymbol(args: TradingEngineEditSymbolAdmin__Input): Boolean
+    editSymbol(args: TradingEngineEditSymbol__Input): Boolean
 
     createGroup(args: TradingEngineCreateGroupAdmin__Input): Boolean
     
