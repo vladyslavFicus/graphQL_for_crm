@@ -14,26 +14,26 @@ module.exports = gql`
   }
 
   type TradingEngineGroup__GroupMargin {
-    symbol: String
-    securityId: Int
-    percentage: Float
-    swapShort: Float
-    swapLong: Float
+    symbol: String!
+    securityId: Int!
+    percentage: Float!
+    swapShort: Float!
+    swapLong: Float!
   }
 
   type TradingEngineGroup {
-    enable: Boolean
+    enable: Boolean!
     groupName: String!
     description: String
     currency: String!
-    defaultLeverage: Int
-    useSwap: Boolean
-    hedgeProhibited : Boolean
-    archivePeriodDays: Int
-    archiveMaxBalance: Int
-    marginCallLevel: Int
-    stopoutLevel: Int
-    groupSecurities: [TradingEngineGroup__GroupSecurity!]
-    groupMargins: [TradingEngineGroup__GroupMargin!]
+    defaultLeverage: Int!
+    useSwap: Boolean!
+    hedgeProhibited : Boolean!
+    archivePeriodDays: Int!
+    archiveMaxBalance: Int!
+    marginCallLevel: Int!
+    stopoutLevel: Int!
+    groupSecurities: [TradingEngineGroup__GroupSecurity!]!
+    groupMargins: [TradingEngineGroup__GroupMargin!]!
   }
 `;

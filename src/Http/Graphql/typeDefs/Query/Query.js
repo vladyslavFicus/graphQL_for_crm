@@ -234,7 +234,6 @@ module.exports = gql`
     tradingEngineAdminSymbolsSources: [TradingEngineSymbolSource]
     tradingEngineSecurity(securityName: String!): TradingEngineSecurity
     tradingEngineSymbol(symbol: String!): OLD__TradingEngineSymbol
-    tradingEngineGroups: [TradingEngineGroup]
     tradingEngineOrders(args: TradingEngineSearch__Input): TradingEngineOrder @pageable
     tradingEngineOrder(orderId: Int!): TradingEngineOrder
     tradingEngineTransactions(args: TradingEngineTransactionSearch__Input): TradingEngineTransaction @pageable
@@ -242,8 +241,6 @@ module.exports = gql`
     tradingEngineSymbolPrices(symbol: String! size: Int): [TradingEngineSymbolPrice]
     tradingEngineAccountSymbols(accountUuid: String!): [TradingEngineAccountSymbol]
     tradingEngineAccountStatistic(accountUuid: String!): TradingEngineAccountStatistic
-    tradingEngineAdminGroups(args: TradingEngineGroupsSearch__Input): TradingEngineGroup @pageable
-    tradingEngineAdminGroup(groupName: String!): TradingEngineGroup
     
     #Ipwhitelist
     ipWhitelistSearch(args: IpWhitelistSearch__Input): IpWhitelistAddress @pageable

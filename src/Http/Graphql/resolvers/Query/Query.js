@@ -464,9 +464,6 @@ module.exports = {
   tradingEngineSecurity(_, { securityName }, { dataSources }) {
     return dataSources.TradingEngineAdminAPI.getSecurity(securityName);
   },
-  tradingEngineGroups(_, __, { dataSources }) {
-    return dataSources.TradingEngineAPI.getGroups();
-  },
   tradingEngineTransactions(_, { args }, { dataSources }) {
     return dataSources.TradingEngineAPI.getTransactions(args);
   },
@@ -481,12 +478,6 @@ module.exports = {
   },
   tradingEngineAccountStatistic(_, { accountUuid }, { dataSources }) {
     return dataSources.TradingEngineAPI.getAccountStatistic(accountUuid);
-  },
-  tradingEngineAdminGroups(_, { args }, { dataSources }) {
-    return dataSources.TradingEngineAdminAPI.getGroups(args);
-  },
-  tradingEngineAdminGroup(_, { groupName }, { dataSources }) {
-    return dataSources.TradingEngineAdminAPI.getGroup(groupName);
   },
 
   /**

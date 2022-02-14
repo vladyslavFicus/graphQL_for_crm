@@ -67,5 +67,11 @@ module.exports = gql`
     createSymbol(args: TradingEngineCreateSymbol__Input): Boolean
 
     editSymbol(args: TradingEngineEditSymbol__Input): Boolean
+    
+    createGroup(args: TradingEngineCreateGroup__Input!): Boolean
+    
+    editGroup(args: TradingEngineEditGroup__Input!): Boolean
+   
+    deleteGroup(groupName: String!): Boolean
   }
 `;

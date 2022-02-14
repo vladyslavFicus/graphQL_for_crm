@@ -8,5 +8,6 @@ module.exports = gql`
     symbolsSources: [TradingEngineSymbolSource!]!
     securities: [TradingEngineSecurity!]!
     security(securityName: String!): TradingEngineSecurity
+    group(groupName: String!): TradingEngineGroup
   }
 `;

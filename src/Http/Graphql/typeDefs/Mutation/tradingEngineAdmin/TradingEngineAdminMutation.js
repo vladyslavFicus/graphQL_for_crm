@@ -22,11 +22,5 @@ module.exports = gql`
     createSymbol(args: TradingEngineCreateSymbol__Input): Boolean
 
     editSymbol(args: TradingEngineEditSymbol__Input): Boolean
-
-    createGroup(args: TradingEngineCreateGroupAdmin__Input): Boolean
-    
-    editGroup(args: TradingEngineEditGroupAdmin__Input): Boolean
-   
-    deleteGroup(groupName: String!): Boolean
   }
 `;
