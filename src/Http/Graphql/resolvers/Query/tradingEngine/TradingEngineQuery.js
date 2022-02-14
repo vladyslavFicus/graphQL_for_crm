@@ -20,4 +20,7 @@ module.exports = {
   group(_, { groupName }, { dataSources }) {
     return dataSources.TradingEngineAdminAPI.getGroup(groupName);
   },
+  orders(_, { args }, { dataSources }) {
+    return dataSources.TradingEngineAPI.getOrders(args);
+  },
 };

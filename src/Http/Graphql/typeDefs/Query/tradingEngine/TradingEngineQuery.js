@@ -9,5 +9,6 @@ module.exports = gql`
     securities: [TradingEngineSecurity!]!
     security(securityName: String!): TradingEngineSecurity
     group(groupName: String!): TradingEngineGroup
+    orders(args: TradingEngineOrdersSearch__Input): TradingEngineOrder! @pageable
   }
 `;
