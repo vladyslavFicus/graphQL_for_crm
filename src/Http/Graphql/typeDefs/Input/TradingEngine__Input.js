@@ -85,7 +85,7 @@ module.exports = gql`
   input TradingEngineCreateGroup__Input {
     groupName: String!
     currency: String!
-    description: String!
+    description: String
     enable: Boolean!
     defaultLeverage: Int!
     useSwap: Boolean!

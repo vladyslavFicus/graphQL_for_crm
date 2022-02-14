@@ -28,7 +28,7 @@ module.exports = gql`
     symbol: String!
     source: String
     digits: Int!
-    description: String!
+    description: String
     securityName: String!
     bidSpread: Float!
     askSpread: Float!
@@ -76,7 +76,7 @@ module.exports = gql`
     symbol: String!
     source: String
     digits: Int!
-    description: String!
+    description: String
     securityName: String!
     bidSpread: Float!
     askSpread: Float!

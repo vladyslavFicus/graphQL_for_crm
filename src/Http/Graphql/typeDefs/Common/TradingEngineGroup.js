@@ -33,7 +33,7 @@ module.exports = gql`
     archiveMaxBalance: Int!
     marginCallLevel: Int!
     stopoutLevel: Int!
-    groupSecurities: [TradingEngineGroup__GroupSecurity!]!
-    groupMargins: [TradingEngineGroup__GroupMargin!]!
+    groupSecurities: [TradingEngineGroup__GroupSecurity!]
+    groupMargins: [TradingEngineGroup__GroupMargin!]
   }
 `;
