@@ -225,7 +225,7 @@ module.exports = gql`
     
     # TradingEngine API
     tradingEngine: TradingEngineQuery! @nested
-    tradingEngineAccounts(args: TradingEngineSearch__Input): TradingEngineAccount @pageable
+    tradingEngineAccounts(args: TradingEngineOrdersSearch__Input): TradingEngineAccount @pageable
     tradingEngineAccount(identifier: String): TradingEngineAccount
     tradingEngineSymbols(args: TradingEngineSymbols__Input): OLD__TradingEngineSymbol @pageable
     tradingEngineAdminSymbols(args: TradingEngineSymbols__Input): TradingEngineAdminSymbolSearch @pageable
@@ -235,7 +235,7 @@ module.exports = gql`
     tradingEngineSecurity(securityName: String!): TradingEngineSecurity
     tradingEngineSymbol(symbol: String!): OLD__TradingEngineSymbol
     tradingEngineGroups: [TradingEngineGroup]
-    tradingEngineOrders(args: TradingEngineSearch__Input): TradingEngineOrder @pageable
+    tradingEngineOrders(args: TradingEngineOrdersSearch__Input): TradingEngineOrder @pageable
     tradingEngineOrder(orderId: Int!): TradingEngineOrder
     tradingEngineTransactions(args: TradingEngineTransactionSearch__Input): TradingEngineTransaction @pageable
     tradingEngineHistory(args: TradingEngineHistorySearch__Input): TradingEngineHistory @pageable

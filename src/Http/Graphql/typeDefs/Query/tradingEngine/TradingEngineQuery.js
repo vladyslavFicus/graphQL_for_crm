@@ -7,5 +7,6 @@ module.exports = gql`
     symbolsSources: [TradingEngineSymbolSource!]!
     securities: [TradingEngineSecurity!]!
     security(securityName: String!): TradingEngineSecurity
+    orders(args: TradingEngineOrdersSearch__Input): TradingEngineOrder! @pageable
   }
 `;

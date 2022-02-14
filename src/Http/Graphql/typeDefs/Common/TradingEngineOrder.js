@@ -7,40 +7,40 @@ module.exports = gql`
   }
   
   type TradingEngineOrder__Time {
-    creation: String,
+    creation: String!,
     modification: String,
     expiration: String,
-    closing: String
+    closing: String,
   }
 
   type TradingEngineOrder {
-    id: Int
-    accountLogin: Int
-    accountUuid: String
-    account: TradingEngineAccount
+    id: Int!
+    accountLogin: Int!
+    accountUuid: String!
+    account: TradingEngineAccount!
     tradeId: String
-    symbol: String
+    symbol: String!
     symbolAlias: String
     symbolConfig: TradingEngineAccountSymbolConfig
     direction: String
-    digits: Float
+    digits: Float!
     takeProfit: Float
     stopLoss: Float
-    openPrice: Float
+    openPrice: Float!
     closePrice: Float
     marginRate: Float
     volumeUnits: Float
-    volumeLots: Float
+    volumeLots: Float!
     lotSize: Float
     commission: Float
     swaps: Float
-    status: String
+    status: String!
     pnl: TradingEngineOrder__Pnl
-    time: TradingEngineOrder__Time
+    time: TradingEngineOrder__Time!
     tradeType: String
     comment: String
     tradeStatus: String
-    type: TradingEngine__OperationTypes__Enum
+    type: TradingEngine__OperationTypes__Enum!
     group: String
     reason: String
     openRate: Float

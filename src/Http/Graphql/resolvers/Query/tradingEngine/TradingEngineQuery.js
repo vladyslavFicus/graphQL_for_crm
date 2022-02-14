@@ -14,4 +14,7 @@ module.exports = {
   security(_, { securityName }, { dataSources }) {
     return dataSources.TradingEngineAdminAPI.getSecurity(securityName);
   },
+  orders(_, { args }, { dataSources }) {
+    return dataSources.TradingEngineAPI.getOrders(args);
+  },
 };

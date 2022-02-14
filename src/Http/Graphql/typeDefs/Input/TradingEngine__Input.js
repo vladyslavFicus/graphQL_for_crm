@@ -6,7 +6,7 @@ module.exports = gql`
     to: String
   }
 
-  input TradingEngineSearch__Input {
+  input TradingEngineOrdersSearch__Input {
     keyword: String
     orderType: String
     accountUuid: String
