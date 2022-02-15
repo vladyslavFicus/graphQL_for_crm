@@ -7,7 +7,7 @@ module.exports = gql`
     profileUuid: String
     serverId: Int
     login: Int
-    accountType: String
+    accountType: String!
     enable: Boolean
     readOnly: Boolean
     leverage: Int

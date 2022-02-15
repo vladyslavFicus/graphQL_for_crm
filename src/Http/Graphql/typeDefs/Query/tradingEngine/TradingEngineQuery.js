@@ -8,5 +8,6 @@ module.exports = gql`
     securities: [TradingEngineSecurity!]!
     security(securityName: String!): TradingEngineSecurity
     orders(args: TradingEngineOrdersSearch__Input): TradingEngineOrder! @pageable
+    accounts(args: TradingEngineAccountSearch__Input): TradingEngineAccount @pageable
   }
 `;

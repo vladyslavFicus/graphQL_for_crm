@@ -112,4 +112,18 @@ module.exports = gql`
     groupSecurities: [TradingEngineGroup__GroupSecurity__Input]
     groupMargins: [TradingEngineGroup__GroupMargins__Input]
   }
+  
+  input TradingEngineAccountSearch__Input {
+    keyword: String
+    orderType: String
+    accountUuid: String
+    symbol: String
+    openingDateRange: TradingEngineSearch__Time__Input
+    closingDateRange: TradingEngineSearch__Time__Input
+    orderId: Int
+    enabled: Boolean
+    page: Page__Input
+    orderStatuses: [String]
+    groups: [String]
+  }
 `;
