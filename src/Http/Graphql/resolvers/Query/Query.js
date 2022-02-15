@@ -127,6 +127,10 @@ module.exports = {
     return callbacksData.content[0];
   },
 
+  callHistory(_, { uuid, args }, { dataSources }) {
+    return dataSources.Analytics.getCallHistory(uuid, args);
+  },
+
   /**
    * Email API
    */
