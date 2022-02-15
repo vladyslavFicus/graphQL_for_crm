@@ -47,5 +47,7 @@ module.exports = gql`
     swapConfigs: TradingEngineSymbol__SwapsConfigs!
     backgroundColor: String!
     symbolSessions: [TradingEngineSymbol__SymbolSessions!]!
+    config(accountUuid: String): TradingEngineAccountSymbolConfig
+    prices(size: Int): [TradingEngineSymbolPrice!]! 
   }
 `;
