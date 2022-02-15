@@ -16,6 +16,12 @@ module.exports = {
   security(_, { securityName }, { dataSources }) {
     return dataSources.TradingEngineAdminAPI.getSecurity(securityName);
   },
+  group(_, { groupName }, { dataSources }) {
+    return dataSources.TradingEngineAdminAPI.getGroup(groupName);
+  },
+  groups(_, { args }, { dataSources }) {
+    return dataSources.TradingEngineAdminAPI.getGroups(args);
+  },
   orders(_, { args }, { dataSources }) {
     return dataSources.TradingEngineAPI.getOrders(args);
   },
