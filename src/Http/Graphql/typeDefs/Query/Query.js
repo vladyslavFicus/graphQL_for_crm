@@ -76,6 +76,9 @@ module.exports = gql`
     ): Callback @pageable
     callback(id: String!): Callback
 
+    # Analtics
+    callHistory(uuid: String!, args: CallHistorySearch__Input): CallHistory! @pageable
+
     # Email API
     emailTemplate(id: ID!): Email
     emailTemplates: [Email]
