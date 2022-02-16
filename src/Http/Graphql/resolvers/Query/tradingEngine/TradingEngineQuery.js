@@ -40,4 +40,7 @@ module.exports = {
   accountStatistic(_, { accountUuid }, { dataSources }) {
     return dataSources.TradingEngineAPI.getAccountStatistic(accountUuid);
   },
+  transactions(_, { args }, { dataSources }) {
+    return dataSources.TradingEngineAPI.getTransactions(args);
+  },
 };
