@@ -20,6 +20,6 @@ module.exports = gql`
     equity: Float
     comment: String
     currency: String!
-    registrationDate: String
+    registrationDate: String!
   }
 `;

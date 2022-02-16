@@ -228,6 +228,7 @@ module.exports = gql`
     
     # TradingEngine API
     tradingEngine: TradingEngineQuery! @nested
+    tradingEngineSymbols(args: TradingEngineSymbols__Input): OLD__TradingEngineSymbol @pageable
     tradingEngineAccount(identifier: String): TradingEngineAccount
     tradingEngineAdminSymbols(args: TradingEngineSymbols__Input): TradingEngineAdminSymbolSearch @pageable
     tradingEngineAdminSymbol(symbolName: String!): TradingEngineSymbol
@@ -241,8 +242,8 @@ module.exports = gql`
     tradingEngineTransactions(args: TradingEngineTransactionSearch__Input): TradingEngineTransaction @pageable
     tradingEngineHistory(args: TradingEngineHistorySearch__Input): TradingEngineHistory @pageable
     tradingEngineSymbolPrices(symbol: String! size: Int): [TradingEngineSymbolPrice]
-    tradingEngineAccountSymbols(accountUuid: String!): [TradingEngineAccountSymbol]
-    tradingEngineAccountStatistic(accountUuid: String!): TradingEngineAccountStatistic
+    tradingEngineAdminGroups(args: TradingEngineGroupsSearch__Input): TradingEngineGroup @pageable
+    tradingEngineAdminGroup(groupName: String!): TradingEngineGroup
     
     #Ipwhitelist
     ipWhitelistSearch(args: IpWhitelistSearch__Input): IpWhitelistAddress @pageable

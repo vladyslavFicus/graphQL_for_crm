@@ -432,9 +432,6 @@ module.exports = {
   /**
    * Trading Engine API
    */
-  tradingEngineAccount(_, { identifier }, { dataSources }) {
-    return dataSources.TradingEngineAPI.getAccountByIdentifier(identifier);
-  },
   tradingEngineOrders(_, { args }, { dataSources }) {
     return dataSources.TradingEngineAPI.getOrders(args);
   },
@@ -468,11 +465,11 @@ module.exports = {
   tradingEngineSymbolPrices(_, { symbol, ...args }, { dataSources }) {
     return dataSources.TradingEngineAPI.getSymbolPrices(symbol, args);
   },
-  tradingEngineAccountSymbols(_, { accountUuid }, { dataSources }) {
-    return dataSources.TradingEngineAPI.getAllowedAccountSymbols(accountUuid);
+  tradingEngineAdminGroups(_, { args }, { dataSources }) {
+    return dataSources.TradingEngineAdminAPI.getGroups(args);
   },
-  tradingEngineAccountStatistic(_, { accountUuid }, { dataSources }) {
-    return dataSources.TradingEngineAPI.getAccountStatistic(accountUuid);
+  tradingEngineAdminGroup(_, { groupName }, { dataSources }) {
+    return dataSources.TradingEngineAdminAPI.getGroup(groupName);
   },
 
   /**
