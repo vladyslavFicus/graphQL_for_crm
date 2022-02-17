@@ -227,7 +227,7 @@ module.exports = gql`
     ): [TradingAccount]
     
     # TradingEngine API
-    tradingEngine: TradingEngineQuery! @nested
+    tradingEngine: TradingEngineQuery @nested
     tradingEngineSymbols(args: TradingEngineSymbols__Input): OLD__TradingEngineSymbol @pageable
     tradingEngineAccount(identifier: String): TradingEngineAccount
     tradingEngineAdminSymbols(args: TradingEngineSymbols__Input): TradingEngineAdminSymbolSearch @pageable
