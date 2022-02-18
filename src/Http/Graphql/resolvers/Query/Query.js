@@ -456,9 +456,6 @@ module.exports = {
   tradingEngineSecurity(_, { securityName }, { dataSources }) {
     return dataSources.TradingEngineAdminAPI.getSecurity(securityName);
   },
-  tradingEngineTransactions(_, { args }, { dataSources }) {
-    return dataSources.TradingEngineAPI.getTransactions(args);
-  },
   tradingEngineHistory(_, { args }, { dataSources }) {
     return dataSources.TradingEngineAPI.getHistory(args);
   },
