@@ -11,6 +11,7 @@ module.exports = gql`
     group(groupName: String!): TradingEngineGroup
     groups(args: TradingEngineGroupsSearch__Input): TradingEngineGroup! @pageable
     orders(args: TradingEngineOrdersSearch__Input): TradingEngineOrder! @pageable
+    order(orderId: Int!): TradingEngineOrder!
     accounts(args: TradingEngineAccountSearch__Input): TradingEngineAccount! @pageable
     accountSymbols(accountUuid: String!): [TradingEngineAccountSymbol!]!
     accountStatistic(accountUuid: String!): TradingEngineAccountStatistic!

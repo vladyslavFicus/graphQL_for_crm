@@ -179,7 +179,7 @@ class TradingEngineAPI extends RESTDataSource {
    *
    * @return {Promise}
    */
-  deleteOrder(orderId) {
+  cancelOrder(orderId) {
     return this.delete(`/orders/${orderId}`);
   }
 

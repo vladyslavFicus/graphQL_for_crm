@@ -2,8 +2,8 @@ const { gql } = require('apollo-server-express');
 
 module.exports = gql`  
   type TradingEngineOrder__Pnl {
-    gross: Float,
-    net: Float
+    gross: Float!
+    net: Float!
   }
   
   type TradingEngineOrder__Time {
@@ -22,7 +22,7 @@ module.exports = gql`
     symbol: String!
     symbolAlias: String
     symbolConfig: TradingEngineAccountSymbolConfig
-    direction: String
+    direction: String!
     digits: Float!
     takeProfit: Float
     stopLoss: Float
@@ -32,17 +32,17 @@ module.exports = gql`
     volumeUnits: Float
     volumeLots: Float!
     lotSize: Float
-    commission: Float
-    swaps: Float
+    commission: Float!
+    swaps: Float!
     status: String!
-    pnl: TradingEngineOrder__Pnl
+    pnl: TradingEngineOrder__Pnl!
     time: TradingEngineOrder__Time!
     tradeType: String
     comment: String
     tradeStatus: String
     type: TradingEngine__OperationTypes__Enum!
     group: String
-    reason: String
+    reason: String!
     openRate: Float
     closeRate: Float
     margin: Float

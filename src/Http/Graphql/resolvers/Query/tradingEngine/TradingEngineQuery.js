@@ -25,6 +25,9 @@ module.exports = {
   orders(_, { args }, { dataSources }) {
     return dataSources.TradingEngineAPI.getOrders(args);
   },
+  order(_, { orderId }, { dataSources }) {
+    return dataSources.TradingEngineAPI.getOrder(orderId);
+  },
   account(_, { identifier }, { dataSources }) {
     return dataSources.TradingEngineAPI.getAccountByIdentifier(identifier);
   },

@@ -47,8 +47,22 @@ module.exports = {
    *
    * @return {Promise}
    */
-  async editOrder(_, args, { dataSources }) {
-    await dataSources.TradingEngineAPI.editOrder(args.orderId, args);
+  async editOrder(_, { orderId, ...rest }, { dataSources }) {
+    await dataSources.TradingEngineAPI.editOrder(orderId, rest);
+  },
+
+  /**
+   * Edit Order Admin
+   *
+   * @param _
+   * @param orderId
+   * @param rest
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async editOrderAdmin(_, { args: { orderId, ...rest } }, { dataSources }) {
+    await dataSources.TradingEngineAdminAPI.editOrder(orderId, rest);
   },
 
   /**
@@ -65,7 +79,7 @@ module.exports = {
   },
 
   /**
-   * Delete Order
+   * Cancel Order
    *
    * @param _
    * @param args
@@ -73,8 +87,21 @@ module.exports = {
    *
    * @return {Promise}
    */
-  async deleteOrder(_, args, { dataSources }) {
-    await dataSources.TradingEngineAPI.deleteOrder(args.orderId);
+  async cancelOrder(_, args, { dataSources }) {
+    await dataSources.TradingEngineAPI.cancelOrder(args.orderId);
+  },
+
+  /**
+   * Reopen Order
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async reopenOrder(_, args, { dataSources }) {
+    await dataSources.TradingEngineAdminAPI.reopenOrder(args.orderId);
   },
 
   /**

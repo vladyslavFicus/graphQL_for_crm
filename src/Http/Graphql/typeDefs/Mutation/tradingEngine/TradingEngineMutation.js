@@ -33,6 +33,8 @@ module.exports = gql`
       takeProfit: Float
       comment: String
     ): Boolean
+
+    editOrderAdmin(args: TradingEngineEditOrderAdmin__Input): Boolean
     
     closeOrder(
       orderId: Int!
@@ -40,9 +42,9 @@ module.exports = gql`
       closePrice: Float
     ): Boolean
     
-    deleteOrder(
-      orderId: Int!
-    ): Boolean
+    cancelOrder(orderId: Int!): Boolean
+
+    reopenOrder(orderId: Int!): Boolean
 
     activatePendingOrder(
       orderId: Int!
