@@ -75,5 +75,9 @@ module.exports = gql`
     editGroup(args: TradingEngineEditGroup__Input!): Boolean
    
     deleteGroup(groupName: String!): Boolean
+
+    createSecurity(name: String! description: String): Boolean
+    
+    editSecurity(name: String! description: String securityName: String!): Boolean
   }
 `;
