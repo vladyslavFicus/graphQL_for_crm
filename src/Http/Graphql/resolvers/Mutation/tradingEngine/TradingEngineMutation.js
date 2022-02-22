@@ -62,7 +62,7 @@ module.exports = {
    * @return {Promise}
    */
   async editOrderAdmin(_, { args: { orderId, ...rest } }, { dataSources }) {
-    await dataSources.TradingEngineAdminAPI.editOrder(orderId, rest);
+    await dataSources.TradingEngineAPI.editOrderAdmin(orderId, rest);
   },
 
   /**
@@ -101,7 +101,7 @@ module.exports = {
    * @return {Promise}
    */
   async reopenOrder(_, args, { dataSources }) {
-    await dataSources.TradingEngineAdminAPI.reopenOrder(args.orderId);
+    await dataSources.TradingEngineAPI.reopenOrder(args.orderId);
   },
 
   /**
@@ -171,7 +171,7 @@ module.exports = {
    * @return {Promise}
    */
   async createSymbol(_, { args }, { dataSources }) {
-    await dataSources.TradingEngineAdminAPI.createSymbol(args);
+    await dataSources.TradingEngineAPI.createSymbol(args);
   },
 
   /**
@@ -184,7 +184,7 @@ module.exports = {
    * @return {Promise}
    */
   async editSymbol(_, { args: { symbol, ...rest } }, { dataSources }) {
-    await dataSources.TradingEngineAdminAPI.editSymbol(symbol, rest);
+    await dataSources.TradingEngineAPI.editSymbol(symbol, rest);
   },
 
 
@@ -200,7 +200,7 @@ module.exports = {
    * @return {Promise}
    */
   async createGroup(_, { args }, { dataSources }) {
-    await dataSources.TradingEngineAdminAPI.createGroup(args);
+    await dataSources.TradingEngineAPI.createGroup(args);
   },
 
   /**
@@ -214,7 +214,7 @@ module.exports = {
    * @return {Promise}
    */
   async editGroup(_, { args: { groupName, ...rest } }, { dataSources }) {
-    await dataSources.TradingEngineAdminAPI.editGroup(groupName, rest);
+    await dataSources.TradingEngineAPI.editGroup(groupName, rest);
   },
 
   /**
@@ -227,6 +227,33 @@ module.exports = {
    * @return {Promise}
    */
   async deleteGroup(_, { groupName }, { dataSources }) {
-    await dataSources.TradingEngineAdminAPI.deleteGroup(groupName);
+    await dataSources.TradingEngineAPI.deleteGroup(groupName);
   },
+
+  /**
+   * Create Security
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async createSecurity(_, args, { dataSources }) {
+    await dataSources.TradingEngineAPI.createSecurity(args);
+  },
+
+  /**
+   * Edit Security
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async editSecurity(_, { securityName, ...rest }, { dataSources }) {
+    await dataSources.TradingEngineAPI.editSecurity(securityName, rest);
+  },
+
 };

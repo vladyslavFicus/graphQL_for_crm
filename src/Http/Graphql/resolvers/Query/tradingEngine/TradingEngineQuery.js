@@ -2,25 +2,25 @@ const { omitBy, isNil } = require('lodash');
 
 module.exports = {
   symbols(_, { args }, { dataSources }) {
-    return dataSources.TradingEngineAdminAPI.getSymbols(args);
+    return dataSources.TradingEngineAPI.getSymbols(args);
   },
   symbolsSources(_, __, { dataSources }) {
-    return dataSources.TradingEngineAdminAPI.getSymbolsSources();
+    return dataSources.TradingEngineAPI.getSymbolsSources();
   },
   symbol(_, { symbolName }, { dataSources }) {
-    return dataSources.TradingEngineAdminAPI.getSymbol(symbolName);
+    return dataSources.TradingEngineAPI.getSymbol(symbolName);
   },
   securities(_, __, { dataSources }) {
-    return dataSources.TradingEngineAdminAPI.getSecurities();
+    return dataSources.TradingEngineAPI.getSecurities();
   },
   security(_, { securityName }, { dataSources }) {
-    return dataSources.TradingEngineAdminAPI.getSecurity(securityName);
+    return dataSources.TradingEngineAPI.getSecurity(securityName);
   },
   group(_, { groupName }, { dataSources }) {
-    return dataSources.TradingEngineAdminAPI.getGroup(groupName);
+    return dataSources.TradingEngineAPI.getGroup(groupName);
   },
   groups(_, { args }, { dataSources }) {
-    return dataSources.TradingEngineAdminAPI.getGroups(args);
+    return dataSources.TradingEngineAPI.getGroups(args);
   },
   orders(_, { args }, { dataSources }) {
     return dataSources.TradingEngineAPI.getOrders(args);

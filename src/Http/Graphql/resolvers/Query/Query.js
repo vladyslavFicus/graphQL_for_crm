@@ -430,46 +430,6 @@ module.exports = {
   },
 
   /**
-   * Trading Engine API
-   */
-  tradingEngineOrders(_, { args }, { dataSources }) {
-    return dataSources.TradingEngineAPI.getOrders(args);
-  },
-  tradingEngineOrder(_, { orderId }, { dataSources }) {
-    return dataSources.TradingEngineAPI.getOrder(orderId);
-  },
-  tradingEngineAdminSymbols(_, { args }, { dataSources }) {
-    return dataSources.TradingEngineAdminAPI.getSymbols(args);
-  },
-  tradingEngineSecurities(_, __, { dataSources }) {
-    return dataSources.TradingEngineAdminAPI.getSecurities();
-  },
-  tradingEngineAdminSymbolsSources(_, __, { dataSources }) {
-    return dataSources.TradingEngineAdminAPI.getSymbolsSources();
-  },
-  tradingEngineAdminSymbol(_, { symbolName }, { dataSources }) {
-    return dataSources.TradingEngineAdminAPI.getSymbol(symbolName);
-  },
-  tradingEngineSymbol(_, { symbol }, { dataSources }) {
-    return dataSources.TradingEngineAPI.getSymbol(symbol);
-  },
-  tradingEngineSecurity(_, { securityName }, { dataSources }) {
-    return dataSources.TradingEngineAdminAPI.getSecurity(securityName);
-  },
-  tradingEngineHistory(_, { args }, { dataSources }) {
-    return dataSources.TradingEngineAPI.getHistory(args);
-  },
-  tradingEngineSymbolPrices(_, { symbol, ...args }, { dataSources }) {
-    return dataSources.TradingEngineAPI.getSymbolPrices(symbol, args);
-  },
-  tradingEngineAdminGroups(_, { args }, { dataSources }) {
-    return dataSources.TradingEngineAdminAPI.getGroups(args);
-  },
-  tradingEngineAdminGroup(_, { groupName }, { dataSources }) {
-    return dataSources.TradingEngineAdminAPI.getGroup(groupName);
-  },
-
-  /**
    * IP Whitelist
    */
   ipWhitelistSearch(_, { args }, { dataSources }) {
