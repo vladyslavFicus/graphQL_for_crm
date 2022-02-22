@@ -46,4 +46,7 @@ module.exports = {
   transactions(_, { args }, { dataSources }) {
     return dataSources.TradingEngineAPI.getTransactions(args);
   },
+  history(_, { args }, { dataSources }) {
+    return dataSources.TradingEngineAPI.getHistory(args);
+  },
 };

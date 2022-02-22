@@ -437,6 +437,15 @@ class TradingEngineAPI extends RESTDataSource {
   getTransactions(args) {
     return this.post('/transactions/search', args);
   }
+
+  /**
+     * Get trading engine history
+     *
+     * @return {Promise}
+     */
+  getHistory(args) {
+    return this.post('/history/search', args);
+  }
 }
 
 module.exports = TradingEngineAPI;
