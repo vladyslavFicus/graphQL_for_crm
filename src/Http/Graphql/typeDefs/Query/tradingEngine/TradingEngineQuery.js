@@ -16,5 +16,6 @@ module.exports = gql`
     accountSymbols(accountUuid: String!): [TradingEngineAccountSymbol!]!
     accountStatistic(accountUuid: String!): TradingEngineAccountStatistic!
     transactions(args: TradingEngineTransactionSearch__Input): TradingEngineTransaction @pageable
+    history(args: TradingEngineHistorySearch__Input): TradingEngineHistory! @pageable
   }
 `;
