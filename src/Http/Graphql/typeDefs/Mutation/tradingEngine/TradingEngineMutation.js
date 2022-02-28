@@ -24,7 +24,7 @@ module.exports = gql`
       stopLoss: Float
       takeProfit: Float
       comment: String
-    ): TradingEngineOrder
+    ): TradingEngineOrder!
     
     editOrder(
       orderId: Int!
@@ -33,6 +33,8 @@ module.exports = gql`
       takeProfit: Float
       comment: String
     ): Boolean
+
+    editOrderAdmin(args: TradingEngineEditOrderAdmin__Input): Boolean
     
     closeOrder(
       orderId: Int!
@@ -40,9 +42,9 @@ module.exports = gql`
       closePrice: Float
     ): Boolean
     
-    deleteOrder(
-      orderId: Int!
-    ): Boolean
+    cancelOrder(orderId: Int!): Boolean
+
+    reopenOrder(orderId: Int!): Boolean
 
     activatePendingOrder(
       orderId: Int!
@@ -63,5 +65,19 @@ module.exports = gql`
       accountUuid: String!
       readOnly: Boolean
     ): TradingEngineAccount
+
+    createSymbol(args: TradingEngineCreateSymbol__Input): Boolean
+
+    editSymbol(args: TradingEngineEditSymbol__Input): Boolean
+    
+    createGroup(args: TradingEngineCreateGroup__Input!): Boolean
+    
+    editGroup(args: TradingEngineEditGroup__Input!): Boolean
+   
+    deleteGroup(groupName: String!): Boolean
+
+    createSecurity(name: String! description: String): Boolean
+    
+    editSecurity(name: String! description: String securityName: String!): Boolean
   }
 `;

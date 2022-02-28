@@ -227,25 +227,7 @@ module.exports = gql`
     ): [TradingAccount]
     
     # TradingEngine API
-    tradingEngineAccounts(args: TradingEngineSearch__Input): TradingEngineAccount @pageable
-    tradingEngineAccount(identifier: String): TradingEngineAccount
-    tradingEngineSymbols(args: TradingEngineSymbols__Input): TradingEngineSymbol @pageable
-    tradingEngineAdminSymbols(args: TradingEngineSymbols__Input): TradingEngineAdminSymbolSearch @pageable
-    tradingEngineAdminSymbol(symbolName: String!): TradingEngineAdminSymbol
-    tradingEngineSecurities: [TradingEngineSecurity]
-    tradingEngineAdminSymbolsSources: [TradingEngineSource]
-    tradingEngineSecurity(securityName: String!): TradingEngineSecurity
-    tradingEngineSymbol(symbol: String!): TradingEngineSymbol
-    tradingEngineGroups: [TradingEngineGroup]
-    tradingEngineOrders(args: TradingEngineSearch__Input): TradingEngineOrder @pageable
-    tradingEngineOrder(orderId: Int!): TradingEngineOrder
-    tradingEngineTransactions(args: TradingEngineTransactionSearch__Input): TradingEngineTransaction @pageable
-    tradingEngineHistory(args: TradingEngineHistorySearch__Input): TradingEngineHistory @pageable
-    tradingEngineSymbolPrices(symbol: String! size: Int): [TradingEngineSymbolPrice]
-    tradingEngineAccountSymbols(accountUuid: String!): [TradingEngineAccountSymbol]
-    tradingEngineAccountStatistic(accountUuid: String!): TradingEngineAccountStatistic
-    tradingEngineAdminGroups(args: TradingEngineGroupsSearch__Input): TradingEngineGroup @pageable
-    tradingEngineAdminGroup(groupName: String!): TradingEngineGroup
+    tradingEngine: TradingEngineQuery @nested
     
     #Ipwhitelist
     ipWhitelistSearch(args: IpWhitelistSearch__Input): IpWhitelistAddress @pageable

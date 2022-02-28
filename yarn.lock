@@ -74,10 +74,10 @@
     form-data "^2.3.3"
     graphql "^14.1.1"
 
-"@hrzn/apollo-directive@^1.0.14":
-  version "1.0.14"
-  resolved "https://nexus.etep.io/repository/hrzn-npm/@hrzn/apollo-directive/-/apollo-directive-1.0.14.tgz#1fb418069597712726b5e091252c106b74ec0fa0"
-  integrity sha512-pOTXU1UWKJL9DhXNyIcExDJD4X77phcHEC2v9WLmzC6d3hKNDVlbybd8moi7Gx3LnvWnWzu4kLMPB8DEe6Hbnw==
+"@hrzn/apollo-directive@^1.0.20":
+  version "1.0.20"
+  resolved "https://nexus.etep.io/repository/hrzn-npm/@hrzn/apollo-directive/-/apollo-directive-1.0.20.tgz#89d5a74aeb66c0f7e306d0ebed916ba0713df2af"
+  integrity sha512-uxUuNoC9smXu4/NMPGhvLaLTuBbXMSpOHVF4etPuXyiH/aQAP5WNRXQpyUWHiKghqoTb7K7pCRHmFK7qQRjq3w==
   dependencies:
     graphql "^14.1.1"
     graphql-tools "^4.0.4"

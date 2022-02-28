@@ -6,7 +6,7 @@ module.exports = gql`
     to: String
   }
 
-  input TradingEngineSearch__Input {
+  input TradingEngineOrdersSearch__Input {
     keyword: String
     orderType: String
     accountUuid: String
@@ -64,52 +64,66 @@ module.exports = gql`
   }
 
   input TradingEngineGroup__GroupSecurity__Input {
-    securityId: Int
+    securityId: Int!
     show: Boolean
     spreadDiff: Int
-    lotMin: Float
-    lotMax: Float
-    lotStep: Float
-    commissionBase: Float
-    commissionType: Commission__Type__Enum
-    commissionLots: Commission__Lots__Enum
+    lotMin: Float!
+    lotMax: Float!
+    lotStep: Float!
+    commissionBase: Float!
+    commissionType: Commission__Type__Enum!
+    commissionLots: Commission__Lots__Enum!
   }
 
   input TradingEngineGroup__GroupMargins__Input {
-    symbol: String
-    swapShort: Float
-    swapLong: Float
-    percentage: Float
+    symbol: String!
+    swapShort: Float!
+    swapLong: Float!
+    percentage: Float!
   }
   
-  input TradingEngineCreateGroupAdmin__Input {
+  input TradingEngineCreateGroup__Input {
     groupName: String!
     currency: String!
     description: String
-    enable: Boolean
-    defaultLeverage: Int
-    useSwap: Boolean
-    hedgeProhibited: Boolean
-    archivePeriodDays: Int
-    archiveMaxBalance: Int
-    marginCallLevel: Int
-    stopoutLevel: Int
-    groupSecurities: [TradingEngineGroup__GroupSecurity__Input]
-    groupMargins: [TradingEngineGroup__GroupMargins__Input]
+    enable: Boolean!
+    defaultLeverage: Int!
+    useSwap: Boolean!
+    hedgeProhibited: Boolean!
+    archivePeriodDays: Int!
+    archiveMaxBalance: Int!
+    marginCallLevel: Int!
+    stopoutLevel: Int!
+    groupSecurities: [TradingEngineGroup__GroupSecurity__Input!]!
+    groupMargins: [TradingEngineGroup__GroupMargins__Input!]!
   }
 
-  input TradingEngineEditGroupAdmin__Input {
+  input TradingEngineEditGroup__Input {
     groupName: String!
     description: String
-    enable: Boolean
-    defaultLeverage: Int
-    useSwap: Boolean
-    hedgeProhibited: Boolean
-    archivePeriodDays: Int
-    archiveMaxBalance: Int
-    marginCallLevel: Int
-    stopoutLevel: Int
-    groupSecurities: [TradingEngineGroup__GroupSecurity__Input]
-    groupMargins: [TradingEngineGroup__GroupMargins__Input]
+    enable: Boolean!
+    defaultLeverage: Int!
+    useSwap: Boolean!
+    hedgeProhibited: Boolean!
+    archivePeriodDays: Int!
+    archiveMaxBalance: Int!
+    marginCallLevel: Int!
+    stopoutLevel: Int!
+    groupSecurities: [TradingEngineGroup__GroupSecurity__Input!]!
+    groupMargins: [TradingEngineGroup__GroupMargins__Input!]!
+  }
+  
+  input TradingEngineAccountSearch__Input {
+    keyword: String
+    orderType: String
+    accountUuid: String
+    symbol: String
+    openingDateRange: TradingEngineSearch__Time__Input
+    closingDateRange: TradingEngineSearch__Time__Input
+    orderId: Int
+    enabled: Boolean
+    page: Page__Input
+    orderStatuses: [String]
+    groups: [String]
   }
 `;

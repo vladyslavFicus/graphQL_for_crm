@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`
-  type TradingEngineAdminSymbol__Filtration {
+  type TradingEngineSymbol__Filtration {
     filterSmoothing: Int!
     discardFiltrationLevel: Int!
     softFilter: Int!
@@ -10,7 +10,7 @@ module.exports = gql`
     hardFiltrationLevel: Int!
   }
   
-  type TradingEngineAdminSymbol__SwapsConfigs {
+  type TradingEngineSymbol__SwapsConfigs {
     enable: Boolean!
     type: TradingEngine__SwapTypes__Enum
     long: Float!
@@ -18,18 +18,18 @@ module.exports = gql`
     rollover: TradingEngine__DaysOfWeek__Enum!
   }
   
-  type TradingEngineAdminSymbol__SymbolSessionsTime {
-    openTime: String
-    closeTime: String
+  type TradingEngineSymbol__SymbolSessionsTime {
+    openTime: String!
+    closeTime: String!
   }
   
-  type TradingEngineAdminSymbol__SymbolSessions {
+  type TradingEngineSymbol__SymbolSessions {
     dayOfWeek: TradingEngine__DaysOfWeek__Enum!
-    quote: TradingEngineAdminSymbol__SymbolSessionsTime
-    trade: TradingEngineAdminSymbol__SymbolSessionsTime
+    quote: TradingEngineSymbol__SymbolSessionsTime
+    trade: TradingEngineSymbol__SymbolSessionsTime
   }
   
-  type TradingEngineAdminSymbol {
+  type TradingEngineSymbol {
     symbol: String!
     source: String
     digits: Int!
@@ -43,9 +43,11 @@ module.exports = gql`
     baseCurrency: String
     quoteCurrency: String!
     symbolType: TradingEngine__SymbolTypes__Enum!
-    filtration: TradingEngineAdminSymbol__Filtration!
-    swapConfigs: TradingEngineAdminSymbol__SwapsConfigs!
+    filtration: TradingEngineSymbol__Filtration!
+    swapConfigs: TradingEngineSymbol__SwapsConfigs!
     backgroundColor: String!
-    symbolSessions: [TradingEngineAdminSymbol__SymbolSessions]
+    symbolSessions: [TradingEngineSymbol__SymbolSessions!]!
+    config(accountUuid: String): TradingEngineAccountSymbolConfig
+    prices(size: Int): [TradingEngineSymbolPrice!]! 
   }
 `;

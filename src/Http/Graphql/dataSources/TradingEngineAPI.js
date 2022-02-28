@@ -36,37 +36,14 @@ class TradingEngineAPI extends RESTDataSource {
     )));
   }
 
+  // =================== Symbols ===================
   /**
-   * Get trading engine accounts
-   *
-   * @param args
+   * Get symbol by name
    *
    * @return {Promise}
    */
-  getAccounts(args) {
-    return this.post('/accounts/search', args);
-  }
-
-  /**
-   * Get trading engine account
-   *
-   * @param accountUuid
-   *
-   * @return {Promise}
-   */
-  getAccount(accountUuid) {
-    return accountUuid && this.accountsLoader.load(accountUuid);
-  }
-
-  /**
-   * Get trading engine account by identifier
-   *
-   * @param identifier
-   *
-   * @return {Promise}
-   */
-  getAccountByIdentifier(identifier) {
-    return this.get(`/accounts/${identifier}`);
+  getSymbol(symbolName) {
+    return this.get(`/symbols/${symbolName}`);
   }
 
   /**
@@ -77,47 +54,121 @@ class TradingEngineAPI extends RESTDataSource {
    * @return {Promise}
    */
   getSymbols(args) {
-    return this.post('/symbols/search', args);
+    return this.post('admin/symbols/search', args);
   }
 
   /**
-   * Get trading engine groups
+   * Get trading engine symbols sources
    *
    * @return {Promise}
    */
-  getGroups() {
-    return this.get('/groups');
+  getSymbolsSources() {
+    return this.get('/symbols/sources');
   }
 
   /**
-   * Get trading engine symbol by name
-   *
-   * @param symbolName
-   *
-   * @return {Promise}
-   */
-  getSymbol(symbolName) {
-    return symbolName && this.symbolsLoader.load(symbolName);
+     * Get symbol config for concrete account
+     *
+     * @param accountUuid
+     * @param symbol
+     *
+     * @return {*}
+     */
+  getSymbolConfig(accountUuid, symbol) {
+    return this.accountSymbolConfigsLoader.load({ accountUuid, symbol });
   }
 
   /**
-   * Get trading engine history
+   * Get symbol prices
+   *
+   * @param args
+   * @param symbol
    *
    * @return {Promise}
    */
-  getHistory(args) {
-    return this.post('/history/search', args);
+  getSymbolPrices(symbol, args) {
+    return this.get(`/symbols/${symbol}/price`, args);
   }
 
   /**
-   * Get trading engine transactions
+  * Create Symbol
+  *
+  * @param args
+  *
+  * @return {Promise}
+  */
+  createSymbol(args) {
+    return this.post('/symbols', args);
+  }
+
+  /**
+   * Edit Symbol
+   *
+   * @param args
+   * @param symbol
    *
    * @return {Promise}
    */
-  getTransactions(args) {
-    return this.post('/transactions/search', args);
+  editSymbol(symbol, args) {
+    return this.put(`/symbols/${symbol}`, args);
   }
 
+  // =================== Groups ===================
+  /**
+   * Get group by name
+   *
+   * @param groupName
+   *
+   * @return {Promise}
+   */
+  getGroup(groupName) {
+    return this.get(`/groups/${groupName}`);
+  }
+
+  /**
+  * Get groups
+  *
+  * @return {Promise}
+  */
+  getGroups(args) {
+    return this.post('/groups/search', args);
+  }
+
+  /**
+   * Create group
+   *
+   * @param args
+   *
+   * @return {Promise}
+   */
+  createGroup(args) {
+    return this.post('/groups', args);
+  }
+
+  /**
+   * Edit group
+   *
+   * @param groupName
+   * @param args
+   *
+   * @return {Promise}
+   */
+  editGroup(groupName, args) {
+    return this.put(`/groups/${groupName}`, args);
+  }
+
+  /**
+   * Delete group
+   *
+   * @param groupName
+   *
+   * @return {Promise}
+   */
+  deleteGroup(groupName) {
+    return this.delete(`/groups/${groupName}`);
+  }
+
+  // =================== Orders ===================
   /**
    * Get trading engine orders
    *
@@ -179,7 +230,7 @@ class TradingEngineAPI extends RESTDataSource {
    *
    * @return {Promise}
    */
-  deleteOrder(orderId) {
+  cancelOrder(orderId) {
     return this.delete(`/orders/${orderId}`);
   }
 
@@ -196,50 +247,60 @@ class TradingEngineAPI extends RESTDataSource {
   }
 
   /**
-   * Create creditIn
-   *
-   * @param args
-   * @param accountUuid
-   *
-   * @return {Promise}
-   */
-  createCreditIn(accountUuid, args) {
-    return this.put(`/accounts/${accountUuid}/balance/credit-in`, args);
+     * Edit Order
+     *
+     * @param args
+     * @param orderId
+     *
+     * @return {Promise}
+     */
+  editOrderAdmin(orderId, args) {
+    return this.put(`/admin/orders/${orderId}`, args);
   }
 
   /**
-   * Create creditOut
+   * Reopen Order
    *
-   * @param args
-   * @param accountUuid
+   * @param orderId
    *
    * @return {Promise}
    */
-  createCreditOut(accountUuid, args) {
-    return this.put(`/accounts/${accountUuid}/balance/credit-out`, args);
+  reopenOrder(orderId) {
+    return this.put(`/orders/${orderId}/reopen`);
+  }
+
+  // =================== Accounts ===================
+  /**
+ * Get trading engine account
+ *
+ * @param accountUuid
+ *
+ * @return {Promise}
+ */
+  getAccount(accountUuid) {
+    return accountUuid && this.accountsLoader.load(accountUuid);
   }
 
   /**
-   * Get symbol prices
-   *
-   * @param args
-   * @param symbol
-   *
-   * @return {Promise}
-   */
-  getSymbolPrices(symbol, args) {
-    return this.get(`/symbols/${symbol}/price`, args);
+     * Get trading engine accounts
+     *
+     * @param args
+     *
+     * @return {Promise}
+     */
+  getAccounts(args) {
+    return this.post('/accounts/search', args);
   }
 
   /**
-   * Get allowed account symbols
-   *
-   * @param accountUuid
-   *
-   * @return {Promise}
-   */
-  getAllowedAccountSymbols(accountUuid) {
-    return this.get(`/symbols/${accountUuid}/allowed`);
+     * Get trading engine account by identifier
+     *
+     * @param identifier
+     *
+     * @return {Promise}
+     */
+  getAccountByIdentifier(identifier) {
+    return this.get(`/accounts/${identifier}`);
   }
 
   /**
@@ -254,15 +315,14 @@ class TradingEngineAPI extends RESTDataSource {
   }
 
   /**
-   * Get symbol config for concrete account
+   * Get allowed account symbols
    *
    * @param accountUuid
-   * @param symbol
    *
-   * @return {*}
+   * @return {Promise}
    */
-  getSymbolConfig(accountUuid, symbol) {
-    return this.accountSymbolConfigsLoader.load({ accountUuid, symbol });
+  getAllowedAccountSymbols(accountUuid) {
+    return this.get(`/symbols/${accountUuid}/allowed`);
   }
 
   /**
@@ -299,6 +359,92 @@ class TradingEngineAPI extends RESTDataSource {
    */
   updateAccountReadonly(accountUuid, args) {
     return this.put(`/accounts/${accountUuid}/readonly`, args);
+  }
+
+  // =================== Security ===================
+  /**
+   * Get trading engine security by name
+   *
+   * @param securityName
+   *
+   * @return {Promise}
+   */
+  getSecurity(securityName) {
+    return this.get(`/securities/${securityName}`);
+  }
+
+  /**
+   * Get trading engine securities
+   *
+   * @return {Promise}
+   */
+  getSecurities() {
+    return this.get('/securities');
+  }
+
+  /**
+     * Create Security
+     *
+     * @return {Promise}
+     */
+  createSecurity(args) {
+    return this.post('/securities', args);
+  }
+
+  /**
+   * Edit Security
+   *
+   * @param securityName
+   * @param args
+   *
+   * @return {Promise}
+   */
+  editSecurity(securityName, args) {
+    return this.put(`/securities/${securityName}`, args);
+  }
+
+  // =================== Credit ===================
+
+  /**
+   * Create creditIn
+   *
+   * @param args
+   * @param accountUuid
+   *
+   * @return {Promise}
+   */
+  createCreditIn(accountUuid, args) {
+    return this.put(`/accounts/${accountUuid}/balance/credit-in`, args);
+  }
+
+  /**
+   * Create creditOut
+   *
+   * @param args
+   * @param accountUuid
+   *
+   * @return {Promise}
+   */
+  createCreditOut(accountUuid, args) {
+    return this.put(`/accounts/${accountUuid}/balance/credit-out`, args);
+  }
+
+  /**
+  * Get trading engine transactions
+  *
+  * @return {Promise}
+  */
+  getTransactions(args) {
+    return this.post('/transactions/search', args);
+  }
+
+  /**
+     * Get trading engine history
+     *
+     * @return {Promise}
+     */
+  getHistory(args) {
+    return this.post('/history/search', args);
   }
 }
 

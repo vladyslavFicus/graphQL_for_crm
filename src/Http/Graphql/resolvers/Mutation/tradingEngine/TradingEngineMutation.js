@@ -47,8 +47,22 @@ module.exports = {
    *
    * @return {Promise}
    */
-  async editOrder(_, args, { dataSources }) {
-    await dataSources.TradingEngineAPI.editOrder(args.orderId, args);
+  async editOrder(_, { orderId, ...rest }, { dataSources }) {
+    await dataSources.TradingEngineAPI.editOrder(orderId, rest);
+  },
+
+  /**
+   * Edit Order Admin
+   *
+   * @param _
+   * @param orderId
+   * @param rest
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async editOrderAdmin(_, { args: { orderId, ...rest } }, { dataSources }) {
+    await dataSources.TradingEngineAPI.editOrderAdmin(orderId, rest);
   },
 
   /**
@@ -65,7 +79,7 @@ module.exports = {
   },
 
   /**
-   * Delete Order
+   * Cancel Order
    *
    * @param _
    * @param args
@@ -73,8 +87,21 @@ module.exports = {
    *
    * @return {Promise}
    */
-  async deleteOrder(_, args, { dataSources }) {
-    await dataSources.TradingEngineAPI.deleteOrder(args.orderId);
+  async cancelOrder(_, args, { dataSources }) {
+    await dataSources.TradingEngineAPI.cancelOrder(args.orderId);
+  },
+
+  /**
+   * Reopen Order
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async reopenOrder(_, args, { dataSources }) {
+    await dataSources.TradingEngineAPI.reopenOrder(args.orderId);
   },
 
   /**
@@ -131,4 +158,102 @@ module.exports = {
   updateAccountReadonly(_, { accountUuid, ...rest }, { dataSources }) {
     return dataSources.TradingEngineAPI.updateAccountReadonly(accountUuid, rest);
   },
+
+  // =================== Symbols ===================
+
+  /**
+   * Create Symbol
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async createSymbol(_, { args }, { dataSources }) {
+    await dataSources.TradingEngineAPI.createSymbol(args);
+  },
+
+  /**
+   * Edit Symbol
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async editSymbol(_, { args: { symbol, ...rest } }, { dataSources }) {
+    await dataSources.TradingEngineAPI.editSymbol(symbol, rest);
+  },
+
+
+  // =================== Groups ===================
+
+  /**
+   * Create Group
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async createGroup(_, { args }, { dataSources }) {
+    await dataSources.TradingEngineAPI.createGroup(args);
+  },
+
+  /**
+   * Edit Group
+   *
+   * @param _
+   * @param groupName
+   * @param rest
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async editGroup(_, { args: { groupName, ...rest } }, { dataSources }) {
+    await dataSources.TradingEngineAPI.editGroup(groupName, rest);
+  },
+
+  /**
+   * Delete Group
+   *
+   * @param _
+   * @param groupName
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async deleteGroup(_, { groupName }, { dataSources }) {
+    await dataSources.TradingEngineAPI.deleteGroup(groupName);
+  },
+
+  /**
+   * Create Security
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async createSecurity(_, args, { dataSources }) {
+    await dataSources.TradingEngineAPI.createSecurity(args);
+  },
+
+  /**
+   * Edit Security
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async editSecurity(_, { securityName, ...rest }, { dataSources }) {
+    await dataSources.TradingEngineAPI.editSecurity(securityName, rest);
+  },
+
 };

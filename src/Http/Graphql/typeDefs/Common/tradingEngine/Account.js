@@ -7,7 +7,7 @@ module.exports = gql`
     profileUuid: String
     serverId: Int
     login: Int
-    accountType: String
+    accountType: String!
     enable: Boolean
     readOnly: Boolean
     leverage: Int
@@ -19,7 +19,7 @@ module.exports = gql`
     freeMargin: Float
     equity: Float
     comment: String
-    currency: String
-    registrationDate: String
+    currency: String!
+    registrationDate: String!
   }
 `;
