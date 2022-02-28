@@ -43,7 +43,7 @@ class TradingEngineAPI extends RESTDataSource {
    * @return {Promise}
    */
   getSymbol(symbolName) {
-    return this.get(`/admin/symbols/${symbolName}`);
+    return this.get(`/symbols/${symbolName}`);
   }
 
   /**
@@ -63,7 +63,7 @@ class TradingEngineAPI extends RESTDataSource {
    * @return {Promise}
    */
   getSymbolsSources() {
-    return this.get('/admin/symbols/sources');
+    return this.get('/symbols/sources');
   }
 
   /**
@@ -98,7 +98,7 @@ class TradingEngineAPI extends RESTDataSource {
   * @return {Promise}
   */
   createSymbol(args) {
-    return this.post('/admin/symbols', args);
+    return this.post('/symbols', args);
   }
 
   /**
@@ -110,7 +110,7 @@ class TradingEngineAPI extends RESTDataSource {
    * @return {Promise}
    */
   editSymbol(symbol, args) {
-    return this.put(`/admin/symbols/${symbol}`, args);
+    return this.put(`/symbols/${symbol}`, args);
   }
 
   // =================== Groups ===================
@@ -122,7 +122,7 @@ class TradingEngineAPI extends RESTDataSource {
    * @return {Promise}
    */
   getGroup(groupName) {
-    return this.get(`/admin/groups/${groupName}`);
+    return this.get(`/groups/${groupName}`);
   }
 
   /**
@@ -131,7 +131,7 @@ class TradingEngineAPI extends RESTDataSource {
   * @return {Promise}
   */
   getGroups(args) {
-    return this.post('/admin/groups/search', args);
+    return this.post('/groups/search', args);
   }
 
   /**
@@ -142,7 +142,7 @@ class TradingEngineAPI extends RESTDataSource {
    * @return {Promise}
    */
   createGroup(args) {
-    return this.post('/admin/groups', args);
+    return this.post('/groups', args);
   }
 
   /**
@@ -154,7 +154,7 @@ class TradingEngineAPI extends RESTDataSource {
    * @return {Promise}
    */
   editGroup(groupName, args) {
-    return this.put(`/admin/groups/${groupName}`, args);
+    return this.put(`/groups/${groupName}`, args);
   }
 
   /**
@@ -165,7 +165,7 @@ class TradingEngineAPI extends RESTDataSource {
    * @return {Promise}
    */
   deleteGroup(groupName) {
-    return this.delete(`/admin/groups/${groupName}`);
+    return this.delete(`/groups/${groupName}`);
   }
 
   // =================== Orders ===================
@@ -266,7 +266,7 @@ class TradingEngineAPI extends RESTDataSource {
    * @return {Promise}
    */
   reopenOrder(orderId) {
-    return this.put(`/admin/orders/${orderId}/reopen`);
+    return this.put(`/orders/${orderId}/reopen`);
   }
 
   // =================== Accounts ===================
@@ -370,7 +370,7 @@ class TradingEngineAPI extends RESTDataSource {
    * @return {Promise}
    */
   getSecurity(securityName) {
-    return this.get(`/admin/securities/${securityName}`);
+    return this.get(`/securities/${securityName}`);
   }
 
   /**
@@ -379,7 +379,7 @@ class TradingEngineAPI extends RESTDataSource {
    * @return {Promise}
    */
   getSecurities() {
-    return this.get('/admin/securities');
+    return this.get('/securities');
   }
 
   /**
@@ -388,7 +388,7 @@ class TradingEngineAPI extends RESTDataSource {
      * @return {Promise}
      */
   createSecurity(args) {
-    return this.post('/admin/securities', args);
+    return this.post('/securities', args);
   }
 
   /**
@@ -400,7 +400,7 @@ class TradingEngineAPI extends RESTDataSource {
    * @return {Promise}
    */
   editSecurity(securityName, args) {
-    return this.put(`/admin/securities/${securityName}`, args);
+    return this.put(`/securities/${securityName}`, args);
   }
 
   // =================== Credit ===================
