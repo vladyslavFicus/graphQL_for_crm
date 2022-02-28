@@ -54,7 +54,7 @@ class TradingEngineAPI extends RESTDataSource {
    * @return {Promise}
    */
   getSymbols(args) {
-    return this.post('admin/symbols/search', args);
+    return this.post('/symbols/search', args);
   }
 
   /**
