@@ -403,6 +403,34 @@ class TradingEngineAPI extends RESTDataSource {
     return this.put(`/securities/${securityName}`, args);
   }
 
+  // =================== Operators ===================
+  /**
+      * Get trading engine history
+      *
+      * @return {Promise}
+      */
+  getOperator(args) {
+    return this.post('/operators/search', args);
+  }
+
+  /**
+     * Get trading engine history
+     *
+     * @return {Promise}
+     */
+  getOperators({ uuid, ...args }) {
+    return this.post(`/operators/${uuid}`, args);
+  }
+
+  /**
+     * Get trading engine history
+     *
+     * @return {Promise}
+     */
+  getOperatorAccessData() {
+    return this.post('/operators/access-data');
+  }
+
   // =================== Credit ===================
 
   /**

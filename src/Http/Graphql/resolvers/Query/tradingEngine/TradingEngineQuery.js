@@ -49,4 +49,7 @@ module.exports = {
   history(_, { args }, { dataSources }) {
     return dataSources.TradingEngineAPI.getHistory(args);
   },
+  operatorGroups(_, { args }, { dataSources }) {
+    return dataSources.TradingEngineAPI.getOperatorAccessData(args);
+  },
 };
