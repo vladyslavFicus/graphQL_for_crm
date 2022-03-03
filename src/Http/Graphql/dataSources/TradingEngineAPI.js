@@ -427,8 +427,10 @@ class TradingEngineAPI extends RESTDataSource {
      *
      * @return {Promise}
      */
-  getOperatorAccessData() {
-    return this.post('/operators/access-data');
+  async getOperatorAccessData() {
+    const result = await this.get('/operators/access-data');
+    console.log(result);
+    return result;
   }
 
   // =================== Credit ===================

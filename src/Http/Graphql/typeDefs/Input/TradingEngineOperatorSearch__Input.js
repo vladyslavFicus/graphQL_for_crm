@@ -6,7 +6,7 @@ input TradingEngineOperatorSearchDateRange__Input {
   to: String
 }
 
-type TradingEngineOperatorSearch__Input {
+input TradingEngineOperatorSearch__Input {
   keyword: String,
   groupNames: [String],
   statuses: TradingEngine__OperatorStatuses__Enum
