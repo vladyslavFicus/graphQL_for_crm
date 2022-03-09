@@ -79,5 +79,7 @@ module.exports = gql`
     createSecurity(name: String! description: String): Boolean
     
     editSecurity(name: String! description: String securityName: String!): Boolean
+
+    restartStreaming: String
   }
 `;

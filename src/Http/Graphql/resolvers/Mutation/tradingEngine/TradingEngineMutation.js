@@ -256,4 +256,11 @@ module.exports = {
     await dataSources.TradingEngineAPI.editSecurity(securityName, rest);
   },
 
+
+  /**
+  * force liquidity provider adapter streaming restart
+  */
+  restartStreaming(_, __, { dataSources }) {
+    return dataSources.LiquidityProviderAPI.streamingRestart();
+  },
 };

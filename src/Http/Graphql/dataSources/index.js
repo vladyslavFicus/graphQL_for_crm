@@ -30,6 +30,7 @@ const AnalyticsAPI = require('./AnalyticsAPI');
 const Analytics = require('./Analytics');
 const TradingEngineAPI = require('./TradingEngineAPI');
 const BrandConfigAPI = require('./BrandConfigAPI');
+const LiquidityProviderAPI = require('./LiquidityProviderAPI');
 
 module.exports = {
   AccountViewAPI,
@@ -64,4 +65,5 @@ module.exports = {
   Analytics,
   TradingEngineAPI,
   BrandConfigAPI,
+  LiquidityProviderAPI,
 };
