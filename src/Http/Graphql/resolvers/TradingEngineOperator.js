@@ -1,5 +1,5 @@
 module.exports = {
   accessData(_, __, { dataSources }) {
-    return dataSources.TradingEngineAPI.getOperatorAccessData();
+    return dataSources.TradingEngineAPI.getOperatorAccess();
   },
 };

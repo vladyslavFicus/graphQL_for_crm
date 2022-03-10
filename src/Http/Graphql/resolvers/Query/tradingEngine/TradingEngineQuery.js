@@ -50,6 +50,6 @@ module.exports = {
     return dataSources.TradingEngineAPI.getHistory(args);
   },
   operatorGroups(_, __, { dataSources }) {
-    return dataSources.TradingEngineAPI.getOperatorAccessData();
+    return dataSources.TradingEngineAPI.getOperatorAccess();
   },
 };

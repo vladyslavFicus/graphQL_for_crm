@@ -427,7 +427,7 @@ class TradingEngineAPI extends RESTDataSource {
      *
      * @return {Promise}
      */
-  async getOperatorAccessData() {
+  async getOperatorAccess() {
     const result = await this.get('/operators/access-data');
     console.log(result);
     return result;
