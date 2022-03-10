@@ -82,5 +82,7 @@ module.exports = gql`
     editSecurity(name: String! description: String securityName: String!): Boolean
 
     restartStreaming: String
+    
+    setAccountArchiveStatus(uuid: String! enabled: Boolean!): Boolean
   }
 `;

@@ -447,6 +447,18 @@ class TradingEngineAPI extends RESTDataSource {
   getHistory(args) {
     return this.post('/history/search', args);
   }
+
+  /**
+   * archive/unarchive account
+   *
+   * @param uuid
+   * @param args
+   *
+   * @return {Promise}
+   */
+  setAccountArchiveStatus(uuid, args) {
+    return this.put(`/accounts/${uuid}/enable`, args);
+  }
 }
 
 module.exports = TradingEngineAPI;

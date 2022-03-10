@@ -263,4 +263,18 @@ module.exports = {
   restartStreaming(_, __, { dataSources }) {
     return dataSources.LiquidityProviderAPI.streamingRestart();
   },
+
+  /**
+   * archive/unarchive account
+   *
+   * @param _
+   * @param login
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async setAccountArchiveStatus(_, { uuid, ...rest }, { dataSources }) {
+    await dataSources.TradingEngineAPI.setAccountArchiveStatus(uuid, rest);
+  },
 };
