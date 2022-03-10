@@ -54,6 +54,7 @@ module.exports = gql`
     updateAccountGroup(
       accountUuid: String!
       group: String
+      force: Boolean
     ): TradingEngineAccount
 
     updateAccountLeverage(
@@ -79,5 +80,9 @@ module.exports = gql`
     createSecurity(name: String! description: String): Boolean
     
     editSecurity(name: String! description: String securityName: String!): Boolean
+
+    restartStreaming: String
+    
+    setAccountArchiveStatus(uuid: String! enabled: Boolean!): Boolean
   }
 `;

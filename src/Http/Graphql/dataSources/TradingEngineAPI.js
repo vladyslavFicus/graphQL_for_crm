@@ -329,12 +329,13 @@ class TradingEngineAPI extends RESTDataSource {
    * Update account group
    *
    * @param args
+   * @param force
    * @param accountUuid
    *
    * @return {Promise}
    */
-  updateAccountGroup(accountUuid, args) {
-    return this.put(`/accounts/${accountUuid}/group`, args);
+  updateAccountGroup(accountUuid, force = false, args) {
+    return this.put(`/accounts/${accountUuid}/group`, args, { params: { force } });
   }
 
   /**
@@ -475,6 +476,18 @@ class TradingEngineAPI extends RESTDataSource {
      */
   getHistory(args) {
     return this.post('/history/search', args);
+  }
+
+  /**
+   * archive/unarchive account
+   *
+   * @param uuid
+   * @param args
+   *
+   * @return {Promise}
+   */
+  setAccountArchiveStatus(uuid, args) {
+    return this.put(`/accounts/${uuid}/enable`, args);
   }
 }
 

@@ -127,8 +127,8 @@ module.exports = {
    *
    * @return {Promise}
    */
-  updateAccountGroup(_, { accountUuid, ...rest }, { dataSources }) {
-    return dataSources.TradingEngineAPI.updateAccountGroup(accountUuid, rest);
+  updateAccountGroup(_, { accountUuid, force, ...args }, { dataSources }) {
+    return dataSources.TradingEngineAPI.updateAccountGroup(accountUuid, force, args);
   },
 
   /**
@@ -256,4 +256,25 @@ module.exports = {
     await dataSources.TradingEngineAPI.editSecurity(securityName, rest);
   },
 
+
+  /**
+  * force liquidity provider adapter streaming restart
+  */
+  restartStreaming(_, __, { dataSources }) {
+    return dataSources.LiquidityProviderAPI.streamingRestart();
+  },
+
+  /**
+   * archive/unarchive account
+   *
+   * @param _
+   * @param login
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async setAccountArchiveStatus(_, { uuid, ...rest }, { dataSources }) {
+    await dataSources.TradingEngineAPI.setAccountArchiveStatus(uuid, rest);
+  },
 };
