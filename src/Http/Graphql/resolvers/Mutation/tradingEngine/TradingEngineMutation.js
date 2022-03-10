@@ -127,8 +127,8 @@ module.exports = {
    *
    * @return {Promise}
    */
-  updateAccountGroup(_, { accountUuid, ...rest }, { dataSources }) {
-    return dataSources.TradingEngineAPI.updateAccountGroup(accountUuid, rest);
+  updateAccountGroup(_, { accountUuid, force, ...args }, { dataSources }) {
+    return dataSources.TradingEngineAPI.updateAccountGroup(accountUuid, force, args);
   },
 
   /**

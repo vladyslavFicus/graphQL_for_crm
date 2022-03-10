@@ -54,6 +54,7 @@ module.exports = gql`
     updateAccountGroup(
       accountUuid: String!
       group: String
+      force: Boolean
     ): TradingEngineAccount
 
     updateAccountLeverage(
