@@ -9,7 +9,7 @@ input TradingEngineOperatorSearchDateRange__Input {
 input TradingEngineOperatorSearch__Input {
   keyword: String,
   groupNames: [String],
-  statuses: TradingEngine__OperatorStatuses__Enum
+  statuses: [TradingEngine__OperatorStatuses__Enum]
   registrationDateRange: TradingEngineOperatorSearchDateRange__Input
   page: Page__Input
 }

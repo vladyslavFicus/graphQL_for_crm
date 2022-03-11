@@ -49,6 +49,9 @@ module.exports = {
   history(_, { args }, { dataSources }) {
     return dataSources.TradingEngineAPI.getHistory(args);
   },
+  operators(_, { args }, { dataSources }) {
+    return dataSources.TradingEngineAPI.getOperators(args);
+  },
   operatorGroups(_, __, { dataSources }) {
     return dataSources.TradingEngineAPI.getOperatorAccess();
   },

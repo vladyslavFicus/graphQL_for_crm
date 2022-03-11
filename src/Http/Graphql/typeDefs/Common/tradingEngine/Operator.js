@@ -4,9 +4,9 @@ module.exports = gql`
 
   type OperatorAccess {
     uuid: String!
-    readableRoles: [String]!
-    writeableRoles: [String]!
-    accessibleGroupNames: [String]!
+    readableRoles: [String!]!
+    writeableRoles: [String!]!
+    accessibleGroupNames: [String!]!
   }
 
   type TradingEngineOperator {

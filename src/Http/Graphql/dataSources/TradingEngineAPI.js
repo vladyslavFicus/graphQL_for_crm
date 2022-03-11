@@ -406,11 +406,21 @@ class TradingEngineAPI extends RESTDataSource {
 
   // =================== Operators ===================
   /**
-      * Get trading engine history
-      *
-      * @return {Promise}
-      */
-  getOperator(args) {
+    * Get TE operator by uuid
+    *
+    * @return {Promise}
+    */
+  getOperator({ uuid, ...args }) {
+    return this.post(`/operators/${uuid}`, args);
+  }
+
+  /**
+     * Get operators
+     *
+     * @return {Promise}
+     */
+
+  getOperators(args) {
     return this.post('/operators/search', args);
   }
 
@@ -419,19 +429,8 @@ class TradingEngineAPI extends RESTDataSource {
      *
      * @return {Promise}
      */
-  getOperators({ uuid, ...args }) {
-    return this.post(`/operators/${uuid}`, args);
-  }
-
-  /**
-     * Get trading engine history
-     *
-     * @return {Promise}
-     */
-  async getOperatorAccess() {
-    const result = await this.get('/operators/access-data');
-    console.log(result);
-    return result;
+  getOperatorAccess() {
+    return this.get('/operators/access-data');
   }
 
   // =================== Credit ===================

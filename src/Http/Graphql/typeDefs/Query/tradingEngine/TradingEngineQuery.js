@@ -18,7 +18,7 @@ module.exports = gql`
     transactions(args: TradingEngineTransactionSearch__Input): TradingEngineTransaction @pageable
     history(args: TradingEngineHistorySearch__Input): TradingEngineHistory! @pageable
     operator(uuid: String): TradingEngineOperator!
-    operators(args: TradingEngineOperatorSearch__Input): TradingEngineOperator! @pageable
+    operators(args: TradingEngineOperatorSearch__Input!): TradingEngineOperator! @pageable
     operatorGroups: OperatorAccess!
   }
 `;
