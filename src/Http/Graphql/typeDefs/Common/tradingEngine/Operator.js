@@ -1,7 +1,6 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`
-
   type OperatorAccess {
     uuid: String!
     readableRoles: [String!]!
@@ -10,15 +9,15 @@ module.exports = gql`
   }
 
   type TradingEngineOperator {
-  uuid: String!,
-  firstName: String,
-  lastName: String,
-  email: String!,
-  phone: String,
-  role: TradingEngine__OperatorGroups__Enum,
-  status: TradingEngine__OperatorStatuses__Enum,
-  registrationDate: String!
-  groupNames: [String!]!
-  accessData: OperatorAccess!
+    uuid: String!,
+    firstName: String,
+    lastName: String,
+    email: String!,
+    phone: String,
+    role: TradingEngine__OperatorGroups__Enum,
+    status: TradingEngine__OperatorStatuses__Enum,
+    registrationDate: String!
+    groupNames: [String!]!
+    accessData: OperatorAccess!
   }
 `;

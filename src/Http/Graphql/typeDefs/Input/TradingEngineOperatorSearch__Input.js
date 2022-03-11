@@ -13,5 +13,4 @@ input TradingEngineOperatorSearch__Input {
   registrationDateRange: TradingEngineOperatorSearchDateRange__Input
   page: Page__Input
 }
-
 `;
