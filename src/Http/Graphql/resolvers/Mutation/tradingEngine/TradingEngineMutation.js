@@ -277,4 +277,17 @@ module.exports = {
   async setAccountArchiveStatus(_, { uuid, ...rest }, { dataSources }) {
     await dataSources.TradingEngineAPI.setAccountArchiveStatus(uuid, rest);
   },
+
+  /**
+   * Create Operator
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  createOperator(_, { args }, { dataSources }) {
+    return dataSources.TradingEngineAPI.createOperator(args);
+  },
 };

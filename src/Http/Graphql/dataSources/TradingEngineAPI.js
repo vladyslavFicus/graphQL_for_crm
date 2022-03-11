@@ -432,6 +432,15 @@ class TradingEngineAPI extends RESTDataSource {
     return this.get('/operators/access-data');
   }
 
+  /**
+   * Create new operator
+   *
+   * @return {Promise}
+   */
+  createOperator(args) {
+    return this.post('/operators', args);
+  }
+
   // =================== Credit ===================
 
   /**
