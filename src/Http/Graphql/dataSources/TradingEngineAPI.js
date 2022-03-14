@@ -410,7 +410,7 @@ class TradingEngineAPI extends RESTDataSource {
   *
   * @return {Promise}
   */
-  getOperator({ uuid, ...args }) {
+  getOperator(uuid, args) {
     return this.post(`/operators/${uuid}`, args);
   }
 
@@ -424,7 +424,7 @@ class TradingEngineAPI extends RESTDataSource {
   }
 
   /**
-   * Get trading engine history
+   * Get operator access information: readable and writeable roles, accessible groupNames
    *
    * @return {Promise}
    */
