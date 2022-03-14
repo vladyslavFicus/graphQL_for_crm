@@ -52,7 +52,7 @@ module.exports = {
   operators(_, { args }, { dataSources }) {
     return dataSources.TradingEngineAPI.getOperators(args);
   },
-  operatorGroups(_, __, { dataSources }) {
+  operatorAccessData(_, __, { dataSources }) {
     return dataSources.TradingEngineAPI.getOperatorAccess();
   },
 };
