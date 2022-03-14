@@ -10,8 +10,8 @@ module.exports = gql`
 
   type TradingEngineOperator {
     uuid: String!
-    firstName: String
-    lastName: String
+    firstName: String!
+    lastName: String!
     email: String!
     phone: String
     role: TradingEngine__OperatorRoles__Enum!
