@@ -410,8 +410,8 @@ class TradingEngineAPI extends RESTDataSource {
   *
   * @return {Promise}
   */
-  getOperator(uuid, args) {
-    return this.post(`/operators/${uuid}`, args);
+  getOperator(uuid) {
+    return this.get(`/operators/${uuid}`);
   }
 
   /**
@@ -420,7 +420,7 @@ class TradingEngineAPI extends RESTDataSource {
    * @return {Promise}
    */
   getOperators(args) {
-    return this.post('/operators/search', args);
+    return this.get('/operators/search', args);
   }
 
   /**
