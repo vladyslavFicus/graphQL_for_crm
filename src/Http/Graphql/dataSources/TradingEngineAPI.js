@@ -149,12 +149,13 @@ class TradingEngineAPI extends RESTDataSource {
    * Edit group
    *
    * @param groupName
+   * @param force
    * @param args
    *
    * @return {Promise}
    */
-  editGroup(groupName, args) {
-    return this.put(`/groups/${groupName}`, args);
+  editGroup(groupName, force = false, args) {
+    return this.put(`/groups/${groupName}`, args, { params: { force } });
   }
 
   /**

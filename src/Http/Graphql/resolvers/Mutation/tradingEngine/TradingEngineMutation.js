@@ -213,8 +213,8 @@ module.exports = {
    *
    * @return {Promise}
    */
-  async editGroup(_, { args: { groupName, ...rest } }, { dataSources }) {
-    await dataSources.TradingEngineAPI.editGroup(groupName, rest);
+  async editGroup(_, { args: { groupName, force, ...args } }, { dataSources }) {
+    await dataSources.TradingEngineAPI.editGroup(groupName, force, args);
   },
 
   /**

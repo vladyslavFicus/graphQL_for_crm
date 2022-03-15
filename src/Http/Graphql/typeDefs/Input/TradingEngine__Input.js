@@ -111,6 +111,7 @@ module.exports = gql`
     stopoutLevel: Int!
     groupSecurities: [TradingEngineGroup__GroupSecurity__Input!]!
     groupMargins: [TradingEngineGroup__GroupMargins__Input!]!
+    force: Boolean
   }
   
   input TradingEngineAccountSearch__Input {
