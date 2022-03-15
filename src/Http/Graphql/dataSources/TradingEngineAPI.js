@@ -105,12 +105,13 @@ class TradingEngineAPI extends RESTDataSource {
    * Edit Symbol
    *
    * @param args
+   * @param force
    * @param symbol
    *
    * @return {Promise}
    */
-  editSymbol(symbol, args) {
-    return this.put(`/symbols/${symbol}`, args);
+  editSymbol(symbol, force = false, args) {
+    return this.put(`/symbols/${symbol}`, args, { params: { force } });
   }
 
   // =================== Groups ===================

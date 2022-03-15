@@ -178,13 +178,15 @@ module.exports = {
    * Edit Symbol
    *
    * @param _
+   * @param symbol
+   * @param force
    * @param args
    * @param dataSources
    *
    * @return {Promise}
    */
-  async editSymbol(_, { args: { symbol, ...rest } }, { dataSources }) {
-    await dataSources.TradingEngineAPI.editSymbol(symbol, rest);
+  async editSymbol(_, { args: { symbol, force, ...args } }, { dataSources }) {
+    await dataSources.TradingEngineAPI.editSymbol(symbol, force, args);
   },
 
 

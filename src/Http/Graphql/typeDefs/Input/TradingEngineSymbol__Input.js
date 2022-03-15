@@ -42,6 +42,7 @@ module.exports = gql`
     swapConfigs: TradingEngineEditSymbol__SwapsConfigs__Input!
     backgroundColor: String!
     symbolSessions: [TradingEngineEditSymbol__SymbolSessions__Input!]!
+    force: Boolean
   }
   
   input TradingEngineCreateSymbol__Filtration__Input {
