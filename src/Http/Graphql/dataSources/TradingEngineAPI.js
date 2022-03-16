@@ -420,7 +420,7 @@ class TradingEngineAPI extends RESTDataSource {
    * @return {Promise}
    */
   getOperators(args) {
-    return this.get('/operators/search', args);
+    return this.post('/operators/search', args);
   }
 
   /**
