@@ -10,5 +10,6 @@ module.exports = gql`
     lotStep: Float!
     lotMax: Float!
     lotSize: Float!
+    percentage: Float!
   }
 `;

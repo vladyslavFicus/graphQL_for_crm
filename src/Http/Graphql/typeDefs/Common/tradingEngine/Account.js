@@ -10,7 +10,7 @@ module.exports = gql`
     accountType: String!
     enable: Boolean
     readOnly: Boolean
-    leverage: Int
+    leverage: Int!
     group: String
     name: String
     balance: Float

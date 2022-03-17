@@ -22,6 +22,7 @@ module.exports = gql`
     symbol: String!
     symbolAlias: String
     symbolConfig: TradingEngineAccountSymbolConfig
+    symbolEntity: TradingEngineSymbol
     direction: String!
     digits: Float!
     takeProfit: Float
