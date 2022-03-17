@@ -406,6 +406,34 @@ class TradingEngineAPI extends RESTDataSource {
     return this.put(`/securities/${securityName}`, args);
   }
 
+  // =================== Operators ===================
+  /**
+  * Get TE operator by uuid
+  *
+  * @return {Promise}
+  */
+  getOperator(uuid) {
+    return this.get(`/operators/${uuid}`);
+  }
+
+  /**
+   * Get operators
+   *
+   * @return {Promise}
+   */
+  getOperators(args) {
+    return this.post('/operators/search', args);
+  }
+
+  /**
+   * Get operator access information: readable and writeable roles, accessible groupNames
+   *
+   * @return {Promise}
+   */
+  getOperatorAccess() {
+    return this.get('/operators/access-data');
+  }
+
   // =================== Credit ===================
 
   /**
