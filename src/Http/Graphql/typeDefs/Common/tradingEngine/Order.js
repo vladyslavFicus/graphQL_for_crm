@@ -29,7 +29,7 @@ module.exports = gql`
     stopLoss: Float
     openPrice: Float!
     closePrice: Float
-    marginRate: Float
+    marginRate: Float!
     volumeUnits: Float
     volumeLots: Float!
     lotSize: Float
