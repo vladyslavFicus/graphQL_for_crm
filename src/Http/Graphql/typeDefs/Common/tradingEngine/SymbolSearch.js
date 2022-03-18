@@ -16,6 +16,7 @@ module.exports = gql`
     stopsLevel: Float!
     digits: Int!
     percentage: Float!
+    source: String
     swapConfigs: TradingEngineSymbolSearch__SwapConfigs!
     config(accountUuid: String): TradingEngineAccountSymbolConfig!
   }
