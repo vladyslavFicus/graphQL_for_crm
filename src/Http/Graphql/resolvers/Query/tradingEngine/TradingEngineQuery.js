@@ -49,6 +49,9 @@ module.exports = {
   history(_, { args }, { dataSources }) {
     return dataSources.TradingEngineAPI.getHistory(args);
   },
+  holidays(_, { args }, { dataSources }) {
+    return dataSources.TradingEngineAPI.getHolidays(args);
+  },
   operator(_, { uuid }, { dataSources }) {
     return dataSources.TradingEngineAPI.getOperator(uuid);
   },

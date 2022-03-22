@@ -479,12 +479,21 @@ class TradingEngineAPI extends RESTDataSource {
   }
 
   /**
-     * Get trading engine history
-     *
-     * @return {Promise}
-     */
+   * Get trading engine history
+   *
+   * @return {Promise}
+   */
   getHistory(args) {
     return this.post('/history/search', args);
+  }
+
+  /**
+   * Get trading engine holidays
+   *
+   * @return {Promise}
+   */
+  getHolidays(args) {
+    return this.post('/holidays/search', args);
   }
 
   /**
