@@ -292,4 +292,43 @@ module.exports = {
   createOperator(_, { args }, { dataSources }) {
     return dataSources.TradingEngineAPI.createOperator(args);
   },
+
+  /**
+   * Update Operator
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  updateOperator(_, { uuid, args }, { dataSources }) {
+    return dataSources.TradingEngineAPI.updateOperator(uuid, args);
+  },
+
+  /**
+   * Change Operator role
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  changeOperatorRole(_, { uuid, role }, { dataSources }) {
+    return dataSources.TradingEngineAPI.changeOperatorRole(uuid, role);
+  },
+
+  /**
+   * Change Operator status
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  changeOperatorStatus(_, { uuid, ...args }, { dataSources }) {
+    return dataSources.TradingEngineAPI.changeOperatorStatus(uuid, args);
+  },
 };

@@ -443,6 +443,33 @@ class TradingEngineAPI extends RESTDataSource {
     return this.post('/operators', args);
   }
 
+  /**
+   * Update operator
+   *
+   * @return {Promise}
+   */
+  updateOperator(uuid, args) {
+    return this.put(`/operators/${uuid}`, args);
+  }
+
+  /**
+   * Change Operator role
+   *
+   * @return {Promise}
+   */
+  changeOperatorRole(uuid, role) {
+    return this.put(`/operators/${uuid}/role`, { role });
+  }
+
+  /**
+   * Change Operator status
+   *
+   * @return {Promise}
+   */
+  changeOperatorStatus(uuid, args) {
+    return this.put(`/operators/${uuid}/status`, args);
+  }
+
   // =================== Credit ===================
 
   /**

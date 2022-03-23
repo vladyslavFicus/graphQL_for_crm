@@ -86,5 +86,15 @@ module.exports = gql`
     setAccountArchiveStatus(uuid: String! enabled: Boolean!): Boolean
 
     createOperator(args: TradingEngineCreateOperator__Input): TradingEngineOperator!
+
+    updateOperator(uuid: String! args: TradingEngineUpdateOperator__Input!): TradingEngineOperator!
+
+    changeOperatorStatus(
+      uuid: String!
+      status: TradingEngine__OperatorStatuses__Enum!
+      reason: String!
+    ): TradingEngineOperator!
+    
+    changeOperatorRole(uuid: String!, role: TradingEngine__OperatorRoles__Enum!): TradingEngineOperator!
   }
 `;
