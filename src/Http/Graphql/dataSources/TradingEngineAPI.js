@@ -114,6 +114,18 @@ class TradingEngineAPI extends RESTDataSource {
     return this.put(`/symbols/${symbol}`, args, { params: { force } });
   }
 
+  /**
+   * Delete symbol
+   *
+   * @param force
+   * @param symbolName
+   *
+   * @return {Promise}
+   */
+  deleteSymbol(symbolName, force = false) {
+    return this.delete(`/symbols/${symbolName}`, {}, { params: { force } });
+  }
+
   // =================== Groups ===================
   /**
    * Get group by name

@@ -233,6 +233,21 @@ module.exports = {
   },
 
   /**
+   * Delete Symbol
+   *
+   * @param _
+   *  @param args
+   * @param symbolName
+   * @param force
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async deleteSymbol(_, { symbolName, force }, { dataSources }) {
+    await dataSources.TradingEngineAPI.deleteSymbol(symbolName, force);
+  },
+
+  /**
    * Create Security
    *
    * @param _

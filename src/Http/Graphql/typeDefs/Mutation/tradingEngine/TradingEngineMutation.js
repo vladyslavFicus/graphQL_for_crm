@@ -84,6 +84,8 @@ module.exports = gql`
     restartStreaming: String
     
     setAccountArchiveStatus(uuid: String! enabled: Boolean!): Boolean
+    
+    deleteSymbol(symbolName: String! force: Boolean): Boolean
 
     createOperator(args: TradingEngineCreateOperator__Input): TradingEngineOperator!
 
