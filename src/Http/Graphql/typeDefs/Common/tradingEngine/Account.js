@@ -4,14 +4,14 @@ module.exports = gql`
   type TradingEngineAccount {
     _id: ID!
     uuid: String!
-    profileUuid: String
+    profileUuid: String!
     serverId: Int
-    login: Int
+    login: Int!
     accountType: String!
-    enable: Boolean
-    readOnly: Boolean
+    enable: Boolean!
+    readOnly: Boolean!
     leverage: Int!
-    group: String
+    group: String!
     name: String
     balance: Float
     credit: Float
