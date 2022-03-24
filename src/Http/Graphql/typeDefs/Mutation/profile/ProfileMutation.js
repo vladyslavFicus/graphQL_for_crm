@@ -12,6 +12,10 @@ module.exports = gql`
     ): Profile
     verifyEmail(playerUUID: String!): Profile
     verifyPhone(playerUUID: String!): Profile
+    updateConfigurationDeposit(
+      playerUUID: String!
+      enabled: Boolean!
+    ): Profile__Configuration
 
     updatePersonalInformation(
       playerUUID: String!

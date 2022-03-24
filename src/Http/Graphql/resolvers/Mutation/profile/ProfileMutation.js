@@ -144,4 +144,15 @@ module.exports = {
 
     return dataSources.ProfileAPI.verifyPhone(playerUUID, profile.contacts.phone);
   },
+  /**
+   * Update configuration deposit
+   *
+   * @param _
+   * @param playerUUID
+   *
+   * @return {*}
+   */
+  updateConfigurationDeposit(_, { playerUUID, ...args }, { dataSources }) {
+    return dataSources.ProfileAPI.updateConfigurationDeposit(playerUUID, args);
+  },
 };

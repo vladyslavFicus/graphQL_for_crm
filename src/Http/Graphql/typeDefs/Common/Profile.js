@@ -46,6 +46,7 @@ module.exports = gql`
     gdpr: Profile__Configuration__GDPR
     subscription: Profile__Configuration__SPAM
     webCookies: Profile__Configuration__WEBCOOKIE
+    depositEnabled: Boolean
   }
 
   type Profile__Contacts {

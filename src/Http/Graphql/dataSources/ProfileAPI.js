@@ -169,6 +169,18 @@ class ProfileAPI extends RESTDataSource {
   verifyPhone(uuid, phone) {
     return this.post(`/admin/profiles/${uuid}/verification/phone`, { phone });
   }
+
+  /**
+   * Update state to deposit
+   *
+   * @param uuid Client UUID
+   * @param enabled Bool State
+   *
+   * @return {*}
+   */
+  updateConfigurationDeposit(uuid, args) {
+    return this.put(`/admin/profiles/${uuid}/configuration/deposit`, args);
+  }
 }
 
 module.exports = ProfileAPI;
