@@ -36,7 +36,7 @@ module.exports = {
    * @return {Promise}
    */
   async deleteMany(_, args, { dataSources }) {
-    return dataSources.BrandConfigAPI.ipWhitelistDeleteMany(args);
+    dataSources.BrandConfigAPI.ipWhitelistDeleteMany(args);
   },
 
   /**
