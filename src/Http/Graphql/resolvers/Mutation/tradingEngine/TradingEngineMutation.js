@@ -359,4 +359,18 @@ module.exports = {
   createHoliday(_, { args }, { dataSources }) {
     return dataSources.TradingEngineAPI.createHoliday(args);
   },
+
+  /**
+   * Edit holiday
+   *
+   * @param _
+   * @param id
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  editHoliday(_, { args: { id, ...args } }, { dataSources }) {
+    return dataSources.TradingEngineAPI.editHoliday(id, args);
+  },
 };
