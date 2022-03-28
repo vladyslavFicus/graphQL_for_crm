@@ -536,6 +536,17 @@ class TradingEngineAPI extends RESTDataSource {
   }
 
   /**
+   * Create holiday
+   *
+   * @param args
+   *
+   * @return {Promise}
+   */
+  createHoliday(args) {
+    return this.post('/holidays', args);
+  }
+
+  /**
    * archive/unarchive account
    *
    * @param uuid

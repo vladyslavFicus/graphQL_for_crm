@@ -346,4 +346,17 @@ module.exports = {
   changeOperatorStatus(_, { uuid, ...args }, { dataSources }) {
     return dataSources.TradingEngineAPI.changeOperatorStatus(uuid, args);
   },
+
+  /**
+   * Create holiday
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  createHoliday(_, { args }, { dataSources }) {
+    return dataSources.TradingEngineAPI.createHoliday(args);
+  },
 };
