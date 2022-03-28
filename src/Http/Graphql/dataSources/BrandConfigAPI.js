@@ -2,7 +2,7 @@ const RESTDataSource = require('@hrzn/apollo-datasource/RESTDataSource');
 
 class BrandConfigAPI extends RESTDataSource {
   /**
-   * Get IP Whitelist 
+   * Get IP Whitelist
    *
    * @param args
    *
@@ -18,6 +18,10 @@ class BrandConfigAPI extends RESTDataSource {
 
   ipWhitelistDelete(args) {
     return this.delete(`/whitelist/${args.uuid}`);
+  }
+
+  ipWhitelistDeleteMany(args) {
+    return this.delete('/whitelist', args);
   }
 
   ipWhitelistUpdate(args) {
