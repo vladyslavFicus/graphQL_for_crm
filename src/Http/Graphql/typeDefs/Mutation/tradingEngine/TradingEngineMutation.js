@@ -102,5 +102,7 @@ module.exports = gql`
     createHoliday(args: TradingEngineCreateHoliday__Input!): TradingEngineHoliday!
 
     editHoliday(args: TradingEngineEditHoliday__Input!): TradingEngineHoliday!
+
+    deleteHoliday(id: ID!): Boolean
   }
 `;

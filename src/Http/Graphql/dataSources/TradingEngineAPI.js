@@ -588,6 +588,17 @@ class TradingEngineAPI extends RESTDataSource {
   }
 
   /**
+   * Delete holiday
+   *
+   * @param id
+   *
+   * @return {Promise}
+   */
+  deleteHoliday(id) {
+    return this.delete(`/holidays/${id}`);
+  }
+
+  /**
    * archive/unarchive account
    *
    * @param uuid
