@@ -11,7 +11,7 @@ module.exports = {
   async add(_, args, { dataSources }) {
     return dataSources.BrandConfigAPI.ipWhitelistAdd(args);
   },
-  
+
   /**
    * Delete Ip from Whitelist
    *
@@ -24,6 +24,19 @@ module.exports = {
   async delete(_, args, { dataSources }) {
     await dataSources.BrandConfigAPI.ipWhitelistDelete(args);
     return true;
+  },
+
+  /**
+   * Delete Ip from Whitelist
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async deleteMany(_, args, { dataSources }) {
+    dataSources.BrandConfigAPI.ipWhitelistDeleteMany(args);
   },
 
   /**

@@ -9,5 +9,6 @@ module.exports = gql`
     password: String!
     role: String!
     groupNames: [String]
+    existsInCrm: Boolean!
   }
 `;

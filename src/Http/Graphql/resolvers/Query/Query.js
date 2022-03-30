@@ -461,6 +461,9 @@ module.exports = {
       payment: {
         reasons: get(brandConfig, 'nas.brand.payment.reasons'),
       },
+      profile: {
+        isDepositEnabled: get(brandConfig, 'nas.brand.profile.deposit.enabled', true),
+      },
       mt4: {
         leveragesChangingRequest: get(brandConfig, 'nas.brand.mt4.leverages_changing_request', []),
         live: {
