@@ -109,6 +109,17 @@ class TradingEngineAPI extends RESTDataSource {
   }
 
   /**
+   * Get trading engine current holidays for symbol
+   *
+   * @param symbolName
+   *
+   * @return {Promise}
+   */
+  getSymbolCurrentHolidays(symbolName) {
+    return this.get(`/symbols/${symbolName}/currentHolidays`);
+  }
+
+  /**
   * Create Symbol
   *
   * @param args
