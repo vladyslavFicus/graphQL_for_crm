@@ -100,5 +100,9 @@ module.exports = gql`
     changeOperatorRole(uuid: String!, role: TradingEngine__OperatorRoles__Enum!): TradingEngineOperator!
     
     createHoliday(args: TradingEngineCreateHoliday__Input!): TradingEngineHoliday!
+
+    editHoliday(args: TradingEngineEditHoliday__Input!): TradingEngineHoliday!
+
+    deleteHoliday(id: ID!): Boolean
   }
 `;

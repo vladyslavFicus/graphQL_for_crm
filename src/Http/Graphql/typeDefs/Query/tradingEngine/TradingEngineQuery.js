@@ -21,5 +21,6 @@ module.exports = gql`
     operators(args: TradingEngineOperatorSearch__Input!): TradingEngineOperator! @pageable
     operatorAccessData: OperatorAccess!
     holidays(args: TradingEngineHolidays__Input): TradingEngineHoliday! @pageable
+    holiday(id: ID!): TradingEngineHoliday!
   }
 `;

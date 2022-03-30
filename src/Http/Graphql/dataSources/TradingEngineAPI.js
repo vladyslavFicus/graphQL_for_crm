@@ -9,6 +9,7 @@ class TradingEngineAPI extends RESTDataSource {
 
     this.accountsLoader = new DataLoader(this._accountsLoader.bind(this));
     this.symbolsLoader = new DataLoader(this._symbolsLoader.bind(this));
+    this.symbolChildrenLoader = new DataLoader(this._symbolChildrenLoader.bind(this));
     this.accountSymbolConfigsLoader = new DataLoader(this._accountSymbolConfigsLoader.bind(this));
   }
 
@@ -22,6 +23,12 @@ class TradingEngineAPI extends RESTDataSource {
     const data = await this.post('/symbols/search', { symbolNames });
 
     return orderByArray(symbolNames, data.content, 'name');
+  }
+
+  async _symbolChildrenLoader(symbolNames) {
+    const data = await this.post('/symbols/sources/children', symbolNames);
+
+    return orderByArray(symbolNames, data, 'sourceName').map(({ childrenNames }) => childrenNames);
   }
 
   async _accountSymbolConfigsLoader(args) {
@@ -64,6 +71,17 @@ class TradingEngineAPI extends RESTDataSource {
    */
   getSymbolsSources() {
     return this.get('/symbols/sources');
+  }
+
+  /**
+   * Get symbol children
+   *
+   * @param symbolName
+   *
+   * @return {Promise}
+   */
+  getSymbolChildren(symbolName) {
+    return this.symbolChildrenLoader.load(symbolName);
   }
 
   /**
@@ -536,6 +554,17 @@ class TradingEngineAPI extends RESTDataSource {
   }
 
   /**
+   * Get trading engine holiday
+   *
+   * @param id
+   *
+   * @return {Promise}
+   */
+  getHoliday(id) {
+    return this.get(`/holidays/${id}`);
+  }
+
+  /**
    * Create holiday
    *
    * @param args
@@ -544,6 +573,29 @@ class TradingEngineAPI extends RESTDataSource {
    */
   createHoliday(args) {
     return this.post('/holidays', args);
+  }
+
+  /**
+   * Edit holiday
+   *
+   * @param id
+   * @param args
+   *
+   * @return {Promise}
+   */
+  editHoliday(id, args) {
+    return this.put(`/holidays/${id}`, args);
+  }
+
+  /**
+   * Delete holiday
+   *
+   * @param id
+   *
+   * @return {Promise}
+   */
+  deleteHoliday(id) {
+    return this.delete(`/holidays/${id}`);
   }
 
   /**

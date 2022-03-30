@@ -1,17 +1,18 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`
-  input TradingEngineCreateHoliday__TimeRange__Input {
+  input TradingEngineEditHoliday__TimeRange__Input {
     from: String!
     to: String!
   }
 
-  input TradingEngineCreateHoliday__Input {
+  input TradingEngineEditHoliday__Input {
+    id: ID!
     enabled: Boolean!
     description: String!
     annual: Boolean!
     date: String!
-    timeRange: TradingEngineCreateHoliday__TimeRange__Input!
+    timeRange: TradingEngineEditHoliday__TimeRange__Input!
     symbols: [String!]
   }
 `;
