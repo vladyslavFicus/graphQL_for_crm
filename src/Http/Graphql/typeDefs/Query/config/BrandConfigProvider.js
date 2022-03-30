@@ -21,6 +21,10 @@ module.exports = gql`
   type BrandConfigProvider__Payment {
     reasons: Object
   }
+
+  type BrandConfigProvider__Profile {
+    isDepositEnabled: Boolean
+  }
   
   type BrandConfigProvider__Asterisk {
     isActive: Boolean
@@ -84,6 +88,7 @@ module.exports = gql`
     locales: BrandConfigProvider__Locales
     password: BrandConfigProvider__Password
     payment: BrandConfigProvider__Payment
+    profile: BrandConfigProvider__Profile
     clickToCall: BrandConfigProvider__ClickToCall
     sms: BrandConfigProvider__Sms
     mt4: BrandConfigProvider__TradingProvider
