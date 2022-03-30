@@ -230,7 +230,7 @@ module.exports = gql`
     tradingEngine: TradingEngineQuery @nested
     
     #Ipwhitelist
-    ipWhitelistSearch(args: IpWhitelistSearch__Input): IpWhitelistAddress @pageable
+    ipWhitelistSearch(args: IpWhitelistSearch__Input): IpWhitelistAddress! @pageable
 
     # TradingActivity API
     tradingActivity(
