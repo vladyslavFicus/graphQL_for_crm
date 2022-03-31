@@ -346,4 +346,44 @@ module.exports = {
   changeOperatorStatus(_, { uuid, ...args }, { dataSources }) {
     return dataSources.TradingEngineAPI.changeOperatorStatus(uuid, args);
   },
+
+  /**
+   * Create holiday
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  createHoliday(_, { args }, { dataSources }) {
+    return dataSources.TradingEngineAPI.createHoliday(args);
+  },
+
+  /**
+   * Edit holiday
+   *
+   * @param _
+   * @param id
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  editHoliday(_, { args: { id, ...args } }, { dataSources }) {
+    return dataSources.TradingEngineAPI.editHoliday(id, args);
+  },
+
+  /**
+   * Delete holiday
+   *
+   * @param _
+   * @param id
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async deleteHoliday(_, { id }, { dataSources }) {
+    await dataSources.TradingEngineAPI.deleteHoliday(id);
+  },
 };

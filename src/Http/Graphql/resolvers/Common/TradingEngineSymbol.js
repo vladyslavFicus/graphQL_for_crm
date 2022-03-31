@@ -24,4 +24,17 @@ module.exports = {
   prices({ symbol }, args, { dataSources }) {
     return dataSources.TradingEngineAPI.getSymbolPrices(symbol, args);
   },
+
+  /**
+   * Get current holiday for symbol
+   *
+   * @param symbol
+   * @param _
+   * @param dataSources
+   *
+   * @return {Promise<*>}
+   */
+  currentHolidays({ symbol }, _, { dataSources }) {
+    return dataSources.TradingEngineAPI.getSymbolCurrentHolidays(symbol);
+  },
 };

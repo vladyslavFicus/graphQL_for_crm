@@ -9,6 +9,7 @@ class TradingEngineAPI extends RESTDataSource {
 
     this.accountsLoader = new DataLoader(this._accountsLoader.bind(this));
     this.symbolsLoader = new DataLoader(this._symbolsLoader.bind(this));
+    this.symbolChildrenLoader = new DataLoader(this._symbolChildrenLoader.bind(this));
     this.accountSymbolConfigsLoader = new DataLoader(this._accountSymbolConfigsLoader.bind(this));
   }
 
@@ -22,6 +23,12 @@ class TradingEngineAPI extends RESTDataSource {
     const data = await this.post('/symbols/search', { symbolNames });
 
     return orderByArray(symbolNames, data.content, 'name');
+  }
+
+  async _symbolChildrenLoader(symbolNames) {
+    const data = await this.post('/symbols/sources/children', symbolNames);
+
+    return orderByArray(symbolNames, data, 'sourceName').map(({ childrenNames }) => childrenNames);
   }
 
   async _accountSymbolConfigsLoader(args) {
@@ -67,6 +74,17 @@ class TradingEngineAPI extends RESTDataSource {
   }
 
   /**
+   * Get symbol children
+   *
+   * @param symbolName
+   *
+   * @return {Promise}
+   */
+  getSymbolChildren(symbolName) {
+    return this.symbolChildrenLoader.load(symbolName);
+  }
+
+  /**
      * Get symbol config for concrete account
      *
      * @param accountUuid
@@ -88,6 +106,17 @@ class TradingEngineAPI extends RESTDataSource {
    */
   getSymbolPrices(symbol, args) {
     return this.get(`/symbols/${symbol}/price`, args);
+  }
+
+  /**
+   * Get trading engine current holidays for symbol
+   *
+   * @param symbolName
+   *
+   * @return {Promise}
+   */
+  getSymbolCurrentHolidays(symbolName) {
+    return this.get(`/symbols/${symbolName}/currentHolidays`);
   }
 
   /**
@@ -533,6 +562,51 @@ class TradingEngineAPI extends RESTDataSource {
    */
   getHolidays(args) {
     return this.post('/holidays/search', args);
+  }
+
+  /**
+   * Get trading engine holiday
+   *
+   * @param id
+   *
+   * @return {Promise}
+   */
+  getHoliday(id) {
+    return this.get(`/holidays/${id}`);
+  }
+
+  /**
+   * Create holiday
+   *
+   * @param args
+   *
+   * @return {Promise}
+   */
+  createHoliday(args) {
+    return this.post('/holidays', args);
+  }
+
+  /**
+   * Edit holiday
+   *
+   * @param id
+   * @param args
+   *
+   * @return {Promise}
+   */
+  editHoliday(id, args) {
+    return this.put(`/holidays/${id}`, args);
+  }
+
+  /**
+   * Delete holiday
+   *
+   * @param id
+   *
+   * @return {Promise}
+   */
+  deleteHoliday(id) {
+    return this.delete(`/holidays/${id}`);
   }
 
   /**

@@ -49,5 +49,6 @@ module.exports = gql`
     symbolSessions: [TradingEngineSymbol__SymbolSessions!]!
     config(accountUuid: String): TradingEngineAccountSymbolConfig
     prices(size: Int): [TradingEngineSymbolPrice!]! 
+    currentHolidays: [TradingEngineHoliday!]!
   }
 `;

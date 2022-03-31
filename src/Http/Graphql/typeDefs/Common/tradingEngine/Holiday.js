@@ -9,7 +9,7 @@ module.exports = gql`
   type TradingEngineHoliday {
     id: ID!
     enabled: Boolean!
-    description: String
+    description: String!
     annual: Boolean!
     date: String!
     timeRange: TradingEngineHoliday__TimeRange!
