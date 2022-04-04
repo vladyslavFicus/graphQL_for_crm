@@ -7,16 +7,18 @@ module.exports = gql`
     profileUuid: String!
     serverId: Int
     login: Int!
-    accountType: String!
+    accountType: TradingEngine__AccountTypes__Enum!
     enable: Boolean!
     readOnly: Boolean!
     leverage: Int!
     group: String!
+    groupEntity: TradingEngineGroup!
     name: String
     balance: Float
     credit: Float
     margin: Float
     freeMargin: Float
+    marginLevel: Float!
     equity: Float
     comment: String
     currency: String!

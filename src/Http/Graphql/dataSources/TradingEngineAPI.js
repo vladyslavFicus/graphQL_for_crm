@@ -9,6 +9,7 @@ class TradingEngineAPI extends RESTDataSource {
 
     this.accountsLoader = new DataLoader(this._accountsLoader.bind(this));
     this.symbolsLoader = new DataLoader(this._symbolsLoader.bind(this));
+    this.groupsLoader = new DataLoader(this._groupsLoader.bind(this));
     this.symbolChildrenLoader = new DataLoader(this._symbolChildrenLoader.bind(this));
     this.accountSymbolConfigsLoader = new DataLoader(this._accountSymbolConfigsLoader.bind(this));
   }
@@ -23,6 +24,12 @@ class TradingEngineAPI extends RESTDataSource {
     const data = await this.post('/symbols/search', { symbolNames });
 
     return orderByArray(symbolNames, data.content, 'name');
+  }
+
+  async _groupsLoader(groupNames) {
+    const data = await this.post('/groups/search', { groupNames });
+
+    return orderByArray(groupNames, data.content, 'groupName');
   }
 
   async _symbolChildrenLoader(symbolNames) {
@@ -164,7 +171,7 @@ class TradingEngineAPI extends RESTDataSource {
    * @return {Promise}
    */
   getGroup(groupName) {
-    return this.get(`/groups/${groupName}`);
+    return this.groupsLoader.load(groupName);
   }
 
   /**
