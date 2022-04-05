@@ -8,14 +8,15 @@
   "private": true,
   "scripts": {
     "start": "nodemon src/app.js",
-    "start:dev": "APP_ENV=development npm run start",
-    "start:qa": "APP_ENV=qa npm run start",
-    "start:staging": "APP_ENV=staging npm run start",
-    "start:production": "APP_ENV=production npm run start",
+    "start:dev": "cross-env APP_ENV=development npm run start",
+    "start:qa": "cross-env APP_ENV=qa npm run start",
+    "start:staging": "cross-env APP_ENV=staging npm run start",
+    "start:production": "cross-env APP_ENV=production npm run start",
     "eslint": "eslint 'src/**/*.js'",
     "test:jenkins": "echo no tests yet"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "eslint": "5.5.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.21.2",
