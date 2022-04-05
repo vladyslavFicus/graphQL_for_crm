@@ -1,9 +1,13 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`
-  type LoginLock {
-    lock: Boolean
+  type LockInfo {
     lockReason: String
-    lockExpirationDate: String
+    unlockTime: String
+  }
+
+  type LoginLock {
+    isLocked: Boolean!
+    locks: [LockInfo!]!
   }
 `;
