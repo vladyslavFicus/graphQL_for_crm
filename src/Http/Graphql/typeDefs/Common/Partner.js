@@ -19,6 +19,8 @@ module.exports = gql`
   type Partner__PermissionType {
     allowedIpAddresses: [String]
     forbiddenCountries: [String]
+    restrictedSources: [String!]!
+    restrictedReferrals: [String!]!
     showFTDAmount: Boolean
     showKycStatus: Boolean
     showSalesStatus: Boolean

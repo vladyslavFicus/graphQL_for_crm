@@ -4,6 +4,8 @@ module.exports = gql`
   input PartnerPermission__Input {
     allowedIpAddresses: [String]
     forbiddenCountries: [String]
+    restrictedSources: [String!]!
+    restrictedReferrals: [String!]!
     showFTDAmount: Boolean
     showKycStatus: Boolean
     showNotes: Boolean
