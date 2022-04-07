@@ -19,8 +19,8 @@ class AuditAPI extends RESTDataSource {
    *
    * @return {Promise}
    */
-  getFeedTypes(uuid) {
-    return this.get(`/logs/${uuid}/types`);
+  getFeedTypes(uuid, filters) {
+    return this.post(`/logs/${uuid}/types`, { ...filters });
   }
 }
 

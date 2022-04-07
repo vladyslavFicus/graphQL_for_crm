@@ -48,8 +48,8 @@ module.exports = {
   feeds(_, args, { dataSources }) {
     return dataSources.AuditAPI.getFeeds(args);
   },
-  feedTypes(_, { uuid }, { dataSources }) {
-    return dataSources.AuditAPI.getFeedTypes(uuid);
+  feedTypes(_, { uuid, filters }, { dataSources }) {
+    return dataSources.AuditAPI.getFeedTypes(uuid, filters);
   },
 
   /**

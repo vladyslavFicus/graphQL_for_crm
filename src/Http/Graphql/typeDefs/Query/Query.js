@@ -41,6 +41,7 @@ module.exports = gql`
     feeds(
       searchBy: String
       auditLogType: String
+      auditCategory: Feed__AuditCategory__Enum
       creationDateFrom: String
       creationDateTo: String
       page: Int
@@ -48,8 +49,8 @@ module.exports = gql`
       sortColumn: String
       sortDirection: String
       targetUUID: String
-    ): Feed @pageable
-    feedTypes(uuid: String!): Object
+    ): Feed! @pageable
+    feedTypes(uuid: String!, filters: FeedCategorySearch_Input): Object
 
     # Auth2 API
     allActions: [String]
