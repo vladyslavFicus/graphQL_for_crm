@@ -20,6 +20,7 @@ class AuditAPI extends RESTDataSource {
    * @return {Promise}
    */
   getFeedTypes(uuid, filters) {
+    // Object spread { ...args } is required here while https://github.com/apollographql/apollo-server/issues/1539
     return this.post(`/logs/${uuid}/types`, { ...filters });
   }
 }
