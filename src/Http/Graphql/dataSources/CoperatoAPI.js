@@ -10,10 +10,11 @@ class CoperatoAPI extends RESTDataSource {
    *
    * @return {Promise}
    */
-  createCall(url, extension, phoneNum) {
+  createCall(url, extension, phoneNum, clientId) {
     return this.post(url, {
       extension,
       phone_num: phoneNum,
+      talking_to: clientId,
     });
   }
 }

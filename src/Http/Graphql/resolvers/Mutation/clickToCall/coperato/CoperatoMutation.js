@@ -26,7 +26,7 @@ module.exports = {
 
     const extension = get(operator, 'clickToCall.coperatoPhone');
 
-    const response = await dataSources.CoperatoAPI.createCall(url, extension, `${prefix}${number}`);
+    const response = await dataSources.CoperatoAPI.createCall(url, extension, `${prefix}${number}`, uuid);
 
     const { success } = response;
 
