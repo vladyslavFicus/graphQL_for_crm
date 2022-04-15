@@ -263,5 +263,8 @@ module.exports = gql`
     
     # SMS Api
     sms: SmsQuery @nested
+
+    # Settings Api
+    settings: SettingsQuery @nested
   }
 `;
