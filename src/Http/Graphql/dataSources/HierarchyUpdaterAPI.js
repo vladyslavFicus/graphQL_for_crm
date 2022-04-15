@@ -151,6 +151,19 @@ class HierarchyUpdaterAPI extends RESTDataSource {
   removeBranchManager(branchUuid, managerUuid) {
     return this.delete(`/branch/${branchUuid}/manager/${managerUuid}`);
   }
+
+
+  /**
+   * Get brand acquisition statuses list
+   *
+   * @param brandId
+   * @param args
+   *
+   * @return {Promise}
+   */
+  getBrandAcquisitionStatuses(brandId, args) {
+    return this.post(`/brand/${brandId}/acquisition/statuses`, args);
+  }
 }
 
 module.exports = HierarchyUpdaterAPI;
