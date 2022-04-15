@@ -26,5 +26,6 @@ module.exports = gql`
     tradingEngine: TradingEngineMutation @nested
     ipWhitelist: IpWhitelistMutation @nested
     gridConfig: GridConfigMutation @nested
+    settings: SettingsMutation @nested
   }
 `;
