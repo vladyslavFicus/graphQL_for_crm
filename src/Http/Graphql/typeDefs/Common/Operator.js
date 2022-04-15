@@ -25,6 +25,6 @@ module.exports = gql`
     statusChangeAuthor: String
     statusChangeDate: String
     statusReason: String
-    uuid: String
+    uuid: String!
   }
 `;
