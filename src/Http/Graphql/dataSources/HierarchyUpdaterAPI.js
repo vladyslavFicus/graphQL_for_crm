@@ -161,8 +161,33 @@ class HierarchyUpdaterAPI extends RESTDataSource {
    *
    * @return {Promise}
    */
-  getBrandAcquisitionStatuses(brandId, args) {
-    return this.post(`/brand/${brandId}/acquisition/statuses`, args);
+  getBrandAcquisitionStatuses(brandId, args = {}) {
+    // Object spread { ...args } is required here while https://github.com/apollographql/apollo-server/issues/1539
+    return this.post(`/brand/${brandId}/acquisition/statuses`, { ...args });
+  }
+
+  /**
+   * Create brand acquisition status
+   *
+   * @param brandId
+   * @param args
+   *
+   * @return {Promise}
+   */
+  createBrandAcquisitionStatus(brandId, args) {
+    return this.post(`/brand/${brandId}/acquisition/status`, args);
+  }
+
+  /**
+   * Delete brand acquisition status
+   *
+   * @param brandId
+   * @param args
+   *
+   * @return {Promise}
+   */
+  deleteBrandAcquisitionStatus(brandId, args) {
+    return this.delete(`/brand/${brandId}/acquisition/status`, args);
   }
 }
 
