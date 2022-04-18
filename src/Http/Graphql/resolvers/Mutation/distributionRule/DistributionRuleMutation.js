@@ -49,8 +49,8 @@ module.exports = {
    *
    * @return {Promise}
    */
-  async updateRule(_, { args: { uuid, ...args } }, { dataSources }) {
-    await dataSources.DistributionRuleAPI.updateRule(uuid, args);
+  updateRule(_, { args: { uuid, ...args } }, { dataSources }) {
+    return dataSources.DistributionRuleAPI.updateRule(uuid, args);
   },
 
   /**

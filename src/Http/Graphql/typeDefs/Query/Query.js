@@ -193,7 +193,7 @@ module.exports = gql`
     ): [Rule]
 
     # Distribution Rules API
-    distributionRules(args: DistributionRuleSearch__Input): DistributionRule @pageable
+    distributionRules(args: DistributionRuleSearch__Input): DistributionRule! @pageable
     distributionRule(uuid: String!): DistributionRule!
     distributionRuleClientsAmount(
       salesStatuses: [String]!
