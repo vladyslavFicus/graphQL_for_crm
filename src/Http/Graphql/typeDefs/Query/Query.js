@@ -12,8 +12,8 @@ module.exports = gql`
       status: String
       registrationDateFrom: String
       registrationDateTo: String
-    ): Partner @pageable
-    cdePartners: [Partner]
+    ): Partner! @pageable
+    cdePartners: [Partner!]!
 
     # Attachments API
     files(
@@ -63,7 +63,7 @@ module.exports = gql`
 
     # BrandConfig API
     brandConfig(brandId: String!): BrandConfig
-    brands: [BrandConfig]
+    brands: [BrandConfig!]!
 
     # Callback API
     callbacks(
@@ -146,7 +146,7 @@ module.exports = gql`
       searchBy: String
       status: String
     ): Operator @pageable
-    operatorsByBrand(brandId: String!, hierarchyTypeGroup: Desk__Types__Enum!): [Operator]
+    operatorsByBrand(brandId: String!, hierarchyTypeGroup: Desk__Types__Enum!): [Operator!]!
     operatorsSubordinates(hierarchyTypeGroup: String, onlyActive: Boolean): [Operator]
     operatorRelationsCount(uuid: String!): OperatorRelationsCount
 
@@ -193,8 +193,8 @@ module.exports = gql`
     ): [Rule]
 
     # Distribution Rules API
-    distributionRules(args: DistributionRuleSearch__Input): DistributionRule @pageable
-    distributionRule(uuid: String!): DistributionRule
+    distributionRules(args: DistributionRuleSearch__Input): DistributionRule! @pageable
+    distributionRule(uuid: String!): DistributionRule!
     distributionRuleClientsAmount(
       salesStatuses: [String]!
       countries: [String]!

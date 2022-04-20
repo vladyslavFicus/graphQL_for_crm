@@ -8,6 +8,15 @@ module.exports = gql`
 
   input DistributionRuleUpdate__SourceBrand__Input {
     brand: String
+    salesStatuses: [String]
+    countries: [String]
+    languages: [String]
+    firstTimeDeposit: Boolean
+    timeInCurrentStatusInHours: Int
+    registrationPeriodInHours: Int
+    registrationDateRange: DistributionRule__DateRange__Input
+    lastNotePeriodInHours: Int
+    lastNoteDateRange: DistributionRule__DateRange__Input
     affiliateUuids: [String]
     distributionUnit: DistributionRuleUpdate__Unit__Input
     sortType: String
@@ -17,6 +26,7 @@ module.exports = gql`
 
   input DistributionRuleUpdate__TargetBrand__Input {
     brand: String
+    targetSalesStatus: String
     copyAffiliateSource: Boolean
     distributionUnit: DistributionRuleUpdate__Unit__Input
     affiliateUuid: String
@@ -32,18 +42,8 @@ module.exports = gql`
   input DistributionRuleUpdate__Input {
     uuid: String!
     ruleName: String
-    salesStatuses: [String]
-    targetSalesStatus: String
-    countries: [String]
-    languages: [String]
-    registrationPeriodInHours: Int
-    registrationDateRange: DistributionRule__DateRange__Input
-    lastNotePeriodInHours: Int
-    lastNoteDateRange: DistributionRule__DateRange__Input
-    executionPeriodInHours: Int
     executionType: String
     sourceBrandConfig: DistributionRuleUpdate__SourceBrand__Input
     targetBrandConfig: DistributionRuleUpdate__TargetBrand__Input
-    firstTimeDeposit: Boolean
   }
 `;

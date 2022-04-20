@@ -35,8 +35,8 @@ module.exports = {
    *
    * @return {Promise}
    */
-  async update(_, { uuid, ...args }, { dataSources }) {
-    await dataSources.DistributionRuleAPI.update(uuid, args);
+  update(_, { uuid, ...args }, { dataSources }) {
+    return dataSources.DistributionRuleAPI.update(uuid, args);
   },
 
   /**
@@ -49,8 +49,8 @@ module.exports = {
    *
    * @return {Promise}
    */
-  async updateRule(_, { args: { uuid, ...args } }, { dataSources }) {
-    await dataSources.DistributionRuleAPI.updateRule(uuid, args);
+  updateRule(_, { args: { uuid, ...args } }, { dataSources }) {
+    return dataSources.DistributionRuleAPI.updateRule(uuid, args);
   },
 
   /**
@@ -63,7 +63,7 @@ module.exports = {
    *
    * @return {Promise}
    */
-  async updateRuleStatus(_, { uuid, ...args }, { dataSources }) {
-    await dataSources.DistributionRuleAPI.updateRuleStatus(uuid, args);
+  updateRuleStatus(_, { uuid, ...args }, { dataSources }) {
+    return dataSources.DistributionRuleAPI.updateRuleStatus(uuid, args);
   },
 };

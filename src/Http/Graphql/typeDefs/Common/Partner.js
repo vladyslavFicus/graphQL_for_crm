@@ -48,7 +48,7 @@ module.exports = gql`
     status: String
     statusChangeAuthor: String
     statusChangeDate: String
-    uuid: String
+    uuid: String!
     schedule: [Partner__Schedule]
     cdeAffiliate: Boolean
   }
