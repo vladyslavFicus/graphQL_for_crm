@@ -121,6 +121,7 @@ module.exports = gql`
     symbol: String
     openingDateRange: TradingEngineSearch__Time__Input
     closingDateRange: TradingEngineSearch__Time__Input
+    registrationDateRange: TradingEngineSearch__Time__Input
     orderId: Int
     enabled: Boolean
     page: Page__Input
