@@ -1,6 +1,3 @@
-const { get } = require('lodash');
-const getFieldByType = require('../../../../utils/getFieldByType');
-
 module.exports = {
   /**
    * Create call to Asterisk
@@ -14,20 +11,9 @@ module.exports = {
    *
    * @return {Promise<any>}
    */
-  async createCall(_, { uuid, field, type, prefix }, { dataSources, userUUID, brand }) {
-    if (brand.clickToCall.isTest) {
-      return;
-    }
+  async createCall(_, { uuid, phoneType, customerType, prefix }, { dataSources }) {
 
-    const number = await getFieldByType(uuid, field, type, dataSources);
-
-    const { url, token } = brand.clickToCall.asterisk;
-
-    const operator = await dataSources.OperatorAPI.getByUUID(userUUID);
-
-    const sip = get(operator, 'clickToCall.asteriskPhone');
-
-    const { success } = await dataSources.AsteriskAPI.createCall(url, token, sip, number, prefix);
+    const { success } = await dataSources.Click2CallAPI.createCallAsterisk({ uuid, customerType, phoneType, prefix });
 
     if (!success) {
       throw new Error('Call failed');

@@ -128,7 +128,7 @@ module.exports = {
   },
 
   callHistory(_, { uuid, args }, { dataSources }) {
-    return dataSources.Analytics.getCallHistory(uuid, args);
+    return dataSources.Click2CallAPI.getCallHistory(uuid, args);
   },
 
   /**

@@ -1,6 +1,3 @@
-const { get } = require('lodash');
-const getFieldByType = require('../../../../utils/getFieldByType');
-
 module.exports = {
   /**
    * Create call to Commpeak
@@ -14,24 +11,13 @@ module.exports = {
    *
    * @return {Promise<any>}
    */
-  async createCall(_, { uuid, field, type, prefix }, { dataSources, userUUID, brand }) {
-    if (brand.clickToCall.isTest) {
-      return;
-    }
-    const number = await getFieldByType(uuid, field, type, dataSources);
+  async createCall(_, { uuid, phoneType, customerType, prefix }, { dataSources }) {
 
-    const { url } = brand.clickToCall.commpeak;
-
-    const operator = await dataSources.OperatorAPI.getByUUID(userUUID);
-
-    const sip = get(operator, 'clickToCall.commpeakPhone');
-
-    const response = await dataSources.CommpeakAPI.createCall(url, sip, number, prefix);
-
-    const { success } = JSON.parse(response);
+    const { success } = await dataSources.Click2CallAPI.createCallCommpeak({ uuid, customerType, phoneType, prefix });
 
     if (!success) {
       throw new Error('Call failed');
     }
+
   },
 };

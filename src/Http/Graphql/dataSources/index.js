@@ -1,14 +1,11 @@
 const AccountViewAPI = require('./AccountViewAPI');
 const AffiliateAPI = require('./AffiliateAPI');
-const AsteriskAPI = require('./AsteriskAPI');
 const AttachmentsAPI = require('./AttachmentsAPI');
 const AuditAPI = require('./AuditAPI');
 const Auth2API = require('./Auth2API');
 const CallbackAPI = require('./CallbackAPI');
-const CommpeakAPI = require('./CommpeakAPI');
-const CoperatoAPI = require('./CoperatoAPI');
+const Click2CallAPI = require('./Click2CallAPI');
 const CoperatoSmsAPI = require('./CoperatoSmsAPI');
-const DidLogicAPI = require('./DidLogicAPI');
 const EmailAPI = require('./EmailAPI');
 const OperatorConfigAPI = require('./OperatorConfigAPI');
 const HierarchyAPI = require('./HierarchyAPI');
@@ -27,7 +24,6 @@ const RuleProfileAPI = require('./RuleProfileAPI');
 const ReferralAPI = require('./ReferralAPI');
 const DistributionRuleAPI = require('./DistributionRuleAPI');
 const AnalyticsAPI = require('./AnalyticsAPI');
-const Analytics = require('./Analytics');
 const TradingEngineAPI = require('./TradingEngineAPI');
 const BrandConfigAPI = require('./BrandConfigAPI');
 const LiquidityProviderAPI = require('./LiquidityProviderAPI');
@@ -35,15 +31,12 @@ const LiquidityProviderAPI = require('./LiquidityProviderAPI');
 module.exports = {
   AccountViewAPI,
   AffiliateAPI,
-  AsteriskAPI,
   AttachmentsAPI,
   AuditAPI,
   Auth2API,
   CallbackAPI,
-  CommpeakAPI,
-  CoperatoAPI,
+  Click2CallAPI,
   CoperatoSmsAPI,
-  DidLogicAPI,
   EmailAPI,
   OperatorConfigAPI,
   HierarchyAPI,
@@ -62,7 +55,6 @@ module.exports = {
   ReferralAPI,
   DistributionRuleAPI,
   AnalyticsAPI,
-  Analytics,
   TradingEngineAPI,
   BrandConfigAPI,
   LiquidityProviderAPI,
