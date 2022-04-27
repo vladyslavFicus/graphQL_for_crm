@@ -35,7 +35,7 @@ module.exports = gql`
     lotSize: Float
     commission: Float!
     swaps: Float!
-    status: String!
+    status: TradingEngine__OrderStatuses__Enum!
     pnl: TradingEngineOrder__Pnl!
     time: TradingEngineOrder__Time!
     tradeType: String
