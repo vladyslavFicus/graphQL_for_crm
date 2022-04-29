@@ -1,6 +1,8 @@
 FROM node:16-slim as build
 WORKDIR /opt/build
-COPY src config package.json .npmrc .yarnrc /opt/build/
+COPY src /opt/build/src
+COPY config /opt/build/config
+COPY package.json .npmrc .yarnrc /opt/build/
 RUN yarn
 RUN rm -f /opt/build/.npmrc
 
