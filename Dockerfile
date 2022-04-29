@@ -1,16 +1,16 @@
-FROM node:14-slim
+FROM node:16-slim as build
+WORKDIR /opt/build
+COPY src config package.json .npmrc .yarnrc /opt/build/
+RUN yarn
+RUN rm -f /opt/build/.npmrc
+
+FROM node:16-slim as final
 
 ENV PORT 9090
-ENV BUILD_PATH /opt/app
+WORKDIR /opt/app
 ENV NODE_ENV production
 
-RUN mkdir -p $BUILD_PATH
-WORKDIR $BUILD_PATH
-
-ADD ./ $BUILD_PATH
-
+COPY --from=build /opt/build /opt/app
 EXPOSE $PORT
-
 HEALTHCHECK CMD curl --fail http://localhost:$PORT/health || exit 1
-
 ENTRYPOINT [ "npm", "start" ]
