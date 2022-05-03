@@ -13,6 +13,7 @@ WORKDIR /opt/app
 ENV NODE_ENV production
 
 COPY --from=build /opt/build /opt/app
+ADD .env.* /opt/app/
 EXPOSE $PORT
 HEALTHCHECK CMD curl --fail http://localhost:$PORT/health || exit 1
 ENTRYPOINT [ "npm", "start" ]
