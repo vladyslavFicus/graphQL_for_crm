@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`
-  type CommpeakMutation {
+  type ClearVoiceMutation {
     createCall(
       uuid: String!
       phoneType: ClickToCall__Phone__Type__Enum!

@@ -4,8 +4,8 @@ module.exports = gql`
   type AsteriskMutation {
     createCall(
       uuid: String!
-      phoneType: Click2CallPhone__Type__Enum!
-      customerType: Click2CallCustomer__Type__Enum!
+      phoneType: ClickToCall__Phone__Type__Enum!
+      customerType: ClickToCall__Customer__Type__Enum!
       prefix: String!
     ): Boolean
   }

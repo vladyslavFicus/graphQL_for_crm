@@ -491,21 +491,6 @@ module.exports = {
           enabled: !!get(brandConfig, 'nas.brand.wet.demo_groups'),
         },
       },
-      clickToCall: {
-        isActive: get(brandConfig, 'nas.brand.clickToCall.isActive', false),
-        asterisk: {
-          isActive: get(brandConfig, 'nas.brand.clickToCall.asterisk.isActive', false),
-          prefixes: get(brandConfig, 'nas.brand.clickToCall.asterisk.prefixes', {}),
-        },
-        commpeak: {
-          isActive: get(brandConfig, 'nas.brand.clickToCall.commpeak.isActive', false),
-          prefixes: get(brandConfig, 'nas.brand.clickToCall.commpeak.prefixes', {}),
-        },
-        coperato: {
-          isActive: get(brandConfig, 'nas.brand.clickToCall.coperato.isActive', false),
-          prefixes: get(brandConfig, 'nas.brand.clickToCall.coperato.prefixes', {}),
-        },
-      },
       sms: {
         coperato: {
           isActive: get(brandConfig, 'nas.brand.sms.coperato.isActive', false),

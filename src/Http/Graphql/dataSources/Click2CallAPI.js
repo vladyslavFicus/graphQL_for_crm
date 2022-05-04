@@ -38,12 +38,39 @@ class Click2CallAPI extends RESTDataSource {
   }
 
   /**
+   * Create call to ClearVoice
+   *
+   * @return {Promise}
+   */
+  createCallClearVoice(args) {
+    return this.post('/call/start/clearvoice', args);
+  }
+
+  /**
    * Create call to Didlogic
    *
    * @return {Promise}
    */
   getCallHistory(uuid, filters) {
     return this.post('/call-history/search', { uuid, ...filters });
+  }
+
+  /**
+   * Get call systems config
+   *
+   * @return {Promise}
+   */
+  getConfigs() {
+    return this.post('/call/start/configs');
+  }
+
+  /**
+   * Get call system config
+   *
+   * @return {Promise}
+   */
+  getConfigProvider(args) {
+    return this.post('/call/start/config/provider', args);
   }
 }
 

@@ -6,5 +6,6 @@ module.exports = gql`
     didlogic: DidLogicMutation @nested
     commpeak: CommpeakMutation @nested
     coperato: CoperatoMutation @nested
+    clearvoice: ClearVoiceMutation @nested
   }
 `;

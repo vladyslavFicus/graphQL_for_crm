@@ -266,5 +266,8 @@ module.exports = gql`
 
     # Settings Api
     settings: SettingsQuery @nested
+
+    # ClickToCall Api
+    clickToCall: ClickToCallQuery @nested
   }
 `;
