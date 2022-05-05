@@ -61,7 +61,7 @@ class Click2CallAPI extends RESTDataSource {
    * @return {Promise}
    */
   getConfigs() {
-    return this.post('/call/start/configs');
+    return this.post('/call/configs');
   }
 
   /**
@@ -70,7 +70,7 @@ class Click2CallAPI extends RESTDataSource {
    * @return {Promise}
    */
   getConfigProvider(args) {
-    return this.post('/call/start/config/provider', args);
+    return this.post('/call/config/provider', args);
   }
 }
 
