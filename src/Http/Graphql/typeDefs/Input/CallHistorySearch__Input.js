@@ -3,7 +3,7 @@ const { gql } = require('apollo-server-express');
 module.exports = gql`
   input CallHistorySearch__Input {
     operatorUuid: String
-    callSystems: [CallSystem__Types__Enum]
+    callSystems: [String]
     callDateRange: CallHistory__Call__DateRange__Input
     page: Page__Input
   }
