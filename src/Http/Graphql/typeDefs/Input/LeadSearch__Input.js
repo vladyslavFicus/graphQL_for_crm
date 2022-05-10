@@ -22,5 +22,6 @@ module.exports = gql`
     migrationId: String
     teams: [String]
     searchLimit: Int
+    affiliate: String
   }
 `;
