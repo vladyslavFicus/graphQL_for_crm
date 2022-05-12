@@ -175,6 +175,17 @@ class TradingEngineAPI extends RESTDataSource {
   }
 
   /**
+   * Get group by name without dataloader (because this DTO returned groupMargins, but endpoint with loader not)
+   *
+   * @param groupName
+   *
+   * @return {Promise}
+   */
+  getGroupWithoutDataloader(groupName) {
+    return this.get(`/groups/${groupName}`);
+  }
+
+  /**
   * Get groups
   *
   * @return {Promise}
