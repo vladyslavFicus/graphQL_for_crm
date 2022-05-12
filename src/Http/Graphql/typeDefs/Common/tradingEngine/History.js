@@ -16,6 +16,7 @@ module.exports = gql`
     stopLoss: Float
     takeProfit: Float
     swaps: Float
+    commission: Float
     status: String
   }
 `;

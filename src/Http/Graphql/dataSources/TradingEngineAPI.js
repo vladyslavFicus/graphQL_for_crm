@@ -261,6 +261,18 @@ class TradingEngineAPI extends RESTDataSource {
   }
 
   /**
+   * Create closed order
+   *
+   * @param args
+   * @param accountUuid
+   *
+   * @return {Promise}
+   */
+  createClosedOrder(accountUuid, args) {
+    return this.post(`/accounts/${accountUuid}/orders/closed`, args);
+  }
+
+  /**
    * Edit Order
    *
    * @param args
