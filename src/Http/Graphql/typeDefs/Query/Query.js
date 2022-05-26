@@ -115,6 +115,7 @@ module.exports = gql`
 
     # Lead API
     lead(uuid: String!): Lead
+    leadContacts(uuid: String!): Lead__Contacts!
     leads(args: LeadSearch__Input): Lead @pageable
 
     # Notes API

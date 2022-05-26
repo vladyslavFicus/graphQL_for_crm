@@ -216,6 +216,9 @@ module.exports = {
   lead(_, { uuid }, { dataSources }) {
     return dataSources.LeadAPI.getLead(uuid);
   },
+  leadContacts(_, { uuid }, { dataSources }) {
+    return dataSources.LeadAPI.getLead(uuid);
+  },
 
   /**
    * Note API

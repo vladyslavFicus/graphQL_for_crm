@@ -6,6 +6,12 @@ module.exports = gql`
     callSystem: String
     date: String
   }
+  
+  type Lead__Contacts {
+    email: String! @auth_mask_field(action: "lead.field.email", maskAll: true)
+    phone: String! @auth_mask_field(action: "lead.field.phone", maskAll: true)
+    mobile: String @auth_mask_field(action: "lead.field.mobile", maskAll: true)
+  }
 
   type Lead {
     _id: ID!
@@ -16,14 +22,14 @@ module.exports = gql`
     convertedByOperatorUuid: String
     convertedToClientUuid: String
     country: String
-    email: String! @auth_mask_field(action: "lead.field.email")
+    email: String! @mask_field
     gender: String
     language: String
     lastNote: Note
     migrationId: String
-    mobile: String @auth_mask_field(action: "lead.field.mobile")
+    mobile: String @mask_field
     name: String!
-    phone: String! @auth_mask_field(action: "lead.field.phone")
+    phone: String! @mask_field
     registrationDate: String!
     salesAgent: Operator
     salesStatus: SalesStatus__Enum
