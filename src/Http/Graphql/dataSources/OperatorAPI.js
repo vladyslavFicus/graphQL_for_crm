@@ -50,6 +50,7 @@ class OperatorAPI extends RESTDataSource {
    * @param args.registrationDateTo
    * @param args.searchBy
    * @param args.status
+   * @param args.authorities
    *
    * @return {*}
    */
