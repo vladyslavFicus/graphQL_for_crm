@@ -1,10 +1,11 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`
-  enum CallSystem__Types__Enum {
-    COMMPEAK
+  enum ClickToCall__CallSystem__Enum {
     COPERATO
     DIDLOGIC
     ASTERISK
+    COMMPEAK
+    CLEAR_VOICE
   }
 `;

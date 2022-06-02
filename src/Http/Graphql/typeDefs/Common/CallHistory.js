@@ -5,7 +5,7 @@ module.exports = gql`
     uuid: ID!
     operatorUuid: String!
     createdAt: String!
-    callSystem: CallSystem__Types__Enum!
+    callSystem: String!
     operator: Operator!
   }
 `;

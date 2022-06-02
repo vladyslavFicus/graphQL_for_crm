@@ -175,6 +175,17 @@ class TradingEngineAPI extends RESTDataSource {
   }
 
   /**
+   * Get group by name without dataloader (because this DTO returned groupMargins, but endpoint with loader not)
+   *
+   * @param groupName
+   *
+   * @return {Promise}
+   */
+  getGroupWithoutDataloader(groupName) {
+    return this.get(`/groups/${groupName}`);
+  }
+
+  /**
   * Get groups
   *
   * @return {Promise}
@@ -247,6 +258,18 @@ class TradingEngineAPI extends RESTDataSource {
    */
   createOrder(accountUuid, args) {
     return this.post(`/accounts/${accountUuid}/orders`, args);
+  }
+
+  /**
+   * Create closed order
+   *
+   * @param args
+   * @param accountUuid
+   *
+   * @return {Promise}
+   */
+  createClosedOrder(accountUuid, args) {
+    return this.post(`/accounts/${accountUuid}/orders/closed`, args);
   }
 
   /**

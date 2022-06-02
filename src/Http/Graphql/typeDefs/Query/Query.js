@@ -115,6 +115,7 @@ module.exports = gql`
 
     # Lead API
     lead(uuid: String!): Lead
+    leadContacts(uuid: String!): Lead__Contacts!
     leads(args: LeadSearch__Input): Lead @pageable
 
     # Notes API
@@ -145,6 +146,7 @@ module.exports = gql`
       registrationDateTo: String
       searchBy: String
       status: String
+      authorities: TradingEngineOperatorSearch__Authorities__Input
     ): Operator @pageable
     operatorsByBrand(brandId: String!, hierarchyTypeGroup: Desk__Types__Enum!): [Operator!]!
     operatorsSubordinates(hierarchyTypeGroup: String, onlyActive: Boolean): [Operator]
@@ -266,5 +268,8 @@ module.exports = gql`
 
     # Settings Api
     settings: SettingsQuery @nested
+
+    # ClickToCall Api
+    clickToCall: ClickToCallQuery @nested
   }
 `;

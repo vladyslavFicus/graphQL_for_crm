@@ -25,6 +25,19 @@ module.exports = gql`
       takeProfit: Float
       comment: String
     ): TradingEngineOrder!
+
+    createClosedOrder(
+      accountUuid: String!
+      symbol: String!
+      volumeLots: Float!
+      direction: String!
+      openPrice: Float!
+      closePrice: Float!
+      exchangeRate: Float!
+      openTime: String
+      commission: Float!
+      swaps: Float!
+    ): TradingEngineOrder!
     
     editOrder(
       orderId: Int!

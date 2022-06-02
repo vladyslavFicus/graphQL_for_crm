@@ -20,7 +20,7 @@ module.exports = gql`
       firstName: String!
       lastName: String!
       phoneNumber: String
-      clickToCall: OperatorUpdate__ClickToCall__Input
+      clickToCall: Object
     ): Operator
 
     addExistingOperator(

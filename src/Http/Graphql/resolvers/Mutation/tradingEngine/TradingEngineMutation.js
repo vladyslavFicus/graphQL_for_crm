@@ -39,6 +39,19 @@ module.exports = {
   },
 
   /**
+   * Create closed order
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  createClosedOrder(_, { accountUuid, ...args }, { dataSources }) {
+    return dataSources.TradingEngineAPI.createClosedOrder(accountUuid, args);
+  },
+
+  /**
    * Edit Order
    *
    * @param _

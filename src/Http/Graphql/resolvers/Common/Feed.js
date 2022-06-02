@@ -1,6 +1,34 @@
 const { get, set } = require('lodash');
 const maskText = require('../../../../utils/maskText');
 
+/**
+ * Hide fields data under the asterisks
+ *
+ * @param details Object of feed details
+ * @param key Data key to hide field inside details object
+ */
+const hide = (details, key) => {
+  if (get(details, key)) {
+    // Hide new format data when data changed
+    if (get(details, `${key}.from`)) {
+      set(details, `${key}.from`, maskText(get(details, `${key}.from`), true));
+      set(details, `${key}.to`, maskText(get(details, `${key}.to`), true));
+
+      return;
+    }
+
+    // Hide old format data when data changed
+    if (get(details, `${key}.value`)) {
+      set(details, `${key}.value`, maskText(get(details, `${key}.value`), true));
+
+      return;
+    }
+
+    // Hide simple data field on other events
+    set(details, key, maskText(get(details, key), true));
+  }
+};
+
 module.exports = {
   async authorFullName({ authorUuid, authorFullName }, _, { dataSources }) {
     const prefix = authorUuid.split('-')[0];
@@ -89,6 +117,17 @@ module.exports = {
         set(parsedDetails, 'contacts.additionalEmail.from', maskText(contacts.additionalEmail.from, true));
         set(parsedDetails, 'contacts.additionalEmail.to', maskText(contacts.additionalEmail.to, true));
       }
+
+      return JSON.stringify(parsedDetails);
+    }
+
+    // Hide email, phone, mobile for LEAD_CREATED and LEAD_CHANGED events
+    if (details && ['LEAD_CREATED', 'LEAD_CHANGED'].includes(type)) {
+      const parsedDetails = JSON.parse(details);
+
+      hide(parsedDetails, 'email');
+      hide(parsedDetails, 'phone');
+      hide(parsedDetails, 'mobile');
 
       return JSON.stringify(parsedDetails);
     }

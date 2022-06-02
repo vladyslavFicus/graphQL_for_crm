@@ -1,8 +1,8 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`
-  enum Click2CallCustomer__Type__Enum {
-    PROFILE
-    LEAD
+  enum ClickToCall__Phone__Type__Enum {
+    PHONE
+    ADDITIONAL_PHONE
   }
 `;
