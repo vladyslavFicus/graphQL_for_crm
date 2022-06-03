@@ -1,19 +1,25 @@
-FROM node:16-slim as build
+ARG DOCKER_IMAGE=node:16-slim
+
+# Build stage
+FROM $DOCKER_IMAGE as build
+
 WORKDIR /opt/build
-COPY src /opt/build/src
-COPY config /opt/build/config
-COPY package.json .npmrc .yarnrc yarn.lock nodemon.json /opt/build/
+COPY ./ /opt/build
+
 RUN yarn
+
+RUN rm -rf /opt/build/.git
 RUN rm -f /opt/build/.npmrc
 
-FROM node:16-slim as final
+# Runtime stage
+FROM $DOCKER_IMAGE as final
 
 ENV PORT 9090
-WORKDIR /opt/app
 ENV NODE_ENV production
 
 COPY --from=build /opt/build /opt/app
-ADD .env.* /opt/app/
+
 EXPOSE $PORT
 HEALTHCHECK CMD curl --fail http://localhost:$PORT/health || exit 1
+
 ENTRYPOINT [ "npm", "start" ]
