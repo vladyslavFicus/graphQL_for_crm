@@ -9,13 +9,15 @@ COPY ./ /opt/build
 RUN yarn
 
 RUN rm -rf /opt/build/.git
-RUN rm -f /opt/build/.npmrc
+RUN rm -f /opt/build/.npmrc /opt/build/Jenkinsfile /opt/build/Dockerfile
 
 # Runtime stage
 FROM $DOCKER_IMAGE as final
 
 ENV PORT 9090
 ENV NODE_ENV production
+
+WORKDIR /opt/app
 
 COPY --from=build /opt/build /opt/app
 
