@@ -18,6 +18,8 @@ module.exports = gql`
     digits: Int!
     percentage: Float!
     enabled: Boolean!
+    baseCurrency: String
+    quoteCurrency: String!
     source: String
     symbolType: TradingEngine__SymbolTypes__Enum!
     swapConfigs: TradingEngineSymbolSearch__SwapConfigs!
