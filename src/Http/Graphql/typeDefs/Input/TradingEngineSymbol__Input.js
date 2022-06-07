@@ -96,6 +96,7 @@ module.exports = gql`
   input TradingEngineSymbols__Input {
     symbolNames: [String]
     securityNames: [String]
+    accountUuid: String
     page: Page__Input
   }
 `;

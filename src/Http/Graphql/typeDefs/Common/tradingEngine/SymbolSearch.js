@@ -8,6 +8,7 @@ module.exports = gql`
 
   type TradingEngineSymbolSearch {
     name: String!
+    description: String
     symbol: String!
     securityId: Int!
     securityName: String!
@@ -18,6 +19,7 @@ module.exports = gql`
     percentage: Float!
     enabled: Boolean!
     source: String
+    symbolType: TradingEngine__SymbolTypes__Enum!
     swapConfigs: TradingEngineSymbolSearch__SwapConfigs!
     config(accountUuid: String): TradingEngineAccountSymbolConfig!
   }

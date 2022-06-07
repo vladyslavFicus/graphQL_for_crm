@@ -68,7 +68,8 @@ class TradingEngineAPI extends RESTDataSource {
    * @return {Promise}
    */
   getSymbols(args) {
-    return this.post('/symbols/search', args);
+    // Object spread { ...args } is required here while https://github.com/apollographql/apollo-server/issues/1539
+    return this.post('/symbols/search', { ...args });
   }
 
   /**
@@ -385,17 +386,6 @@ class TradingEngineAPI extends RESTDataSource {
    */
   getAccountStatistic(accountUuid) {
     return this.get(`/accounts/${accountUuid}/finances`);
-  }
-
-  /**
-   * Get allowed account symbols
-   *
-   * @param accountUuid
-   *
-   * @return {Promise}
-   */
-  getAllowedAccountSymbols(accountUuid) {
-    return this.get(`/symbols/${accountUuid}/allowed`);
   }
 
   /**

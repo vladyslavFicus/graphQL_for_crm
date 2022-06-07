@@ -37,9 +37,6 @@ module.exports = {
 
     return dataSources.TradingEngineAPI.getAccounts(params);
   },
-  accountSymbols(_, { accountUuid }, { dataSources }) {
-    return dataSources.TradingEngineAPI.getAllowedAccountSymbols(accountUuid);
-  },
   accountStatistic(_, { accountUuid }, { dataSources }) {
     return dataSources.TradingEngineAPI.getAccountStatistic(accountUuid);
   },
