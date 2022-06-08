@@ -16,6 +16,7 @@ const NoteAPI = require('./NoteAPI');
 const NotificationCenterAPI = require('./NotificationCenterAPI');
 const OperatorAPI = require('./OperatorAPI');
 const PaymentAPI = require('./PaymentAPI');
+const PaymentViewAPI = require('./PaymentViewAPI');
 const ProfileAPI = require('./ProfileAPI');
 const ProfileViewAPI = require('./ProfileViewAPI');
 const TradingAccountAPI = require('./TradingAccountAPI');
@@ -47,6 +48,7 @@ module.exports = {
   NotificationCenterAPI,
   OperatorAPI,
   PaymentAPI,
+  PaymentViewAPI,
   ProfileAPI,
   ProfileViewAPI,
   TradingAccountAPI,

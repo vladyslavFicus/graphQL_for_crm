@@ -252,9 +252,9 @@ module.exports = {
 
   /**
    * Payment API
-   */
+  */
   payments(_, args, { dataSources }) {
-    return dataSources.PaymentAPI.getPayments({ ...args.args, withOriginalAgent: true });
+    return dataSources.PaymentViewAPI.getPayments({ ...args.args, withOriginalAgent: true });
   },
   clientPayments(_, args, { dataSources }) {
     return dataSources.PaymentAPI.getPayments(args.args);
@@ -273,7 +273,7 @@ module.exports = {
     return responseData.sort();
   },
   async paymentsStatistic(_, args, { dataSources }) {
-    const responseData = await dataSources.PaymentAPI.getPaymentsStatistic(args);
+    const responseData = await dataSources.PaymentViewAPI.getPaymentsStatistic(args);
 
     const { dateFrom, dateTo } = args;
     const { payments, totalAmount, totalCount, additionalStatistics } = responseData;
