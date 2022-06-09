@@ -2,17 +2,6 @@ const RESTDataSource = require('@hrzn/apollo-datasource/RESTDataSource');
 
 class PaymentAPI extends RESTDataSource {
   /**
-   * Get payments
-   *
-   * @param args
-   *
-   * @return {Promise}
-   */
-  getPayments(args) {
-    return this.post('/search', args);
-  }
-
-  /**
    * Get payment methods
    *
    * @return {Promise}

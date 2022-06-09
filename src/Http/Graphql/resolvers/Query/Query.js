@@ -257,7 +257,7 @@ module.exports = {
     return dataSources.PaymentViewAPI.getPayments({ ...args.args, withOriginalAgent: true });
   },
   clientPayments(_, args, { dataSources }) {
-    return dataSources.PaymentAPI.getPayments(args.args);
+    return dataSources.PaymentViewAPI.getPayments(args.args);
   },
   async paymentMethods(_, __, { dataSources }) {
     const responseData = await dataSources.PaymentAPI.getPaymentMethods();
