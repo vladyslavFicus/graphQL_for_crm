@@ -505,6 +505,9 @@ module.exports = {
       clientPortal: {
         url: get(brandConfig, 'nas.brand.client_portal.url'),
       },
+      clientPortalLanding: {
+        signUp: get(brandConfig, 'nas.brand.client_portal_landing.signUp'),
+      },
       affiliate: {
         restriction: {
           minFtdDeposit: get(brandConfig, 'nas.brand.affiliate.restriction.minFtdDeposit'),

@@ -73,6 +73,10 @@ module.exports = gql`
   type BrandConfigProvider__ClientPortal {
     url: String
   }
+
+  type BrandConfigProvider__ClientPortalLanding {
+    signUp: String
+  }
   
   type BrandConfigProvider__Affiliate__Restriction {
     minFtdDeposit: Int
@@ -96,6 +100,7 @@ module.exports = gql`
     wet: BrandConfigProvider__TradingProvider
     email: BrandConfigProvider__Email
     clientPortal: BrandConfigProvider__ClientPortal
+    clientPortalLanding: BrandConfigProvider__ClientPortalLanding
     affiliate: BrandConfigProvider__Affiliate
   }
 `;
