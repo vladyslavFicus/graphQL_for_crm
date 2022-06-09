@@ -1,5 +1,6 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const { ApolloServer } = require('apollo-server-express');
+const graphqlUploadExpress = require('graphql-upload/graphqlUploadExpress.js');
 const { register } = require('prom-client');
 const createMetricsPlugin = require('apollo-metrics');
 const config = require('config');
@@ -51,7 +52,10 @@ module.exports = (app) => {
     // Apollo metrics to Prometheus (IMPORTANT: tracing needs to be enabled to get resolver and request timings)
     plugins: [apolloMetricsPlugin],
     tracing: true,
+    uploads: false,
   });
+
+  app.use(graphqlUploadExpress());
 
   server.applyMiddleware({
     app,
