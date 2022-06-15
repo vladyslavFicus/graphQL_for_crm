@@ -4,7 +4,7 @@ module.exports = gql`
   enum ClickToCall__CallSystem__Enum {
     COPERATO
     DIDLOGIC
-    ASTERISK
+    NEWTEL
     COMMPEAK
     CLEAR_VOICE
   }

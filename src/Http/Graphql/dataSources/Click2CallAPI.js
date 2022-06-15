@@ -29,12 +29,12 @@ class Click2CallAPI extends RESTDataSource {
   }
 
   /**
-   * Create call to Didlogic
+   * Create call to Newtel
    *
    * @return {Promise}
    */
-  createCallAsterisk(args) {
-    return this.post('/call/start/asterisk', args);
+  createCallNewtel(args) {
+    return this.post('/call/start/Newtel', args);
   }
 
   /**

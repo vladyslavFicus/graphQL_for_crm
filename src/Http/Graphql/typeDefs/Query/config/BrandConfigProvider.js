@@ -26,7 +26,7 @@ module.exports = gql`
     isDepositEnabled: Boolean
   }
   
-  type BrandConfigProvider__Asterisk {
+  type BrandConfigProvider__Newtel {
     isActive: Boolean
     prefixes: Object
   }
@@ -43,7 +43,7 @@ module.exports = gql`
 
   type BrandConfigProvider__ClickToCall {
     isActive: Boolean
-    asterisk: BrandConfigProvider__Asterisk
+    newtel: BrandConfigProvider__Newtel
     commpeak: BrandConfigProvider__Commpeak
     coperato: BrandConfigProvider__Coperato
   }

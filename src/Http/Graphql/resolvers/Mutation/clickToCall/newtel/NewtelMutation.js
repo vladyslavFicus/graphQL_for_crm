@@ -1,6 +1,6 @@
 module.exports = {
   /**
-   * Create call to Asterisk
+   * Create call to Newtel
    *
    * @param _
    * @param number
@@ -13,7 +13,7 @@ module.exports = {
    */
   async createCall(_, { uuid, phoneType, customerType, prefix }, { dataSources }) {
 
-    const { success } = await dataSources.Click2CallAPI.createCallAsterisk({ uuid, customerType, phoneType, prefix });
+    const { success } = await dataSources.Click2CallAPI.createCallNewtel({ uuid, customerType, phoneType, prefix });
 
     if (!success) {
       throw new Error('Call failed');
