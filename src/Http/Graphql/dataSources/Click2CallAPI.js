@@ -38,15 +38,6 @@ class Click2CallAPI extends RESTDataSource {
   }
 
   /**
-   * Create call to ClearVoice
-   *
-   * @return {Promise}
-   */
-  createCallClearVoice(args) {
-    return this.post('/call/start/clearvoice', args);
-  }
-
-  /**
    * Create call to Didlogic
    *
    * @return {Promise}
