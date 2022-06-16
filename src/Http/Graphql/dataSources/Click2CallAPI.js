@@ -34,7 +34,7 @@ class Click2CallAPI extends RESTDataSource {
    * @return {Promise}
    */
   createCallNewtel(args) {
-    return this.post('/call/start/Newtel', args);
+    return this.post('/call/start/newtel', args);
   }
 
   /**
