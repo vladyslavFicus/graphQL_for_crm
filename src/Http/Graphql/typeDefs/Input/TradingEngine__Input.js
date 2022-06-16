@@ -75,11 +75,12 @@ module.exports = gql`
     commissionLots: Commission__Lots__Enum!
   }
 
-  input TradingEngineGroup__GroupMargins__Input {
+  input TradingEngineGroup__GroupSymbol__Input {
     symbol: String!
     swapShort: Float!
     swapLong: Float!
     percentage: Float!
+    enabled: Boolean!
   }
   
   input TradingEngineCreateGroup__Input {
@@ -95,7 +96,7 @@ module.exports = gql`
     marginCallLevel: Int!
     stopoutLevel: Int!
     groupSecurities: [TradingEngineGroup__GroupSecurity__Input!]!
-    groupMargins: [TradingEngineGroup__GroupMargins__Input!]!
+    groupSymbols: [TradingEngineGroup__GroupSymbol__Input!]!
   }
 
   input TradingEngineEditGroup__Input {
@@ -110,7 +111,7 @@ module.exports = gql`
     marginCallLevel: Int!
     stopoutLevel: Int!
     groupSecurities: [TradingEngineGroup__GroupSecurity__Input!]!
-    groupMargins: [TradingEngineGroup__GroupMargins__Input!]!
+    groupSymbols: [TradingEngineGroup__GroupSymbol__Input!]!
     force: Boolean
   }
   

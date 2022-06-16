@@ -176,7 +176,7 @@ class TradingEngineAPI extends RESTDataSource {
   }
 
   /**
-   * Get group by name without dataloader (because this DTO returned groupMargins, but endpoint with loader not)
+   * Get group by name without dataloader (because this DTO returned groupSymbols, but endpoint with loader not)
    *
    * @param groupName
    *

@@ -13,12 +13,13 @@ module.exports = gql`
     commissionLots: Commission__Lots__Enum!
   }
 
-  type TradingEngineGroup__GroupMargin {
+  type TradingEngineGroup__GroupSymbol {
     symbol: String!
     securityId: Int!
     percentage: Float!
     swapShort: Float!
     swapLong: Float!
+    enabled: Boolean!
   }
 
   type TradingEngineGroup {
@@ -34,6 +35,6 @@ module.exports = gql`
     marginCallLevel: Int!
     stopoutLevel: Int!
     groupSecurities: [TradingEngineGroup__GroupSecurity!]
-    groupMargins: [TradingEngineGroup__GroupMargin!]
+    groupSymbols: [TradingEngineGroup__GroupSymbol!]
   }
 `;
