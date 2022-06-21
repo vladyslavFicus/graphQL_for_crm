@@ -286,6 +286,19 @@ module.exports = {
     await dataSources.TradingEngineAPI.editSecurity(securityName, rest);
   },
 
+  /**
+   * Delete security
+   *
+   * @param _
+   * @param securityName
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async deleteSecurity(_, { securityName }, { dataSources }) {
+    await dataSources.TradingEngineAPI.deleteSecurity(securityName);
+  },
+
 
   /**
   * force liquidity provider adapter streaming restart

@@ -467,6 +467,17 @@ class TradingEngineAPI extends RESTDataSource {
     return this.put(`/securities/${securityName}`, args);
   }
 
+  /**
+   * Delete security
+   *
+   * @param securityName
+   *
+   * @return {Promise}
+   */
+  deleteSecurity(securityName) {
+    return this.delete(`/securities/${securityName}`);
+  }
+
   // =================== Operators ===================
   /**
   * Get TE operator by uuid
