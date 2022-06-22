@@ -92,5 +92,6 @@ module.exports = gql`
     statuses: [String]
     teams: [String]
     warnings: [String]
+    offices: [String]
   }
 `;
