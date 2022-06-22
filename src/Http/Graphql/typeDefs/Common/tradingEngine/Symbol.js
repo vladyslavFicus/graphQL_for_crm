@@ -15,7 +15,7 @@ module.exports = gql`
     type: TradingEngine__SwapTypes__Enum
     long: Float!
     short: Float!
-    rollover: TradingEngine__DaysOfWeek__Enum!
+    rollover: TradingEngine__DaysOfWeek__Enum
   }
   
   type TradingEngineSymbol__SymbolSessionsTime {
