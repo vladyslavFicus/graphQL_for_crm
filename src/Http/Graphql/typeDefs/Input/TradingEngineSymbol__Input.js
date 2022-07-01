@@ -43,6 +43,9 @@ module.exports = gql`
     backgroundColor: String!
     symbolSessions: [TradingEngineEditSymbol__SymbolSessions__Input!]!
     force: Boolean
+    lotMin: Float!
+    lotStep: Float!
+    lotMax: Float!
   }
   
   input TradingEngineCreateSymbol__Filtration__Input {
@@ -91,6 +94,9 @@ module.exports = gql`
     swapConfigs: TradingEngineCreateSymbol__SwapsConfigs__Input!
     backgroundColor: String!
     symbolSessions: [TradingEngineCreateSymbol__SymbolSessions__Input]!
+    lotMin: Float!
+    lotMax: Float!
+    lotStep: Float!
   }
   
   input TradingEngineSymbols__Input {

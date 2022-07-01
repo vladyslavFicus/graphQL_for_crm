@@ -50,5 +50,8 @@ module.exports = gql`
     config(accountUuid: String): TradingEngineAccountSymbolConfig
     prices(size: Int): [TradingEngineSymbolPrice!]! 
     currentHolidays: [TradingEngineHoliday!]!
+    lotMin: Float
+    lotMax: Float
+    lotStep: Float
   }
 `;
