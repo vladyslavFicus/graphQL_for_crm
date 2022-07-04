@@ -542,7 +542,7 @@ class TradingEngineAPI extends RESTDataSource {
     return this.put(`/operators/${uuid}/status`, args);
   }
 
-  // =================== Credit ===================
+  // =================== Correction balance ===================
 
   /**
    * Create creditIn
@@ -566,6 +566,30 @@ class TradingEngineAPI extends RESTDataSource {
    */
   createCreditOut(accountUuid, args) {
     return this.put(`/accounts/${accountUuid}/balance/credit-out`, args);
+  }
+
+  /**
+   * Create correctionIn
+   *
+   * @param args
+   * @param accountUuid
+   *
+   * @return {Promise}
+   */
+  createCorrectionIn(accountUuid, args) {
+    return this.put(`/accounts/${accountUuid}/balance/correction-in`, args);
+  }
+
+  /**
+   * Create correctionOut
+   *
+   * @param args
+   * @param accountUuid
+   *
+   * @return {Promise}
+   */
+  createCorrectionOut(accountUuid, args) {
+    return this.put(`/accounts/${accountUuid}/balance/correction-out`, args);
   }
 
   /**

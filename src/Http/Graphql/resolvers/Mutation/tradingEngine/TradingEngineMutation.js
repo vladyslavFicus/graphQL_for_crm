@@ -3,26 +3,56 @@ module.exports = {
    * Create creditIn
    *
    * @param _
+   * @param accountUuid
    * @param args
    * @param dataSources
    *
    * @return {Promise}
    */
-  createCreditIn(_, args, { dataSources }) {
-    return dataSources.TradingEngineAPI.createCreditIn(args.accountUuid, args);
+  createCreditIn(_, { accountUuid, ...args }, { dataSources }) {
+    return dataSources.TradingEngineAPI.createCreditIn(accountUuid, args);
   },
 
   /**
    * Create creditOut
    *
    * @param _
+   * @param accountUuid
    * @param args
    * @param dataSources
    *
    * @return {Promise}
    */
-  createCreditOut(_, args, { dataSources }) {
-    return dataSources.TradingEngineAPI.createCreditOut(args.accountUuid, args);
+  createCreditOut(_, { accountUuid, ...args }, { dataSources }) {
+    return dataSources.TradingEngineAPI.createCreditOut(accountUuid, args);
+  },
+
+  /**
+   * Create correctionIn
+   *
+   * @param _
+   * @param accountUuid
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  createCorrectionIn(_, { accountUuid, ...args }, { dataSources }) {
+    return dataSources.TradingEngineAPI.createCorrectionIn(accountUuid, args);
+  },
+
+  /**
+   * Create correctionOut
+   *
+   * @param _
+   * @param accountUuid
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  createCorrectionOut(_, { accountUuid, ...args }, { dataSources }) {
+    return dataSources.TradingEngineAPI.createCorrectionOut(accountUuid, args);
   },
 
   /**

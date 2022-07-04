@@ -3,16 +3,24 @@ const { gql } = require('apollo-server-express');
 module.exports = gql`
   type TradingEngineMutation {
     createCreditIn(
-      amount: Float!
-      comment: String
       accountUuid: String!
-    ): TradingEngineCredit
+      amount: Float!
+    ): TradingEngineAccount
 
     createCreditOut(
-      amount: Float!
-      comment: String
       accountUuid: String!
-    ): TradingEngineCredit
+      amount: Float!
+    ): TradingEngineAccount
+
+    createCorrectionIn(
+      accountUuid: String!
+      amount: Float!
+    ): TradingEngineAccount
+
+    createCorrectionOut(
+      accountUuid: String!
+      amount: Float!
+    ): TradingEngineAccount
     
     createOrder(
       accountUuid: String!

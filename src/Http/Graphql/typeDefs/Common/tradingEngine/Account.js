@@ -16,12 +16,9 @@ module.exports = gql`
     name: String
     balance: Float
     credit: Float
-    margin: Float
-    freeMargin: Float
     marginLevel: Float!
-    equity: Float
-    comment: String
     currency: String!
     registrationDate: String!
+    statistic: TradingEngineAccountStatistic!
   }
 `;
