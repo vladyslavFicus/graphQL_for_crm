@@ -66,6 +66,7 @@ module.exports = gql`
   input TradingEngineGroup__GroupSecurity__Input {
     securityId: Int!
     show: Boolean
+    defaultLots: Boolean!
     spreadDiff: Int
     lotMin: Float!
     lotMax: Float!
