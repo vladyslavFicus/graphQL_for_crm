@@ -21,6 +21,8 @@ process.on('warning', (err) => {
 
   app.set('trust proxy', true);
 
+  app.use(express.json({ limit: '100mb' }));
+
   // Bootstrap application
   await bootstrap(app);
 
