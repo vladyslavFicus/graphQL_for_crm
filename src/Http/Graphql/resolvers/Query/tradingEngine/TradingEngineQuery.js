@@ -31,9 +31,12 @@ module.exports = {
   account(_, { identifier }, { dataSources }) {
     return dataSources.TradingEngineAPI.getAccountByIdentifier(identifier);
   },
-  accounts(_, { args }, { dataSources }) { // eslint-disable-line
+  accountSymbols(_, { accountUuid }, { dataSources }) {
+    return dataSources.TradingEngineAPI.getAccountAllowedSymbols(accountUuid);
+  },
+  accounts(_, { args }, { dataSources }) {
     // Drop undefined and nullable values from object (because BE service throw Error if null will be sent)
-    const params = omitBy(args, isNil); // eslint-disable-line
+    const params = omitBy(args, isNil);
 
     return dataSources.TradingEngineAPI.getAccounts(params);
   },

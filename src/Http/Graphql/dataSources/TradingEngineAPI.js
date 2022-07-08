@@ -389,6 +389,17 @@ class TradingEngineAPI extends RESTDataSource {
   }
 
   /**
+   * Get allowed symbols for account
+   *
+   * @param accountUuid
+   *
+   * @return {Promise}
+   */
+  getAccountAllowedSymbols(accountUuid) {
+    return this.get(`/symbols/${accountUuid}/allowed`);
+  }
+
+  /**
    * Update account group
    *
    * @param args

@@ -3,6 +3,7 @@ const { gql } = require('apollo-server-express');
 module.exports = gql`
   type TradingEngineQuery {
     account(identifier: String): TradingEngineAccount!
+    accountSymbols(accountUuid: String!): [TradingEngineAccountSymbol!]!
     symbols(args: TradingEngineSymbols__Input): TradingEngineSymbolSearch! @pageable
     symbol(symbolName: String!): TradingEngineSymbol!
     symbolsSources: [TradingEngineSymbolSource!]!
