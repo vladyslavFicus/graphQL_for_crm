@@ -11,5 +11,6 @@ module.exports = gql`
     marginLevel: Float
     equity: Float
     openPnl: Float
+    closedPnL: Float
   }
 `;
