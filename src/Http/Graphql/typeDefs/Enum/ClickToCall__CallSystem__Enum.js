@@ -7,5 +7,6 @@ module.exports = gql`
     NEWTEL
     COMMPEAK
     CLEAR_VOICE
+    SQUARETALK
   }
 `;

@@ -38,6 +38,15 @@ class Click2CallAPI extends RESTDataSource {
   }
 
   /**
+   * Create call to Squaretalk
+   *
+   * @return {Promise}
+   */
+  createCallSquaretalk(args) {
+    return this.post('/call/start/squaretalk', args);
+  }
+
+  /**
    * Create call to Didlogic
    *
    * @return {Promise}
