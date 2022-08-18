@@ -46,6 +46,7 @@ module.exports = gql`
     lotMin: Float!
     lotStep: Float!
     lotMax: Float!
+    defaultFiltration: Boolean!
   }
   
   input TradingEngineCreateSymbol__Filtration__Input {

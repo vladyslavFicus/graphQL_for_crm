@@ -8,13 +8,21 @@
   },
   "rules": {
     "import/no-extraneous-dependencies": 0,
-    "max-len": [2, 120],
+    "max-len": [
+      2,
+      120
+    ],
     "func-names": 0,
     "no-underscore-dangle": 0,
     "no-prototype-builtins": 0,
     "class-methods-use-this": 0,
     "global-require": 0,
-    "no-param-reassign": ["error", { "props": false }],
+    "no-param-reassign": [
+      "error",
+      {
+        "props": false
+      }
+    ],
     "no-unused-expressions": 0,
     "function-paren-newline": 0,
     "padded-blocks": 0,

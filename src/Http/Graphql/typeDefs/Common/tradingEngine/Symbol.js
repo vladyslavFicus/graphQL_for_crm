@@ -32,6 +32,7 @@ module.exports = gql`
   type TradingEngineSymbol {
     symbol: String!
     source: String
+    sourceSymbol: TradingEngineSymbol
     digits: Int!
     description: String!
     securityName: String!
@@ -53,5 +54,6 @@ module.exports = gql`
     lotMin: Float
     lotMax: Float
     lotStep: Float
+    defaultFiltration: Boolean!
   }
 `;
