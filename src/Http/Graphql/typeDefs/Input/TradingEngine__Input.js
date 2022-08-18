@@ -94,6 +94,7 @@ module.exports = gql`
     hedgeProhibited: Boolean!
     archivePeriodDays: Int!
     archiveMaxBalance: Int!
+    archivationEnabled: Boolean!
     marginCallLevel: Int!
     stopoutLevel: Int!
     groupSecurities: [TradingEngineGroup__GroupSecurity__Input!]!
@@ -109,6 +110,7 @@ module.exports = gql`
     hedgeProhibited: Boolean!
     archivePeriodDays: Int!
     archiveMaxBalance: Int!
+    archivationEnabled: Boolean!
     marginCallLevel: Int!
     stopoutLevel: Int!
     groupSecurities: [TradingEngineGroup__GroupSecurity__Input!]!
