@@ -90,6 +90,7 @@ module.exports = gql`
     percentage: Float!
     baseCurrency: String
     quoteCurrency: String!
+    defaultFiltration: Boolean!
     symbolType: TradingEngine__SymbolTypes__Enum!
     filtration: TradingEngineCreateSymbol__Filtration__Input!
     swapConfigs: TradingEngineCreateSymbol__SwapsConfigs__Input!

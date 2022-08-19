@@ -54,6 +54,6 @@ module.exports = gql`
     lotMin: Float
     lotMax: Float
     lotStep: Float
-    defaultFiltration: Boolean!
+    defaultFiltration: Boolean
   }
 `;
