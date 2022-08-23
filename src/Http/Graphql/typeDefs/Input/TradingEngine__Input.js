@@ -63,6 +63,15 @@ module.exports = gql`
     page: Page__Input
   }
 
+  input TradingEngineOrderAccountBulkClose__OrderInput {
+    id: Int!
+    closePrice: Float
+  }
+
+  input TradingEngineOrderAccountBulkClose__Input {
+    orders: [TradingEngineOrderAccountBulkClose__OrderInput!]!
+  }
+
   input TradingEngineGroup__GroupSecurity__Input {
     securityId: Int!
     show: Boolean

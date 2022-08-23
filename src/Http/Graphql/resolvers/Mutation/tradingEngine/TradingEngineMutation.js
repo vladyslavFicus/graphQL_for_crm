@@ -122,6 +122,19 @@ module.exports = {
   },
 
   /**
+    * Bulk Close Order
+    *
+    * @param _
+    * @param args
+    * @param dataSources
+    *
+    * @return {Promise}
+    */
+  async bulkCloseOrders(_, { args }, { dataSources }) {
+    await dataSources.TradingEngineAPI.bulkCloseOrders(args);
+  },
+
+  /**
    * Cancel Order
    *
    * @param _

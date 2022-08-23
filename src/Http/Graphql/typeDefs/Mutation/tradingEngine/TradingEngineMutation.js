@@ -62,6 +62,8 @@ module.exports = gql`
       volume: Float
       closePrice: Float
     ): Boolean
+
+    bulkCloseOrders(args: TradingEngineOrderAccountBulkClose__Input!): Boolean
     
     cancelOrder(orderId: Int!): Boolean
 

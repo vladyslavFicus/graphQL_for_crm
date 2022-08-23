@@ -298,6 +298,18 @@ class TradingEngineAPI extends RESTDataSource {
   }
 
   /**
+   * Bulk Close Order
+   *
+   * @param args
+   * @param orderId
+   *
+   * @return {Promise}
+   */
+  bulkCloseOrders(args) {
+    return this.post('/orders/_close', args);
+  }
+
+  /**
    * Delete Order
    *
    * @param orderId
