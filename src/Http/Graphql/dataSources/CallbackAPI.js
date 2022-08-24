@@ -9,7 +9,7 @@ class CallbackAPI extends RESTDataSource {
    * @return {Promise}
    */
   getCallbacks(args) {
-    return this.post('/search', args);
+    return this.post('/client/search', args);
   }
 
   /**
@@ -20,7 +20,7 @@ class CallbackAPI extends RESTDataSource {
    * @return {Promise}
    */
   createCallback(args) {
-    return this.post('/', args);
+    return this.post('/client/', args);
   }
 
   /**
@@ -32,7 +32,7 @@ class CallbackAPI extends RESTDataSource {
    * @return {Promise}
    */
   updateCallback(callbackId, args) {
-    return this.put(`/${callbackId}`, args);
+    return this.put(`/client/${callbackId}`, args);
   }
 }
 
