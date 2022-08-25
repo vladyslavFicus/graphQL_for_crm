@@ -20,6 +20,6 @@ module.exports = gql`
     currency: String!
     registrationDate: String!
     statistic: TradingEngineAccountStatistic!
-    country: String!
+    country: String
   }
 `;
