@@ -163,6 +163,42 @@ class TradingEngineAPI extends RESTDataSource {
     return this.delete(`/symbols/${symbolName}`, {}, { params: { force } });
   }
 
+  /**
+   * Add Favorite symbols
+   *
+   * @param symbol
+   * @param args
+   *
+   * @return {Promise}
+   */
+  addFavoriteSymbols(symbol, args) {
+    return this.post(`/favourite/symbols/${symbol}`, args);
+  }
+
+  /**
+   * Delete Favorite symbols
+   *
+   * @param symbol
+   * @param args
+   *
+   * @return {Promise}
+   */
+  deleteFavoriteSymbols(symbol, args) {
+    return this.delete(`/favourite/symbols/${symbol}`, args);
+  }
+
+  /**
+   * Get Favorite symbols
+   *
+   * @param symbol
+   * @param args
+   *
+   * @return {Promise}
+   */
+  getFavoriteSymbols() {
+    return this.get('/favourite/symbols');
+  }
+
   // =================== Groups ===================
   /**
    * Get group by name

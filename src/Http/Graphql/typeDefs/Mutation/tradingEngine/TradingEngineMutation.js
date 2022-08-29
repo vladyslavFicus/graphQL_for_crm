@@ -93,6 +93,10 @@ module.exports = gql`
     createSymbol(args: TradingEngineCreateSymbol__Input): Boolean
 
     editSymbol(args: TradingEngineEditSymbol__Input): Boolean
+
+    addFavoriteSymbols(symbol: String!): Boolean
+
+    deleteFavoriteSymbols(symbol: String!): Boolean
     
     createGroup(args: TradingEngineCreateGroup__Input!): Boolean
     

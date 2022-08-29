@@ -64,4 +64,7 @@ module.exports = {
   operatorAccessData(_, __, { dataSources }) {
     return dataSources.TradingEngineAPI.getOperatorAccess();
   },
+  favoriteSymbolData(_, __, { dataSources }) {
+    return dataSources.TradingEngineAPI.getFavoriteSymbols();
+  },
 };

@@ -12,7 +12,7 @@
     "start:qa": "cross-env APP_ENV=qa npm run start",
     "start:staging": "cross-env APP_ENV=staging npm run start",
     "start:production": "cross-env APP_ENV=production npm run start",
-    "eslint": "eslint 'src/**/*.js'",
+    "eslint": "eslint \"src/**/*.{js,json}\"",
     "test:jenkins": "echo no tests yet"
   },
   "devDependencies": {
@@ -52,7 +52,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run eslint"
+      "pre-commit": "npm run eslint  && cross-env"
     }
   }
 }

@@ -245,6 +245,31 @@ module.exports = {
     await dataSources.TradingEngineAPI.editSymbol(symbol, force, args);
   },
 
+  /**
+   * Adding Favorite Symbol
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async addFavoriteSymbols(_, args, { dataSources }) {
+    await dataSources.TradingEngineAPI.addFavoriteSymbols(args.symbol, args);
+  },
+
+  /**
+   * Delete Favorite Symbol
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async deleteFavoriteSymbols(_, args, { dataSources }) {
+    await dataSources.TradingEngineAPI.deleteFavoriteSymbols(args.symbol, args);
+  },
 
   // =================== Groups ===================
 
