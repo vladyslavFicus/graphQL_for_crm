@@ -18,7 +18,7 @@ module.exports = {
     });
 
     // Add operator to hierarchy
-    await dataSources.HierarchyUpdaterAPI.createUser({
+    await dataSources.HierarchyUpdaterAPI.operatorCreateOrAssign({
       uuid: operator.uuid,
       userType,
       parentBranch: branchId,
