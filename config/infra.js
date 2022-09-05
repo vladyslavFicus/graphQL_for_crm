@@ -5,7 +5,7 @@ const mapInfraConfig = require('./utils/mapInfraConfig');
 
 const configMap = new ConfigMap({
   file: process.env.INFRA_CONFIG,
-  namespace: 'platform',
+  namespace: process.env.NAMESPACE,
   configmap: 'infra-config',
   selector: 'infra-config.yml',
   logger: Logger,

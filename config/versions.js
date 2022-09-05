@@ -4,7 +4,7 @@ const Logger = require('../src/lib/Logger');
 const mapVersionsConfig = require('./utils/mapVersionsConfig');
 
 const configMap = new ConfigMap({
-  namespace: 'platform',
+  namespace: process.env.NAMESPACE,
   configmap: 'env-versions',
   selector: 'versions.yml',
   logger: Logger,

@@ -12,6 +12,11 @@ const mapZookeeperPermissionsConfig = require('./utils/mapZookeeperPermissionsCo
  * @return {Promise<void>}
  */
 async function send() {
+  // Need to cost optimization for dev/qa/stage envs
+  const PREFIX = config.get('prefix');
+
+  const TOPIC = `${PREFIX}service_permissions_event`;
+
   Logger.info('✈️  Send permission configuration...');
 
   // Parse default permissions from .yml file
@@ -43,7 +48,7 @@ async function send() {
 
   // Send message to kafka topic
   await producer.send({
-    topic: 'service_permissions_event',
+    topic: TOPIC,
     messages: [{ value }],
   });
 
@@ -65,6 +70,12 @@ function assignToConfig(permissions) {
  * @return {Promise<void>}
  */
 async function load() {
+  // Need to cost optimization for dev/qa/stage envs
+  const PREFIX = config.get('prefix');
+
+  const PERMISSIONS_NODE = `/${PREFIX}permissions`;
+  const LAST_UPDATED_PERMISSIONS_NODE = `/${PREFIX}__last_updated_permissions`;
+
   Logger.info('⏳ Permissions configuration loading...');
 
   const zookeeper = new Zookeeper({
@@ -73,11 +84,11 @@ async function load() {
   });
 
   // Get and assign brands to config
-  assignToConfig(await zookeeper.get('/permissions'));
+  assignToConfig(await zookeeper.get(PERMISSIONS_NODE));
 
   // Add watcher to listen changes in /__last_updated_permissions node and assign updated permissions to config
-  zookeeper.watch('/__last_updated_permissions', async () => {
-    assignToConfig(await zookeeper.get('/permissions'));
+  zookeeper.watch(LAST_UPDATED_PERMISSIONS_NODE, async () => {
+    assignToConfig(await zookeeper.get(PERMISSIONS_NODE));
 
     Logger.info('✅ Permissions configuration updated successfully');
   });

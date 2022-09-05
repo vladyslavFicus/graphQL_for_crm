@@ -14,5 +14,5 @@ module.exports = (service) => {
   }
 
   // Base service url for working inside kubernetes
-  return `http://${service}.platform.svc.cluster.local:9090`;
+  return `http://${service}.${process.env.NAMESPACE}.svc.cluster.local:9090`;
 };
