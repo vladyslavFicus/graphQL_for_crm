@@ -16,6 +16,20 @@ class HierarchyUpdaterAPI extends RESTDataSource {
   }
 
   /**
+   * Create or assign operator in hierarchy
+   *
+   * @param args
+   * @param args.uuid
+   * @param args.userType
+   * @param args.parentBranch
+   *
+   * @return {Promise}
+   */
+  operatorCreateOrAssign(args) {
+    return this.post('/user/operator', args);
+  }
+
+  /**
    * Create branch in hierarchy
    * [office, desk, team]
    *
