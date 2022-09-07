@@ -54,16 +54,19 @@ module.exports = {
    *
    * @return {Promise<void>}
    */
-  async addExistingOperator(_, { email, department, role, branchId }, { dataSources, brand }) {
+  async addExistingOperator(_, { email, department, role, branchId, userType }, { dataSources, brand }) {
     const {
       content: [operator],
     } = await dataSources.OperatorAPI.search({ searchBy: email });
 
     // Add authority to operator
     await dataSources.Auth2API.addAuthority(operator.uuid, { brand: brand.id, department, role });
-
     // Add operator to branch in hierarchy
-    await dataSources.HierarchyUpdaterAPI.updateUserBranches(operator.uuid, { assignToBranch: branchId });
+    await dataSources.HierarchyUpdaterAPI.operatorCreateOrAssign({
+      uuid: operator.uuid,
+      userType,
+      assignToBranch: branchId,
+    });
 
     return operator;
   },

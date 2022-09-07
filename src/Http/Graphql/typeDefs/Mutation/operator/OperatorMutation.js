@@ -28,6 +28,7 @@ module.exports = gql`
       department: String!
       email: String!
       role: String!
+      userType: String!
     ): Operator
 
     changeStatus(
