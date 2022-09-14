@@ -29,5 +29,6 @@ module.exports = gql`
     WRONG_INFO
     WRONG_NUMBER
     FROST
+    REFERRAL
   }
 `;
