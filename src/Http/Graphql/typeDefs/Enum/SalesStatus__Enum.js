@@ -28,5 +28,6 @@ module.exports = gql`
     VOICEMAIL
     WRONG_INFO
     WRONG_NUMBER
+    FROST
   }
 `;
