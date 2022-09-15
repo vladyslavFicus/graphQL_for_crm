@@ -461,6 +461,9 @@ module.exports = {
       currencies: get(brandConfig, 'nas.brand.currencies'),
       locales: get(brandConfig, 'nas.brand.locale'),
       password: get(brandConfig, 'nas.brand.password'),
+      backoffice: {
+        dashboards: get(brandConfig, 'nas.brand.backoffice.dashboards'),
+      },
       payment: {
         reasons: get(brandConfig, 'nas.brand.payment.reasons'),
       },

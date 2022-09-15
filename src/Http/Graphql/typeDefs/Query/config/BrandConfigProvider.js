@@ -10,6 +10,10 @@ module.exports = gql`
     defaultLanguage: String
     languages: [String]
   }
+  
+  type BrandConfigProvider__Backoffice {
+    dashboards: Object
+  }
 
   type BrandConfigProvider__Password {
     pattern: String
@@ -91,6 +95,7 @@ module.exports = gql`
     currencies: BrandConfigProvider__Currencies
     locales: BrandConfigProvider__Locales
     password: BrandConfigProvider__Password
+    backoffice: BrandConfigProvider__Backoffice
     payment: BrandConfigProvider__Payment
     profile: BrandConfigProvider__Profile
     clickToCall: BrandConfigProvider__ClickToCall
