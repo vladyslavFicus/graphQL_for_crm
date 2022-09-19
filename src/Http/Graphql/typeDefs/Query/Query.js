@@ -49,6 +49,7 @@ module.exports = gql`
       sortColumn: String
       sortDirection: String
       targetUUID: String
+      details: Object
     ): Feed! @pageable
     feedTypes(uuid: String!, filters: FeedCategorySearch_Input): Object
 
