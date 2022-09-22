@@ -24,7 +24,7 @@ module.exports = gql`
   }
 
   type TradingEngineGroup {
-    enable: Boolean!
+    accountCreationAllowed: Boolean!
     groupName: String!
     description: String
     currency: String!
@@ -35,6 +35,7 @@ module.exports = gql`
     archiveMaxBalance: Int!
     archivationEnabled: Boolean!
     marginCallLevel: Int!
+    enabled: Boolean!
     stopoutLevel: Int!
     groupSecurities: [TradingEngineGroup__GroupSecurity!]
     groupSymbols: [TradingEngineGroup__GroupSymbol!]

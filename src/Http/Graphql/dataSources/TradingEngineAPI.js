@@ -266,6 +266,18 @@ class TradingEngineAPI extends RESTDataSource {
     return this.delete(`/groups/${groupName}`);
   }
 
+  /**
+   * Archive group
+   *
+   * @param groupName
+   * @param args
+   *
+   * @return {Promise}
+   */
+  archiveGroup(groupName, force = false, args) {
+    return this.put(`/groups/${groupName}/enable`, args, { params: { force } });
+  }
+
   // =================== Orders ===================
   /**
    * Get trading engine orders

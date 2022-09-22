@@ -104,6 +104,8 @@ module.exports = gql`
    
     deleteGroup(groupName: String!): Boolean
 
+    archiveGroup(groupName: String!, enabled: Boolean!, force: Boolean ): Boolean
+
     createSecurity(name: String! description: String): Boolean
     
     editSecurity(name: String! description: String securityName: String!): Boolean

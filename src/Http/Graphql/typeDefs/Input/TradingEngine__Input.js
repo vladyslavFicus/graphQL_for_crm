@@ -59,6 +59,7 @@ module.exports = gql`
   }
   
   input TradingEngineGroupsSearch__Input {
+    enabled: Boolean
     keyword: String
     page: Page__Input
   }
@@ -97,7 +98,7 @@ module.exports = gql`
     groupName: String!
     currency: String!
     description: String
-    enable: Boolean!
+    accountCreationAllowed: Boolean!
     defaultLeverage: Int!
     useSwap: Boolean!
     hedgeProhibited: Boolean!
@@ -105,6 +106,7 @@ module.exports = gql`
     archiveMaxBalance: Int!
     archivationEnabled: Boolean!
     marginCallLevel: Int!
+    enabled: Boolean!
     stopoutLevel: Int!
     groupSecurities: [TradingEngineGroup__GroupSecurity__Input!]!
     groupSymbols: [TradingEngineGroup__GroupSymbol__Input!]!
@@ -113,7 +115,7 @@ module.exports = gql`
   input TradingEngineEditGroup__Input {
     groupName: String!
     description: String
-    enable: Boolean!
+    accountCreationAllowed: Boolean!
     defaultLeverage: Int!
     useSwap: Boolean!
     hedgeProhibited: Boolean!
@@ -122,6 +124,7 @@ module.exports = gql`
     archivationEnabled: Boolean!
     marginCallLevel: Int!
     stopoutLevel: Int!
+    enabled: Boolean!
     groupSecurities: [TradingEngineGroup__GroupSecurity__Input!]!
     groupSymbols: [TradingEngineGroup__GroupSymbol__Input!]!
     force: Boolean

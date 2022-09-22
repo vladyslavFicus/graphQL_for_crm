@@ -314,6 +314,19 @@ module.exports = {
   },
 
   /**
+   * Archive Group
+   *
+   * @param _
+   * @param groupName
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async archiveGroup(_, { groupName, force, ...rest }, { dataSources }) {
+    await dataSources.TradingEngineAPI.archiveGroup(groupName, force, rest);
+  },
+
+  /**
    * Delete Symbol
    *
    * @param _
