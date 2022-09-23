@@ -4,6 +4,12 @@ all-roles: &all-roles
   - MANAGER
   - HEAD_OF_DEPARTMENT
 
+complete-department-roles: &complete-department-roles
+  - SHIFT_SALES
+  - SHIFT_RETENTION
+  - SALES_MANAGER
+  - SALES_LEAD_MANAGER
+
 operators: &all
   - department: ADMINISTRATION
     roles:
@@ -17,6 +23,8 @@ operators: &all
     roles: *all-roles
   - department: RETENTION
     roles: *all-roles
+  - department: COMPLETE
+    roles: *complete-department-roles
 
 operators-with-payment-department: &all-with-payment-department
   - department: ADMINISTRATION
@@ -33,6 +41,8 @@ operators-with-payment-department: &all-with-payment-department
     roles: *all-roles
   - department: PAYMENT
     roles: *all-roles
+  - department: COMPLETE
+    roles: *complete-department-roles
 
 permissions:
   actions:
@@ -95,6 +105,8 @@ permissions:
         - department: COMPLIANCE
           roles:
             - COMPLIANCE_MANAGER
+        - department: COMPLETE
+          roles: *complete-department-roles
     - action: "profile.affiliate.field.campaignId"
       authorities: *all
     - action: "profile.affiliate.field.referral"
