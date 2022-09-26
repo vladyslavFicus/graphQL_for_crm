@@ -95,31 +95,12 @@ module.exports = {
   loginLock(_, { uuid }, { dataSources }) {
     return dataSources.Auth2API.getCredentialsLock(uuid);
   },
-  async brandToAuthorities(_, { crmBrand }, { dataSources }) {
+  async brandToAuthorities(_, __, { dataSources }) {
     // Using token renew endpoint to get brandsToAuthorities because BE haven't endpoint to get relation
     // "brand to authority" for clipped token (on operator sign in without choose department) and full token
     const { brandToAuthorities } = await dataSources.Auth2API.tokenRenew();
 
-    let brands = Object.keys(brandToAuthorities).sort();
-
-    // Get only allowed brands for operators (depends from brand groups on CRM brand if it exists)
-    try {
-      const { list, ignoreBrandList } = await dataSources.S3API.getAvailableBrandsForCrmBrand(crmBrand);
-
-      // Provide only whitelisted brand list if ignoreBrandList=false or absent
-      if (!ignoreBrandList) {
-        brands = list.filter(brand => brands.includes(brand)).sort();
-      }
-    } catch (e) {
-      brands = []; // If file doesn't exist or someting with request -> show empty brands list for current crm brand
-    }
-
-    // Format right array of data for BO with brand name and necessary authority data
-    return brands.map(brandId => ({
-      id: brandId,
-      name: get(config.brandsConfig[brandId], 'nas.brand.name', brandId),
-      authorities: brandToAuthorities[brandId],
-    }));
+    return brandToAuthorities;
   },
   async isDefaultAuthority(_, { department, role }, { dataSources }) {
     try {
