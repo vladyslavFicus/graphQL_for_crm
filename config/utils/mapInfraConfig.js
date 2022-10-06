@@ -10,4 +10,8 @@ module.exports = config => ({
   kafka: {
     address: config.kafka.address,
   },
+  s3: {
+    url: config.cloud_static.url,
+    bucket: config.cloud_static.bucket,
+  },
 });

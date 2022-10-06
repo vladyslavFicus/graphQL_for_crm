@@ -58,7 +58,6 @@ module.exports = gql`
     userMigrationId: String
     updatedAt: String
     warnings: [String]
-    withdrawStatus: String
     cryptoAmount: String
     cryptoCurrency: String
   }
