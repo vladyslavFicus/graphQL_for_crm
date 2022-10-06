@@ -64,6 +64,8 @@ permissions:
           roles:
             - TEAM_LEADER
             - HEAD_OF_DEPARTMENT
+        - department: COMPLETE
+          roles: *complete-department-roles
     - action: "profile.field.additionalPhone"
       authorities:
         - department: ADMINISTRATION
@@ -82,6 +84,8 @@ permissions:
           roles:
             - TEAM_LEADER
             - HEAD_OF_DEPARTMENT
+        - department: COMPLETE
+          roles: *complete-department-roles
     - action: "profile.field.email"
       authorities: *all-with-payment-department
     - action: "profile.field.additionalEmail"
