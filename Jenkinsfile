@@ -1,2 +1,2 @@
 @Library("orchestra@multiarch") _
-yarnServicePipeline(svc: 'backoffice-graphql', promoteTo: 'qa01')
+yarnServicePipeline(svc: 'backoffice-graphql', promoteTo: 'dev01')
