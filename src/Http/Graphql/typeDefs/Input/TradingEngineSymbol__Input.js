@@ -15,13 +15,18 @@ module.exports = gql`
     type: TradingEngine__SwapTypes__Enum
     long: Float!
     short: Float!
-    rollover: TradingEngine__DaysOfWeek__Enum
+    swapDayTimes: [TradingEngineSymbol__SwapsConfigsSwapDayTimes__Input]
   }
   
   input TradingEngineEditSymbol__SymbolSessions__Input {
     dayOfWeek: TradingEngine__DaysOfWeek__Enum!
-    quote: TradingEngineCreateSymbol__SymbolSessionsTime__Input
-    trade: TradingEngineCreateSymbol__SymbolSessionsTime__Input
+    periods: [TradingEngineCreateSymbol__SymbolSessionsTime__Input]
+  }
+
+  input TradingEngineSymbol__SwapsConfigsSwapDayTimes__Input {
+    dayOfWeek: TradingEngine__DaysOfWeek__Enum!
+    multiplier: Int!
+    swapTime: String!
   }
 
   input TradingEngineEditSymbol__Input {

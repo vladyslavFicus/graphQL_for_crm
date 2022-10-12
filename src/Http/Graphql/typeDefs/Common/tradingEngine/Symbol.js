@@ -10,12 +10,18 @@ module.exports = gql`
     hardFiltrationLevel: Int!
   }
   
+  type TradingEngineSymbol__SwapsConfigsSwapDayTimes {
+    dayOfWeek: TradingEngine__DaysOfWeek__Enum!
+    multiplier: Int!
+    swapTime: String!
+  }
+
   type TradingEngineSymbol__SwapsConfigs {
     enable: Boolean!
     type: TradingEngine__SwapTypes__Enum
     long: Float!
     short: Float!
-    rollover: TradingEngine__DaysOfWeek__Enum
+    swapDayTimes: [TradingEngineSymbol__SwapsConfigsSwapDayTimes!]!
   }
   
   type TradingEngineSymbol__SymbolSessionsTime {
@@ -25,8 +31,7 @@ module.exports = gql`
   
   type TradingEngineSymbol__SymbolSessions {
     dayOfWeek: TradingEngine__DaysOfWeek__Enum!
-    quote: TradingEngineSymbol__SymbolSessionsTime
-    trade: TradingEngineSymbol__SymbolSessionsTime
+    periods: [TradingEngineSymbol__SymbolSessionsTime!]!
   }
   
   type TradingEngineSymbol {
