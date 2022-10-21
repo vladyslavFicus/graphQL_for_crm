@@ -22,6 +22,7 @@ module.exports = gql`
     NO_MONEY
     POTENTIAL_HIGH
     POTENTIAL_LOW
+    NO_POTENTIAL
     REASSIGN
     TEST
     UNDER_18
