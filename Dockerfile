@@ -3,10 +3,12 @@ ARG DOCKER_IMAGE=node:16-slim
 # Build stage
 FROM $DOCKER_IMAGE as build
 
+ENV NODE_ENV production
+
 WORKDIR /opt/build
 COPY ./ /opt/build
 
-RUN yarn
+RUN yarn --network-timeout 100000
 
 RUN rm -rf /opt/build/.git
 RUN rm -f /opt/build/.npmrc /opt/build/Jenkinsfile /opt/build/Dockerfile
