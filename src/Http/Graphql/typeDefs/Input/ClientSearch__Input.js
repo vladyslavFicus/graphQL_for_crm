@@ -66,7 +66,7 @@ module.exports = gql`
     balanceRange: ClientSearch__Input__Balance
     depositsCountRange: ClientSearch__Input__Deposit
     countries: [String]
-    passportCountryOfIssue: [String]
+    passportCountriesOfIssue: [String]
     desks: [String]
     firstDepositDateRange: ClientSearch__Input__FirstDepositDateRange
     firstNoteDateRange: ClientSearch__Input__FirstNoteDateRange
