@@ -51,6 +51,9 @@ class OperatorAPI extends RESTDataSource {
    * @param args.searchBy
    * @param args.status
    * @param args.authorities
+   * @param args.offices
+   * @param args.desks
+   * @param args.teams
    *
    * @return {*}
    */

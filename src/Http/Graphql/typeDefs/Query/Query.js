@@ -148,6 +148,9 @@ module.exports = gql`
       searchBy: String
       status: String
       authorities: TradingEngineOperatorSearch__Authorities__Input
+      offices: [String]
+      desks: [String]
+      teams: [String]
     ): Operator @pageable
     operatorsByBrand(brandId: String!, hierarchyTypeGroup: Desk__Types__Enum!): [Operator!]!
     operatorsSubordinates(hierarchyTypeGroup: String, onlyActive: Boolean): [Operator]
