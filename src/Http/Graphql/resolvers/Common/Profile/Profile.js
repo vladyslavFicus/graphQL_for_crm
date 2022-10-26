@@ -1,3 +1,5 @@
+const moment = require('moment');
+
 module.exports = {
   _id({ uuid }) {
     return uuid;
@@ -13,5 +15,8 @@ module.exports = {
   },
   acquisition({ uuid }, _, { dataSources }) {
     return dataSources.HierarchyAPI.getUserAcquisition(uuid);
+  },
+  localTime({ timeZone }) {
+    return moment().utcOffset(timeZone).format('HH:mm');
   },
 };

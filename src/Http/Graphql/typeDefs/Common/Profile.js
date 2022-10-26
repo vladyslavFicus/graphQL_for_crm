@@ -150,5 +150,6 @@ module.exports = gql`
     verifications: [String]
     referrer: Profile__Referrer
     acquisition: HierarchyUserAcquisition
+    localTime: String
   }
 `;
