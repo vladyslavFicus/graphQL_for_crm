@@ -6,7 +6,7 @@ module.exports = gql`
       uuid: String!
       phoneType: ClickToCall__Phone__Type__Enum!
       customerType: ClickToCall__Customer__Type__Enum!
-      prefix: String!
+      prefix: String
     ): Boolean
   }
 `;
