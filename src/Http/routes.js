@@ -39,7 +39,37 @@ module.exports = (app) => {
     return next();
   });
 
-  // Apollo Server
+  // Healthcheck endpoint
+  app.get('/health', (req, res) => res.status(200).json({ status: 'UP' }));
+
+  // Prometheus metrics endpoint
+  app.get('/prometheus', (_, res) => res.send(register.metrics()));
+
+  // Proxy-pass to attachment service to download file
+  // we should have /gql prefix because we have proxy-pass /api -> /gql on ingress
+  app.use('/gql/attachment/:clientUUID/:fileUUID', createProxyMiddleware({
+    target: getBaseUrl('attachments'),
+    pathRewrite: (path, req) => {
+      const { clientUUID, fileUUID } = req.params;
+
+      return `/users/${clientUUID}/files/${fileUUID}`;
+    },
+    changeOrigin: true,
+  }));
+
+  // Proxy-pass to we-trading service to download report
+  // we should have /gql prefix because we have proxy-pass /api -> /gql on ingress
+  app.use('/gql/report/:accountUuid', createProxyMiddleware({
+    target: getBaseUrl('we-trading'),
+    pathRewrite: (path, req) => {
+      const { accountUuid } = req.params;
+
+      return `/reports/account/${accountUuid}/detailed`;
+    },
+    changeOrigin: true,
+  }));
+
+  // =============== Apollo Server =============== //
   const server = new ApolloServer({
     schema,
     context,
@@ -61,21 +91,4 @@ module.exports = (app) => {
     app,
     path: '/gql',
   });
-
-  // Healthcheck endpoint
-  app.get('/health', (req, res) => res.status(200).json({ status: 'UP' }));
-
-  // Prometheus metrics endpoint
-  app.get('/prometheus', (_, res) => res.send(register.metrics()));
-
-  // Proxy-pass to attachment service to download file
-  app.use('/attachment/:clientUUID/:fileUUID', createProxyMiddleware({
-    target: getBaseUrl('attachments'),
-    pathRewrite: (path, req) => {
-      const { clientUUID, fileUUID } = req.params;
-
-      return `/users/${clientUUID}/files/${fileUUID}`;
-    },
-    changeOrigin: true,
-  }));
 };
