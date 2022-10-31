@@ -11,20 +11,13 @@ module.exports = {
    *
    * @return {Promise<void>}
    */
-  async createOperator(_, { branchId, userType, ...args }, { dataSources, brand }) {
-    const operator = await dataSources.OperatorAPI.create({
+  createOperator(_, { branchId, userType, ...args }, { dataSources, brand }) {
+    return dataSources.OperatorAPI.create({
       brandId: brand.id,
+      parentBranch: branchId,
+      userType,
       ...args,
     });
-
-    // Add operator to hierarchy
-    await dataSources.HierarchyUpdaterAPI.createUser({
-      uuid: operator.uuid,
-      userType,
-      parentBranch: branchId,
-    });
-
-    return operator;
   },
 
   /**
@@ -51,6 +44,7 @@ module.exports = {
    * @param branchId
    * @param dataSources
    * @param brand
+   * @param userType
    *
    * @return {Promise<void>}
    */
@@ -124,10 +118,10 @@ module.exports = {
    * @param branchId
    * @param dataSources
    *
-   * @return {Promise
+   * @return {Promise}
    */
   async updateOperatorUserType(_, { operatorId, ...args }, { dataSources }) {
-    await dataSources.HierarchyUpdaterAPI.updateUserType(operatorId, args);
+    await dataSources.OperatorAPI.updateUserType(operatorId, args);
 
     return true;
   },

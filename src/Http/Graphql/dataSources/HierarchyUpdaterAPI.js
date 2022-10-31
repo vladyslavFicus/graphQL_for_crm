@@ -1,19 +1,6 @@
 const RESTDataSource = require('@hrzn/apollo-datasource/RESTDataSource');
 
 class HierarchyUpdaterAPI extends RESTDataSource {
-  /**
-   * Create user in hierarchy
-   *
-   * @param args
-   * @param args.uuid
-   * @param args.userType
-   * @param args.parentBranch
-   *
-   * @return {Promise}
-   */
-  createUser(args) {
-    return this.post('/user', args);
-  }
 
   /**
    * Create or assign operator in hierarchy
@@ -90,19 +77,6 @@ class HierarchyUpdaterAPI extends RESTDataSource {
    */
   updateUserBranches(uuid, args) {
     return this.put(`/user/${uuid}/relationship/parent-branch`, args);
-  }
-
-  /**
-   * Update user type
-   *
-   * @param uuid
-   * @param args
-   * @param args.userType
-   *
-   * @return {*}
-   */
-  updateUserType(uuid, args) {
-    return this.put(`/user/${uuid}`, args);
   }
 
   /**

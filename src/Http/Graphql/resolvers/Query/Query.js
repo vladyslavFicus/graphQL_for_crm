@@ -344,10 +344,7 @@ module.exports = {
   /**
    * Operator API
    */
-  async operator(_, { uuid }, { dataSources }) {
-    // Check allowance to see operator profile by hierarchy
-    await dataSources.HierarchyAPI.checkAccess(uuid);
-
+  operator(_, { uuid }, { dataSources }) {
     return dataSources.OperatorAPI.getByUUID(uuid);
   },
   async operators(_, args, { dataSources, userUUID }) {

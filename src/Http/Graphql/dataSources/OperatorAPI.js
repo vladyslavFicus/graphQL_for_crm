@@ -91,11 +91,14 @@ class OperatorAPI extends RESTDataSource {
    * @param args.password
    * @param args.department
    * @param args.role
+   * @param args.userType
+   * @param args.parentBranch
+   * @param createHierarchy
    *
    * @return {*}
    */
   create(args) {
-    return this.post('/operators', args);
+    return this.post('/operators', args, { params: { createHierarchy: true } });
   }
 
   /**
@@ -127,6 +130,19 @@ class OperatorAPI extends RESTDataSource {
    */
   changeStatus(args) {
     return this.put('/operators/status', args);
+  }
+
+  /**
+   * Update operator user type
+   *
+   * @param uuid
+   * @param args
+   * @param args.userType
+   *
+   * @return {*}
+   */
+  updateUserType(uuid, args) {
+    return this.put(`/operators/${uuid}/user-type`, args);
   }
 
   /**

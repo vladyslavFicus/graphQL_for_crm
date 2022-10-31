@@ -19,5 +19,6 @@ module.exports = gql`
     statusChangeDate: String
     statusReason: String
     uuid: String!
+    userType: String
   }
 `;
