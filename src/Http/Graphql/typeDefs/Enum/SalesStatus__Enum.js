@@ -3,6 +3,7 @@ const { gql } = require('apollo-server-express');
 module.exports = gql`
   enum SalesStatus__Enum {
     CALLBACK
+    CALL_AGAIN
     CONVERTED
     DEPOSITOR
     DO_NOT_CALL
