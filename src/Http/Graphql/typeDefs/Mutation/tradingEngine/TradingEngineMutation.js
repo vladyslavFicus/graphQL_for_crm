@@ -128,7 +128,7 @@ module.exports = gql`
       reason: String!
     ): TradingEngineOperator!
     
-    changeOperatorRole(uuid: String!, role: TradingEngine__OperatorRoles__Enum!): TradingEngineOperator!
+    changeOperatorRole(uuid: String!, role: String!): TradingEngineOperator!
     
     createHoliday(args: TradingEngineCreateHoliday__Input!): TradingEngineHoliday!
 

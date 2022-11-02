@@ -14,7 +14,7 @@ module.exports = gql`
     lastName: String!
     email: String!
     phone: String
-    role: TradingEngine__OperatorRoles__Enum!
+    role: String!
     status: TradingEngine__OperatorStatuses__Enum!
     registrationDate: String!
     groupNames: [String!]!
