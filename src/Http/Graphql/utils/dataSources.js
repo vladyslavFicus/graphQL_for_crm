@@ -65,5 +65,5 @@ module.exports = () => ({
   TradingEngineAPI: new TradingEngineAPI({ baseUrl: getBaseUrl('we-trading') }),
   BrandConfigAPI: new BrandConfigAPI({ baseUrl: getBaseUrl('brand-config-service') }),
   LiquidityProviderAPI: new LiquidityProviderAPI({ baseUrl: getBaseUrl('liquidity-provider-adapter') }),
-  S3API: new S3API({ baseUrl: `${config.get('s3.url')}/${config.get('s3.bucket')}` }),
+  S3API: new S3API({ baseUrl: `${config.get('s3.url')}/${config.get('s3.bucket')}/cloud-static` }),
 });

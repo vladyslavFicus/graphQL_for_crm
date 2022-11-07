@@ -20,7 +20,7 @@ module.exports = (app) => {
   const apolloMetricsPlugin = createMetricsPlugin(register);
 
   // Backoffice version control middleware. Send 426 error if version doesn't match.
-  app.use('/gql', ({ headers, method }, res, next) => {
+  app.use('/api', ({ headers, method }, res, next) => {
     if (method !== 'GET' && !headers.playground) {
       const application = headers['x-client-application'];
       const version = headers['x-client-version'];
@@ -46,8 +46,7 @@ module.exports = (app) => {
   app.get('/prometheus', (_, res) => res.send(register.metrics()));
 
   // Proxy-pass to attachment service to download file
-  // we should have /gql prefix because we have proxy-pass /api -> /gql on ingress
-  app.use('/gql/attachment/:clientUUID/:fileUUID', createProxyMiddleware({
+  app.use('/api/attachment/:clientUUID/:fileUUID', createProxyMiddleware({
     target: getBaseUrl('attachments'),
     pathRewrite: (path, req) => {
       const { clientUUID, fileUUID } = req.params;
@@ -58,8 +57,7 @@ module.exports = (app) => {
   }));
 
   // Proxy-pass to we-trading service to download report
-  // we should have /gql prefix because we have proxy-pass /api -> /gql on ingress
-  app.use('/gql/report/:accountUuid', createProxyMiddleware({
+  app.use('/api/report/:accountUuid', createProxyMiddleware({
     target: getBaseUrl('we-trading'),
     pathRewrite: (path, req) => {
       const { accountUuid } = req.params;
@@ -89,6 +87,6 @@ module.exports = (app) => {
 
   server.applyMiddleware({
     app,
-    path: '/gql',
+    path: '/api',
   });
 };
