@@ -7,5 +7,8 @@ module.exports = gql`
     createdAt: String!
     callSystem: String!
     operator: Operator!
+    callStatus: String!
+    finishedAt: String
+    duration: String
   }
 `;
