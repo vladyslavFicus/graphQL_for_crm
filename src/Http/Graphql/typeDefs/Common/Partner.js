@@ -45,7 +45,7 @@ module.exports = gql`
     permission: Partner__PermissionType
     phone: String
     public: Boolean
-    status: String
+    status: String!
     statusChangeAuthor: String
     statusChangeDate: String
     uuid: String!
