@@ -1,8 +1,6 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const { ApolloServer } = require('apollo-server-express');
 const graphqlUploadExpress = require('graphql-upload/graphqlUploadExpress.js');
-const { register } = require('prom-client');
-const createMetricsPlugin = require('apollo-metrics');
 const config = require('config');
 const context = require('./Graphql/utils/context');
 const dataSources = require('./Graphql/utils/dataSources');
@@ -16,8 +14,6 @@ const { NODE_ENV } = process.env;
 module.exports = (app) => {
   // Enable Playground for all dev and qa environments
   const isPlayground = NODE_ENV === 'development' || !!config.env.match(/dev|qa/);
-
-  const apolloMetricsPlugin = createMetricsPlugin(register);
 
   // Backoffice version control middleware. Send 426 error if version doesn't match.
   app.use('/api', ({ headers, method }, res, next) => {
@@ -41,9 +37,6 @@ module.exports = (app) => {
 
   // Healthcheck endpoint
   app.get('/health', (req, res) => res.status(200).json({ status: 'UP' }));
-
-  // Prometheus metrics endpoint
-  app.get('/prometheus', (_, res) => res.send(register.metrics()));
 
   // Proxy-pass to attachment service to download file
   app.use('/api/attachment/:clientUUID/:fileUUID', createProxyMiddleware({
@@ -76,10 +69,6 @@ module.exports = (app) => {
     engine,
     introspection: isPlayground,
     playground: isPlayground,
-
-    // Apollo metrics to Prometheus (IMPORTANT: tracing needs to be enabled to get resolver and request timings)
-    plugins: [apolloMetricsPlugin],
-    tracing: true,
     uploads: false,
   });
 
