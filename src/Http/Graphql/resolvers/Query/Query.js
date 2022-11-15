@@ -536,15 +536,9 @@ module.exports = {
   },
 
   /**
-   *
-   * Brands resolver
-   *
+   * Brands resolver for CDE
    */
-  // TODO: Temporary solution until brand-config-service will be released
   brands() {
-    return Object.keys(config.brandsConfig).map(brandId => ({
-      brandId,
-      config: JSON.stringify(config.brandsConfig[brandId]),
-    }));
+    return Object.keys(config.brandsConfig).map(brandId => ({ brandId }));
   },
 };

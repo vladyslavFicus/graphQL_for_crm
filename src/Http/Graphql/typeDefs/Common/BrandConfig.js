@@ -4,6 +4,5 @@ module.exports = gql`
   type BrandConfig {
     brandName: String!
     brandId: String!
-    config: String!
   }
 `;
