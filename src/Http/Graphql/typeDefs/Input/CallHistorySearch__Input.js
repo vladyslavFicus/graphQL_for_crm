@@ -5,6 +5,7 @@ module.exports = gql`
     operatorUuid: String
     callSystems: [String]
     callDateRange: CallHistory__Call__DateRange__Input
+    callStatus: CallHistory__Status__Enum
     page: Page__Input
   }
 

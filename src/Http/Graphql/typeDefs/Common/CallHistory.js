@@ -7,7 +7,7 @@ module.exports = gql`
     createdAt: String!
     callSystem: String!
     operator: Operator!
-    callStatus: String!
+    callStatus: CallHistory__Status__Enum!
     finishedAt: String
     duration: String
   }
