@@ -64,10 +64,16 @@ module.exports = gql`
     enabled: Boolean
   }
 
+  type BrandConfigProvider__TradingProvider__Currencies {
+    default: String
+    supported: [String]
+  }
+
   type BrandConfigProvider__TradingProvider {
     live: BrandConfigProvider__TradingProvider__Settings
     demo: BrandConfigProvider__TradingProvider__Settings
     leveragesChangingRequest: [Int]
+    currencies: BrandConfigProvider__TradingProvider__Currencies
   }
 
   type BrandConfigProvider__Email {

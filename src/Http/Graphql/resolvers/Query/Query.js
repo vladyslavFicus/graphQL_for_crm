@@ -494,6 +494,7 @@ module.exports = {
         demo: {
           enabled: !!get(brandConfig, 'nas.brand.mt4.demo_groups'),
         },
+        currencies: get(brandConfig, 'nas.brand.mt4.currencies'),
       },
       mt5: {
         leveragesChangingRequest: get(brandConfig, 'nas.brand.mt5.leverages_changing_request', []),
@@ -503,6 +504,7 @@ module.exports = {
         demo: {
           enabled: !!get(brandConfig, 'nas.brand.mt5.demo_groups'),
         },
+        currencies: get(brandConfig, 'nas.brand.mt5.currencies'),
       },
       wet: {
         leveragesChangingRequest: get(brandConfig, 'nas.brand.wet.leverages_changing_request', []),
@@ -512,6 +514,7 @@ module.exports = {
         demo: {
           enabled: !!get(brandConfig, 'nas.brand.wet.demo_groups'),
         },
+        currencies: get(brandConfig, 'nas.brand.wet.currencies'),
       },
       sms: {
         coperato: {
