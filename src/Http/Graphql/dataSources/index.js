@@ -5,7 +5,7 @@ const AuditAPI = require('./AuditAPI');
 const Auth2API = require('./Auth2API');
 const CallbackAPI = require('./CallbackAPI');
 const Click2CallAPI = require('./Click2CallAPI');
-const CoperatoSmsAPI = require('./CoperatoSmsAPI');
+const FullSmsAPI = require('./FullSmsAPI');
 const EmailAPI = require('./EmailAPI');
 const OperatorConfigAPI = require('./OperatorConfigAPI');
 const HierarchyAPI = require('./HierarchyAPI');
@@ -38,7 +38,7 @@ module.exports = {
   Auth2API,
   CallbackAPI,
   Click2CallAPI,
-  CoperatoSmsAPI,
+  FullSmsAPI,
   EmailAPI,
   OperatorConfigAPI,
   HierarchyAPI,

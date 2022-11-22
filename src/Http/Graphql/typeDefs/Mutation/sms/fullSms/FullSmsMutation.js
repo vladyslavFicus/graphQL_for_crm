@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`
-  type CoperatoSmsMutation {
+  type FullSmsMutation {
     sendSms(
       uuid: String!
       field: String!

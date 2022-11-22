@@ -517,8 +517,8 @@ module.exports = {
         currencies: get(brandConfig, 'nas.brand.wet.currencies'),
       },
       sms: {
-        coperato: {
-          isActive: get(brandConfig, 'nas.brand.sms.coperato.isActive', false),
+        fullSms: {
+          isActive: get(brandConfig, 'nas.brand.sms.fullSms.isActive', false),
         },
       },
       email: {

@@ -52,12 +52,12 @@ module.exports = gql`
     coperato: BrandConfigProvider__Coperato
   }
 
-  type BrandConfigProvider__Sms__Coperato {
+  type BrandConfigProvider__Sms__FullSms {
     isActive: Boolean
   }
 
   type BrandConfigProvider__Sms {
-    coperato: BrandConfigProvider__Sms__Coperato
+    fullSms: BrandConfigProvider__Sms__FullSms
   }
 
   type BrandConfigProvider__TradingProvider__Settings {
