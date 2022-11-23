@@ -132,17 +132,32 @@ module.exports = {
   },
 
   /**
-   * Callback API
+   * LeadCallback API
    */
-  async callbacks(_, args, { dataSources, userUUID }) {
+  async leadCallbacks(_, args, { dataSources, userUUID }) {
     const operatorIdsData = await dataSources.HierarchyAPI.getOperatorsSubtree(userUUID);
     const operatorIds = operatorIdsData.map(({ uuid }) => uuid);
 
-    return dataSources.CallbackAPI.getCallbacks({ operatorIds, ...args });
+    return dataSources.CallbackAPI.getLeadCallbacks({ operatorIds, ...args });
   },
-  async callback(_, { id }, { dataSources }) {
-    const callbacksData = await dataSources.CallbackAPI.getCallbacks({ searchKeyword: id, page: 0, limit: 1 });
+  async leadCallback(_, { id }, { dataSources }) {
+    const callbacksData = await dataSources.CallbackAPI.getLeadCallbacks({ searchKeyword: id, page: 0, limit: 1 });
 
+    return callbacksData.content[0];
+  },
+
+  /**
+   * ClientCallback API 
+   */
+  async clientCallbacks(_, args, { dataSources, userUUID }) {
+    const operatorIdsData = await dataSources.HierarchyAPI.getOperatorsSubtree(userUUID);
+    const operatorIds = operatorIdsData.map(({ uuid }) => uuid);
+  
+    return dataSources.CallbackAPI.getClientCallbacks({ operatorIds, ...args });
+  },
+  async clientCallback(_, { id }, { dataSources }) {
+    const callbacksData = await dataSources.CallbackAPI.getClientCallbacks({ searchKeyword: id, page: 0, limit: 1 });
+  
     return callbacksData.content[0];
   },
 

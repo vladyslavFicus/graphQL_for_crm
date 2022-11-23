@@ -2,19 +2,34 @@ const { gql } = require('apollo-server-express');
 
 module.exports = gql`
   type CallbackMutation {
-    create(
+    createClientCallback(
       userId: String!
       reminder: String
       operatorId: String!
       callbackTime: String
-    ): Callback
+    ): ClientCallback
 
-    update(
+    updateClientCallback(
       callbackId: String!
       callbackTime: String
-      operatorId: String
+      operatorId: String!
       status: Callback__Status__Enum
       reminder: String
-    ): Callback
+    ): ClientCallback
+
+    createLeadCallback(
+      userId: String!
+      reminder: String
+      operatorId: String!
+      callbackTime: String
+    ): LeadCallback
+
+    updateLeadCallback(
+      callbackId: String!
+      callbackTime: String
+      operatorId: String!
+      status: Callback__Status__Enum
+      reminder: String
+    ): LeadCallback
   }
 `;

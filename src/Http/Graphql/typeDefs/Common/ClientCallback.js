@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`  
-  type Callback {
+  type ClientCallback {
     _id: ID!
     callbackId: String!
     callbackTime: String!

@@ -1,6 +1,6 @@
 module.exports = {
   /**
-   * Create callback
+   * Create callback lead
    *
    * @param _
    * @param args
@@ -8,12 +8,12 @@ module.exports = {
    *
    * @return {Promise}
    */
-  create(_, args, { dataSources }) {
-    return dataSources.CallbackAPI.createCallback(args);
+  createLeadCallback(_, args, { dataSources }) {
+    return dataSources.CallbackAPI.createLeadCallback(args);
   },
 
   /**
-   * Update callback
+   * Update callback lead
    *
    * @param _
    * @param callbackId
@@ -22,7 +22,34 @@ module.exports = {
    *
    * @return {Promise}
    */
-  update(_, { callbackId, ...args }, { dataSources }) {
-    return dataSources.CallbackAPI.updateCallback(callbackId, args);
+  updateLeadCallback(_, { callbackId, ...args }, { dataSources }) {
+    return dataSources.CallbackAPI.updateLeadCallback(callbackId, args);
+  },
+
+  /**
+   * Create callback client
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  createClientCallback(_, args, { dataSources }) {
+    return dataSources.CallbackAPI.createClientCallback(args);
+  },
+  
+  /**
+     * Update callback client
+     *
+     * @param _
+     * @param callbackId
+     * @param args
+     * @param dataSources
+     *
+     * @return {Promise}
+     */
+  updateClientCallback(_, { callbackId, ...args }, { dataSources }) {
+    return dataSources.CallbackAPI.updateClientCallback(callbackId, args);
   },
 };

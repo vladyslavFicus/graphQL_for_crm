@@ -29,6 +29,7 @@ module.exports = gql`
     migrationId: String
     mobile: String @mask_field
     name: String!
+    fullName: String
     phone: String! @mask_field
     registrationDate: String!
     salesAgent: Operator

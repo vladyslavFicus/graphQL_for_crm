@@ -66,8 +66,8 @@ module.exports = gql`
     brandConfig(brandId: String!): BrandConfig
     brands: [BrandConfig!]!
 
-    # Callback API
-    callbacks(
+    # Callback API Client
+    clientCallbacks(
       searchKeyword: String
       statuses: [Callback__Status__Enum]
       userId: String
@@ -75,10 +75,22 @@ module.exports = gql`
       limit: Int
       callbackTimeFrom: String
       callbackTimeTo: String
-    ): Callback @pageable
-    callback(id: String!): Callback
+    ): ClientCallback @pageable
+    clientCallback(id: String!): ClientCallback
 
-    # Analtics
+     # Callback API Lead
+     leadCallbacks(
+      searchKeyword: String
+      statuses: [Callback__Status__Enum]
+      userId: String
+      page: Int
+      limit: Int
+      callbackTimeFrom: String
+      callbackTimeTo: String
+    ): LeadCallback @pageable
+    leadCallback(id: String!): LeadCallback
+
+    # Callhistory Api
     callHistory(uuid: String!, args: CallHistorySearch__Input): CallHistory! @pageable
 
     # Email API
