@@ -17,6 +17,8 @@ module.exports = gql`
       reminder: String
     ): ClientCallback
 
+    deleteClientCallback(callbackId: String!): Boolean
+
     createLeadCallback(
       userId: String!
       reminder: String
@@ -31,5 +33,7 @@ module.exports = gql`
       status: Callback__Status__Enum
       reminder: String
     ): LeadCallback
+
+    deleteLeadCallback(callbackId: String!): Boolean
   }
 `;

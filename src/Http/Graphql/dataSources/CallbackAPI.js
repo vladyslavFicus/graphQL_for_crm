@@ -2,7 +2,7 @@ const RESTDataSource = require('@hrzn/apollo-datasource/RESTDataSource');
 
 class CallbackAPI extends RESTDataSource {
   /**
-   * Get callbacks lead
+   * Get lead callbacks
    *
    * @param args
    *
@@ -13,7 +13,7 @@ class CallbackAPI extends RESTDataSource {
   }
 
   /**
-   * Create callback lead
+   * Create lead callback
    *
    * @param args
    *
@@ -24,7 +24,7 @@ class CallbackAPI extends RESTDataSource {
   }
 
   /**
-   * Update callback lead
+   * Update lead callback
    *
    * @param callbackId
    * @param args
@@ -36,7 +36,18 @@ class CallbackAPI extends RESTDataSource {
   }
 
   /**
-   * Get callbacks client
+   * Delete lead callback
+   *
+   * @param callbackId
+   *
+   * @return {Promise}
+   */
+  deleteLeadCallback(callbackId) {
+    return this.delete(`/lead/${callbackId}`);
+  }
+
+  /**
+   * Get client callbacks
    *
    * @param args
    *
@@ -47,7 +58,7 @@ class CallbackAPI extends RESTDataSource {
   }
 
   /**
-   * Create callback client
+   * Create client callback
    *
    * @param args
    *
@@ -58,7 +69,7 @@ class CallbackAPI extends RESTDataSource {
   }
 
   /**
-   * Update callback client
+   * Update client callback
    *
    * @param callbackId
    * @param args
@@ -67,6 +78,17 @@ class CallbackAPI extends RESTDataSource {
    */
   updateClientCallback(callbackId, args) {
     return this.put(`/client/${callbackId}`, args);
+  }
+
+  /**
+   * Delete client callback
+   *
+   * @param callbackId
+   *
+   * @return {Promise}
+   */
+  deleteClientCallback(callbackId) {
+    return this.delete(`/client/${callbackId}`);
   }
 }
 

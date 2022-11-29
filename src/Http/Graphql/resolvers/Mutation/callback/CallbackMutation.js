@@ -1,6 +1,6 @@
 module.exports = {
   /**
-   * Create callback lead
+   * Create lead callback
    *
    * @param _
    * @param args
@@ -13,7 +13,7 @@ module.exports = {
   },
 
   /**
-   * Update callback lead
+   * Update lead callback
    *
    * @param _
    * @param callbackId
@@ -27,7 +27,19 @@ module.exports = {
   },
 
   /**
-   * Create callback client
+   * Delete lead callback
+   *
+   * @param _
+   * @param callbackId
+   *
+   * @return {Promise}
+   */
+  async deleteLeadCallback(_, { callbackId }, { dataSources }) {
+    await dataSources.CallbackAPI.deleteLeadCallback(callbackId);
+  },
+
+  /**
+   * Create client callback
    *
    * @param _
    * @param args
@@ -40,16 +52,28 @@ module.exports = {
   },
   
   /**
-     * Update callback client
-     *
-     * @param _
-     * @param callbackId
-     * @param args
-     * @param dataSources
-     *
-     * @return {Promise}
-     */
+   * Update client callback
+   *
+   * @param _
+   * @param callbackId
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
   updateClientCallback(_, { callbackId, ...args }, { dataSources }) {
     return dataSources.CallbackAPI.updateClientCallback(callbackId, args);
+  },
+
+  /**
+   * Delete client callback
+   *
+   * @param _
+   * @param callbackId
+   *
+   * @return {Promise}
+   */
+  async deleteClientCallback(_, { callbackId }, { dataSources }) {
+    await dataSources.CallbackAPI.deleteClientCallback(callbackId);
   },
 };
