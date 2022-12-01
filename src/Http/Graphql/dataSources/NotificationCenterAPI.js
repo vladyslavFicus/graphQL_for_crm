@@ -14,6 +14,15 @@ class NotificationCenterAPI extends RESTDataSource {
   }
 
   /**
+   * Get last notifications list
+   *
+   * @return {*}
+   */
+  getLastNotifications() {
+    return this.get('/admin/notifications/last');
+  }
+
+  /**
    * Get notification types
    *
    * @return {*}

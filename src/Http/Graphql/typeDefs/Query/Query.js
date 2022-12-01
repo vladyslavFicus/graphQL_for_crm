@@ -287,5 +287,8 @@ module.exports = gql`
 
     # ClickToCall Api
     clickToCall: ClickToCallQuery @nested
+
+    # Dashboard
+    dashboard: DashboardQuery @nested
   }
 `;
