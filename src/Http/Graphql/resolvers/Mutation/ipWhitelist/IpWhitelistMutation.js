@@ -9,7 +9,8 @@ module.exports = {
    * @return {Promise}
    */
   async add(_, args, { dataSources }) {
-    return dataSources.BrandConfigAPI.ipWhitelistAdd(args);
+    await dataSources.BrandConfigAPI.ipWhitelistAdd(args);
+    return true;
   },
 
   /**
@@ -36,7 +37,8 @@ module.exports = {
    * @return {Promise}
    */
   async deleteMany(_, args, { dataSources }) {
-    dataSources.BrandConfigAPI.ipWhitelistDeleteMany(args);
+    await dataSources.BrandConfigAPI.ipWhitelistDeleteMany(args);
+    return true;
   },
 
   /**
@@ -48,7 +50,8 @@ module.exports = {
    *
    * @return {Promise}
    */
-  edit(_, args, { dataSources }) {
-    return dataSources.BrandConfigAPI.ipWhitelistUpdate(args);
+  async edit(_, args, { dataSources }) {
+    await dataSources.BrandConfigAPI.ipWhitelistUpdate(args);
+    return true;
   },
 };
