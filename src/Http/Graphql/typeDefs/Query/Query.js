@@ -163,7 +163,7 @@ module.exports = gql`
       offices: [String]
       desks: [String]
       teams: [String]
-    ): Operator @pageable
+    ): Operator! @pageable
     operatorsByBrand(brandId: String!, hierarchyTypeGroup: Desk__Types__Enum!): [Operator!]!
     operatorsSubordinates(hierarchyTypeGroup: String, onlyActive: Boolean): [Operator]
     operatorRelationsCount(uuid: String!): OperatorRelationsCount
