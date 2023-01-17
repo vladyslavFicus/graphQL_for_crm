@@ -14,6 +14,7 @@ module.exports = gql`
     lastCallDateFrom: String
     lastNoteDateFrom: String
     lastNoteDateTo: String
+    isNeverCalled: Boolean
     salesStatuses: [String]
     salesAgents: [String]
     status: String

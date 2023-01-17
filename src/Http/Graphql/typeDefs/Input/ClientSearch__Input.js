@@ -79,6 +79,7 @@ module.exports = gql`
     lastCallDateRange: ClientSearch__Input__LastCallDateRange
     lastNoteDateRange: ClientSearch__Input__LastNoteDateRange
     lastTradeDateRange: ClientSearch__Input__LastTradeDateRange
+    isNeverCalled: Boolean
     migrationId: String
     operators: [String]
     page: Page__Input
