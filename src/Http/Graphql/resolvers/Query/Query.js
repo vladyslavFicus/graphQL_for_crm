@@ -2,9 +2,7 @@ const { get, omitBy, isNil, groupBy } = require('lodash');
 const moment = require('moment');
 const config = require('config');
 const {
-  prepareAdditionalStatsUsersRegistration,
   getPaymentStatisticTotals,
-  prepareRegistrationsData,
   getStatisticInitialArray,
 } = require('../../../../utils/statisticHelpers');
 
@@ -401,14 +399,6 @@ module.exports = {
   },
   profiles(_, { args }, { dataSources }) {
     return dataSources.ProfileViewAPI.search(args);
-  },
-  async registrationStatistic(_, args, { dataSources }) {
-    const { additionalStatistics, registrations } = await dataSources.ProfileViewAPI.getRegistrationsStatistic(args);
-
-    return {
-      additionalStatistics: prepareAdditionalStatsUsersRegistration(additionalStatistics),
-      registrations: prepareRegistrationsData(registrations),
-    };
   },
 
   /**

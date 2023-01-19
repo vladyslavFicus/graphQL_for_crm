@@ -151,3 +151,5 @@ permissions:
       authorities: *all-with-payment-department
     - action: "payment.field.manual-methods.values.WIRE"
       authorities: *all-with-payment-department
+    - action: "dashboard.getScreenerWidget"
+      authorities: *all

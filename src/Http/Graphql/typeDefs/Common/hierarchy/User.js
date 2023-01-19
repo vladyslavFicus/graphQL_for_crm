@@ -9,7 +9,7 @@ module.exports = gql`
     fullName: String
     operator: Operator
     operatorStatus: String
-    parentBranches: [HierarchyBranch]
+    parentBranches: [HierarchyBranch!]
     parentUsers: [HierarchyUser]
     userType: String!
     uuid: String!

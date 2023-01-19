@@ -188,12 +188,6 @@ module.exports = gql`
     profile(playerUUID: String!): Profile
     profileContacts(playerUUID: String!): Profile__Phone__Contacts
     profiles(args: ClientSearch__Input): ProfileView @pageable
-    registrationStatistic(
-      dateTo: String
-      dateFrom: String
-      detalization: StatisticDetalization__Enum
-      additionalStatistics: [RegistrationStatisticDateRange__Input]
-    ): RegistrationStatistic
 
     # Rules API
     rules(
