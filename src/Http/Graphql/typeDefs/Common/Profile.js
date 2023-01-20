@@ -126,7 +126,7 @@ module.exports = gql`
     clientType: String
     configuration: Profile__Configuration
     contacts: Profile__Contacts
-    convertedFromLeadUuid: String
+    convertedFromLeadUuid: String @auth_mask_field(action: "profile.field.convertedFromLeadUuid", maskAll: true)
     emailVerified: Boolean
     firstName: String
     gender: String
