@@ -86,8 +86,6 @@ permissions:
             - HEAD_OF_DEPARTMENT
         - department: COMPLETE
           roles: *complete-department-roles
-    - action: "profile.field.convertedFromLeadUuid"
-      authorities: *all-with-payment-department
     - action: "profile.field.email"
       authorities: *all-with-payment-department
     - action: "profile.field.additionalEmail"
@@ -119,6 +117,8 @@ permissions:
       authorities: *all
     - action: "profile.affiliate.field.source"
       authorities: *all-with-payment-department
+    - action: "profile.field.convertedFromLeadUuid"
+      authorities: *all
     - action: "profile.affiliate.field.sms"
       authorities: *all
     - action: "profile.referrer.field.uuid"
