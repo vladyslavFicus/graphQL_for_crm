@@ -154,4 +154,11 @@ permissions:
     - action: "payment.field.manual-methods.values.WIRE"
       authorities: *all-with-payment-department
     - action: "dashboard.getScreenerWidget"
-      authorities: *all
+      authorities:
+        - department: ADMINISTRATION
+          roles:
+            - ADMINISTRATION
+        - department: CS
+          roles:
+            - EXECUTIVE
+            - HEAD_OF_DEPARTMENT
