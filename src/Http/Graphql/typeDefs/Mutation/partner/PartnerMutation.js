@@ -30,6 +30,12 @@ module.exports = gql`
       reason: String!
       status: String!
     ): Boolean
+
+    bulkChangeAffiliatesStatus(
+      uuids: [String!]!
+      reason: String!
+      status: String!
+    ): Boolean
     
     createSchedule(
       affiliateUuid: String!

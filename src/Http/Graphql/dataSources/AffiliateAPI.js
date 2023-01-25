@@ -105,6 +105,17 @@ class AffiliateAPI extends RESTDataSource {
   }
 
   /**
+   * Update partners status
+   *
+   * @param args
+   *
+   * @return {Promise}
+   */
+  bulkChangeAffiliatesStatus(args) {
+    return this.put('/affiliates/status', args);
+  }
+
+  /**
    * Change partner account status
    *
    * @param uuid

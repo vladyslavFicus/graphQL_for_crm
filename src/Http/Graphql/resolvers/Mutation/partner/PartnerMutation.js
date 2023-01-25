@@ -26,6 +26,19 @@ module.exports = {
   },
 
   /**
+   * Update partners status
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async bulkChangeAffiliatesStatus(_, args, { dataSources }) {
+    await dataSources.AffiliateAPI.bulkChangeAffiliatesStatus(args);
+  },
+
+  /**
    * Change partner account status (close/active)
    *
    * @param _
