@@ -28,7 +28,7 @@ module.exports = gql`
     deletedAt: String
     languages: [String]
     name: String
-    partners: [Partner]
+    partners: [Partner!]!
     priority: Int!
     sources: [String]
     type: Rule__Type__Enum
