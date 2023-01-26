@@ -12,7 +12,7 @@ module.exports = gql`
     language: String
     managers: [String]
     name: String!
-    operators: [Operator]
+    operators: [Operator!]
     parentBranch: HierarchyBranch
     uuid: String!
   }
