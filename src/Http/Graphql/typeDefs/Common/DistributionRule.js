@@ -75,5 +75,6 @@ module.exports = gql`
     latestMigration: DistributionRule__LatestMigration
     sourceBrandConfigs: [DistributionRule__SourceBrandConfig!]
     targetBrandConfigs: [DistributionRule__TargetBrandConfig!]
+    totalMigratedClients: Int
   }
 `;
