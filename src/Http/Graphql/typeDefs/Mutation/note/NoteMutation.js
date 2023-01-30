@@ -5,22 +5,21 @@ module.exports = gql`
     add(
       content: String!
       playerUUID: String!
-      pinned: Boolean
+      pinned: Boolean!
       subject: String
       targetType: String!
       targetUUID: String!
-    ): Note
+    ): Boolean
 
     update(
-      content: String!
       noteId: String!
-      pinned: Boolean
+      content: String!
       subject: String
-      targetUUID: String
-    ): Note
+      pinned: Boolean!
+    ): Boolean
 
     remove(
       noteId: String!
-    ): Note
+    ): Boolean
   }
 `;

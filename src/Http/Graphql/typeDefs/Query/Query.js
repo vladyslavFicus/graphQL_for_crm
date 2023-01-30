@@ -141,7 +141,7 @@ module.exports = gql`
       size: Int
       page: Int
       pinned: Boolean
-    ): Note @pageable
+    ): Note! @pageable
 
     # NotificationCenter API
     notificationCenter(args: NotificationCenterSearch__Input): NotificationCenter @pageable

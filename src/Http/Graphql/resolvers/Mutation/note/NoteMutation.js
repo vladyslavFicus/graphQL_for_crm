@@ -8,8 +8,10 @@ module.exports = {
    *
    * @return {Promise}
    */
-  add(_, args, { dataSources }) {
-    return dataSources.NoteAPI.addNote(args);
+  async add(_, args, { dataSources }) {
+    await dataSources.NoteAPI.addNote(args);
+ 
+    return true;
   },
 
   /**
@@ -22,8 +24,10 @@ module.exports = {
    *
    * @return {Promise}
    */
-  update(_, { noteId, ...args }, { dataSources }) {
-    return dataSources.NoteAPI.updateNote(noteId, args);
+  async update(_, { noteId, ...args }, { dataSources }) {
+    await dataSources.NoteAPI.updateNote(noteId, args);
+    
+    return true;
   },
 
   /**
@@ -38,6 +42,6 @@ module.exports = {
   async remove(_, { noteId }, { dataSources }) {
     await dataSources.NoteAPI.removeNote(noteId);
 
-    return { noteId };
+    return true;
   },
 };
