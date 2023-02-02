@@ -4,14 +4,14 @@ module.exports = gql`
   type Profile__Address {
     address: String
     city: String
-    countryCode: String
+    countryCode: String!
     poBox: String
     postCode: String
     state: String
   }
 
   type Profile__Affiliate {
-    uuid: String @auth_hide_field(action: "profile.affiliate.field.uuid")
+    uuid: String! @auth_hide_field(action: "profile.affiliate.field.uuid")
     campaignId: String @auth_hide_field(action: "profile.affiliate.field.campaignId")
     externalId: String
     partner: Partner @auth_hide_field(action: "profile.affiliate.field.uuid")
@@ -52,8 +52,8 @@ module.exports = gql`
   type Profile__Contacts {
       additionalEmail: String @mask_field
       additionalPhone: String @mask_field
-      email: String @mask_field
-      phone: String @mask_field
+      email: String! @mask_field
+      phone: String! @mask_field
   }
 
   type Profile__Phone__Contacts {
@@ -64,8 +64,8 @@ module.exports = gql`
   }
 
   type Profile__KYC {
-    uuid: ID
-    status: String
+    uuid: ID!
+    status: String!
   }
 
   type Profile__Passport {
@@ -78,19 +78,19 @@ module.exports = gql`
   }
 
   type Profile__RegistrationDetails__Device {
-    deviceType: String
-    operatingSystem: String
+    deviceType: String!
+    operatingSystem: String!
   }
 
   type Profile__RegistrationDetails__Inet {
     host: String
-    ipAddress: String
+    ipAddress: String!
     referer: String
   }
 
   type Profile__RegistrationDetails__Location {
     city: String
-    countryCode: String
+    countryCode: String!
     region: String
   }
 
@@ -104,49 +104,49 @@ module.exports = gql`
   }
 
   type Profile__Status {
-    changedAt: String
+    changedAt: String!
     changedBy: String
     comment: String
     reason: String
-    type: String
+    type: String!
   }
 
   type Profile__Referrer {
-    uuid: String @auth_hide_field(action: "profile.referrer.field.uuid")
-    fullName: String @auth_hide_field(action: "profile.referrer.field.fullName")
+    uuid: String! @auth_hide_field(action: "profile.referrer.field.uuid")
+    fullName: String! @auth_hide_field(action: "profile.referrer.field.fullName")
   }
 
   type Profile {
     _id: ID!
-    address: Profile__Address
+    address: Profile__Address!
     affiliate: Profile__Affiliate
     age: String
     birthDate: String
-    brandId: String
+    brandId: String!
     clientType: String
-    configuration: Profile__Configuration
-    contacts: Profile__Contacts
+    configuration: Profile__Configuration!
+    contacts: Profile__Contacts!
     convertedFromLeadUuid: String @auth_hide_field(action: "profile.field.convertedFromLeadUuid")
-    emailVerified: Boolean
-    firstName: String
-    gender: String
+    emailVerified: Boolean!
+    firstName: String!
+    gender: String!
     identificationNumber: String
-    kyc: Profile__KYC
+    kyc: Profile__KYC!
     kycNote: Note
-    languageCode: String
-    lastName: String
+    languageCode: String!
+    lastName: String!
     lastUpdatedBy: String
-    lastUpdatedDate: String
+    lastUpdatedDate: String!
     migrationId: String
     passport: Profile__Passport
-    phoneVerified: Boolean
-    profileVerified: Boolean
+    phoneVerified: Boolean!
+    profileVerified: Boolean!
     profileView: ProfileView
-    registrationDetails: Profile__RegistrationDetails
-    status: Profile__Status
+    registrationDetails: Profile__RegistrationDetails!
+    status: Profile__Status!
     timeZone: String
     tradingAccounts: [TradingAccount]
-    uuid: String
+    uuid: String!
     verifications: [String]
     referrer: Profile__Referrer
     acquisition: HierarchyUserAcquisition

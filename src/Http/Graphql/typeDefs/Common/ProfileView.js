@@ -26,8 +26,8 @@ module.exports = gql`
   }
 
   type ProfileView__Balance {
-    amount: String
-    credit: String
+    amount: Float!
+    credit: Float!
     currency: String
   }
 
