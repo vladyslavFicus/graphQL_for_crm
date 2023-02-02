@@ -3,10 +3,10 @@ const { gql } = require('apollo-server-express');
 module.exports = gql`
   type NotificationCenterMutation {
     update(
-      excUuids: [String]
-      incUuids: [String]
+      incUuids: [String!]!
+      selectAll: Boolean!
       totalElements: Int!
-      searchParams: NotificationCenterSearch__Input
+      searchParams: NotificationCenterSearch__Input!
     ): Boolean
 
     updateConfiguration(

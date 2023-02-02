@@ -144,7 +144,7 @@ module.exports = gql`
     ): Note! @pageable
 
     # NotificationCenter API
-    notificationCenter(args: NotificationCenterSearch__Input): NotificationCenter @pageable
+    notificationCenter(args: NotificationCenterSearch__Input): NotificationCenter! @pageable
     notificationCenterTypes: Object
     notificationCenterUnread: Int
     notificationCenterConfiguration: NotificationCenterConfiguration

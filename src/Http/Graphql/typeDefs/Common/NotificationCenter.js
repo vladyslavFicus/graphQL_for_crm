@@ -2,14 +2,14 @@ const { gql } = require('apollo-server-express');
 
 module.exports = gql`
   type NotificationCenter {
-    agent: Operator
-    client: ProfileView
-    createdAt: String
+    uuid: String!
+    read: Boolean!
+    priority: String!
+    type: String!
+    subtype: String!
+    createdAt: String!
     details: Object
-    priority: String
-    read: Boolean
-    subtype: String
-    type: String
-    uuid: String
+    client: ProfileView
+    agent: Operator
   }
 `;
