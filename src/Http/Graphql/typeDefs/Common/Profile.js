@@ -11,7 +11,7 @@ module.exports = gql`
   }
 
   type Profile__Affiliate {
-    uuid: String! @auth_hide_field(action: "profile.affiliate.field.uuid")
+    uuid: String @auth_hide_field(action: "profile.affiliate.field.uuid")
     campaignId: String @auth_hide_field(action: "profile.affiliate.field.campaignId")
     externalId: String
     partner: Partner @auth_hide_field(action: "profile.affiliate.field.uuid")
@@ -112,8 +112,8 @@ module.exports = gql`
   }
 
   type Profile__Referrer {
-    uuid: String! @auth_hide_field(action: "profile.referrer.field.uuid")
-    fullName: String! @auth_hide_field(action: "profile.referrer.field.fullName")
+    uuid: String @auth_hide_field(action: "profile.referrer.field.uuid")
+    fullName: String @auth_hide_field(action: "profile.referrer.field.fullName")
   }
 
   type Profile {
