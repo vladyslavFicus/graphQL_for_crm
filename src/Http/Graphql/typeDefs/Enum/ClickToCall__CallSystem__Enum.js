@@ -8,5 +8,6 @@ module.exports = gql`
     COMMPEAK
     CLEAR_VOICE
     SQUARETALK
+    GLOBAL_CALL
   }
 `;

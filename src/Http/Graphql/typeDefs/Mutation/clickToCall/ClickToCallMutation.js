@@ -7,5 +7,6 @@ module.exports = gql`
     commpeak: CommpeakMutation @nested
     coperato: CoperatoMutation @nested
     squaretalk: SquaretalkMutation @nested
+    globalcall: GlobalcallMutation @nested
   }
 `;

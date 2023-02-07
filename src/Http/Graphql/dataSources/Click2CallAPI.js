@@ -47,6 +47,15 @@ class Click2CallAPI extends RESTDataSource {
   }
 
   /**
+   * Create call to Globalcall
+   *
+   * @return {Promise}
+   */
+  createCallGlobalcall(args) {
+    return this.post('/call/start/globalcall', args);
+  }
+
+  /**
    * Create call to Didlogic
    *
    * @return {Promise}
