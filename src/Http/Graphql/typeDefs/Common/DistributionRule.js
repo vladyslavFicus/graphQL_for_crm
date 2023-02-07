@@ -76,5 +76,6 @@ module.exports = gql`
     sourceBrandConfigs: [DistributionRule__SourceBrandConfig!]
     targetBrandConfigs: [DistributionRule__TargetBrandConfig!]
     totalMigratedClients: Int
+    executionDaysOfWeek: [String!]
   }
 `;

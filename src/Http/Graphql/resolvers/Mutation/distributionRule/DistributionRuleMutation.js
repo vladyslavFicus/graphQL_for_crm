@@ -66,4 +66,18 @@ module.exports = {
   updateRuleStatus(_, { uuid, ...args }, { dataSources }) {
     return dataSources.DistributionRuleAPI.updateRuleStatus(uuid, args);
   },
+  
+  /**
+   * Update rule execution days of week
+   *
+   * @param _
+   * @param uuid
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  updateRuleDaysOfWeek(_, { uuid, ...args }, { dataSources }) {
+    return dataSources.DistributionRuleAPI.updateRuleDaysOfWeek(uuid, args);
+  },
 };

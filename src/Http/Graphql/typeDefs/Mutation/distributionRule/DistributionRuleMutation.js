@@ -8,5 +8,6 @@ module.exports = gql`
     create(ruleName: String!, ruleOrder: Int!): DistributionRule!
     update(ruleName: String, ruleOrder: Int, uuid: String!): DistributionRule!
     updateRuleStatus(uuid: String!, ruleStatus: String!): DistributionRule!
+    updateRuleDaysOfWeek(uuid: String!, executionDaysOfWeek: [String!]!): DistributionRule!
   }
 `;

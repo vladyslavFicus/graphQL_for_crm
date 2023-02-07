@@ -102,6 +102,18 @@ class DistributionRuleAPI extends RESTDataSource {
   updateRuleStatus(uuid, args) {
     return this.put(`/rules/${uuid}/status`, args);
   }
+
+  /**
+   * Update rule execution days of week
+   *
+   * @param uuid
+   * @param args
+   *
+   * @return {*}
+   */
+  updateRuleDaysOfWeek(uuid, args) {
+    return this.put(`/rules/${uuid}/executionDaysOfWeek`, args);
+  }
 }
 
 module.exports = DistributionRuleAPI;
