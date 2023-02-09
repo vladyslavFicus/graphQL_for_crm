@@ -59,7 +59,7 @@ module.exports = gql`
     authorityActions(department: String!, role: String!): [String]
     permission: [String]
     loginLock(uuid: String!): LoginLock
-    brandToAuthorities(crmBrand: String!): [BrandToAuthorities]
+    brandToAuthorities(crmBrand: String!): [BrandToAuthorities!]!
     isDefaultAuthority(department: String!, role: String!): Boolean
 
     # BrandConfig API
