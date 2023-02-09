@@ -4,6 +4,6 @@ module.exports = gql`
   type BrandToAuthorities {
     id: String!
     name: String!
-    authorities: [Authority]!
+    authorities: [Authority!]!
   }
 `;
