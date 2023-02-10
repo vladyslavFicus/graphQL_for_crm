@@ -232,7 +232,7 @@ module.exports = gql`
       platformType: String
       archived: Boolean
       page: Page__Input
-    ): TradingAccount @pageable
+    ): TradingAccount! @pageable
     clientTradingAccounts(
       profileUUID: String!
       accountType: String
