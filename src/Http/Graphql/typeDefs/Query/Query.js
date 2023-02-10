@@ -95,7 +95,7 @@ module.exports = gql`
 
     # Email API
     emailTemplate(id: ID!): Email
-    emailTemplates: [Email]
+    emailTemplates: [Email!]!
 
     # FilterSet API
     filterSet(uuid: String!): Object
