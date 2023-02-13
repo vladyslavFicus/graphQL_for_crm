@@ -8,7 +8,7 @@ module.exports = gql`
   }
 
   type FilterSet {
-    common: [FilterSet__Option]
-    favourite: [FilterSet__Option]
+    common: [FilterSet__Option!]!
+    favourite: [FilterSet__Option!]!
   }
 `;
