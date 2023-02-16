@@ -9,7 +9,7 @@ module.exports = gql`
   }
 
   type Payment__ClientProfile {
-    uuid: String
+    uuid: String!
     firstName: String
     lastName: String
     country: String
@@ -23,7 +23,7 @@ module.exports = gql`
     agentId: String
     agentBranches: [String]
     agentName: String
-    amount: String
+    amount: Float
     brandId: String
     country: String
     createdBy: String
@@ -39,7 +39,7 @@ module.exports = gql`
     login: String!
     modifiedBy: String
     moto: Boolean
-    normalizedAmount: String
+    normalizedAmount: Float
     note: Note
     originalAgent: Operator
     partner: Partner
@@ -52,13 +52,13 @@ module.exports = gql`
     maskedPan: String
     paymentType: String!
     platformType: String!
-    playerProfile: Payment__ClientProfile
+    playerProfile: Payment__ClientProfile!
     status: String!
     statusChangedAt: String
     userMigrationId: String
     updatedAt: String
     warnings: [String]
-    cryptoAmount: String
+    cryptoAmount: Float
     cryptoCurrency: String
   }
 `;
