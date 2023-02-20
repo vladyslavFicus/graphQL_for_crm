@@ -16,6 +16,7 @@ module.exports = gql`
   type Lead {
     _id: ID!
     affiliate: String
+    affiliateUuid: String
     birthDate: String
     brandId: String!
     city: String
