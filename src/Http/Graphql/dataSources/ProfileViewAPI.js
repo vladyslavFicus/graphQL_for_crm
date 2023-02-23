@@ -49,6 +49,17 @@ class ProfileViewAPI extends RESTDataSource {
   }
 
   /**
+   * Clients total count
+   *
+   * @param args
+   *
+   * @return {*}
+   */
+  count(args) {
+    return this.post('/admin/profiles/count', args);
+  }
+
+  /**
    * Search clients
    *
    * @param args

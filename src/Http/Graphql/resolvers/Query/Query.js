@@ -400,6 +400,9 @@ module.exports = {
   profiles(_, { args }, { dataSources }) {
     return dataSources.ProfileViewAPI.search(args);
   },
+  profilesCount(_, { args }, { dataSources }) {
+    return dataSources.ProfileViewAPI.count(args);
+  },
 
   /**
    * Referral API

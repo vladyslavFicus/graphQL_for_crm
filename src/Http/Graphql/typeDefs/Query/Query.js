@@ -188,6 +188,7 @@ module.exports = gql`
     profile(playerUUID: String!): Profile
     profileContacts(playerUUID: String!): Profile__Phone__Contacts
     profiles(args: ClientSearch__Input): ProfileView @pageable
+    profilesCount(args: ClientSearch__Input): Int
 
     # Rules API
     rules(
