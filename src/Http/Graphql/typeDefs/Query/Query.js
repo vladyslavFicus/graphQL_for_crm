@@ -123,7 +123,7 @@ module.exports = gql`
     userHierarchy: HierarchyUser
     userHierarchyById(uuid: String!): HierarchyUser
     userBranchesTreeUp(userUUID: String!): [HierarchyUserBranchesTreeUp]
-    treeTop: [HierarchyTreeBranch]
+    treeTop: [HierarchyTreeBranch!]
     treeBranch(uuid: String!): HierarchyTreeBranchResponse
 
     # Lead API
