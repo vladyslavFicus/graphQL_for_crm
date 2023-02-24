@@ -49,6 +49,17 @@ module.exports = (app) => {
     changeOrigin: true,
   }));
 
+  // Proxy-pass to attachment service for download document file
+  app.use('/api/attachment/documents/:fileUUID/file', createProxyMiddleware({
+    target: getBaseUrl('attachments'),
+    pathRewrite: (path, req) => {
+      const { fileUUID } = req.params;
+
+      return `/documents/${fileUUID}/files/`;
+    },
+    changeOrigin: true,
+  }));
+
   // Proxy-pass to we-trading service to download report
   app.use('/api/report/:accountUuid', createProxyMiddleware({
     target: getBaseUrl('we-trading'),

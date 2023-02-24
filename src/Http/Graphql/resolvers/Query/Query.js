@@ -145,17 +145,17 @@ module.exports = {
   },
 
   /**
-   * ClientCallback API 
+   * ClientCallback API
    */
   async clientCallbacks(_, args, { dataSources, userUUID }) {
     const operatorIdsData = await dataSources.HierarchyAPI.getOperatorsSubtree(userUUID);
     const operatorIds = operatorIdsData.map(({ uuid }) => uuid);
-  
+
     return dataSources.CallbackAPI.getClientCallbacks({ operatorIds, ...args });
   },
   async clientCallback(_, { id }, { dataSources }) {
     const callbacksData = await dataSources.CallbackAPI.getClientCallbacks({ searchKeyword: id, page: 0, limit: 1 });
-  
+
     return callbacksData.content[0];
   },
 
@@ -454,6 +454,13 @@ module.exports = {
     const params = omitBy(args, isNil);
 
     return dataSources.TradingAccountAPI.getClientTradingAccounts(params);
+  },
+
+  /**
+   * Document Search
+   */
+  documentSearch(_, { args }, { dataSources }) {
+    return dataSources.AttachmentsAPI.documentSearch(args);
   },
 
   /**

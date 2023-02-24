@@ -243,6 +243,9 @@ module.exports = gql`
     # TradingEngine API
     tradingEngine: TradingEngineQuery @nested
     
+    # Document API
+    documentSearch(args: DocumentSearch__Input): DocumentFile! @pageable
+    
     #Ipwhitelist
     ipWhitelistSearch(args: IpWhitelistSearch__Input): IpWhitelistAddress! @pageable
 

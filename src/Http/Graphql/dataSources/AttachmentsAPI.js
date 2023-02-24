@@ -118,6 +118,65 @@ class AttachmentsAPI extends RESTDataSource {
   deleteFile(uuid) {
     return this.delete(`/admin/files/${uuid}`);
   }
+
+
+  /**
+   * Get Documents
+   *
+   * @param args
+   *
+   * @return {Promise}
+   */
+  documentSearch(args) {
+    return this.post('/documents/search', args);
+  }
+
+  documentAdd(file) {
+    return new Promise(async (resolve, reject) => {
+      const { filename, createReadStream } = await file.file;
+
+      const buffer = [];
+      const stream = createReadStream();
+
+      stream.on('data', (chunk) => {
+        buffer.push(chunk);
+      });
+
+      stream.on('end', async () => {
+        const formData = new FormData();
+
+        formData.append('file', Buffer.concat(buffer), filename);
+
+        try {
+          const response = await this.post('/documents/', formData, {
+            headers: {
+              ...formData.getHeaders(),
+            },
+          });
+          resolve(response);
+        } catch (e) {
+          reject(e);
+        }
+      });
+    });
+  }
+
+  documentDelete(args) {
+    return this.delete(`/documents/${args.uuid}`);
+  }
+
+  documentUpdate(args) {
+    return this.put(`/documents/${args.uuid}`, args);
+  }
+
+  documentConfirm(args) {
+    const { uuid, title, description } = args;
+
+    return this.post(`/documents/${uuid}/confirm`, {
+      title,
+      description,
+    });
+  }
 }
 
 module.exports = AttachmentsAPI;
