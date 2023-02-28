@@ -55,7 +55,7 @@ module.exports = (app) => {
     pathRewrite: (path, req) => {
       const { fileUUID } = req.params;
 
-      return `/documents/${fileUUID}/files/`;
+      return `/attachments/documents/${fileUUID}/files/`;
     },
     changeOrigin: true,
   }));
