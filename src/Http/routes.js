@@ -38,6 +38,17 @@ module.exports = (app) => {
   // Healthcheck endpoint
   app.get('/health', (req, res) => res.status(200).json({ status: 'UP' }));
 
+  // Proxy-pass to attachment service for download document file
+  app.use('/api/documents/:fileUUID/file', createProxyMiddleware({
+    target: getBaseUrl('attachments'),
+    pathRewrite: (path, req) => {
+      const { fileUUID } = req.params;
+
+      return `/documents/${fileUUID}/file`;
+    },
+    changeOrigin: true,
+  }));
+
   // Proxy-pass to attachment service to download file
   app.use('/api/attachment/:clientUUID/:fileUUID', createProxyMiddleware({
     target: getBaseUrl('attachments'),
@@ -45,17 +56,6 @@ module.exports = (app) => {
       const { clientUUID, fileUUID } = req.params;
 
       return `/users/${clientUUID}/files/${fileUUID}`;
-    },
-    changeOrigin: true,
-  }));
-
-  // Proxy-pass to attachment service for download document file
-  app.use('/api/attachment/documents/:fileUUID/file', createProxyMiddleware({
-    target: getBaseUrl('attachments'),
-    pathRewrite: (path, req) => {
-      const { fileUUID } = req.params;
-
-      return `/attachments/documents/${fileUUID}/files/`;
     },
     changeOrigin: true,
   }));
