@@ -2,16 +2,16 @@ const { gql } = require('apollo-server-express');
 
 module.exports = gql`
   type Partner__Schedule__CountrySpreads {
-    country: String
-    limit: Int
+    country: String!
+    limit: Int!
   }
 
   type Partner__Schedule {
     configId: String
-    activated: Boolean
-    day: String
+    activated: Boolean!
+    day: String!
     totalLimit: Int
-    countrySpreads: [Partner__Schedule__CountrySpreads]
+    countrySpreads: [Partner__Schedule__CountrySpreads!]!
     workingHoursFrom: String
     workingHoursTo: String
   }
@@ -33,7 +33,7 @@ module.exports = gql`
   type Partner {
     _id: ID!
     brand: String
-    authorities: [Authority]
+    authorities: [Authority!]
     country: String
     createdAt: String
     createdBy: String
@@ -49,7 +49,7 @@ module.exports = gql`
     statusChangeAuthor: String
     statusChangeDate: String
     uuid: String!
-    schedule: [Partner__Schedule]
+    schedule: [Partner__Schedule!]
     cdeAffiliate: Boolean
   }
 `;
