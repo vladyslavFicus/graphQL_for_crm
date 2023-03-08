@@ -39,6 +39,32 @@ module.exports = {
   },
 
   /**
+   * Add partners list forbidden countries
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async bulkPartnersAddForbiddenCountries(_, { args }, { dataSources }) {
+    await dataSources.AffiliateAPI.bulkPartnersAddForbiddenCountries(args);
+  },
+
+  /**
+   * Delete partners list forbidden countries
+   *
+   * @param _
+   * @param args
+   * @param dataSources
+   *
+   * @return {Promise}
+   */
+  async bulkPartnersDeleteForbiddenCountries(_, { args }, { dataSources }) {
+    await dataSources.AffiliateAPI.bulkPartnersDeleteForbiddenCountries(args);
+  },
+
+  /**
    * Change partner account status (close/active)
    *
    * @param _

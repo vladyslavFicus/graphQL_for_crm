@@ -116,6 +116,28 @@ class AffiliateAPI extends RESTDataSource {
   }
 
   /**
+   * Add partners list forbidden countries
+   *
+   * @param args
+   *
+   * @return {Promise}
+   */
+  bulkPartnersAddForbiddenCountries(args) {
+    return this.put('/affiliates/permission/bulk-forbidden-countries', args);
+  }
+
+  /**
+   * Delete partners list forbidden countries
+   *
+   * @param args
+   *
+   * @return {Promise}
+   */
+  bulkPartnersDeleteForbiddenCountries(args) {
+    return this.delete('/affiliates/permission/bulk-forbidden-countries', args);
+  }
+
+  /**
    * Change partner account status
    *
    * @param uuid

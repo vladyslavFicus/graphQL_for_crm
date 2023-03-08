@@ -36,6 +36,10 @@ module.exports = gql`
       reason: String!
       status: String!
     ): Boolean
+
+    bulkPartnersAddForbiddenCountries(args: BulkPartnersCountries__Input): Boolean
+
+    bulkPartnersDeleteForbiddenCountries(args: BulkPartnersCountries__Input): Boolean
     
     createSchedule(
       affiliateUuid: String!
