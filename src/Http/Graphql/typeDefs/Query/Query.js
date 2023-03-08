@@ -56,7 +56,7 @@ module.exports = gql`
     # Auth2 API
     allActions: [String]
     authoritiesOptions: Object
-    authorityActions(department: String!, role: String!): [String]
+    authorityActions(department: String!, role: String!): [String!]
     permission: [String]
     loginLock(uuid: String!): LoginLock
     brandToAuthorities(crmBrand: String!): [BrandToAuthorities!]!
