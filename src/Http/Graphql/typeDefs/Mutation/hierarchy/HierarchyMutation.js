@@ -67,7 +67,7 @@ module.exports = gql`
 
     bulkUpdateAcquisitionStatus(
       uuids: [String]!
-      acquisitionStatus: Desk__Types__Enum!
+      acquisitionStatus: AcquisitionStatusTypes__Enum!
       searchParams: ClientSearch__Input
       sorts: [Sort__Input]
       bulkSize: Int
