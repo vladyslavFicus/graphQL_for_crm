@@ -2,8 +2,8 @@ const { gql } = require('apollo-server-express');
 
 module.exports = gql`
   type DistributionRule__LatestMigration {
-    uuid: String
-    startDate: String
+    uuid: String!
+    startDate: String!
     clientsAmount: String
     status: String
     ruleUuid: String
@@ -26,7 +26,7 @@ module.exports = gql`
     operator: String
     operatorEntity: Operator
     country: String
-    distributionUnit: DistributionRule__DistributionUnit
+    distributionUnit: DistributionRule__DistributionUnit!
     desks: [String!]
     teams: [String!]
   }
@@ -40,7 +40,7 @@ module.exports = gql`
     operator: String
     operatorEntity: Operator
     country: String
-    distributionUnit: DistributionRule__DistributionUnit
+    distributionUnit: DistributionRule__DistributionUnit!
     desks: [String!]
     teams: [String!]
     targetSalesStatus: String
