@@ -22,11 +22,11 @@ module.exports = gql`
     category: String
     name: String
     fileName: String
-    playerUUID: String!
+    playerUUID: String
     uuid: String!
     type: String
     uploadDate: String!
-    targetUUID: String!
+    targetUUID: String
     status: String
     note: Note
   }

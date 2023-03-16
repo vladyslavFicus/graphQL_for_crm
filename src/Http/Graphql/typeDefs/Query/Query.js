@@ -25,7 +25,7 @@ module.exports = gql`
       uploadedDateFrom: String
       uploadedDateTo: String
       verificationType: String
-    ): File @pageable
+    ): File! @pageable
     clientFiles(
       size: Int
       page: Int
