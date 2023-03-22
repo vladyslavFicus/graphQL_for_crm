@@ -20,8 +20,34 @@ class BrandConfigAPI extends RESTDataSource {
     return this.delete(`/whitelist/${args.uuid}`);
   }
 
-  ipWhitelistDeleteMany(args) {
-    return this.delete('/whitelist', args);
+  async ipWhitelistDeleteMany(args) {
+    const {
+      uuids,
+      bulkSize,
+      searchParams,
+      sorts,
+    } = args;
+
+    let newUuids = uuids;
+
+    if (bulkSize) {
+      const { content = [] } = await this.ipWhitelistSearch({
+        ...(searchParams && searchParams),
+        page: {
+          from: 0,
+          size: bulkSize + uuids.length,
+          ...(sorts && sorts),
+        },
+      });
+
+      newUuids = content
+        .map(({ uuid }) => uuid)
+        .filter(item => !uuids.includes(item));
+    }
+
+    return this.delete('/whitelist', {
+      uuids: newUuids,
+    });
   }
 
   ipWhitelistUpdate(args) {

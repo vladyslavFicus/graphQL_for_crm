@@ -35,6 +35,9 @@ module.exports = gql`
       uuids: [String!]!
       reason: String!
       status: String!
+      bulkSize: Int
+      sorts: [Sort__Input]
+      searchParams: BulkPartnersSearchParams__Input
     ): Boolean
 
     bulkPartnersAddForbiddenCountries(args: BulkPartnersCountries__Input): Boolean

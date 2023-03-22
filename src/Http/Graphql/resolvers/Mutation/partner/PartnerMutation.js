@@ -1,3 +1,5 @@
+const getAllPartnersForBulk = require('../../../utils/getAllPartnersForBulk');
+
 module.exports = {
   /**
    * Create partner
@@ -35,7 +37,21 @@ module.exports = {
    * @return {Promise}
    */
   async bulkChangeAffiliatesStatus(_, args, { dataSources }) {
-    await dataSources.AffiliateAPI.bulkChangeAffiliatesStatus(args);
+    const {
+      uuids = [],
+      bulkSize,
+      ...rest
+    } = args;
+
+    const updateUuids = !bulkSize ? uuids : await getAllPartnersForBulk({
+      ...args,
+      dataSources,
+    });
+
+    await dataSources.AffiliateAPI.bulkChangeAffiliatesStatus({
+      ...rest,
+      uuids: updateUuids,
+    });
   },
 
   /**
@@ -48,7 +64,21 @@ module.exports = {
    * @return {Promise}
    */
   async bulkPartnersAddForbiddenCountries(_, { args }, { dataSources }) {
-    await dataSources.AffiliateAPI.bulkPartnersAddForbiddenCountries(args);
+    const {
+      uuids = [],
+      bulkSize,
+      forbiddenCountries,
+    } = args;
+
+    const updateUuids = !bulkSize ? uuids : await getAllPartnersForBulk({
+      ...args,
+      dataSources,
+    });
+
+    await dataSources.AffiliateAPI.bulkPartnersAddForbiddenCountries({
+      uuids: updateUuids,
+      forbiddenCountries,
+    });
   },
 
   /**
@@ -61,7 +91,21 @@ module.exports = {
    * @return {Promise}
    */
   async bulkPartnersDeleteForbiddenCountries(_, { args }, { dataSources }) {
-    await dataSources.AffiliateAPI.bulkPartnersDeleteForbiddenCountries(args);
+    const {
+      uuids = [],
+      bulkSize,
+      forbiddenCountries,
+    } = args;
+
+    const updateUuids = !bulkSize ? uuids : await getAllPartnersForBulk({
+      ...args,
+      dataSources,
+    });
+
+    await dataSources.AffiliateAPI.bulkPartnersDeleteForbiddenCountries({
+      uuids: updateUuids,
+      forbiddenCountries,
+    });
   },
 
   /**

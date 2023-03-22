@@ -6,6 +6,11 @@ module.exports = gql`
     creationDateRange: IpWhitelist__Creation__DateRange__Input
     page: Page__Input
   }
+  
+  input IpWhitelistSearchParams__Input {
+    ip: String
+    creationDateRange: IpWhitelist__Creation__DateRange__Input
+  }
 
   input IpWhitelist__Creation__DateRange__Input {
     from: String
