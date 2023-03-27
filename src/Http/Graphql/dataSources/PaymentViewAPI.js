@@ -13,6 +13,17 @@ class PaymentViewAPI extends RESTDataSource {
   }
 
   /**
+   * Get payments total count
+   *
+   * @param args
+   *
+   * @return {Promise}
+   */
+  paymentsTotalCount(args) {
+    return this.post('/payments/count', args);
+  }
+
+  /**
    * Get payments statistic
    *
    * @param args
@@ -129,7 +140,7 @@ class PaymentViewAPI extends RESTDataSource {
   getFtrCountStatistic(args) {
     return this.post('/statistics/ftr/count', args);
   }
-  
+
   /**
    * Get FTD Amount Statistic
    *

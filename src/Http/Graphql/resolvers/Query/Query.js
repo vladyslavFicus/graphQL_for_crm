@@ -245,6 +245,9 @@ module.exports = {
   leads(_, { args }, { dataSources, brand: { id: brandId } }) {
     return dataSources.LeadAPI.getLeads({ brandId, ...args });
   },
+  leadsTotalCount(_, { args }, { dataSources }) {
+    return dataSources.LeadAPI.leadsTotalCount(args);
+  },
   lead(_, { uuid }, { dataSources }) {
     return dataSources.LeadAPI.getLead(uuid);
   },
@@ -290,6 +293,9 @@ module.exports = {
   },
   clientPayments(_, args, { dataSources }) {
     return dataSources.PaymentViewAPI.getPayments(args.args);
+  },
+  paymentsTotalCount(_, { args }, { dataSources }) {
+    return dataSources.PaymentViewAPI.paymentsTotalCount(args);
   },
   async paymentMethods(_, __, { dataSources }) {
     const responseData = await dataSources.PaymentAPI.getPaymentMethods();

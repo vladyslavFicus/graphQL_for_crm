@@ -22,6 +22,17 @@ class LeadAPI extends RESTDataSource {
   getLead(uuid) {
     return this.get(`/lead/${uuid}`);
   }
+
+  /**
+   * Get leads total count
+   *
+   * @param args
+   *
+   * @return {Promise}
+   */
+  leadsTotalCount(args) {
+    return this.post('/leads/count', args);
+  }
 }
 
 module.exports = LeadAPI;

@@ -1,8 +1,8 @@
 const { gql } = require('apollo-server-express');
 
 module.exports = gql`
-
   input LeadSearch__Input {
+    brandId: String,
     uuids: [String]
     searchKeyword: String
     desks: [String]

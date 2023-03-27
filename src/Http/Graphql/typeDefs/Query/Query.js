@@ -130,6 +130,7 @@ module.exports = gql`
     lead(uuid: String!): Lead
     leadContacts(uuid: String!): Lead__Contacts!
     leads(args: LeadSearch__Input): Lead @pageable
+    leadsTotalCount(args: LeadSearch__Input): Int
 
     # Notes API
     notes(
@@ -170,6 +171,7 @@ module.exports = gql`
 
     # Payment API
     payments(args: PaymentSearch__Input): Payment! @pageable
+    paymentsTotalCount(args: PaymentSearch__Input): Int
     clientPayments(args: PaymentSearch__Input): Payment! @pageable
     paymentMethods: [String!]
     paymentSystems: [PaymentSystem!]!
