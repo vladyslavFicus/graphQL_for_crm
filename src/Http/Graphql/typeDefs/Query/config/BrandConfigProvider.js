@@ -20,8 +20,8 @@ module.exports = gql`
     mt4_pattern: String
     mt4: Object
     mt5: Object
-    ite: Object
-    ite_pattern: String
+    te: Object
+    te_pattern: String
   }
 
   type BrandConfigProvider__Payment {
@@ -111,7 +111,7 @@ module.exports = gql`
     mt4: BrandConfigProvider__TradingProvider
     mt5: BrandConfigProvider__TradingProvider
     wet: BrandConfigProvider__TradingProvider
-    ite: BrandConfigProvider__TradingProvider
+    te: BrandConfigProvider__TradingProvider
     email: BrandConfigProvider__Email
     clientPortal: BrandConfigProvider__ClientPortal
     clientPortalLanding: BrandConfigProvider__ClientPortalLanding

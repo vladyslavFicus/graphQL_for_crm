@@ -537,15 +537,15 @@ module.exports = {
         },
         currencies: get(brandConfig, 'nas.brand.wet.currencies'),
       },
-      ite: {
-        leveragesChangingRequest: get(brandConfig, 'nas.brand.ite.leverages_changing_request', []),
+      te: {
+        leveragesChangingRequest: get(brandConfig, 'nas.brand.te.leverages_changing_request', []),
         live: {
-          enabled: !!get(brandConfig, 'nas.brand.ite.groups'),
+          enabled: !!get(brandConfig, 'nas.brand.te.groups'),
         },
         demo: {
-          enabled: !!get(brandConfig, 'nas.brand.ite.demo_groups'),
+          enabled: !!get(brandConfig, 'nas.brand.te.demo_groups'),
         },
-        currencies: get(brandConfig, 'nas.brand.ite.currencies'),
+        currencies: get(brandConfig, 'nas.brand.te.currencies'),
       },
       sms: {
         fullSms: {
