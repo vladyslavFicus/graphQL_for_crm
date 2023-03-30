@@ -9,6 +9,9 @@ module.exports = {
   lastDeposits(_, __, { dataSources }) {
     return dataSources.PaymentViewAPI.getLastDeposits();
   },
+  lastRegistration(_, __, { dataSources }) {
+    return dataSources.ProfileViewAPI.getLastRegistration();
+  },
   // Charts
   registrationStatistic(_, args, { dataSources }) {
     return dataSources.ProfileViewAPI.getRegistrationsStatistic(args);

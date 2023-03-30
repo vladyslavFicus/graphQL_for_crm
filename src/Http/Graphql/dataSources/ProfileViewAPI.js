@@ -69,6 +69,15 @@ class ProfileViewAPI extends RESTDataSource {
   getRegistrationsStatistic(args) {
     return this.post('/admin/profiles/statistics/registration', args);
   }
+
+  /**
+   * Get last statistics registration
+   *
+   * @return {Promise}
+   */
+  getLastRegistration() {
+    return this.get('/admin/profiles/statistics/registration/last');
+  }
 }
 
 module.exports = ProfileViewAPI;

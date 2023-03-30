@@ -5,6 +5,7 @@ module.exports = gql`
     lastNotifications: [LastNotification!]
     lastWithdrawals: [LastDepositWithdrawal!]
     lastDeposits: [LastDepositWithdrawal!]
+    lastRegistration: [ProfileView!]
 
     registrationStatistic(
       dateFrom: String
