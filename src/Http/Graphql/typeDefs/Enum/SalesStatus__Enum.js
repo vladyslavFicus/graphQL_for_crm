@@ -33,5 +33,7 @@ module.exports = gql`
     FROST
     REFERRAL
     ACTIVE
+    CALLBACK_NA
+    MESSAGER
   }
 `;
