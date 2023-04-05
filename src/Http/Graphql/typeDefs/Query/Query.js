@@ -71,8 +71,7 @@ module.exports = gql`
       searchKeyword: String
       statuses: [Callback__Status__Enum]
       userId: String
-      page: Int
-      limit: Int
+      page: Page__Input
       callbackTimeFrom: String
       callbackTimeTo: String
     ): ClientCallback @pageable
@@ -83,8 +82,7 @@ module.exports = gql`
       searchKeyword: String
       statuses: [Callback__Status__Enum]
       userId: String
-      page: Int
-      limit: Int
+      page: Page__Input
       callbackTimeFrom: String
       callbackTimeTo: String
     ): LeadCallback @pageable
