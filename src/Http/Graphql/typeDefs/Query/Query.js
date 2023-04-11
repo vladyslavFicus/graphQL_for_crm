@@ -164,7 +164,7 @@ module.exports = gql`
       teams: [String]
     ): Operator! @pageable
     operatorsByBrand(brandId: String!, hierarchyTypeGroup: Desk__Types__Enum!): [Operator!]!
-    operatorsSubordinates(hierarchyTypeGroup: String, onlyActive: Boolean): [Operator]
+    operatorsSubordinates(hierarchyTypeGroup: AcquisitionStatusTypes__Enum, onlyActive: Boolean): [Operator!]
     operatorRelationsCount(uuid: String!): OperatorRelationsCount
 
     # Payment API
@@ -187,7 +187,7 @@ module.exports = gql`
     # Profile API && ProfileView API
     profile(playerUUID: String!): Profile
     profileContacts(playerUUID: String!): Profile__Phone__Contacts
-    profiles(args: ClientSearch__Input): ProfileView @pageable
+    profiles(args: ClientSearch__Input): ProfileView! @pageable
     profilesCount(args: ClientSearch__Input): Int
 
     # Rules API

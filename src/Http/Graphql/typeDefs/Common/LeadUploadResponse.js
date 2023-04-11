@@ -19,7 +19,7 @@ module.exports = gql`
   }
 
   type LeadUploadResponse {
-    failedLeads: [LeadUploadResponse__FailedLeads]
+    failedLeads: [LeadUploadResponse__FailedLeads!]
     failedLeadsCount: Int
     createdLeadsCount: Int
   }

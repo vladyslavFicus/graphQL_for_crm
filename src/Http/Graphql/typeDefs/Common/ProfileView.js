@@ -60,6 +60,14 @@ module.exports = gql`
     type: String
   }
 
+  type ProfileView__LastNote {
+    uuid: String!
+    changedAt: String!
+    content: String!
+    changedBy: String!
+    operator: Operator
+  }
+
   type ProfileView__LastCall {
     operatorUuid: String
     callSystem: String
@@ -77,7 +85,7 @@ module.exports = gql`
     languageCode: String!
     lastActivity: ProfileView__LastActivity
     lastName: String
-    lastNote: Note
+    lastNote: ProfileView__LastNote
     lastSignInSessions: [ProfileView__Sessions]
     paymentDetails: ProfileView__PaymentDetails
     registrationDetails: ProfileView__RegistrationDetails
