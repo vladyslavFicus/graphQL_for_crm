@@ -44,6 +44,49 @@ operators-with-payment-department: &all-with-payment-department
   - department: COMPLETE
     roles: *complete-department-roles
 
+sidebar-authorities: &sidebar-authorities
+  - department: ADMINISTRATION
+    roles:
+      - ADMINISTRATION
+  - department: AFFILIATE
+    roles:
+      - AFFILIATE
+  - department: AFFILIATE_MANAGER
+    roles: *all-roles
+  - department: BI
+    roles:
+      - BI
+  - department: COMPLIANCE
+    roles:
+      - COMPLIANCE
+      - COMPLIANCE_MANAGER
+  - department: CS
+    roles: *all-roles
+  - department: DEALING
+    roles: *all-roles
+  - department: DIDLOGIC
+    roles:
+      - DIDLOGIC
+  - department: FINANCE
+    roles: *all-roles
+  - department: IB
+    roles:
+      - AGENT
+  - department: MARKETING
+    roles:
+      - MARKETING
+  - department: PAYMENT
+    roles: *all-roles
+  - department: RBAC
+    roles:
+      - RBAC
+  - department: RETENTION
+    roles: *all-roles
+  - department: RFP
+    roles: *all-roles
+  - department: SALES
+    roles: *all-roles
+
 permissions:
   actions:
     - action: "profile.field.phone"
@@ -131,6 +174,48 @@ permissions:
       authorities: *all
     - action: "lead.field.email"
       authorities: *all
+    - action: "sidebar.clientsList"
+      authorities: *sidebar-authorities
+    - action: "sidebar.clientsKycDocuments"
+      authorities: *sidebar-authorities
+    - action: "sidebar.clientsTradingAccounts"
+      authorities: *sidebar-authorities
+    - action: "sidebar.clientsCallbacks"
+      authorities: *sidebar-authorities
+    - action: "sidebar.leadsList"
+      authorities: *sidebar-authorities
+    - action: "sidebar.leadsCallbacks"
+      authorities: *sidebar-authorities
+    - action: "sidebar.hierarchy"
+      authorities: *sidebar-authorities
+    - action: "sidebar.managmentOffices"
+      authorities: *sidebar-authorities
+    - action: "sidebar.managmentDesks"
+      authorities: *sidebar-authorities
+    - action: "sidebar.managmentTeams"
+      authorities: *sidebar-authorities
+    - action: "sidebar.managmentSalesRules"
+      authorities: *sidebar-authorities
+    - action: "sidebar.managmentOperators"
+      authorities: *sidebar-authorities
+    - action: "sidebar.managmentPartners"
+      authorities: *sidebar-authorities
+    - action: "sidebar.documents"
+      authorities: *sidebar-authorities
+    - action: "sidebar.payments"
+      authorities: *sidebar-authorities
+    - action: "sidebar.notifications"
+      authorities: *sidebar-authorities
+    - action: "sidebar.clientsDistibution"
+      authorities: *sidebar-authorities
+    - action: "sidebar.ipWhitelist"
+      authorities: *sidebar-authorities
+    - action: "sidebar.settingsEmailTemplates"
+      authorities: *sidebar-authorities
+    - action: "sidebar.settingsRbac"
+      authorities: *sidebar-authorities
+    - action: "sidebar.settingsAcquisitionStatuses"
+      authorities: *sidebar-authorities
     - action: "payment.field.manual-methods.values.BONUS"
       authorities: *all-with-payment-department
     - action: "payment.field.manual-methods.values.CHARGEBACK"
