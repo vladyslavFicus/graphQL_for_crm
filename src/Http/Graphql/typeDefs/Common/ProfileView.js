@@ -50,9 +50,9 @@ module.exports = gql`
   }
 
   type ProfileView__Sessions {
-    countryCode: String
     ip: String
-    startedAt: String
+    countryCode: String!
+    startedAt: String!
   }
 
   type ProfileView__Status {
@@ -86,12 +86,12 @@ module.exports = gql`
     lastActivity: ProfileView__LastActivity
     lastName: String
     lastNote: ProfileView__LastNote
-    lastSignInSessions: [ProfileView__Sessions]
+    lastSignInSessions: [ProfileView__Sessions!]
     paymentDetails: ProfileView__PaymentDetails
     registrationDetails: ProfileView__RegistrationDetails
     status: ProfileView__Status
     uuid: String!
-    warnings: [String]
+    warnings: [String!]
     online: Boolean
     lastCall: ProfileView__LastCall
   }

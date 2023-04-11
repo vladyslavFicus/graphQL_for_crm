@@ -145,7 +145,7 @@ module.exports = gql`
     registrationDetails: Profile__RegistrationDetails!
     status: Profile__Status!
     timeZone: String
-    tradingAccounts: [TradingAccount]
+    tradingAccounts: [TradingAccount!]
     uuid: String!
     verifications: [String]
     referrer: Profile__Referrer

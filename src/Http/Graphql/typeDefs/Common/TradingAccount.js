@@ -19,9 +19,9 @@ module.exports = gql`
 
   type TradingAccount {
     accountType: String!
-    accountUUID: String
+    accountUUID: String!
     affiliate: TradingAccount__Affiliate
-    archived: Boolean
+    archived: Boolean!
     balance: Float!
     brandId: String
     closedTradeAmount: Float
@@ -31,7 +31,7 @@ module.exports = gql`
     credit: Float!
     currency: String
     equity: Float
-    group: String
+    group: String!
     lastLeverageChangeRequest: TradingAccount__LastLeverageChangeRequest
     leverage: Int!
     login: Int!
@@ -39,12 +39,11 @@ module.exports = gql`
     name: String
     operator: Operator
     platformType: String!
-    profile: TradingAccount__Profile!
+    profile: TradingAccount__Profile
     profileUUID: String
     readOnly: Boolean
     readOnlyUpdateTime: String
     readOnlyUpdatedBy: String
     serverId: Int
-    uuid: String!
   }
 `;

@@ -34,7 +34,7 @@ module.exports = gql`
       fileCategory: String
       uploadDateFrom: String
       uploadDateTo: String
-    ): [ClientFile]
+    ): [ClientFile!]
     filesCategories: FilesCategories
 
     # Audit API
@@ -226,19 +226,21 @@ module.exports = gql`
     ): Int
     distributionClientsAmount(uuid: String): Int
 
-    # TradingAccount API && AccountView API
+    # AccountView API
     tradingAccounts(
       searchKeyword: String
       accountType: String
       platformType: String
       archived: Boolean
       page: Page__Input
-    ): TradingAccount! @pageable
+    ): AccountView! @pageable
+
+    # TradingAccount API && 
     clientTradingAccounts(
       profileUUID: String!
       accountType: String
       platformType: String
-    ): [TradingAccount]
+    ): [TradingAccount!]
     
     # TradingEngine API
     tradingEngine: TradingEngineQuery @nested
@@ -270,11 +272,11 @@ module.exports = gql`
       platformType: String
       volumeFrom: Float
       volumeTo: Float
-    ): TradingActivity @pageable
+    ): TradingActivity! @pageable
 
     # Referral API
     referrerStatistics(uuid: String!): ReferrerStatistics
-    referrals(uuid: String!): [Referral]
+    referrals(uuid: String!): [Referral!]
     config(brandId: String!): BrandConfigProvider
     
     # SMS Api

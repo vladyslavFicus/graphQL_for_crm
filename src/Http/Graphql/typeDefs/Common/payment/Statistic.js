@@ -2,9 +2,9 @@ const { gql } = require('apollo-server-express');
 
 module.exports = gql`
   type PaymentStatistic__Entry {
-    amount: Float
-    count: Int
-    entryDate: String
+    amount: Float!
+    count: Int!
+    entryDate: String!
   }
 
   type PaymentStatistic__Total {
@@ -22,7 +22,7 @@ module.exports = gql`
   }
 
   type PaymentStatistic {
-    items: [PaymentStatistic__Entry]
+    items: [PaymentStatistic__Entry!]!
     itemsTotal: PaymentStatistic__Total
     additionalTotal: PaymentStatistic__AdditionalTotal
   }

@@ -447,7 +447,7 @@ module.exports = {
   },
 
   /**
-   * TradingAccount API && AccountView API
+   * AccountView API
    */
   tradingAccounts(_, args, { dataSources }) {
     // Drop undefined and nullable values from object (because BE service throw Error if null will be sent)
@@ -455,6 +455,10 @@ module.exports = {
 
     return dataSources.AccountViewAPI.getTradingAccounts(params);
   },
+
+  /**
+   * TradingAccount API
+   */
   clientTradingAccounts(_, args, { dataSources }) {
     // Drop undefined and nullable values from object (because BE service throw Error if null will be sent)
     const params = omitBy(args, isNil);
