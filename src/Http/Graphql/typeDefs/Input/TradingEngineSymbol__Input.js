@@ -109,6 +109,7 @@ module.exports = gql`
   input TradingEngineSymbols__Input {
     symbolNames: [String]
     securityNames: [String]
+    favorite: Boolean
     page: Page__Input
   }
 `;
