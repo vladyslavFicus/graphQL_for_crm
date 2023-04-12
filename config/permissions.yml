@@ -48,6 +48,7 @@ sidebar-authorities: &sidebar-authorities
   - department: ADMINISTRATION
     roles:
       - ADMINISTRATION
+      - CLIENT_DISTRIBUTION
   - department: AFFILIATE
     roles:
       - AFFILIATE
@@ -56,6 +57,8 @@ sidebar-authorities: &sidebar-authorities
   - department: BI
     roles:
       - BI
+  - department: COMPLETE
+    roles: *complete-department-roles
   - department: COMPLIANCE
     roles:
       - COMPLIANCE
