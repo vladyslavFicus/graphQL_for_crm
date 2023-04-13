@@ -139,7 +139,10 @@ module.exports = {
     return dataSources.CallbackAPI.getLeadCallbacks({ operatorIds, ...args });
   },
   async leadCallback(_, { id }, { dataSources }) {
-    const callbacksData = await dataSources.CallbackAPI.getLeadCallbacks({ searchKeyword: id, page: 0, limit: 1 });
+    const callbacksData = await dataSources.CallbackAPI.getLeadCallbacks({
+      searchKeyword: id,
+      page: { from: 0, size: 1 },
+    });
 
     return callbacksData.content[0];
   },
