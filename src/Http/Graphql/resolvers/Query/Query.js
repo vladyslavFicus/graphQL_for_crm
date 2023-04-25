@@ -157,7 +157,9 @@ module.exports = {
     return dataSources.CallbackAPI.getClientCallbacks({ operatorIds, ...args });
   },
   async clientCallback(_, { id }, { dataSources }) {
-    const callbacksData = await dataSources.CallbackAPI.getClientCallbacks({ searchKeyword: id, page: 0, limit: 1 });
+    const callbacksData = await dataSources.CallbackAPI.getClientCallbacks({
+      searchKeyword: id, page: { from: 0, size: 1 },
+    });
 
     return callbacksData.content[0];
   },
@@ -380,7 +382,6 @@ module.exports = {
     return dataSources.OperatorAPI.search({
       ...params,
       uuids: operatorsIds,
-      limit: operatorsIds.length,
     });
   },
   operatorsByBrand(_, args, { dataSources, userUUID }) {
