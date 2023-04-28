@@ -26,6 +26,9 @@ module.exports = {
       case 'CREDIT_OUT':
         return dataSources.PaymentAPI.createCreditOutPayment(args);
 
+      case 'COMMISSION':
+        return dataSources.PaymentAPI.createCommissionPayment(args);
+
       default:
         return null;
     }

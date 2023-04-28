@@ -95,6 +95,17 @@ class PaymentAPI extends RESTDataSource {
   }
 
   /**
+   * Create commission payment
+   *
+   * @param args
+   *
+   * @return {Promise}
+   */
+  createCommissionPayment(args) {
+    return this.post('/commission', args);
+  }
+
+  /**
    * Approve payment
    *
    * @param args
@@ -129,7 +140,7 @@ class PaymentAPI extends RESTDataSource {
   }
 
   /**
-   * Change payment method
+   * Change payment status
    *
    * @param paymentId
    * @param args
