@@ -34,6 +34,6 @@ module.exports = gql`
     REFERRAL
     ACTIVE
     CALLBACK_NA
-    MESSAGER
+    MESSENGER
   }
 `;
