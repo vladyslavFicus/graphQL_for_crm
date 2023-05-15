@@ -14,7 +14,7 @@ class S3API extends RESTDataSource {
    * @return {Promise}
    */
   getAvailableBrandsForCrmBrand(crmBrand) {
-    return this.get(`/crm-brands/${crmBrand}/brands.json`);
+    return this.get(`/crm-brands/${crmBrand}/brands.json`, null, { cacheOptions: { ttl: 1 } });
   }
 }
 
