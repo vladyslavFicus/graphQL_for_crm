@@ -93,6 +93,7 @@ module.exports = gql`
     searchLimit: Int
     statuses: [String]
     teams: [String]
+    termsAccepted: Boolean
     warnings: [String]
     offices: [String]
     salesOperators: [String]

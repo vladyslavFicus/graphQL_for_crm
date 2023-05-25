@@ -144,6 +144,7 @@ module.exports = gql`
     profileView: ProfileView
     registrationDetails: Profile__RegistrationDetails!
     status: Profile__Status!
+    termsAccepted: Boolean
     timeZone: String
     tradingAccounts: [TradingAccount!]
     uuid: String!

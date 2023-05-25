@@ -27,6 +27,7 @@ module.exports = gql`
       languageCode: String
       passport: Passport__Input
       timeZone: String
+      termsAccepted: Boolean
     ): Profile
 
     updateAddress(
