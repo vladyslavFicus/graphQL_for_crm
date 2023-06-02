@@ -492,6 +492,13 @@ module.exports = {
   },
 
   /**
+   * Feature toggles API
+   */
+  featureToggles(_, __, { dataSources }) {
+    return dataSources.BrandConfigAPI.getFeatureTogglesConfig();
+  },
+
+  /**
    * Brand config resolver
    *
    * @param _

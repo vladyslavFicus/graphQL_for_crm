@@ -5,5 +5,6 @@ module.exports = gql`
     BRAND_DOCUMENTS
     RBAC
     WHITELIST
+    BRAND_CONFIG
   }
 `;

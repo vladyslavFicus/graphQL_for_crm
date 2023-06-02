@@ -66,6 +66,9 @@ module.exports = gql`
     brandConfig(brandId: String!): BrandConfig
     brands: [BrandConfig!]!
 
+    # Feature toggles API
+    featureToggles: FeatureToggles
+
     # Callback API Client
     clientCallbacks(
       searchKeyword: String

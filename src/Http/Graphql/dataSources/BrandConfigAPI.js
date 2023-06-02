@@ -20,6 +20,28 @@ class BrandConfigAPI extends RESTDataSource {
     return this.delete(`/whitelist/${args.uuid}`);
   }
 
+  /**
+   * Get brand config for feature toggles
+   *
+   * @param __
+   *
+   * @return {Promise}
+   */
+  getFeatureTogglesConfig() {
+    return this.get('/brand/config/feature-toggles');
+  }
+
+  /**
+   * Update feature toggles
+   *
+   * @param args
+   *
+   * @return {Promise}
+   */
+  updateFeatureToggles(args) {
+    return this.put('/brand/config/feature-toggles', args);
+  }
+
   async ipWhitelistDeleteMany(args) {
     const {
       uuids,

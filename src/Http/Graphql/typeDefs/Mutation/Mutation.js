@@ -28,5 +28,6 @@ module.exports = gql`
     ipWhitelist: IpWhitelistMutation @nested
     gridConfig: GridConfigMutation @nested
     settings: SettingsMutation @nested
+    featureToggles: FeatureTogglesMutation @nested
   }
 `;
