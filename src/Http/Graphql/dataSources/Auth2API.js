@@ -45,8 +45,8 @@ class Auth2API extends RESTDataSource {
    *
    * @return {Promise}
    */
-  logout() {
-    return this.post('/logout');
+  logout(inactiveSeconds) {
+    return this.post(`/logout?inactiveSeconds=${inactiveSeconds}`);
   }
 
   /**

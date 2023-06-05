@@ -9,7 +9,7 @@ module.exports = gql`
     resetUserPassword(userUuid: String!): Boolean
     resetPassword(password: String!, token: String!): Boolean
     unlockLogin(uuid: String!): Boolean
-    logout: Boolean
+    logout(inactiveSeconds: Int): Boolean
     signIn(login: String!, password: String!, otp: String): SignIn
     tokenRenew: TokenRenew
     addAuthority(uuid: String!, department: String!, role: String!): Boolean

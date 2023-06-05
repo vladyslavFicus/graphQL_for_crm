@@ -515,6 +515,7 @@ module.exports = {
       password: get(brandConfig, 'nas.brand.password'),
       backoffice: {
         dashboards: get(brandConfig, 'nas.brand.backoffice.dashboards'),
+        ttl_inactive_seconds: get(brandConfig, 'nas.brand.backoffice.ttl_inactive_seconds') || 10,
       },
       payment: {
         reasons: get(brandConfig, 'nas.brand.payment.reasons'),
