@@ -29,6 +29,7 @@ const TradingEngineAPI = require('./TradingEngineAPI');
 const BrandConfigAPI = require('./BrandConfigAPI');
 const LiquidityProviderAPI = require('./LiquidityProviderAPI');
 const S3API = require('./S3API');
+const ExchangeRatesAPI = require('./ExchangeRatesAPI');
 
 module.exports = {
   AccountViewAPI,
@@ -62,4 +63,5 @@ module.exports = {
   BrandConfigAPI,
   LiquidityProviderAPI,
   S3API,
+  ExchangeRatesAPI,
 };

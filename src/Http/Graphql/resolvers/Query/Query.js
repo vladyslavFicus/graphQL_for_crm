@@ -590,4 +590,11 @@ module.exports = {
   brands() {
     return Object.keys(config.brandsConfig).map(brandId => ({ brandId }));
   },
+
+  /**
+   * Exchange Rates API
+   */
+  rates(_, { currency }, { dataSources }) {
+    return dataSources.ExchangeRatesAPI.getRates(currency);
+  },
 };
