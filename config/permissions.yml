@@ -220,7 +220,10 @@ permissions:
     - action: "sidebar.settingsAcquisitionStatuses"
       authorities: *sidebar-authorities
     - action: "sidebar.settingsFeatureToggles"
-      authorities: *sidebar-authorities
+      authorities:
+        - department: ADMINISTRATION
+          roles:
+            - ADMINISTRATION
     - action: "payment.field.manual-methods.values.BONUS"
       authorities: *all-with-payment-department
     - action: "payment.field.manual-methods.values.CHARGEBACK"
