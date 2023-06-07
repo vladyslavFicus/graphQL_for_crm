@@ -219,6 +219,8 @@ permissions:
       authorities: *sidebar-authorities
     - action: "sidebar.settingsAcquisitionStatuses"
       authorities: *sidebar-authorities
+    - action: "sidebar.settingsPaymentSystemsProvider"
+      authorities: *sidebar-authorities
     - action: "sidebar.settingsFeatureToggles"
       authorities:
         - department: ADMINISTRATION

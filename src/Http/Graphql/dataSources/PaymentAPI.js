@@ -199,6 +199,33 @@ class PaymentAPI extends RESTDataSource {
   disableShowFtdToAffiliate({ profileUuid }) {
     return this.put(`/${profileUuid}/show-ftd-to-affiliate/disabling`);
   }
+
+  /**
+   * Get payment systems
+   *
+   * @return {Promise}
+   */
+  paymentSystemsProvider(args) {
+    return this.post('/payment-systems/search', args);
+  }
+
+  /**
+   * Create payment systems
+   *
+   * @return {Promise}
+   */
+  createPaymentSystemsProvider({ paymentSystem }) {
+    return this.post(`/favourite/payment-systems/${paymentSystem}`);
+  }
+
+  /**
+   * Delete payment systems
+   *
+   * @return {Promise}
+   */
+  deletePaymentSystemsProvider({ paymentSystem }) {
+    return this.delete(`/favourite/payment-systems/${paymentSystem}`);
+  }
 }
 
 module.exports = PaymentAPI;
