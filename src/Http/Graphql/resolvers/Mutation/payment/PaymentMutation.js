@@ -9,7 +9,9 @@ module.exports = {
    *
    * @return {Promise<{paymentId: string|*>}
    */
-  createPayment(_, { paymentType, paymentMethod, ...args }, { dataSources }) {
+  createPayment(_, { paymentType, ...args }, { dataSources }) {
+    const { paymentMethod } = args;
+
     switch (paymentType.toUpperCase()) {
       case 'DEPOSIT':
         if (paymentMethod === 'COMMISSION') {
