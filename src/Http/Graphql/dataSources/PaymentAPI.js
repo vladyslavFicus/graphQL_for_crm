@@ -51,6 +51,17 @@ class PaymentAPI extends RESTDataSource {
   }
 
   /**
+   * Create deposit commission payment
+   *
+   * @param args
+   *
+   * @return {Promise}
+   */
+  createDepositCommissionPayment(args) {
+    return this.post('/deposit/commission', args);
+  }
+
+  /**
    * Create withdraw payment
    *
    * @param args
