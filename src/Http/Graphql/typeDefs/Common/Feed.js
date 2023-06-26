@@ -12,6 +12,6 @@ module.exports = gql`
     targetFullName: String
     targetUuid: String!
     type: String!
-    uuid: String
+    uuid: String!
   }
 `;
