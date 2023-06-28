@@ -24,8 +24,8 @@ module.exports = {
    *
    * @return {Promise<{boolean}>}
    */
-  async logout(_, __, { dataSources }) {
-    await dataSources.Auth2API.logout();
+  async logout(_, { inactiveSeconds }, { dataSources }) {
+    await dataSources.Auth2API.logout(inactiveSeconds);
   },
 
   /**

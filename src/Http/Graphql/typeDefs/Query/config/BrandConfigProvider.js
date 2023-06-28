@@ -13,6 +13,7 @@ module.exports = gql`
   
   type BrandConfigProvider__Backoffice {
     dashboards: Object
+    ttl_inactive_seconds: Int
   }
 
   type BrandConfigProvider__Password {
