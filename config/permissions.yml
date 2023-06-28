@@ -219,8 +219,13 @@ permissions:
       authorities: *sidebar-authorities
     - action: "sidebar.settingsAcquisitionStatuses"
       authorities: *sidebar-authorities
-    - action: "sidebar.settingsFeatureToggles"
+    - action: "sidebar.settingsPaymentSystemsProvider"
       authorities: *sidebar-authorities
+    - action: "sidebar.settingsFeatureToggles"
+      authorities:
+        - department: ADMINISTRATION
+          roles:
+            - ADMINISTRATION
     - action: "payment.field.manual-methods.values.BONUS"
       authorities: *all-with-payment-department
     - action: "payment.field.manual-methods.values.CHARGEBACK"
@@ -243,6 +248,14 @@ permissions:
       authorities: *all-with-payment-department
     - action: "payment.field.manual-methods.values.WIRE"
       authorities: *all-with-payment-department
+    - action: "payment.field.manual-methods.values.COMMISSION"
+      authorities:
+        - department: ADMINISTRATION
+          roles:
+            - ADMINISTRATION
+        - department: CS
+          roles:
+            - MANAGER
     - action: "dashboard.getScreenerWidget"
       authorities:
         - department: ADMINISTRATION

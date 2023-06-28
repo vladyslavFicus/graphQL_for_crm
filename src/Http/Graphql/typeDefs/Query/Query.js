@@ -293,5 +293,8 @@ module.exports = gql`
 
     # Dashboard
     dashboard: DashboardQuery @nested
+
+    # Exchange Rates API
+    rates(currency: String!): CurrencyRates!
   }
 `;

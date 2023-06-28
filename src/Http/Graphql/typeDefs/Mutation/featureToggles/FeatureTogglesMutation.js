@@ -10,7 +10,8 @@ module.exports = gql`
       hideChangePasswordCp: Boolean!
       paymentDeposits: [FeatureTogglesUpdate__PaymentDeposit__Input!]!
       referralEnable: Boolean!
-      jwtAccessTtlSeconds: Int
+      affiliateClientAutoLogoutEnable: Boolean!
+      affiliateClientAutoLogoutMinutes: Int
       accountAutoCreations: [FeatureTogglesUpdate__AccountAutoCreation__Input!]!
       profileDepositEnable: Boolean!
       version: Int!

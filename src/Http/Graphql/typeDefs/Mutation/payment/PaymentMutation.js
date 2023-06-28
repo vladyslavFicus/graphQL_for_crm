@@ -6,6 +6,7 @@ module.exports = gql`
       accountUUID: String
       amount: Float!
       country: String
+      currency: String
       externalReference: String
       expirationDate: String
       login: Int

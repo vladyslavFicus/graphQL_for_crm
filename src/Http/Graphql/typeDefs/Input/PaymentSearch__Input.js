@@ -17,6 +17,7 @@ module.exports = gql`
     modificationTimeTo: String
     paymentAggregator: String
     paymentMethods: [String]
+    bankName: String
     platformType: String
     profileId: String
     requestId: String

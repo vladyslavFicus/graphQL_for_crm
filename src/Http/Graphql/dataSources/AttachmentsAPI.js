@@ -148,7 +148,7 @@ class AttachmentsAPI extends RESTDataSource {
         formData.append('file', Buffer.concat(buffer), filename);
 
         try {
-          const response = await this.post('/documents/', formData, {
+          const response = await this.post('/documents', formData, {
             headers: {
               ...formData.getHeaders(),
             },
