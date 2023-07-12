@@ -7,7 +7,7 @@ module.exports = gql`
       name: String
       surname: String
       phone: String @auth_hide_argument(action: "lead.field.phone")
-      mobile: String @auth_hide_argument(action: "lead.field.mobile")
+      mobile: String @auth_hide_not_required_argument(action: "lead.field.mobile")
       email: String @auth_hide_argument(action: "lead.field.email")
       country: String
       birthDate: String

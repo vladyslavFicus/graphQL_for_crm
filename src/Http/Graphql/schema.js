@@ -5,6 +5,7 @@ const AuthMaskFieldDirective = require('./directives/auth/AuthMaskFieldDirective
 const AuthHideArgumentDirective = require('./directives/auth/AuthHideArgumentDirective');
 const AuthHideFieldDirective = require('./directives/auth/AuthHideFieldDirective');
 const AuthFilterValuesDirective = require('./directives/auth/AuthFilterValuesDirective');
+const AuthHideNotRequiredArgumentDirective = require('./directives/auth/AuthHideNotRequiredArgumentDirective');
 const MaskFieldDirective = require('./directives/mask/MaskFieldDirective');
 
 const schema = makeExecutableSchema({
@@ -18,6 +19,7 @@ const schema = makeExecutableSchema({
     auth_hide_argument: AuthHideArgumentDirective,
     auth_hide_field: AuthHideFieldDirective,
     auth_filter_values: AuthFilterValuesDirective,
+    auth_hide_not_required_argument: AuthHideNotRequiredArgumentDirective,
   },
 });
 
