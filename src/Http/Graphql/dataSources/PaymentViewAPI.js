@@ -30,8 +30,8 @@ class PaymentViewAPI extends RESTDataSource {
    *
    * @return {Promise}
    */
-  getPaymentsStatistic(args) {
-    return this.post('/statistics', args);
+  getPaymentsGeneralStatistic(args) {
+    return this.post('/statistics/general', args);
   }
 
   /**

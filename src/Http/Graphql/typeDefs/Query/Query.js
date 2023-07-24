@@ -177,15 +177,12 @@ module.exports = gql`
     paymentMethods: [String!]
     paymentSystems: [PaymentSystem!]!
     manualPaymentMethods: [String] @auth_filter_values(action: "payment.field.manual-methods.values.*")
-    paymentsStatistic(
+    paymentsGeneralStatistic(
+      paymentStatus: String
+      profileId: String
       dateFrom: String
       dateTo: String
-      profileId: String
-      detalization: StatisticDetalization__Enum
-      paymentStatus: String
-      paymentType: String
-      additionalStatistics: [PaymentStatisticDateRange__Input]
-    ): PaymentStatistic
+    ): PaymentsGeneralStatistics
 
     # Profile API && ProfileView API
     profile(playerUUID: String!): Profile

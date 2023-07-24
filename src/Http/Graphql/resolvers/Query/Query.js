@@ -1,10 +1,5 @@
 const { get, omitBy, isNil, groupBy } = require('lodash');
-const moment = require('moment');
 const config = require('config');
-const {
-  getPaymentStatisticTotals,
-  getStatisticInitialArray,
-} = require('../../../../utils/statisticHelpers');
 
 module.exports = {
   /**
@@ -315,54 +310,8 @@ module.exports = {
 
     return responseData.sort();
   },
-  async paymentsStatistic(_, args, { dataSources }) {
-    const responseData = await dataSources.PaymentViewAPI.getPaymentsStatistic(args);
-
-    const { dateFrom, dateTo } = args;
-    const { payments, totalAmount, totalCount, additionalStatistics } = responseData;
-    let result = { items: [] };
-
-    if (Array.isArray(payments) && payments.length) {
-      const dateArray = getStatisticInitialArray(dateFrom, dateTo);
-
-      const items = dateArray.map((date) => {
-        const entity = payments.find(({ date: paymentDate }) => moment(date).diff(moment(paymentDate), 'days') === 0);
-        return {
-          amount: entity ? Number(entity.amount).toFixed(2) : 0,
-          count: entity ? entity.count : 0,
-          entryDate: date,
-        };
-      });
-
-      result = {
-        ...result,
-        items,
-        itemsTotal: {
-          totalAmount,
-          totalCount,
-        },
-      };
-    }
-
-    let additionalStatisticData = [];
-
-    if (Array.isArray(additionalStatistics) && additionalStatistics.length) {
-      additionalStatisticData = additionalStatistics.reduce(
-        (acc, entry, index) => ({
-          ...acc,
-          additionalTotal: {
-            ...acc.additionalTotal,
-            ...getPaymentStatisticTotals(index, entry),
-          },
-        }),
-        { additionalTotal: {} },
-      );
-    }
-
-    return {
-      ...result,
-      ...additionalStatisticData,
-    };
+  paymentsGeneralStatistic(_, args, { dataSources }) {
+    return dataSources.PaymentViewAPI.getPaymentsGeneralStatistic(args);
   },
 
   /**
