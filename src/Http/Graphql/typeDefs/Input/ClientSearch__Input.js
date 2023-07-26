@@ -60,6 +60,7 @@ module.exports = gql`
     activityStatus: String
     acquisitionStatus: String
     affiliateUuids: [String]
+    affiliateReferrals: [String!]
     affiliateFtd: Boolean
     affiliateFtdDateRange: ClientSearch__Input__AffiliateFTDDateRange
     assignStatus: String

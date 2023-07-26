@@ -187,6 +187,7 @@ module.exports = gql`
     # Profile API && ProfileView API
     profile(playerUUID: String!): Profile
     profileContacts(playerUUID: String!): Profile__Phone__Contacts
+    affiliateReferrals: Affiliate__Referrals!
     profiles(args: ClientSearch__Input): ProfileView! @pageable
     profilesCount(args: ClientSearch__Input): Int
 

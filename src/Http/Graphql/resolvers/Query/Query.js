@@ -356,6 +356,9 @@ module.exports = {
   profileContacts(_, { playerUUID }, { dataSources }) {
     return dataSources.ProfileAPI.getProfileContacts(playerUUID);
   },
+  affiliateReferrals(_, __, { dataSources }) {
+    return dataSources.ProfileAPI.getAffiliateReferrals();
+  },
   profiles(_, { args }, { dataSources }) {
     return dataSources.ProfileViewAPI.search(args);
   },

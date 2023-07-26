@@ -153,4 +153,8 @@ module.exports = gql`
     acquisition: HierarchyUserAcquisition
     localTime: String
   }
+
+  type Affiliate__Referrals {
+    referrals: [String!]
+  }
 `;

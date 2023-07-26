@@ -24,6 +24,15 @@ class ProfileAPI extends RESTDataSource {
   }
 
   /**
+   * Get affiliate referrals by brand
+   *
+   * @return {Promise}
+   */
+  getAffiliateReferrals() {
+    return this.get('/admin/affiliates/referrals/brand');
+  }
+
+  /**
    * Create profile
    *
    * @param args
