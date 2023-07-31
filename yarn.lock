@@ -52,13 +52,13 @@
 
 "@hrzn/apollo-autoload@^1.0.7":
   version "1.0.7"
-  resolved "https://nexus.etep.io/repository/hrzn-npm/@hrzn/apollo-autoload/-/apollo-autoload-1.0.7.tgz#8f73dc46457762d8fc73aeaa121846ea00b69f86"
+  resolved "https://nexus.cyberhat.guru/repository/hrzn-npm/@hrzn/apollo-autoload/-/apollo-autoload-1.0.7.tgz#8f73dc46457762d8fc73aeaa121846ea00b69f86"
   dependencies:
     recursive-readdir-synchronous "^0.0.4"
 
 "@hrzn/apollo-datasource@^1.0.135":
   version "1.0.135"
-  resolved "https://nexus.etep.io/repository/hrzn-npm/@hrzn/apollo-datasource/-/apollo-datasource-1.0.135.tgz#9140ce2029eda805ee8d77cfe46da89c6ceddb43"
+  resolved "https://nexus.cyberhat.guru/repository/hrzn-npm/@hrzn/apollo-datasource/-/apollo-datasource-1.0.135.tgz#9140ce2029eda805ee8d77cfe46da89c6ceddb43"
   dependencies:
     apollo-datasource-rest "^0.9.3"
     apollo-server-errors "^2.4.2"
@@ -68,21 +68,21 @@
 
 "@hrzn/apollo-directive@^1.0.20":
   version "1.0.20"
-  resolved "https://nexus.etep.io/repository/hrzn-npm/@hrzn/apollo-directive/-/apollo-directive-1.0.20.tgz#89d5a74aeb66c0f7e306d0ebed916ba0713df2af"
+  resolved "https://nexus.cyberhat.guru/repository/hrzn-npm/@hrzn/apollo-directive/-/apollo-directive-1.0.20.tgz#89d5a74aeb66c0f7e306d0ebed916ba0713df2af"
   dependencies:
     graphql "^14.1.1"
     graphql-tools "^4.0.4"
 
 "@hrzn/k8s-configmap@^1.0.2":
   version "1.0.2"
-  resolved "https://nexus.etep.io/repository/hrzn-npm/@hrzn/k8s-configmap/-/k8s-configmap-1.0.2.tgz#6fe0a0491ba48796023c5df002e33ebd58b88016"
+  resolved "https://nexus.cyberhat.guru/repository/hrzn-npm/@hrzn/k8s-configmap/-/k8s-configmap-1.0.2.tgz#6fe0a0491ba48796023c5df002e33ebd58b88016"
   dependencies:
     kubernetes-client "^9.0.0"
     yamljs "^0.3.0"
 
 "@hrzn/zookeeper2@^1.0.2":
   version "1.0.2"
-  resolved "https://nexus.etep.io/repository/hrzn-npm/@hrzn/zookeeper2/-/zookeeper2-1.0.2.tgz#247cf8128bb97f73acaeb751452bf01ccaf7220c"
+  resolved "https://nexus.cyberhat.guru/repository/hrzn-npm/@hrzn/zookeeper2/-/zookeeper2-1.0.2.tgz#247cf8128bb97f73acaeb751452bf01ccaf7220c"
   dependencies:
     node-zookeeper-client "^1.1.0"
 
