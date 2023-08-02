@@ -71,6 +71,17 @@ module.exports = (app) => {
     changeOrigin: true,
   }));
 
+  // Proxy-pass to trading-account service to download report
+  app.use('/api/accounts/report/:accountUuid', createProxyMiddleware({
+    target: getBaseUrl('trading-account'),
+    pathRewrite: (path, req) => {
+      const { accountUuid } = req.params;
+
+      return `/accounts/${accountUuid}/report`;
+    },
+    changeOrigin: true,
+  }));
+
   // =============== Apollo Server =============== //
   const server = new ApolloServer({
     schema,
