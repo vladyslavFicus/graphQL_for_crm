@@ -150,6 +150,17 @@ class HierarchyAPI extends RESTDataSource {
   }
 
   /**
+   * Get brands
+   *
+   * @param uuid | userUuid
+   *
+   * @return {Promise}
+   */
+  getUserBrands(uuid) {
+    return this.post(`/branch/hierarchy/user/${uuid}/brand`);
+  }
+
+  /**
    * Get office
    *
    * @param uuid | userUuid

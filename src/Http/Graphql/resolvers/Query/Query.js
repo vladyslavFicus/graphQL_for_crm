@@ -195,6 +195,9 @@ module.exports = {
    */
   branch(_, { branchType, ...args }, { dataSources, userUUID }) {
     switch (branchType) {
+      case 'brand':
+        return dataSources.HierarchyAPI.getUserBrands(userUUID);
+
       case 'office':
         return dataSources.HierarchyAPI.getOffice(userUUID, args);
 
